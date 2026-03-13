@@ -1,0 +1,53 @@
+import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+
+export interface ImportFileHandler {
+  // static readonly fileExtension: string;
+
+  convert(content: string, flightplan: AeroflyFlight): void;
+}
+
+/**
+ * This special ImportFileHandler adds basic XML parser functionality.
+ */
+export abstract class ImportFileXMLHandler implements ImportFileHandler {
+  abstract convert(content: string, flightplan: AeroflyFlight): void;
+
+  protected getXmlNode(xml: string, tag: string): string {
+    const match = xml.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, "ms"));
+    return match ? this.unXml(match[1]) : "";
+  }
+
+  protected getXmlNodes(xml: string, tag: string): string[] {
+    const nodes = xml.match(new RegExp(`<${tag}.*?</${tag}>`, "gms"));
+
+    return nodes ? nodes : [];
+  }
+
+  protected getXmlAttribute(xml: string, attribute: string): string {
+    const regex = new RegExp(` ${attribute}="(.*?)"`, "ms");
+    const match = xml.match(regex);
+    return match ? this.unXml(match[1]) : "";
+  }
+
+  protected unXml(text: string): string {
+    const cdataMatch = text.match(/^<!\[CDATA\[(.+?)\]\]>$/);
+    return cdataMatch
+      ? cdataMatch[1]
+      : text.replace(/&([a-z]+);/g, (m, inner: string) => {
+          switch (inner) {
+            case "lt":
+              return "<";
+            case "gt":
+              return ">";
+            case "amp":
+              return "&";
+            case "quot":
+              return '"';
+            case "apos":
+              return "'";
+            default:
+              return m;
+          }
+        });
+  }
+}

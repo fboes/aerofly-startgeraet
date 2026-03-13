@@ -1,0 +1,43 @@
+{
+  "name": "@fboes/aerofly-startgeraet",
+  "version": "1.0.0",
+  "description": "The missing main menu for Aerofly FS 4",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "node ./dist/index.test.js",
+    "start": "node ./dist/index.js",
+    "prettier": "npx prettier --cache --write .",
+    "eslint": "npx eslint **/*.ts --fix",
+    "tsc": "npx tsc --build",
+    "tsc-watch": "npx tsc --watch",
+    "build": "npm run eslint && npm run prettier && npm run tsc"
+  },
+  "keywords": [
+    "aerofly"
+  ],
+  "bin": {
+    "aerofly-startgeraet": "./dist/index.js"
+  },
+  "author": "Frank Boës <info@fboes.org> (https://3960.org/)",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.3.5",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.4.0",
+    "prettier": "3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  },
+  "types": "./types/index.d.ts",
+  "dependencies": {
+    "@fboes/aerofly-custom-missions": "^1.6.0",
+    "@fboes/aerofly-data": "^1.5.0",
+    "@fboes/geojson": "^2.0.0",
+    "@inquirer/prompts": "^8.3.0",
+    "conf": "^15.1.0"
+  }
+}
