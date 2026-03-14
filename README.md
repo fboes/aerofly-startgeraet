@@ -11,6 +11,8 @@ What does the Aerofly Startgerät do?
 - Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
 - Import a flight plan from flight plan file formats like Garmin `fpl`, Microsoft Flight Simulator `pln` and X-Plane `fms` from a local import directory.
 
+In this manner the Aerofly Startgerät combines the capabilities of the [Aerofly Wettergerät](https://github.com/fboes/aerofly-wettergeraet) (but for multiple operating systems) and the [Aerofly Missionsgerät](https://github.com/fboes/aerofly-missions) (but directly injecting the new flight plan without any extra steps in-between).
+
 ## Requirements
 
 This tool requires [Node.js](https://nodejs.org/en) in at least version 20 to be installed on your local computer.
@@ -19,6 +21,8 @@ This tool requires [Node.js](https://nodejs.org/en) in at least version 20 to be
 2. Download the LTS (Long Term Support) version
 3. Run the installer and follow the setup wizard
 4. Open your terminal application and verify the correct installation: `node --version`
+
+Be aware that this is only feasible on computers running Microsoft Windows, Apple OSX and Linux.
 
 The Aerofly Startgerät is a Command Line Interface (CLI) tool, which means you need to open a terminal to run it. The tool itself does not need to be installed, as the Node.js tool `npx` will take care of downloading as well as executing the Aerofly Startgerät.
 

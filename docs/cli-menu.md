@@ -22,3 +22,7 @@ The main menu is an interactive select list. Use arrow keys to move and Enter to
 
 - If no SimBrief username is set, the SimBrief import option is disabled. Also be sure to have an active flight plan in SimBrief - flight plans get de-published after some time.
 - After save and exit, the `main.mcf` gets rewritten and is available Aerofly FS 4 on the next start up.
+
+---
+
+[Back to top](../README.md)
