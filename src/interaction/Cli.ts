@@ -163,6 +163,10 @@ export class CliMenu {
       ],
     });
 
+    if (choice === "mainMenu") {
+      return choice;
+    }
+
     if (choice === "simbrief") {
       Cli.writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
       await this.controller.importFlightplanFromSimBrief(simBriefUserName);

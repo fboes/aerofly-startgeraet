@@ -167,8 +167,14 @@ export class Controller {
 
   getFlightplanDistanceString(): string {
     try {
-      const distance = this.getFlightplanDistance();
-      return `${this.numberToString(distance / 1852)}NM`;
+      const distanceNm = this.getFlightplanDistance() / 1852;
+      const timeH = this.currentAircraft?.cruiseSpeedKts ? distanceNm / this.currentAircraft?.cruiseSpeedKts : 0;
+      const timeString = timeH
+        ? `, ${Math.floor(timeH / 60)}:${Math.floor((timeH * 60) % 60)
+            .toString()
+            .padStart(2, "0")}h`
+        : "";
+      return `${this.numberToString(distanceNm)}NM${timeString}`;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       return "Unknown";

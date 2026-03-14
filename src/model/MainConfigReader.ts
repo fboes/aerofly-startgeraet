@@ -185,10 +185,7 @@ class MainConfigParser {
       {
         gear: this.parser.getNumber(tmsettings_flight, "gear"),
         flaps: this.parser.getNumber(tmsettings_flight, "flaps"),
-        configuration: this.parser.getValue(tmsettings_flight, "configuration") as
-          | "Keep"
-          | "OnGround"
-          | "Cruise",
+        configuration: this.parser.getValue(tmsettings_flight, "configuration") as "Keep" | "OnGround" | "Cruise",
         onGround: this.parser.getBoolean(tmsettings_flight, "on_ground"),
         airport: this.parser.getValue(tmsettings_flight, "airport"),
         runway: this.parser.getValue(tmsettings_flight, "runway"),

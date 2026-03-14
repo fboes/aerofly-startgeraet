@@ -16,7 +16,7 @@ export class AviationWeatherApiAerofly extends AviationWeatherApi {
       return cloud;
     });
 
-    flight.visibility_sm = Math.max(10, weather.visib);
+    flight.visibility_sm = Math.min(10, weather.visib);
 
     flight.wind = new AeroflySettingsWind(weather.wspd, weather.wdir ?? 0, weather.wgst ?? 0, weather.temp ?? 14);
 

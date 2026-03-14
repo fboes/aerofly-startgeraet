@@ -1,6 +1,6 @@
 # Aerofly Startgerät
 
-This Node.js application is an additional way to set-up flights in Aerofly Flight Simulator 4 on Microsoft Windows and Apple OSX.
+> More comprehensive options to set-up flights in Aerofly Flight Simulator 4, including import of flight plans and weather.
 
 Capabilities:
 
@@ -43,10 +43,11 @@ This will automatically download the latest version of this application and show
 
 ### Caveats and notes
 
-1. Importing flight plans almost vertainly will require to set-up the starting location of you aircraft in Aerofly FS 4, as the parking positions of aircraft are unknown.
-2. Importing of SIDs and STARs is not possible, so you will also need to add these manually in Aerofly FS 4.
-3. The Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
-4. The mapping of aircrafts from Simbrief import relies on the correct ICAO code of the aircraft being chosen.
+1. Importing flight plans almost certainly will require to set-up the starting location of you aircraft in Aerofly FS 4, as the parking positions of aircraft are unknown.
+1. Importing flight plans almost certainly will require to set-up the runways you want to use in Aerofly FS 4, as the runway IDs are unknown.
+1. Importing of SIDs and STARs is not possible, so you will also need to add these manually in Aerofly FS 4.
+1. The Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
+1. The mapping of aircrafts & airlines from Simbrief import relies on the correct ICAO code of the aircraft being chosen.
 
 ## Technical stuff
 

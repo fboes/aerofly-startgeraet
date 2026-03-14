@@ -128,7 +128,7 @@ export class SimBriefAerofly extends SimBrief {
 
   protected convertWeather(flight: AeroflyFlight, origin: SimBriefApiPayloadAirport) {
     const windMatch = origin.metar.match(/\b(\d{3})(\d{2})(?:G(\d{2}))?KT\b/);
-    const temperatureMatch = origin.metar.match(/\b(M?\d+)\/(M?\d+)\b/)
+    const temperatureMatch = origin.metar.match(/\b(M?\d+)\/(M?\d+)\b/);
     flight.wind = new AeroflySettingsWind(
       windMatch && windMatch[2] ? Number(windMatch[2]) : 0,
       windMatch && windMatch[1] ? Number(windMatch[1]) : 0,

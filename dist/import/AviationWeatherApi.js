@@ -66,9 +66,9 @@ export class AviationWeatherNormalizedMetar {
          */
         this.wgst = wgst;
         /**
-         * @type {number} in SM, 99 on any distance being open-ended
+         * @type {number} in SM, 10 on any distance being open-ended
          */
-        this.visib = typeof visib === "string" ? 99 : visib;
+        this.visib = typeof visib === "string" ? 10 : visib;
         /**
          * @type {number} in hPa
          */
