@@ -16,7 +16,7 @@ Capabilities:
 This tool requires [Node.js](https://nodejs.org/en) in at least version 20 to be installed on your local computer.
 
 1. Visit [nodejs.org](https://nodejs.org/en)
-2. Download the LTS (Long Term Support) version or newer
+2. Download the LTS (Long Term Support) version
 3. Run the installer and follow the setup wizard
 4. Open your terminal application and verify the correct installation: `node --version`
 
@@ -26,10 +26,9 @@ The Startgerät is a Command Line Interface (CLI) tool, which means you need to 
 
 No installation is required! The Startgerät runs directly via `npx`, which automatically downloads and executes the latest version. This means:
 
-- No disk space is used for installation
 - You always get the latest version
 - No manual updates needed
-- Works immediately after Node.js is installed
+- Works almost immediately after Node.js is installed
 
 ## Usage
 
@@ -40,6 +39,22 @@ npx @fboes/aerofly-startgeraet@latest
 ```
 
 This will automatically download the latest version of this application and show the main menu of the Aerofly Startgerät.
+
+![](./docs/startgeraet.png)
+
+After starting you will see a text menu. To select an option, use the arrow keys and press enter. On start-up this will load the current settings of Aerofly FS 4 by inspecting the `main.mcf` configuration file.
+
+On exiting the Startgerät, your changes will be saved back to the `main.mcf` and will be available on starting Aerofly FS 4 the next time.
+
+### Windows: Add as shortcut
+
+For convenience you may want to add a desktop shortcut:
+
+1. Right click on your desktop
+1. Select "Create Shortcut"
+1. Set `npx` as location
+1. Right click on new desktop icon to append `@fboes/aerofly-startgeraet@latest` to "Target".
+1. You may also want to rename the shortcut to "Aerofly Startgerät" and select a nice icon.
 
 ### Caveats and notes
 
