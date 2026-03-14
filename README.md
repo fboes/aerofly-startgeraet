@@ -1,6 +1,6 @@
 # Aerofly Startgerät
 
-> More comprehensive options to set-up flights in Aerofly Flight Simulator 4, including import of flight plans and weather.
+> Giving you more comprehensive options to set-up flights in Aerofly Flight Simulator 4, including import of flight plans and weather.
 
 What does the Aerofly Startgerät do?
 
@@ -20,11 +20,11 @@ This tool requires [Node.js](https://nodejs.org/en) in at least version 20 to be
 3. Run the installer and follow the setup wizard
 4. Open your terminal application and verify the correct installation: `node --version`
 
-The Startgerät is a Command Line Interface (CLI) tool, which means you need to open a terminal to run it. The tool itself does not need to be installed, as the Node.js tool `npx` will take care of downloading as well as executing the Startgerät.
+The Aerofly Startgerät is a Command Line Interface (CLI) tool, which means you need to open a terminal to run it. The tool itself does not need to be installed, as the Node.js tool `npx` will take care of downloading as well as executing the Aerofly Startgerät.
 
 ## Installation
 
-No installation is required! The Startgerät runs directly via `npx` installed alongside `node`, which automatically downloads and executes the latest version.
+No installation is required! The Aerofly Startgerät runs directly via `npx` installed alongside `node`, which automatically downloads and executes the latest version.
 
 Call this tool by opening the pre-installed terminal application of your computer and execute this command:
 
@@ -59,23 +59,23 @@ This will automatically download the latest version of this application and show
 
 ![](./docs/startgeraet.png)
 
-On start-up this will load the current settings of Aerofly FS 4 by inspecting the `main.mcf` configuration file. If the file cannot be found automatically, the Startgerät will ask for its location.
+On start-up this will load the current settings of Aerofly FS 4 by inspecting the `main.mcf` configuration file. If the file cannot be found automatically, the Aerofly Startgerät will ask for its location.
 
 On a successful start-up, you will see a text menu. To select an option, use the arrow keys and press enter.
 
-On exiting the Startgerät, your changes will be saved back to the `main.mcf` and will be available on starting Aerofly FS 4 the next time.
+On exiting the Aerofly Startgerät, your changes will be saved back to the `main.mcf` and will be available on starting Aerofly FS 4 the next time.
 
 > [!WARNING]
 > The Aerofly Startgerät may break your `maiin.mcf`. Be sure to have a backup of this file.
 
-See the [Startgerät CLI Menu Manual](./docs/cli-menu.md) for details.
+See the [Aerofly Startgerät CLI Menu Manual](./docs/cli-menu.md) for details.
 
 ### Caveats and notes
 
 1. Importing flight plans almost certainly will require to set-up the starting location of you aircraft in Aerofly FS 4, as the parking positions of aircraft are unknown.
 1. Importing flight plans almost certainly will require to set-up the runways you want to use in Aerofly FS 4, as the runway IDs are unknown.
 1. Importing of SIDs and STARs is not possible, so you will also need to add these manually in Aerofly FS 4.
-1. The Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
+1. The Aerofly Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
 1. The mapping of aircrafts & airlines from Simbrief import relies on the correct ICAO code of the aircraft being chosen.
 
 ## Technical stuff

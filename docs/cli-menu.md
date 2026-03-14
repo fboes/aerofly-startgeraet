@@ -1,4 +1,4 @@
-# Startgerät CLI Menu Options
+# Aerofly Startgerät CLI Menu Options
 
 This document explains how to use the interactive Aerofly Startgerät command-line menu and what each option does.
 
@@ -8,7 +8,7 @@ The main menu is an interactive select list. Use arrow keys to move and Enter to
 
 - **Aircraft**: Choose aircraft and optional livery. This menu does not actually check which aircraft are installed, but wil refer to a public database.
 - **Fuel / Payload**: Set fuel and payload values (payload is limited by aircraft maximum).
-- **Flightplan**: Import a flight plan from local file or SimBrief via the [SimBrief API](https://www.simbrief.com/). For SimBrief import you will need to set the SimBrief username in the Startgerät configuration, for importing local fight plan files you will need to set the import directory in the Startgerät configuration.
+- **Flightplan**: Import a flight plan from local file or SimBrief via the [SimBrief API](https://www.simbrief.com/). For SimBrief import you will need to set the SimBrief username in the Aerofly Startgerät configuration, for importing local fight plan files you will need to set the import directory in the Startgerät configuration.
 - **Time & Date**: Sync to current time or set manually (UTC or departure airport timezone).
 - **Weather**: Import METAR weather for departure airport from the [Aviation Weather Center API](https://aviationweather.gov/).
 - **Wind**: Manually set wind speed, direction and gusts.
