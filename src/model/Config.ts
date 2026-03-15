@@ -87,4 +87,12 @@ export class Config {
   set importDirectory(importDirectory: string) {
     this.set("importDirectory", importDirectory);
   }
+
+  get syncTimeOnStartup(): boolean {
+    return this.getBoolean("syncTimeOnStartup");
+  }
+
+  set syncTimeOnStartup(syncTimeOnStartup: boolean) {
+    this.setBoolean("syncTimeOnStartup", syncTimeOnStartup);
+  }
 }

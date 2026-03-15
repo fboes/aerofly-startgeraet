@@ -17,6 +17,9 @@ export class Controller {
         this.mainConfigReader = new MainConfigReader(this.conf);
         this.aeroflyFlight = this.readMainMcf();
         this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
+        if (this.conf.syncTimeOnStartup) {
+            this.aeroflyFlight.timeUtc.time = new Date();
+        }
     }
     // ----------------------------------------------------------
     getMainMcfFilePath() {
@@ -229,6 +232,12 @@ export class Controller {
      */
     getDepartureTimeZone() {
         return Math.round((this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15);
+    }
+    getSyncTimeOnStartup() {
+        return this.conf.syncTimeOnStartup;
+    }
+    setSyncTimeOnStartup(syncTimeOnStartup) {
+        this.conf.syncTimeOnStartup = syncTimeOnStartup;
     }
     // ----------------------------------------------------------
     async setWeatherFromMETAR(airportCode) {

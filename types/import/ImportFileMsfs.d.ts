@@ -6,11 +6,11 @@ import { ImportFileXMLHandler } from "./ImportFileHandler.js";
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
 export declare class ImportFileMsfs extends ImportFileXMLHandler {
-  static readonly fileExtension = "pln";
-  convert(content: string, flightplan: AeroflyFlight): void;
-  private getWaypoints;
-  private convertWaypointToAerofly;
-  private getRunway;
-  private convertCoordinate;
+    static readonly fileExtension = "pln";
+    convert(content: string, flightplan: AeroflyFlight): void;
+    private getWaypoints;
+    private convertWaypointToAerofly;
+    private getRunway;
+    private convertCoordinate;
 }
 //# sourceMappingURL=ImportFileMsfs.d.ts.map

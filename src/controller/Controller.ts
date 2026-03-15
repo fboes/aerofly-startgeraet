@@ -41,6 +41,9 @@ export class Controller {
     this.mainConfigReader = new MainConfigReader(this.conf);
     this.aeroflyFlight = this.readMainMcf();
     this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
+    if (this.conf.syncTimeOnStartup) {
+      this.aeroflyFlight.timeUtc.time = new Date();
+    }
   }
 
   // ----------------------------------------------------------
@@ -325,6 +328,14 @@ export class Controller {
     return Math.round(
       (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15,
     );
+  }
+
+  getSyncTimeOnStartup(): boolean {
+    return this.conf.syncTimeOnStartup;
+  }
+
+  setSyncTimeOnStartup(syncTimeOnStartup: boolean) {
+    this.conf.syncTimeOnStartup = syncTimeOnStartup;
   }
 
   // ----------------------------------------------------------

@@ -388,6 +388,11 @@ export class CliMenu {
             required: true,
         });
         this.controller.setImportDirectory(importDirectory);
+        const syncTimeOnStartup = await confirm({
+            message: "Autmmoatically synchronize time / date on start-up",
+            default: this.controller.getSyncTimeOnStartup(),
+        });
+        this.controller.setSyncTimeOnStartup(syncTimeOnStartup);
         Cli.writeSuccess("Configuration saved successfully.");
         return "mainMenu";
     }
