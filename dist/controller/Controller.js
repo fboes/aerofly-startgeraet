@@ -116,7 +116,7 @@ export class Controller {
             const distanceNm = this.getFlightplanDistance() / 1852;
             const timeH = this.currentAircraft?.cruiseSpeedKts ? distanceNm / this.currentAircraft?.cruiseSpeedKts : 0;
             const timeString = timeH
-                ? `, ${Math.floor(timeH / 60)}:${Math.floor(timeH * 60 % 60)
+                ? `, ${Math.floor(timeH / 60)}:${Math.floor((timeH * 60) % 60)
                     .toString()
                     .padStart(2, "0")}h`
                 : "";
@@ -158,9 +158,15 @@ export class Controller {
     getSimBriefUserName() {
         return this.conf.simBriefUserName;
     }
-    async importFlightplanFromSimBrief(simBriefUserName) {
+    getSimBriefWeatherFromDestination() {
+        return this.conf.simBriefWeatherFromDestination;
+    }
+    setSimBriefWeatherFromDestination(simBriefWeatherFromDestination) {
+        this.conf.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
+    }
+    async importFlightplanFromSimBrief(simBriefUserName, getWeatherFromDestination = false) {
         const simbrief = new SimBriefAerofly();
-        await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight);
+        await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
         this.currentAircraft = this.getCurrentAircraftData(this.aeroflyFlight.aircraft.name);
         this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme);
     }

@@ -7,7 +7,7 @@ What does the Aerofly Startgerät do?
 - Change aircraft as well as set-up fuel and payload.
 - Change weather with settings in feet, statute miles and other meaningful units.
 - Change time and date (in UTC or the current departure airport time zone), or syncing the date to the current time and date.
-- Import weather for given time, date and airport via [Aviation Weather Center API](https://aviationweather.gov/).
+- Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/).
 - Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
 - Import a flight plan from flight plan file formats like Garmin `fpl`, Microsoft Flight Simulator `pln` and X-Plane `fms` from a local import directory.
 
@@ -70,7 +70,7 @@ On a successful start-up, you will see a text menu. To select an option, use the
 On exiting the Aerofly Startgerät, your changes will be saved back to the `main.mcf` and will be available on starting Aerofly FS 4 the next time.
 
 > [!WARNING]
-> The Aerofly Startgerät may break your `maiin.mcf`. Be sure to have a backup of this file.
+> The Aerofly Startgerät may break your `main.mcf`. Be sure to have a backup of this file.
 
 See the [Aerofly Startgerät CLI Menu Manual](./docs/cli-menu.md) for details.
 

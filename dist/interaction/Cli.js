@@ -144,7 +144,7 @@ export class CliMenu {
         }
         if (choice === "simbrief") {
             Cli.writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
-            await this.controller.importFlightplanFromSimBrief(simBriefUserName);
+            await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.getSimBriefWeatherFromDestination());
         }
         else {
             Cli.writeln(`Importing flightplan from file ${choice}...`);
@@ -215,15 +215,27 @@ export class CliMenu {
     }
     async importWeather() {
         this.showMenuTitle(["Import Weather"]);
-        const proceed = await confirm({
-            message: `Do you want to import the latest weather from a METAR station for ${this.controller.getFlightplanDepartureAirportString()}?`,
-            default: true,
+        const choice = await select({
+            message: "Import weather from API",
+            choices: [
+                {
+                    name: `Import weather for ${this.controller.getFlightplanDepartureAirportString()}`,
+                    value: this.controller.getFlightplanDepartureAirportString(),
+                },
+                {
+                    name: `Import weather for ${this.controller.getFlightplanArrivalAirportString()}`,
+                    value: this.controller.getFlightplanArrivalAirportString(),
+                },
+                new Separator(),
+                this.getMainMenuChoice(),
+            ],
         });
-        if (proceed) {
-            Cli.writeln(`Importing METAR for ${this.controller.getFlightplanDepartureAirportString()}...`);
-            await this.controller.setWeatherFromMETAR(this.controller.getFlightplanDepartureAirportString());
-            Cli.writeSuccess("Weather imported successfully");
+        if (choice === "mainMenu") {
+            return "mainMenu";
         }
+        Cli.writeln(`Importing METAR for ${choice}...`);
+        await this.controller.setWeatherFromMETAR(choice);
+        Cli.writeSuccess("Weather imported successfully");
         return "mainMenu";
     }
     async setWind() {
@@ -365,6 +377,11 @@ export class CliMenu {
             },
         });
         this.controller.setSimBriefUserName(simbriefUserName);
+        const simBriefWeatherFromDestination = await confirm({
+            message: "Use SimBrief weather from destination airport (instead of departure airport)?",
+            default: this.controller.getSimBriefWeatherFromDestination()
+        });
+        this.controller.setSimBriefWeatherFromDestination(simBriefWeatherFromDestination);
         const importDirectory = await input({
             message: "Import directory for local flightplan files (e.g. .pln files)",
             default: this.controller.getImportDirectory(),

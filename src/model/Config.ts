@@ -18,6 +18,14 @@ export class Config {
     this.conf.set(key, value);
   }
 
+  private getBoolean(key: string): boolean {
+    return Boolean(this.conf.get(key, false));
+  }
+
+  private setBoolean(key: string, value: boolean): void {
+    this.conf.set(key, value);
+  }
+
   // ----------------------------------------------------------
 
   /**
@@ -62,6 +70,14 @@ export class Config {
 
   set simBriefUserName(simBriefUserName: string) {
     this.set("simBriefUserName", simBriefUserName);
+  }
+
+  get simBriefWeatherFromDestination(): boolean {
+    return this.getBoolean("simBriefWeatherFromDestination");
+  }
+
+  set simBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean) {
+    this.setBoolean("simBriefWeatherFromDestination", simBriefWeatherFromDestination);
   }
 
   get importDirectory(): string {

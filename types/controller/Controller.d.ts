@@ -58,7 +58,9 @@ export declare class Controller {
   setFlightPositionToDeparture(): void;
   setSimBriefUserName(simBriefUserName: string): void;
   getSimBriefUserName(): string;
-  importFlightplanFromSimBrief(simBriefUserName: string): Promise<void>;
+  getSimBriefWeatherFromDestination(): boolean;
+  setSimBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean): void;
+  importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
   setImportDirectory(importDirectory: string): void;
   getImportDirectory(): string;
   getImportFiles(): string[] | null;

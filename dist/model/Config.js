@@ -12,6 +12,12 @@ export class Config {
     set(key, value) {
         this.conf.set(key, value);
     }
+    getBoolean(key) {
+        return Boolean(this.conf.get(key, false));
+    }
+    setBoolean(key, value) {
+        this.conf.set(key, value);
+    }
     // ----------------------------------------------------------
     /**
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan. This is needed to import flight plans from SimBrief into Aerofly FS 4.
@@ -42,6 +48,12 @@ export class Config {
     }
     set simBriefUserName(simBriefUserName) {
         this.set("simBriefUserName", simBriefUserName);
+    }
+    get simBriefWeatherFromDestination() {
+        return this.getBoolean("simBriefWeatherFromDestination");
+    }
+    set simBriefWeatherFromDestination(simBriefWeatherFromDestination) {
+        this.setBoolean("simBriefWeatherFromDestination", simBriefWeatherFromDestination);
     }
     get importDirectory() {
         return this.get("importDirectory", path.join(os.homedir(), "Downloads"));

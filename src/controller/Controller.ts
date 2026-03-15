@@ -231,9 +231,17 @@ export class Controller {
     return this.conf.simBriefUserName;
   }
 
-  async importFlightplanFromSimBrief(simBriefUserName: string) {
+  getSimBriefWeatherFromDestination(): boolean {
+    return this.conf.simBriefWeatherFromDestination;
+  }
+
+  setSimBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean) {
+    this.conf.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
+  }
+
+  async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: boolean = false) {
     const simbrief = new SimBriefAerofly();
-    await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight);
+    await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
     this.currentAircraft = this.getCurrentAircraftData(this.aeroflyFlight.aircraft.name);
     this.currentLivery = this.currentAircraft?.liveries.find(
       (livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme,

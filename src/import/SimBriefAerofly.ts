@@ -20,9 +20,13 @@ import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data
 import { SimBrief, SimBriefApiPayload, SimBriefApiPayloadAirport } from "./SimBrief.js";
 
 export class SimBriefAerofly extends SimBrief {
-  public async fetchMission(username: string, flight: AeroflyFlight): Promise<void> {
+  public async fetchMission(
+    username: string,
+    flight: AeroflyFlight,
+    useDestinationWeather: boolean = false,
+  ): Promise<void> {
     const simbriefPayload = await this.fetch(username);
-    this.convertMission(simbriefPayload, flight);
+    this.convertMission(simbriefPayload, flight, useDestinationWeather);
   }
 
   public convertMission(
@@ -126,9 +130,9 @@ export class SimBriefAerofly extends SimBrief {
     return wayPoints;
   }
 
-  protected convertWeather(flight: AeroflyFlight, origin: SimBriefApiPayloadAirport) {
-    const windMatch = origin.metar.match(/\b(\d{3})(\d{2})(?:G(\d{2}))?KT\b/);
-    const temperatureMatch = origin.metar.match(/\b(M?\d+)\/(M?\d+)\b/);
+  protected convertWeather(flight: AeroflyFlight, airport: SimBriefApiPayloadAirport) {
+    const windMatch = airport.metar.match(/\b(\d{3})(\d{2})(?:G(\d{2}))?KT\b/);
+    const temperatureMatch = airport.metar.match(/\b(M?\d+)\/(M?\d+)\b/);
     flight.wind = new AeroflySettingsWind(
       windMatch && windMatch[2] ? Number(windMatch[2]) : 0,
       windMatch && windMatch[1] ? Number(windMatch[1]) : 0,
@@ -136,14 +140,14 @@ export class SimBriefAerofly extends SimBrief {
       temperatureMatch && temperatureMatch[1] ? Number(temperatureMatch[1].replace("M", "-")) : 14, // default to 15°C if not available
     );
 
-    const clouds = [...origin.metar.matchAll(/\b(FEW|SCT|BKN|OVC":)(\d{3})\b/g)];
+    const clouds = [...airport.metar.matchAll(/\b(FEW|SCT|BKN|OVC":)(\d{3})\b/g)];
     flight.clouds = clouds.map((cloudMatch) => {
       const cloud = AeroflySettingsCloud.createInFeet(0, Number(cloudMatch[2]) * 100);
       cloud.density_code = cloudMatch[1] as "FEW" | "SCT" | "BKN" | "OVC";
       return cloud;
     });
 
-    flight.visibility_meter = Number(origin.metar_visibility != "9999" ? origin.metar_visibility : 20000);
+    flight.visibility_meter = Number(airport.metar_visibility != "9999" ? airport.metar_visibility : 20000);
   }
 
   protected findAeroflyAircraftCode(
