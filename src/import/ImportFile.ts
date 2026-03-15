@@ -4,6 +4,7 @@ import { ImportFileMsfs } from "./ImportFileMsfs.js";
 import { ImportFileGarminFpl } from "./ImportFileGarminFpl.js";
 import { ImportFileHandler } from "./ImportFileHandler.js";
 import { ImportFileXplaneFms } from "./ImportFileXplaneFms.js";
+import { ImportFileAeroflyMcf } from "./ImportFileAeroflyMcf.js";
 
 export class ImportFile {
   /**
@@ -24,6 +25,9 @@ export class ImportFile {
 
     let handler: ImportFileHandler | null = null;
     switch (fileSuffix) {
+      case ImportFileAeroflyMcf.fileExtension:
+        handler = new ImportFileAeroflyMcf();
+        break;
       case ImportFileMsfs.fileExtension:
         handler = new ImportFileMsfs();
         break;

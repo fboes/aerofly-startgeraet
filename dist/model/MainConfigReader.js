@@ -44,7 +44,7 @@ export class MainConfigReader {
         ]));
     }
 }
-class MainConfigParser {
+export class MainConfigParser {
     constructor() {
         this.parser = new AeroflyFileParser();
     }

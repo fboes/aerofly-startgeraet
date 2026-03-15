@@ -9,7 +9,14 @@ What does the Aerofly Startgerät do?
 - Change time and date (in UTC or the current departure airport time zone), or syncing the date to the current time and date.
 - Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/).
 - Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
-- Import a flight plan from flight plan file formats like Garmin `fpl`, Microsoft Flight Simulator `pln` and X-Plane `fms` from a local import directory.
+- Import a flight plan from flight plan file formats from a local import directory.
+
+Supported flight plan file formats:
+
+- Aerofly FS `mcf`
+- Garmin `fpl`-
+- Microsoft Flight Simulator `pln`
+- X-Plane `fms`
 
 In this manner the Aerofly Startgerät combines the capabilities of the [Aerofly Wettergerät](https://github.com/fboes/aerofly-wettergeraet) (but for multiple operating systems) and the [Aerofly Missionsgerät](https://github.com/fboes/aerofly-missions) (but directly injecting the new flight plan without any extra steps in-between).
 

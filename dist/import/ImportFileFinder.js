@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { ImportFileGarminFpl } from "./ImportFileGarminFpl.js";
 import { ImportFileMsfs } from "./ImportFileMsfs.js";
 import { ImportFileXplaneFms } from "./ImportFileXplaneFms.js";
+import { ImportFileAeroflyMcf } from "./ImportFileAeroflyMcf.js";
 export class ImportFileFinder {
     constructor(config) {
         this.config = config;
@@ -17,7 +18,8 @@ export class ImportFileFinder {
             return null;
         }
         const files = fs.readdirSync(importDirectory);
-        const importFiles = files.filter((file) => file.toLowerCase().endsWith(ImportFileGarminFpl.fileExtension) ||
+        const importFiles = files.filter((file) => file.toLowerCase().endsWith(ImportFileAeroflyMcf.fileExtension) ||
+            file.toLowerCase().endsWith(ImportFileGarminFpl.fileExtension) ||
             file.toLowerCase().endsWith(ImportFileMsfs.fileExtension) ||
             file.toLowerCase().endsWith(ImportFileXplaneFms.fileExtension));
         if (importFiles.length === 0) {

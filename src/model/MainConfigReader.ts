@@ -102,7 +102,7 @@ export class MainConfigReader {
   }
 }
 
-class MainConfigParser {
+export class MainConfigParser {
   parser = new AeroflyFileParser();
 
   parse(mainMcfContent: string): AeroflyFlight {

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { ImportFileMsfs } from "./ImportFileMsfs.js";
 import { ImportFileGarminFpl } from "./ImportFileGarminFpl.js";
 import { ImportFileXplaneFms } from "./ImportFileXplaneFms.js";
+import { ImportFileAeroflyMcf } from "./ImportFileAeroflyMcf.js";
 export class ImportFile {
     /**
      * Imports a flight plan from a file and converts it to an AeroflyFlight object.
@@ -20,6 +21,9 @@ export class ImportFile {
         const fileSuffix = filename.split(".").pop()?.toLowerCase();
         let handler = null;
         switch (fileSuffix) {
+            case ImportFileAeroflyMcf.fileExtension:
+                handler = new ImportFileAeroflyMcf();
+                break;
             case ImportFileMsfs.fileExtension:
                 handler = new ImportFileMsfs();
                 break;

@@ -379,7 +379,7 @@ export class CliMenu {
         this.controller.setSimBriefUserName(simbriefUserName);
         const simBriefWeatherFromDestination = await confirm({
             message: "Use SimBrief weather from destination airport (instead of departure airport)?",
-            default: this.controller.getSimBriefWeatherFromDestination()
+            default: this.controller.getSimBriefWeatherFromDestination(),
         });
         this.controller.setSimBriefWeatherFromDestination(simBriefWeatherFromDestination);
         const importDirectory = await input({
