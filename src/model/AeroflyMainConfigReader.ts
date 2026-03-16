@@ -23,7 +23,7 @@ import { AeroflyFileParser } from "./AeroflyFileParser.js";
 import { AeroflyVector3Float, AeroflyMatrix3Float } from "@fboes/aerofly-custom-missions/types/node/Convert.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
-export class MainConfigReader {
+export class AeroflyMainConfigReader {
   mainCfgFileName: string;
 
   constructor(private config: Config) {
@@ -44,7 +44,7 @@ export class MainConfigReader {
   }
 
   parseMainMcf(mainMcfContent: string): AeroflyFlight {
-    const parser = new MainConfigParser();
+    const parser = new AeroflyMainConfigParser();
     return parser.parse(mainMcfContent);
   }
 
@@ -102,7 +102,7 @@ export class MainConfigReader {
   }
 }
 
-export class MainConfigParser {
+export class AeroflyMainConfigParser {
   parser = new AeroflyFileParser();
 
   parse(mainMcfContent: string): AeroflyFlight {

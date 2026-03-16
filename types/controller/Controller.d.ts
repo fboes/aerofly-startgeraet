@@ -1,7 +1,7 @@
 import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
 import { Config } from "../model/Config.js";
-import { MainConfigReader } from "../model/MainConfigReader.js";
+import { AeroflyMainConfigReader } from "../model/AeroflyMainConfigReader.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.
@@ -15,15 +15,13 @@ export type ControllerCloud = {
  * methods to interact with the Aerofly DTO data.
  */
 export declare class Controller {
-    conf: Config;
-    protected aeroflyAircraftDatabase: AeroflyAircraft[];
+    readonly config: Config;
+    protected readonly aeroflyAircraftDatabase: AeroflyAircraft[];
     protected currentAircraft?: AeroflyAircraft;
     protected currentLivery?: AeroflyAircraftLivery;
     protected aeroflyFlight: AeroflyFlight;
-    protected mainConfigReader: MainConfigReader;
-    constructor(conf: Config);
-    getMainMcfFilePath(): string | null;
-    setMainMcfFilePath(mainMcfFilePath: string): void;
+    protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
+    constructor(config: Config);
     readMainMcf(): AeroflyFlight;
     getAircraftLiveriesData(aeroflyCodeAircraft: string): AeroflyAircraftLivery[];
     getCurrentAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined;
@@ -52,17 +50,11 @@ export declare class Controller {
     getFlightplanDistance(): number;
     getFlightplanDistanceString(): string;
     getFlightplanDepartureAirport(): AeroflyNavRouteOrigin | undefined;
-    getFLightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined;
+    getFlightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined;
     getFlightplanDepartureAirportString(): string;
     getFlightplanArrivalAirportString(): string;
     setFlightPositionToDeparture(): void;
-    setSimBriefUserName(simBriefUserName: string): void;
-    getSimBriefUserName(): string;
-    getSimBriefWeatherFromDestination(): boolean;
-    setSimBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean): void;
     importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
-    setImportDirectory(importDirectory: string): void;
-    getImportDirectory(): string;
     getImportFiles(): string[] | null;
     importFlightplanFromFile(filePath: string): void;
     setTimeAndDate(timeDate: string): void;
@@ -83,8 +75,6 @@ export declare class Controller {
      * @returns nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZone(): number;
-    getSyncTimeOnStartup(): boolean;
-    setSyncTimeOnStartup(syncTimeOnStartup: boolean): void;
     setWeatherFromMETAR(airportCode: string): Promise<void>;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;

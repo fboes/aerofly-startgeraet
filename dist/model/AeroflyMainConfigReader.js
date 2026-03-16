@@ -2,7 +2,7 @@ import { AeroflyFlight, AeroflyNavigationConfig, AeroflyNavRouteApproach, Aerofl
 import fs from "node:fs";
 import path from "node:path";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
-export class MainConfigReader {
+export class AeroflyMainConfigReader {
     constructor(config) {
         this.config = config;
         if (!this.config.mainMcfFilePath) {
@@ -18,7 +18,7 @@ export class MainConfigReader {
         return this.parseMainMcf(mainMcfContent);
     }
     parseMainMcf(mainMcfContent) {
-        const parser = new MainConfigParser();
+        const parser = new AeroflyMainConfigParser();
         return parser.parse(mainMcfContent);
     }
     write(flight) {
@@ -44,7 +44,7 @@ export class MainConfigReader {
         ]));
     }
 }
-export class MainConfigParser {
+export class AeroflyMainConfigParser {
     constructor() {
         this.parser = new AeroflyFileParser();
     }

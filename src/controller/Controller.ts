@@ -12,7 +12,7 @@ import { SimBriefAerofly } from "../import/SimBriefAerofly.js";
 import { AviationWeatherApiAerofly } from "../import/AviationWeatherApiAerofly.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { Config } from "../model/Config.js";
-import { MainConfigReader } from "../model/MainConfigReader.js";
+import { AeroflyMainConfigReader } from "../model/AeroflyMainConfigReader.js";
 import { AeroflyFlightHelper } from "../model/AeroflyFlightHelper.js";
 import { ImportFileFinder } from "../import/ImportFileFinder.js";
 import { ImportFile } from "../import/ImportFile.js";
@@ -31,33 +31,25 @@ export type ControllerCloud = {
  * methods to interact with the Aerofly DTO data.
  */
 export class Controller {
-  protected aeroflyAircraftDatabase = AeroflyAircraftLiveries;
+  protected readonly aeroflyAircraftDatabase = AeroflyAircraftLiveries;
   protected currentAircraft?: AeroflyAircraft;
   protected currentLivery?: AeroflyAircraftLivery;
   protected aeroflyFlight: AeroflyFlight;
-  protected mainConfigReader: MainConfigReader;
+  protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
 
-  constructor(public conf: Config) {
-    this.mainConfigReader = new MainConfigReader(this.conf);
+  constructor(public readonly config: Config) {
+    this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
     this.aeroflyFlight = this.readMainMcf();
     this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
-    if (this.conf.syncTimeOnStartup) {
+    if (this.config.syncTimeOnStartup) {
       this.aeroflyFlight.timeUtc.time = new Date();
     }
   }
 
   // ----------------------------------------------------------
 
-  getMainMcfFilePath(): string | null {
-    return this.conf.mainMcfFilePath;
-  }
-
-  setMainMcfFilePath(mainMcfFilePath: string): void {
-    this.conf.mainMcfFilePath = mainMcfFilePath;
-  }
-
   readMainMcf(): AeroflyFlight {
-    return this.mainConfigReader.read();
+    return this.aeroflyMainConfigReader.read();
   }
 
   // ----------------------------------------------------------
@@ -188,7 +180,7 @@ export class Controller {
     return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin);
   }
 
-  getFLightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined {
+  getFlightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined {
     return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDepartureRunway);
   }
 
@@ -209,7 +201,7 @@ export class Controller {
       return;
     }
 
-    const departureRunway = this.getFLightplanDepartureRunway();
+    const departureRunway = this.getFlightplanDepartureRunway();
     const runwayDirection = departureRunway?.direction_degree ?? 0;
 
     this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(
@@ -226,22 +218,6 @@ export class Controller {
 
   // ----------------------------------------------------------
 
-  setSimBriefUserName(simBriefUserName: string): void {
-    this.conf.simBriefUserName = simBriefUserName;
-  }
-
-  getSimBriefUserName(): string {
-    return this.conf.simBriefUserName;
-  }
-
-  getSimBriefWeatherFromDestination(): boolean {
-    return this.conf.simBriefWeatherFromDestination;
-  }
-
-  setSimBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean) {
-    this.conf.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
-  }
-
   async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: boolean = false) {
     const simbrief = new SimBriefAerofly();
     await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
@@ -253,16 +229,8 @@ export class Controller {
 
   // ----------------------------------------------------------
 
-  setImportDirectory(importDirectory: string): void {
-    this.conf.importDirectory = importDirectory;
-  }
-
-  getImportDirectory(): string {
-    return this.conf.importDirectory;
-  }
-
   getImportFiles(): string[] | null {
-    const importFileFinder = new ImportFileFinder(this.conf);
+    const importFileFinder = new ImportFileFinder(this.config);
     return importFileFinder.findImportFiles();
   }
 
@@ -328,14 +296,6 @@ export class Controller {
     return Math.round(
       (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15,
     );
-  }
-
-  getSyncTimeOnStartup(): boolean {
-    return this.conf.syncTimeOnStartup;
-  }
-
-  setSyncTimeOnStartup(syncTimeOnStartup: boolean) {
-    this.conf.syncTimeOnStartup = syncTimeOnStartup;
   }
 
   // ----------------------------------------------------------
@@ -444,7 +404,7 @@ export class Controller {
   // ----------------------------------------------------------
 
   writeFile(): void {
-    this.mainConfigReader.write(this.aeroflyFlight);
+    this.aeroflyMainConfigReader.write(this.aeroflyFlight);
   }
 
   numberToString(num: number): string {

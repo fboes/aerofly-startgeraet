@@ -1,8 +1,8 @@
 import { ImportFileXMLHandler } from "./ImportFileHandler.js";
-import { MainConfigParser } from "../model/MainConfigReader.js";
+import { AeroflyMainConfigParser } from "../model/AeroflyMainConfigReader.js";
 export class ImportFileAeroflyMcf extends ImportFileXMLHandler {
     convert(content, flightplan) {
-        const parser = new MainConfigParser();
+        const parser = new AeroflyMainConfigParser();
         const newFlightplan = parser.parse(content);
         flightplan.aircraft = newFlightplan.aircraft;
         flightplan.clouds = newFlightplan.clouds;

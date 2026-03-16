@@ -136,7 +136,7 @@ export class CliMenu {
 
     Cli.writeln(`Current flightplan: ${this.controller.getFlightplanWaypointsString()}`);
 
-    const simBriefUserName = this.controller.getSimBriefUserName();
+    const simBriefUserName = this.controller.config.simBriefUserName;
     const importableFileChoices = this.controller
       .getImportFiles()
       ?.map((file) => ({ name: `Import from file ${file}`, value: file })) ?? [
@@ -171,7 +171,7 @@ export class CliMenu {
       Cli.writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
       await this.controller.importFlightplanFromSimBrief(
         simBriefUserName,
-        this.controller.getSimBriefWeatherFromDestination(),
+        this.controller.config.simBriefWeatherFromDestination,
       );
     } else {
       Cli.writeln(`Importing flightplan from file ${choice}...`);
@@ -435,15 +435,15 @@ export class CliMenu {
 
     const mainMcfFilePath = await input({
       message: "Path to main.mcf file",
-      default: this.controller.getMainMcfFilePath() ?? "",
+      default: this.controller.config.mainMcfFilePath ?? "",
       required: true,
     });
 
-    this.controller.setMainMcfFilePath(mainMcfFilePath);
+    this.controller.config.mainMcfFilePath = mainMcfFilePath;
 
     const simbriefUserName = await input({
       message: "SimBrief username (for flightplan import)",
-      default: this.controller.getSimBriefUserName(),
+      default: this.controller.config.simBriefUserName,
       required: false,
       validate(value) {
         if (value && !/^[a-zA-Z0-9_]+$/.test(value)) {
@@ -453,29 +453,29 @@ export class CliMenu {
       },
     });
 
-    this.controller.setSimBriefUserName(simbriefUserName);
+    this.controller.config.simBriefUserName = simbriefUserName;
 
     const simBriefWeatherFromDestination = await confirm({
       message: "Use SimBrief weather from destination airport (instead of departure airport)?",
-      default: this.controller.getSimBriefWeatherFromDestination(),
+      default: this.controller.config.simBriefWeatherFromDestination,
     });
 
-    this.controller.setSimBriefWeatherFromDestination(simBriefWeatherFromDestination);
+    this.controller.config.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
 
     const importDirectory = await input({
       message: "Import directory for local flightplan files (e.g. .pln files)",
-      default: this.controller.getImportDirectory(),
+      default: this.controller.config.importDirectory,
       required: true,
     });
 
-    this.controller.setImportDirectory(importDirectory);
+    this.controller.config.importDirectory = importDirectory;
 
     const syncTimeOnStartup = await confirm({
       message: "Autmmoatically synchronize time / date on start-up",
-      default: this.controller.getSyncTimeOnStartup(),
+      default: this.controller.config.syncTimeOnStartup,
     });
 
-    this.controller.setSyncTimeOnStartup(syncTimeOnStartup);
+    this.controller.config.syncTimeOnStartup = syncTimeOnStartup;
 
     Cli.writeSuccess("Configuration saved successfully.");
 
