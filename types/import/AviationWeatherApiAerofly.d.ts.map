@@ -1,1 +1,0 @@
-{"version":3,"file":"AviationWeatherApiAerofly.d.ts","sourceRoot":"","sources":["../../src/import/AviationWeatherApiAerofly.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAA6C,MAAM,gCAAgC,CAAC;AAC1G,OAAO,EAAE,kBAAkB,EAAkC,MAAM,yBAAyB,CAAC;AAE7F,qBAAa,yBAA0B,SAAQ,kBAAkB;WAClD,kBAAkB,CAAC,WAAW,EAAE,MAAM,EAAE,MAAM,EAAE,aAAa,GAAG,OAAO,CAAC,aAAa,CAAC;CAoBpG"}

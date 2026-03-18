@@ -1,0 +1,15 @@
+import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { ImportFileXMLConverter } from "./ImportFileConverter.js";
+/**
+ * Import `.fms` flight plan files from X-Plane 11 / 12
+ * @see https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/
+ * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
+ */
+export declare class ImportFileXplaneFms extends ImportFileXMLConverter {
+    static readonly fileExtension = "fms";
+    convert(content: string, flightplan: AeroflyFlight): void;
+    private getRunway;
+    private getWaypoints;
+    private convertWaypointToAerofly;
+}
+//# sourceMappingURL=ImportFileXplaneFmsConverter.d.ts.map

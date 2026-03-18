@@ -1,0 +1,1 @@
+{"version":3,"file":"CliFormatter.d.ts","sourceRoot":"","sources":["../../../src/core/formatter/CliFormatter.ts"],"names":[],"mappings":"AAEA;;GAEG;AACH,qBAAa,YAAY;IACvB,MAAM,CAAC,OAAO,CAAC,OAAO,EAAE,MAAM;IAI9B,MAAM,CAAC,YAAY,CAAC,OAAO,EAAE,MAAM;IAInC,MAAM,CAAC,UAAU,CAAC,OAAO,EAAE,MAAM;IAIjC,MAAM,CAAC,UAAU,CAAC,KAAK,EAAE,OAAO;CAGjC"}

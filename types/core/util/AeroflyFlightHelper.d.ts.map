@@ -1,0 +1,1 @@
+{"version":3,"file":"AeroflyFlightHelper.d.ts","sourceRoot":"","sources":["../../../src/core/util/AeroflyFlightHelper.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,gCAAgC,CAAC;AAG/D,qBAAa,mBAAmB;IAClB,SAAS,CAAC,aAAa,EAAE,aAAa;gBAA5B,aAAa,EAAE,aAAa;IAElD;;;OAGG;IACH,qBAAqB,IAAI,MAAM;CAehC"}

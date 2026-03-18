@@ -1,1 +1,0 @@
-{"version":3,"file":"ImportFileAeroflyMcf.d.ts","sourceRoot":"","sources":["../../src/import/ImportFileAeroflyMcf.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,oBAAoB,EAAE,MAAM,wBAAwB,CAAC;AAE9D,OAAO,EAAE,aAAa,EAAE,MAAM,gCAAgC,CAAC;AAE/D,qBAAa,oBAAqB,SAAQ,oBAAoB;IAC5D,MAAM,CAAC,QAAQ,CAAC,aAAa,SAAS;IAEtC,OAAO,CAAC,OAAO,EAAE,MAAM,EAAE,UAAU,EAAE,aAAa,GAAG,IAAI;CAY1D"}
