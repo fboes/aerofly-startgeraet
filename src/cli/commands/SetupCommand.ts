@@ -1,11 +1,12 @@
 import { input } from "@inquirer/prompts";
 import { CliFormatter } from "../../core/formatter/CliFormatter.js";
 import { Config } from "../../core/io/Config.js";
+import { Command } from "./Command.js";
 
-export class SetupCommand {
+export class SetupCommand implements Command {
   constructor(protected config: Config) {}
 
-  async setup(): Promise<void> {
+  async execute(): Promise<void> {
     process.stdout.write(`\
 
 Welcome to the Aerofly Startgerät. It allows you to set up your flight in a more

@@ -3,36 +3,20 @@
 import { CliFormatter } from "../core/formatter/CliFormatter.js";
 import { Config } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
-import { MenuCommand, MenuCommandMethod } from "./commands/MenuCommand.js";
+import { MenuCommand } from "./commands/MenuCommand.js";
 import { SetupCommand } from "./commands/SetupCommand.js";
 
 const config = new Config();
 
 try {
   const controller = new AeroflyFlightService(config);
-  const startgeraet = new MenuCommand(controller);
-
-  process.stdout.write("\x1Bc");
-  let next: MenuCommandMethod = "mainMenu";
-  while (next !== "exit") {
-    try {
-      next = await startgeraet[next]();
-    } catch (error) {
-      if (error instanceof Error && error.name === "ExitPromptError") {
-        next = "exit";
-      } else {
-        next = "mainMenu";
-        CliFormatter.writeCatch(error);
-      }
-    }
-
-    process.stdout.write("\n");
-  }
+  const command = new MenuCommand(controller);
+  await command.execute();
 } catch (error) {
   CliFormatter.writeCatch(error);
 
   const setup = new SetupCommand(config);
-  await setup.setup();
+  await setup.execute();
 
   process.stdout.write(`\
 

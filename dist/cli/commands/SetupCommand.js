@@ -4,7 +4,7 @@ export class SetupCommand {
     constructor(config) {
         this.config = config;
     }
-    async setup() {
+    async execute() {
         process.stdout.write(`\
 
 Welcome to the Aerofly Startgerät. It allows you to set up your flight in a more

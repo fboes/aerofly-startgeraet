@@ -1,19 +1,40 @@
 import { input, number, select, confirm, Separator } from "@inquirer/prompts";
 import { AeroflyFlightService, AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
 import { CliFormatter } from "../../core/formatter/CliFormatter.js";
+import { Command } from "./Command.js";
 
-export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name">;
+export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
  * Aerofly FS 4.
  */
-export class MenuCommand {
+export class MenuCommand implements Command {
   constructor(public controller: AeroflyFlightService) {}
 
+  async execute(): Promise<void> {
+    process.stdout.write("\x1Bc");
+
+    let next: MenuCommandMethod = "mainMenu";
+    while (next !== "exit") {
+      try {
+        next = await this[next]();
+      } catch (error) {
+        if (error instanceof Error && error.name === "ExitPromptError") {
+          next = "exit";
+        } else {
+          next = "mainMenu";
+          CliFormatter.writeCatch(error);
+        }
+      }
+
+      process.stdout.write("\n");
+    }
+  }
+
   async mainMenu(): Promise<MenuCommandMethod> {
-    this.showMenuTitle();
+    CliFormatter.showMenuTitle();
 
     const choices = [
       {
@@ -67,7 +88,7 @@ export class MenuCommand {
   }
 
   async selectAircraft(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Aircraft"]);
+    CliFormatter.showMenuTitle(["Aircraft"]);
     const aeroflyCodeAircraft = await select({
       message: "Aircraft",
       default: this.controller.getAircraft(),
@@ -99,7 +120,7 @@ export class MenuCommand {
   }
 
   async setFuelAndPayload(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Fuel & Payload"]);
+    CliFormatter.showMenuTitle(["Fuel & Payload"]);
     const fuel = this.controller.getMaxFuel()
       ? await number({
           message: `Fuel (kg) - max ${this.controller.getMaxFuel()} kg`,
@@ -131,7 +152,7 @@ export class MenuCommand {
   }
 
   async importFlightplan(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Import Flightplan"]);
+    CliFormatter.showMenuTitle(["Import Flightplan"]);
 
     CliFormatter.writeln(`Current flightplan: ${this.controller.getFlightplanWaypointsString()}`);
 
@@ -183,7 +204,7 @@ export class MenuCommand {
   }
 
   async setTimeAndDate(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Time & Date"]);
+    CliFormatter.showMenuTitle(["Time & Date"]);
 
     const departureTimeZoneUTCString = this.controller.getDepartureTimeZoneUTCString();
     const choice = await select({
@@ -260,7 +281,7 @@ export class MenuCommand {
   }
 
   async importWeather(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Import Weather"]);
+    CliFormatter.showMenuTitle(["Import Weather"]);
 
     const choice = await select({
       message: "Import weather from API",
@@ -290,7 +311,7 @@ export class MenuCommand {
   }
 
   async setWind(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Wind"]);
+    CliFormatter.showMenuTitle(["Wind"]);
     const windSpeedKts = await number({
       message: "Wind speed (kts)",
       default: this.controller.getWindSpeed(),
@@ -319,7 +340,7 @@ export class MenuCommand {
   }
 
   async setTemperature(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Temperature"]);
+    CliFormatter.showMenuTitle(["Temperature"]);
     const temperatureCelsius = await number({
       message: "Temperature (°C)",
       default: this.controller.getTemperature(),
@@ -334,7 +355,7 @@ export class MenuCommand {
   }
 
   async setVisibility(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Visibility"]);
+    CliFormatter.showMenuTitle(["Visibility"]);
 
     const visibilitySM = Number(this.controller.getVisibilitySM().toPrecision(3));
     const visibilityM = this.controller.getVisibilityM();
@@ -356,7 +377,7 @@ export class MenuCommand {
   }
 
   async setClouds(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Clouds"]);
+    CliFormatter.showMenuTitle(["Clouds"]);
 
     const clouds = this.controller.getClouds();
     const cloudData: AeroflyFlightServiceCloud[] = [
@@ -419,7 +440,7 @@ export class MenuCommand {
   }
 
   async setConfiguration(): Promise<MenuCommandMethod> {
-    this.showMenuTitle(["Configuration & Help"]);
+    CliFormatter.showMenuTitle(["Configuration & Help"]);
     process.stdout.write(`\
   Welcome to the Aerofly Startgerät. It allows you to set up your flight in a
   more convenient way.
@@ -491,10 +512,6 @@ export class MenuCommand {
 
   exit() {
     return null;
-  }
-
-  protected showMenuTitle(titles: string[] = []) {
-    process.stdout.write(["Aerofly Startgerät", ...titles].join(" → ") + "\n");
   }
 
   protected name(option: string, value: string, sub: boolean = false): string {

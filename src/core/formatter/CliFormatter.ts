@@ -19,4 +19,8 @@ export class CliFormatter {
   static writeCatch(error: unknown) {
     CliFormatter.writeError(error instanceof Error ? error.message : String(error));
   }
+
+  static showMenuTitle(titles: string[] = []) {
+    process.stdout.write(["Aerofly Startgerät", ...titles].join(" → ") + "\n");
+  }
 }

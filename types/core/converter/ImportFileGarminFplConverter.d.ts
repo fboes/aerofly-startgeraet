@@ -5,10 +5,10 @@ import { ImportFileXMLConverter } from "./ImportFileConverter.js";
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
 export declare class ImportFileGarminFpl extends ImportFileXMLConverter {
-    static readonly fileExtension = "fpl";
-    convert(content: string, flightplan: AeroflyFlight): void;
-    private getWaypoints;
-    private getWaypointDefinitions;
-    private convertWaypointToAerofly;
+  static readonly fileExtension = "fpl";
+  convert(content: string, flightplan: AeroflyFlight): void;
+  private getWaypoints;
+  private getWaypointDefinitions;
+  private convertWaypointToAerofly;
 }
 //# sourceMappingURL=ImportFileGarminFplConverter.d.ts.map

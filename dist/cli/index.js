@@ -7,29 +7,13 @@ import { SetupCommand } from "./commands/SetupCommand.js";
 const config = new Config();
 try {
     const controller = new AeroflyFlightService(config);
-    const startgeraet = new MenuCommand(controller);
-    process.stdout.write("\x1Bc");
-    let next = "mainMenu";
-    while (next !== "exit") {
-        try {
-            next = await startgeraet[next]();
-        }
-        catch (error) {
-            if (error instanceof Error && error.name === "ExitPromptError") {
-                next = "exit";
-            }
-            else {
-                next = "mainMenu";
-                CliFormatter.writeCatch(error);
-            }
-        }
-        process.stdout.write("\n");
-    }
+    const command = new MenuCommand(controller);
+    await command.execute();
 }
 catch (error) {
     CliFormatter.writeCatch(error);
     const setup = new SetupCommand(config);
-    await setup.setup();
+    await setup.execute();
     process.stdout.write(`\
 
 You will also need to restart the application after changing the

@@ -1,7 +1,8 @@
 import { Config } from "../../core/io/Config.js";
-export declare class SetupCommand {
-    protected config: Config;
-    constructor(config: Config);
-    setup(): Promise<void>;
+import { Command } from "./Command.js";
+export declare class SetupCommand implements Command {
+  protected config: Config;
+  constructor(config: Config);
+  execute(): Promise<void>;
 }
 //# sourceMappingURL=SetupCommand.d.ts.map

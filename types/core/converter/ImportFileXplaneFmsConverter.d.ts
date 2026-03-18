@@ -6,10 +6,10 @@ import { ImportFileXMLConverter } from "./ImportFileConverter.js";
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
 export declare class ImportFileXplaneFms extends ImportFileXMLConverter {
-    static readonly fileExtension = "fms";
-    convert(content: string, flightplan: AeroflyFlight): void;
-    private getRunway;
-    private getWaypoints;
-    private convertWaypointToAerofly;
+  static readonly fileExtension = "fms";
+  convert(content: string, flightplan: AeroflyFlight): void;
+  private getRunway;
+  private getWaypoints;
+  private convertWaypointToAerofly;
 }
 //# sourceMappingURL=ImportFileXplaneFmsConverter.d.ts.map
