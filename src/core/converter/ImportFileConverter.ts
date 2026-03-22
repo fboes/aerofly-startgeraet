@@ -50,4 +50,23 @@ export abstract class ImportFileXMLConverter implements ImportFileConverter {
           }
         });
   }
+
+  /**
+   * Encodes WGS84 coordinates into a 64-bit UID,
+   * where the upper 32 bits hold latitude × 10⁷
+   * and the lower 32 bits hold longitude × 10⁷.
+   *
+   * @param lon - Longitude in degrees (-180 … +180)
+   * @param lat - Latitude in degrees  (-90  … +90)
+   * @returns UID as a BigInt (unsigned 64-bit integer)
+   */
+  protected geoToUid(lon: number, lat: number): bigint {
+    const SCALE = 1e7;
+    const MASK = 0xffff_ffffn;
+
+    const latFixed = BigInt(Math.round(lat * SCALE));
+    const lonFixed = BigInt(Math.round(lon * SCALE));
+
+    return ((latFixed & MASK) << 32n) | (lonFixed & MASK);
+  }
 }

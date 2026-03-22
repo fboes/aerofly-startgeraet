@@ -7,10 +7,10 @@ export class CliFormatter {
         process.stdout.write("  " + message + "\n");
     }
     static writeSuccess(message) {
-        process.stdout.write(styleText("green", "✓ " + message + "\n"));
+        process.stdout.write(styleText("greenBright", "✓ " + message + "\n"));
     }
     static writeError(message) {
-        process.stdout.write(styleText("red", "⚠  " + message + "\n"));
+        process.stdout.write(styleText("redBright", "⚠  " + message + "\n"));
     }
     static writeCatch(error) {
         CliFormatter.writeError(error instanceof Error ? error.message : String(error));

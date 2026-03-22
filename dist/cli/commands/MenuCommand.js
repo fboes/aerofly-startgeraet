@@ -1,14 +1,14 @@
-import { input, number, select, confirm, Separator } from "@inquirer/prompts";
-import { CliFormatter } from "../../core/formatter/CliFormatter.js";
+import { input, number, select, Separator } from "@inquirer/prompts";
+import { CliFormatter } from "../formatter/CliFormatter.js";
+import { ControllerCommand } from "./Command.js";
+import { HelpCommand } from "./HelpCommand.js";
+import { SetupCommand } from "./SetupCommand.js";
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
  * Aerofly FS 4.
  */
-export class MenuCommand {
-    constructor(controller) {
-        this.controller = controller;
-    }
+export class MenuCommand extends ControllerCommand {
     async execute() {
         process.stdout.write("\x1Bc");
         let next = "mainMenu";
@@ -27,6 +27,7 @@ export class MenuCommand {
             }
             process.stdout.write("\n");
         }
+        return 0;
     }
     async mainMenu() {
         CliFormatter.showMenuTitle();
@@ -367,52 +368,8 @@ export class MenuCommand {
     }
     async setConfiguration() {
         CliFormatter.showMenuTitle(["Configuration & Help"]);
-        process.stdout.write(`\
-  Welcome to the Aerofly Startgerät. It allows you to set up your flight in a
-  more convenient way.
-
-  You can select your aircraft, set fuel and payload, import flightplans
-  and weather, and much more.
-
-  The Startgerät will then generate a configuration file that can be
-  loaded in Aerofly FS 4.
-
-`);
-        const mainMcfFilePath = await input({
-            message: "Path to main.mcf file",
-            default: this.controller.config.mainMcfFilePath ?? "",
-            required: true,
-        });
-        this.controller.config.mainMcfFilePath = mainMcfFilePath;
-        const simbriefUserName = await input({
-            message: "SimBrief username (for flightplan import)",
-            default: this.controller.config.simBriefUserName,
-            required: false,
-            validate(value) {
-                if (value && !/^[a-zA-Z0-9_]+$/.test(value)) {
-                    return "Please enter a valid SimBrief username (alphanumeric and underscores only)";
-                }
-                return true;
-            },
-        });
-        this.controller.config.simBriefUserName = simbriefUserName;
-        const simBriefWeatherFromDestination = await confirm({
-            message: "Use SimBrief weather from destination airport (instead of departure airport)?",
-            default: this.controller.config.simBriefWeatherFromDestination,
-        });
-        this.controller.config.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
-        const importDirectory = await input({
-            message: "Import directory for local flightplan files (e.g. .pln files)",
-            default: this.controller.config.importDirectory,
-            required: true,
-        });
-        this.controller.config.importDirectory = importDirectory;
-        const syncTimeOnStartup = await confirm({
-            message: "Autmmoatically synchronize time / date on start-up",
-            default: this.controller.config.syncTimeOnStartup,
-        });
-        this.controller.config.syncTimeOnStartup = syncTimeOnStartup;
-        CliFormatter.writeSuccess("Configuration saved successfully.");
+        process.stdout.write(HelpCommand.getHelpText());
+        await SetupCommand.configure(this.controller.config);
         return "mainMenu";
     }
     saveAndExit() {

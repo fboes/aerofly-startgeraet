@@ -79,6 +79,10 @@ export class AviationWeatherApi {
         Accept: "application/json",
       },
     });
+    if (!response.body) {
+      throw new Error("No results returned");
+    }
+
     return await response.json();
   }
 

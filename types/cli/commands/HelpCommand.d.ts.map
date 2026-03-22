@@ -1,0 +1,1 @@
+{"version":3,"file":"HelpCommand.d.ts","sourceRoot":"","sources":["../../../src/cli/commands/HelpCommand.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,cAAc,CAAC;AAGvC,qBAAa,WAAY,YAAW,OAAO;IACnC,OAAO,IAAI,OAAO,CAAC,MAAM,CAAC;IAKhC,MAAM,CAAC,WAAW,IAAI,MAAM;IAU5B,MAAM,CAAC,mBAAmB,IAAI,MAAM;CAkBrC"}

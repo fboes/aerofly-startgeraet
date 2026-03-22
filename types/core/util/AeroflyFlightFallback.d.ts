@@ -1,5 +1,5 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export declare class AeroflyFlightFallback extends AeroflyFlight {
-  constructor();
+    constructor();
 }
 //# sourceMappingURL=AeroflyFlightFallback.d.ts.map

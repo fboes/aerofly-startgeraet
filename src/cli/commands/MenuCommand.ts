@@ -1,7 +1,9 @@
-import { input, number, select, confirm, Separator } from "@inquirer/prompts";
-import { AeroflyFlightService, AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
-import { CliFormatter } from "../../core/formatter/CliFormatter.js";
-import { Command } from "./Command.js";
+import { input, number, select, Separator } from "@inquirer/prompts";
+import { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
+import { CliFormatter } from "../formatter/CliFormatter.js";
+import { ControllerCommand } from "./Command.js";
+import { HelpCommand } from "./HelpCommand.js";
+import { SetupCommand } from "./SetupCommand.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -10,10 +12,8 @@ export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showM
  * The menu will then generate a configuration file that can be loaded in
  * Aerofly FS 4.
  */
-export class MenuCommand implements Command {
-  constructor(public controller: AeroflyFlightService) {}
-
-  async execute(): Promise<void> {
+export class MenuCommand extends ControllerCommand {
+  async execute(): Promise<number> {
     process.stdout.write("\x1Bc");
 
     let next: MenuCommandMethod = "mainMenu";
@@ -31,6 +31,8 @@ export class MenuCommand implements Command {
 
       process.stdout.write("\n");
     }
+
+    return 0;
   }
 
   async mainMenu(): Promise<MenuCommandMethod> {
@@ -441,63 +443,9 @@ export class MenuCommand implements Command {
 
   async setConfiguration(): Promise<MenuCommandMethod> {
     CliFormatter.showMenuTitle(["Configuration & Help"]);
-    process.stdout.write(`\
-  Welcome to the Aerofly Startgerät. It allows you to set up your flight in a
-  more convenient way.
 
-  You can select your aircraft, set fuel and payload, import flightplans
-  and weather, and much more.
-
-  The Startgerät will then generate a configuration file that can be
-  loaded in Aerofly FS 4.
-
-`);
-
-    const mainMcfFilePath = await input({
-      message: "Path to main.mcf file",
-      default: this.controller.config.mainMcfFilePath ?? "",
-      required: true,
-    });
-
-    this.controller.config.mainMcfFilePath = mainMcfFilePath;
-
-    const simbriefUserName = await input({
-      message: "SimBrief username (for flightplan import)",
-      default: this.controller.config.simBriefUserName,
-      required: false,
-      validate(value) {
-        if (value && !/^[a-zA-Z0-9_]+$/.test(value)) {
-          return "Please enter a valid SimBrief username (alphanumeric and underscores only)";
-        }
-        return true;
-      },
-    });
-
-    this.controller.config.simBriefUserName = simbriefUserName;
-
-    const simBriefWeatherFromDestination = await confirm({
-      message: "Use SimBrief weather from destination airport (instead of departure airport)?",
-      default: this.controller.config.simBriefWeatherFromDestination,
-    });
-
-    this.controller.config.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
-
-    const importDirectory = await input({
-      message: "Import directory for local flightplan files (e.g. .pln files)",
-      default: this.controller.config.importDirectory,
-      required: true,
-    });
-
-    this.controller.config.importDirectory = importDirectory;
-
-    const syncTimeOnStartup = await confirm({
-      message: "Autmmoatically synchronize time / date on start-up",
-      default: this.controller.config.syncTimeOnStartup,
-    });
-
-    this.controller.config.syncTimeOnStartup = syncTimeOnStartup;
-
-    CliFormatter.writeSuccess("Configuration saved successfully.");
+    process.stdout.write(HelpCommand.getHelpText());
+    await SetupCommand.configure(this.controller.config);
 
     return "mainMenu";
   }

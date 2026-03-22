@@ -123,49 +123,58 @@ export class AeroflyMainConfigParser {
         const altitude = this.parser.getNumber(wp, "Altitude", NaN);
         const elevation = this.parser.getNumber(wp, "Elevation", NaN);
         const flyOver = this.parser.getBoolean(wp, "FlyOver");
+        const uid = BigInt(this.parser.getValue(wp, "Uid"));
 
         let waypoint: AeroflyNavRouteBase = new AeroflyNavRouteWaypoint(identifier, 0, 0, {
           navaidFrequency: isNaN(navaidFrequency) ? null : navaidFrequency,
           altitude: isNaN(altitude) ? null : altitude,
           flyOver,
+          uid,
         });
         let setPosition = true;
         switch (typeMatch ? String(typeMatch[0]) : "waypoint") {
           case "origin":
             waypoint = new AeroflyNavRouteOrigin(identifier, 0, 0, {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             break;
           case "destination":
             waypoint = new AeroflyNavRouteDestination(identifier, 0, 0, {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             break;
           case "departure_runway":
             waypoint = new AeroflyNavRouteDepartureRunway(identifier, 0, 0, {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             break;
           case "destination_runway":
             waypoint = new AeroflyNavRouteDestinationRunway(identifier, 0, 0, {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             break;
           case "approach":
             waypoint = new AeroflyNavRouteApproach(identifier, "", {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             setPosition = false;
             break;
           case "departure":
             waypoint = new AeroflyNavRouteDeparture(identifier, "", {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             setPosition = false;
             break;
           case "arrival":
             waypoint = new AeroflyNavRouteArrival(identifier, "", {
               elevation: isNaN(elevation) ? null : elevation,
+              uid,
             });
             setPosition = false;
             break;

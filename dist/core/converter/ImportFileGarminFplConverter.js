@@ -37,17 +37,22 @@ export class ImportFileGarminFpl extends ImportFileXMLConverter {
         return waypointDefinitions;
     }
     convertWaypointToAerofly(waypoint, isFirst, isLast) {
+        const uid = this.geoToUid(waypoint.lon, waypoint.lat);
         if (isFirst) {
             return new AeroflyNavRouteOrigin(waypoint.identifier, waypoint.lon, waypoint.lat, {
                 elevation: waypoint.elevationMeter,
+                uid,
             });
         }
         if (isLast) {
             return new AeroflyNavRouteDestination(waypoint.identifier, waypoint.lon, waypoint.lat, {
                 elevation: waypoint.elevationMeter,
+                uid,
             });
         }
-        return new AeroflyNavRouteWaypoint(waypoint.identifier, waypoint.lon, waypoint.lat);
+        return new AeroflyNavRouteWaypoint(waypoint.identifier, waypoint.lon, waypoint.lat, {
+            uid,
+        });
     }
 }
 ImportFileGarminFpl.fileExtension = "fpl";

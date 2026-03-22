@@ -18,26 +18,25 @@ export class ImportFileReader {
      * @see ImportFileGarminFpl for handling Garmin .fpl files.
      */
     static importFile(filename, flightplan) {
+        const converter = this.getConverter(filename);
+        const content = fs.readFileSync(filename, "utf8");
+        return new converter().convert(content, flightplan);
+    }
+    static getConverter(filename) {
         const fileSuffix = filename.split(".").pop()?.toLowerCase();
-        let converter = null;
-        switch (fileSuffix) {
-            case AeroflyMcfConverter.fileExtension:
-                converter = new AeroflyMcfConverter();
-                break;
-            case ImportFileMsfs.fileExtension:
-                converter = new ImportFileMsfs();
-                break;
-            case ImportFileGarminFpl.fileExtension:
-                converter = new ImportFileGarminFpl();
-                break;
-            case ImportFileXplaneFms.fileExtension:
-                converter = new ImportFileXplaneFms();
-                break;
+        if (!fileSuffix) {
+            throw new Error(`Could not determine file type for "${filename}"`);
         }
-        if (converter === null) {
+        const registry = {
+            [AeroflyMcfConverter.fileExtension]: AeroflyMcfConverter,
+            [ImportFileMsfs.fileExtension]: ImportFileMsfs,
+            [ImportFileGarminFpl.fileExtension]: ImportFileGarminFpl,
+            [ImportFileXplaneFms.fileExtension]: ImportFileXplaneFms,
+        };
+        const converter = registry[fileSuffix];
+        if (!converter) {
             throw new Error(`Unsupported file type: ${fileSuffix}`);
         }
-        const content = fs.readFileSync(filename, "utf8");
-        return converter.convert(content, flightplan);
+        return converter;
     }
 }

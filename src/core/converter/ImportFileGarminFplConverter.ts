@@ -64,16 +64,22 @@ export class ImportFileGarminFpl extends ImportFileXMLConverter {
   }
 
   private convertWaypointToAerofly(waypoint: GaminFplWaypoint, isFirst: boolean, isLast: boolean): AeroflyNavRouteBase {
+    const uid = this.geoToUid(waypoint.lon, waypoint.lat);
+
     if (isFirst) {
       return new AeroflyNavRouteOrigin(waypoint.identifier, waypoint.lon, waypoint.lat, {
         elevation: waypoint.elevationMeter,
+        uid,
       });
     }
     if (isLast) {
       return new AeroflyNavRouteDestination(waypoint.identifier, waypoint.lon, waypoint.lat, {
         elevation: waypoint.elevationMeter,
+        uid,
       });
     }
-    return new AeroflyNavRouteWaypoint(waypoint.identifier, waypoint.lon, waypoint.lat);
+    return new AeroflyNavRouteWaypoint(waypoint.identifier, waypoint.lon, waypoint.lat, {
+      uid,
+    });
   }
 }

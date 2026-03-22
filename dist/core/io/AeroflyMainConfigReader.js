@@ -2,14 +2,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { AeroflyFileParser } from "../converter/AeroflyFileParser.js";
 import { AeroflyMainConfigParser } from "../converter/AeroflyMainConfigParser.js";
+export class AeroflyMainConfigReaderError extends Error {
+}
 export class AeroflyMainConfigReader {
     constructor(config) {
         this.config = config;
         if (!this.config.mainMcfFilePath) {
-            throw new Error("mainMcfFilePath is not defined in the config.");
+            throw new AeroflyMainConfigReaderError("mainMcfFilePath is not defined in the config.");
         }
         if (!fs.existsSync(this.config.mainMcfFilePath)) {
-            throw new Error(`The specified mainMcfFilePath does not exist: ${this.config.mainMcfFilePath}`);
+            throw new AeroflyMainConfigReaderError(`The specified mainMcfFilePath does not exist: ${this.config.mainMcfFilePath}`);
         }
         this.mainCfgFileName = path.join(this.config.mainMcfFilePath, "main.mcf");
     }

@@ -5,15 +5,15 @@ import { styleText } from "node:util";
  */
 export class CliFormatter {
   static writeln(message: string) {
-    process.stdout.write("  " + message + "\n");
+    process.stdout.write(message + "\n");
   }
 
   static writeSuccess(message: string) {
-    process.stdout.write(styleText("green", "✓ " + message + "\n"));
+    process.stdout.write(styleText("greenBright", "✓ " + message + "\n"));
   }
 
   static writeError(message: string) {
-    process.stdout.write(styleText("red", "⚠  " + message + "\n"));
+    process.stdout.write(styleText("redBright", "⚠  " + message + "\n"));
   }
 
   static writeCatch(error: unknown) {

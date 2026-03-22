@@ -69,6 +69,7 @@ export type SimBriefApiPayload = {
     mfn: SimBriefApiPayloadFmsDownload;
   };
 };
+
 export type SimBriefApiError = {
   fetch: {
     userid: string;

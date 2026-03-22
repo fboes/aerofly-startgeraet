@@ -14,7 +14,7 @@ import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-fl
 type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | "A" | "B";
 
 /**
- * Import `pln` flight plan files from Mcirosoft Flight SImulator 2020 / 2024
+ * Import `pln` flight plan files from Microsoft Flight Simulator 2020 / 2024
  * @see https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
@@ -46,11 +46,13 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
     const coords = this.convertCoordinate(this.getXmlNode(xml, "WorldPosition"));
     const identifier = this.getXmlNode(xml, "ICAOIdent") || this.getXmlAttribute(xml, "id");
     const runway = isFirst || isLast ? this.getRunway(xml) : null;
+    const uid = this.geoToUid(coords.lon, coords.lat);
 
     if (isFirst) {
       const route = [
         new AeroflyNavRouteOrigin(identifier, coords.lon, coords.lat, {
           elevation_ft: coords.altitude_ft,
+          uid,
         }),
       ];
 
@@ -59,6 +61,7 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
           new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
             elevation_ft: coords.altitude_ft,
             direction_degree: Number(runway.replace(/^\D+/, "")) * 10,
+            uid,
           }),
         );
       }
@@ -71,12 +74,14 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
           new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
             elevation_ft: coords.altitude_ft,
             direction_degree: Number(runway.replace(/^\D+/, "")) * 10,
+            uid,
           }),
         );
       }
       route.push(
         new AeroflyNavRouteDestination(identifier, coords.lon, coords.lat, {
           elevation_ft: coords.altitude_ft,
+          uid,
         }),
       );
       return route;
@@ -84,6 +89,7 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
     return [
       new AeroflyNavRouteWaypoint(identifier, coords.lon, coords.lat, {
         altitude_ft: coords.altitude_ft,
+        uid,
       }),
     ];
   }

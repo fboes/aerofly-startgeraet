@@ -36,7 +36,7 @@ export class Config {
   }
 
   set mainMcfFilePath(mainMcfFilePath: string) {
-    this.set("mainMcfFilePath", mainMcfFilePath);
+    this.set("mainMcfFilePath", mainMcfFilePath.trim());
   }
 
   findMainMcfFilePath(): string | null {
@@ -53,6 +53,7 @@ export class Config {
         "Aerofly FS 4",
       ), // (Apple Mac OSX, App Store Version)
       path.join(os.homedir(), "Library", "Application Support", "Aerofly FS 4"), // (Apple Mac OSX, Steam Version)
+      path.join(os.homedir(), ".config", "Aerofly FS 4"), // (Linux, hidden folder)
     ].reduce((acc: null | string, possiblePath: string) => {
       if (fs.existsSync(possiblePath)) {
         return possiblePath;
@@ -69,7 +70,7 @@ export class Config {
   }
 
   set simBriefUserName(simBriefUserName: string) {
-    this.set("simBriefUserName", simBriefUserName);
+    this.set("simBriefUserName", simBriefUserName.trim());
   }
 
   get simBriefWeatherFromDestination(): boolean {
@@ -85,7 +86,7 @@ export class Config {
   }
 
   set importDirectory(importDirectory: string) {
-    this.set("importDirectory", importDirectory);
+    this.set("importDirectory", importDirectory.trim());
   }
 
   get syncTimeOnStartup(): boolean {

@@ -219,8 +219,15 @@ export class AeroflyFlightService {
   // ----------------------------------------------------------
 
   async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: boolean = false) {
-    const simbrief = new SimBriefAeroflyApi();
-    await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
+    try {
+      const simbrief = new SimBriefAeroflyApi();
+      await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes("Unknown UserID")) {
+        this.config.simBriefUserName = "";
+      }
+      throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
+    }
     this.currentAircraft = this.getCurrentAircraftData(this.aeroflyFlight.aircraft.name);
     this.currentLivery = this.currentAircraft?.liveries.find(
       (livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme,
