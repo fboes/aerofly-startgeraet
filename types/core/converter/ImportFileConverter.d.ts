@@ -12,14 +12,12 @@ export declare abstract class ImportFileXMLConverter implements ImportFileConver
     protected getXmlAttribute(xml: string, attribute: string): string;
     protected unXml(text: string): string;
     /**
-     * Encodes WGS84 coordinates into a 64-bit UID,
-     * where the upper 32 bits hold latitude × 10⁷
-     * and the lower 32 bits hold longitude × 10⁷.
+     * This function is a placeholder until the method to encode UIDs is discovered.
      *
      * @param lon - Longitude in degrees (-180 … +180)
      * @param lat - Latitude in degrees  (-90  … +90)
      * @returns UID as a BigInt (unsigned 64-bit integer)
      */
-    protected geoToUid(lon: number, lat: number): bigint;
+    protected geoToUid(lon: number, lat: number): bigint | undefined;
 }
 //# sourceMappingURL=ImportFileConverter.d.ts.map

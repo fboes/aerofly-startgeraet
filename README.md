@@ -14,7 +14,7 @@ What does the Aerofly Startgerät do?
 Supported flight plan file formats:
 
 - Aerofly FS `mcf`
-- Garmin `fpl`-
+- Garmin `fpl`
 - Microsoft Flight Simulator `pln`
 - X-Plane `fms`
 
@@ -80,6 +80,22 @@ On exiting the Aerofly Startgerät, your changes will be saved back to the `main
 > The Aerofly Startgerät may break your `main.mcf`. Be sure to have a backup of this file.
 
 See the [Aerofly Startgerät CLI Menu Manual](./docs/cli-menu.md) for details.
+
+### Short-hand CLI commands
+
+There are also short-hand CLI commands which solve a single task without any user interaction:
+
+```bash
+# Import SimBrief flightplan
+npx @fboes/aerofly-startgeraet@latest simbrief
+
+# Import METAR weather for current depsrture airport & time
+npx @fboes/aerofly-startgeraet@latest metar
+
+# Set time to current time
+npx @fboes/aerofly-startgeraet@latest time
+```
+
 
 ### Caveats and notes
 
