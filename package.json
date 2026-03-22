@@ -1,6 +1,6 @@
 {
   "name": "@fboes/aerofly-startgeraet",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Giving you more comprehensive options to set-up flights in Aerofly Flight Simulator 4, including import of flight plans and weather.",
   "main": "./dist/cli/index.js",
   "scripts": {
@@ -14,7 +14,11 @@
     "build": "npm run eslint && npm run prettier && npm run fix-access-rights && npm run tsc"
   },
   "keywords": [
-    "aerofly", "aerofly-fs4", "flightplan", "metar", "simbrief"
+    "aerofly",
+    "aerofly-fs4",
+    "flightplan",
+    "metar",
+    "simbrief"
   ],
   "bin": {
     "aerofly-startgeraet": "./dist/cli/index.js"
