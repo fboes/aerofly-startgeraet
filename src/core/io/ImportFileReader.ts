@@ -2,9 +2,9 @@ import fs from "node:fs";
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
 import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.js";
-import { ImportFileConverter as ImportFileConverter } from "../converter/ImportFileConverter.js";
+import { ImportFileConverter } from "../converter/ImportFileConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
-import { AeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
+import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
 
 export class ImportFileReader {
   /**
@@ -33,7 +33,7 @@ export class ImportFileReader {
     }
 
     const registry: Record<string, new () => ImportFileConverter> = {
-      [AeroflyMcfConverter.fileExtension]: AeroflyMcfConverter,
+      [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
       [ImportFileMsfs.fileExtension]: ImportFileMsfs,
       [ImportFileGarminFpl.fileExtension]: ImportFileGarminFpl,
       [ImportFileXplaneFms.fileExtension]: ImportFileXplaneFms,

@@ -2,7 +2,7 @@ import { AeroflyMainConfigParser } from "./AeroflyMainConfigParser.js";
 import { ImportFileXMLConverter } from "./ImportFileConverter.js";
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
-export class AeroflyMcfConverter extends ImportFileXMLConverter {
+export class ImportFileAeroflyMcfConverter extends ImportFileXMLConverter {
   static readonly fileExtension = "mcf";
 
   convert(content: string, flightplan: AeroflyFlight): void {

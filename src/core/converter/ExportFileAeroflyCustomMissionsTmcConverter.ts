@@ -1,0 +1,81 @@
+import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.json" with { type: "json" };
+import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import {
+  AeroflyFlight,
+  AeroflyMission,
+  AeroflyMissionCheckpoint,
+  AeroflyMissionConditions,
+  AeroflyMissionConditionsCloud,
+  AeroflyMissionsList,
+  AeroflyNavRouteDepartureRunway,
+  AeroflyNavRouteDestination,
+  AeroflyNavRouteDestinationRunway,
+  AeroflyNavRouteOrigin,
+} from "@fboes/aerofly-custom-missions";
+import { ExportFileConverter } from "./ExportFileConverter.js";
+import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
+
+export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileConverter {
+  static readonly fileExtension = "tmc";
+
+  convert(flightplan: AeroflyFlight): string {
+    // Build time and weather
+    const conditions = new AeroflyMissionConditions({
+      time: flightplan.timeUtc.time,
+      wind: {
+        direction: flightplan.wind.directionInDegree,
+        speed: flightplan.wind.speed_kts,
+        gusts: flightplan.wind.gust_kts,
+      },
+      visibility: flightplan.visibility_meter,
+      clouds: flightplan.clouds.map((c) => {
+        return new AeroflyMissionConditionsCloud(c.density, c.height);
+      }),
+    });
+
+    // Build checkpoints
+    // TODO
+    const checkpoints = flightplan.navigation.waypoints.map((w) => {
+      return new AeroflyMissionCheckpoint(w.identifier, this.getWaypointType(w), w.longitude, w.latitude);
+    });
+
+    const mission = new AeroflyMission(
+      `From ${flightplan.navigation.waypoints[0]?.identifier} to ${flightplan.navigation.waypoints[flightplan.navigation.waypoints.length - 1]?.identifier}`,
+      {
+        aircraft: {
+          name: flightplan.aircraft.name,
+          icao: this.findAircraftData(flightplan.aircraft.name)?.icaoCode ?? "",
+          livery: flightplan.aircraft.paintscheme,
+        },
+        fuelMass: flightplan.fuelLoadSetting.fuelMass,
+        payloadMass: flightplan.fuelLoadSetting.payloadMass,
+        checkpoints,
+        conditions,
+      },
+    );
+
+    const customMissions = new AeroflyMissionsList([mission]);
+    return customMissions.toString();
+  }
+
+  getWaypointType(
+    w: AeroflyNavRouteBase,
+  ): import("@fboes/aerofly-custom-missions/types/dto/AeroflyMissionCheckpoint.js").AeroflyMissionCheckpointType {
+    switch (w.constructor) {
+      case AeroflyNavRouteOrigin:
+        return "origin";
+      case AeroflyNavRouteDestination:
+        return "destination";
+      case AeroflyNavRouteDepartureRunway:
+        return "departure_runway";
+      case AeroflyNavRouteDestinationRunway:
+        return "destination_runway";
+      default:
+        return "waypoint";
+    }
+  }
+
+  protected findAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
+    return AeroflyAircraftLiveries.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
+  }
+}

@@ -1,5 +1,5 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { ImportFileConverter as ImportFileConverter } from "../converter/ImportFileConverter.js";
+import { ImportFileConverter } from "../converter/ImportFileConverter.js";
 export declare class ImportFileReader {
     /**
      * Imports a flight plan from a file and converts it to an AeroflyFlight object.

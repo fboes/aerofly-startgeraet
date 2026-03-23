@@ -27,6 +27,9 @@ export class AeroflyFlightService {
         return this.aeroflyMainConfigReader.read();
     }
     // ----------------------------------------------------------
+    getAeroflyFlight() {
+        return this.aeroflyFlight;
+    }
     getCurrentAircraft() {
         return this.currentAircraft;
     }

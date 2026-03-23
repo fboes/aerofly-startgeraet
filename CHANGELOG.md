@@ -2,7 +2,7 @@
 
 ## [1.2.0]
 
-- Added export functionality
+- Added export functionality for `tmc` and `mcf` files
 
 ## [1.1.0]
 

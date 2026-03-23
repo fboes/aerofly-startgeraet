@@ -23,6 +23,7 @@ export declare class AeroflyFlightService {
     protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
     constructor(config: Config);
     protected readMainMcf(): AeroflyFlight;
+    getAeroflyFlight(): AeroflyFlight;
     getCurrentAircraft(): AeroflyAircraft | undefined;
     getCurrentLivery(): AeroflyAircraftLivery | undefined;
     getAircraftLiveriesData(aeroflyCodeAircraft: string): AeroflyAircraftLivery[];

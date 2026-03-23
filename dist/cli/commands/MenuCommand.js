@@ -5,6 +5,8 @@ import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
+import { ExportFileAeroflyMainMcfExport } from "../../core/converter/ExportFileAeroflyMainMcfConverter.js";
+import { ExportFileAeroflyCustomMissionsTmcConverter } from "../../core/converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
@@ -40,7 +42,7 @@ export class MenuCommand extends ControllerCommand {
                 short: "Select aircraft",
             },
             {
-                name: this.name("Fuel / Payload", this.controller.getFuelAndPayloadString(), true),
+                name: this.name("Fuel / Payload", AeroflyFlightFormatter.getFuelAndPayload(this.controller.getAeroflyFlight()), true),
                 value: "setFuelAndPayload",
                 short: "Set fuel and payload",
             },
@@ -182,7 +184,19 @@ export class MenuCommand extends ControllerCommand {
     }
     async exportFlightplan() {
         CliFormatter.showMenuTitle(["Export Flightplan"]);
-        const fileType = "mcf";
+        const fileType = await select({
+            message: "Export file type",
+            choices: [
+                {
+                    name: "Aerofly MCF flight plan file",
+                    value: ExportFileAeroflyMainMcfExport.fileExtension,
+                },
+                {
+                    name: "Aerofly TMC custom user missions file",
+                    value: ExportFileAeroflyCustomMissionsTmcConverter.fileExtension,
+                },
+            ],
+        });
         const fileNameDefault = `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.${fileType}`.replace(/\s+/g, "-");
         const fileName = await input({
             message: "Enter file name to export flightplan",

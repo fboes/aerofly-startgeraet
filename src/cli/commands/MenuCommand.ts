@@ -6,6 +6,8 @@ import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
+import { ExportFileAeroflyMainMcfExport } from "../../core/converter/ExportFileAeroflyMainMcfConverter.js";
+import { ExportFileAeroflyCustomMissionsTmcConverter } from "../../core/converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -221,7 +223,19 @@ export class MenuCommand extends ControllerCommand {
   async exportFlightplan(): Promise<MenuCommandMethod> {
     CliFormatter.showMenuTitle(["Export Flightplan"]);
 
-    const fileType = "mcf";
+    const fileType = await select({
+      message: "Export file type",
+      choices: [
+        {
+          name: "Aerofly MCF flight plan file",
+          value: ExportFileAeroflyMainMcfExport.fileExtension,
+        },
+        {
+          name: "Aerofly TMC custom user missions file",
+          value: ExportFileAeroflyCustomMissionsTmcConverter.fileExtension,
+        },
+      ],
+    });
 
     const fileNameDefault =
       `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.${fileType}`.replace(
