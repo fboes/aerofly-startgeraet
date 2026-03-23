@@ -16,6 +16,7 @@ import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import { ImportFileReader } from "../io/ImportFileReader.js";
+import { ExportFileWriter } from "../io/ExportFileWriter.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -234,7 +235,9 @@ export class AeroflyFlightService {
     );
   }
 
-  // ----------------------------------------------------------
+  async exportFlightplanToFile(filePath: string): Promise<void> {
+    ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
+  }
 
   getImportFiles(): string[] | null {
     const importFileFinder = new ImportFileFinderService(this.config);

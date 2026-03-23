@@ -96,7 +96,6 @@ npx @fboes/aerofly-startgeraet@latest metar
 npx @fboes/aerofly-startgeraet@latest time
 ```
 
-
 ### Caveats and notes
 
 1. Importing flight plans almost certainly will require to set-up the starting location of you aircraft in Aerofly FS 4, as the parking positions of aircraft are unknown.

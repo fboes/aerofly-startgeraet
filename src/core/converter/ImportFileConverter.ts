@@ -58,6 +58,7 @@ export abstract class ImportFileXMLConverter implements ImportFileConverter {
    * @param lat - Latitude in degrees  (-90  … +90)
    * @returns UID as a BigInt (unsigned 64-bit integer)
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected geoToUid(lon: number, lat: number): bigint | undefined {
     return undefined;
   }

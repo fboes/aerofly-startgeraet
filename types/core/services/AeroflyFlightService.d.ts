@@ -55,6 +55,7 @@ export declare class AeroflyFlightService {
     getFlightplanArrivalAirportString(): string;
     setFlightPositionToDeparture(): void;
     importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
+    exportFlightplanToFile(filePath: string): Promise<void>;
     getImportFiles(): string[] | null;
     importFlightplanFromFile(filePath: string): void;
     setTimeAndDate(timeDate: string): void;

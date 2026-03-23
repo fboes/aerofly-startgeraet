@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0]
+
+- Added export functionality
+
 ## [1.1.0]
 
 - Added automatically synchronizing date / time on startup

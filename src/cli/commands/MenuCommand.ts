@@ -4,6 +4,7 @@ import { CliFormatter } from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
+import path from "node:path";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -52,7 +53,7 @@ export class MenuCommand extends ControllerCommand {
       {
         name: this.name("Flightplan", this.controller.getFlightplanString()),
         value: "importFlightplan",
-        short: "Import flightplan",
+        short: "Import / export flightplan",
       },
       {
         name: this.name("Time & Date", this.controller.getTimeAndDateCombinedString(), true),
@@ -180,12 +181,16 @@ export class MenuCommand extends ControllerCommand {
           disabled: !simBriefUserName,
         },
         ...importableFileChoices,
+        {
+          name: "Export current flightplan to file",
+          value: "exportFlightplan",
+        },
         new Separator(),
         this.getMainMenuChoice(),
       ],
     });
 
-    if (choice === "mainMenu") {
+    if (choice === "mainMenu" || choice === "exportFlightplan") {
       return choice;
     }
 
@@ -197,10 +202,33 @@ export class MenuCommand extends ControllerCommand {
       );
     } else {
       CliFormatter.writeln(`Importing flightplan from file ${choice}...`);
-      await this.controller.importFlightplanFromFile(choice);
+      this.controller.importFlightplanFromFile(choice);
     }
     CliFormatter.writeSuccess("Flightplan imported successfully");
     CliFormatter.writeln(`Imported flightplan: ${this.controller.getFlightplanWaypointsString()}`);
+
+    return "mainMenu";
+  }
+
+  async exportFlightplan(): Promise<MenuCommandMethod> {
+    CliFormatter.showMenuTitle(["Export Flightplan"]);
+
+    const fileNameDefault =
+      `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.mcf`.replace(
+        /\s+/g,
+        "-",
+      );
+
+    const fileName = await input({
+      message: "Enter file name to export flightplan",
+      default: fileNameDefault,
+      required: true,
+    });
+
+    const filePath = path.join(this.controller.config.exportDirectory, fileName);
+
+    await this.controller.exportFlightplanToFile(filePath);
+    CliFormatter.writeSuccess(`Flightplan exported successfully to ${filePath}`);
 
     return "mainMenu";
   }

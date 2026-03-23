@@ -20,6 +20,8 @@ export declare class Config {
     set simBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean);
     get importDirectory(): string;
     set importDirectory(importDirectory: string);
+    get exportDirectory(): string;
+    set exportDirectory(exportDirectory: string);
     get syncTimeOnStartup(): boolean;
     set syncTimeOnStartup(syncTimeOnStartup: boolean);
 }

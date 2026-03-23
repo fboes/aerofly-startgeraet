@@ -12,6 +12,7 @@ export declare class MenuCommand extends ControllerCommand {
     selectAircraft(): Promise<MenuCommandMethod>;
     setFuelAndPayload(): Promise<MenuCommandMethod>;
     importFlightplan(): Promise<MenuCommandMethod>;
+    exportFlightplan(): Promise<MenuCommandMethod>;
     setTimeAndDate(): Promise<MenuCommandMethod>;
     protected setTimeAndDateManual(timeZoneUTCName: string, timeZoneName: string, timeValue: Date): Promise<string>;
     importWeather(): Promise<MenuCommandMethod>;

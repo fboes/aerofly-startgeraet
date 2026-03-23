@@ -6,6 +6,7 @@ import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import { ImportFileReader } from "../io/ImportFileReader.js";
+import { ExportFileWriter } from "../io/ExportFileWriter.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -163,7 +164,9 @@ export class AeroflyFlightService {
         this.currentAircraft = this.getCurrentAircraftData(this.aeroflyFlight.aircraft.name);
         this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme);
     }
-    // ----------------------------------------------------------
+    async exportFlightplanToFile(filePath) {
+        ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
+    }
     getImportFiles() {
         const importFileFinder = new ImportFileFinderService(this.config);
         return importFileFinder.findImportFiles();
