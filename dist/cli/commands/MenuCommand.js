@@ -4,6 +4,7 @@ import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
+import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
@@ -34,7 +35,7 @@ export class MenuCommand extends ControllerCommand {
         CliFormatter.showMenuTitle();
         const choices = [
             {
-                name: this.name("Aircraft", this.controller.getAircraftString()),
+                name: this.name("Aircraft", AeroflyFlightFormatter.getAircraft(this.controller.getCurrentAircraft(), this.controller.getCurrentLivery())),
                 value: "selectAircraft",
                 short: "Select aircraft",
             },
@@ -181,7 +182,8 @@ export class MenuCommand extends ControllerCommand {
     }
     async exportFlightplan() {
         CliFormatter.showMenuTitle(["Export Flightplan"]);
-        const fileNameDefault = `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.mcf`.replace(/\s+/g, "-");
+        const fileType = "mcf";
+        const fileNameDefault = `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.${fileType}`.replace(/\s+/g, "-");
         const fileName = await input({
             message: "Enter file name to export flightplan",
             default: fileNameDefault,

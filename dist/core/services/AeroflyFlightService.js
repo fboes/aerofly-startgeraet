@@ -27,17 +27,23 @@ export class AeroflyFlightService {
         return this.aeroflyMainConfigReader.read();
     }
     // ----------------------------------------------------------
-    getAircraftLiveriesData(aeroflyCodeAircraft) {
-        return this.getCurrentAircraftData(aeroflyCodeAircraft)?.liveries ?? [];
+    getCurrentAircraft() {
+        return this.currentAircraft;
     }
-    getCurrentAircraftData(aeroflyCodeAircraft) {
+    getCurrentLivery() {
+        return this.currentLivery;
+    }
+    getAircraftLiveriesData(aeroflyCodeAircraft) {
+        return this.findAircraftData(aeroflyCodeAircraft)?.liveries ?? [];
+    }
+    findAircraftData(aeroflyCodeAircraft) {
         return this.aeroflyAircraftDatabase.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
     }
     getAllAircraftData() {
         return this.aeroflyAircraftDatabase;
     }
     setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery) {
-        this.currentAircraft = this.getCurrentAircraftData(aeroflyCodeAircraft);
+        this.currentAircraft = this.findAircraftData(aeroflyCodeAircraft);
         this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
@@ -47,12 +53,6 @@ export class AeroflyFlightService {
     }
     getLivery() {
         return this.aeroflyFlight.aircraft.paintscheme;
-    }
-    getAircraftString() {
-        if (!this.currentAircraft) {
-            return "No aircraft selected";
-        }
-        return `${this.currentAircraft.nameFull} - ${this.currentLivery?.name ?? "Default Livery"}`;
     }
     // ----------------------------------------------------------
     setFuelAndPayload(fuel, payload) {
@@ -70,9 +70,6 @@ export class AeroflyFlightService {
     }
     getPayload() {
         return this.aeroflyFlight.fuelLoadSetting.payloadMass;
-    }
-    getFuelAndPayloadString() {
-        return this.getFuel() ? `${this.getFuel()} / ${this.getPayload()} kg` : "Unset";
     }
     getMaxPayload() {
         return this.currentAircraft ? (this.currentAircraft.maximumPayloadKg ?? 0) : 0;
@@ -161,7 +158,7 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = this.getCurrentAircraftData(this.aeroflyFlight.aircraft.name);
+        this.currentAircraft = this.findAircraftData(this.aeroflyFlight.aircraft.name);
         this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme);
     }
     async exportFlightplanToFile(filePath) {

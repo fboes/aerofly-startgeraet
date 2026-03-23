@@ -22,19 +22,19 @@ export declare class AeroflyFlightService {
     protected aeroflyFlight: AeroflyFlight;
     protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
     constructor(config: Config);
-    readMainMcf(): AeroflyFlight;
+    protected readMainMcf(): AeroflyFlight;
+    getCurrentAircraft(): AeroflyAircraft | undefined;
+    getCurrentLivery(): AeroflyAircraftLivery | undefined;
     getAircraftLiveriesData(aeroflyCodeAircraft: string): AeroflyAircraftLivery[];
-    getCurrentAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined;
+    findAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined;
     getAllAircraftData(): AeroflyAircraft[];
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): void;
     getAircraft(): string;
     getLivery(): string;
-    getAircraftString(): string;
     setFuelAndPayload(fuel: number, payload: number): void;
     setFuel(fuel: number): void;
     getFuel(): number;
     getPayload(): number;
-    getFuelAndPayloadString(): string;
     getMaxPayload(): number;
     /**
      *
@@ -94,7 +94,7 @@ export declare class AeroflyFlightService {
     getClouds(): AeroflyFlightServiceCloud[];
     getCloudsString(): string;
     writeFile(): void;
-    numberToString(num: number): string;
-    dateToString(date: Date): string;
+    protected numberToString(num: number): string;
+    protected dateToString(date: Date): string;
 }
 //# sourceMappingURL=AeroflyFlightService.d.ts.map

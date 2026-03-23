@@ -49,17 +49,29 @@ export class AeroflyFlightService {
 
   // ----------------------------------------------------------
 
-  readMainMcf(): AeroflyFlight {
+  protected readMainMcf(): AeroflyFlight {
     return this.aeroflyMainConfigReader.read();
   }
 
   // ----------------------------------------------------------
 
-  getAircraftLiveriesData(aeroflyCodeAircraft: string): AeroflyAircraftLivery[] {
-    return this.getCurrentAircraftData(aeroflyCodeAircraft)?.liveries ?? [];
+  getAeroflyFlight(): AeroflyFlight {
+    return this.aeroflyFlight;
   }
 
-  getCurrentAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
+  getCurrentAircraft(): AeroflyAircraft | undefined {
+    return this.currentAircraft;
+  }
+
+  getCurrentLivery(): AeroflyAircraftLivery | undefined {
+    return this.currentLivery;
+  }
+
+  getAircraftLiveriesData(aeroflyCodeAircraft: string): AeroflyAircraftLivery[] {
+    return this.findAircraftData(aeroflyCodeAircraft)?.liveries ?? [];
+  }
+
+  findAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
     return this.aeroflyAircraftDatabase.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
   }
 
@@ -68,7 +80,7 @@ export class AeroflyFlightService {
   }
 
   setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): void {
-    this.currentAircraft = this.getCurrentAircraftData(aeroflyCodeAircraft);
+    this.currentAircraft = this.findAircraftData(aeroflyCodeAircraft);
     this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === aeroflyCodeLivery);
     this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
     this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
@@ -80,13 +92,6 @@ export class AeroflyFlightService {
 
   getLivery(): string {
     return this.aeroflyFlight.aircraft.paintscheme;
-  }
-
-  getAircraftString(): string {
-    if (!this.currentAircraft) {
-      return "No aircraft selected";
-    }
-    return `${this.currentAircraft.nameFull} - ${this.currentLivery?.name ?? "Default Livery"}`;
   }
 
   // ----------------------------------------------------------
@@ -110,10 +115,6 @@ export class AeroflyFlightService {
 
   getPayload(): number {
     return this.aeroflyFlight.fuelLoadSetting.payloadMass;
-  }
-
-  getFuelAndPayloadString(): string {
-    return this.getFuel() ? `${this.getFuel()} / ${this.getPayload()} kg` : "Unset";
   }
 
   getMaxPayload(): number {
@@ -229,7 +230,7 @@ export class AeroflyFlightService {
       }
       throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
     }
-    this.currentAircraft = this.getCurrentAircraftData(this.aeroflyFlight.aircraft.name);
+    this.currentAircraft = this.findAircraftData(this.aeroflyFlight.aircraft.name);
     this.currentLivery = this.currentAircraft?.liveries.find(
       (livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme,
     );
@@ -417,11 +418,11 @@ export class AeroflyFlightService {
     this.aeroflyMainConfigReader.write(this.aeroflyFlight);
   }
 
-  numberToString(num: number): string {
+  protected numberToString(num: number): string {
     return new Intl.NumberFormat().format(Math.round(num));
   }
 
-  dateToString(date: Date): string {
+  protected dateToString(date: Date): string {
     return date.toISOString().substring(0, 16).replace("T", " ");
   }
 }

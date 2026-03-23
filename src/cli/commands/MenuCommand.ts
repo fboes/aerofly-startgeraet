@@ -5,6 +5,7 @@ import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
+import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -41,12 +42,19 @@ export class MenuCommand extends ControllerCommand {
 
     const choices = [
       {
-        name: this.name("Aircraft", this.controller.getAircraftString()),
+        name: this.name(
+          "Aircraft",
+          AeroflyFlightFormatter.getAircraft(this.controller.getCurrentAircraft(), this.controller.getCurrentLivery()),
+        ),
         value: "selectAircraft",
         short: "Select aircraft",
       },
       {
-        name: this.name("Fuel / Payload", this.controller.getFuelAndPayloadString(), true),
+        name: this.name(
+          "Fuel / Payload",
+          AeroflyFlightFormatter.getFuelAndPayload(this.controller.getAeroflyFlight()),
+          true,
+        ),
         value: "setFuelAndPayload",
         short: "Set fuel and payload",
       },
@@ -213,8 +221,10 @@ export class MenuCommand extends ControllerCommand {
   async exportFlightplan(): Promise<MenuCommandMethod> {
     CliFormatter.showMenuTitle(["Export Flightplan"]);
 
+    const fileType = "mcf";
+
     const fileNameDefault =
-      `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.mcf`.replace(
+      `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.${fileType}`.replace(
         /\s+/g,
         "-",
       );
