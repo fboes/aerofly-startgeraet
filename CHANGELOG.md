@@ -2,6 +2,7 @@
 
 ## [1.2.0]
 
+- Refactored aircraft / livery data access
 - Added export functionality for `tmc` and `mcf` files
 
 ## [1.1.0]

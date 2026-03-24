@@ -1,12 +1,13 @@
-import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.json" with { type: "json" };
 import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteOrigin, AeroflySettingsCloud, AeroflySettingsFlight, } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
-import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import { ImportFileReader } from "../io/ImportFileReader.js";
 import { ExportFileWriter } from "../io/ExportFileWriter.js";
+import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
+import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
+import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -14,7 +15,6 @@ import { ExportFileWriter } from "../io/ExportFileWriter.js";
 export class AeroflyFlightService {
     constructor(config) {
         this.config = config;
-        this.aeroflyAircraftDatabase = AeroflyAircraftLiveries;
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
         this.aeroflyFlight = this.readMainMcf();
         this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
@@ -30,24 +30,9 @@ export class AeroflyFlightService {
     getAeroflyFlight() {
         return this.aeroflyFlight;
     }
-    getCurrentAircraft() {
-        return this.currentAircraft;
-    }
-    getCurrentLivery() {
-        return this.currentLivery;
-    }
-    getAircraftLiveriesData(aeroflyCodeAircraft) {
-        return this.findAircraftData(aeroflyCodeAircraft)?.liveries ?? [];
-    }
-    findAircraftData(aeroflyCodeAircraft) {
-        return this.aeroflyAircraftDatabase.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
-    }
-    getAllAircraftData() {
-        return this.aeroflyAircraftDatabase;
-    }
     setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery) {
-        this.currentAircraft = this.findAircraftData(aeroflyCodeAircraft);
-        this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === aeroflyCodeLivery);
+        this.currentAircraft = AeroflyAircraftService.getAircraft(aeroflyCodeAircraft);
+        this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
     }
@@ -93,38 +78,6 @@ export class AeroflyFlightService {
         return this.currentAircraft ? (this.currentAircraft.maximumFuelMassKg ?? 0) : 0;
     }
     // ----------------------------------------------------------
-    getFlightplanString() {
-        return `${this.getFlightplanDepartureAirportString()} → ${this.getFlightplanArrivalAirportString()} (${this.getFlightplanDistanceString()})`;
-    }
-    getFlightplanWaypointsString() {
-        return this.aeroflyFlight.navigation.waypoints
-            .map((wp) => {
-            return wp.identifier;
-        })
-            .join(" → ");
-    }
-    /**
-     * @returns in meters
-     */
-    getFlightplanDistance() {
-        return new AeroflyFlightHelper(this.aeroflyFlight).getFlightplanDistance();
-    }
-    getFlightplanDistanceString() {
-        try {
-            const distanceNm = this.getFlightplanDistance() / 1852;
-            const timeH = this.currentAircraft?.cruiseSpeedKts ? distanceNm / this.currentAircraft?.cruiseSpeedKts : 0;
-            const timeString = timeH
-                ? `, ${Math.floor(timeH / 60)}:${Math.floor((timeH * 60) % 60)
-                    .toString()
-                    .padStart(2, "0")}h`
-                : "";
-            return `${this.numberToString(distanceNm)}NM${timeString}`;
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        }
-        catch (e) {
-            return "Unknown";
-        }
-    }
     getFlightplanDepartureAirport() {
         return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin);
     }
@@ -132,11 +85,10 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDepartureRunway);
     }
     getFlightplanDepartureAirportString() {
-        return this.getFlightplanDepartureAirport()?.identifier ?? "Unknown";
+        return this.getFlightplanDepartureAirport()?.identifier ?? "";
     }
     getFlightplanArrivalAirportString() {
-        return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ??
-            "Unknown");
+        return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ?? "");
     }
     setFlightPositionToDeparture() {
         const departureAirport = this.getFlightplanDepartureAirport();
@@ -161,8 +113,8 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = this.findAircraftData(this.aeroflyFlight.aircraft.name);
-        this.currentLivery = this.currentAircraft?.liveries.find((livery) => livery.aeroflyCode === this.aeroflyFlight.aircraft.paintscheme);
+        this.currentAircraft = AeroflyAircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
+        this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, this.aeroflyFlight.aircraft.paintscheme);
     }
     async exportFlightplanToFile(filePath) {
         ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
@@ -183,16 +135,16 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.timeUtc.time;
     }
     getTimeAndDateDeparture() {
-        const departureTimeZoneOffset = this.getDepartureTimeZone() * 60;
+        const departureTimeZoneOffset = AeroflyFlightHelper.getDepartureTimeZone(this.aeroflyFlight) * 60;
         const localTime = new Date(this.aeroflyFlight.timeUtc.time.getTime() + departureTimeZoneOffset * 60000);
         return localTime;
     }
     getTimeAndDateString() {
-        return `${this.dateToString(this.aeroflyFlight.timeUtc.time)} UTC`;
+        return `${AeroflyFlightFormatter.dateToString(this.aeroflyFlight.timeUtc.time)} UTC`;
     }
     getTimeAndDateDepartureString() {
         const localTime = this.getTimeAndDateDeparture();
-        return `${this.dateToString(localTime)} ${this.getDepartureTimeZoneUTCString()}`;
+        return `${AeroflyFlightFormatter.dateToString(localTime)} ${this.getDepartureTimeZoneUTCString()}`;
     }
     getTimeAndDateCombinedString() {
         return `${this.getTimeAndDateString()} | ${this.getTimeAndDateDepartureString()}`;
@@ -201,7 +153,7 @@ export class AeroflyFlightService {
      * @returns e.g. "Z" or "+02:00" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneString() {
-        const timeZone = this.getDepartureTimeZone();
+        const timeZone = AeroflyFlightHelper.getDepartureTimeZone(this.aeroflyFlight);
         if (timeZone === 0) {
             return "Z";
         }
@@ -211,14 +163,8 @@ export class AeroflyFlightService {
      * @returns e.g. "UTC" or "UTC+2" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneUTCString() {
-        const timeZone = this.getDepartureTimeZone();
+        const timeZone = AeroflyFlightHelper.getDepartureTimeZone(this.aeroflyFlight);
         return `UTC${timeZone >= 0 ? "+" : "-"}${Math.abs(Math.round(timeZone))}`;
-    }
-    /**
-     * @returns nautical time zone offset based on the coordinates of the departure airport
-     */
-    getDepartureTimeZone() {
-        return Math.round((this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15);
     }
     // ----------------------------------------------------------
     async setWeatherFromMETAR(airportCode) {
@@ -239,13 +185,6 @@ export class AeroflyFlightService {
     getWindGusts() {
         return this.aeroflyFlight.wind.gust_kts;
     }
-    getWindString() {
-        let wind = `${this.numberToString(this.aeroflyFlight.wind.directionInDegree)}° @ ${this.numberToString(this.aeroflyFlight.wind.speed_kts)}kts`;
-        if (this.aeroflyFlight.wind.gust_kts > 0) {
-            wind += ` (gusts ${this.numberToString(this.aeroflyFlight.wind.gust_kts)}kts)`;
-        }
-        return wind;
-    }
     // ----------------------------------------------------------
     setVisibilitySM(visibilitySM) {
         this.aeroflyFlight.visibility_sm = visibilitySM;
@@ -259,21 +198,12 @@ export class AeroflyFlightService {
     getVisibilityM() {
         return this.aeroflyFlight.visibility_meter;
     }
-    getVisibilityString() {
-        if (this.aeroflyFlight.visibility_sm === 10 || this.aeroflyFlight.visibility_meter === 9999) {
-            return "10SM / " + this.numberToString(9999) + "m";
-        }
-        return `${this.numberToString(this.aeroflyFlight.visibility_sm)}SM / ${this.numberToString(this.aeroflyFlight.visibility_meter)}m`;
-    }
     // ----------------------------------------------------------
     setTemperature(temperatureCelsius) {
         this.aeroflyFlight.wind.temperature_celsius = temperatureCelsius;
     }
     getTemperature() {
         return this.aeroflyFlight.wind.temperature_celsius;
-    }
-    getTemperatureString() {
-        return `${this.numberToString(this.aeroflyFlight.wind.temperature_celsius)}°C`;
     }
     // ----------------------------------------------------------
     setClouds(clouds) {
@@ -290,22 +220,8 @@ export class AeroflyFlightService {
             };
         });
     }
-    getCloudsString() {
-        return (this.aeroflyFlight.clouds
-            .filter((cloud) => cloud.density > 0)
-            .map((cloud) => {
-            return `${cloud.density_code} @ ${this.numberToString(cloud.height_ft)}ft`;
-        })
-            .join(" | ") || "CLR");
-    }
     // ----------------------------------------------------------
     writeFile() {
         this.aeroflyMainConfigReader.write(this.aeroflyFlight);
-    }
-    numberToString(num) {
-        return new Intl.NumberFormat().format(Math.round(num));
-    }
-    dateToString(date) {
-        return date.toISOString().substring(0, 16).replace("T", " ");
     }
 }

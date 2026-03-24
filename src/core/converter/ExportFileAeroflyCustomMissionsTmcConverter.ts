@@ -1,5 +1,3 @@
-import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.json" with { type: "json" };
-import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import {
   AeroflyFlight,
   AeroflyMission,
@@ -14,6 +12,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { ExportFileConverter } from "./ExportFileConverter.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
+import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 
 export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileConverter {
   static readonly fileExtension = "tmc";
@@ -44,7 +43,7 @@ export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileCo
       {
         aircraft: {
           name: flightplan.aircraft.name,
-          icao: this.findAircraftData(flightplan.aircraft.name)?.icaoCode ?? "",
+          icao: AeroflyAircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
           livery: flightplan.aircraft.paintscheme,
         },
         fuelMass: flightplan.fuelLoadSetting.fuelMass,
@@ -73,9 +72,5 @@ export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileCo
       default:
         return "waypoint";
     }
-  }
-
-  protected findAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
-    return AeroflyAircraftLiveries.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
   }
 }

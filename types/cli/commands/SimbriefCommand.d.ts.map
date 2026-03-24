@@ -1,1 +1,1 @@
-{"version":3,"file":"SimbriefCommand.d.ts","sourceRoot":"","sources":["../../../src/cli/commands/SimbriefCommand.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,iBAAiB,EAAE,MAAM,cAAc,CAAC;AAGjD,qBAAa,eAAgB,SAAQ,iBAAiB;IAC9C,OAAO,IAAI,OAAO,CAAC,MAAM,CAAC;CAmCjC"}
+{"version":3,"file":"SimbriefCommand.d.ts","sourceRoot":"","sources":["../../../src/cli/commands/SimbriefCommand.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,iBAAiB,EAAE,MAAM,cAAc,CAAC;AAGjD,qBAAa,eAAgB,SAAQ,iBAAiB;IAC9C,OAAO,IAAI,OAAO,CAAC,MAAM,CAAC;CAqCjC"}

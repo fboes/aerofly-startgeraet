@@ -1,5 +1,5 @@
-import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.json" with { type: "json" };
 import { AeroflyMission, AeroflyMissionCheckpoint, AeroflyMissionConditions, AeroflyMissionConditionsCloud, AeroflyMissionsList, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, } from "@fboes/aerofly-custom-missions";
+import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 export class ExportFileAeroflyCustomMissionsTmcConverter {
     convert(flightplan) {
         // Build time and weather
@@ -23,7 +23,7 @@ export class ExportFileAeroflyCustomMissionsTmcConverter {
         const mission = new AeroflyMission(`From ${flightplan.navigation.waypoints[0]?.identifier} to ${flightplan.navigation.waypoints[flightplan.navigation.waypoints.length - 1]?.identifier}`, {
             aircraft: {
                 name: flightplan.aircraft.name,
-                icao: this.findAircraftData(flightplan.aircraft.name)?.icaoCode ?? "",
+                icao: AeroflyAircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
                 livery: flightplan.aircraft.paintscheme,
             },
             fuelMass: flightplan.fuelLoadSetting.fuelMass,
@@ -47,9 +47,6 @@ export class ExportFileAeroflyCustomMissionsTmcConverter {
             default:
                 return "waypoint";
         }
-    }
-    findAircraftData(aeroflyCodeAircraft) {
-        return AeroflyAircraftLiveries.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
     }
 }
 ExportFileAeroflyCustomMissionsTmcConverter.fileExtension = "tmc";

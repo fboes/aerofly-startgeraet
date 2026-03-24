@@ -1,15 +1,13 @@
+import { AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
 import { Point } from "@fboes/geojson";
 export class AeroflyFlightHelper {
-    constructor(aeroflyFlight) {
-        this.aeroflyFlight = aeroflyFlight;
-    }
     /**
      *
      * @returns in meters
      */
-    getFlightplanDistance() {
+    static getFlightplanDistance(aeroflyFlight) {
         let currentCoodinates = null;
-        return this.aeroflyFlight.navigation.waypoints.reduce((acc, routePoint) => {
+        return aeroflyFlight.navigation.waypoints.reduce((acc, routePoint) => {
             const newCoordinates = new Point(routePoint.longitude, routePoint.latitude);
             if (currentCoodinates) {
                 const vector = currentCoodinates.getVectorTo(newCoordinates);
@@ -18,5 +16,11 @@ export class AeroflyFlightHelper {
             currentCoodinates = newCoordinates;
             return acc;
         }, 0);
+    }
+    /**
+     * @returns nautical time zone offset based on the coordinates of the departure airport
+     */
+    static getDepartureTimeZone(aeroflyFlight) {
+        return Math.round((aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15);
     }
 }

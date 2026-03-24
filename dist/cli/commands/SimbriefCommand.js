@@ -1,3 +1,4 @@
+import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { CliFormatter } from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 import { input } from "@inquirer/prompts";
@@ -23,7 +24,7 @@ export class SimbriefCommand extends ControllerCommand {
         try {
             await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.config.simBriefWeatherFromDestination);
             CliFormatter.writeSuccess("Flightplan imported successfully");
-            CliFormatter.writeln(`Imported flightplan: ${this.controller.getFlightplanWaypointsString()}`);
+            CliFormatter.writeln(`Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`);
         }
         catch (error) {
             CliFormatter.writeCatch(error);

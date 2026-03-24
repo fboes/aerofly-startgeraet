@@ -7,6 +7,7 @@ import path from "node:path";
 import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { ExportFileAeroflyMainMcfExport } from "../../core/converter/ExportFileAeroflyMainMcfConverter.js";
 import { ExportFileAeroflyCustomMissionsTmcConverter } from "../../core/converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
+import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
@@ -35,19 +36,20 @@ export class MenuCommand extends ControllerCommand {
     }
     async mainMenu() {
         CliFormatter.showMenuTitle();
+        const aeroflyFlight = this.controller.getAeroflyFlight();
         const choices = [
             {
-                name: this.name("Aircraft", AeroflyFlightFormatter.getAircraft(this.controller.getCurrentAircraft(), this.controller.getCurrentLivery())),
+                name: this.name("Aircraft", AeroflyFlightFormatter.getAircraft(aeroflyFlight)),
                 value: "selectAircraft",
                 short: "Select aircraft",
             },
             {
-                name: this.name("Fuel / Payload", AeroflyFlightFormatter.getFuelAndPayload(this.controller.getAeroflyFlight()), true),
+                name: this.name("Fuel / Payload", AeroflyFlightFormatter.getFuelAndPayload(aeroflyFlight), true),
                 value: "setFuelAndPayload",
                 short: "Set fuel and payload",
             },
             {
-                name: this.name("Flightplan", this.controller.getFlightplanString()),
+                name: this.name("Flightplan", AeroflyFlightFormatter.getFlightplanSummary(aeroflyFlight)),
                 value: "importFlightplan",
                 short: "Import / export flightplan",
             },
@@ -57,19 +59,23 @@ export class MenuCommand extends ControllerCommand {
                 short: "Set time and date",
             },
             { name: "Weather", value: "importWeather", short: "Import weather" },
-            { name: this.name("Wind", this.controller.getWindString(), true), value: "setWind", short: "Set wind" },
             {
-                name: this.name("Temperature", this.controller.getTemperatureString(), true),
+                name: this.name("Wind", AeroflyFlightFormatter.getWind(aeroflyFlight), true),
+                value: "setWind",
+                short: "Set wind",
+            },
+            {
+                name: this.name("Temperature", AeroflyFlightFormatter.getTemperature(aeroflyFlight), true),
                 value: "setTemperature",
                 short: "Set thermal activity",
             },
             {
-                name: this.name("Clouds", this.controller.getCloudsString(), true),
+                name: this.name("Clouds", AeroflyFlightFormatter.getClouds(aeroflyFlight), true),
                 value: "setClouds",
                 short: "Set clouds",
             },
             {
-                name: this.name("Visibility", this.controller.getVisibilityString(), true),
+                name: this.name("Visibility", AeroflyFlightFormatter.getVisibility(aeroflyFlight), true),
                 value: "setVisibility",
                 short: "Set visibility",
             },
@@ -88,25 +94,26 @@ export class MenuCommand extends ControllerCommand {
         const aeroflyCodeAircraft = await select({
             message: "Aircraft",
             default: this.controller.getAircraft(),
-            choices: this.controller
-                .getAllAircraftData()
+            choices: AeroflyAircraftService.getAllAircraftLiveries()
                 .map((livery) => ({
                 name: livery.nameFull,
                 value: livery.aeroflyCode,
             }))
                 .sort((a, b) => a.name.localeCompare(b.name)),
         });
-        const liveries = this.controller.getAircraftLiveriesData(aeroflyCodeAircraft);
-        const aeroflyCodeLivery = await select({
-            message: "Aircraft livery",
-            default: this.controller.getLivery(),
-            choices: liveries
-                .map((livery) => ({
-                name: livery.name,
-                value: livery.aeroflyCode !== "default" ? livery.aeroflyCode : "",
-            }))
-                .sort((a, b) => a.name.localeCompare(b.name)),
-        });
+        const liveries = AeroflyAircraftService.getAircraft(aeroflyCodeAircraft)?.liveries ?? [];
+        const aeroflyCodeLivery = liveries
+            ? await select({
+                message: "Aircraft livery",
+                default: this.controller.getLivery(),
+                choices: liveries
+                    .map((livery) => ({
+                    name: livery.name,
+                    value: livery.aeroflyCode !== "default" ? livery.aeroflyCode : "",
+                }))
+                    .sort((a, b) => a.name.localeCompare(b.name)),
+            })
+            : "";
         this.controller.setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery);
         return "mainMenu";
     }
@@ -137,7 +144,7 @@ export class MenuCommand extends ControllerCommand {
     }
     async importFlightplan() {
         CliFormatter.showMenuTitle(["Import Flightplan"]);
-        CliFormatter.writeln(`Current flightplan: ${this.controller.getFlightplanWaypointsString()}`);
+        CliFormatter.writeln(`Current flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`);
         const simBriefUserName = this.controller.config.simBriefUserName;
         const importableFileChoices = this.controller
             .getImportFiles()
@@ -179,7 +186,7 @@ export class MenuCommand extends ControllerCommand {
             this.controller.importFlightplanFromFile(choice);
         }
         CliFormatter.writeSuccess("Flightplan imported successfully");
-        CliFormatter.writeln(`Imported flightplan: ${this.controller.getFlightplanWaypointsString()}`);
+        CliFormatter.writeln(`Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`);
         return "mainMenu";
     }
     async exportFlightplan() {
@@ -197,7 +204,7 @@ export class MenuCommand extends ControllerCommand {
                 },
             ],
         });
-        const fileNameDefault = `flight-${this.controller.getFlightplanDepartureAirportString()}-${this.controller.getFlightplanArrivalAirportString()}.${fileType}`.replace(/\s+/g, "-");
+        const fileNameDefault = `flight-${AeroflyFlightFormatter.getFlightplanIdentifier(this.controller.getAeroflyFlight())}.${fileType}`;
         const fileName = await input({
             message: "Enter file name to export flightplan",
             default: fileNameDefault,

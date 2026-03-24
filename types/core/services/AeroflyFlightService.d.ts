@@ -16,7 +16,6 @@ export type AeroflyFlightServiceCloud = {
  */
 export declare class AeroflyFlightService {
     readonly config: Config;
-    protected readonly aeroflyAircraftDatabase: AeroflyAircraft[];
     protected currentAircraft?: AeroflyAircraft;
     protected currentLivery?: AeroflyAircraftLivery;
     protected aeroflyFlight: AeroflyFlight;
@@ -24,11 +23,6 @@ export declare class AeroflyFlightService {
     constructor(config: Config);
     protected readMainMcf(): AeroflyFlight;
     getAeroflyFlight(): AeroflyFlight;
-    getCurrentAircraft(): AeroflyAircraft | undefined;
-    getCurrentLivery(): AeroflyAircraftLivery | undefined;
-    getAircraftLiveriesData(aeroflyCodeAircraft: string): AeroflyAircraftLivery[];
-    findAircraftData(aeroflyCodeAircraft: string): AeroflyAircraft | undefined;
-    getAllAircraftData(): AeroflyAircraft[];
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): void;
     getAircraft(): string;
     getLivery(): string;
@@ -43,13 +37,6 @@ export declare class AeroflyFlightService {
      */
     getMaxRemainingPayload(): number;
     getMaxFuel(): number;
-    getFlightplanString(): string;
-    getFlightplanWaypointsString(): string;
-    /**
-     * @returns in meters
-     */
-    getFlightplanDistance(): number;
-    getFlightplanDistanceString(): string;
     getFlightplanDepartureAirport(): AeroflyNavRouteOrigin | undefined;
     getFlightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined;
     getFlightplanDepartureAirportString(): string;
@@ -73,29 +60,19 @@ export declare class AeroflyFlightService {
      * @returns e.g. "UTC" or "UTC+2" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneUTCString(): string;
-    /**
-     * @returns nautical time zone offset based on the coordinates of the departure airport
-     */
-    getDepartureTimeZone(): number;
     setWeatherFromMETAR(airportCode: string): Promise<void>;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;
     getWindSpeed(): number;
     getWindGusts(): number;
-    getWindString(): string;
     setVisibilitySM(visibilitySM: number): void;
     setVisibilityM(visibilityM: number): void;
     getVisibilitySM(): number;
     getVisibilityM(): number;
-    getVisibilityString(): string;
     setTemperature(temperatureCelsius: number): void;
     getTemperature(): number;
-    getTemperatureString(): string;
     setClouds(clouds: AeroflyFlightServiceCloud[]): void;
     getClouds(): AeroflyFlightServiceCloud[];
-    getCloudsString(): string;
     writeFile(): void;
-    protected numberToString(num: number): string;
-    protected dateToString(date: Date): string;
 }
 //# sourceMappingURL=AeroflyFlightService.d.ts.map

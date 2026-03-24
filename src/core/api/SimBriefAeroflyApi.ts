@@ -13,11 +13,8 @@ import {
   AeroflyNavRouteDestinationRunway,
   AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-
-import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.json" with { type: "json" };
-import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-
 import { SimBriefApi, SimBriefApiPayload, SimBriefApiPayloadAirport } from "./SimBriefApi.js";
+import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
   public async fetchMission(
@@ -157,16 +154,15 @@ export class SimBriefAeroflyApi extends SimBriefApi {
     aeroflyAircraftCode: string;
     aeroflyAircraftLivery: string;
   } {
-    const aeroflyAircraft = AeroflyAircraftLiveries.find(
-      (a: AeroflyAircraft) => a.icaoCode.toLowerCase() === simbriefIcaoCode.toLowerCase(),
-    );
+    const aeroflyAircraft = AeroflyAircraftService.getAircraftByIcaoCode(simbriefIcaoCode);
     if (!aeroflyAircraft) {
       throw new Error(`Could not find matching Aerofly aircraft for SimBrief ICAO code ${simbriefIcaoCode}`);
     }
 
-    const aeroflyAircraftLivery = aeroflyAircraft.liveries
-      .filter((l: AeroflyAircraftLivery) => l.icaoCode != null)
-      .find((l: AeroflyAircraftLivery) => l.icaoCode?.toUpperCase() === simbriefAirlineCode.toUpperCase());
+    const aeroflyAircraftLivery = AeroflyAircraftService.getLiveryForAircraftByIcaoCode(
+      aeroflyAircraft,
+      simbriefAirlineCode,
+    );
 
     return {
       aeroflyAircraftCode: aeroflyAircraft.aeroflyCode,
