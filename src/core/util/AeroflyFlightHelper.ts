@@ -1,6 +1,9 @@
 import { AeroflyFlight, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
 import { Point } from "@fboes/geojson";
 
+/**
+ * Offer additional properties derived from `AeroflyFlight` classes
+ */
 export class AeroflyFlightHelper {
   /**
    *

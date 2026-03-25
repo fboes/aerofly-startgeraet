@@ -4,6 +4,9 @@ import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.j
 import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
+/**
+ * Finds local flight plan files
+ */
 export class ImportFileFinderService {
     constructor(config) {
         this.config = config;

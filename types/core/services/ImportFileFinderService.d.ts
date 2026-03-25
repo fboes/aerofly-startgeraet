@@ -1,4 +1,7 @@
 import { Config } from "../io/Config.js";
+/**
+ * Finds local flight plan files
+ */
 export declare class ImportFileFinderService {
     private config;
     constructor(config: Config);

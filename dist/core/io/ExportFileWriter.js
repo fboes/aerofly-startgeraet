@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import { ExportFileAeroflyMainMcfExport } from "../converter/ExportFileAeroflyMainMcfConverter.js";
 import { ExportFileAeroflyCustomMissionsTmcConverter } from "../converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
+/**
+ * Writes a file from an `AeroflyFlight` class instance to an
+ * external flight plan file by selecting the appropriate converter.
+ */
 export class ExportFileWriter {
     static exportFlightplanToFile(filename, flightplan) {
         const converter = this.getConverter(filename);

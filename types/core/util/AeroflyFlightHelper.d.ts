@@ -1,4 +1,7 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+/**
+ * Offer additional properties derived from `AeroflyFlight` classes
+ */
 export declare class AeroflyFlightHelper {
     /**
      *

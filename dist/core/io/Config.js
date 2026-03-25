@@ -2,6 +2,10 @@ import Conf from "conf";
 import os from "node:os";
 import path from "node:path";
 import fs from "fs";
+/**
+ * Main application configuration. Includes configuration properties
+ * as well as persistence handler.
+ */
 export class Config {
     constructor(projectName = "startgeraet") {
         this.conf = new Conf({ projectName });

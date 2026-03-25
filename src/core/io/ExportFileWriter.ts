@@ -4,6 +4,10 @@ import { ExportFileAeroflyMainMcfExport } from "../converter/ExportFileAeroflyMa
 import { ExportFileConverter } from "../converter/ExportFileConverter.js";
 import { ExportFileAeroflyCustomMissionsTmcConverter } from "../converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
 
+/**
+ * Writes a file from an `AeroflyFlight` class instance to an
+ * external flight plan file by selecting the appropriate converter.
+ */
 export class ExportFileWriter {
   static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void {
     const converter = this.getConverter(filename);

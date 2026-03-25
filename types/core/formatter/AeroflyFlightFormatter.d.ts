@@ -1,4 +1,7 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+/**
+ * Additional methods to have human-readable representations of `AeroflyFlight` properties.
+ */
 export declare class AeroflyFlightFormatter {
     static getAircraft(aeroflyFlight: AeroflyFlight): string;
     static getFuelAndPayload(aeroflyFlight: AeroflyFlight): string;

@@ -7,6 +7,9 @@ import { AeroflyMainConfigParser } from "../converter/AeroflyMainConfigParser.js
 
 export class AeroflyMainConfigReaderError extends Error {}
 
+/**
+ * Reader to convert `main.mcf` file into `AeroflyFlight` class instance.
+ */
 export class AeroflyMainConfigReader {
   mainCfgFileName: string;
 

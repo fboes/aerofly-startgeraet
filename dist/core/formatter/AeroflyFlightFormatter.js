@@ -1,6 +1,9 @@
 import { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
 import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
+/**
+ * Additional methods to have human-readable representations of `AeroflyFlight` properties.
+ */
 export class AeroflyFlightFormatter {
     static getAircraft(aeroflyFlight) {
         const currentAircraft = AeroflyAircraftService.getAircraft(aeroflyFlight.aircraft.name);

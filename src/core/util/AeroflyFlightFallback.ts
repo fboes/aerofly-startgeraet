@@ -9,6 +9,9 @@ import {
   AeroflyTimeUtc,
 } from "@fboes/aerofly-custom-missions";
 
+/**
+ * `AeroflyFlight` class with default flight plan
+ */
 export class AeroflyFlightFallback extends AeroflyFlight {
   constructor() {
     super(

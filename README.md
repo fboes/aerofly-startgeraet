@@ -10,13 +10,18 @@ What does the Aerofly Startgerät do?
 - Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/).
 - Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
 - Import a flight plan from flight plan file formats from a local import directory.
+- Export a flight plan to a local export directory for later re-import.
 
-Supported flight plan file formats:
+Supported flight plan file formats for import:
 
 - Aerofly FS `mcf`
 - Garmin `fpl`
 - Microsoft Flight Simulator `pln`
 - X-Plane `fms`
+
+Supported flight plan file formats for export:
+
+- Aerofly FS `tmc` and `mcf`
 
 In this manner the Aerofly Startgerät combines the capabilities of the [Aerofly Wettergerät](https://github.com/fboes/aerofly-wettergeraet) (but for multiple operating systems) and the [Aerofly Missionsgerät](https://github.com/fboes/aerofly-missions) (but directly injecting the new flight plan without any extra steps in-between).
 

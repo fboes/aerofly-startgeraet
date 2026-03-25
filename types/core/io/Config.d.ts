@@ -1,3 +1,7 @@
+/**
+ * Main application configuration. Includes configuration properties
+ * as well as persistence handler.
+ */
 export declare class Config {
     private conf;
     constructor(projectName?: string);

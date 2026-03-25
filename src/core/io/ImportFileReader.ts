@@ -6,6 +6,10 @@ import { ImportFileConverter } from "../converter/ImportFileConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
 
+/**
+ * Reads a file and converts it into `AeroflyFlight` by selecting the
+ * appropriate converter class.
+ */
 export class ImportFileReader {
   /**
    * Imports a flight plan from a file and converts it to an AeroflyFlight object.

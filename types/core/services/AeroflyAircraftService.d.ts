@@ -1,4 +1,8 @@
 import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+/**
+ * Find detail data for Aerofly FS aircraft and liveries.
+ * Interface to `@fboes/aerofly-data` JSON data.
+ */
 export declare class AeroflyAircraftService {
     static getAllAircraftLiveries(): AeroflyAircraft[];
     static getAircraft(aeroflyCodeAircraft: string): AeroflyAircraft | undefined;

@@ -3,6 +3,9 @@ import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
+/**
+ * Additional methods to have human-readable representations of `AeroflyFlight` properties.
+ */
 export class AeroflyFlightFormatter {
   static getAircraft(aeroflyFlight: AeroflyFlight): string {
     const currentAircraft = AeroflyAircraftService.getAircraft(aeroflyFlight.aircraft.name);
