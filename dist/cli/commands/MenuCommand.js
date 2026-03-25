@@ -146,15 +146,7 @@ export class MenuCommand extends ControllerCommand {
         CliFormatter.showMenuTitle(["Import Flightplan"]);
         CliFormatter.writeln(`Current flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`);
         const simBriefUserName = this.controller.config.simBriefUserName;
-        const importableFileChoices = this.controller
-            .getImportFiles()
-            ?.map((file) => ({ name: `Import from file ${file}`, value: file })) ?? [
-            {
-                name: "No local import files found",
-                value: "",
-                disabled: true,
-            },
-        ];
+        const importableFileChoices = this.controller.getImportFiles()?.map((file) => ({ name: `Import from file ${file}`, value: file })) ?? [];
         const choice = await select({
             message: "Import",
             choices: [
@@ -165,7 +157,18 @@ export class MenuCommand extends ControllerCommand {
                     value: "simbrief",
                     disabled: !simBriefUserName,
                 },
-                ...importableFileChoices,
+                importableFileChoices.length === 1
+                    ? importableFileChoices[0]
+                    : {
+                        name: "Import local files",
+                        value: "localFiles",
+                        disabled: importableFileChoices.length === 1,
+                    },
+                {
+                    name: "Mission generator",
+                    value: "missionGenerator",
+                    disabled: true,
+                },
                 {
                     name: "Export current flightplan to file",
                     value: "exportFlightplan",
@@ -182,8 +185,14 @@ export class MenuCommand extends ControllerCommand {
             await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.config.simBriefWeatherFromDestination);
         }
         else {
-            CliFormatter.writeln(`Importing flightplan from file ${choice}...`);
-            this.controller.importFlightplanFromFile(choice);
+            const filename = choice === "localFiles"
+                ? await select({
+                    message: "Local files for import",
+                    choices: importableFileChoices,
+                })
+                : choice;
+            CliFormatter.writeln(`Importing flightplan from file ${filename}...`);
+            this.controller.importFlightplanFromFile(filename);
         }
         CliFormatter.writeSuccess("Flightplan imported successfully");
         CliFormatter.writeln(`Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`);
