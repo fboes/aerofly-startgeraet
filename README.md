@@ -1,13 +1,13 @@
 # Aerofly Startgerät
 
-> Giving you more comprehensive options to set-up flights in Aerofly Flight Simulator 4, including import of flight plans and weather.
+> Giving you more comprehensive options to set-up flights in [Aerofly Flight Simulator 4](https://www.aerofly.com/), including import of flight plans and weather.
 
-What does the Aerofly Startgerät do?
+Introducing the Aerofly Startgerät as an extended (if somewhat ugly) main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
 
-- Change aircraft as well as set-up fuel and payload.
+- Change aircraft, livery as well as set-up fuel and payload.
+- Manually set time and date (in UTC or the current departure airport time zone) - or syncrhonize the time & date in Aerofly FS4 to to the current time & date.
 - Change weather with settings in feet, statute miles and other meaningful units.
-- Change time and date (in UTC or the current departure airport time zone), or syncing the date to the current time and date.
-- Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/).
+- Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/). Weather can be imported for up to two weeks in the past, for almost any bigger airport around the globe.
 - Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
 - Import a flight plan from flight plan file formats from a local import directory.
 - Export a flight plan to a local export directory for later re-import.
@@ -15,15 +15,21 @@ What does the Aerofly Startgerät do?
 Supported flight plan file formats for import:
 
 - Aerofly FS `mcf`
-- Garmin `fpl`
-- Microsoft Flight Simulator `pln`
-- X-Plane `fms`
+- Garmin / Infinite flight `fpl`
+- Microsoft Flight Simulator 2020 / 2024 `pln`
+- X-Plane 11 / 12 `fms`
 
 Supported flight plan file formats for export:
 
 - Aerofly FS `tmc` and `mcf`
 
+All off these changes are directly written to Aerofly's `main.mcf` main configuration file and are available on the next start-up of Aerofly FS 4.
+
 In this manner the Aerofly Startgerät combines the capabilities of the [Aerofly Wettergerät](https://github.com/fboes/aerofly-wettergeraet) (but for multiple operating systems) and the [Aerofly Missionsgerät](https://github.com/fboes/aerofly-missions) (but directly injecting the new flight plan without any extra steps in-between).
+
+This tool also comes with non-interactive short-cuts to simply import SimBrief flight plans, synchronizing time & date and fetching the latest METAR information.
+
+The Aerofly Startgerät is a stand-alone application, and is not directly integrated into Aerofly FS 4.
 
 ## Requirements
 
@@ -34,7 +40,7 @@ This tool requires [Node.js](https://nodejs.org/en) in at least version 20 to be
 3. Run the installer and follow the setup wizard
 4. Open your terminal application and verify the correct installation: `node --version`
 
-Be aware that this is only feasible on computers running Microsoft Windows, Apple OSX and Linux.
+This application suuports computers running Microsoft Windows, Apple OSX and Linux.
 
 The Aerofly Startgerät is a Command Line Interface (CLI) tool, which means you need to open a terminal to run it. The tool itself does not need to be installed, as the Node.js tool `npx` will take care of downloading as well as executing the Aerofly Startgerät.
 
@@ -91,13 +97,13 @@ See the [Aerofly Startgerät CLI Menu Manual](./docs/cli-menu.md) for details.
 There are also short-hand CLI commands which solve a single task without any user interaction:
 
 ```bash
-# Import SimBrief flightplan
+# Import current SimBrief flightplan
 npx @fboes/aerofly-startgeraet@latest simbrief
 
-# Import METAR weather for current depsrture airport & time
+# Import METAR weather for current departure airport , time & date
 npx @fboes/aerofly-startgeraet@latest metar
 
-# Set time to current time
+# Set simulator time & date to current time & date
 npx @fboes/aerofly-startgeraet@latest time
 ```
 

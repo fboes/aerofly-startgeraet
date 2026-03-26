@@ -5,7 +5,7 @@ import { ExportFileConverter } from "../converter/ExportFileConverter.js";
  * external flight plan file by selecting the appropriate converter.
  */
 export declare class ExportFileWriter {
-    static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void;
-    static getConverter(filename: string): new () => ExportFileConverter;
+  static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void;
+  static getConverter(filename: string): new () => ExportFileConverter;
 }
 //# sourceMappingURL=ExportFileWriter.d.ts.map
