@@ -1,6 +1,6 @@
 {
   "name": "@fboes/aerofly-startgeraet",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Giving you more comprehensive options to set-up flights in Aerofly Flight Simulator 4, including import of flight plans and weather.",
   "main": "./dist/cli/index.js",
   "scripts": {
