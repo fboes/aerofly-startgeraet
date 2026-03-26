@@ -1,4 +1,4 @@
-# Aerofly Startgerät Roadmap
+# Aerofly Startgerät - Roadmap
 
 This application will grow in multiple steps:
 

@@ -1,8 +1,8 @@
 # Aerofly Startgerät
 
-> Giving you more comprehensive options to set-up flights in [Aerofly Flight Simulator 4](https://www.aerofly.com/), including import of flight plans and weather.
+> The Auxilary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units, import of weather and flight plans.
 
-Introducing the Aerofly Startgerät as an extended (if somewhat ugly) main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
+Introducing the Aerofly Startgerät as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
 
 - Change aircraft, livery as well as set-up fuel and payload.
 - Manually set time and date (in UTC or the current departure airport time zone) - or syncrhonize the time & date in Aerofly FS4 to to the current time & date.
@@ -114,6 +114,8 @@ npx @fboes/aerofly-startgeraet@latest time
 1. Importing of SIDs and STARs is not possible, so you will also need to add these manually in Aerofly FS 4.
 1. The Aerofly Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
 1. The mapping of aircrafts & airlines from Simbrief import relies on the correct ICAO code of the aircraft being chosen.
+
+See also [the instructions on ow to import flight plans](./docs/flight-plan-import.md).
 
 ## Technical stuff
 

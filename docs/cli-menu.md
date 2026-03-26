@@ -1,4 +1,4 @@
-# Aerofly Startgerät CLI Menu Options
+# Aerofly Startgerät - CLI Menu Options
 
 This document explains how to use the interactive Aerofly Startgerät command-line menu and what each option does.
 
