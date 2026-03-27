@@ -1,6 +1,6 @@
 # Aerofly Startgerät
 
-> The Auxilary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units, import of weather and flight plans.
+> The Auxilary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units and import functionality for weather and flight plans.
 
 Introducing the Aerofly Startgerät as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
 

@@ -1,7 +1,7 @@
 {
   "name": "@fboes/aerofly-startgeraet",
   "version": "1.2.0",
-  "description": "The Auxilary Power Unit for Aerofly Flight Simulator 4: Improving the main menu with meaningful units, import of weather and flight plans.",
+  "description": "The Auxilary Power Unit for Aerofly Flight Simulator 4: Improving the main menu with meaningful units and import functionality for weather and flight plans.",
   "main": "./dist/cli/index.js",
   "scripts": {
     "test": "node --test 'dist/**/*.test.js'",
