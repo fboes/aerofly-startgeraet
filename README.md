@@ -115,7 +115,7 @@ npx @fboes/aerofly-startgeraet@latest time
 1. The Aerofly Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
 1. The mapping of aircrafts & airlines from Simbrief import relies on the correct ICAO code of the aircraft being chosen.
 
-See also [the instructions on ow to import flight plans](./docs/flight-plan-import.md).
+See also [the instructions on how to import flight plans](./docs/flight-plan-import.md).
 
 ## Technical stuff
 

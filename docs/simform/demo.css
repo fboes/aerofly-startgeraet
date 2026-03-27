@@ -1,0 +1,49 @@
+html {
+  color-scheme: light dark;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  border-bottom: 1px solid;
+}
+h2 {
+  margin-top: 2em;
+}
+
+h4 {
+  margin: 0;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  align-items: flex-start;
+}
+section > * {
+  flex: 1 0 10em;
+  text-align: center;
+}
+
+main {
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 1em;
+}
+main > * + * {
+  margin-top: 2em;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  max-width: 20em;
+}
+
+output {
+  font-weight: bold;
+}

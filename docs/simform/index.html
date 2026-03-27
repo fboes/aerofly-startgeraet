@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Simulator Form Elements</title>
+    <meta
+      name="description"
+      content="Web components for HTML Simulator Form Elements."
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="./simform.css" />
+    <link rel="stylesheet" href="./demo.css" />
+    <script type="module" src="./simform.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Simulator Form Elements</h1>
+      <p>Web components for HTML Simulator Form Elements.</p>
+    </header>
+
+    <main>
+      <section>
+        <div>
+          <h4>Time</h4>
+          <simform-input-round
+            id="time"
+            max="1440"
+            value="360"
+            ticks="24"
+          ></simform-input-round>
+        </div>
+
+        <div>
+          <h4>Date</h4>
+          <simform-input-round
+            id="date"
+            max="365"
+            value="180"
+            ticks="12"
+          ></simform-input-round>
+        </div>
+      </section>
+
+      <simform-output-datetime
+        id="datetime"
+        offset="-7"
+        no-year="true"
+      ></simform-output-datetime>
+
+      <section>
+        <div>
+          <h4>Wind</h4>
+          <simform-input-round
+            id="wind"
+            max="360"
+            value="45"
+            max2="40"
+            value2="20"
+            ticks="8"
+          ></simform-input-round>
+          <p>The wind is coming from <output id="windy"></output>.</p>
+        </div>
+
+        <div>
+          <h4>Cloud coverage</h4>
+          <simform-input-quad
+            id="cloud"
+            max="100"
+            value="50"
+            max2="500"
+            value2="100"
+            ticks="8"
+            ticks2="5"
+          ></simform-input-quad>
+          <p>The cloud coverage is <output id="cloudy"></output> AGL.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
