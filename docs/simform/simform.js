@@ -53,36 +53,28 @@ export class SimformInputRound extends HTMLElement {
             centerCoordinate - this.railRadius - tickLength * 2
           } v ${-tickLength}" stroke="black" transform="rotate(${
             tick * degreePerTick
-          } ${centerCoordinate} ${centerCoordinate})"/>`
+          } ${centerCoordinate} ${centerCoordinate})"/>`,
         );
       }
     }
 
     if (this._max2) {
       svgTicks.push(
-        `<circle class="tick" cx="${centerCoordinate}" cy="${centerCoordinate}" r="0.5" stroke="black" fill="none"/>`
+        `<circle class="tick" cx="${centerCoordinate}" cy="${centerCoordinate}" r="0.5" stroke="black" fill="none"/>`,
       );
     }
 
-    let svg = `<svg width="${this._width}" height="${
-      this._width
-    }" version="1.1" viewBox="0 0 ${this._width} ${
+    let svg = `<svg width="${this._width}" height="${this._width}" version="1.1" viewBox="0 0 ${this._width} ${
       this._width
     }" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
-    <circle class="rail${
-      this._max2 ? " rail--filled" : ""
-    }" cx="${centerCoordinate}" cy="${centerCoordinate}" r="${
+    <circle class="rail${this._max2 ? " rail--filled" : ""}" cx="${centerCoordinate}" cy="${centerCoordinate}" r="${
       this.railRadius
     }" stroke="black" fill="${this._max2 ? "white" : "none"}" />
-    <circle class="default${
-      this._max2 ? " default--filled" : ""
-    }" cx="${centerCoordinate}" cy="${
+    <circle class="default${this._max2 ? " default--filled" : ""}" cx="${centerCoordinate}" cy="${
       centerCoordinate - this.railRadius
     }" r="0.5" stroke="white" fill="none"/>
     <g class="ticks">${svgTicks.join("\n")}</g>
-    <circle class="knob" cx="${centerCoordinate}" cy="${centerCoordinate}" r="${
-      this._knobDiameter / 2
-    }" />
+    <circle class="knob" cx="${centerCoordinate}" cy="${centerCoordinate}" r="${this._knobDiameter / 2}" />
 </svg>`;
 
     this.innerHTML = svg;
@@ -184,7 +176,7 @@ export class SimformInputRound extends HTMLElement {
         detail: {
           value: this._value,
         },
-      })
+      }),
     );
     this.setKnob();
   }
@@ -200,7 +192,7 @@ export class SimformInputRound extends HTMLElement {
         detail: {
           value2: this._value2,
         },
-      })
+      }),
     );
     this.setKnob();
   }
@@ -255,8 +247,7 @@ export class SimformInputRound extends HTMLElement {
     const clientX = e.touches?.item(0)?.clientX ?? e.clientX;
     const clientY = e.touches?.item(0)?.clientY ?? e.clientY;
 
-    const rect =
-      this.rail?.getBoundingClientRect() ?? this.getBoundingClientRect();
+    const rect = this.rail?.getBoundingClientRect() ?? this.getBoundingClientRect();
     const x = clientX - rect.x - rect.width / 2;
     const y = -(clientY - rect.y - rect.height / 2);
     const angle = Math.atan2(x, y);
@@ -278,19 +269,12 @@ export class SimformInputRound extends HTMLElement {
       return;
     }
 
-    const railRadius =
-      this.railRadius * (this._max2 ? this._value2 / this._max2 : 1);
+    const railRadius = this.railRadius * (this._max2 ? this._value2 / this._max2 : 1);
     const centerCoordinate = this.centerCoordinate;
     const angle = (360 * this._value) / this._max;
 
-    this.knob.setAttribute(
-      "cx",
-      centerCoordinate + Math.sin((angle / 180) * Math.PI) * railRadius
-    );
-    this.knob.setAttribute(
-      "cy",
-      centerCoordinate - Math.cos((angle / 180) * Math.PI) * railRadius
-    );
+    this.knob.setAttribute("cx", centerCoordinate + Math.sin((angle / 180) * Math.PI) * railRadius);
+    this.knob.setAttribute("cy", centerCoordinate - Math.cos((angle / 180) * Math.PI) * railRadius);
   }
 
   setDefaultMarker() {
@@ -298,19 +282,12 @@ export class SimformInputRound extends HTMLElement {
       return;
     }
 
-    const railRadius =
-      this.railRadius * (this._max2 ? this._default2 / this._max2 : 1);
+    const railRadius = this.railRadius * (this._max2 ? this._default2 / this._max2 : 1);
     const centerCoordinate = this.centerCoordinate;
     const angle = (360 * this._default) / this._max;
 
-    this.defaultMarker.setAttribute(
-      "cx",
-      centerCoordinate + Math.sin((angle / 180) * Math.PI) * railRadius
-    );
-    this.defaultMarker.setAttribute(
-      "cy",
-      centerCoordinate - Math.cos((angle / 180) * Math.PI) * railRadius
-    );
+    this.defaultMarker.setAttribute("cx", centerCoordinate + Math.sin((angle / 180) * Math.PI) * railRadius);
+    this.defaultMarker.setAttribute("cy", centerCoordinate - Math.cos((angle / 180) * Math.PI) * railRadius);
   }
 
   get centerCoordinate() {
@@ -340,9 +317,7 @@ export class SimformInputQuad extends SimformInputRound {
       : `M ${realPadding} ${outerEdge} L${outerEdge} ${outerEdge}`;
     const svgTicks = [];
     const clickBox = this._max2
-      ? `<rect x="${realPadding}" y="${realPadding}" width="${
-          outerEdge - realPadding
-        }" height="${
+      ? `<rect x="${realPadding}" y="${realPadding}" width="${outerEdge - realPadding}" height="${
           outerEdge - realPadding
         }" fill="transparent" stroke="none" class="rail rail--filled" />`
       : "";
@@ -353,9 +328,7 @@ export class SimformInputQuad extends SimformInputRound {
       for (let tick = 0; tick <= this._ticks; tick++) {
         const x = outerEdge - tickDistance * tick;
         svgTicks.push(
-          `<path class="tick" d="M ${x} ${
-            this._width - this._padding
-          } v ${-tickLength}" stroke="black" />`
+          `<path class="tick" d="M ${x} ${this._width - this._padding} v ${-tickLength}" stroke="black" />`,
         );
       }
     }
@@ -365,17 +338,11 @@ export class SimformInputQuad extends SimformInputRound {
       const tickLength = this._knobDiameter / 5;
       for (let tick = 0; tick <= this._ticks2; tick++) {
         const x = outerEdge - tickDistance * tick;
-        svgTicks.push(
-          `<path class="tick" d="M ${
-            this._padding
-          } ${x}  h ${-tickLength}" stroke="black" />`
-        );
+        svgTicks.push(`<path class="tick" d="M ${this._padding} ${x}  h ${-tickLength}" stroke="black" />`);
       }
     }
 
-    let svg = `<svg width="${this._width}" height="${
-      this._width
-    }" version="1.1" viewBox="0 0 ${this._width} ${
+    let svg = `<svg width="${this._width}" height="${this._width}" version="1.1" viewBox="0 0 ${this._width} ${
       this._width
     }" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
     <line x1="${
@@ -384,9 +351,7 @@ export class SimformInputQuad extends SimformInputRound {
     <path class="rail" d="${pathInstructions}" stroke="black" fill="none" />
     ${clickBox}
     <g class="ticks">${svgTicks.join("\n")}</g>
-    <circle class="knob" cx="${realPadding}" cy="${realPadding}" r="${
-      this._knobDiameter / 2
-    }" />
+    <circle class="knob" cx="${realPadding}" cy="${realPadding}" r="${this._knobDiameter / 2}" />
 </svg>`;
 
     this.innerHTML = svg;
@@ -404,7 +369,7 @@ export class SimformInputQuad extends SimformInputRound {
         detail: {
           value: this._value,
         },
-      })
+      }),
     );
     this.setKnob();
   }
@@ -421,8 +386,7 @@ export class SimformInputQuad extends SimformInputRound {
     const clientX = e.touches?.item(0)?.clientX ?? e.clientX;
     const clientY = e.touches?.item(0)?.clientY ?? e.clientY;
 
-    const rect =
-      this.rail?.getBoundingClientRect() ?? this.getBoundingClientRect();
+    const rect = this.rail?.getBoundingClientRect() ?? this.getBoundingClientRect();
     const x = clientX - rect.x;
     const y = clientY - rect.y;
 
@@ -440,24 +404,15 @@ export class SimformInputQuad extends SimformInputRound {
     const realPadding = this.realPadding;
     const range = this._width - realPadding * 2;
 
-    this.knob.setAttribute(
-      "cx",
-      realPadding + (this._value / this._max) * range
-    );
+    this.knob.setAttribute("cx", realPadding + (this._value / this._max) * range);
 
     const percentage = (this._value ?? 0) / (this._max ?? 1);
     const percentage2 = (this._value2 ?? 0) / (this._max2 ?? 1);
-    this.knob.setAttribute(
-      "cy",
-      this._width - realPadding - percentage2 * range
-    );
+    this.knob.setAttribute("cy", this._width - realPadding - percentage2 * range);
 
     const y = this._width - realPadding - percentage2 * range;
     this.percentage?.setAttribute("y1", y);
-    this.percentage?.setAttribute(
-      "x2",
-      realPadding + (this._value / this._max) * range
-    );
+    this.percentage?.setAttribute("x2", realPadding + (this._value / this._max) * range);
     this.percentage?.setAttribute("y2", y);
     this.percentage?.setAttribute("style", `--opacity:${percentage}`);
   }
@@ -471,12 +426,7 @@ customElements.define("simform-input-quad", SimformInputQuad);
 // -----------------------------------------------------------------------------
 
 export class SimformOutputDatetime extends HTMLElement {
-  static observedAttributes = [
-    "value-hour",
-    "value-dayofyear",
-    "offset",
-    "no-year",
-  ];
+  static observedAttributes = ["value-hour", "value-dayofyear", "offset", "no-year"];
 
   _output;
   _output2;

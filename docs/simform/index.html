@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Simulator Form Elements</title>
-    <meta
-      name="description"
-      content="Web components for HTML Simulator Form Elements."
-    />
+    <meta name="description" content="Web components for HTML Simulator Form Elements." />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="./simform.css" />
     <link rel="stylesheet" href="./demo.css" />
@@ -22,42 +19,21 @@
       <section>
         <div>
           <h4>Time</h4>
-          <simform-input-round
-            id="time"
-            max="1440"
-            value="360"
-            ticks="24"
-          ></simform-input-round>
+          <simform-input-round id="time" max="1440" value="360" ticks="24"></simform-input-round>
         </div>
 
         <div>
           <h4>Date</h4>
-          <simform-input-round
-            id="date"
-            max="365"
-            value="180"
-            ticks="12"
-          ></simform-input-round>
+          <simform-input-round id="date" max="365" value="180" ticks="12"></simform-input-round>
         </div>
       </section>
 
-      <simform-output-datetime
-        id="datetime"
-        offset="-7"
-        no-year="true"
-      ></simform-output-datetime>
+      <simform-output-datetime id="datetime" offset="-7" no-year="true"></simform-output-datetime>
 
       <section>
         <div>
           <h4>Wind</h4>
-          <simform-input-round
-            id="wind"
-            max="360"
-            value="45"
-            max2="40"
-            value2="20"
-            ticks="8"
-          ></simform-input-round>
+          <simform-input-round id="wind" max="360" value="45" max2="40" value2="20" ticks="8"></simform-input-round>
           <p>The wind is coming from <output id="windy"></output>.</p>
         </div>
 

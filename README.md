@@ -1,11 +1,11 @@
 # Aerofly Startgerät
 
-> The Auxilary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units and import functionality for weather and flight plans.
+> The Auxiliary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units and import functionality for weather and flight plans.
 
 Introducing the Aerofly Startgerät as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
 
 - Change aircraft, livery as well as set-up fuel and payload.
-- Manually set time and date (in UTC or the current departure airport time zone) - or syncrhonize the time & date in Aerofly FS4 to to the current time & date.
+- Manually set time and date (in UTC or the current departure airport time zone) - or synchronize the time & date in Aerofly FS4 to to the current time & date.
 - Change weather with settings in feet, statute miles and other meaningful units.
 - Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/). Weather can be imported for up to two weeks in the past, for almost any bigger airport around the globe.
 - Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
@@ -40,7 +40,7 @@ This tool requires [Node.js](https://nodejs.org/en) in at least version 20 to be
 3. Run the installer and follow the setup wizard
 4. Open your terminal application and verify the correct installation: `node --version`
 
-This application suuports computers running Microsoft Windows, Apple OSX and Linux.
+This application supports computers running Microsoft Windows, Apple OSX and Linux.
 
 The Aerofly Startgerät is a Command Line Interface (CLI) tool, which means you need to open a terminal to run it. The tool itself does not need to be installed, as the Node.js tool `npx` will take care of downloading as well as executing the Aerofly Startgerät.
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+- Added airport output
+
+## [1.2.1]
+
+- Added GUI studies
+
 ## [1.2.0]
 
 - Refactored aircraft / livery data access
@@ -14,3 +22,4 @@
 ## [1.0.0]
 
 - Initial commit
+  i
