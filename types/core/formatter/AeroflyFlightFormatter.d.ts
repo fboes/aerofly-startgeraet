@@ -7,7 +7,10 @@ export declare class AeroflyFlightFormatter {
   static getFuelAndPayload(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanIdentifier(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanOriginCode(aeroflyFlight: AeroflyFlight): string;
+  static getFlightplanOriginName(aeroflyFlight: AeroflyFlight): string;
+  static getAirportName(airportCode: string): string;
   static getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string;
+  static getFlightplanDestinationName(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanSummary(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanDistance(aeroflyFlight: AeroflyFlight): string;

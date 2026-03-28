@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Added airport output
+- Fixed cruise altitude for SimBrief flight plans
 
 ## [1.2.1]
 
@@ -22,4 +23,3 @@
 ## [1.0.0]
 
 - Initial commit
-  i

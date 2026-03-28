@@ -24,7 +24,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         flight.fuelLoadSetting = new AeroflySettingsFuelLoad(aeroflyAircraftCode, Number(simbriefPayload.fuel.plan_ramp), Number(simbriefPayload.weights.payload), "Keep");
         flight.timeUtc = new AeroflyTimeUtc(new Date(simbriefPayload.times.sched_out));
         const waypoints = this.getWaypointsFromNavlog(simbriefPayload);
-        flight.navigation = new AeroflyNavigationConfig(waypoints.reduce((acc, wp) => Math.max(acc + (wp.altitude ?? 0)), 0), // max altitude of all waypoints for cruise altitude
+        flight.navigation = new AeroflyNavigationConfig(waypoints.reduce((acc, wp) => Math.max(acc, (wp.altitude ?? 0)), 0), // max altitude of all waypoints for cruise altitude
         [
             new AeroflyNavRouteOrigin(simbriefPayload.origin.icao_code, Number(simbriefPayload.origin.pos_long), Number(simbriefPayload.origin.pos_lat), {
                 elevation_ft: Number(simbriefPayload.origin.elevation),

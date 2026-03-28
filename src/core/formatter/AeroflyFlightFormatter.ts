@@ -1,5 +1,6 @@
 import { AeroflyFlight, AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
 import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
+import { AeroflyAirportService } from "../services/AeroflyAirportService.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
@@ -39,14 +40,34 @@ export class AeroflyFlightFormatter {
     );
   }
 
+  static getFlightplanOriginName(aeroflyFlight: AeroflyFlight): string {
+    const airportCode = this.getFlightplanOriginCode(aeroflyFlight);
+    const airportName = this.getAirportName(airportCode);
+
+    return airportName ? `${airportName} (${airportCode})` : airportCode;
+  }
+
+  static getAirportName(airportCode: string): string {
+    return airportCode !== "Unknown"
+      ? (AeroflyAirportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown")
+      : "";
+  }
+
   static getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string {
     return (
       aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ?? "Unknown"
     );
   }
 
+  static getFlightplanDestinationName(aeroflyFlight: AeroflyFlight): string {
+    const airportCode = this.getFlightplanDestinationCode(aeroflyFlight);
+    const airportName = this.getAirportName(airportCode);
+
+    return airportName ? `${airportName} (${airportCode})` : airportCode;
+  }
+
   static getFlightplanSummary(aeroflyFlight: AeroflyFlight): string {
-    return `${this.getFlightplanOriginCode(aeroflyFlight)} → ${this.getFlightplanDestinationCode(aeroflyFlight)} (${this.getFlightplanDistance(aeroflyFlight)})`;
+    return `${this.getFlightplanOriginName(aeroflyFlight)} → ${this.getFlightplanDestinationName(aeroflyFlight)} (${this.getFlightplanDistance(aeroflyFlight)})`;
   }
 
   static getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string {
