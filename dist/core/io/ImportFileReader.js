@@ -3,6 +3,7 @@ import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
 import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
+import { ImportFileAeroflyCustomMissionsTmcConverter } from "../converter/ImportFileAeroflyCustomMissionsTmcConverter.js";
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.
@@ -32,6 +33,7 @@ export class ImportFileReader {
             throw new Error(`Could not determine file type for "${filename}"`);
         }
         const registry = {
+            [ImportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ImportFileAeroflyCustomMissionsTmcConverter,
             [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
             [ImportFileMsfs.fileExtension]: ImportFileMsfs,
             [ImportFileGarminFpl.fileExtension]: ImportFileGarminFpl,

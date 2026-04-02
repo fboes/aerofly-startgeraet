@@ -1,5 +1,6 @@
 import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { ImportFileXMLConverter } from "./ImportFileConverter.js";
+import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 /**
  * Import `.fms` flight plan files from X-Plane 11 / 12
  * @see https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/
@@ -39,22 +40,22 @@ export class ImportFileXplaneFms extends ImportFileXMLConverter {
                 }),
             ];
             if (departureRunway) {
-                route.push(new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
+                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
                     direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
                     uid,
-                }));
+                })));
             }
             return route;
         }
         if (isLast) {
             const route = [];
             if (destinationRunway) {
-                route.push(new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
+                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
                     direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
                     uid,
-                }));
+                })));
             }
             route.push(new AeroflyNavRouteDestination(waypoint.identifier, waypoint.lon, waypoint.lat, {
                 elevation_ft: waypoint.elevationFeet,

@@ -1,7 +1,7 @@
-import { AeroflyMainConfigParser } from "./AeroflyMainConfigParser.js";
-export class ImportFileAeroflyMcfConverter {
+import { AeroflyCustomMissionsParser } from "./AeroflyCustomMissionsParser.js";
+export class ImportFileAeroflyCustomMissionsTmcConverter {
     convert(content, flightplan) {
-        const parser = new AeroflyMainConfigParser();
+        const parser = new AeroflyCustomMissionsParser();
         const newFlightplan = parser.parse(content);
         flightplan.aircraft = newFlightplan.aircraft;
         flightplan.clouds = newFlightplan.clouds;
@@ -13,4 +13,4 @@ export class ImportFileAeroflyMcfConverter {
         flightplan.navigation = newFlightplan.navigation;
     }
 }
-ImportFileAeroflyMcfConverter.fileExtension = "mcf";
+ImportFileAeroflyCustomMissionsTmcConverter.fileExtension = "tmc";

@@ -33,7 +33,6 @@ export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileCo
     });
 
     // Build checkpoints
-    // TODO
     const checkpoints = flightplan.navigation.waypoints.map((w) => {
       return new AeroflyMissionCheckpoint(w.identifier, this.getWaypointType(w), w.longitude, w.latitude);
     });

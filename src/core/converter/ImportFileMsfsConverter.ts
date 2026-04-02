@@ -9,6 +9,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { ImportFileXMLConverter } from "./ImportFileConverter.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
+import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 
 //type MsfsPlnWaypointType = "none" | "Airport" | "Intersection" | "VOR" | "NDB" | "User" | "ATC";
 type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | "A" | "B";
@@ -58,11 +59,13 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
 
       if (runway) {
         route.push(
-          new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
-            elevation_ft: coords.altitude_ft,
-            direction_degree: Number(runway.replace(/^\D+/, "")) * 10,
-            uid,
-          }),
+          AeroflyFlightHelper.positionRunwayWaypoint(
+            new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
+              elevation_ft: coords.altitude_ft,
+              direction_degree: Number(runway.replace(/\D+/, "")) * 10,
+              uid,
+            }),
+          ),
         );
       }
       return route;
@@ -71,11 +74,13 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
       const route = [];
       if (runway) {
         route.push(
-          new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
-            elevation_ft: coords.altitude_ft,
-            direction_degree: Number(runway.replace(/^\D+/, "")) * 10,
-            uid,
-          }),
+          AeroflyFlightHelper.positionRunwayWaypoint(
+            new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
+              elevation_ft: coords.altitude_ft,
+              direction_degree: Number(runway.replace(/\D+/, "")) * 10,
+              uid,
+            }),
+          ),
         );
       }
       route.push(

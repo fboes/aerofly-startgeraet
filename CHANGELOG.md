@@ -4,6 +4,7 @@
 
 - Added airport output
 - Fixed cruise altitude for SimBrief flight plans
+- Added import for Aerofly Custom Missions `tmc` file
 
 ## [1.2.1]
 

@@ -5,6 +5,7 @@ import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.j
 import { ImportFileConverter } from "../converter/ImportFileConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
+import { ImportFileAeroflyCustomMissionsTmcConverter } from "../converter/ImportFileAeroflyCustomMissionsTmcConverter.js";
 
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
@@ -37,6 +38,7 @@ export class ImportFileReader {
     }
 
     const registry: Record<string, new () => ImportFileConverter> = {
+      [ImportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ImportFileAeroflyCustomMissionsTmcConverter,
       [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
       [ImportFileMsfs.fileExtension]: ImportFileMsfs,
       [ImportFileGarminFpl.fileExtension]: ImportFileGarminFpl,

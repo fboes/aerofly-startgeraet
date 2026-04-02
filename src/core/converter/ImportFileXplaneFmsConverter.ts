@@ -8,6 +8,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { ImportFileXMLConverter } from "./ImportFileConverter.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
+import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 
 // It is 1 for airport, 2 for NDB, 3 for VOR, 11 for named fix and 28 for unnamed lat/lon waypoints.
 type XplaneFmsWaypointType = 1 | 2 | 3 | 11 | 28;
@@ -83,11 +84,13 @@ export class ImportFileXplaneFms extends ImportFileXMLConverter {
       ];
       if (departureRunway) {
         route.push(
-          new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
-            elevation_ft: waypoint.elevationFeet,
-            direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
-            uid,
-          }),
+          AeroflyFlightHelper.positionRunwayWaypoint(
+            new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
+              elevation_ft: waypoint.elevationFeet,
+              direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
+              uid,
+            }),
+          ),
         );
       }
       return route;
@@ -96,11 +99,13 @@ export class ImportFileXplaneFms extends ImportFileXMLConverter {
       const route = [];
       if (destinationRunway) {
         route.push(
-          new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
-            elevation_ft: waypoint.elevationFeet,
-            direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
-            uid,
-          }),
+          AeroflyFlightHelper.positionRunwayWaypoint(
+            new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
+              elevation_ft: waypoint.elevationFeet,
+              direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
+              uid,
+            }),
+          ),
         );
       }
       route.push(

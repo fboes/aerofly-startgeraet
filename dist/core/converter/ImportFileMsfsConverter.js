@@ -1,5 +1,6 @@
 import { AeroflyNavigationConfig, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { ImportFileXMLConverter } from "./ImportFileConverter.js";
+import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 /**
  * Import `pln` flight plan files from Microsoft Flight Simulator 2020 / 2024
  * @see https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm
@@ -33,22 +34,22 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
                 }),
             ];
             if (runway) {
-                route.push(new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
+                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
                     elevation_ft: coords.altitude_ft,
-                    direction_degree: Number(runway.replace(/^\D+/, "")) * 10,
+                    direction_degree: Number(runway.replace(/\D+/, "")) * 10,
                     uid,
-                }));
+                })));
             }
             return route;
         }
         if (isLast) {
             const route = [];
             if (runway) {
-                route.push(new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
+                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
                     elevation_ft: coords.altitude_ft,
-                    direction_degree: Number(runway.replace(/^\D+/, "")) * 10,
+                    direction_degree: Number(runway.replace(/\D+/, "")) * 10,
                     uid,
-                }));
+                })));
             }
             route.push(new AeroflyNavRouteDestination(identifier, coords.lon, coords.lat, {
                 elevation_ft: coords.altitude_ft,

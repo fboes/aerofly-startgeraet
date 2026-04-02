@@ -60,12 +60,12 @@ export class AeroflyMainConfigParser {
         this.parser.getNumber(tmsettings_clouds, "cumulus_height"),
       ),
       new AeroflySettingsCloud(
-        this.parser.getNumber(tmsettings_clouds, "cumulus_mediocris_density"),
-        this.parser.getNumber(tmsettings_clouds, "cumulus_mediocris_height"),
-      ),
-      new AeroflySettingsCloud(
         this.parser.getNumber(tmsettings_clouds, "cirrus_density"),
         this.parser.getNumber(tmsettings_clouds, "cirrus_height"),
+      ),
+      new AeroflySettingsCloud(
+        this.parser.getNumber(tmsettings_clouds, "cumulus_mediocris_density"),
+        this.parser.getNumber(tmsettings_clouds, "cumulus_mediocris_height"),
       ),
     ];
   }
