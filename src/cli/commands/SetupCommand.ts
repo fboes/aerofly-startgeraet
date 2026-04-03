@@ -5,60 +5,60 @@ import { Command } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 
 export class SetupCommand implements Command {
-  constructor(protected config: Config) {}
+    constructor(protected config: Config) {}
 
-  async execute(): Promise<number> {
-    process.stdout.write(HelpCommand.getHelpText());
-    await SetupCommand.configure(this.config);
+    async execute(): Promise<number> {
+        process.stdout.write(HelpCommand.getHelpText());
+        await SetupCommand.configure(this.config);
 
-    return 0;
-  }
+        return 0;
+    }
 
-  static async configure(config: Config): Promise<void> {
-    const mainMcfFilePath = await input({
-      message: "Path to main.mcf file",
-      default: config.mainMcfFilePath ?? "",
-      required: true,
-    });
+    static async configure(config: Config): Promise<void> {
+        const mainMcfFilePath = await input({
+            message: "Path to main.mcf file",
+            default: config.mainMcfFilePath ?? "",
+            required: true,
+        });
 
-    config.mainMcfFilePath = mainMcfFilePath;
+        config.mainMcfFilePath = mainMcfFilePath;
 
-    const simbriefUserName = await input({
-      message: "SimBrief username (for flightplan import)",
-      default: config.simBriefUserName,
-      required: false,
-      validate(value) {
-        if (value && !/^[a-zA-Z0-9_]+$/.test(value)) {
-          return "Please enter a valid SimBrief username (alphanumeric and underscores only)";
-        }
-        return true;
-      },
-    });
+        const simbriefUserName = await input({
+            message: "SimBrief username (for flightplan import)",
+            default: config.simBriefUserName,
+            required: false,
+            validate(value) {
+                if (value && !/^[a-zA-Z0-9_]+$/.test(value)) {
+                    return "Please enter a valid SimBrief username (alphanumeric and underscores only)";
+                }
+                return true;
+            },
+        });
 
-    config.simBriefUserName = simbriefUserName;
+        config.simBriefUserName = simbriefUserName;
 
-    const simBriefWeatherFromDestination = await confirm({
-      message: "Use SimBrief weather from destination airport (instead of departure airport)?",
-      default: config.simBriefWeatherFromDestination,
-    });
+        const simBriefWeatherFromDestination = await confirm({
+            message: "Use SimBrief weather from destination airport (instead of departure airport)?",
+            default: config.simBriefWeatherFromDestination,
+        });
 
-    config.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
+        config.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
 
-    const importDirectory = await input({
-      message: "Import directory for local flightplan files (e.g. .pln files)",
-      default: config.importDirectory,
-      required: true,
-    });
+        const importDirectory = await input({
+            message: "Import directory for local flightplan files (e.g. .pln files)",
+            default: config.importDirectory,
+            required: true,
+        });
 
-    config.importDirectory = importDirectory;
+        config.importDirectory = importDirectory;
 
-    const syncTimeOnStartup = await confirm({
-      message: "Autmmoatically synchronize time / date on start-up",
-      default: config.syncTimeOnStartup,
-    });
+        const syncTimeOnStartup = await confirm({
+            message: "Autmmoatically synchronize time / date on start-up",
+            default: config.syncTimeOnStartup,
+        });
 
-    config.syncTimeOnStartup = syncTimeOnStartup;
+        config.syncTimeOnStartup = syncTimeOnStartup;
 
-    CliFormatter.writeSuccess("Configuration saved successfully.");
-  }
+        CliFormatter.writeSuccess("Configuration saved successfully.");
+    }
 }

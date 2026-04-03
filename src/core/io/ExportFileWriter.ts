@@ -9,28 +9,28 @@ import { ExportFileAeroflyCustomMissionsTmcConverter } from "../converter/Export
  * external flight plan file by selecting the appropriate converter.
  */
 export class ExportFileWriter {
-  static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void {
-    const converter = this.getConverter(filename);
-    const content = new converter().convert(flightplan);
+    static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void {
+        const converter = this.getConverter(filename);
+        const content = new converter().convert(flightplan);
 
-    fs.writeFileSync(filename, content, "utf8");
-  }
-
-  static getConverter(filename: string): new () => ExportFileConverter {
-    const fileSuffix = filename.split(".").pop()?.toLowerCase();
-    if (!fileSuffix) {
-      throw new Error(`Could not determine file type for "${filename}"`);
+        fs.writeFileSync(filename, content, "utf8");
     }
 
-    const registry: Record<string, new () => ExportFileConverter> = {
-      [ExportFileAeroflyMainMcfExport.fileExtension]: ExportFileAeroflyMainMcfExport,
-      [ExportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ExportFileAeroflyCustomMissionsTmcConverter,
-    };
+    static getConverter(filename: string): new () => ExportFileConverter {
+        const fileSuffix = filename.split(".").pop()?.toLowerCase();
+        if (!fileSuffix) {
+            throw new Error(`Could not determine file type for "${filename}"`);
+        }
 
-    const converter = registry[fileSuffix];
-    if (!converter) {
-      throw new Error(`Unsupported file type: ${fileSuffix}`);
+        const registry: Record<string, new () => ExportFileConverter> = {
+            [ExportFileAeroflyMainMcfExport.fileExtension]: ExportFileAeroflyMainMcfExport,
+            [ExportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ExportFileAeroflyCustomMissionsTmcConverter,
+        };
+
+        const converter = registry[fileSuffix];
+        if (!converter) {
+            throw new Error(`Unsupported file type: ${fileSuffix}`);
+        }
+        return converter;
     }
-    return converter;
-  }
 }

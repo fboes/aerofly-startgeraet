@@ -17,4 +17,17 @@ describe("AeroflyFlightHelper", () => {
         assert.strictEqual("OVC", aeroflyFlight.clouds[2].density_code);
         assert.strictEqual(aeroflyFlight.clouds[1], AeroflyFlightHelper.getCeiling(aeroflyFlight), "Disregard first cloud because not enough coverage, use third as being the lowest");
     });
+    it("should calculate the sun position", () => {
+        const aeroflyFlight = new AeroflyFlightFallback();
+        // Fix date
+        aeroflyFlight.timeUtc.time = new Date("2025-06-21 12:00:00 UTC");
+        assert.strictEqual(2025, aeroflyFlight.timeUtc.timeYear);
+        assert.strictEqual(6, aeroflyFlight.timeUtc.timeMonth);
+        assert.strictEqual(21, aeroflyFlight.timeUtc.timeDay);
+        assert.strictEqual(12, aeroflyFlight.timeUtc.timeHours);
+        //console.log(aeroflyFlight.timeUtc);
+        const sunPosition = AeroflyFlightHelper.getSunPosition(aeroflyFlight);
+        assert.strictEqual(16.6, sunPosition.elevation);
+        assert.strictEqual(71.3, sunPosition.azimuth);
+    });
 });

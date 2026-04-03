@@ -1,0 +1,1 @@
+{"version":3,"file":"SunPosition.d.ts","sourceRoot":"","sources":["../../../src/core/util/SunPosition.ts"],"names":[],"mappings":"AAAA,qBAAa,WAAW;IACpB;;OAEG;IACH,MAAM,CAAC,cAAc,CACjB,QAAQ,EAAE,MAAM,EAChB,SAAS,EAAE,MAAM,EACjB,QAAQ,EAAE,MAAM,EAChB,SAAS,EAAE,MAAM,GAClB;QAAE,SAAS,EAAE,MAAM,CAAC;QAAC,OAAO,EAAE,MAAM,CAAA;KAAE;IA0BzC,MAAM,CAAC,SAAS,CAAC,IAAI,EAAE,IAAI,GAAG,MAAM;CAKvC"}

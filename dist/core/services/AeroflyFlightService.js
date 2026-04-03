@@ -88,7 +88,8 @@ export class AeroflyFlightService {
         return this.getFlightplanDepartureAirport()?.identifier ?? "";
     }
     getFlightplanArrivalAirportString() {
-        return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ?? "");
+        return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)
+            ?.identifier ?? "");
     }
     setFlightPositionToDeparture() {
         const departureAirport = this.getFlightplanDepartureAirport();
@@ -135,9 +136,7 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.timeUtc.time;
     }
     getTimeAndDateDeparture() {
-        const departureTimeZoneOffset = AeroflyFlightHelper.getDepartureTimeZone(this.aeroflyFlight) * 60;
-        const localTime = new Date(this.aeroflyFlight.timeUtc.time.getTime() + departureTimeZoneOffset * 60000);
-        return localTime;
+        return AeroflyFlightHelper.getTimeAndDateDeparture(this.aeroflyFlight);
     }
     getTimeAndDateString() {
         return `${AeroflyFlightFormatter.dateToString(this.aeroflyFlight.timeUtc.time)} UTC`;
@@ -147,7 +146,7 @@ export class AeroflyFlightService {
         return `${AeroflyFlightFormatter.dateToString(localTime)} ${this.getDepartureTimeZoneUTCString()}`;
     }
     getTimeAndDateCombinedString() {
-        return `${this.getTimeAndDateString()} | ${this.getTimeAndDateDepartureString()}`;
+        return `${this.getTimeAndDateString()} | ${this.getTimeAndDateDepartureString()} (${AeroflyFlightFormatter.getSunPositionName(this.aeroflyFlight)})`;
     }
     /**
      * @returns e.g. "Z" or "+02:00" nautical time zone offset based on the coordinates of the departure airport

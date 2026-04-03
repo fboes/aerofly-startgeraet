@@ -23,7 +23,8 @@ export class AeroflyFlightFormatter {
         return `${this.getFlightplanOriginCode(aeroflyFlight)}-${this.getFlightplanDestinationCode(aeroflyFlight)}`.replace(/[^a-zA-Z0-9_-]+/g, "-");
     }
     static getFlightplanOriginCode(aeroflyFlight) {
-        return (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.identifier ?? "Unknown");
+        return (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.identifier ??
+            "Unknown");
     }
     static getFlightplanOriginName(aeroflyFlight) {
         const airportCode = this.getFlightplanOriginCode(aeroflyFlight);
@@ -36,7 +37,8 @@ export class AeroflyFlightFormatter {
             : "";
     }
     static getFlightplanDestinationCode(aeroflyFlight) {
-        return (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ?? "Unknown");
+        return (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ??
+            "Unknown");
     }
     static getFlightplanDestinationName(aeroflyFlight) {
         const airportCode = this.getFlightplanDestinationCode(aeroflyFlight);
@@ -100,6 +102,17 @@ export class AeroflyFlightFormatter {
             return `${cloud.density_code} @ ${this.numberToString(cloud.height_ft)}ft`;
         })
             .join(" | ") || "CLR");
+    }
+    static getSunPositionName(aeroflyFlight) {
+        const solarElevationAngleDeg = AeroflyFlightHelper.getSunPosition(aeroflyFlight).elevation;
+        const localTime = AeroflyFlightHelper.getTimeAndDateDeparture(aeroflyFlight);
+        if (solarElevationAngleDeg >= 0) {
+            return "Day";
+        }
+        else if (solarElevationAngleDeg <= -6) {
+            return "Night";
+        }
+        return localTime.getHours() < 12 ? "Dusk" : "Dawn";
     }
     static numberToString(num) {
         return new Intl.NumberFormat().format(Math.round(num));

@@ -7,27 +7,27 @@ export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showM
  * Aerofly FS 4.
  */
 export declare class MenuCommand extends ControllerCommand {
-  execute(): Promise<number>;
-  mainMenu(): Promise<MenuCommandMethod>;
-  selectAircraft(): Promise<MenuCommandMethod>;
-  setFuelAndPayload(): Promise<MenuCommandMethod>;
-  importFlightplan(): Promise<MenuCommandMethod>;
-  exportFlightplan(): Promise<MenuCommandMethod>;
-  setTimeAndDate(): Promise<MenuCommandMethod>;
-  protected setTimeAndDateManual(timeZoneUTCName: string, timeZoneName: string, timeValue: Date): Promise<string>;
-  importWeather(): Promise<MenuCommandMethod>;
-  setWind(): Promise<MenuCommandMethod>;
-  setTemperature(): Promise<MenuCommandMethod>;
-  setVisibility(): Promise<MenuCommandMethod>;
-  setClouds(): Promise<MenuCommandMethod>;
-  protected setCloud(index?: number, cloud?: AeroflyFlightServiceCloud): Promise<AeroflyFlightServiceCloud>;
-  setConfiguration(): Promise<MenuCommandMethod>;
-  saveAndExit(): MenuCommandMethod;
-  exit(): null;
-  protected name(option: string, value: string, sub?: boolean): string;
-  protected getMainMenuChoice(): {
-    name: string;
-    value: MenuCommandMethod;
-  };
+    execute(): Promise<number>;
+    mainMenu(): Promise<MenuCommandMethod>;
+    selectAircraft(): Promise<MenuCommandMethod>;
+    setFuelAndPayload(): Promise<MenuCommandMethod>;
+    importFlightplan(): Promise<MenuCommandMethod>;
+    exportFlightplan(): Promise<MenuCommandMethod>;
+    setTimeAndDate(): Promise<MenuCommandMethod>;
+    protected setTimeAndDateManual(timeZoneUTCName: string, timeZoneName: string, timeValue: Date): Promise<string>;
+    importWeather(): Promise<MenuCommandMethod>;
+    setWind(): Promise<MenuCommandMethod>;
+    setTemperature(): Promise<MenuCommandMethod>;
+    setVisibility(): Promise<MenuCommandMethod>;
+    setClouds(): Promise<MenuCommandMethod>;
+    protected setCloud(index?: number, cloud?: AeroflyFlightServiceCloud): Promise<AeroflyFlightServiceCloud>;
+    setConfiguration(): Promise<MenuCommandMethod>;
+    saveAndExit(): MenuCommandMethod;
+    exit(): null;
+    protected name(option: string, value: string, sub?: boolean): string;
+    protected getMainMenuChoice(): {
+        name: string;
+        value: MenuCommandMethod;
+    };
 }
 //# sourceMappingURL=MenuCommand.d.ts.map

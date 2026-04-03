@@ -1,43 +1,43 @@
 svg {
-  path {
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .tick,
-  .percentage {
-    stroke-width: 1px;
-    stroke: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
-  }
-  .percentage {
-    opacity: var(--opacity, 0);
-  }
-  .rail {
-    stroke-width: 4px;
-    stroke: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
-    cursor: pointer;
-
-    &.rail--filled {
-      fill: transparent;
-      cursor: pointer;
+    path {
+        stroke-linecap: round;
+        stroke-linejoin: round;
     }
-  }
-  .default {
-    stroke: light-dark(rgba(255, 255, 255), rgba(0, 0, 0));
-
-    &.default--filled {
-      stroke: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+    .tick,
+    .percentage {
+        stroke-width: 1px;
+        stroke: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
     }
-  }
-
-  rect {
-    &.rail--filled {
-      stroke: none;
+    .percentage {
+        opacity: var(--opacity, 0);
     }
-  }
-  .knob {
-    fill: AccentColor;
-    stroke: AccentColorText;
-    stroke-width: 2px;
-    filter: drop-shadow(1px 1px 2px rgb(0 0 0 / 0.4));
-  }
+    .rail {
+        stroke-width: 4px;
+        stroke: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+        cursor: pointer;
+
+        &.rail--filled {
+            fill: transparent;
+            cursor: pointer;
+        }
+    }
+    .default {
+        stroke: light-dark(rgba(255, 255, 255), rgba(0, 0, 0));
+
+        &.default--filled {
+            stroke: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+        }
+    }
+
+    rect {
+        &.rail--filled {
+            stroke: none;
+        }
+    }
+    .knob {
+        fill: AccentColor;
+        stroke: AccentColorText;
+        stroke-width: 2px;
+        filter: drop-shadow(1px 1px 2px rgb(0 0 0 / 0.4));
+    }
 }

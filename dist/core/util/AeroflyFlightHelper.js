@@ -1,5 +1,6 @@
 import { AeroflyNavRouteOrigin, } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
+import { SunPosition } from "./SunPosition.js";
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
  */
@@ -53,7 +54,9 @@ export class AeroflyFlightHelper {
     }
     static getIcaoFLightCategory(aeroflyFlight) {
         const ceiling = this.getCeiling(aeroflyFlight);
-        return aeroflyFlight.visibility_meter >= 5000 && (!ceiling?.height_ft || ceiling.height_ft >= 1500) ? "VFR" : "IFR";
+        return aeroflyFlight.visibility_meter >= 5000 && (!ceiling?.height_ft || ceiling.height_ft >= 1500)
+            ? "VFR"
+            : "IFR";
     }
     static getCeiling(aeroflyFlight) {
         return aeroflyFlight.clouds
@@ -61,5 +64,13 @@ export class AeroflyFlightHelper {
             .find((c) => {
             return c.density_code === "BKN" || c.density_code === "OVC";
         });
+    }
+    static getSunPosition(aeroflyFlight) {
+        return SunPosition.getSunPosition(aeroflyFlight.timeUtc.timeHours, SunPosition.dayOfYear(aeroflyFlight.timeUtc.time), aeroflyFlight.navigation.waypoints[0].latitude, aeroflyFlight.navigation.waypoints[0].longitude);
+    }
+    static getTimeAndDateDeparture(aeroflyFlight) {
+        const departureTimeZoneOffset = AeroflyFlightHelper.getDepartureTimeZone(aeroflyFlight) * 60;
+        const localTime = new Date(aeroflyFlight.timeUtc.time.getTime() + departureTimeZoneOffset * 60000);
+        return localTime;
     }
 }

@@ -2,23 +2,23 @@ import { Command } from "./Command.js";
 import { styleText } from "node:util";
 
 export class HelpCommand implements Command {
-  async execute(): Promise<number> {
-    process.stdout.write(HelpCommand.getExtendedHelpText());
-    return 0;
-  }
+    async execute(): Promise<number> {
+        process.stdout.write(HelpCommand.getExtendedHelpText());
+        return 0;
+    }
 
-  static getHelpText(): string {
-    return `\
+    static getHelpText(): string {
+        return `\
 Welcome to the Aerofly Startgerät. It allows you to set up your flight in a more convenient way.
 
 You can select your aircraft, set fuel and payload, import flightplans and weather, and much more.
 
 The Startgerät will then generate a configuration file that can be loaded in Aerofly FS 4.
 `;
-  }
+    }
 
-  static getExtendedHelpText(): string {
-    return `\
+    static getExtendedHelpText(): string {
+        return `\
 ${HelpCommand.getHelpText()}
 There are optional command line arguments that allow you to directly access specific features of the Startgerät. For example, you can use "metar" to directly fetch and display the current weather for a specific location.
 
@@ -33,6 +33,6 @@ If you run the Startgerät without any arguments, it will launch an interactive 
 
 `;
 
-    // For more detailed information on each command and its options, please refer to the documentation or run the command with the --help flag (e.g., "metar --help").
-  }
+        // For more detailed information on each command and its options, please refer to the documentation or run the command with the --help flag (e.g., "metar --help").
+    }
 }
