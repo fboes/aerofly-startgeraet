@@ -357,7 +357,7 @@ export class MenuCommand extends ControllerCommand {
             message: "Import weather",
             choices: [
                 {
-                    name: `Import weather via APIfor ${this.controller.getFlightplanDepartureAirportString()}`,
+                    name: `Import weather via API for ${this.controller.getFlightplanDepartureAirportString()}`,
                     value: this.controller.getFlightplanDepartureAirportString(),
                 },
                 {
@@ -424,7 +424,7 @@ export class MenuCommand extends ControllerCommand {
         CliFormatter.showMenuTitle(["Temperature"]);
         const temperatureCelsius = await number({
             message: "Temperature (°C)",
-            default: this.controller.getTemperature(),
+            default: Math.round(this.controller.getTemperature()),
             min: -50,
             max: 50,
             required: true,
@@ -485,7 +485,7 @@ export class MenuCommand extends ControllerCommand {
 
         const base_feet_agl = await number({
             message: `${cloudLayer} base (ft)`,
-            default: cloud ? cloud.base_feet_agl : 0,
+            default: cloud ? Math.round(cloud.base_feet_agl) : 0,
             min: 0,
             max: 50000,
             required: true,

@@ -84,8 +84,8 @@ export class AeroflyFlightHelper {
     }
 
     static getCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined {
-        return aeroflyFlight.clouds
-            .sort((a, b) => b.height - a.height)
+        return [...aeroflyFlight.clouds]
+            .sort((a, b) => a.height - b.height)
             .find((c) => {
                 return c.density_code === "BKN" || c.density_code === "OVC";
             });
