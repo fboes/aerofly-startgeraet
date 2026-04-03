@@ -37,4 +37,29 @@ export class AeroflyFlightHelper {
         waypoint.longitude = coordinatesNew.longitude;
         return waypoint;
     }
+    static getFlightCategory(aeroflyFlight) {
+        const ceiling = this.getCeiling(aeroflyFlight);
+        const visibility_miles = aeroflyFlight.visibility_sm;
+        if (visibility_miles > 5 && (!ceiling?.height_ft || ceiling.height_ft > 3000)) {
+            return "VFR";
+        }
+        else if (visibility_miles >= 3 && (!ceiling?.height_ft || ceiling.height_ft >= 1000)) {
+            return "MVFR";
+        }
+        else if (visibility_miles >= 1 && (!ceiling?.height_ft || ceiling.height_ft >= 500)) {
+            return "IFR";
+        }
+        return "LIFR";
+    }
+    static getIcaoFLightCategory(aeroflyFlight) {
+        const ceiling = this.getCeiling(aeroflyFlight);
+        return aeroflyFlight.visibility_meter >= 5000 && (!ceiling?.height_ft || ceiling.height_ft >= 1500) ? "VFR" : "IFR";
+    }
+    static getCeiling(aeroflyFlight) {
+        return aeroflyFlight.clouds
+            .sort((a, b) => b.height - a.height)
+            .find((c) => {
+            return c.density_code === "BKN" || c.density_code === "OVC";
+        });
+    }
 }

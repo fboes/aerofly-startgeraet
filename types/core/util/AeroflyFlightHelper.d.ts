@@ -2,7 +2,10 @@ import {
   AeroflyFlight,
   AeroflyNavRouteDepartureRunway,
   AeroflyNavRouteDestinationRunway,
+  AeroflySettingsCloud,
 } from "@fboes/aerofly-custom-missions";
+export type AeroflylightCategoryIcao = "VFR" | "IFR";
+export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
  */
@@ -21,5 +24,8 @@ export declare class AeroflyFlightHelper {
   static positionRunwayWaypoint<T extends AeroflyNavRouteDepartureRunway | AeroflyNavRouteDestinationRunway>(
     waypoint: T,
   ): T;
+  static getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategory;
+  static getIcaoFLightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryIcao;
+  static getCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined;
 }
 //# sourceMappingURL=AeroflyFlightHelper.d.ts.map

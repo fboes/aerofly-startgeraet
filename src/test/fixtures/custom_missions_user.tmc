@@ -1,0 +1,109 @@
+<[file][][]
+    <[tmmissions_list][][]
+        <[list_tmmission_definition][missions][]
+// -----------------------------------------------------------------------------
+            <[tmmission_definition][mission][]
+                <[string8][title][Landing practice #1: Concord / Buchanan Field]>
+                <[string8][description][It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
+
+- Local tower / CTAF frequency: 123.90
+- Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north]>
+                <[string8][tutorial_name][c172]> // Opens https://www.aerofly.com/aircraft-tutorials/c172
+                <[list_tmmission_definition_localized][localized_text][]
+                    <[tmmission_definition_localized][element][0]
+                        <[string8u][language][de]>
+                        <[string8][title][Landeübung #1: Concord / Buchanan Field]>
+                        <[string8][description][Es ist ein böiger, klarer früher Morgen, und du bist 8 Seemeilen nördlich des turmhohen Flughafens Concord / Buchanan Field (27 Fuß). Da der Wind 11 Knoten aus 190° erreicht, beträgt die Hauptlandebahn 19L (191° / 844m). Fliege das Muster und lande sicher.
+
+- Lokaler Tower / CTAF-Frequenz: 123,90
+- Lokale Navigationshilfen: VOR/DME CCR (117,00) 3,4 Seemeilen nördlich]>
+                    >
+                >
+                <[string8u][tags][approach pattern]>
+                <[float64][difficulty][1]>
+                <[bool][is_featured][true]>
+                <[string8][flight_setting][cruise]>
+                <[string8u][aircraft_name][c172]>
+                <[stringt8c][aircraft_icao][C172]>
+                // <[string8][aircraft_livery][default]>
+                <[stringt8c][callsign][N51911]>
+                // <[float64][fuel_mass][80]>
+                // <[float64][payload_mass][90]>
+                <[stringt8c][origin_icao][KCCR]>
+                <[tmvector2d][origin_lon_lat][-122.0736009331662 38.122300745843944]>
+                <[float64][origin_alt][1066.799965862401]> // 3500 ft MSL
+                <[float64][origin_dir][174.37511511143452]>
+                <[stringt8c][destination_icao][KMVY]>
+                <[tmvector2d][destination_lon_lat][-70.6139 41.3934]>
+                <[float64][destination_alt][20]> // 66 ft MSL
+                <[float64][destination_dir][221]>
+                <[float64][distance][1400]> // 1 km
+                <[float64][duration][7200]> // 120 min
+                <[bool][is_scheduled][true]>
+                <[tmmission_target_plane][finish][]
+                    <[vector2_float64][lon_lat][0 1]>
+                    <[float64][direction][2]>
+                >
+                <[tmmission_conditions][conditions][]
+                    <[tm_time_utc][time][]
+                        <[int32][time_year][2024]>
+                        <[int32][time_month][6]>
+                        <[int32][time_day][14]>
+                        <[float64][time_hours][13.260555555555555]> // 13:15:38 UTC
+                    >
+                    <[float64][wind_direction][190]>
+                    <[float64][wind_speed][11]> // kts
+                    <[float64][wind_gusts][22]> // kts
+                    <[float64][turbulence_strength][1]>
+                    <[float64][thermal_strength][0.5184]> // 21 °C
+                    <[float64][visibility][14484.096000000001]> // 9 SM
+                    <[float64][cloud_cover][0.1]> // CLR
+                    <[float64][cloud_base][1523.9999512320016]> // 5000 ft AGL
+                    <[float64][cirrus_cover][0.2]> // FEW
+                    <[float64][cirrus_base][2285.9999268480024]> // 7500 ft AGL
+                    // <[float64][cumulus_mediocris_cover][0.1]>
+                    // <[float64][cumulus_mediocris_base][2895.599907340803]>
+                >
+                <[list_tmmission_checkpoint][checkpoints][]
+                    <[tmmission_checkpoint][element][0]
+                        <[string8u][type][origin]>
+                        <[string8u][name][KCCR]>
+                        <[vector2_float64][lon_lat][-122.057 37.9897]>
+                        <[float64][altitude][8]> // 27 ft
+                        <[float64][direction][-1]>
+                        <[float64][slope][0]>
+                    >
+                    <[tmmission_checkpoint][element][1]
+                        <[string8u][type][departure_runway]>
+                        <[string8u][name][19L]>
+                        <[vector2_float64][lon_lat][-122.05504061196366 37.993168229891225]>
+                        <[float64][altitude][0]> // 0 ft
+                        <[float64][direction][0]>
+                        <[float64][slope][0]>
+                        <[float64][length][844.2959729825288]> // 2770 ft
+                    >
+                    <[tmmission_checkpoint][element][2]
+                        <[string8u][type][destination_runway]>
+                        <[string8u][name][24]>
+                        <[vector2_float64][lon_lat][-70.60730234370952 41.399093035543366]>
+                        <[float64][altitude][20]> // 66 ft
+                        <[float64][direction][0]>
+                        <[float64][slope][0]>
+                        <[float64][length][1677.6191463161874]> // 5504 ft
+                        <[float64][frequency][108700000]> // 108.7 MHz
+                    >
+                    <[tmmission_checkpoint][element][3]
+                        <[string8u][type][destination]>
+                        <[string8u][name][KMVY]>
+                        <[vector2_float64][lon_lat][-70.6139 41.3934]>
+                        <[float64][altitude][20]> // 66 ft
+                        <[float64][direction][0]>
+                        <[float64][slope][0]>
+                        <[bool][fly_over][false]>
+                    >
+                >
+            >
+// -----------------------------------------------------------------------------
+        >
+    >
+>

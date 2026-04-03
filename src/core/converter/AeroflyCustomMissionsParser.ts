@@ -46,6 +46,7 @@ export class AeroflyCustomMissionsParser {
       this.parser.getValue(mission, "aircraft_name"),
       this.parser.getNumber(mission, "fuel_mass"),
       this.parser.getNumber(mission, "payload_mass"),
+      "Keep",
     );
   }
 

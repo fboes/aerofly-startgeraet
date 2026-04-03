@@ -14,6 +14,7 @@ export declare class AeroflyFlightFormatter {
   static getFlightplanSummary(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string;
   static getFlightplanDistance(aeroflyFlight: AeroflyFlight): string;
+  static getFlightCategory(aeroflyFlight: AeroflyFlight): string;
   static getWind(aeroflyFlight: AeroflyFlight): string;
   static getTemperature(aeroflyFlight: AeroflyFlight): string;
   static getVisibility(aeroflyFlight: AeroflyFlight): string;

@@ -3,8 +3,13 @@ import {
   AeroflyNavRouteOrigin,
   AeroflyNavRouteDepartureRunway,
   AeroflyNavRouteDestinationRunway,
+  AeroflySettingsCloud,
 } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
+
+export type AeroflylightCategoryIcao = "VFR" | "IFR";
+
+export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
@@ -53,5 +58,33 @@ export class AeroflyFlightHelper {
     waypoint.latitude = coordinatesNew.latitude;
     waypoint.longitude = coordinatesNew.longitude;
     return waypoint;
+  }
+
+  static getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategory {
+    const ceiling = this.getCeiling(aeroflyFlight);
+    const visibility_miles = aeroflyFlight.visibility_sm;
+
+    if (visibility_miles > 5 && (!ceiling?.height_ft || ceiling.height_ft > 3000)) {
+      return "VFR";
+    } else if (visibility_miles >= 3 && (!ceiling?.height_ft || ceiling.height_ft >= 1000)) {
+      return "MVFR";
+    } else if (visibility_miles >= 1 && (!ceiling?.height_ft || ceiling.height_ft >= 500)) {
+      return "IFR";
+    }
+    return "LIFR";
+  }
+
+  static getIcaoFLightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryIcao {
+    const ceiling = this.getCeiling(aeroflyFlight);
+
+    return aeroflyFlight.visibility_meter >= 5000 && (!ceiling?.height_ft || ceiling.height_ft >= 1500) ? "VFR" : "IFR";
+  }
+
+  static getCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined {
+    return aeroflyFlight.clouds
+      .sort((a, b) => b.height - a.height)
+      .find((c) => {
+        return c.density_code === "BKN" || c.density_code === "OVC";
+      });
   }
 }

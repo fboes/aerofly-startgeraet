@@ -14,7 +14,7 @@ export class AeroflyCustomMissionsParser {
         });
     }
     parseFuelLoadSettings(mission) {
-        return new AeroflySettingsFuelLoad(this.parser.getValue(mission, "aircraft_name"), this.parser.getNumber(mission, "fuel_mass"), this.parser.getNumber(mission, "payload_mass"));
+        return new AeroflySettingsFuelLoad(this.parser.getValue(mission, "aircraft_name"), this.parser.getNumber(mission, "fuel_mass"), this.parser.getNumber(mission, "payload_mass"), "Keep");
     }
     parseNavigationConfig(mission) {
         const missionCheckpoints = this.parser.getGroup(mission, "list_tmmission_checkpoint", 4);

@@ -58,7 +58,11 @@ export class MenuCommand extends ControllerCommand {
                 value: "setTimeAndDate",
                 short: "Set time and date",
             },
-            { name: "Weather", value: "importWeather", short: "Import weather" },
+            {
+                name: this.name("Weather", AeroflyFlightFormatter.getFlightCategory(aeroflyFlight)),
+                value: "importWeather",
+                short: "Import weather",
+            },
             {
                 name: this.name("Wind", AeroflyFlightFormatter.getWind(aeroflyFlight), true),
                 value: "setWind",

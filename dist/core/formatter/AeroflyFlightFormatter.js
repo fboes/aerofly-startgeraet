@@ -74,6 +74,9 @@ export class AeroflyFlightFormatter {
             return "Unknown";
         }
     }
+    static getFlightCategory(aeroflyFlight) {
+        return `ICAO: ${AeroflyFlightHelper.getIcaoFLightCategory(aeroflyFlight)} | US: ${AeroflyFlightHelper.getFlightCategory(aeroflyFlight)}`;
+    }
     static getWind(aeroflyFlight) {
         let wind = `${this.numberToString(aeroflyFlight.wind.directionInDegree)}° @ ${this.numberToString(aeroflyFlight.wind.speed_kts)}kts`;
         if (aeroflyFlight.wind.gust_kts > 0) {

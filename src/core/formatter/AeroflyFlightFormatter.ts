@@ -100,6 +100,10 @@ export class AeroflyFlightFormatter {
     }
   }
 
+  static getFlightCategory(aeroflyFlight: AeroflyFlight): string {
+    return `ICAO: ${AeroflyFlightHelper.getIcaoFLightCategory(aeroflyFlight)} | US: ${AeroflyFlightHelper.getFlightCategory(aeroflyFlight)}`;
+  }
+
   static getWind(aeroflyFlight: AeroflyFlight): string {
     let wind = `${this.numberToString(aeroflyFlight.wind.directionInDegree)}° @ ${this.numberToString(aeroflyFlight.wind.speed_kts)}kts`;
     if (aeroflyFlight.wind.gust_kts > 0) {
