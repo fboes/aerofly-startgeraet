@@ -1,7 +1,20 @@
+export class ImportFileConverter {
+    /**
+     * This function is a placeholder until the method to encode UIDs is discovered.
+     *
+     * @param lon - Longitude in degrees (-180 … +180)
+     * @param lat - Latitude in degrees  (-90  … +90)
+     * @returns UID as a BigInt (unsigned 64-bit integer)
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    geoToUid(lon, lat) {
+        return undefined;
+    }
+}
 /**
  * This special ImportFileHandler adds basic XML parser functionality.
  */
-export class ImportFileXMLConverter {
+export class ImportFileXMLConverter extends ImportFileConverter {
     getXmlNode(xml, tag) {
         const match = xml.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, "ms"));
         return match ? this.unXml(match[1]) : "";
@@ -35,16 +48,5 @@ export class ImportFileXMLConverter {
                         return m;
                 }
             });
-    }
-    /**
-     * This function is a placeholder until the method to encode UIDs is discovered.
-     *
-     * @param lon - Longitude in degrees (-180 … +180)
-     * @param lat - Latitude in degrees  (-90  … +90)
-     * @returns UID as a BigInt (unsigned 64-bit integer)
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    geoToUid(lon, lat) {
-        return undefined;
     }
 }

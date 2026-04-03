@@ -17,6 +17,7 @@ import { ExportFileWriter } from "../io/ExportFileWriter.js";
 import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
+import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -245,7 +246,12 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
-    async setWeatherFromMETAR(airportCode: string): Promise<void> {
+    setWeatherFromMETAR(metar: string): void {
+        const converter = new ImportMetarConverter();
+        converter.convert(metar, this.aeroflyFlight);
+    }
+
+    async setWeatherViaApi(airportCode: string): Promise<void> {
         await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
     }
 

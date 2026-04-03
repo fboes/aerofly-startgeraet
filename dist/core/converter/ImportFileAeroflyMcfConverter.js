@@ -1,5 +1,6 @@
 import { AeroflyMainConfigParser } from "./AeroflyMainConfigParser.js";
-export class ImportFileAeroflyMcfConverter {
+import { ImportFileConverter } from "./ImportFileConverter.js";
+export class ImportFileAeroflyMcfConverter extends ImportFileConverter {
     convert(content, flightplan) {
         const parser = new AeroflyMainConfigParser();
         const newFlightplan = parser.parse(content);

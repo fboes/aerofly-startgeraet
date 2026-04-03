@@ -45,6 +45,7 @@
     "@fboes/aerofly-data": "^1.5.0",
     "@fboes/geojson": "^2.0.0",
     "@inquirer/prompts": "^8.3.0",
+    "aewx-metar-parser": "^2.0.1",
     "conf": "^15.1.0"
   }
 }

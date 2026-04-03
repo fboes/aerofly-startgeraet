@@ -60,7 +60,8 @@ export declare class AeroflyFlightService {
      * @returns e.g. "UTC" or "UTC+2" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneUTCString(): string;
-    setWeatherFromMETAR(airportCode: string): Promise<void>;
+    setWeatherFromMETAR(metar: string): void;
+    setWeatherViaApi(airportCode: string): Promise<void>;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;
     getWindSpeed(): number;

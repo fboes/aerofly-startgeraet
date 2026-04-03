@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added METAR parser
+
 ## [1.3.0]
 
 - Added airport output

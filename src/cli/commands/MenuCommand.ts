@@ -354,15 +354,19 @@ export class MenuCommand extends ControllerCommand {
         CliFormatter.showMenuTitle(["Import Weather"]);
 
         const choice = await select({
-            message: "Import weather from API",
+            message: "Import weather",
             choices: [
                 {
-                    name: `Import weather for ${this.controller.getFlightplanDepartureAirportString()}`,
+                    name: `Import weather via APIfor ${this.controller.getFlightplanDepartureAirportString()}`,
                     value: this.controller.getFlightplanDepartureAirportString(),
                 },
                 {
-                    name: `Import weather for ${this.controller.getFlightplanArrivalAirportString()}`,
+                    name: `Import weather via API for ${this.controller.getFlightplanArrivalAirportString()}`,
                     value: this.controller.getFlightplanArrivalAirportString(),
+                },
+                {
+                    name: `Import weather by METAR code`,
+                    value: `metar`,
                 },
                 new Separator(),
                 this.getMainMenuChoice(),
@@ -373,8 +377,15 @@ export class MenuCommand extends ControllerCommand {
             return "mainMenu";
         }
 
-        CliFormatter.writeln(`Importing METAR for ${choice}...`);
-        await this.controller.setWeatherFromMETAR(choice);
+        if (choice === "metar") {
+            const metar = await input({
+                message: "Enter METAR code",
+            });
+            this.controller.setWeatherFromMETAR(metar);
+        } else {
+            CliFormatter.writeln(`Importing METAR for ${choice}...`);
+            await this.controller.setWeatherViaApi(choice);
+        }
         CliFormatter.writeSuccess("Weather imported successfully");
 
         return "mainMenu";

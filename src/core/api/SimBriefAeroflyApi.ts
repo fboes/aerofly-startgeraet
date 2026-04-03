@@ -15,6 +15,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefApi, SimBriefApiPayload, SimBriefApiPayloadAirport } from "./SimBriefApi.js";
 import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
+import { metarParser } from "aewx-metar-parser";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
     public async fetchMission(
@@ -133,23 +134,22 @@ export class SimBriefAeroflyApi extends SimBriefApi {
     }
 
     protected convertWeather(flight: AeroflyFlight, airport: SimBriefApiPayloadAirport) {
-        const windMatch = airport.metar.match(/\b(\d{3})(\d{2})(?:G(\d{2}))?KT\b/);
-        const temperatureMatch = airport.metar.match(/\b(M?\d+)\/(M?\d+)\b/);
+        const metar = metarParser(airport.metar);
+
         flight.wind = new AeroflySettingsWind(
-            windMatch && windMatch[2] ? Number(windMatch[2]) : 0,
-            windMatch && windMatch[1] ? Number(windMatch[1]) : 0,
-            windMatch && windMatch[3] ? Number(windMatch[3]) : 0,
-            temperatureMatch && temperatureMatch[1] ? Number(temperatureMatch[1].replace("M", "-")) : 14, // default to 15°C if not available
+            metar.wind.speed_kts,
+            metar.wind.degrees ?? 0,
+            metar.wind.gust_kts ?? 0,
+            metar.temperature.celsius ?? 14,
         );
 
-        const clouds = [...airport.metar.matchAll(/\b(FEW|SCT|BKN|OVC":)(\d{3})\b/g)];
-        flight.clouds = clouds.map((cloudMatch) => {
-            const cloud = AeroflySettingsCloud.createInFeet(0, Number(cloudMatch[2]) * 100);
-            cloud.density_code = cloudMatch[1] as "FEW" | "SCT" | "BKN" | "OVC";
+        flight.clouds = metar.clouds.map((metarCloud) => {
+            const cloud = AeroflySettingsCloud.createInFeet(0, metarCloud.feet);
+            cloud.density_code = metarCloud.code;
             return cloud;
         });
 
-        flight.visibility_meter = Number(airport.metar_visibility != "9999" ? airport.metar_visibility : 20000);
+        flight.visibility_meter = metar.visibility.meters;
     }
 
     protected findAeroflyAircraftCode(

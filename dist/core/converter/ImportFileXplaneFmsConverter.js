@@ -1,12 +1,12 @@
 import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
-import { ImportFileXMLConverter } from "./ImportFileConverter.js";
+import { ImportFileConverter } from "./ImportFileConverter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 /**
  * Import `.fms` flight plan files from X-Plane 11 / 12
  * @see https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
-export class ImportFileXplaneFms extends ImportFileXMLConverter {
+export class ImportFileXplaneFms extends ImportFileConverter {
     convert(content, flightplan) {
         const waypoints = this.getWaypoints(content);
         const departureRunway = this.getRunway(content, "DEPRWY");

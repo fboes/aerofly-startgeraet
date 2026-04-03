@@ -6,7 +6,7 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { ImportFileXMLConverter } from "./ImportFileConverter.js";
+import { ImportFileConverter } from "./ImportFileConverter.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 
@@ -26,7 +26,7 @@ type XplaneFmsWaypoint = {
  * @see https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
-export class ImportFileXplaneFms extends ImportFileXMLConverter {
+export class ImportFileXplaneFms extends ImportFileConverter {
     static readonly fileExtension = "fms";
 
     convert(content: string, flightplan: AeroflyFlight): void {

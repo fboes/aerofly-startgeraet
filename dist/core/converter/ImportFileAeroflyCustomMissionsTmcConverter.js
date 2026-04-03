@@ -1,5 +1,6 @@
 import { AeroflyCustomMissionsParser } from "./AeroflyCustomMissionsParser.js";
-export class ImportFileAeroflyCustomMissionsTmcConverter {
+import { ImportFileConverter } from "./ImportFileConverter.js";
+export class ImportFileAeroflyCustomMissionsTmcConverter extends ImportFileConverter {
     convert(content, flightplan) {
         const parser = new AeroflyCustomMissionsParser();
         const newFlightplan = parser.parse(content);

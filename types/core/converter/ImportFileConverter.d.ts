@@ -1,16 +1,6 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-export interface ImportFileConverter {
-    convert(content: string, flightplan: AeroflyFlight): void;
-}
-/**
- * This special ImportFileHandler adds basic XML parser functionality.
- */
-export declare abstract class ImportFileXMLConverter implements ImportFileConverter {
+export declare abstract class ImportFileConverter {
     abstract convert(content: string, flightplan: AeroflyFlight): void;
-    protected getXmlNode(xml: string, tag: string): string;
-    protected getXmlNodes(xml: string, tag: string): string[];
-    protected getXmlAttribute(xml: string, attribute: string): string;
-    protected unXml(text: string): string;
     /**
      * This function is a placeholder until the method to encode UIDs is discovered.
      *
@@ -19,5 +9,14 @@ export declare abstract class ImportFileXMLConverter implements ImportFileConver
      * @returns UID as a BigInt (unsigned 64-bit integer)
      */
     protected geoToUid(lon: number, lat: number): bigint | undefined;
+}
+/**
+ * This special ImportFileHandler adds basic XML parser functionality.
+ */
+export declare abstract class ImportFileXMLConverter extends ImportFileConverter {
+    protected getXmlNode(xml: string, tag: string): string;
+    protected getXmlNodes(xml: string, tag: string): string[];
+    protected getXmlAttribute(xml: string, attribute: string): string;
+    protected unXml(text: string): string;
 }
 //# sourceMappingURL=ImportFileConverter.d.ts.map

@@ -8,6 +8,7 @@ import { ExportFileWriter } from "../io/ExportFileWriter.js";
 import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
+import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -166,7 +167,11 @@ export class AeroflyFlightService {
         return `UTC${timeZone >= 0 ? "+" : "-"}${Math.abs(Math.round(timeZone))}`;
     }
     // ----------------------------------------------------------
-    async setWeatherFromMETAR(airportCode) {
+    setWeatherFromMETAR(metar) {
+        const converter = new ImportMetarConverter();
+        converter.convert(metar, this.aeroflyFlight);
+    }
+    async setWeatherViaApi(airportCode) {
         await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
     }
     // ----------------------------------------------------------

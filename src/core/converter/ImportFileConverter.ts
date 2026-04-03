@@ -1,17 +1,27 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
-export interface ImportFileConverter {
+export abstract class ImportFileConverter {
     // static readonly fileExtension: string;
 
-    convert(content: string, flightplan: AeroflyFlight): void;
+    abstract convert(content: string, flightplan: AeroflyFlight): void;
+
+    /**
+     * This function is a placeholder until the method to encode UIDs is discovered.
+     *
+     * @param lon - Longitude in degrees (-180 … +180)
+     * @param lat - Latitude in degrees  (-90  … +90)
+     * @returns UID as a BigInt (unsigned 64-bit integer)
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected geoToUid(lon: number, lat: number): bigint | undefined {
+        return undefined;
+    }
 }
 
 /**
  * This special ImportFileHandler adds basic XML parser functionality.
  */
-export abstract class ImportFileXMLConverter implements ImportFileConverter {
-    abstract convert(content: string, flightplan: AeroflyFlight): void;
-
+export abstract class ImportFileXMLConverter extends ImportFileConverter {
     protected getXmlNode(xml: string, tag: string): string {
         const match = xml.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, "ms"));
         return match ? this.unXml(match[1]) : "";
@@ -49,17 +59,5 @@ export abstract class ImportFileXMLConverter implements ImportFileConverter {
                           return m;
                   }
               });
-    }
-
-    /**
-     * This function is a placeholder until the method to encode UIDs is discovered.
-     *
-     * @param lon - Longitude in degrees (-180 … +180)
-     * @param lat - Latitude in degrees  (-90  … +90)
-     * @returns UID as a BigInt (unsigned 64-bit integer)
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected geoToUid(lon: number, lat: number): bigint | undefined {
-        return undefined;
     }
 }
