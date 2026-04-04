@@ -36,11 +36,7 @@ export declare class AviationWeatherApi {
      * @see https://aviationweather.gov/data/api/#/Data/dataMetar
      * @returns {Promise<AviationWeatherApiMetar[]>}
      */
-    static fetchMetarByPosition(
-        position: Point,
-        distance?: number,
-        date?: Date | null,
-    ): Promise<AviationWeatherApiMetar[]>;
+    static fetchMetarByPosition(position: Point, distance?: number, date?: Date | null): Promise<AviationWeatherApiMetar[]>;
     static doRequest<T>(route: string, query: URLSearchParams): Promise<T>;
     /**
      *
@@ -86,21 +82,7 @@ export declare class AviationWeatherNormalizedMetar {
      *
      * @param {AviationWeatherApiMetar} apiData
      */
-    constructor({
-        icaoId,
-        reportTime,
-        temp,
-        dewp,
-        wdir,
-        wspd,
-        wgst,
-        visib,
-        altim,
-        lat,
-        lon,
-        elev,
-        clouds,
-    }: AviationWeatherApiMetar);
+    constructor({ icaoId, reportTime, temp, dewp, wdir, wspd, wgst, visib, altim, lat, lon, elev, clouds, }: AviationWeatherApiMetar);
 }
 export declare class AviationWeatherNormalizedCloud {
     cover: "CLR" | "FEW" | "SCT" | "BKN" | "OVC";

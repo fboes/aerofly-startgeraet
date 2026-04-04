@@ -4,8 +4,6 @@ import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-fl
 export declare class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileConverter {
     static readonly fileExtension = "tmc";
     convert(flightplan: AeroflyFlight): string;
-    getWaypointType(
-        w: AeroflyNavRouteBase,
-    ): import("@fboes/aerofly-custom-missions/types/dto/AeroflyMissionCheckpoint.js").AeroflyMissionCheckpointType;
+    getWaypointType(w: AeroflyNavRouteBase): import("@fboes/aerofly-custom-missions/types/dto/AeroflyMissionCheckpoint.js").AeroflyMissionCheckpointType;
 }
 //# sourceMappingURL=ExportFileAeroflyCustomMissionsTmcConverter.d.ts.map

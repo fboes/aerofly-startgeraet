@@ -2,12 +2,7 @@ export declare class SunPosition {
     /**
      * Simplified elevation/ azimuth calculation
      */
-    static getSunPosition(
-        utcHours: number,
-        dayOfYear: number,
-        latitude: number,
-        longitude: number,
-    ): {
+    static getSunPosition(utcHours: number, dayOfYear: number, latitude: number, longitude: number): {
         elevation: number;
         azimuth: number;
     };

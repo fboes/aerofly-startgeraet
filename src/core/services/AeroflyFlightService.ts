@@ -98,7 +98,10 @@ export class AeroflyFlightService {
     }
 
     getMaxPayload(): number {
-        return this.currentAircraft ? (this.currentAircraft.maximumPayloadKg ?? 0) : 0;
+        return this.currentAircraft
+            ? (this.currentAircraft.maximumPayloadKg ??
+                  (this.currentAircraft.maximumTakeoffMassKg ?? 0) - (this.currentAircraft.operatingEmptyMassKg ?? 0))
+            : 0;
     }
 
     /**
