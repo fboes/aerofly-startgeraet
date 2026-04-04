@@ -20,7 +20,7 @@ describe("AeroflyFlightHelper", () => {
         assert.strictEqual("OVC", aeroflyFlight.clouds[2].density_code);
 
         assert.strictEqual(
-            aeroflyFlight.clouds[1],
+            aeroflyFlight.clouds[2],
             AeroflyFlightHelper.getCeiling(aeroflyFlight),
             "Disregard first cloud because not enough coverage, use third as being the lowest",
         );

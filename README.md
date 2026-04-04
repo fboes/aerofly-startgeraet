@@ -5,23 +5,18 @@
 Introducing the Aerofly Startgerät as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
 
 - Change aircraft, livery as well as set-up fuel and payload.
-- Manually set time and date (in UTC or the current departure airport time zone) - or synchronize the time & date in Aerofly FS4 to to the current time & date.
-- Change weather with settings in feet, statute miles and other meaningful units.
-- Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/). Weather can be imported for up to two weeks in the past, for almost any bigger airport around the globe.
-- Import a flight plan as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
-- Import a flight plan from flight plan file formats from a local import directory.
-- Export a flight plan to a local export directory for later re-import.
-
-Supported flight plan file formats for import:
-
-- Aerofly FS `mcf`
-- Garmin / Infinite flight `fpl`
-- Microsoft Flight Simulator 2020 / 2024 `pln`
-- X-Plane 11 / 12 `fms`
-
-Supported flight plan file formats for export:
-
-- Aerofly FS `tmc` and `mcf`
+- Time & date
+  - Manually set time and date in UTC
+  - Manually set time and date for the current departure airport time zone
+  - Synchronize the time & date in Aerofly FS4 to to the current time & date.
+- Weather
+  - Change weather with settings in feet, statute miles and other meaningful units.
+  - Import weather for given time, date and departure airport via [Aviation Weather Center API](https://aviationweather.gov/). Weather can be imported for up to two weeks in the past, for almost any bigger airport around the globe.
+  - Read weather from METAR string
+- Flight plans
+  - Import flight plans as well as aircraft, airline, time, date and weather settings from [SimBrief](https://www.simbrief.com/) via API.
+  - Import a flight plan from local import directory. See below for supported flight plan file formats.
+  - Export a flight plan to a local export directory for later re-import. See below for supported flight plan file formats.
 
 All off these changes are directly written to Aerofly's `main.mcf` main configuration file and are available on the next start-up of Aerofly FS 4.
 
@@ -30,6 +25,19 @@ In this manner the Aerofly Startgerät combines the capabilities of the [Aerofly
 This tool also comes with non-interactive short-cuts to simply import SimBrief flight plans, synchronizing time & date and fetching the latest METAR information.
 
 The Aerofly Startgerät is a stand-alone application, and is not directly integrated into Aerofly FS 4.
+
+Supported flight plan file formats:
+
+| Format                                                                                                                                                          | Import | Export |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
+| Aerofly FS `main.mcf`                                                                                                                                           |   ✅   |   ✅   |
+| Aerofly FS 4 `tmc` custom missions file                                                                                                                         |   ✅   |   ✅   |
+| [Microsoft FS 2020 / 2024 `pln` flight plan file](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
+| [X-Plane `fms` flight plan file](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                                   |   ✅   |        |
+| [GeoFS `json` flight plan file](https://www.geo-fs.com/pages/documentation.php)                                                                                 |   ✅   |        |
+| Garmin / Infinite Flight `fpl` flight plan file                                                                                                                 |   ✅   |        |
+| [SimBrief API](./docs/importing-flightplans.md)                                                                                                                 |   ✅   |        |
+| [Aviation Weather Center METR API](https://aviationweather.gov/)                                                                                                |   ✅   |        |
 
 ## Requirements
 

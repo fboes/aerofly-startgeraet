@@ -15,7 +15,7 @@ describe("AeroflyFlightHelper", () => {
         assert.strictEqual("SCT", aeroflyFlight.clouds[0].density_code);
         assert.strictEqual("BKN", aeroflyFlight.clouds[1].density_code);
         assert.strictEqual("OVC", aeroflyFlight.clouds[2].density_code);
-        assert.strictEqual(aeroflyFlight.clouds[1], AeroflyFlightHelper.getCeiling(aeroflyFlight), "Disregard first cloud because not enough coverage, use third as being the lowest");
+        assert.strictEqual(aeroflyFlight.clouds[2], AeroflyFlightHelper.getCeiling(aeroflyFlight), "Disregard first cloud because not enough coverage, use third as being the lowest");
     });
     it("should calculate the sun position", () => {
         const aeroflyFlight = new AeroflyFlightFallback();
