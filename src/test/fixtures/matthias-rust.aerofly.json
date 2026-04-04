@@ -1,0 +1,117 @@
+[
+  {
+    "title": "Matthias Rust: Landung am Roten Platz",
+    "description": "Nachstellung des berühmten Fluges von Matthias Rust am 28. Mai 1987. Der 18-jährige deutsche Hobbypilot flog von Helsinki-Malmi (EFHF) mit einer Cessna 172 durch den sowjetischen Luftraum und landete auf der Bolshoy Moskvoretsky-Brücke nahe dem Roten Platz in Moskau. Der Flug dauerte ca. 5 Stunden über rund 900 km.",
+    "flightSetting": "takeoff",
+    "aircraft": {
+      "name": "c172",
+      "icao": "C172"
+    },
+    "callsign": "DECCB",
+    "fuelMass": 159,
+    "payloadMass": 80,
+    "origin": {
+      "icao": "EFHF",
+      "longitude": 25.0428,
+      "latitude": 60.2546,
+      "dir": 180,
+      "alt": 17
+    },
+    "destination": {
+      "icao": "UUWW",
+      "longitude": 37.4146,
+      "latitude": 55.8165,
+      "dir": 88,
+      "alt": 164
+    },
+    "checkpoints": [
+      {
+        "type": "origin",
+        "name": "EFHF",
+        "longitude": 25.0428,
+        "latitude": 60.2546,
+        "altitude": 17
+      },
+      {
+        "type": "departure_runway",
+        "name": "18",
+        "longitude": 25.0428,
+        "latitude": 60.2546,
+        "altitude": 17
+      },
+      {
+        "type": "departure",
+        "name": "EFHF",
+        "longitude": 25.0428,
+        "latitude": 60.2546,
+        "altitude": 300
+      },
+      {
+        "type": "waypoint",
+        "name": "TALLINN",
+        "longitude": 24.8328,
+        "latitude": 59.4133,
+        "altitude": 1000
+      },
+      {
+        "type": "waypoint",
+        "name": "PSKOV",
+        "longitude": 28.3319,
+        "latitude": 57.8194,
+        "altitude": 1000
+      },
+      {
+        "type": "waypoint",
+        "name": "NOVGOROD",
+        "longitude": 31.2752,
+        "latitude": 58.5217,
+        "altitude": 1000
+      },
+      {
+        "type": "waypoint",
+        "name": "TVER",
+        "longitude": 35.9118,
+        "latitude": 56.8587,
+        "altitude": 1000
+      },
+      {
+        "type": "arrival",
+        "name": "UUWW",
+        "longitude": 37.4146,
+        "latitude": 55.8165,
+        "altitude": 500
+      },
+      {
+        "type": "destination_runway",
+        "name": "06",
+        "longitude": 37.4146,
+        "latitude": 55.8165,
+        "altitude": 164
+      },
+      {
+        "type": "destination",
+        "name": "UUWW",
+        "longitude": 37.4146,
+        "latitude": 55.8165,
+        "altitude": 164
+      }
+    ],
+    "conditions": {
+      "time": "1987-05-28T11:00:00Z",
+      "clouds": [
+        {
+          "cover": 0.2,
+          "base": 1400
+        }
+      ],
+      "wind": {
+        "direction": 200,
+        "speed": 8,
+        "gusts": 12
+      },
+      "turbulenceStrength": 0.1,
+      "thermalStrength": 0.2,
+      "visibility": 9999
+    }
+  }
+]

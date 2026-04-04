@@ -14,19 +14,19 @@ export class Config {
         this.conf = new Conf({ projectName });
     }
 
-    private get(key: string, defaultValue: string = ""): string {
+    protected get(key: string, defaultValue: string = ""): string {
         return String(this.conf.get(key, defaultValue));
     }
 
-    private set(key: string, value: string | number): void {
+    protected set(key: string, value: string | number): void {
         this.conf.set(key, value);
     }
 
-    private getBoolean(key: string): boolean {
+    protected getBoolean(key: string): boolean {
         return Boolean(this.conf.get(key, false));
     }
 
-    private setBoolean(key: string, value: boolean): void {
+    protected setBoolean(key: string, value: boolean): void {
         this.conf.set(key, value);
     }
 

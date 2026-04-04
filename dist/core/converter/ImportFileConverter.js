@@ -50,3 +50,29 @@ export class ImportFileXMLConverter extends ImportFileConverter {
             });
     }
 }
+export class ImportFileJSONConverter extends ImportFileConverter {
+    getJSONArray(json) {
+        if (!Array.isArray(json) || json === null) {
+            throw new Error("Element must be array");
+        }
+        return json;
+    }
+    getJSONObject(json) {
+        if (typeof json !== "object" || json === null) {
+            throw new Error("Element must be object");
+        }
+        return json;
+    }
+    getJSONNumber(json) {
+        if (isNaN(json)) {
+            throw new Error("Element must be number");
+        }
+        return Number(json);
+    }
+    getJSONString(json) {
+        if (typeof json !== "string" || json === null) {
+            throw new Error("Element must be string");
+        }
+        return String(json);
+    }
+}

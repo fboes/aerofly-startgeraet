@@ -8,7 +8,7 @@ describe("AeroflyCustomMissionsParser", () => {
         const parser = new AeroflyCustomMissionsParser();
         const flight = parser.parse(content);
         assert.strictEqual(flight.aircraft.name, "c172");
-        assert.strictEqual(flight.fuelLoadSetting.fuelMass, 80, "Reads values, eveb if commented out");
+        assert.strictEqual(flight.fuelLoadSetting.fuelMass, 80, "Reads values, even if commented out");
         assert.strictEqual(flight.fuelLoadSetting.payloadMass, 90);
         //console.log(flight);
     });

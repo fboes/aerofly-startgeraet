@@ -19,4 +19,11 @@ export declare abstract class ImportFileXMLConverter extends ImportFileConverter
     protected getXmlAttribute(xml: string, attribute: string): string;
     protected unXml(text: string): string;
 }
+export type ImportFileJSONUnvalidated = Record<string, unknown>;
+export declare abstract class ImportFileJSONConverter extends ImportFileConverter {
+    protected getJSONArray(json: unknown): ImportFileJSONUnvalidated[];
+    protected getJSONObject(json: unknown): ImportFileJSONUnvalidated;
+    protected getJSONNumber(json: unknown): number;
+    protected getJSONString(json: unknown): string;
+}
 //# sourceMappingURL=ImportFileConverter.d.ts.map

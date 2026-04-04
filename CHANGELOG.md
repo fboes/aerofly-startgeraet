@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Added METAR parser
+- Added import for Aerofly FS 4 `aerofly.json` custom missions file
 
 ## [1.3.0]
 

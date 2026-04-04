@@ -61,3 +61,35 @@ export abstract class ImportFileXMLConverter extends ImportFileConverter {
               });
     }
 }
+
+export type ImportFileJSONUnvalidated = Record<string, unknown>;
+
+export abstract class ImportFileJSONConverter extends ImportFileConverter {
+    protected getJSONArray(json: unknown): ImportFileJSONUnvalidated[] {
+        if (!Array.isArray(json) || json === null) {
+            throw new Error("Element must be array");
+        }
+        return json as ImportFileJSONUnvalidated[];
+    }
+
+    protected getJSONObject(json: unknown): ImportFileJSONUnvalidated {
+        if (typeof json !== "object" || json === null) {
+            throw new Error("Element must be object");
+        }
+        return json as ImportFileJSONUnvalidated;
+    }
+
+    protected getJSONNumber(json: unknown): number {
+        if (isNaN(json as number)) {
+            throw new Error("Element must be number");
+        }
+        return Number(json);
+    }
+
+    protected getJSONString(json: unknown): string {
+        if (typeof json !== "string" || json === null) {
+            throw new Error("Element must be string");
+        }
+        return String(json);
+    }
+}

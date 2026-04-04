@@ -6,6 +6,7 @@ import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
 import { ImportFileAeroflyCustomMissionsTmcConverter } from "../converter/ImportFileAeroflyCustomMissionsTmcConverter.js";
+import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/ImportFileAeroflyCustomMissionsJsonConverter.js";
 
 /**
  * Finds local flight plan files
@@ -26,6 +27,7 @@ export class ImportFileFinderService {
         const files = fs.readdirSync(importDirectory);
         const importFiles = files.filter(
             (file: string) =>
+                file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsJsonConverter.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsTmcConverter.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileAeroflyMcfConverter.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileGarminFpl.fileExtension) ||

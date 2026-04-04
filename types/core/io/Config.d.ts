@@ -5,10 +5,10 @@
 export declare class Config {
     private conf;
     constructor(projectName?: string);
-    private get;
-    private set;
-    private getBoolean;
-    private setBoolean;
+    protected get(key: string, defaultValue?: string): string;
+    protected set(key: string, value: string | number): void;
+    protected getBoolean(key: string): boolean;
+    protected setBoolean(key: string, value: boolean): void;
     /**
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan. This is needed to import flight plans from SimBrief into Aerofly FS 4.
      */

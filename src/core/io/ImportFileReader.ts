@@ -6,6 +6,7 @@ import { ImportFileConverter } from "../converter/ImportFileConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
 import { ImportFileAeroflyCustomMissionsTmcConverter } from "../converter/ImportFileAeroflyCustomMissionsTmcConverter.js";
+import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/ImportFileAeroflyCustomMissionsJsonConverter.js";
 
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
@@ -32,12 +33,13 @@ export class ImportFileReader {
     }
 
     static getConverter(filename: string): new () => ImportFileConverter {
-        const fileSuffix = filename.split(".").pop()?.toLowerCase();
+        const fileSuffix = filename.replace(/^[^.]+\./, "");
         if (!fileSuffix) {
             throw new Error(`Could not determine file type for "${filename}"`);
         }
 
         const registry: Record<string, new () => ImportFileConverter> = {
+            [ImportFileAeroflyCustomMissionsJsonConverter.fileExtension]: ImportFileAeroflyCustomMissionsJsonConverter,
             [ImportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ImportFileAeroflyCustomMissionsTmcConverter,
             [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
             [ImportFileMsfs.fileExtension]: ImportFileMsfs,
