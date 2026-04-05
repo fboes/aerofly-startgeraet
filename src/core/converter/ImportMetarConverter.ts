@@ -4,6 +4,10 @@ import { metarParser } from "aewx-metar-parser";
 
 export class ImportMetarConverter extends ImportFileConverter {
     convert(content: string, flightplan: AeroflyFlight, index = 0): void {
+        if (index > 0) {
+            throw new Error("File format only contains one set of information");
+        }
+
         const metar = metarParser(content);
 
         flightplan.wind = new AeroflySettingsWind(

@@ -9,6 +9,9 @@ import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 export class ImportFileMsfs extends ImportFileXMLConverter {
     static fileExtension = "pln";
     convert(content, flightplan, index = 0) {
+        if (index > 0) {
+            throw new Error("File format only contains one flight plan");
+        }
         const waypointTableXml = this.getXmlNode(content, "FlightPlan.FlightPlan");
         const versionId = Number(this.getXmlNode(waypointTableXml, "AppVersionMajor"));
         if (versionId <= 0 || versionId > 12) {

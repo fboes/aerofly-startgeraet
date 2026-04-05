@@ -194,8 +194,12 @@ export class AeroflyFlightService {
         return importFileFinder.findImportFiles();
     }
 
-    importFlightplanFromFile(filePath: string): void {
-        ImportFileReader.importFile(filePath, this.aeroflyFlight);
+    getImportableFlightplans(filePath: string): string[] {
+        return ImportFileReader.getFlightplans(filePath);
+    }
+
+    importFlightplanFromFile(filePath: string, index = 0): void {
+        ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
         this.setFlightPositionToDeparture();
     }
 

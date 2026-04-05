@@ -30,6 +30,10 @@ export class ImportFileXplaneFms extends ImportFileConverter {
     static readonly fileExtension = "fms";
 
     convert(content: string, flightplan: AeroflyFlight, index = 0): void {
+        if (index > 0) {
+            throw new Error("File format only contains one flight plan");
+        }
+
         const waypoints = this.getWaypoints(content);
 
         const departureRunway = this.getRunway(content, "DEPRWY");

@@ -133,8 +133,11 @@ export class AeroflyFlightService {
         const importFileFinder = new ImportFileFinderService(this.config);
         return importFileFinder.findImportFiles();
     }
-    importFlightplanFromFile(filePath) {
-        ImportFileReader.importFile(filePath, this.aeroflyFlight);
+    getImportableFlightplans(filePath) {
+        return ImportFileReader.getFlightplans(filePath);
+    }
+    importFlightplanFromFile(filePath, index = 0) {
+        ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
         this.setFlightPositionToDeparture();
     }
     // ----------------------------------------------------------

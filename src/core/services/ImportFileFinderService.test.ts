@@ -9,7 +9,7 @@ describe("ImportFileFinderService", () => {
         const finder = new ImportFileFinderService(config);
         const files = finder.findImportFiles();
 
-        assert.strictEqual(3, files?.length);
+        assert.strictEqual(4, files?.length);
         //console.log(files);
     });
 });

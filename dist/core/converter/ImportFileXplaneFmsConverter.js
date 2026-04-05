@@ -9,6 +9,9 @@ import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 export class ImportFileXplaneFms extends ImportFileConverter {
     static fileExtension = "fms";
     convert(content, flightplan, index = 0) {
+        if (index > 0) {
+            throw new Error("File format only contains one flight plan");
+        }
         const waypoints = this.getWaypoints(content);
         const departureRunway = this.getRunway(content, "DEPRWY");
         const destinationRunway = this.getRunway(content, "DESRWY");

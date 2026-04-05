@@ -23,6 +23,10 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
     static readonly fileExtension = "pln";
 
     convert(content: string, flightplan: AeroflyFlight, index = 0): void {
+        if (index > 0) {
+            throw new Error("File format only contains one flight plan");
+        }
+
         const waypointTableXml = this.getXmlNode(content, "FlightPlan.FlightPlan");
 
         const versionId = Number(this.getXmlNode(waypointTableXml, "AppVersionMajor"));

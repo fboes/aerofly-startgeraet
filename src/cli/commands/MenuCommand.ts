@@ -229,8 +229,22 @@ export class MenuCommand extends ControllerCommand {
                           choices: importableFileChoices,
                       })
                     : choice;
+
+            const flightplans = this.controller.getImportableFlightplans(filename);
+            const index: string =
+                flightplans.length === 1
+                    ? "0"
+                    : await select({
+                          message: "Choose flightplan from file",
+                          choices: flightplans.map((name, index) => {
+                              return {
+                                  name,
+                                  value: String(index),
+                              };
+                          }),
+                      });
             CliFormatter.writeln(`Importing flightplan from file ${filename}...`);
-            this.controller.importFlightplanFromFile(filename);
+            this.controller.importFlightplanFromFile(filename, Number(index));
         }
         CliFormatter.writeSuccess("Flightplan imported successfully");
         CliFormatter.writeln(
