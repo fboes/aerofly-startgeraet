@@ -2,6 +2,7 @@ import { input, confirm } from "@inquirer/prompts";
 import { CliFormatter } from "../formatter/CliFormatter.js";
 import { HelpCommand } from "./HelpCommand.js";
 export class SetupCommand {
+    config;
     constructor(config) {
         this.config = config;
     }

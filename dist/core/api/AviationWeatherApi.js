@@ -53,6 +53,37 @@ export class AviationWeatherApi {
     }
 }
 export class AviationWeatherNormalizedMetar {
+    icaoId;
+    reportTime;
+    /**
+     * in °C
+     */
+    temp;
+    /**
+     * in °C
+     */
+    dewp;
+    /**
+     * in °, null on VRB
+     */
+    wdir;
+    /**
+     * in kts
+     */
+    wspd;
+    wgst;
+    /**
+     * in SM, 10 on any distance being open-ended
+     */
+    visib;
+    altim;
+    lat;
+    lon;
+    /**
+     * meters MSL
+     */
+    elev;
+    clouds;
     /**
      *
      * @param {AviationWeatherApiMetar} apiData
@@ -88,6 +119,15 @@ export class AviationWeatherNormalizedMetar {
     }
 }
 export class AviationWeatherNormalizedCloud {
+    cover;
+    /**
+     *  0..8
+     */
+    coverOctas;
+    /**
+     *  in feet AGL
+     */
+    base;
     constructor({ cover, base }) {
         this.cover = cover === "CAVOK" || cover === "SKC" ? "CLR" : cover;
         const coverOctas = {

@@ -1,9 +1,7 @@
 import { AeroflyFlight, AeroflySettingsFuelLoad, AeroflyNavigationConfig, AeroflySettingsCloud, AeroflySettingsAircraft, AeroflySettingsWind, AeroflyTimeUtc, AeroflySettingsFlight, AeroflyNavRouteWaypoint, AeroflyNavRouteOrigin, AeroflyNavRouteDestination, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflyNavRouteApproach, AeroflyNavRouteDeparture, AeroflyNavRouteArrival, } from "@fboes/aerofly-custom-missions";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 export class AeroflyMainConfigParser {
-    constructor() {
-        this.parser = new AeroflyFileParser();
-    }
+    parser = new AeroflyFileParser();
     parse(mainMcfContent) {
         return new AeroflyFlight(this.parseAircraftSettings(this.parser.getGroup(mainMcfContent, "tmsettings_aircraft")), this.parseFlightSettings(this.parser.getGroup(mainMcfContent, "tmsettings_flight")), this.parseTimeSettings(this.parser.getGroup(mainMcfContent, "tm_time_utc")), this.parseWindSettings(this.parser.getGroup(mainMcfContent, "tmsettings_wind")), this.parseCloudSettings(this.parser.getGroup(mainMcfContent, "tmsettings_clouds")), this.parseNavigationConfig(this.parser.getGroup(mainMcfContent, "tmnav_route", 3)), {
             fuelLoadSetting: this.parseFuelLoadSettings(this.parser.getGroup(mainMcfContent, "tmsettings_fuel_load")),

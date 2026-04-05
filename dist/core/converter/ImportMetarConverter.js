@@ -2,7 +2,7 @@ import { AeroflySettingsWind, AeroflySettingsCloud } from "@fboes/aerofly-custom
 import { ImportFileConverter } from "./ImportFileConverter.js";
 import { metarParser } from "aewx-metar-parser";
 export class ImportMetarConverter extends ImportFileConverter {
-    convert(content, flightplan) {
+    convert(content, flightplan, index = 0) {
         const metar = metarParser(content);
         flightplan.wind = new AeroflySettingsWind(metar.wind.speed_kts, metar.wind.degrees ?? 0, metar.wind.gust_kts ?? 0, metar.temperature.celsius ?? 14);
         flightplan.clouds = metar.clouds.map((metarCloud) => {

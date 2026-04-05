@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
-import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.js";
+import { ImportFileGarminFplConverter } from "../converter/ImportFileGarminFplConverter.js";
 import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
@@ -10,6 +10,7 @@ import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/Impor
  * Finds local flight plan files
  */
 export class ImportFileFinderService {
+    config;
     constructor(config) {
         this.config = config;
     }
@@ -26,7 +27,7 @@ export class ImportFileFinderService {
         const importFiles = files.filter((file) => file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsJsonConverter.fileExtension) ||
             file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsTmcConverter.fileExtension) ||
             file.toLowerCase().endsWith(ImportFileAeroflyMcfConverter.fileExtension) ||
-            file.toLowerCase().endsWith(ImportFileGarminFpl.fileExtension) ||
+            file.toLowerCase().endsWith(ImportFileGarminFplConverter.fileExtension) ||
             file.toLowerCase().endsWith(ImportFileMsfs.fileExtension) ||
             file.toLowerCase().endsWith(ImportFileXplaneFms.fileExtension));
         if (importFiles.length === 0) {

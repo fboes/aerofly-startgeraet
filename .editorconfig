@@ -17,6 +17,3 @@ trim_trailing_whitespace = false
 
 [*.html]
 indent_size = 2
-
-[*.map]
-insert_final_newline = false

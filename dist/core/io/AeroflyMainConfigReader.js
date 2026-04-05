@@ -8,6 +8,8 @@ export class AeroflyMainConfigReaderError extends Error {
  * Reader to convert `main.mcf` file into `AeroflyFlight` class instance.
  */
 export class AeroflyMainConfigReader {
+    config;
+    mainCfgFileName;
     constructor(config) {
         this.config = config;
         if (!this.config.mainMcfFilePath) {

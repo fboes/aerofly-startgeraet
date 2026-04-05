@@ -1,9 +1,14 @@
 import { AeroflyCustomMissionsParser } from "./AeroflyCustomMissionsParser.js";
 import { ImportFileConverter } from "./ImportFileConverter.js";
 export class ImportFileAeroflyCustomMissionsTmcConverter extends ImportFileConverter {
-    convert(content, flightplan) {
+    static fileExtension = "tmc";
+    getIndices(content) {
         const parser = new AeroflyCustomMissionsParser();
-        const newFlightplan = parser.parse(content);
+        return parser.getMissionNames(content);
+    }
+    convert(content, flightplan, index = 0) {
+        const parser = new AeroflyCustomMissionsParser();
+        const newFlightplan = parser.parse(content, index);
         flightplan.aircraft = newFlightplan.aircraft;
         flightplan.clouds = newFlightplan.clouds;
         flightplan.visibility = newFlightplan.visibility;
@@ -14,4 +19,3 @@ export class ImportFileAeroflyCustomMissionsTmcConverter extends ImportFileConve
         flightplan.navigation = newFlightplan.navigation;
     }
 }
-ImportFileAeroflyCustomMissionsTmcConverter.fileExtension = "tmc";

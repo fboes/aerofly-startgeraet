@@ -5,9 +5,14 @@ import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export class ImportFileAeroflyCustomMissionsTmcConverter extends ImportFileConverter {
     static readonly fileExtension = "tmc";
 
-    convert(content: string, flightplan: AeroflyFlight): void {
+    getIndices(content: string): string[] {
         const parser = new AeroflyCustomMissionsParser();
-        const newFlightplan = parser.parse(content);
+        return parser.getMissionNames(content);
+    }
+
+    convert(content: string, flightplan: AeroflyFlight, index = 0): void {
+        const parser = new AeroflyCustomMissionsParser();
+        const newFlightplan = parser.parse(content, index);
         flightplan.aircraft = newFlightplan.aircraft;
         flightplan.clouds = newFlightplan.clouds;
         flightplan.visibility = newFlightplan.visibility;

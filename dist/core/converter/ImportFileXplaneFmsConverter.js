@@ -7,7 +7,8 @@ import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
 export class ImportFileXplaneFms extends ImportFileConverter {
-    convert(content, flightplan) {
+    static fileExtension = "fms";
+    convert(content, flightplan, index = 0) {
         const waypoints = this.getWaypoints(content);
         const departureRunway = this.getRunway(content, "DEPRWY");
         const destinationRunway = this.getRunway(content, "DESRWY");
@@ -71,4 +72,3 @@ export class ImportFileXplaneFms extends ImportFileConverter {
         ];
     }
 }
-ImportFileXplaneFms.fileExtension = "fms";

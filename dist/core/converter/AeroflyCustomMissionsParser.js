@@ -1,17 +1,28 @@
 import { AeroflyFlight, AeroflySettingsFuelLoad, AeroflyNavigationConfig, AeroflySettingsCloud, AeroflySettingsAircraft, AeroflySettingsWind, AeroflyTimeUtc, AeroflySettingsFlight, AeroflyNavRouteWaypoint, AeroflyNavRouteOrigin, AeroflyNavRouteDestination, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflyNavRouteApproach, AeroflyNavRouteDeparture, AeroflyNavRouteArrival, } from "@fboes/aerofly-custom-missions";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 export class AeroflyCustomMissionsParser {
-    constructor() {
-        this.parser = new AeroflyFileParser();
+    parser = new AeroflyFileParser();
+    getMissionNames(content) {
+        const missions = this.getMissions(content);
+        return missions.map((mission) => {
+            return this.parser.getValue(mission, "title");
+        });
     }
-    parse(content) {
-        const mission = this.parser.getGroup(content, "tmmission_definition", 3);
-        const missionConditions = this.parser.getGroup(content, "tmmission_conditions", 4);
+    parse(content, index = 0) {
+        const missions = this.getMissions(content);
+        const mission = missions.at(index);
+        if (mission == undefined) {
+            throw new Error("Invalid mission index");
+        }
+        const missionConditions = this.parser.getGroup(mission, "tmmission_conditions", 4);
         const missionTime = this.parser.getGroup(missionConditions, "tm_time_utc", 5);
         return new AeroflyFlight(this.parseAircraftSettings(mission), this.parseFlightSettings(mission), this.parseTimeSettings(missionTime), this.parseWindSettings(missionConditions), this.parseCloudSettings(missionConditions), this.parseNavigationConfig(mission), {
             fuelLoadSetting: this.parseFuelLoadSettings(mission),
             visibility_meter: this.parser.getNumber(missionConditions, "visibility"),
         });
+    }
+    getMissions(content) {
+        return content.split("<[tmmission_definition]").slice(1);
     }
     parseFuelLoadSettings(mission) {
         return new AeroflySettingsFuelLoad(this.parser.getValue(mission, "aircraft_name"), this.parser.getNumber(mission, "fuel_mass"), this.parser.getNumber(mission, "payload_mass"), "Keep");

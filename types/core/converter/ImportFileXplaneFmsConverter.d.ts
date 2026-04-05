@@ -7,7 +7,7 @@ import { ImportFileConverter } from "./ImportFileConverter.js";
  */
 export declare class ImportFileXplaneFms extends ImportFileConverter {
     static readonly fileExtension = "fms";
-    convert(content: string, flightplan: AeroflyFlight): void;
+    convert(content: string, flightplan: AeroflyFlight, index?: number): void;
     private getRunway;
     private getWaypoints;
     private convertWaypointToAerofly;

@@ -21,20 +21,32 @@ type GaminFplWaypoint = {
  * Import `fpl` Gamin FPL files
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
-export class ImportFileGarminFpl extends ImportFileXMLConverter {
+export class ImportFileGarminFplConverter extends ImportFileXMLConverter {
     static readonly fileExtension = "fpl";
 
-    convert(content: string, flightplan: AeroflyFlight): void {
-        const waypoints = this.getWaypoints(content);
+    getIndices(content: string): string[] {
+        return this.getRoutes(content).map((r) => this.getXmlNode(r, "route-name"));
+    }
+
+    convert(content: string, flightplan: AeroflyFlight, index = 0): void {
+        const routes = this.getRoutes(content);
+        const route = routes.at(index);
+        if (route === undefined) {
+            throw new Error("Route index does not exist");
+        }
+        const waypoints = this.getWaypoints(content, route);
 
         flightplan.navigation.waypoints = waypoints.map((waypoint, index) =>
             this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1),
         );
     }
 
-    private getWaypoints(content: string): GaminFplWaypoint[] {
+    private getRoutes(content: string): string[] {
+        return this.getXmlNodes(content, "route");
+    }
+
+    private getWaypoints(content: string, routeTableXml: string): GaminFplWaypoint[] {
         const waypointDefinitions = this.getWaypointDefinitions(content);
-        const routeTableXml = this.getXmlNode(content, "route");
         const waypointsXml = this.getXmlNodes(routeTableXml, "route-point");
 
         return waypointsXml.map((xml): GaminFplWaypoint => {

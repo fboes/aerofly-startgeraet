@@ -3,7 +3,7 @@ import { ImportFileConverter } from "./ImportFileConverter.js";
 import { metarParser } from "aewx-metar-parser";
 
 export class ImportMetarConverter extends ImportFileConverter {
-    convert(content: string, flightplan: AeroflyFlight): void {
+    convert(content: string, flightplan: AeroflyFlight, index = 0): void {
         const metar = metarParser(content);
 
         flightplan.wind = new AeroflySettingsWind(

@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs from "node:fs";
 import { Config } from "../io/Config.js";
-import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.js";
+import { ImportFileGarminFplConverter } from "../converter/ImportFileGarminFplConverter.js";
 import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
@@ -30,7 +30,7 @@ export class ImportFileFinderService {
                 file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsJsonConverter.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsTmcConverter.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileAeroflyMcfConverter.fileExtension) ||
-                file.toLowerCase().endsWith(ImportFileGarminFpl.fileExtension) ||
+                file.toLowerCase().endsWith(ImportFileGarminFplConverter.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileMsfs.fileExtension) ||
                 file.toLowerCase().endsWith(ImportFileXplaneFms.fileExtension),
         );

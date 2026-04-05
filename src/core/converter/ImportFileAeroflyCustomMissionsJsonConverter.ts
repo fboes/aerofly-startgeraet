@@ -22,10 +22,19 @@ import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-fl
 export class ImportFileAeroflyCustomMissionsJsonConverter extends ImportFileJSONConverter {
     static readonly fileExtension = "aerofly.json";
 
-    convert(content: string, flightplan: AeroflyFlight): void {
+    getIndices(content: string): string[] {
         const json = JSON.parse(content) as unknown;
         const data = this.getJSONArray(json);
-        const mission = this.getJSONObject(data[0]);
+
+        return data.map((d) => {
+            return this.getJSONString(d.title);
+        });
+    }
+
+    convert(content: string, flightplan: AeroflyFlight, index = 0): void {
+        const json = JSON.parse(content) as unknown;
+        const data = this.getJSONArray(json);
+        const mission = this.getJSONObject(data.at(index));
         const missionConditions = this.getJSONObject(mission.conditions);
         flightplan.aircraft = this.parseAircraftSettings(mission);
         flightplan.flightSetting = this.parseFlightSettings(mission);

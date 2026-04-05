@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
-import { ImportFileGarminFpl } from "../converter/ImportFileGarminFplConverter.js";
+import { ImportFileGarminFplConverter } from "../converter/ImportFileGarminFplConverter.js";
 import { ImportFileConverter } from "../converter/ImportFileConverter.js";
 import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
 import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
@@ -13,6 +13,12 @@ import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/Impor
  * appropriate converter class.
  */
 export class ImportFileReader {
+    static getFlightplans(filename: string): string[] {
+        const converter = this.getConverter(filename);
+        const content = fs.readFileSync(filename, "utf8");
+        return new converter().getIndices(content);
+    }
+
     /**
      * Imports a flight plan from a file and converts it to an AeroflyFlight object.
      * Supported file types are determined by the file extension:
@@ -21,15 +27,16 @@ export class ImportFileReader {
      *
      * @param filename The path to the flight plan file to import.
      * @param flightplan The AeroflyFlight object to populate with the imported data.
+     * @param index If multiple flight plans are present in a given file, select which index to import
      * @throws Will throw an error if the file type is unsupported or if the conversion fails.
      * @see ImportFileConverter for the interface that specific file handlers must implement.
      * @see ImportFileMsfs for handling Microsoft Flight Simulator .pln files.
-     * @see ImportFileGarminFpl for handling Garmin .fpl files.
+     * @see ImportFileGarminFplConverter for handling Garmin .fpl files.
      */
-    static importFile(filename: string, flightplan: AeroflyFlight): void {
+    static importFile(filename: string, flightplan: AeroflyFlight, index = 0): void {
         const converter = this.getConverter(filename);
         const content = fs.readFileSync(filename, "utf8");
-        return new converter().convert(content, flightplan);
+        return new converter().convert(content, flightplan, index);
     }
 
     static getConverter(filename: string): new () => ImportFileConverter {
@@ -43,7 +50,7 @@ export class ImportFileReader {
             [ImportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ImportFileAeroflyCustomMissionsTmcConverter,
             [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
             [ImportFileMsfs.fileExtension]: ImportFileMsfs,
-            [ImportFileGarminFpl.fileExtension]: ImportFileGarminFpl,
+            [ImportFileGarminFplConverter.fileExtension]: ImportFileGarminFplConverter,
             [ImportFileXplaneFms.fileExtension]: ImportFileXplaneFms,
         };
 

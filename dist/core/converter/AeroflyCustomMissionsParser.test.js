@@ -3,6 +3,13 @@ import assert from "node:assert";
 import fs from "node:fs";
 import { AeroflyCustomMissionsParser } from "./AeroflyCustomMissionsParser.js";
 describe("AeroflyCustomMissionsParser", () => {
+    it("should find multiple missions from TMC files", () => {
+        const content = fs.readFileSync("./src/test/fixtures/custom_missions_user.tmc", "utf-8");
+        const parser = new AeroflyCustomMissionsParser();
+        const indices = parser.getMissionNames(content);
+        assert.strictEqual(1, indices.length);
+        assert.strictEqual("Landing practice #1: Concord / Buchanan Field", indices[0]);
+    });
     it("should convert TMC files into AeroflyFlight classes", () => {
         const content = fs.readFileSync("./src/test/fixtures/custom_missions_user.tmc", "utf-8");
         const parser = new AeroflyCustomMissionsParser();

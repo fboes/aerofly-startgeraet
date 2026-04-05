@@ -29,7 +29,7 @@ type XplaneFmsWaypoint = {
 export class ImportFileXplaneFms extends ImportFileConverter {
     static readonly fileExtension = "fms";
 
-    convert(content: string, flightplan: AeroflyFlight): void {
+    convert(content: string, flightplan: AeroflyFlight, index = 0): void {
         const waypoints = this.getWaypoints(content);
 
         const departureRunway = this.getRunway(content, "DEPRWY");

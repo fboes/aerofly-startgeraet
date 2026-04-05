@@ -4,6 +4,7 @@
 
 - Added METAR parser
 - Added import for Aerofly FS 4 `aerofly.json` custom missions file
+- Added support for flight plan files containing multiple flight plans
 
 ## [1.3.0]
 

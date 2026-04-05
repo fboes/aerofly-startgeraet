@@ -22,9 +22,20 @@ import { AeroflyFileParser } from "./AeroflyFileParser.js";
 export class AeroflyCustomMissionsParser {
     parser = new AeroflyFileParser();
 
-    parse(content: string): AeroflyFlight {
-        const mission = this.parser.getGroup(content, "tmmission_definition", 3);
-        const missionConditions = this.parser.getGroup(content, "tmmission_conditions", 4);
+    getMissionNames(content: string): string[] {
+        const missions = this.getMissions(content);
+        return missions.map((mission) => {
+            return this.parser.getValue(mission, "title");
+        });
+    }
+
+    parse(content: string, index = 0): AeroflyFlight {
+        const missions = this.getMissions(content);
+        const mission = missions.at(index);
+        if (mission == undefined) {
+            throw new Error("Invalid mission index");
+        }
+        const missionConditions = this.parser.getGroup(mission, "tmmission_conditions", 4);
         const missionTime = this.parser.getGroup(missionConditions, "tm_time_utc", 5);
 
         return new AeroflyFlight(
@@ -39,6 +50,10 @@ export class AeroflyCustomMissionsParser {
                 visibility_meter: this.parser.getNumber(missionConditions, "visibility"),
             },
         );
+    }
+
+    private getMissions(content: string): string[] {
+        return content.split("<[tmmission_definition]").slice(1);
     }
 
     private parseFuelLoadSettings(mission: string): AeroflySettingsFuelLoad | undefined {

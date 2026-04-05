@@ -7,7 +7,8 @@ import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
 export class ImportFileMsfs extends ImportFileXMLConverter {
-    convert(content, flightplan) {
+    static fileExtension = "pln";
+    convert(content, flightplan, index = 0) {
         const waypointTableXml = this.getXmlNode(content, "FlightPlan.FlightPlan");
         const versionId = Number(this.getXmlNode(waypointTableXml, "AppVersionMajor"));
         if (versionId <= 0 || versionId > 12) {
@@ -95,4 +96,3 @@ export class ImportFileMsfs extends ImportFileXMLConverter {
         };
     }
 }
-ImportFileMsfs.fileExtension = "pln";

@@ -1,10 +1,18 @@
 import { ImportFileJSONConverter } from "./ImportFileConverter.js";
 import { AeroflySettingsFuelLoad, AeroflyNavigationConfig, AeroflySettingsCloud, AeroflySettingsAircraft, AeroflySettingsWind, AeroflyTimeUtc, AeroflySettingsFlight, AeroflyNavRouteWaypoint, AeroflyNavRouteOrigin, AeroflyNavRouteDestination, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflyNavRouteApproach, AeroflyNavRouteDeparture, AeroflyNavRouteArrival, } from "@fboes/aerofly-custom-missions";
 export class ImportFileAeroflyCustomMissionsJsonConverter extends ImportFileJSONConverter {
-    convert(content, flightplan) {
+    static fileExtension = "aerofly.json";
+    getIndices(content) {
         const json = JSON.parse(content);
         const data = this.getJSONArray(json);
-        const mission = this.getJSONObject(data[0]);
+        return data.map((d) => {
+            return this.getJSONString(d.title);
+        });
+    }
+    convert(content, flightplan, index = 0) {
+        const json = JSON.parse(content);
+        const data = this.getJSONArray(json);
+        const mission = this.getJSONObject(data.at(index));
         const missionConditions = this.getJSONObject(mission.conditions);
         flightplan.aircraft = this.parseAircraftSettings(mission);
         flightplan.flightSetting = this.parseFlightSettings(mission);
@@ -95,4 +103,3 @@ export class ImportFileAeroflyCustomMissionsJsonConverter extends ImportFileJSON
         });
     }
 }
-ImportFileAeroflyCustomMissionsJsonConverter.fileExtension = "aerofly.json";

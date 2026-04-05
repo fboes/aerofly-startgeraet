@@ -1,6 +1,7 @@
 import { AeroflyMission, AeroflyMissionCheckpoint, AeroflyMissionConditions, AeroflyMissionConditionsCloud, AeroflyMissionsList, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, } from "@fboes/aerofly-custom-missions";
 import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 export class ExportFileAeroflyCustomMissionsTmcConverter {
+    static fileExtension = "tmc";
     convert(flightplan) {
         // Build time and weather
         const conditions = new AeroflyMissionConditions({
@@ -48,4 +49,3 @@ export class ExportFileAeroflyCustomMissionsTmcConverter {
         }
     }
 }
-ExportFileAeroflyCustomMissionsTmcConverter.fileExtension = "tmc";

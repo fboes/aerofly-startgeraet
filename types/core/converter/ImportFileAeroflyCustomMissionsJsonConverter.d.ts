@@ -2,7 +2,8 @@ import { ImportFileJSONConverter } from "./ImportFileConverter.js";
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export declare class ImportFileAeroflyCustomMissionsJsonConverter extends ImportFileJSONConverter {
     static readonly fileExtension = "aerofly.json";
-    convert(content: string, flightplan: AeroflyFlight): void;
+    getIndices(content: string): string[];
+    convert(content: string, flightplan: AeroflyFlight, index?: number): void;
     private parseFuelLoadSettings;
     private parseNavigationConfig;
     private parseCloudSettings;

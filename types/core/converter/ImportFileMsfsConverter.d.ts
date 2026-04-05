@@ -7,7 +7,7 @@ import { ImportFileXMLConverter } from "./ImportFileConverter.js";
  */
 export declare class ImportFileMsfs extends ImportFileXMLConverter {
     static readonly fileExtension = "pln";
-    convert(content: string, flightplan: AeroflyFlight): void;
+    convert(content: string, flightplan: AeroflyFlight, index?: number): void;
     private getWaypoints;
     private convertWaypointToAerofly;
     private getRunway;

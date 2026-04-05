@@ -22,7 +22,7 @@ type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | 
 export class ImportFileMsfs extends ImportFileXMLConverter {
     static readonly fileExtension = "pln";
 
-    convert(content: string, flightplan: AeroflyFlight): void {
+    convert(content: string, flightplan: AeroflyFlight, index = 0): void {
         const waypointTableXml = this.getXmlNode(content, "FlightPlan.FlightPlan");
 
         const versionId = Number(this.getXmlNode(waypointTableXml, "AppVersionMajor"));

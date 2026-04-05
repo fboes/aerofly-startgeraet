@@ -4,9 +4,11 @@ import { ImportFileXMLConverter } from "./ImportFileConverter.js";
  * Import `fpl` Gamin FPL files
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
-export declare class ImportFileGarminFpl extends ImportFileXMLConverter {
+export declare class ImportFileGarminFplConverter extends ImportFileXMLConverter {
     static readonly fileExtension = "fpl";
-    convert(content: string, flightplan: AeroflyFlight): void;
+    getIndices(content: string): string[];
+    convert(content: string, flightplan: AeroflyFlight, index?: number): void;
+    private getRoutes;
     private getWaypoints;
     private getWaypointDefinitions;
     private convertWaypointToAerofly;

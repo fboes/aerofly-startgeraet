@@ -5,7 +5,10 @@ export declare class SimBriefAeroflyApi extends SimBriefApi {
     convertMission(simbriefPayload: SimBriefApiPayload, flight: AeroflyFlight, useDestinationWeather?: boolean): void;
     protected getWaypointsFromNavlog(simbriefPayload: SimBriefApiPayload): AeroflyNavRouteWaypoint[];
     protected convertWeather(flight: AeroflyFlight, airport: SimBriefApiPayloadAirport): void;
-    protected findAeroflyAircraftCode(simbriefIcaoCode: string, simbriefAirlineCode: string): {
+    protected findAeroflyAircraftCode(
+        simbriefIcaoCode: string,
+        simbriefAirlineCode: string,
+    ): {
         aeroflyAircraftCode: string;
         aeroflyAircraftLivery: string;
     };

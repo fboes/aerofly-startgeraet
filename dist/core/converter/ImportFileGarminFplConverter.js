@@ -4,14 +4,25 @@ import { ImportFileXMLConverter } from "./ImportFileConverter.js";
  * Import `fpl` Gamin FPL files
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
-export class ImportFileGarminFpl extends ImportFileXMLConverter {
-    convert(content, flightplan) {
-        const waypoints = this.getWaypoints(content);
+export class ImportFileGarminFplConverter extends ImportFileXMLConverter {
+    static fileExtension = "fpl";
+    getIndices(content) {
+        return this.getRoutes(content).map((r) => this.getXmlNode(r, "route-name"));
+    }
+    convert(content, flightplan, index = 0) {
+        const routes = this.getRoutes(content);
+        const route = routes.at(index);
+        if (route === undefined) {
+            throw new Error("Route index does not exist");
+        }
+        const waypoints = this.getWaypoints(content, route);
         flightplan.navigation.waypoints = waypoints.map((waypoint, index) => this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1));
     }
-    getWaypoints(content) {
+    getRoutes(content) {
+        return this.getXmlNodes(content, "route");
+    }
+    getWaypoints(content, routeTableXml) {
         const waypointDefinitions = this.getWaypointDefinitions(content);
-        const routeTableXml = this.getXmlNode(content, "route");
         const waypointsXml = this.getXmlNodes(routeTableXml, "route-point");
         return waypointsXml.map((xml) => {
             const waypointDefinition = waypointDefinitions.get(this.getXmlNode(xml, "waypoint-identifier"));
@@ -55,4 +66,3 @@ export class ImportFileGarminFpl extends ImportFileXMLConverter {
         });
     }
 }
-ImportFileGarminFpl.fileExtension = "fpl";

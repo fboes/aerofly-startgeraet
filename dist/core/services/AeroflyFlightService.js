@@ -14,6 +14,11 @@ import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
  * methods to interact with the Aerofly DTO data.
  */
 export class AeroflyFlightService {
+    config;
+    currentAircraft;
+    currentLivery;
+    aeroflyFlight;
+    aeroflyMainConfigReader;
     constructor(config) {
         this.config = config;
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
