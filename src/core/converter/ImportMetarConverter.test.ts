@@ -14,5 +14,7 @@ describe("ImportMetarConverter", () => {
         parser.convert(content, flight);
 
         assert.strictEqual(3, flight.clouds.length);
+        assert.strictEqual(37, flight.wind.speed_kts);
+        assert.strictEqual(51, flight.wind.gust_kts);
     });
 });

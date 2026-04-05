@@ -3,12 +3,18 @@ import { ImportFileConverter } from "./ImportFileConverter.js";
 import { metarParser } from "aewx-metar-parser";
 
 export class ImportMetarConverter extends ImportFileConverter {
+    getIndices(content: string): string[] {
+        return this.getLines(content);
+    }
+
     convert(content: string, flightplan: AeroflyFlight, index = 0): void {
-        if (index > 0) {
-            throw new Error("File format only contains one set of information");
+        const lines = this.getLines(content);
+        const metarString = lines.at(index);
+        if (metarString === undefined) {
+            throw new Error("Metar index does nnot exist");
         }
 
-        const metar = metarParser(content);
+        const metar = metarParser(metarString);
 
         flightplan.wind = new AeroflySettingsWind(
             metar.wind.speed_kts,
@@ -24,5 +30,9 @@ export class ImportMetarConverter extends ImportFileConverter {
         });
 
         flightplan.visibility_meter = metar.visibility.meters;
+    }
+
+    protected getLines(content: string): string[] {
+        return content.split(/\n/);
     }
 }
