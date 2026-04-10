@@ -79,4 +79,14 @@ export class Config {
     set syncTimeOnStartup(syncTimeOnStartup) {
         this.setBoolean("syncTimeOnStartup", syncTimeOnStartup);
     }
+    toJSON() {
+        return {
+            mainMcfFilePath: this.mainMcfFilePath,
+            simBriefUserName: this.simBriefUserName,
+            simBriefWeatherFromDestination: this.simBriefWeatherFromDestination,
+            importDirectory: this.importDirectory,
+            exportDirectory: this.exportDirectory,
+            syncTimeOnStartup: this.syncTimeOnStartup,
+        };
+    }
 }

@@ -31,8 +31,9 @@ export class ConfigurationServer {
                 inputSchema: {
                     mainMcfFilePath: z
                         .string()
+                        .optional()
                         .describe(
-                            `Path to the main.mcf file. This file is the main interface to Aerofly FS 4 and is crucial for reading and writting mission data to Aerofly FS 4.`,
+                            `Absolute path to the \`main.mcf\` file. This file is the main interface to Aerofly FS 4 and is crucial for reading and writting mission data to Aerofly FS 4.`,
                         ),
                     simBriefUserName: z
                         .string()
@@ -42,8 +43,10 @@ export class ConfigurationServer {
                         ),
                 },
             },
-            async ({ mainMcfFilePath, simBriefUserName }: { mainMcfFilePath: string; simBriefUserName?: string }) => {
-                config.mainMcfFilePath = mainMcfFilePath;
+            async ({ mainMcfFilePath, simBriefUserName }: { mainMcfFilePath?: string; simBriefUserName?: string }) => {
+                if (mainMcfFilePath !== undefined) {
+                    config.mainMcfFilePath = mainMcfFilePath;
+                }
                 if (simBriefUserName !== undefined) {
                     config.simBriefUserName = simBriefUserName;
                 }

@@ -28,5 +28,13 @@ export declare class Config {
     set exportDirectory(exportDirectory: string);
     get syncTimeOnStartup(): boolean;
     set syncTimeOnStartup(syncTimeOnStartup: boolean);
+    toJSON(): {
+        mainMcfFilePath: string | null;
+        simBriefUserName: string;
+        simBriefWeatherFromDestination: boolean;
+        importDirectory: string;
+        exportDirectory: string;
+        syncTimeOnStartup: boolean;
+    };
 }
 //# sourceMappingURL=Config.d.ts.map

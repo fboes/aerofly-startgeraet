@@ -123,10 +123,10 @@ export class ResourceServer {
                 minimumRangeNm,
                 minimumCruiseSpeedKts,
             }: {
-                query: string | undefined;
-                tags: string[] | undefined;
-                minimumRangeNm: number | undefined;
-                minimumCruiseSpeedKts: number | undefined;
+                query?: string;
+                tags?: string[];
+                minimumRangeNm?: number;
+                minimumCruiseSpeedKts?: number;
             }) => ({
                 content: [
                     {
@@ -153,7 +153,7 @@ export class ResourceServer {
                         ),
                 },
             },
-            async ({ query }: { query: string | undefined }) => ({
+            async ({ query }: { query?: string }) => ({
                 content: [
                     {
                         type: "text",

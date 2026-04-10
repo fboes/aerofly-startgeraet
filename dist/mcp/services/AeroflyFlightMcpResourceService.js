@@ -24,7 +24,9 @@ export class AeroflyFlightMcpResourceService {
         return aircraft;
     }
     getAircraftRessources() {
-        return AeroflyAircraftService.getAllAircraftLiveries().map((a) => {
+        return [AeroflyAircraftService.getAircraft("a320"), AeroflyAircraftService.getAircraft("c172")]
+            .filter((a) => a !== undefined)
+            .map((a) => {
             return {
                 uri: `${ResourceServer.URL_AIRCRAFT}/${a.aeroflyCode}`,
                 name: `Aircraft: ${a.nameFull}`,

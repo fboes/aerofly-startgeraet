@@ -42,14 +42,16 @@ export class AeroflyFlightMcpResourceService {
     }
 
     getAircraftRessources(): Resource[] {
-        return AeroflyAircraftService.getAllAircraftLiveries().map((a): Resource => {
-            return {
-                uri: `${ResourceServer.URL_AIRCRAFT}/${a.aeroflyCode}`,
-                name: `Aircraft: ${a.nameFull}`,
-                description: `Detailed aircraft information on ${a.nameFull}`,
-                mimeType: "application/json",
-            };
-        });
+        return [AeroflyAircraftService.getAircraft("a320"), AeroflyAircraftService.getAircraft("c172")]
+            .filter((a) => a !== undefined)
+            .map((a): Resource => {
+                return {
+                    uri: `${ResourceServer.URL_AIRCRAFT}/${a.aeroflyCode}`,
+                    name: `Aircraft: ${a.nameFull}`,
+                    description: `Detailed aircraft information on ${a.nameFull}`,
+                    mimeType: "application/json",
+                };
+            });
     }
 
     getAircraftTags(): string[] {
