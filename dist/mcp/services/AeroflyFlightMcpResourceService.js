@@ -1,9 +1,8 @@
 import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
 import { AeroflyAirportService } from "../../core/services/AeroflyAirportService.js";
 import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
+import { ResourceServer } from "../server/ResourceServer.js";
 export class AeroflyFlightMcpResourceService {
-    static MIME_TYPE_RESPONSE = "application/json";
-    static RESOURCE_NAME_SPACE = "resource://aerofly";
     getAircraftList() {
         return AeroflyAircraftService.getAllAircraftLiveries().map((a) => {
             return {
@@ -18,7 +17,7 @@ export class AeroflyFlightMcpResourceService {
     getAircraft(code) {
         const aircraft = AeroflyAircraftService.getAircraft(code) ?? AeroflyAircraftService.getAircraftByIcaoCode(code);
         if (aircraft === undefined) {
-            throw new McpError(ErrorCode.InvalidRequest, `Could not find aircraft by Aerofly Code  / ICAO code ${code}`, {
+            throw new McpError(ErrorCode.InvalidRequest, `Could not find aircraft by Aerofly Code / ICAO code ${code}`, {
                 hint: `Obviously the aircraft does not exist in Aerofly FS 4. Please refer to the list of available aircraft, and use the aeroflyCode.`,
             });
         }
@@ -27,7 +26,7 @@ export class AeroflyFlightMcpResourceService {
     getAircraftRessources() {
         return AeroflyAircraftService.getAllAircraftLiveries().map((a) => {
             return {
-                uri: `${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft/${a.aeroflyCode}`,
+                uri: `${ResourceServer.URL_AIRCRAFT}/${a.aeroflyCode}`,
                 name: `Aircraft: ${a.nameFull}`,
                 description: `Detailed aircraft information on ${a.nameFull}`,
                 mimeType: "application/json",
@@ -96,7 +95,7 @@ export class AeroflyFlightMcpResourceService {
             .filter((a) => a !== undefined)
             .map((a) => {
             return {
-                uri: `${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/airports/${a.code}`,
+                uri: `${ResourceServer.URL_AIRPORTS}/${a.code}`,
                 name: `Airport: ${a.name}`,
                 description: `Detailed airport information on ${a.name}`,
                 mimeType: "application/json",

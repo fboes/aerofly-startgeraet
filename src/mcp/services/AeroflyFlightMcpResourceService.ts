@@ -2,6 +2,7 @@ import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json
 import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
 import { AeroflyAirportService, AeroflyAirportSet } from "../../core/services/AeroflyAirportService.js";
 import { Resource, McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
+import { ResourceServer } from "../server/ResourceServer.js";
 
 export type AeroflyFlightMcpResourceServiceAircraft = {
     aeroflyCode: string;
@@ -12,9 +13,6 @@ export type AeroflyFlightMcpResourceServiceAircraft = {
 };
 
 export class AeroflyFlightMcpResourceService {
-    static readonly MIME_TYPE_RESPONSE = "application/json";
-    static readonly RESOURCE_NAME_SPACE = "resource://aerofly";
-
     getAircraftList(): AeroflyFlightMcpResourceServiceAircraft[] {
         return AeroflyAircraftService.getAllAircraftLiveries().map((a) => {
             return {
@@ -33,7 +31,7 @@ export class AeroflyFlightMcpResourceService {
         if (aircraft === undefined) {
             throw new McpError(
                 ErrorCode.InvalidRequest,
-                `Could not find aircraft by Aerofly Code  / ICAO code ${code}`,
+                `Could not find aircraft by Aerofly Code / ICAO code ${code}`,
                 {
                     hint: `Obviously the aircraft does not exist in Aerofly FS 4. Please refer to the list of available aircraft, and use the aeroflyCode.`,
                 },
@@ -46,7 +44,7 @@ export class AeroflyFlightMcpResourceService {
     getAircraftRessources(): Resource[] {
         return AeroflyAircraftService.getAllAircraftLiveries().map((a): Resource => {
             return {
-                uri: `${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft/${a.aeroflyCode}`,
+                uri: `${ResourceServer.URL_AIRCRAFT}/${a.aeroflyCode}`,
                 name: `Aircraft: ${a.nameFull}`,
                 description: `Detailed aircraft information on ${a.nameFull}`,
                 mimeType: "application/json",
@@ -147,7 +145,7 @@ export class AeroflyFlightMcpResourceService {
             .filter((a) => a !== undefined)
             .map((a): Resource => {
                 return {
-                    uri: `${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/airports/${a.code}`,
+                    uri: `${ResourceServer.URL_AIRPORTS}/${a.code}`,
                     name: `Airport: ${a.name}`,
                     description: `Detailed airport information on ${a.name}`,
                     mimeType: "application/json",

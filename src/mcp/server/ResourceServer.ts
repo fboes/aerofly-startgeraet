@@ -1,29 +1,31 @@
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { AeroflyFlightMcpResourceService } from "../services/AeroflyFlightMcpResourceService.js";
+import { McpHelper } from "../util/McpHelper.js";
 
 type Variables = Record<string, string | string[]>;
 
 export class ResourceServer {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static JSONstrinigify(value: any): string {
-        return JSON.stringify(value, null, 2);
-    }
+    static readonly MIME_TYPE_RESPONSE = "application/json";
+    static readonly URL_NAME_SPACE = "resource://aerofly";
+    static readonly URL_AIRCRAFT = `${this.URL_NAME_SPACE}/aircraft`;
+    static readonly URL_AIRCRAFT_TAGS = `${this.URL_NAME_SPACE}/aircraft-tags`;
+    static readonly URL_AIRPORTS = `${this.URL_NAME_SPACE}/airports`;
 
     static registerResources(server: McpServer, resourceService: AeroflyFlightMcpResourceService) {
         server.registerResource(
             "aircraft",
-            `${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft`,
+            this.URL_AIRCRAFT,
             {
                 description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
-                mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
+                mimeType: this.MIME_TYPE_RESPONSE,
             },
             async (uri: URL) => ({
                 contents: [
                     {
                         uri: uri.href,
-                        mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
-                        text: this.JSONstrinigify(resourceService.getAircraftList()),
+                        mimeType: this.MIME_TYPE_RESPONSE,
+                        text: McpHelper.JSONstrinigify(resourceService.getAircraftList()),
                     },
                 ],
             }),
@@ -31,21 +33,21 @@ export class ResourceServer {
 
         server.registerResource(
             "aircraft-detail",
-            new ResourceTemplate(`${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft/{aeroflyCode}`, {
+            new ResourceTemplate(`${this.URL_AIRCRAFT}/{aeroflyCode}`, {
                 list: async () => ({
                     resources: resourceService.getAircraftRessources(),
                 }),
             }),
             {
                 description: `Detailed information for a specific aircraft matching the Aerofly FS4 aircraft code given by \`aeroflyCode\` (string), if available in Aerofly FS 4. This gives you additional technical data like range and cruise speed, as well as a list of available liveries.`,
-                mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
+                mimeType: this.MIME_TYPE_RESPONSE,
             },
             async (uri: URL, { aeroflyCode }: Variables) => ({
                 contents: [
                     {
                         uri: uri.href,
-                        mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
-                        text: this.JSONstrinigify(resourceService.getAircraft(String(aeroflyCode))),
+                        mimeType: this.MIME_TYPE_RESPONSE,
+                        text: McpHelper.JSONstrinigify(resourceService.getAircraft(String(aeroflyCode))),
                     },
                 ],
             }),
@@ -53,17 +55,17 @@ export class ResourceServer {
 
         server.registerResource(
             "aircraft-tags",
-            `${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft-tags`,
+            this.URL_AIRCRAFT_TAGS,
             {
                 description: `A list of all tags which are attached to aircraft.`,
-                mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
+                mimeType: this.MIME_TYPE_RESPONSE,
             },
             async (uri: URL) => ({
                 contents: [
                     {
                         uri: uri.href,
-                        mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
-                        text: this.JSONstrinigify(resourceService.getAircraftTags()),
+                        mimeType: this.MIME_TYPE_RESPONSE,
+                        text: McpHelper.JSONstrinigify(resourceService.getAircraftTags()),
                     },
                 ],
             }),
@@ -71,21 +73,21 @@ export class ResourceServer {
 
         server.registerResource(
             "airport",
-            new ResourceTemplate(`${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/airports/{icaoCode}`, {
+            new ResourceTemplate(`${this.URL_AIRPORTS}/{icaoCode}`, {
                 list: async () => ({
                     resources: resourceService.getAirportRessources(),
                 }),
             }),
             {
                 description: `Detailed information for a specific airport matching the ICAO code given by \`icaoCode\` (string), if available in Aerofly FS 4. This will give you the ICAO code, name, longitude and latitude of the airport. Be aware that the runways and parking positions available are not available in this MCP server and need to be fetched from online sources.`,
-                mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
+                mimeType: this.MIME_TYPE_RESPONSE,
             },
             async (uri: URL, { icaoCode }: Variables) => ({
                 contents: [
                     {
                         uri: uri.href,
-                        mimeType: AeroflyFlightMcpResourceService.MIME_TYPE_RESPONSE,
-                        text: this.JSONstrinigify(resourceService.getAirport(String(icaoCode))),
+                        mimeType: this.MIME_TYPE_RESPONSE,
+                        text: McpHelper.JSONstrinigify(resourceService.getAirport(String(icaoCode))),
                     },
                 ],
             }),
@@ -103,13 +105,13 @@ export class ResourceServer {
                         .string()
                         .optional()
                         .describe(
-                            `Aerofly FS 4 code, ICAO code, (partial) name of aircraft or (partial) name of livery name available for aircraft. Call ${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft to see a list of all available ICAO or Aerofly FS4 codes.`,
+                            `Aerofly FS 4 code, ICAO code, (partial) name of aircraft or (partial) name of livery name available for aircraft. Call ${this.URL_AIRCRAFT} to see a list of all available ICAO or Aerofly FS4 codes.`,
                         ),
                     tags: z
                         .array(z.string())
                         .optional()
                         .describe(
-                            `Tags like 'airliner' or 'military'. If multiple tags are submitted, the will be linked via \`OR\`. all ${AeroflyFlightMcpResourceService.RESOURCE_NAME_SPACE}/aircraft-tags to see a list of all available tags.`,
+                            `Tags like 'airliner' or 'military'. If multiple tags are submitted, the will be linked via \`OR\`. all ${this.URL_AIRCRAFT_TAGS} to see a list of all available tags.`,
                         ),
                     minimumRangeNm: z.number().optional().describe("Minimum range in nautical miles."),
                     minimumCruiseSpeedKts: z.number().optional().describe("Minimum cruise speed in knots."),
@@ -129,7 +131,7 @@ export class ResourceServer {
                 content: [
                     {
                         type: "text",
-                        text: this.JSONstrinigify(
+                        text: McpHelper.JSONstrinigify(
                             resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts }),
                         ),
                     },
@@ -155,7 +157,7 @@ export class ResourceServer {
                 content: [
                     {
                         type: "text",
-                        text: this.JSONstrinigify(resourceService.searchAirports({ query })),
+                        text: McpHelper.JSONstrinigify(resourceService.searchAirports({ query })),
                     },
                 ],
             }),

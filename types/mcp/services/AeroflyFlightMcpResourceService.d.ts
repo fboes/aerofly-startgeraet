@@ -9,8 +9,6 @@ export type AeroflyFlightMcpResourceServiceAircraft = {
     tags: string[];
 };
 export declare class AeroflyFlightMcpResourceService {
-    static readonly MIME_TYPE_RESPONSE = "application/json";
-    static readonly RESOURCE_NAME_SPACE = "resource://aerofly";
     getAircraftList(): AeroflyFlightMcpResourceServiceAircraft[];
     getAircraft(code: string): AeroflyAircraft;
     getAircraftRessources(): Resource[];

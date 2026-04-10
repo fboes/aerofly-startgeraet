@@ -1,0 +1,6 @@
+export class McpHelper {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    static JSONstrinigify(value) {
+        return JSON.stringify(value, null, 2);
+    }
+}
