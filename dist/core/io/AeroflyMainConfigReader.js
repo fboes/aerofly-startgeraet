@@ -3,6 +3,12 @@ import path from "node:path";
 import { AeroflyFileParser } from "../converter/AeroflyFileParser.js";
 import { AeroflyMainConfigParser } from "../converter/AeroflyMainConfigParser.js";
 export class AeroflyMainConfigReaderError extends Error {
+    code;
+    constructor(message, code = "MISSING_SETUP") {
+        super(message);
+        this.code = code;
+        this.name = this.constructor.name;
+    }
 }
 /**
  * Reader to convert `main.mcf` file into `AeroflyFlight` class instance.

@@ -1,5 +1,4 @@
 import AeroflyAirports from "@fboes/aerofly-data/data/airport-coordinates.json" with { type: "json" };
-import type { AeroflyAirportCoordinates } from "@fboes/aerofly-data/data/airport-coordinates.json";
 
 export type AeroflyAirportSet = {
     code: string;
@@ -13,8 +12,13 @@ export type AeroflyAirportSet = {
  * Interface to `@fboes/aerofly-data` JSON data.
  */
 export class AeroflyAirportService {
-    static getAllAirports(): AeroflyAirportCoordinates[] {
-        return AeroflyAirports;
+    static getAllAirports(): AeroflyAirportSet[] {
+        return AeroflyAirports.map((airport) => ({
+            code: airport[0],
+            name: airport[1],
+            lat: airport[2],
+            lon: airport[3],
+        }));
     }
 
     static getAirportByIcaoCode(icaoCodeAirport: string): AeroflyAirportSet | undefined {

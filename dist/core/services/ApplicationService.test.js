@@ -14,4 +14,8 @@ describe("ApplicationService", () => {
         assert.ok(json.version);
         assert.ok(json.description);
     });
+    it("should create a slug", () => {
+        const slug = ApplicationService.getApplicationSlug();
+        assert.strictEqual("aerofly-startgeraet", slug);
+    });
 });

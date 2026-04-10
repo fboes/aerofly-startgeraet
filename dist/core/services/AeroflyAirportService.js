@@ -5,7 +5,12 @@ import AeroflyAirports from "@fboes/aerofly-data/data/airport-coordinates.json" 
  */
 export class AeroflyAirportService {
     static getAllAirports() {
-        return AeroflyAirports;
+        return AeroflyAirports.map((airport) => ({
+            code: airport[0],
+            name: airport[1],
+            lat: airport[2],
+            lon: airport[3],
+        }));
     }
     static getAirportByIcaoCode(icaoCodeAirport) {
         const airport = AeroflyAirports.find((airport) => airport[0].toLowerCase() === icaoCodeAirport.toLowerCase());

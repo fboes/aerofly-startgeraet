@@ -1,5 +1,11 @@
 import PackageJson from "../../../package.json" with { type: "json" };
 export class ApplicationService {
+    static getPackageName() {
+        return PackageJson.name;
+    }
+    static getApplicationSlug() {
+        return this.getPackageName().replace(/^.*?\//, "");
+    }
     static getApplicationName() {
         return "Aerofly Startgerät";
     }

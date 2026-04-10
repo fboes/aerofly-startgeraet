@@ -7,7 +7,9 @@
     "test": "node --test 'dist/**/*.test.js'",
     "test:coverage": "node --test --experimental-test-coverage 'dist/**/*.test.js'",
     "test:watch": "node --test --watch 'dist/**/*.test.js'",
+    "test:mcp": "npx @modelcontextprotocol/inspector node ./dist/mcp/index.js",
     "start": "node ./dist/cli/index.js",
+    "start:mcp": "node ./dist/mcp/index.js",
     "prettier": "npx prettier --cache --write .",
     "eslint": "npx eslint **/*.ts --fix",
     "tsc": "npx tsc --build",
@@ -45,7 +47,9 @@
     "@fboes/aerofly-data": "^1.5.0",
     "@fboes/geojson": "^2.0.0",
     "@inquirer/prompts": "^8.3.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "aewx-metar-parser": "^2.0.1",
-    "conf": "^15.1.0"
+    "conf": "^15.1.0",
+    "zod": "^4.3.6"
   }
 }
