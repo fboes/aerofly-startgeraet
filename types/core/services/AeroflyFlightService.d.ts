@@ -3,6 +3,7 @@ import {
     AeroflyFlight,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteOrigin,
+    AeroflySettingsCloud,
     AeroflySettingsAircraft,
     AeroflySettingsFuelLoad,
     AeroflyTimeUtc,
@@ -87,7 +88,7 @@ export declare class AeroflyFlightService {
     getVisibilityM(): number;
     setTemperature(temperatureCelsius: number): void;
     getTemperature(): number;
-    setClouds(clouds: AeroflyFlightServiceCloud[]): void;
+    setClouds(clouds: AeroflyFlightServiceCloud[]): AeroflySettingsCloud[];
     getClouds(): AeroflyFlightServiceCloud[];
     writeFile(): void;
 }

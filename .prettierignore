@@ -1,3 +1,4 @@
 *.json
+!manifest.json
 dist/**/*.js
 .vscode

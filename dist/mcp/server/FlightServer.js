@@ -93,7 +93,7 @@ export class FlightServer {
         }));
         server.registerTool(FlightServer.METHOD_SET_WEATHER, {
             title: `Set weather for flight planning`,
-            description: `Sets visibility, temperature and wind for the flight planning. Returns the weather conditions afterwards. To set clouds call \`${FlightServer.METHOD_SET_CLOUDS}\`. Returns set weather afterwards.`,
+            description: `Sets visibility, temperature and wind for the flight planning. Returns the weather conditions afterwards. Returns set weather afterwards. To set clouds call \`${FlightServer.METHOD_SET_CLOUDS}\`. Please note that there are no settings for rain, thunderstorms, snow etc.`,
             inputSchema: {
                 visibilityM: z
                     .number()
@@ -117,7 +117,29 @@ export class FlightServer {
                 },
             ],
         }));
-        // Set clouds
+        server.registerTool(FlightServer.METHOD_SET_CLOUDS, {
+            title: `Set clouds for flight planning`,
+            description: `Sets multiple clouds layers flight planning. Returns the cloud layers afterwards. Please note that Aerofly FS 4 only handles up to 3 cloud layers. Returns set clouds afterwards. To set other weather settings call \`${FlightServer.METHOD_SET_WEATHER}\`.`,
+            inputSchema: {
+                clouds: z
+                    .array(z.object({
+                    cloud_coverage: ZodExtra.normalized().describe("Coverage as a normalized value. 0 is clear, 1 ist completely overcast."),
+                    base_feet_agl: z
+                        .number()
+                        .nonnegative()
+                        .describe("Base height in feet above ground level."),
+                }))
+                    .describe(`List of cloud layers.`),
+            },
+            annotations,
+        }, async ({ clouds, }) => ({
+            content: [
+                {
+                    type: "text",
+                    text: McpHelper.JSONstrinigify(flightService.setClouds(clouds)),
+                },
+            ],
+        }));
         // Set flight settings
         // Set waypoints
         server.registerTool(FlightServer.METHOD_SAVE_FLIGHT, {
