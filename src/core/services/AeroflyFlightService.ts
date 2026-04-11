@@ -6,6 +6,9 @@ import {
     AeroflyNavRouteOrigin,
     AeroflySettingsCloud,
     AeroflySettingsFlight,
+    AeroflySettingsAircraft,
+    AeroflySettingsFuelLoad,
+    AeroflyTimeUtc,
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
@@ -18,6 +21,7 @@ import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
+import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -40,7 +44,7 @@ export class AeroflyFlightService {
 
     constructor(public readonly config: Config) {
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
-        this.aeroflyFlight = this.readMainMcf();
+        this.aeroflyFlight = new AeroflyFlightFallback();
         this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
         if (this.config.syncTimeOnStartup) {
             this.aeroflyFlight.timeUtc.time = new Date();
@@ -49,8 +53,8 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
-    protected readMainMcf(): AeroflyFlight {
-        return this.aeroflyMainConfigReader.read();
+    readMainMcf() {
+        this.aeroflyFlight = this.aeroflyMainConfigReader.read();
     }
 
     // ----------------------------------------------------------
@@ -59,11 +63,12 @@ export class AeroflyFlightService {
         return this.aeroflyFlight;
     }
 
-    setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): void {
+    setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft {
         this.currentAircraft = AeroflyAircraftService.getAircraft(aeroflyCodeAircraft);
         this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
+        return this.aeroflyFlight.aircraft;
     }
 
     getAircraft(): string {
@@ -76,13 +81,15 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
-    setFuelAndPayload(fuel: number, payload: number): void {
+    setFuelAndPayload(fuel: number, payload: number): AeroflySettingsFuelLoad {
         fuel = Math.max(0, Math.min(fuel, this.getMaxFuel()));
         payload = Math.max(0, Math.min(payload, this.getMaxPayload()));
 
         this.aeroflyFlight.fuelLoadSetting.fuelMass = fuel;
         this.aeroflyFlight.fuelLoadSetting.payloadMass = payload;
         this.aeroflyFlight.fuelLoadSetting.configuration = fuel > 0 ? "Keep" : "Invalid";
+
+        return this.aeroflyFlight.fuelLoadSetting;
     }
 
     setFuel(fuel: number): void {
@@ -205,8 +212,9 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
-    setTimeAndDate(timeDate: string): void {
+    setTimeAndDate(timeDate: string): AeroflyTimeUtc {
         this.aeroflyFlight.timeUtc.time = new Date(timeDate);
+        return this.aeroflyFlight.timeUtc;
     }
 
     getTimeAndDate(): Date {
@@ -263,6 +271,23 @@ export class AeroflyFlightService {
     }
 
     // ----------------------------------------------------------
+
+    setWeather(
+        visibilityM: number,
+        temperatureCelsius: number,
+        directionDegrees: number,
+        speedKts: number,
+        gustsKts?: number,
+    ): object {
+        this.setVisibilityM(visibilityM);
+        this.setTemperature(temperatureCelsius);
+        this.setWind(directionDegrees, speedKts, gustsKts);
+
+        return {
+            ...this.aeroflyFlight.wind,
+            visibility_meter: this.aeroflyFlight.visibility_meter,
+        };
+    }
 
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void {
         this.aeroflyFlight.wind.directionInDegree = directionDegrees;

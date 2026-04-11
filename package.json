@@ -11,11 +11,11 @@
     "start": "node ./dist/cli/index.js",
     "start:mcp": "node ./dist/mcp/index.js",
     "prettier": "npx prettier --cache --write .",
-    "eslint": "npx eslint **/*.ts --fix",
+    "eslint": "npx eslint src/**/*.ts --fix",
     "tsc": "npx tsc --build",
     "tsc-watch": "npx tsc --watch",
     "fix-access-rights": "find src -type d -name \"@eaDir\" -prune -o -exec chmod 0755 {} \\; && find src -type f -exec chmod 0644 {} \\; && find src -type f -name \"index.ts\" -exec chmod 0755 {} \\;",
-    "build": "npm run eslint && npm run prettier && npm run fix-access-rights && npm run tsc"
+    "build": "npm run eslint && npm run fix-access-rights && npm run tsc && npm run prettier"
   },
   "keywords": [
     "aerofly",

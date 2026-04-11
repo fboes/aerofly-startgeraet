@@ -9,6 +9,7 @@ import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
+import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -22,7 +23,7 @@ export class AeroflyFlightService {
     constructor(config) {
         this.config = config;
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
-        this.aeroflyFlight = this.readMainMcf();
+        this.aeroflyFlight = new AeroflyFlightFallback();
         this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
         if (this.config.syncTimeOnStartup) {
             this.aeroflyFlight.timeUtc.time = new Date();
@@ -30,7 +31,7 @@ export class AeroflyFlightService {
     }
     // ----------------------------------------------------------
     readMainMcf() {
-        return this.aeroflyMainConfigReader.read();
+        this.aeroflyFlight = this.aeroflyMainConfigReader.read();
     }
     // ----------------------------------------------------------
     getAeroflyFlight() {
@@ -41,6 +42,7 @@ export class AeroflyFlightService {
         this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
+        return this.aeroflyFlight.aircraft;
     }
     getAircraft() {
         return this.aeroflyFlight.aircraft.name;
@@ -55,6 +57,7 @@ export class AeroflyFlightService {
         this.aeroflyFlight.fuelLoadSetting.fuelMass = fuel;
         this.aeroflyFlight.fuelLoadSetting.payloadMass = payload;
         this.aeroflyFlight.fuelLoadSetting.configuration = fuel > 0 ? "Keep" : "Invalid";
+        return this.aeroflyFlight.fuelLoadSetting;
     }
     setFuel(fuel) {
         this.setFuelAndPayload(fuel, this.getPayload());
@@ -143,6 +146,7 @@ export class AeroflyFlightService {
     // ----------------------------------------------------------
     setTimeAndDate(timeDate) {
         this.aeroflyFlight.timeUtc.time = new Date(timeDate);
+        return this.aeroflyFlight.timeUtc;
     }
     getTimeAndDate() {
         return this.aeroflyFlight.timeUtc.time;
@@ -186,6 +190,15 @@ export class AeroflyFlightService {
         await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
     }
     // ----------------------------------------------------------
+    setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts) {
+        this.setVisibilityM(visibilityM);
+        this.setTemperature(temperatureCelsius);
+        this.setWind(directionDegrees, speedKts, gustsKts);
+        return {
+            ...this.aeroflyFlight.wind,
+            visibility_meter: this.aeroflyFlight.visibility_meter,
+        };
+    }
     setWind(directionDegrees, speedKts, gustsKts) {
         this.aeroflyFlight.wind.directionInDegree = directionDegrees;
         this.aeroflyFlight.wind.speed_kts = speedKts;

@@ -6,6 +6,7 @@ export declare class ResourceServer {
     static readonly URL_AIRCRAFT: string;
     static readonly URL_AIRCRAFT_TAGS: string;
     static readonly URL_AIRPORTS: string;
+    static readonly METHOD_SEARCH_AIRCRAFT = "search-aicraft";
     static registerResources(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;
     static registerTools(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;
 }

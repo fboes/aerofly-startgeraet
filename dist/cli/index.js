@@ -8,7 +8,7 @@ import { HelpCommand } from "./commands/HelpCommand.js";
 import { SetupCommand } from "./commands/SetupCommand.js";
 import { SimbriefCommand } from "./commands/SimbriefCommand.js";
 import { TimeCommand } from "./commands/TimeCommand.js";
-import { AeroflyMainConfigReaderError } from "../core/io/AeroflyMainConfigReader.js";
+//import { AeroflyMainConfigReaderError } from "../core/io/AeroflyMainConfigReader.js";
 const arg = process.argv[2]?.toLowerCase() || "";
 if (arg === "help" || arg === "--help" || arg === "-h") {
     await new HelpCommand().execute();
@@ -20,30 +20,34 @@ if (arg === "setup") {
     process.exit(0);
 }
 // Main application logic
-try {
-    const getControllerCommand = (arg) => {
-        if (!arg) {
-            return MenuCommand;
-        }
-        const registry = {
-            metar: MetarCommand,
-            simbrief: SimbriefCommand,
-            time: TimeCommand,
-        };
-        return registry[arg] || MenuCommand;
+const getControllerCommand = (arg) => {
+    if (!arg) {
+        return MenuCommand;
+    }
+    const registry = {
+        metar: MetarCommand,
+        simbrief: SimbriefCommand,
+        time: TimeCommand,
     };
-    const controller = new AeroflyFlightService(config);
+    return registry[arg] || MenuCommand;
+};
+const controller = new AeroflyFlightService(config);
+try {
+    controller.readMainMcf();
+}
+catch (error) {
+    CliFormatter.writeCatch(error);
+    const setup = new SetupCommand(config);
+    await setup.execute();
+    process.stdout.write(`\
+
+You will also need to restart the application after changing the
+configuration to apply the changes.`);
+}
+try {
     const controllerCommand = new (getControllerCommand(arg))(controller);
     await controllerCommand.execute();
 }
 catch (error) {
     CliFormatter.writeCatch(error);
-    if (error instanceof AeroflyMainConfigReaderError) {
-        const setup = new SetupCommand(config);
-        await setup.execute();
-        process.stdout.write(`\
-
-You will also need to restart the application after changing the
-configuration to apply the changes.`);
-    }
 }

@@ -11,6 +11,7 @@ export class ResourceServer {
     static readonly URL_AIRCRAFT = `${this.URL_NAME_SPACE}/aircraft`;
     static readonly URL_AIRCRAFT_TAGS = `${this.URL_NAME_SPACE}/aircraft-tags`;
     static readonly URL_AIRPORTS = `${this.URL_NAME_SPACE}/airports`;
+    static readonly METHOD_SEARCH_AIRCRAFT = "search-aicraft";
 
     static registerResources(server: McpServer, resourceService: AeroflyFlightMcpResourceService) {
         server.registerResource(
@@ -95,8 +96,9 @@ export class ResourceServer {
     }
 
     static registerTools(server: McpServer, resourceService: AeroflyFlightMcpResourceService) {
+        const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: false, openWorldHint: false };
         server.registerTool(
-            "search-aircraft",
+            this.METHOD_SEARCH_AIRCRAFT,
             {
                 title: `Search aircraft`,
                 description: `Search aircraft by ICAO code, Aerofly code, tag, maximum range, maximum payload. All search properties are linked by \`AND\`.`,
@@ -108,14 +110,15 @@ export class ResourceServer {
                             `Aerofly FS 4 code, ICAO code, (partial) name of aircraft or (partial) name of livery name available for aircraft. Call ${this.URL_AIRCRAFT} to see a list of all available ICAO or Aerofly FS4 codes.`,
                         ),
                     tags: z
-                        .array(z.string())
+                        .array(z.string().lowercase())
                         .optional()
                         .describe(
                             `Tags like 'airliner' or 'military'. If multiple tags are submitted, the will be linked via \`OR\`. all ${this.URL_AIRCRAFT_TAGS} to see a list of all available tags.`,
                         ),
-                    minimumRangeNm: z.number().optional().describe("Minimum range in nautical miles."),
-                    minimumCruiseSpeedKts: z.number().optional().describe("Minimum cruise speed in knots."),
+                    minimumRangeNm: z.number().positive().optional().describe("Minimum range in nautical miles."),
+                    minimumCruiseSpeedKts: z.number().positive().optional().describe("Minimum cruise speed in knots."),
                 },
+                annotations,
             },
             async ({
                 query,
@@ -152,6 +155,7 @@ export class ResourceServer {
                             `Airport ICAO code or (partial) name of airport. Will only find airports present in Aerofly FS 4.`,
                         ),
                 },
+                annotations,
             },
             async ({ query }: { query?: string }) => ({
                 content: [

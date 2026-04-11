@@ -1,5 +1,12 @@
 import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
+import {
+    AeroflyFlight,
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteOrigin,
+    AeroflySettingsAircraft,
+    AeroflySettingsFuelLoad,
+    AeroflyTimeUtc,
+} from "@fboes/aerofly-custom-missions";
 import { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 /**
@@ -21,12 +28,12 @@ export declare class AeroflyFlightService {
     protected aeroflyFlight: AeroflyFlight;
     protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
     constructor(config: Config);
-    protected readMainMcf(): AeroflyFlight;
+    readMainMcf(): void;
     getAeroflyFlight(): AeroflyFlight;
-    setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): void;
+    setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft;
     getAircraft(): string;
     getLivery(): string;
-    setFuelAndPayload(fuel: number, payload: number): void;
+    setFuelAndPayload(fuel: number, payload: number): AeroflySettingsFuelLoad;
     setFuel(fuel: number): void;
     getFuel(): number;
     getPayload(): number;
@@ -47,7 +54,7 @@ export declare class AeroflyFlightService {
     getImportFiles(): string[] | null;
     getImportableFlightplans(filePath: string): string[];
     importFlightplanFromFile(filePath: string, index?: number): void;
-    setTimeAndDate(timeDate: string): void;
+    setTimeAndDate(timeDate: string): AeroflyTimeUtc;
     getTimeAndDate(): Date;
     getTimeAndDateDeparture(): Date;
     getTimeAndDateString(): string;
@@ -63,6 +70,13 @@ export declare class AeroflyFlightService {
     getDepartureTimeZoneUTCString(): string;
     setWeatherFromMETAR(metar: string): void;
     setWeatherViaApi(airportCode: string): Promise<void>;
+    setWeather(
+        visibilityM: number,
+        temperatureCelsius: number,
+        directionDegrees: number,
+        speedKts: number,
+        gustsKts?: number,
+    ): object;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;
     getWindSpeed(): number;

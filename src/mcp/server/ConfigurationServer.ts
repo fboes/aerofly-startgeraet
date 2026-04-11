@@ -12,6 +12,12 @@ export class ConfigurationServer {
             {
                 title: `Get configuration`,
                 description: `Show the basic settings of the MCP server. Contains data needed to interface with Aerofly FS 4 as well as the local file system. To change this configuration, call \`${this.METHOD_SET_CONFIG}\`.`,
+                annotations: {
+                    readOnlyHint: true,
+                    destructiveHint: false,
+                    idempotentHint: false,
+                    openWorldHint: true,
+                },
             },
             async () => ({
                 content: [
@@ -41,6 +47,12 @@ export class ConfigurationServer {
                         .describe(
                             `Username or UserID for SimBrief API. Only required if user asks to populate Aerofly FS 4 by importing a Simbrief flightplan.`,
                         ),
+                },
+                annotations: {
+                    readOnlyHint: false,
+                    destructiveHint: true,
+                    idempotentHint: true,
+                    openWorldHint: true,
                 },
             },
             async ({ mainMcfFilePath, simBriefUserName }: { mainMcfFilePath?: string; simBriefUserName?: string }) => {
