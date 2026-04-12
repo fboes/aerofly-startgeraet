@@ -7,6 +7,7 @@ import {
     AeroflySettingsAircraft,
     AeroflySettingsFuelLoad,
     AeroflyTimeUtc,
+    AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
 import { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
@@ -17,6 +18,20 @@ import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 export type AeroflyFlightServiceCloud = {
     base_feet_agl: number;
     cloud_coverage: number;
+};
+export type AeroflyFlightServiceAirport = {
+    identifier: string;
+    longitude: number;
+    latitude: number;
+    elevation: number;
+};
+export type AeroflyFlightServiceWaypoint = {
+    type?: "waypoint" | "departure_runway" | "destination_runway";
+    identifier: string;
+    longitude: number;
+    latitude: number;
+    altitude: number;
+    flyOver?: boolean;
 };
 /**
  * AeroflyFlightService class that manages the state of the application and provides
@@ -34,6 +49,7 @@ export declare class AeroflyFlightService {
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft;
     getAircraft(): string;
     getLivery(): string;
+    getAircraftData(): AeroflyAircraft | undefined;
     setFuelAndPayload(fuel: number, payload: number): AeroflySettingsFuelLoad;
     setFuel(fuel: number): void;
     getFuel(): number;
@@ -51,6 +67,12 @@ export declare class AeroflyFlightService {
     getFlightplanArrivalAirportString(): string;
     setFlightPositionToDeparture(): void;
     importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
+    setFlightplan(
+        origin: AeroflyFlightServiceAirport,
+        destination: AeroflyFlightServiceAirport,
+        waypoints: AeroflyFlightServiceWaypoint[] | undefined,
+        cruiseAltitudeFt: number | null,
+    ): AeroflyNavigationConfig;
     exportFlightplanToFile(filePath: string): Promise<void>;
     getImportFiles(): string[] | null;
     getImportableFlightplans(filePath: string): string[];
@@ -70,7 +92,7 @@ export declare class AeroflyFlightService {
      */
     getDepartureTimeZoneUTCString(): string;
     setWeatherFromMETAR(metar: string): void;
-    setWeatherViaApi(airportCode: string): Promise<void>;
+    setWeatherViaApi(airportCode: string): Promise<object>;
     setWeather(
         visibilityM: number,
         temperatureCelsius: number,
@@ -78,6 +100,7 @@ export declare class AeroflyFlightService {
         speedKts: number,
         gustsKts?: number,
     ): object;
+    getWeather(): object;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;
     getWindSpeed(): number;

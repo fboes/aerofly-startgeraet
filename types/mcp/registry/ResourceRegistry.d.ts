@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { AeroflyFlightMcpResourceService } from "../services/AeroflyFlightMcpResourceService.js";
-export declare class ResourceServer {
+export declare class ResourceRegistry {
     static readonly MIME_TYPE_RESPONSE = "application/json";
     static readonly URL_NAME_SPACE = "resource://aerofly";
     static readonly URL_AIRCRAFT: string;
@@ -10,4 +10,4 @@ export declare class ResourceServer {
     static registerResources(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;
     static registerTools(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;
 }
-//# sourceMappingURL=ResourceServer.d.ts.map
+//# sourceMappingURL=ResourceRegistry.d.ts.map

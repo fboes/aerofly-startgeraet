@@ -5,7 +5,7 @@ import { McpHelper } from "../util/McpHelper.js";
 
 type Variables = Record<string, string | string[]>;
 
-export class ResourceServer {
+export class ResourceRegistry {
     static readonly MIME_TYPE_RESPONSE = "application/json";
     static readonly URL_NAME_SPACE = "resource://aerofly";
     static readonly URL_AIRCRAFT = `${this.URL_NAME_SPACE}/aircraft`;

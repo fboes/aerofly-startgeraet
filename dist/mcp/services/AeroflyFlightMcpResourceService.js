@@ -1,7 +1,7 @@
 import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
 import { AeroflyAirportService } from "../../core/services/AeroflyAirportService.js";
 import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import { ResourceServer } from "../server/ResourceServer.js";
+import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 export class AeroflyFlightMcpResourceService {
     getAircraftList() {
         return AeroflyAircraftService.getAllAircraftLiveries().map((a) => {
@@ -28,7 +28,7 @@ export class AeroflyFlightMcpResourceService {
             .filter((a) => a !== undefined)
             .map((a) => {
             return {
-                uri: `${ResourceServer.URL_AIRCRAFT}/${a.aeroflyCode}`,
+                uri: `${ResourceRegistry.URL_AIRCRAFT}/${a.aeroflyCode}`,
                 name: `Aircraft: ${a.nameFull}`,
                 description: `Detailed aircraft information on ${a.nameFull}`,
                 mimeType: "application/json",
@@ -97,7 +97,7 @@ export class AeroflyFlightMcpResourceService {
             .filter((a) => a !== undefined)
             .map((a) => {
             return {
-                uri: `${ResourceServer.URL_AIRPORTS}/${a.code}`,
+                uri: `${ResourceRegistry.URL_AIRPORTS}/${a.code}`,
                 name: `Airport: ${a.name}`,
                 description: `Detailed airport information on ${a.name}`,
                 mimeType: "application/json",

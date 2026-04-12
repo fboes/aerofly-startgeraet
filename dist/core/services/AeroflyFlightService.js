@@ -1,4 +1,4 @@
-import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteOrigin, AeroflySettingsCloud, AeroflySettingsFlight, } from "@fboes/aerofly-custom-missions";
+import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, AeroflySettingsCloud, AeroflySettingsFlight, } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
@@ -49,6 +49,9 @@ export class AeroflyFlightService {
     }
     getLivery() {
         return this.aeroflyFlight.aircraft.paintscheme;
+    }
+    getAircraftData() {
+        return this.currentAircraft;
     }
     // ----------------------------------------------------------
     setFuelAndPayload(fuel, payload) {
@@ -129,6 +132,17 @@ export class AeroflyFlightService {
         this.currentAircraft = AeroflyAircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
         this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, this.aeroflyFlight.aircraft.paintscheme);
     }
+    setFlightplan(origin, destination, waypoints = [], cruiseAltitudeFt) {
+        this.aeroflyFlight.navigation.waypoints = [
+            new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, origin.elevation),
+            ...waypoints.map((wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, wp.altitude)),
+            new AeroflyNavRouteDestination(destination.identifier, destination.longitude, destination.latitude, destination.elevation),
+        ];
+        if (cruiseAltitudeFt !== null) {
+            this.aeroflyFlight.navigation.cruiseAltitude_ft = cruiseAltitudeFt;
+        }
+        return this.aeroflyFlight.navigation;
+    }
     async exportFlightplanToFile(filePath) {
         ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
     }
@@ -188,15 +202,20 @@ export class AeroflyFlightService {
     }
     async setWeatherViaApi(airportCode) {
         await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
+        return this.getWeather();
     }
     // ----------------------------------------------------------
     setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts) {
         this.setVisibilityM(visibilityM);
         this.setTemperature(temperatureCelsius);
         this.setWind(directionDegrees, speedKts, gustsKts);
+        return this.getWeather();
+    }
+    getWeather() {
         return {
             ...this.aeroflyFlight.wind,
             visibility_meter: this.aeroflyFlight.visibility_meter,
+            clouds: this.aeroflyFlight.clouds,
         };
     }
     setWind(directionDegrees, speedKts, gustsKts) {

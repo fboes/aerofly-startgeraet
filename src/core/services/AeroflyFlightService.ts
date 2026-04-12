@@ -4,11 +4,13 @@ import {
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteOrigin,
+    AeroflyNavRouteWaypoint,
     AeroflySettingsCloud,
     AeroflySettingsFlight,
     AeroflySettingsAircraft,
     AeroflySettingsFuelLoad,
     AeroflyTimeUtc,
+    AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
@@ -30,6 +32,22 @@ import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
 export type AeroflyFlightServiceCloud = {
     base_feet_agl: number;
     cloud_coverage: number;
+};
+
+export type AeroflyFlightServiceAirport = {
+    identifier: string;
+    longitude: number;
+    latitude: number;
+    elevation: number;
+};
+
+export type AeroflyFlightServiceWaypoint = {
+    type?: "waypoint" | "departure_runway" | "destination_runway";
+    identifier: string;
+    longitude: number;
+    latitude: number;
+    altitude: number;
+    flyOver?: boolean;
 };
 
 /**
@@ -77,6 +95,10 @@ export class AeroflyFlightService {
 
     getLivery(): string {
         return this.aeroflyFlight.aircraft.paintscheme;
+    }
+
+    getAircraftData(): AeroflyAircraft | undefined {
+        return this.currentAircraft;
     }
 
     // ----------------------------------------------------------
@@ -192,6 +214,32 @@ export class AeroflyFlightService {
         );
     }
 
+    setFlightplan(
+        origin: AeroflyFlightServiceAirport,
+        destination: AeroflyFlightServiceAirport,
+        waypoints: AeroflyFlightServiceWaypoint[] = [],
+        cruiseAltitudeFt: number | null,
+    ): AeroflyNavigationConfig {
+        this.aeroflyFlight.navigation.waypoints = [
+            new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, origin.elevation),
+            ...waypoints.map(
+                (wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, wp.altitude),
+            ),
+            new AeroflyNavRouteDestination(
+                destination.identifier,
+                destination.longitude,
+                destination.latitude,
+                destination.elevation,
+            ),
+        ];
+
+        if (cruiseAltitudeFt !== null) {
+            this.aeroflyFlight.navigation.cruiseAltitude_ft = cruiseAltitudeFt;
+        }
+
+        return this.aeroflyFlight.navigation;
+    }
+
     async exportFlightplanToFile(filePath: string): Promise<void> {
         ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
     }
@@ -266,8 +314,10 @@ export class AeroflyFlightService {
         converter.convert(metar, this.aeroflyFlight);
     }
 
-    async setWeatherViaApi(airportCode: string): Promise<void> {
+    async setWeatherViaApi(airportCode: string): Promise<object> {
         await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
+
+        return this.getWeather();
     }
 
     // ----------------------------------------------------------
@@ -283,9 +333,14 @@ export class AeroflyFlightService {
         this.setTemperature(temperatureCelsius);
         this.setWind(directionDegrees, speedKts, gustsKts);
 
+        return this.getWeather();
+    }
+
+    getWeather(): object {
         return {
             ...this.aeroflyFlight.wind,
             visibility_meter: this.aeroflyFlight.visibility_meter,
+            clouds: this.aeroflyFlight.clouds,
         };
     }
 

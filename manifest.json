@@ -17,10 +17,12 @@
   "support": "https://github.com/fboes/aerofly-startgeraet/issues",
   "server": {
     "type": "node",
-    "entry_point": "dist/mcp/index.js",
+    "entry_point": "./dist/mcp/index.js",
     "mcp_config": {
       "command": "node",
       "args": ["${__dirname}/dist/mcp/index.js"]
     }
-  }
+  },
+  "keywords": ["aerofly", "aerofly-fs4", "flightplan", "mission", "flight simulator"],
+  "license": "MIT"
 }

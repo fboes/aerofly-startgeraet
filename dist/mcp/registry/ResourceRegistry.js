@@ -1,7 +1,7 @@
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { McpHelper } from "../util/McpHelper.js";
-export class ResourceServer {
+export class ResourceRegistry {
     static MIME_TYPE_RESPONSE = "application/json";
     static URL_NAME_SPACE = "resource://aerofly";
     static URL_AIRCRAFT = `${this.URL_NAME_SPACE}/aircraft`;
