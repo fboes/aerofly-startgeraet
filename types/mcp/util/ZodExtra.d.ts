@@ -14,5 +14,18 @@ export declare class ZodExtra {
     static waypointType(): z.ZodEnum;
     static aircraft(): z.ZodString;
     static configuration(): z.ZodEnum;
+    static airport(): z.ZodObject<{
+        identifier: z.ZodString;
+        longitude: z.ZodNumber;
+        latitude: z.ZodNumber;
+        elevation_ft: z.ZodOptional<z.ZodNumber>;
+    }>;
+    static waypoint(): z.ZodObject<{
+        identifier: z.ZodString;
+        longitude: z.ZodNumber;
+        latitude: z.ZodNumber;
+        altitude_ft: z.ZodOptional<z.ZodNumber>;
+        flyOver: z.ZodOptional<z.ZodBoolean>;
+    }>;
 }
 //# sourceMappingURL=ZodExtra.d.ts.map

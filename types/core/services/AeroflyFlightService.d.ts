@@ -4,6 +4,7 @@ import {
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteOrigin,
     AeroflySettingsCloud,
+    AeroflySettingsFlight,
     AeroflySettingsAircraft,
     AeroflySettingsFuelLoad,
     AeroflyTimeUtc,
@@ -23,14 +24,13 @@ export type AeroflyFlightServiceAirport = {
     identifier: string;
     longitude: number;
     latitude: number;
-    elevation: number;
+    elevation_ft?: number;
 };
 export type AeroflyFlightServiceWaypoint = {
-    type?: "waypoint" | "departure_runway" | "destination_runway";
     identifier: string;
     longitude: number;
     latitude: number;
-    altitude: number;
+    altitude_ft?: number;
     flyOver?: boolean;
 };
 /**
@@ -65,6 +65,13 @@ export declare class AeroflyFlightService {
     getFlightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined;
     getFlightplanDepartureAirportString(): string;
     getFlightplanArrivalAirportString(): string;
+    setFlightPosition(
+        longitude: number,
+        latitude: number,
+        altitude_meter: number,
+        heading_degree: number,
+        speed_kts: number,
+    ): AeroflySettingsFlight;
     setFlightPositionToDeparture(): void;
     importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
     setFlightplan(

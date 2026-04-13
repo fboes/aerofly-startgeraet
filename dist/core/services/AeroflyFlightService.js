@@ -106,6 +106,17 @@ export class AeroflyFlightService {
         return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)
             ?.identifier ?? "");
     }
+    setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts) {
+        const onGround = speed_kts === 0 || altitude_meter === 0;
+        this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(longitude, latitude, altitude_meter, heading_degree, onGround ? 0 : speed_kts, {
+            gear: onGround ? 1 : 0,
+            throttle: onGround ? 0 : 0.8,
+            flaps: 0,
+            configuration: onGround ? "OnGround" : "Cruise",
+            onGround,
+        });
+        return this.aeroflyFlight.flightSetting;
+    }
     setFlightPositionToDeparture() {
         const departureAirport = this.getFlightplanDepartureAirport();
         if (!departureAirport) {
@@ -113,8 +124,11 @@ export class AeroflyFlightService {
         }
         const departureRunway = this.getFlightplanDepartureRunway();
         const runwayDirection = departureRunway?.direction_degree ?? 0;
-        this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(departureAirport.longitude, departureAirport.latitude, departureAirport.elevation ?? 0, 0, runwayDirection, {
+        this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(departureAirport.longitude, departureAirport.latitude, departureAirport.elevation ?? 0, runwayDirection, 0, {
             airport: departureAirport.identifier,
+            runway: departureRunway?.identifier,
+            configuration: "OnGround",
+            onGround: true,
         });
     }
     // ----------------------------------------------------------
@@ -134,9 +148,16 @@ export class AeroflyFlightService {
     }
     setFlightplan(origin, destination, waypoints = [], cruiseAltitudeFt) {
         this.aeroflyFlight.navigation.waypoints = [
-            new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, origin.elevation),
-            ...waypoints.map((wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, wp.altitude)),
-            new AeroflyNavRouteDestination(destination.identifier, destination.longitude, destination.latitude, destination.elevation),
+            new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, {
+                elevation_ft: origin.elevation_ft,
+            }),
+            ...waypoints.map((wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, {
+                flyOver: wp.flyOver ?? false,
+                altitude_ft: wp.altitude_ft,
+            })),
+            new AeroflyNavRouteDestination(destination.identifier, destination.longitude, destination.latitude, {
+                elevation_ft: destination.elevation_ft,
+            }),
         ];
         if (cruiseAltitudeFt !== null) {
             this.aeroflyFlight.navigation.cruiseAltitude_ft = cruiseAltitudeFt;
@@ -151,7 +172,7 @@ export class AeroflyFlightService {
         return importFileFinder.findImportFiles();
     }
     getImportableFlightplans(filePath) {
-        return ImportFileReader.getFlightplans(filePath);
+        return ImportFileReader.getFlightplansFromFile(filePath);
     }
     importFlightplanFromFile(filePath, index = 0) {
         ImportFileReader.importFile(filePath, this.aeroflyFlight, index);

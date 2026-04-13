@@ -38,15 +38,14 @@ export type AeroflyFlightServiceAirport = {
     identifier: string;
     longitude: number;
     latitude: number;
-    elevation: number;
+    elevation_ft?: number;
 };
 
 export type AeroflyFlightServiceWaypoint = {
-    type?: "waypoint" | "departure_runway" | "destination_runway";
     identifier: string;
     longitude: number;
     latitude: number;
-    altitude: number;
+    altitude_ft?: number;
     flyOver?: boolean;
 };
 
@@ -174,6 +173,32 @@ export class AeroflyFlightService {
         );
     }
 
+    setFlightPosition(
+        longitude: number,
+        latitude: number,
+        altitude_meter: number,
+        heading_degree: number,
+        speed_kts: number,
+    ): AeroflySettingsFlight {
+        const onGround = speed_kts === 0 || altitude_meter === 0;
+        this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(
+            longitude,
+            latitude,
+            altitude_meter,
+            heading_degree,
+            onGround ? 0 : speed_kts,
+            {
+                gear: onGround ? 1 : 0,
+                throttle: onGround ? 0 : 0.8,
+                flaps: 0,
+                configuration: onGround ? "OnGround" : "Cruise",
+                onGround,
+            },
+        );
+
+        return this.aeroflyFlight.flightSetting;
+    }
+
     setFlightPositionToDeparture() {
         const departureAirport = this.getFlightplanDepartureAirport();
         if (!departureAirport) {
@@ -187,10 +212,13 @@ export class AeroflyFlightService {
             departureAirport.longitude,
             departureAirport.latitude,
             departureAirport.elevation ?? 0,
-            0,
             runwayDirection,
+            0,
             {
                 airport: departureAirport.identifier,
+                runway: departureRunway?.identifier,
+                configuration: "OnGround",
+                onGround: true,
             },
         );
     }
@@ -221,16 +249,19 @@ export class AeroflyFlightService {
         cruiseAltitudeFt: number | null,
     ): AeroflyNavigationConfig {
         this.aeroflyFlight.navigation.waypoints = [
-            new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, origin.elevation),
+            new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, {
+                elevation_ft: origin.elevation_ft,
+            }),
             ...waypoints.map(
-                (wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, wp.altitude),
+                (wp) =>
+                    new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, {
+                        flyOver: wp.flyOver ?? false,
+                        altitude_ft: wp.altitude_ft,
+                    }),
             ),
-            new AeroflyNavRouteDestination(
-                destination.identifier,
-                destination.longitude,
-                destination.latitude,
-                destination.elevation,
-            ),
+            new AeroflyNavRouteDestination(destination.identifier, destination.longitude, destination.latitude, {
+                elevation_ft: destination.elevation_ft,
+            }),
         ];
 
         if (cruiseAltitudeFt !== null) {
@@ -250,7 +281,7 @@ export class AeroflyFlightService {
     }
 
     getImportableFlightplans(filePath: string): string[] {
-        return ImportFileReader.getFlightplans(filePath);
+        return ImportFileReader.getFlightplansFromFile(filePath);
     }
 
     importFlightplanFromFile(filePath: string, index = 0): void {

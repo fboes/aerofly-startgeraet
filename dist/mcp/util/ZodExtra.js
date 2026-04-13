@@ -1,13 +1,13 @@
 import { z } from "zod";
 export class ZodExtra {
     static longitude() {
-        return z.number().gte(-180).lte(180);
+        return z.number().gte(-180).lte(180).describe("Longitude as decimal representation in WGS84");
     }
     static latitude() {
-        return z.number().gte(-90).lte(90);
+        return z.number().gte(-90).lte(90).describe("Latitude as decimal representation in WGS84");
     }
     static degree() {
-        return z.number().nonnegative().lt(360);
+        return z.number().nonnegative().lt(360).describe("Degree as decimal representation");
     }
     /**
      * Create a Zod validator which allows for numbers between [0,1]
@@ -48,5 +48,22 @@ export class ZodExtra {
     }
     static configuration() {
         return z.enum(["Keep", "OnGround", "Cruise"]);
+    }
+    static airport() {
+        return z.object({
+            identifier: this.identifier().describe(`ICAO identifier of airport`),
+            longitude: this.longitude(),
+            latitude: this.latitude(),
+            elevation_ft: z.number().optional(),
+        });
+    }
+    static waypoint() {
+        return z.object({
+            identifier: this.identifier(),
+            longitude: this.longitude(),
+            latitude: this.latitude(),
+            altitude_ft: z.number().optional(),
+            flyOver: z.boolean().optional(),
+        });
     }
 }

@@ -28,7 +28,7 @@ export class AeroflyFlightMcpResourceService {
             .filter((a) => a !== undefined)
             .map((a) => {
             return {
-                uri: `${ResourceRegistry.URL_AIRCRAFT}/${a.aeroflyCode}`,
+                uri: `${ResourceRegistry.RESOURCE_AIRCRAFT}/${a.aeroflyCode}`,
                 name: `Aircraft: ${a.nameFull}`,
                 description: `Detailed aircraft information on ${a.nameFull}`,
                 mimeType: "application/json",
@@ -79,15 +79,45 @@ export class AeroflyFlightMcpResourceService {
         }
         return airport;
     }
-    searchAirports({ query = undefined, } = {}) {
+    searchAirports({ query = undefined, geoQuery = undefined, } = {}) {
         const queryNormalized = query !== undefined && query.trim() !== "" ? query.trim().toLowerCase() : undefined;
-        if (queryNormalized === undefined) {
+        if (queryNormalized === undefined && geoQuery === undefined) {
             throw new McpError(ErrorCode.InvalidRequest, `You need to supply at least one search parameter, otherwise the list of results will contain all the worlds airports.`);
+        }
+        let geoQueryNormalized = undefined;
+        const haversineKm = (lat1, lng1, lat2, lng2) => {
+            const R = 6371;
+            const dLat = ((lat2 - lat1) * Math.PI) / 180;
+            const dLng = ((lng2 - lng1) * Math.PI) / 180;
+            const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        };
+        if (geoQuery !== undefined) {
+            const latDelta = geoQuery.radiusKm / 111;
+            const lngDelta = geoQuery.radiusKm / (111 * Math.cos((geoQuery.latitude * Math.PI) / 180));
+            geoQueryNormalized = {
+                minLongitude: geoQuery.longitude - lngDelta,
+                maxLongitude: geoQuery.longitude + lngDelta,
+                minLatitude: geoQuery.latitude - latDelta,
+                maxLatitude: geoQuery.latitude + latDelta,
+            };
         }
         return AeroflyAirportService.getAllAirports().filter((a) => {
             let returnThis = true;
             if (queryNormalized !== undefined) {
                 returnThis &&= a.code === queryNormalized || a.name.toLowerCase().includes(queryNormalized);
+            }
+            if (geoQueryNormalized !== undefined) {
+                returnThis &&=
+                    geoQueryNormalized.minLongitude <= a.lon &&
+                        geoQueryNormalized.maxLongitude >= a.lon &&
+                        geoQueryNormalized.minLatitude <= a.lat &&
+                        geoQueryNormalized.maxLatitude >= a.lat;
+                if (returnThis && geoQuery !== undefined) {
+                    returnThis &&=
+                        haversineKm(geoQuery.latitude, geoQuery.longitude, a.lat, a.lon) <= geoQuery.radiusKm;
+                }
             }
             return returnThis;
         });
@@ -97,7 +127,7 @@ export class AeroflyFlightMcpResourceService {
             .filter((a) => a !== undefined)
             .map((a) => {
             return {
-                uri: `${ResourceRegistry.URL_AIRPORTS}/${a.code}`,
+                uri: `${ResourceRegistry.RESOURCE_AIRPORTS}/${a.code}`,
                 name: `Airport: ${a.name}`,
                 description: `Detailed airport information on ${a.name}`,
                 mimeType: "application/json",

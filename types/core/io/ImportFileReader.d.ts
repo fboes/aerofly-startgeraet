@@ -5,7 +5,8 @@ import { ImportFileConverter } from "../converter/ImportFileConverter.js";
  * appropriate converter class.
  */
 export declare class ImportFileReader {
-    static getFlightplans(filename: string): string[];
+    static getFlightplansFromFile(filename: string): string[];
+    static getFlightplansFromString(content: string, filename: string): string[];
     /**
      * Imports a flight plan from a file and converts it to an AeroflyFlight object.
      * Supported file types are determined by the file extension:
@@ -21,6 +22,10 @@ export declare class ImportFileReader {
      * @see ImportFileGarminFplConverter for handling Garmin .fpl files.
      */
     static importFile(filename: string, flightplan: AeroflyFlight, index?: number): void;
+    /**
+     * @see importFile
+     */
+    static importString(content: string, filename: string, flightplan: AeroflyFlight, index?: number): void;
     static getConverter(filename: string): new () => ImportFileConverter;
 }
 //# sourceMappingURL=ImportFileReader.d.ts.map

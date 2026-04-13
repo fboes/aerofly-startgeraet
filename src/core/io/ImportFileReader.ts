@@ -13,9 +13,13 @@ import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/Impor
  * appropriate converter class.
  */
 export class ImportFileReader {
-    static getFlightplans(filename: string): string[] {
-        const converter = this.getConverter(filename);
+    static getFlightplansFromFile(filename: string): string[] {
         const content = fs.readFileSync(filename, "utf8");
+        return this.getFlightplansFromString(content, filename);
+    }
+
+    static getFlightplansFromString(content: string, filename: string) {
+        const converter = this.getConverter(filename);
         return new converter().getIndices(content);
     }
 
@@ -34,8 +38,15 @@ export class ImportFileReader {
      * @see ImportFileGarminFplConverter for handling Garmin .fpl files.
      */
     static importFile(filename: string, flightplan: AeroflyFlight, index = 0): void {
-        const converter = this.getConverter(filename);
         const content = fs.readFileSync(filename, "utf8");
+        return this.importString(content, filename, flightplan, index);
+    }
+
+    /**
+     * @see importFile
+     */
+    static importString(content: string, filename: string, flightplan: AeroflyFlight, index = 0): void {
+        const converter = this.getConverter(filename);
         return new converter().convert(content, flightplan, index);
     }
 

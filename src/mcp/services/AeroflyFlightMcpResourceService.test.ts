@@ -23,4 +23,17 @@ describe("AeroflyFlightMcpResourceService", () => {
 
         assert.ok(aircraft.length > 5);
     });
+
+    it("should find airports by coordinates", () => {
+        const service = new AeroflyFlightMcpResourceService();
+        const airports = service.searchAirports({
+            geoQuery: {
+                longitude: 13.405,
+                latitude: 52.52,
+                radiusKm: 100,
+            },
+        });
+
+        assert.ok(airports.length > 0);
+    });
 });

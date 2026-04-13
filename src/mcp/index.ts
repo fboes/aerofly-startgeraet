@@ -15,10 +15,10 @@ const server = new McpServer({
     version: ApplicationService.getApplicationVersion(),
     description: `\
 Flight plan and mission generator for Aerofly FS 4. This MCP server provides functionality to get the current state of the Aerofly FS 4 main configuration file \`main.mcf\`, adds tools to change these settings, and provides data sources for airports, aircraft and aircraft liveries.
-- Call \`${FlightRegistry.METHOD_GET_FLIGHT}\` on starting the MCP server, as it will contain the initial state of \`main.mcf\`.
+- Call \`${FlightRegistry.TOOL_GET_FLIGHT}\` on starting the MCP server, as it will contain the initial state of \`main.mcf\`.
 - Call tools to plan the next flight.
-- Call \`${FlightRegistry.METHOD_SAVE_FLIGHT}\` to save the planning for the next flight back to the \`main.mcf\`.
-- If the \`main.mcf\` is not readable, call \`${ConfigurationRegistry.METHOD_SET_CONFIG}\`.\
+- Call \`${FlightRegistry.TOOL_SAVE_FLIGHT}\` to save the planning for the next flight back to the \`main.mcf\`.
+- If the \`main.mcf\` is not readable, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.\
 `,
 });
 
@@ -34,7 +34,7 @@ try {
     flightService.readMainMcf();
 } catch (e) {
     process.stderr.write(
-        `[${ApplicationService.getApplicationSlug()}] Configuration incomplete: ${e instanceof Error ? e.message : "Unknown error"} - please call \`${ConfigurationRegistry.METHOD_SET_CONFIG}\`\n`,
+        `[${ApplicationService.getApplicationSlug()}] Configuration incomplete: ${e instanceof Error ? e.message : "Unknown error"} - please call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`\n`,
     );
 }
 FlightRegistry.registerTools(server, flightService);

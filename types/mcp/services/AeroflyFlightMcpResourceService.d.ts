@@ -25,7 +25,17 @@ export declare class AeroflyFlightMcpResourceService {
         minimumCruiseSpeedKts?: number | undefined;
     }): AeroflyAircraft[];
     getAirport(icaoCode: string): AeroflyAirportSet;
-    searchAirports({ query }?: { query?: string | undefined }): AeroflyAirportSet[];
+    searchAirports({
+        query,
+        geoQuery,
+    }?: {
+        query?: string;
+        geoQuery?: {
+            longitude: number;
+            latitude: number;
+            radiusKm: number;
+        };
+    }): AeroflyAirportSet[];
     getAirportRessources(): Resource[];
 }
 //# sourceMappingURL=AeroflyFlightMcpResourceService.d.ts.map

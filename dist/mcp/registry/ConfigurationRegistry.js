@@ -1,12 +1,12 @@
 import { McpHelper } from "../util/McpHelper.js";
 import { z } from "zod";
 export class ConfigurationRegistry {
-    static METHOD_GET_CONFIG = "get-config";
-    static METHOD_SET_CONFIG = "set-config";
+    static TOOL_GET_CONFIG = "get-config";
+    static TOOL_SET_CONFIG = "set-config";
     static registerTools(server, config) {
-        server.registerTool(this.METHOD_GET_CONFIG, {
-            title: `Get configuration`,
-            description: `Show the basic settings of the MCP server. Contains data needed to interface with Aerofly FS 4 as well as the local file system. To change this configuration, call \`${this.METHOD_SET_CONFIG}\`.`,
+        server.registerTool(this.TOOL_GET_CONFIG, {
+            title: `Get configuration of MCP server`,
+            description: `Show the basic settings of the MCP server. Contains data needed to interface with Aerofly FS 4 as well as the local file system. To change this configuration, call \`${this.TOOL_SET_CONFIG}\`.`,
             annotations: {
                 readOnlyHint: true,
                 destructiveHint: false,
@@ -21,8 +21,8 @@ export class ConfigurationRegistry {
                 },
             ],
         }));
-        server.registerTool(this.METHOD_SET_CONFIG, {
-            title: `Set configuration`,
+        server.registerTool(this.TOOL_SET_CONFIG, {
+            title: `Set configuration of MCP server`,
             description: `Update the basic settings of the MCP server, like data needed to interface with Aerofly FS 4 as well as the local file system. After updating will return the new configuration state.`,
             inputSchema: {
                 mainMcfFilePath: z
