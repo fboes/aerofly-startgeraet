@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased]
+## [1.4.1]
+
+- Updated MCPB release
+
+## [1.4.0]
 
 - Added METAR parser
 - Added import for Aerofly FS 4 `aerofly.json` custom missions file

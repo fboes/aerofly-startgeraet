@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "aerofly-startgeraet",
   "display_name": "Aerofly Startgerät",
-  "version": "1.3.0",
+  "version": "1.4.1",
   "description": "Flight plan and mission generator for Aerofly FS 4.",
   "long_description": "Flight plan and mission generator for Aerofly FS 4. This MCP server provides functionality to get the current state of the Aerofly FS 4 main configuration file `main.mcf`, adds tools to change these settings, and provides data sources for airports, aircraft and aircraft liveries.",
   "author": {

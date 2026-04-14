@@ -17,7 +17,7 @@ jobs:
 
       - name: Build MCP server
         run: |
-          mkdir -p ./artifact/mcp
+          npm run build:mcp
 
       - uses: actions/upload-artifact@v4
         with:
