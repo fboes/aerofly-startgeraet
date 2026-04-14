@@ -1,17 +1,80 @@
-<svg version="1.1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
-  <linearGradient id="linearGradient2642" x2="512" y1="256" y2="256" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#1753a0" offset="0"/>
-   <stop stop-color="#000a2f" offset="1"/>
-  </linearGradient>
- </defs>
- <path d="m0 0v512h512v-512z" fill="url(#linearGradient2642)" stroke-width="10.667" style="paint-order:stroke fill markers"/>
- <path d="m182.86 108.71 87.765 234.04h-65.824l-21.941 29.255-21.941-29.255h-65.824l196.9 169.25h220v-220l-182.86-183.29 87.765 234.04z" opacity=".25"/>
- <g transform="matrix(.91422 0 0 .91422 21.96 20.94)">
-  <g transform="translate(16)">
-   <path d="m96 352 96-256 96 256h-72l-24 32-24-32z" fill="#f0f6ff"/>
-   <path d="m192 384v-288l-24 256z" opacity=".3"/>
-   <path d="m192 384v-288l24 256z" fill="#fff" opacity=".3"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0 0 512 512"
+   id="svg7"
+   sodipodi:docname="favicon-512x512.svg"
+   inkscape:version="1.4.3 (fcd0343856, 2026-01-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.3398438"
+     inkscape:cx="255.62682"
+     inkscape:cy="315.70845"
+     inkscape:window-width="1824"
+     inkscape:window-height="894"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient2642"
+       x2="512"
+       y1="256"
+       y2="256"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#1753a0"
+         offset="0"
+         id="stop1" />
+      <stop
+         stop-color="#000a2f"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+  </defs>
+  <path
+     d="m0 0v512h512v-512z"
+     fill="url(#linearGradient2642)"
+     stroke-width="10.667"
+     style="paint-order:stroke fill markers"
+     id="path2" />
+  <path
+     id="rect7"
+     style="fill:#000000;stroke-width:1.27835;opacity:0.25"
+     d="M 258.23828,124.35156 140.61914,358.39258 294.22656,512 512,512 512,378.11329 Z" />
+  <g
+     transform="matrix(1.2252015,0,0,0.91422,3.3971476,36.5872)"
+     id="g7">
+    <g
+       transform="translate(16)"
+       id="g6">
+      <path
+         d="m 96,352 96,-256 96,256 h -72 l -24,32 -24,-32 z"
+         fill="#f0f6ff"
+         id="path4"
+         style="fill:#cce1ff;fill-opacity:1" />
+      <path
+         d="M 192,384 V 96 l -24,256 z"
+         opacity="0.3"
+         id="path5" />
+      <path
+         d="M 192,384 V 96 l 24,256 z"
+         fill="#ffffff"
+         opacity="0.3"
+         id="path6" />
+    </g>
   </g>
- </g>
 </svg>
