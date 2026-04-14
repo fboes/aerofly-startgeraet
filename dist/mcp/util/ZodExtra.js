@@ -13,7 +13,7 @@ export class ZodExtra {
      * Create a Zod validator which allows for numbers between [0,1]
      */
     static normalized() {
-        return z.number().nonnegative().lt(1);
+        return z.number().nonnegative().lte(1);
     }
     /**
      * Create a Zod validator for ICAO aiports IDs, navaid IDs, fixes and wapoint names.

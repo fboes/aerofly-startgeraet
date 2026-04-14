@@ -107,15 +107,14 @@ export class ResourceRegistry {
                     .string()
                     .optional()
                     .describe(`Airport ICAO code or (partial) name of airport. Will only find airports present in Aerofly FS 4.`),
-                geoQuery: z
-                    .object({
+                geoQuery: z.object({
                     longitude: ZodExtra.longitude().describe("Longitude of center point for geo search."),
                     latitude: ZodExtra.latitude().describe("Latitude of center point for geo search."),
                     radiusKm: z.number().positive().describe("Maximum distance in kilometers from center point."),
-                })
+                }),
             },
             annotations,
-        }, async ({ query, geoQuery }) => ({
+        }, async ({ query, geoQuery, }) => ({
             content: [
                 {
                     type: "text",

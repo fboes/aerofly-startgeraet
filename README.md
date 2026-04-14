@@ -1,4 +1,4 @@
-# Aerofly Startgerät
+# ![](./assets/icons/favicon-64x64.png) Aerofly Startgerät
 
 > The Auxiliary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units and import functionality for weather and flight plans.
 

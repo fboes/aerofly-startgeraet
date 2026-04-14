@@ -10,7 +10,7 @@ export declare class Config {
     protected getBoolean(key: string): boolean;
     protected setBoolean(key: string, value: boolean): void;
     /**
-     * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan. This is needed to import flight plans from SimBrief into Aerofly FS 4.
+     * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
      */
     get mainMcfFilePath(): string | null;
     set mainMcfFilePath(mainMcfFilePath: string);

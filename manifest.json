@@ -10,17 +10,49 @@
     "email": "info@fboes.org",
     "url": "https://3960.org/"
   },
+  "icons": [
+    {
+      "src": "assets/icons/favicon-64x64.png",
+      "size": "64x64"
+    },
+    {
+      "src": "assets/icons/favicon-512x512.png",
+      "size": "512x512"
+    },
+    {
+      "src": "assets/icons/favicon-512x512.svg",
+      "size": "512x512"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/fboes/aerofly-startgeraet.git"
   },
   "support": "https://github.com/fboes/aerofly-startgeraet/issues",
+  "user_config": {
+    "aerofly_user_directory": {
+      "type": "directory",
+      "title": "Aerofly FS4 user directory",
+      "description": "Please state the directory the main.mcf file of Aerofly FS4 is located in.",
+      "required": false
+    },
+    "simbrief_username": {
+      "type": "string",
+      "title": "SimBrief user name",
+      "description": "To use the optional SimBrief API you need to supply your SimBrief user name.",
+      "required": false
+    }
+  },
   "server": {
     "type": "node",
     "entry_point": "./dist/mcp/index.js",
     "mcp_config": {
       "command": "node",
-      "args": ["${__dirname}/dist/mcp/index.js"]
+      "args": ["${__dirname}/dist/mcp/index.js"],
+      "env": {
+        "AEROFLY_USER_DIRECTORY": "${user_config.aerofly_user_directory}",
+        "SIMBRIEF_USERNAME": "${user_config.simbrief_username}"
+      }
     }
   },
   "keywords": ["aerofly", "aerofly-fs4", "flightplan", "mission", "flight simulator"],

@@ -1,0 +1,35 @@
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-cli:
+    uses: ./.github/workflows/build-cli.yml
+
+  build-mcp:
+    uses: ./.github/workflows/build-mcp.yml
+
+  # build-gui:
+  #   uses: ./.github/workflows/build-gui.yml
+
+  release:
+    needs: [build-cli, build-mcp] # build-gui
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts/
+
+      - name: Display structure
+        run: ls -R ./artifacts/
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: ./artifacts/**/*
+          generate_release_notes: true

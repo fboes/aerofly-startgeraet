@@ -17,7 +17,7 @@ export class ZodExtra {
      * Create a Zod validator which allows for numbers between [0,1]
      */
     static normalized(): z.ZodNumber {
-        return z.number().nonnegative().lt(1);
+        return z.number().nonnegative().lte(1);
     }
 
     /**

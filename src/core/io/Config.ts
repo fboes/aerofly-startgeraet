@@ -33,10 +33,10 @@ export class Config {
     // ----------------------------------------------------------
 
     /**
-     * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan. This is needed to import flight plans from SimBrief into Aerofly FS 4.
+     * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
      */
     get mainMcfFilePath(): string | null {
-        return this.get("mainMcfFilePath", "") || this.findMainMcfFilePath();
+        return this.get("mainMcfFilePath", String(process.env.AEROFLY_USER_DIRECTORY)) || this.findMainMcfFilePath();
     }
 
     set mainMcfFilePath(mainMcfFilePath: string) {
@@ -70,7 +70,7 @@ export class Config {
      * @returns The SimBrief username (or user id) used to import flight plans into Aerofly FS 4.
      */
     get simBriefUserName(): string {
-        return this.get("simBriefUserName", "");
+        return this.get("simBriefUserName", String(process.env.SIMBRIEF_USERNAME));
     }
 
     set simBriefUserName(simBriefUserName: string) {
