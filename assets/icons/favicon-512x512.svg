@@ -5,6 +5,9 @@
    id="svg7"
    sodipodi:docname="favicon-512x512.svg"
    inkscape:version="1.4.3 (fcd0343856, 2026-01-01)"
+   inkscape:export-filename="favicon-64x64.png"
+   inkscape:export-xdpi="12"
+   inkscape:export-ydpi="12"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +23,7 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="1.3398438"
      inkscape:cx="255.62682"
-     inkscape:cy="315.70845"
+     inkscape:cy="256"
      inkscape:window-width="1824"
      inkscape:window-height="894"
      inkscape:window-x="0"
@@ -65,7 +68,7 @@
          d="m 96,352 96,-256 96,256 h -72 l -24,32 -24,-32 z"
          fill="#f0f6ff"
          id="path4"
-         style="fill:#cce1ff;fill-opacity:1" />
+         style="fill:#e2eeff;fill-opacity:1" />
       <path
          d="M 192,384 V 96 l -24,256 z"
          opacity="0.3"
