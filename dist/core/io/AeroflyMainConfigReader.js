@@ -15,16 +15,21 @@ export class AeroflyMainConfigReaderError extends Error {
  */
 export class AeroflyMainConfigReader {
     config;
-    mainCfgFileName;
     constructor(config) {
         this.config = config;
+    }
+    get mainCfgFileName() {
         if (!this.config.mainMcfFilePath) {
             throw new AeroflyMainConfigReaderError("mainMcfFilePath is not defined in the config.");
         }
         if (!fs.existsSync(this.config.mainMcfFilePath)) {
             throw new AeroflyMainConfigReaderError(`The specified mainMcfFilePath does not exist: ${this.config.mainMcfFilePath}`);
         }
-        this.mainCfgFileName = path.join(this.config.mainMcfFilePath, "main.mcf");
+        const filename = path.join(this.config.mainMcfFilePath, "main.mcf");
+        if (!fs.existsSync(filename)) {
+            throw new AeroflyMainConfigReaderError(`The main.cfg does not exists at ${filename}`);
+        }
+        return filename;
     }
     read() {
         const mainMcfContent = fs.readFileSync(this.mainCfgFileName, "utf-8");

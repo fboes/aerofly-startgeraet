@@ -17,7 +17,7 @@ export class ConfigurationRegistry {
             content: [
                 {
                     type: "text",
-                    text: McpHelper.JSONstrinigify(config),
+                    text: McpHelper.JSONstringify(config),
                 },
             ],
         }));
@@ -40,21 +40,14 @@ export class ConfigurationRegistry {
                 idempotentHint: true,
                 openWorldHint: true,
             },
-        }, async ({ mainMcfFilePath, simBriefUserName }) => {
+        }, async ({ mainMcfFilePath, simBriefUserName, }) => {
             if (mainMcfFilePath !== undefined) {
                 config.mainMcfFilePath = mainMcfFilePath;
             }
             if (simBriefUserName !== undefined) {
                 config.simBriefUserName = simBriefUserName;
             }
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: McpHelper.JSONstringifyResult(config),
-                    },
-                ],
-            };
+            return McpHelper.returnResultContent(config);
         });
     }
 }

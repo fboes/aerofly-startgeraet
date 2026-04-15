@@ -7,7 +7,7 @@ The Aerofly Startgerät MCP server is available as a pre-packacked MCPB file (wh
 ## Installation via MCPB file
 
 1. Be sure to have a local AI client installed which can import MCPB files.
-1. Download the latest MCPB file from the Github releases.
+1. Download the latest MCPB file from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
 1. Install the MCPB file by double-clicking the it.
 
 ## Installation as Node.js application
@@ -36,6 +36,13 @@ The MCP server offers:
 
 > [!WARNING]
 > The Aerofly Startgerät MCP server may break your `main.mcf`. Be sure to have a backup of this file.
+
+### Note on token usage
+
+Once an MCP server is added to a local AI client, its tool definitions are loaded into every conversation — including ones where you don't use the server at all. This increases your input token consumption per request and reduces the context window available for your actual conversation.
+
+> [!WARNING]
+> To avoid unnecessary overhead, remove MCP servers you don't regularly need.
 
 ---
 

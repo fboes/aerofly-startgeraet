@@ -3,7 +3,7 @@ import { z } from "zod";
 import { AeroflyFlightMcpResourceService } from "../services/AeroflyFlightMcpResourceService.js";
 import { McpHelper } from "../util/McpHelper.js";
 import { ZodExtra } from "../util/ZodExtra.js";
-import { ToolAnnotations } from "@modelcontextprotocol/sdk/types";
+import { CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 
 type Variables = Record<string, string | string[]>;
 
@@ -24,12 +24,12 @@ export class ResourceRegistry {
                 description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL) => ({
+            async (uri: URL): Promise<ReadResourceResult> => ({
                 contents: [
                     {
                         uri: uri.href,
                         mimeType: this.MIME_TYPE_RESPONSE,
-                        text: McpHelper.JSONstrinigify(resourceService.getAircraftList()),
+                        text: McpHelper.JSONstringify(resourceService.getAircraftList()),
                     },
                 ],
             }),
@@ -46,12 +46,12 @@ export class ResourceRegistry {
                 description: `Detailed information for a specific aircraft matching the Aerofly FS4 aircraft code given by \`aeroflyCode\` (string), if available in Aerofly FS 4. This gives you additional technical data like range and cruise speed, as well as a list of available liveries.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL, { aeroflyCode }: Variables) => ({
+            async (uri: URL, { aeroflyCode }: Variables): Promise<ReadResourceResult> => ({
                 contents: [
                     {
                         uri: uri.href,
                         mimeType: this.MIME_TYPE_RESPONSE,
-                        text: McpHelper.JSONstrinigify(resourceService.getAircraft(String(aeroflyCode))),
+                        text: McpHelper.JSONstringify(resourceService.getAircraft(String(aeroflyCode))),
                     },
                 ],
             }),
@@ -64,12 +64,12 @@ export class ResourceRegistry {
                 description: `A list of all tags which are attached to aircraft in Aerofly FS 4.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL) => ({
+            async (uri: URL): Promise<ReadResourceResult> => ({
                 contents: [
                     {
                         uri: uri.href,
                         mimeType: this.MIME_TYPE_RESPONSE,
-                        text: McpHelper.JSONstrinigify(resourceService.getAircraftTags()),
+                        text: McpHelper.JSONstringify(resourceService.getAircraftTags()),
                     },
                 ],
             }),
@@ -86,17 +86,19 @@ export class ResourceRegistry {
                 description: `Detailed information for a specific airport matching the ICAO code given by \`icaoCode\` (string), if available in Aerofly FS 4. This will give you the ICAO code, name, longitude and latitude of the airport. Be aware that the runways and parking positions available are not available in this MCP server and need to be fetched from online sources.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL, { icaoCode }: Variables) => ({
+            async (uri: URL, { icaoCode }: Variables): Promise<ReadResourceResult> => ({
                 contents: [
                     {
                         uri: uri.href,
                         mimeType: this.MIME_TYPE_RESPONSE,
-                        text: McpHelper.JSONstrinigify(resourceService.getAirport(String(icaoCode))),
+                        text: McpHelper.JSONstringify(resourceService.getAirport(String(icaoCode))),
                     },
                 ],
             }),
         );
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     static registerTools(server: McpServer, resourceService: AeroflyFlightMcpResourceService) {
         const annotations: ToolAnnotations = {
@@ -139,11 +141,11 @@ export class ResourceRegistry {
                 tags?: string[];
                 minimumRangeNm?: number;
                 minimumCruiseSpeedKts?: number;
-            }) => ({
+            }): Promise<CallToolResult> => ({
                 content: [
                     {
                         type: "text",
-                        text: McpHelper.JSONstrinigify(
+                        text: McpHelper.JSONstringify(
                             resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts }),
                         ),
                     },
@@ -177,11 +179,11 @@ export class ResourceRegistry {
             }: {
                 query?: string;
                 geoQuery?: { longitude: number; latitude: number; radiusKm: number };
-            }) => ({
+            }): Promise<CallToolResult> => ({
                 content: [
                     {
                         type: "text",
-                        text: McpHelper.JSONstrinigify(resourceService.searchAirports({ query, geoQuery })),
+                        text: McpHelper.JSONstringify(resourceService.searchAirports({ query, geoQuery })),
                     },
                 ],
             }),

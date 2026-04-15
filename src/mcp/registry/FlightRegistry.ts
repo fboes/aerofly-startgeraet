@@ -9,7 +9,7 @@ import {
 import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../util/ZodExtra.js";
-import { ToolAnnotations } from "@modelcontextprotocol/sdk/types";
+import { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 
 export class FlightRegistry {
     static readonly TOOL_GET_FLIGHT = "get-aerofly-flight";
@@ -45,11 +45,11 @@ export class FlightRegistry {
                     openWorldHint: false,
                 },
             },
-            async () => ({
+            async (): Promise<CallToolResult> => ({
                 content: [
                     {
                         type: "text",
-                        text: McpHelper.JSONstrinigify(flightService.getAeroflyFlight()),
+                        text: McpHelper.JSONstringify(flightService.getAeroflyFlight()),
                     },
                 ],
             }),
@@ -78,7 +78,7 @@ export class FlightRegistry {
             }: {
                 aeroflyCodeAircraft: string;
                 aeroflyCodeLivery?: string;
-            }) => {
+            }): Promise<CallToolResult> => {
                 const result = flightService.setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery ?? "");
                 const warnings =
                     flightService.getAircraftData() !== undefined
@@ -109,7 +109,7 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({ fuel, payload }: { fuel?: number; payload?: number }) => {
+            async ({ fuel, payload }: { fuel?: number; payload?: number }): Promise<CallToolResult> => {
                 const result = flightService.setFuelAndPayload(fuel ?? 0, payload ?? 0);
 
                 const warnings = [];
@@ -137,7 +137,7 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({ timeDate }: { timeDate: string }) =>
+            async ({ timeDate }: { timeDate: string }): Promise<CallToolResult> =>
                 McpHelper.returnResultContent(flightService.setTimeAndDate(timeDate)),
         );
 
@@ -174,7 +174,7 @@ export class FlightRegistry {
                 directionDegrees: number;
                 speedKts: number;
                 gustsKts?: number;
-            }) =>
+            }): Promise<CallToolResult> =>
                 McpHelper.returnResultContent(
                     flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts),
                 ),
@@ -209,7 +209,7 @@ export class FlightRegistry {
                     cloud_coverage: number;
                     base_feet_agl: number;
                 }[];
-            }) => {
+            }): Promise<CallToolResult> => {
                 const result = flightService.setClouds(clouds);
                 const warnings =
                     result.length > 3
@@ -236,17 +236,14 @@ export class FlightRegistry {
                     openWorldHint: true,
                 },
             },
-            async ({ airportIcaoCode }: { airportIcaoCode: string }) => {
+            async ({ airportIcaoCode }: { airportIcaoCode: string }): Promise<CallToolResult> => {
                 try {
                     return McpHelper.returnResultContent(await flightService.setWeatherViaApi(airportIcaoCode));
                 } catch (e) {
-                    return McpHelper.returnResultContent(
-                        e,
-                        [
-                            `The METAR rport for this combination of ICAO code and date is missing. Valid dates are up to two weeks in the past.`,
-                        ],
-                        false,
-                    );
+                    return McpHelper.returnErrorContent([
+                        `The METAR rport for this combination of ICAO code and date is missing. Valid dates are up to two weeks in the past.`,
+                        e instanceof Error ? e.message : String(e),
+                    ]);
                 }
             },
         );
@@ -267,17 +264,14 @@ export class FlightRegistry {
                     openWorldHint: true,
                 },
             },
-            async ({ simBriefUserName }: { simBriefUserName: string }) => {
+            async ({ simBriefUserName }: { simBriefUserName: string }): Promise<CallToolResult> => {
                 try {
                     await flightService.importFlightplanFromSimBrief(simBriefUserName);
                 } catch (e) {
-                    return McpHelper.returnResultContent(
-                        e,
-                        [
-                            `The API did not respond with an flight plan. Possibly the user name is unknown, or there is no current flight plan`,
-                        ],
-                        false,
-                    );
+                    return McpHelper.returnErrorContent([
+                        `The API did not respond with an flight plan. Possibly the user name is unknown, or there is no current flight plan.`,
+                        e instanceof Error ? e.message : String(e),
+                    ]);
                 }
 
                 return McpHelper.returnResultContent(flightService.getAeroflyFlight());
@@ -310,7 +304,7 @@ export class FlightRegistry {
                 altitude_meter: number;
                 heading_degree: number;
                 speed_kts: number;
-            }) => {
+            }): Promise<CallToolResult> => {
                 return McpHelper.returnResultContent(
                     flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts),
                 );
@@ -348,7 +342,7 @@ export class FlightRegistry {
                 destination: AeroflyFlightServiceAirport;
                 waypoints: AeroflyFlightServiceWaypoint[] | undefined;
                 cruiseAltitudeFt: number | undefined;
-            }) => {
+            }): Promise<CallToolResult> => {
                 const result = flightService.setFlightplan(origin, destination, waypoints, cruiseAltitudeFt ?? null);
                 flightService.setFlightPositionToDeparture();
                 return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
@@ -367,17 +361,14 @@ export class FlightRegistry {
                     openWorldHint: true,
                 },
             },
-            async () => {
+            async (): Promise<CallToolResult> => {
                 try {
                     flightService.writeFile();
                 } catch (e) {
-                    return McpHelper.returnResultContent(
-                        e,
-                        [
-                            `You might want to check the configuration of the MCP server. To change the configuration, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.`,
-                        ],
-                        false,
-                    );
+                    return McpHelper.returnErrorContent([
+                        `You might want to check the configuration of the MCP server. To change the configuration, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.`,
+                        e instanceof Error ? e.message : String(e),
+                    ]);
                 }
 
                 return McpHelper.returnResultContent(flightService.getAeroflyFlight());

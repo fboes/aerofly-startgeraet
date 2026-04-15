@@ -1,16 +1,7 @@
+import { CallToolResult, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 export declare class McpHelper {
-    static JSONstrinigify<T>(value: T): string;
-    static JSONstringifyResult<T>(result: T, warnings?: string[], success?: boolean): string;
-    static returnResultContent<T>(
-        result: T,
-        warnings?: string[],
-        success?: boolean,
-    ): {
-        content: {
-            type: "text";
-            text: string;
-        }[];
-        isError?: boolean;
-    };
+    static JSONstringify<T>(value: T): string;
+    static returnResultContent<T>(data: T, warnings?: string[]): CallToolResult;
+    static returnErrorContent(messages: string[], code?: ErrorCode): CallToolResult;
 }
 //# sourceMappingURL=McpHelper.d.ts.map

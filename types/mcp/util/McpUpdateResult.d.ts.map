@@ -1,1 +1,0 @@
-{"version":3,"file":"McpUpdateResult.d.ts","sourceRoot":"","sources":["../../../src/mcp/util/McpUpdateResult.ts"],"names":[],"mappings":"AAAA,qBAAa,eAAe,CAAC,CAAC;aAEN,GAAG,EAAE,CAAC;aACN,OAAO,EAAE,OAAO;aAChB,QAAQ,EAAE,MAAM,EAAE;gBAFlB,GAAG,EAAE,CAAC,EACN,OAAO,GAAE,OAAc,EACvB,QAAQ,GAAE,MAAM,EAAO;CAE9C"}

@@ -1,33 +1,43 @@
-import { McpUpdateResult } from "./McpUpdateResult.js";
+import { CallToolResult, TextContent, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 
 export class McpHelper {
-    static JSONstrinigify<T>(value: T): string {
+    static JSONstringify<T>(value: T): string {
         return JSON.stringify(value, null, 2);
     }
 
-    static JSONstringifyResult<T>(result: T, warnings: string[] = [], success = true): string {
-        return this.JSONstrinigify(new McpUpdateResult(result, success, warnings));
-    }
-
-    static returnResultContent<T>(
-        result: T,
-        warnings: string[] = [],
-        success = true,
-    ): {
-        content: {
-            type: "text";
-            text: string;
-        }[];
-        isError?: boolean;
-    } {
+    static returnResultContent<T>(data: T, warnings: string[] = []): CallToolResult {
         return {
             content: [
                 {
                     type: "text",
-                    text: this.JSONstringifyResult(result, warnings, success),
+                    text: this.JSONstringify({ data }),
                 },
+                ...warnings.map(
+                    (text): TextContent => ({
+                        type: "text",
+                        text: "Warning: " + text,
+                    }),
+                ),
             ],
-            isError: !success ? true : undefined,
         };
+    }
+
+    static returnErrorContent(messages: string[], code: ErrorCode = ErrorCode.InvalidRequest): CallToolResult {
+        {
+            return {
+                content: messages.map(
+                    (message): TextContent => ({
+                        type: "text",
+                        text: JSON.stringify({
+                            error: {
+                                code,
+                                message,
+                            },
+                        }),
+                    }),
+                ),
+                isError: true,
+            };
+        }
     }
 }

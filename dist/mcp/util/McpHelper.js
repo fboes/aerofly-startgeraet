@@ -1,20 +1,36 @@
-import { McpUpdateResult } from "./McpUpdateResult.js";
+import { ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 export class McpHelper {
-    static JSONstrinigify(value) {
+    static JSONstringify(value) {
         return JSON.stringify(value, null, 2);
     }
-    static JSONstringifyResult(result, warnings = [], success = true) {
-        return this.JSONstrinigify(new McpUpdateResult(result, success, warnings));
-    }
-    static returnResultContent(result, warnings = [], success = true) {
+    static returnResultContent(data, warnings = []) {
         return {
             content: [
                 {
                     type: "text",
-                    text: this.JSONstringifyResult(result, warnings, success),
+                    text: this.JSONstringify({ data }),
                 },
+                ...warnings.map((text) => ({
+                    type: "text",
+                    text: "Warning: " + text,
+                })),
             ],
-            isError: !success ? true : undefined,
         };
+    }
+    static returnErrorContent(messages, code = ErrorCode.InvalidRequest) {
+        {
+            return {
+                content: messages.map((message) => ({
+                    type: "text",
+                    text: JSON.stringify({
+                        error: {
+                            code,
+                            message,
+                        },
+                    }),
+                })),
+                isError: true,
+            };
+        }
     }
 }

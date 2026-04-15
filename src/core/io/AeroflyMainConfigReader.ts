@@ -19,9 +19,9 @@ export class AeroflyMainConfigReaderError extends Error {
  * Reader to convert `main.mcf` file into `AeroflyFlight` class instance.
  */
 export class AeroflyMainConfigReader {
-    mainCfgFileName: string;
+    constructor(private config: Config) {}
 
-    constructor(private config: Config) {
+    get mainCfgFileName() {
         if (!this.config.mainMcfFilePath) {
             throw new AeroflyMainConfigReaderError("mainMcfFilePath is not defined in the config.");
         }
@@ -32,7 +32,12 @@ export class AeroflyMainConfigReader {
             );
         }
 
-        this.mainCfgFileName = path.join(this.config.mainMcfFilePath, "main.mcf");
+        const filename = path.join(this.config.mainMcfFilePath, "main.mcf");
+
+        if (!fs.existsSync(filename)) {
+            throw new AeroflyMainConfigReaderError(`The main.cfg does not exists at ${filename}`);
+        }
+        return filename;
     }
 
     read(): AeroflyFlight {

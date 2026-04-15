@@ -36,7 +36,7 @@ export class FlightRegistry {
             content: [
                 {
                     type: "text",
-                    text: McpHelper.JSONstrinigify(flightService.getAeroflyFlight()),
+                    text: McpHelper.JSONstringify(flightService.getAeroflyFlight()),
                 },
             ],
         }));
@@ -154,9 +154,10 @@ export class FlightRegistry {
                 return McpHelper.returnResultContent(await flightService.setWeatherViaApi(airportIcaoCode));
             }
             catch (e) {
-                return McpHelper.returnResultContent(e, [
+                return McpHelper.returnErrorContent([
                     `The METAR rport for this combination of ICAO code and date is missing. Valid dates are up to two weeks in the past.`,
-                ], false);
+                    e instanceof Error ? e.message : String(e),
+                ]);
             }
         });
         server.registerTool(FlightRegistry.TOOL_FETCH_SIMBRIEF, {
@@ -177,9 +178,10 @@ export class FlightRegistry {
                 await flightService.importFlightplanFromSimBrief(simBriefUserName);
             }
             catch (e) {
-                return McpHelper.returnResultContent(e, [
-                    `The API did not respond with an flight plan. Possibly the user name is unknown, or there is no current flight plan`,
-                ], false);
+                return McpHelper.returnErrorContent([
+                    `The API did not respond with an flight plan. Possibly the user name is unknown, or there is no current flight plan.`,
+                    e instanceof Error ? e.message : String(e),
+                ]);
             }
             return McpHelper.returnResultContent(flightService.getAeroflyFlight());
         });
@@ -232,9 +234,10 @@ export class FlightRegistry {
                 flightService.writeFile();
             }
             catch (e) {
-                return McpHelper.returnResultContent(e, [
+                return McpHelper.returnErrorContent([
                     `You might want to check the configuration of the MCP server. To change the configuration, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.`,
-                ], false);
+                    e instanceof Error ? e.message : String(e),
+                ]);
             }
             return McpHelper.returnResultContent(flightService.getAeroflyFlight());
         });

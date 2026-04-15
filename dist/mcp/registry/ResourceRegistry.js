@@ -19,7 +19,7 @@ export class ResourceRegistry {
                 {
                     uri: uri.href,
                     mimeType: this.MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstrinigify(resourceService.getAircraftList()),
+                    text: McpHelper.JSONstringify(resourceService.getAircraftList()),
                 },
             ],
         }));
@@ -35,7 +35,7 @@ export class ResourceRegistry {
                 {
                     uri: uri.href,
                     mimeType: this.MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstrinigify(resourceService.getAircraft(String(aeroflyCode))),
+                    text: McpHelper.JSONstringify(resourceService.getAircraft(String(aeroflyCode))),
                 },
             ],
         }));
@@ -47,7 +47,7 @@ export class ResourceRegistry {
                 {
                     uri: uri.href,
                     mimeType: this.MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstrinigify(resourceService.getAircraftTags()),
+                    text: McpHelper.JSONstringify(resourceService.getAircraftTags()),
                 },
             ],
         }));
@@ -63,11 +63,12 @@ export class ResourceRegistry {
                 {
                     uri: uri.href,
                     mimeType: this.MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstrinigify(resourceService.getAirport(String(icaoCode))),
+                    text: McpHelper.JSONstringify(resourceService.getAirport(String(icaoCode))),
                 },
             ],
         }));
     }
+    // -----------------------------------------------------------------------------------------------------------------
     static registerTools(server, resourceService) {
         const annotations = {
             readOnlyHint: true,
@@ -95,7 +96,7 @@ export class ResourceRegistry {
             content: [
                 {
                     type: "text",
-                    text: McpHelper.JSONstrinigify(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })),
+                    text: McpHelper.JSONstringify(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })),
                 },
             ],
         }));
@@ -118,7 +119,7 @@ export class ResourceRegistry {
             content: [
                 {
                     type: "text",
-                    text: McpHelper.JSONstrinigify(resourceService.searchAirports({ query, geoQuery })),
+                    text: McpHelper.JSONstringify(resourceService.searchAirports({ query, geoQuery })),
                 },
             ],
         }));

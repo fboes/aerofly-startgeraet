@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.3]
+
+- Improved message handling in MCP server
+
 ## [1.4.1]
 
 - Updated MCPB release

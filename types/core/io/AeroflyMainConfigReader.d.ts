@@ -9,8 +9,8 @@ export declare class AeroflyMainConfigReaderError extends Error {
  */
 export declare class AeroflyMainConfigReader {
     private config;
-    mainCfgFileName: string;
     constructor(config: Config);
+    get mainCfgFileName(): string;
     read(): AeroflyFlight;
     parseMainMcf(mainMcfContent: string): AeroflyFlight;
     write(flight: AeroflyFlight): void;

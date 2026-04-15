@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Config } from "../../core/io/Config.js";
 import { McpHelper } from "../util/McpHelper.js";
 import { z } from "zod";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types";
 
 export class ConfigurationRegistry {
     static readonly TOOL_GET_CONFIG = "get-config";
@@ -20,11 +21,11 @@ export class ConfigurationRegistry {
                     openWorldHint: true,
                 },
             },
-            async () => ({
+            async (): Promise<CallToolResult> => ({
                 content: [
                     {
                         type: "text",
-                        text: McpHelper.JSONstrinigify(config),
+                        text: McpHelper.JSONstringify(config),
                     },
                 ],
             }),
@@ -56,7 +57,13 @@ export class ConfigurationRegistry {
                     openWorldHint: true,
                 },
             },
-            async ({ mainMcfFilePath, simBriefUserName }: { mainMcfFilePath?: string; simBriefUserName?: string }) => {
+            async ({
+                mainMcfFilePath,
+                simBriefUserName,
+            }: {
+                mainMcfFilePath?: string;
+                simBriefUserName?: string;
+            }): Promise<CallToolResult> => {
                 if (mainMcfFilePath !== undefined) {
                     config.mainMcfFilePath = mainMcfFilePath;
                 }
@@ -64,14 +71,7 @@ export class ConfigurationRegistry {
                     config.simBriefUserName = simBriefUserName;
                 }
 
-                return {
-                    content: [
-                        {
-                            type: "text",
-                            text: McpHelper.JSONstringifyResult(config),
-                        },
-                    ],
-                };
+                return McpHelper.returnResultContent(config);
             },
         );
     }
