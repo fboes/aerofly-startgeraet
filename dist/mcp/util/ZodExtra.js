@@ -66,4 +66,12 @@ export class ZodExtra {
             flyOver: z.boolean().optional(),
         });
     }
+    static runway() {
+        return z.object({
+            identifier: this.identifier(),
+            length: z.number().optional(),
+            elevation_ft: z.number().optional(),
+            direction_degree: this.degree().optional(),
+        });
+    }
 }

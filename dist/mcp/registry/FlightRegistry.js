@@ -204,7 +204,13 @@ export class FlightRegistry {
             description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but not other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport.`,
             inputSchema: {
                 origin: ZodExtra.airport().describe(`Origin airport with ICAO code`),
+                departureRunway: ZodExtra.runway()
+                    .optional()
+                    .describe(`Departure runway at origin airport with runway name.Position will be inferred from airport coordinates, length and identifier / direction.`),
                 destination: ZodExtra.airport().describe(`Destination airport with ICAO code`),
+                destinationRunway: ZodExtra.runway()
+                    .optional()
+                    .describe(`Destination runway at destination airport with runway name. Position will be inferred from airport coordinates, length and identifier / direction.`),
                 waypoints: z
                     .array(ZodExtra.waypoint())
                     .optional()
@@ -215,8 +221,13 @@ export class FlightRegistry {
                     .describe(`Cruise altitude in feet. This is not a setting of the flight plan, but can be used to set the altitude of waypoints without altitude information.`),
             },
             annotations,
-        }, async ({ origin, destination, waypoints, cruiseAltitudeFt, }) => {
-            const result = flightService.setFlightplan(origin, destination, waypoints, cruiseAltitudeFt ?? null);
+        }, async ({ origin, departureRunway, destination, destinationRunway, waypoints, cruiseAltitudeFt, }) => {
+            const result = flightService.setFlightplan(origin, destination, {
+                departureRunway,
+                destinationRunway,
+                waypoints,
+                cruiseAltitudeFt,
+            });
             flightService.setFlightPositionToDeparture();
             return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
         });

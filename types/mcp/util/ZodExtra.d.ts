@@ -27,5 +27,11 @@ export declare class ZodExtra {
         altitude_ft: z.ZodOptional<z.ZodNumber>;
         flyOver: z.ZodOptional<z.ZodBoolean>;
     }>;
+    static runway(): z.ZodObject<{
+        identifier: z.ZodString;
+        length: z.ZodOptional<z.ZodNumber>;
+        elevation_ft: z.ZodOptional<z.ZodNumber>;
+        direction_degree: z.ZodOptional<z.ZodNumber>;
+    }>;
 }
 //# sourceMappingURL=ZodExtra.d.ts.map

@@ -36,6 +36,7 @@ export class AeroflyFlightHelper {
         const coordinatesNew = coordinates.getPointBy(new Vector(runwayLength / 2, direction_degree + 180));
         waypoint.latitude = coordinatesNew.latitude;
         waypoint.longitude = coordinatesNew.longitude;
+        waypoint.direction_degree = direction_degree;
         return waypoint;
     }
     static getFlightCategory(aeroflyFlight) {

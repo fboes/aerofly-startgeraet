@@ -1,4 +1,4 @@
-import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, AeroflySettingsCloud, AeroflySettingsFlight, } from "@fboes/aerofly-custom-missions";
+import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, AeroflySettingsCloud, AeroflySettingsFlight, } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
@@ -25,14 +25,14 @@ export class AeroflyFlightService {
     airportService;
     constructor(config) {
         this.config = config;
+        this.aircraftService = new AeroflyAircraftService();
+        this.airportService = new AeroflyAirportService();
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
         this.aeroflyFlight = new AeroflyFlightFallback();
         this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
         if (this.config.syncTimeOnStartup) {
             this.aeroflyFlight.timeUtc.time = new Date();
         }
-        this.aircraftService = new AeroflyAircraftService();
-        this.airportService = new AeroflyAirportService();
     }
     // ----------------------------------------------------------
     readMainMcf() {
@@ -151,20 +151,34 @@ export class AeroflyFlightService {
         this.currentAircraft = this.aircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
         this.currentLivery = this.aircraftService.getLiveryForAircraft(this.currentAircraft, this.aeroflyFlight.aircraft.paintscheme);
     }
-    setFlightplan(origin, destination, waypoints = [], cruiseAltitudeFt) {
+    setFlightplan(origin, destination, { departureRunway, destinationRunway, waypoints, cruiseAltitudeFt, } = {}) {
         this.aeroflyFlight.navigation.waypoints = [
             new AeroflyNavRouteOrigin(origin.identifier, origin.longitude, origin.latitude, {
                 elevation_ft: origin.elevation_ft,
             }),
-            ...waypoints.map((wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, {
+            ...(departureRunway
+                ? [departureRunway].map((r) => AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(r.identifier, origin.longitude, origin.latitude, {
+                    elevation_ft: r.elevation_ft ?? origin.elevation_ft,
+                    runwayLength: r.length ?? 1500,
+                    direction_degree: r.direction_degree,
+                })))
+                : []),
+            ...(waypoints ?? []).map((wp) => new AeroflyNavRouteWaypoint(wp.identifier, wp.longitude, wp.latitude, {
                 flyOver: wp.flyOver ?? false,
                 altitude_ft: wp.altitude_ft,
             })),
+            ...(destinationRunway
+                ? [destinationRunway].map((r) => AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(r.identifier, destination.longitude, destination.latitude, {
+                    elevation_ft: r.elevation_ft ?? destination.elevation_ft,
+                    runwayLength: r.length ?? 1500,
+                    direction_degree: r.direction_degree,
+                })))
+                : []),
             new AeroflyNavRouteDestination(destination.identifier, destination.longitude, destination.latitude, {
                 elevation_ft: destination.elevation_ft,
             }),
         ];
-        if (cruiseAltitudeFt !== null) {
+        if (cruiseAltitudeFt !== undefined) {
             this.aeroflyFlight.navigation.cruiseAltitude_ft = cruiseAltitudeFt;
         }
         return this.aeroflyFlight.navigation;

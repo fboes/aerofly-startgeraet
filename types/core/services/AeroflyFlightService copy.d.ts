@@ -32,7 +32,6 @@ export type AeroflyFlightServiceRunway = {
     identifier: string;
     length?: number;
     elevation_ft?: number;
-    direction_degree?: number;
 };
 export type AeroflyFlightServiceWaypoint = {
     identifier: string;
@@ -141,4 +140,4 @@ export declare class AeroflyFlightService {
     getClouds(): AeroflyFlightServiceCloud[];
     writeFile(): void;
 }
-//# sourceMappingURL=AeroflyFlightService.d.ts.map
+//# sourceMappingURL=AeroflyFlightService%20copy.d.ts.map

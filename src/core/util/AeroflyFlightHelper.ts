@@ -58,6 +58,8 @@ export class AeroflyFlightHelper {
 
         waypoint.latitude = coordinatesNew.latitude;
         waypoint.longitude = coordinatesNew.longitude;
+        waypoint.direction_degree = direction_degree;
+
         return waypoint;
     }
 

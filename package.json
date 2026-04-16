@@ -17,7 +17,7 @@
     "fix-access-rights": "find src -type d -name \"@eaDir\" -prune -o -exec chmod 0755 {} \\; && find src -type f -exec chmod 0644 {} \\; && find docs -type f -exec chmod 0644 {} \\; && find src -type f -name \"index.ts\" -exec chmod 0755 {} \\;",
     "build": "npm run eslint && npm run fix-access-rights && npm run tsc && npm run prettier",
     "build:mcp": "mkdir -p artifacts/mcp && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcp/",
-    "sync-versions": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json"
+    "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md"
   },
   "keywords": [
     "aerofly",
