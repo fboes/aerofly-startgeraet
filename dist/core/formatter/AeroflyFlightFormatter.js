@@ -1,17 +1,23 @@
 import { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
-import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
-import { AeroflyAirportService } from "../services/AeroflyAirportService.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
 export class AeroflyFlightFormatter {
-    static getAircraft(aeroflyFlight) {
-        const currentAircraft = AeroflyAircraftService.getAircraft(aeroflyFlight.aircraft.name);
+    aeroflyFlight;
+    aircraftService;
+    airportService;
+    constructor(aeroflyFlight, aircraftService, airportService) {
+        this.aeroflyFlight = aeroflyFlight;
+        this.aircraftService = aircraftService;
+        this.airportService = airportService;
+    }
+    static getAircraft(aeroflyFlight, aircraftService) {
+        const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
         if (!currentAircraft) {
             return "No aircraft selected";
         }
-        const currentLivery = AeroflyAircraftService.getLiveryForAircraft(currentAircraft, aeroflyFlight.aircraft.paintscheme);
+        const currentLivery = aircraftService.getLiveryForAircraft(currentAircraft, aeroflyFlight.aircraft.paintscheme);
         return `${currentAircraft.nameFull} - ${currentLivery?.name ?? "Default Livery"}`;
     }
     static getFuelAndPayload(aeroflyFlight) {
@@ -26,27 +32,25 @@ export class AeroflyFlightFormatter {
         return (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.identifier ??
             "Unknown");
     }
-    static getFlightplanOriginName(aeroflyFlight) {
+    static getFlightplanOriginName(aeroflyFlight, airportService) {
         const airportCode = this.getFlightplanOriginCode(aeroflyFlight);
-        const airportName = this.getAirportName(airportCode);
+        const airportName = this.getAirportName(airportCode, airportService);
         return airportName ? `${airportName} (${airportCode})` : airportCode;
     }
-    static getAirportName(airportCode) {
-        return airportCode !== "Unknown"
-            ? (AeroflyAirportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown")
-            : "";
+    static getAirportName(airportCode, airportService) {
+        return airportCode !== "Unknown" ? (airportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
     }
     static getFlightplanDestinationCode(aeroflyFlight) {
         return (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ??
             "Unknown");
     }
-    static getFlightplanDestinationName(aeroflyFlight) {
+    static getFlightplanDestinationName(aeroflyFlight, airportService) {
         const airportCode = this.getFlightplanDestinationCode(aeroflyFlight);
-        const airportName = this.getAirportName(airportCode);
+        const airportName = this.getAirportName(airportCode, airportService);
         return airportName ? `${airportName} (${airportCode})` : airportCode;
     }
-    static getFlightplanSummary(aeroflyFlight) {
-        return `${this.getFlightplanOriginName(aeroflyFlight)} → ${this.getFlightplanDestinationName(aeroflyFlight)} (${this.getFlightplanDistance(aeroflyFlight)})`;
+    static getFlightplanSummary(aeroflyFlight, aircraftService, airportService) {
+        return `${this.getFlightplanOriginName(aeroflyFlight, airportService)} → ${this.getFlightplanDestinationName(aeroflyFlight, airportService)} (${this.getFlightplanDistance(aeroflyFlight, aircraftService)})`;
     }
     static getFlightplanWaypoints(aeroflyFlight) {
         return aeroflyFlight.navigation.waypoints
@@ -55,8 +59,8 @@ export class AeroflyFlightFormatter {
         })
             .join(" → ");
     }
-    static getFlightplanDistance(aeroflyFlight) {
-        const currentAircraft = AeroflyAircraftService.getAircraft(aeroflyFlight.aircraft.name);
+    static getFlightplanDistance(aeroflyFlight, aircraftService) {
+        const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
         if (!currentAircraft) {
             return "Unknown";
         }

@@ -18,6 +18,8 @@ export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileCo
     static readonly fileExtension = "tmc";
 
     convert(flightplan: AeroflyFlight): string {
+        const aircraftService = new AeroflyAircraftService();
+
         // Build time and weather
         const conditions = new AeroflyMissionConditions({
             time: flightplan.timeUtc.time,
@@ -42,7 +44,7 @@ export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileCo
             {
                 aircraft: {
                     name: flightplan.aircraft.name,
-                    icao: AeroflyAircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
+                    icao: aircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
                     livery: flightplan.aircraft.paintscheme,
                 },
                 fuelMass: flightplan.fuelLoadSetting.fuelMass,

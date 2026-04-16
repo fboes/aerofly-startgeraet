@@ -4,19 +4,19 @@ import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.
  * Interface to `@fboes/aerofly-data` JSON data.
  */
 export class AeroflyAircraftService {
-    static getAllAircraftLiveries() {
+    getAllAircraftLiveries() {
         return AeroflyAircraftLiveries;
     }
-    static getAircraft(aeroflyCodeAircraft) {
+    getAircraft(aeroflyCodeAircraft) {
         return AeroflyAircraftLiveries.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
     }
-    static getAircraftByIcaoCode(icaoCodeAircraft) {
+    getAircraftByIcaoCode(icaoCodeAircraft) {
         return AeroflyAircraftLiveries.find((aircraft) => aircraft.icaoCode.toLowerCase() === icaoCodeAircraft.toLowerCase());
     }
-    static getLiveryForAircraft(aircraft, aeroflyCodeLivery) {
+    getLiveryForAircraft(aircraft, aeroflyCodeLivery) {
         return aircraft?.liveries.find((livery) => livery.aeroflyCode === aeroflyCodeLivery);
     }
-    static getLiveryForAircraftByIcaoCode(aircraft, icaoCodeLivery) {
+    getLiveryForAircraftByIcaoCode(aircraft, icaoCodeLivery) {
         return aircraft?.liveries.find((livery) => livery.icaoCode?.toLowerCase() === icaoCodeLivery.toLowerCase());
     }
 }

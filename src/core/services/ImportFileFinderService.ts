@@ -12,7 +12,7 @@ import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/Impor
  * Finds local flight plan files
  */
 export class ImportFileFinderService {
-    constructor(private config: Config) {}
+    constructor(private readonly config: Config) {}
 
     /**
      * Finds all flight plan files in the import directory. The import directory can be configured in the application settings and defaults to the user's Downloads folder.

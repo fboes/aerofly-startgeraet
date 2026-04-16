@@ -22,10 +22,6 @@ Flight plan and mission generator for Aerofly FS 4. This MCP server provides fun
 `,
 });
 
-const resourceService = new AeroflyFlightMcpResourceService();
-ResourceRegistry.registerResources(server, resourceService);
-ResourceRegistry.registerTools(server, resourceService);
-
 const config = new Config();
 ConfigurationRegistry.registerTools(server, config);
 
@@ -38,7 +34,14 @@ try {
     );
 }
 FlightRegistry.registerTools(server, flightService);
-//FlightRegistry.registerPrompts(server);
+FlightRegistry.registerPrompts(server);
+
+const resourceService = new AeroflyFlightMcpResourceService(
+    flightService.aircraftService,
+    flightService.airportService,
+);
+ResourceRegistry.registerResources(server, resourceService);
+ResourceRegistry.registerTools(server, resourceService);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

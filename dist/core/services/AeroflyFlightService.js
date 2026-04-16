@@ -10,6 +10,7 @@ import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
 import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
+import { AeroflyAirportService } from "./AeroflyAirportService.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -20,6 +21,8 @@ export class AeroflyFlightService {
     currentLivery;
     aeroflyFlight;
     aeroflyMainConfigReader;
+    aircraftService;
+    airportService;
     constructor(config) {
         this.config = config;
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
@@ -28,6 +31,8 @@ export class AeroflyFlightService {
         if (this.config.syncTimeOnStartup) {
             this.aeroflyFlight.timeUtc.time = new Date();
         }
+        this.aircraftService = new AeroflyAircraftService();
+        this.airportService = new AeroflyAirportService();
     }
     // ----------------------------------------------------------
     readMainMcf() {
@@ -38,8 +43,8 @@ export class AeroflyFlightService {
         return this.aeroflyFlight;
     }
     setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery) {
-        this.currentAircraft = AeroflyAircraftService.getAircraft(aeroflyCodeAircraft);
-        this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
+        this.currentAircraft = this.aircraftService.getAircraft(aeroflyCodeAircraft);
+        this.currentLivery = this.aircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
         return this.aeroflyFlight.aircraft;
@@ -134,7 +139,7 @@ export class AeroflyFlightService {
     // ----------------------------------------------------------
     async importFlightplanFromSimBrief(simBriefUserName, getWeatherFromDestination = false) {
         try {
-            const simbrief = new SimBriefAeroflyApi();
+            const simbrief = new SimBriefAeroflyApi(this.aircraftService);
             await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
         }
         catch (error) {
@@ -143,8 +148,8 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = AeroflyAircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
-        this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, this.aeroflyFlight.aircraft.paintscheme);
+        this.currentAircraft = this.aircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
+        this.currentLivery = this.aircraftService.getLiveryForAircraft(this.currentAircraft, this.aeroflyFlight.aircraft.paintscheme);
     }
     setFlightplan(origin, destination, waypoints = [], cruiseAltitudeFt) {
         this.aeroflyFlight.navigation.waypoints = [

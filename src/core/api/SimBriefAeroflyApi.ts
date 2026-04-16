@@ -18,6 +18,10 @@ import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 import { metarParser } from "aewx-metar-parser";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
+    constructor(private aircraftService: AeroflyAircraftService) {
+        super();
+    }
+
     public async fetchMission(
         username: string,
         flight: AeroflyFlight,
@@ -159,12 +163,12 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         aeroflyAircraftCode: string;
         aeroflyAircraftLivery: string;
     } {
-        const aeroflyAircraft = AeroflyAircraftService.getAircraftByIcaoCode(simbriefIcaoCode);
+        const aeroflyAircraft = this.aircraftService.getAircraftByIcaoCode(simbriefIcaoCode);
         if (!aeroflyAircraft) {
             throw new Error(`Could not find matching Aerofly aircraft for SimBrief ICAO code ${simbriefIcaoCode}`);
         }
 
-        const aeroflyAircraftLivery = AeroflyAircraftService.getLiveryForAircraftByIcaoCode(
+        const aeroflyAircraftLivery = this.aircraftService.getLiveryForAircraftByIcaoCode(
             aeroflyAircraft,
             simbriefAirlineCode,
         );

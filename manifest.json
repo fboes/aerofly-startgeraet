@@ -10,17 +10,14 @@
     "email": "info@fboes.org",
     "url": "https://3960.org/"
   },
+  "icon": "./assets/icons/favicon-512x512.png",
   "icons": [
     {
-      "src": "assets/icons/favicon-64x64.png",
+      "src": "./assets/icons/favicon-64x64.png",
       "size": "64x64"
     },
     {
-      "src": "assets/icons/favicon-512x512.png",
-      "size": "512x512"
-    },
-    {
-      "src": "assets/icons/favicon-512x512.svg",
+      "src": "./assets/icons/favicon-512x512.png",
       "size": "512x512"
     }
   ],

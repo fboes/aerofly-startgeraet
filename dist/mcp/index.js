@@ -19,9 +19,6 @@ Flight plan and mission generator for Aerofly FS 4. This MCP server provides fun
 - If the \`main.mcf\` is not readable, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.\
 `,
 });
-const resourceService = new AeroflyFlightMcpResourceService();
-ResourceRegistry.registerResources(server, resourceService);
-ResourceRegistry.registerTools(server, resourceService);
 const config = new Config();
 ConfigurationRegistry.registerTools(server, config);
 const flightService = new AeroflyFlightService(config);
@@ -32,6 +29,9 @@ catch (e) {
     process.stderr.write(`[${ApplicationService.getApplicationSlug()}] Configuration incomplete: ${e instanceof Error ? e.message : "Unknown error"} - please call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`\n`);
 }
 FlightRegistry.registerTools(server, flightService);
-//FlightRegistry.registerPrompts(server);
+FlightRegistry.registerPrompts(server);
+const resourceService = new AeroflyFlightMcpResourceService(flightService.aircraftService, flightService.airportService);
+ResourceRegistry.registerResources(server, resourceService);
+ResourceRegistry.registerTools(server, resourceService);
 const transport = new StdioServerTransport();
 await server.connect(transport);

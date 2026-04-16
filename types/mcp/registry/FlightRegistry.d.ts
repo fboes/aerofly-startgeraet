@@ -13,5 +13,6 @@ export declare class FlightRegistry {
     static readonly TOOL_SET_POSITION = "set-aircraft-position-and-state";
     static readonly TOOL_SET_WAYPOINTS = "set-flightplan-waypoints";
     static registerTools(server: McpServer, flightService: AeroflyFlightService): void;
+    static registerPrompts(server: McpServer): void;
 }
 //# sourceMappingURL=FlightRegistry.d.ts.map

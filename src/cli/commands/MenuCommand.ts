@@ -8,7 +8,6 @@ import path from "node:path";
 import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { ExportFileAeroflyMainMcfExport } from "../../core/converter/ExportFileAeroflyMainMcfConverter.js";
 import { ExportFileAeroflyCustomMissionsTmcConverter } from "../../core/converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
-import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -47,7 +46,10 @@ export class MenuCommand extends ControllerCommand {
 
         const choices = [
             {
-                name: this.name("Aircraft", AeroflyFlightFormatter.getAircraft(aeroflyFlight)),
+                name: this.name(
+                    "Aircraft",
+                    AeroflyFlightFormatter.getAircraft(aeroflyFlight, this.controller.aircraftService),
+                ),
                 value: "selectAircraft",
                 short: "Select aircraft",
             },
@@ -57,7 +59,14 @@ export class MenuCommand extends ControllerCommand {
                 short: "Set fuel and payload",
             },
             {
-                name: this.name("Flightplan", AeroflyFlightFormatter.getFlightplanSummary(aeroflyFlight)),
+                name: this.name(
+                    "Flightplan",
+                    AeroflyFlightFormatter.getFlightplanSummary(
+                        aeroflyFlight,
+                        this.controller.aircraftService,
+                        this.controller.airportService,
+                    ),
+                ),
                 value: "importFlightplan",
                 short: "Import / export flightplan",
             },
@@ -109,7 +118,8 @@ export class MenuCommand extends ControllerCommand {
         const aeroflyCodeAircraft = await select({
             message: "Aircraft",
             default: this.controller.getAircraft(),
-            choices: AeroflyAircraftService.getAllAircraftLiveries()
+            choices: this.controller.aircraftService
+                .getAllAircraftLiveries()
                 .map((livery) => ({
                     name: livery.nameFull,
                     value: livery.aeroflyCode,
@@ -117,7 +127,7 @@ export class MenuCommand extends ControllerCommand {
                 .sort((a, b) => a.name.localeCompare(b.name)),
         });
 
-        const liveries = AeroflyAircraftService.getAircraft(aeroflyCodeAircraft)?.liveries ?? [];
+        const liveries = this.controller.aircraftService.getAircraft(aeroflyCodeAircraft)?.liveries ?? [];
 
         const aeroflyCodeLivery = liveries
             ? await select({

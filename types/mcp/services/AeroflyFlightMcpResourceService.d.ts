@@ -1,5 +1,6 @@
 import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { AeroflyAirportSet } from "../../core/services/AeroflyAirportService.js";
+import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
+import { AeroflyAirportService } from "../../core/services/AeroflyAirportService.js";
 import { Resource } from "@modelcontextprotocol/sdk/types.js";
 export type AeroflyFlightMcpResourceServiceAircraft = {
     aeroflyCode: string;
@@ -8,7 +9,16 @@ export type AeroflyFlightMcpResourceServiceAircraft = {
     nameFull: string;
     tags: string[];
 };
+export type AeroflyFlightMcpResourceServiceAirport = {
+    code: string;
+    name: string;
+    lon: number;
+    lat: number;
+};
 export declare class AeroflyFlightMcpResourceService {
+    private aircraftService;
+    private airportService;
+    constructor(aircraftService: AeroflyAircraftService, airportService: AeroflyAirportService);
     getAircraftList(): AeroflyFlightMcpResourceServiceAircraft[];
     getAircraft(code: string): AeroflyAircraft;
     getAircraftRessources(): Resource[];
@@ -24,7 +34,7 @@ export declare class AeroflyFlightMcpResourceService {
         minimumRangeNm?: number | undefined;
         minimumCruiseSpeedKts?: number | undefined;
     }): AeroflyAircraft[];
-    getAirport(icaoCode: string): AeroflyAirportSet;
+    getAirport(icaoCode: string): AeroflyFlightMcpResourceServiceAirport;
     searchAirports({
         query,
         geoQuery,
@@ -35,7 +45,7 @@ export declare class AeroflyFlightMcpResourceService {
             latitude: number;
             radiusKm: number;
         };
-    }): AeroflyAirportSet[];
+    }): AeroflyFlightMcpResourceServiceAirport[];
     getAirportRessources(): Resource[];
 }
 //# sourceMappingURL=AeroflyFlightMcpResourceService.d.ts.map

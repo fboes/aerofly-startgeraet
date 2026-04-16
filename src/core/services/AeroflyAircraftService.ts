@@ -6,28 +6,28 @@ import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data
  * Interface to `@fboes/aerofly-data` JSON data.
  */
 export class AeroflyAircraftService {
-    static getAllAircraftLiveries(): AeroflyAircraft[] {
+    getAllAircraftLiveries(): AeroflyAircraft[] {
         return AeroflyAircraftLiveries;
     }
 
-    static getAircraft(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
+    getAircraft(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
         return AeroflyAircraftLiveries.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
     }
 
-    static getAircraftByIcaoCode(icaoCodeAircraft: string): AeroflyAircraft | undefined {
+    getAircraftByIcaoCode(icaoCodeAircraft: string): AeroflyAircraft | undefined {
         return AeroflyAircraftLiveries.find(
             (aircraft) => aircraft.icaoCode.toLowerCase() === icaoCodeAircraft.toLowerCase(),
         );
     }
 
-    static getLiveryForAircraft(
+    getLiveryForAircraft(
         aircraft: AeroflyAircraft | undefined,
         aeroflyCodeLivery: string,
     ): AeroflyAircraftLivery | undefined {
         return aircraft?.liveries.find((livery) => livery.aeroflyCode === aeroflyCodeLivery);
     }
 
-    static getLiveryForAircraftByIcaoCode(
+    getLiveryForAircraftByIcaoCode(
         aircraft: AeroflyAircraft | undefined,
         icaoCodeLivery: string,
     ): AeroflyAircraftLivery | undefined {

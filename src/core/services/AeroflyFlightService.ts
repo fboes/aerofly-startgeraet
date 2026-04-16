@@ -24,6 +24,7 @@ import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
 import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
+import { AeroflyAirportService } from "./AeroflyAirportService.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -59,6 +60,9 @@ export class AeroflyFlightService {
     protected aeroflyFlight: AeroflyFlight;
     protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
 
+    public readonly aircraftService: AeroflyAircraftService;
+    public readonly airportService: AeroflyAirportService;
+
     constructor(public readonly config: Config) {
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
         this.aeroflyFlight = new AeroflyFlightFallback();
@@ -66,6 +70,9 @@ export class AeroflyFlightService {
         if (this.config.syncTimeOnStartup) {
             this.aeroflyFlight.timeUtc.time = new Date();
         }
+
+        this.aircraftService = new AeroflyAircraftService();
+        this.airportService = new AeroflyAirportService();
     }
 
     // ----------------------------------------------------------
@@ -81,8 +88,8 @@ export class AeroflyFlightService {
     }
 
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft {
-        this.currentAircraft = AeroflyAircraftService.getAircraft(aeroflyCodeAircraft);
-        this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
+        this.currentAircraft = this.aircraftService.getAircraft(aeroflyCodeAircraft);
+        this.currentLivery = this.aircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
         return this.aeroflyFlight.aircraft;
@@ -227,7 +234,7 @@ export class AeroflyFlightService {
 
     async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: boolean = false) {
         try {
-            const simbrief = new SimBriefAeroflyApi();
+            const simbrief = new SimBriefAeroflyApi(this.aircraftService);
             await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
         } catch (error) {
             if (error instanceof Error && error.message.includes("Unknown UserID")) {
@@ -235,8 +242,8 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = AeroflyAircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
-        this.currentLivery = AeroflyAircraftService.getLiveryForAircraft(
+        this.currentAircraft = this.aircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
+        this.currentLivery = this.aircraftService.getLiveryForAircraft(
             this.currentAircraft,
             this.aeroflyFlight.aircraft.paintscheme,
         );

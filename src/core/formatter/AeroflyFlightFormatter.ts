@@ -10,16 +10,19 @@ export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
 export class AeroflyFlightFormatter {
-    static getAircraft(aeroflyFlight: AeroflyFlight): string {
-        const currentAircraft = AeroflyAircraftService.getAircraft(aeroflyFlight.aircraft.name);
+    constructor(
+        protected readonly aeroflyFlight: AeroflyFlight,
+        protected readonly aircraftService: AeroflyAircraftService,
+        protected readonly airportService: AeroflyAirportService,
+    ) {}
+
+    static getAircraft(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string {
+        const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
         if (!currentAircraft) {
             return "No aircraft selected";
         }
 
-        const currentLivery = AeroflyAircraftService.getLiveryForAircraft(
-            currentAircraft,
-            aeroflyFlight.aircraft.paintscheme,
-        );
+        const currentLivery = aircraftService.getLiveryForAircraft(currentAircraft, aeroflyFlight.aircraft.paintscheme);
         return `${currentAircraft.nameFull} - ${currentLivery?.name ?? "Default Livery"}`;
     }
 
@@ -43,17 +46,15 @@ export class AeroflyFlightFormatter {
         );
     }
 
-    static getFlightplanOriginName(aeroflyFlight: AeroflyFlight): string {
+    static getFlightplanOriginName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string {
         const airportCode = this.getFlightplanOriginCode(aeroflyFlight);
-        const airportName = this.getAirportName(airportCode);
+        const airportName = this.getAirportName(airportCode, airportService);
 
         return airportName ? `${airportName} (${airportCode})` : airportCode;
     }
 
-    static getAirportName(airportCode: string): string {
-        return airportCode !== "Unknown"
-            ? (AeroflyAirportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown")
-            : "";
+    static getAirportName(airportCode: string, airportService: AeroflyAirportService): string {
+        return airportCode !== "Unknown" ? (airportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
     }
 
     static getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string {
@@ -63,15 +64,19 @@ export class AeroflyFlightFormatter {
         );
     }
 
-    static getFlightplanDestinationName(aeroflyFlight: AeroflyFlight): string {
+    static getFlightplanDestinationName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string {
         const airportCode = this.getFlightplanDestinationCode(aeroflyFlight);
-        const airportName = this.getAirportName(airportCode);
+        const airportName = this.getAirportName(airportCode, airportService);
 
         return airportName ? `${airportName} (${airportCode})` : airportCode;
     }
 
-    static getFlightplanSummary(aeroflyFlight: AeroflyFlight): string {
-        return `${this.getFlightplanOriginName(aeroflyFlight)} → ${this.getFlightplanDestinationName(aeroflyFlight)} (${this.getFlightplanDistance(aeroflyFlight)})`;
+    static getFlightplanSummary(
+        aeroflyFlight: AeroflyFlight,
+        aircraftService: AeroflyAircraftService,
+        airportService: AeroflyAirportService,
+    ): string {
+        return `${this.getFlightplanOriginName(aeroflyFlight, airportService)} → ${this.getFlightplanDestinationName(aeroflyFlight, airportService)} (${this.getFlightplanDistance(aeroflyFlight, aircraftService)})`;
     }
 
     static getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string {
@@ -82,8 +87,8 @@ export class AeroflyFlightFormatter {
             .join(" → ");
     }
 
-    static getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
-        const currentAircraft = AeroflyAircraftService.getAircraft(aeroflyFlight.aircraft.name);
+    static getFlightplanDistance(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string {
+        const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
         if (!currentAircraft) {
             return "Unknown";
         }

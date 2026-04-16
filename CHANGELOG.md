@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Removed community-developed airports from base airport set
+
 ## [1.4.3]
 
 - Improved message handling in MCP server

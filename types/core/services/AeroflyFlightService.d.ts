@@ -12,6 +12,8 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
+import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
+import { AeroflyAirportService } from "./AeroflyAirportService.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.
@@ -43,6 +45,8 @@ export declare class AeroflyFlightService {
     protected currentLivery?: AeroflyAircraftLivery;
     protected aeroflyFlight: AeroflyFlight;
     protected readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
+    readonly aircraftService: AeroflyAircraftService;
+    readonly airportService: AeroflyAirportService;
     constructor(config: Config);
     readMainMcf(): void;
     getAeroflyFlight(): AeroflyFlight;

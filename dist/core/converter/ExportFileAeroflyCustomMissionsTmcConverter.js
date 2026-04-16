@@ -3,6 +3,7 @@ import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 export class ExportFileAeroflyCustomMissionsTmcConverter {
     static fileExtension = "tmc";
     convert(flightplan) {
+        const aircraftService = new AeroflyAircraftService();
         // Build time and weather
         const conditions = new AeroflyMissionConditions({
             time: flightplan.timeUtc.time,
@@ -23,7 +24,7 @@ export class ExportFileAeroflyCustomMissionsTmcConverter {
         const mission = new AeroflyMission(`From ${flightplan.navigation.waypoints[0]?.identifier} to ${flightplan.navigation.waypoints[flightplan.navigation.waypoints.length - 1]?.identifier}`, {
             aircraft: {
                 name: flightplan.aircraft.name,
-                icao: AeroflyAircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
+                icao: aircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
                 livery: flightplan.aircraft.paintscheme,
             },
             fuelMass: flightplan.fuelLoadSetting.fuelMass,

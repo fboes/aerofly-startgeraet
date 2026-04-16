@@ -1,36 +1,16 @@
-import AeroflyAirports from "@fboes/aerofly-data/data/airport-coordinates.json" with { type: "json" };
-
-export type AeroflyAirportSet = {
-    code: string;
-    name: string;
-    lat: number;
-    lon: number;
-};
+import AeroflyAirports from "@fboes/aerofly-data/data/airport-coordinates-object.json" with { type: "json" };
+import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/airport-coordinates-object.json";
 
 /**
  * Find detail data for Aerofly FS airports.
  * Interface to `@fboes/aerofly-data` JSON data.
  */
 export class AeroflyAirportService {
-    static getAllAirports(): AeroflyAirportSet[] {
-        return AeroflyAirports.map((airport) => ({
-            code: airport[0],
-            name: airport[1],
-            lat: airport[2],
-            lon: airport[3],
-        }));
+    getAllAirports(): AeroflyAirportCoordinatesObject[] {
+        return AeroflyAirports;
     }
 
-    static getAirportByIcaoCode(icaoCodeAirport: string): AeroflyAirportSet | undefined {
-        const airport = AeroflyAirports.find((airport) => airport[0].toLowerCase() === icaoCodeAirport.toLowerCase());
-
-        return airport
-            ? {
-                  code: airport[0],
-                  name: airport[1],
-                  lat: airport[2],
-                  lon: airport[3],
-              }
-            : undefined;
+    getAirportByIcaoCode(icaoCodeAirport: string): AeroflyAirportCoordinatesObject | undefined {
+        return AeroflyAirports.find((airport) => airport.code.toUpperCase() === icaoCodeAirport.toUpperCase());
     }
 }
