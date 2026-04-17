@@ -5,16 +5,11 @@ import {
     AeroflyMissionConditions,
     AeroflyMissionConditionsCloud,
     AeroflyMissionsList,
-    AeroflyNavRouteDepartureRunway,
-    AeroflyNavRouteDestination,
-    AeroflyNavRouteDestinationRunway,
-    AeroflyNavRouteOrigin,
 } from "@fboes/aerofly-custom-missions";
 import { ExportFileConverter } from "./ExportFileConverter.js";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 
-export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileConverter {
+export class ExportFileAeroflyCustomMissionsTmcConverter extends ExportFileConverter {
     static readonly fileExtension = "tmc";
 
     convert(flightplan: AeroflyFlight): string {
@@ -39,39 +34,19 @@ export class ExportFileAeroflyCustomMissionsTmcConverter implements ExportFileCo
             return new AeroflyMissionCheckpoint(w.identifier, this.getWaypointType(w), w.longitude, w.latitude);
         });
 
-        const mission = new AeroflyMission(
-            `From ${flightplan.navigation.waypoints[0]?.identifier} to ${flightplan.navigation.waypoints[flightplan.navigation.waypoints.length - 1]?.identifier}`,
-            {
-                aircraft: {
-                    name: flightplan.aircraft.name,
-                    icao: aircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
-                    livery: flightplan.aircraft.paintscheme,
-                },
-                fuelMass: flightplan.fuelLoadSetting.fuelMass,
-                payloadMass: flightplan.fuelLoadSetting.payloadMass,
-                checkpoints,
-                conditions,
+        const mission = new AeroflyMission(this.getFlightplanTitle(flightplan), {
+            aircraft: {
+                name: flightplan.aircraft.name,
+                icao: aircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
+                livery: flightplan.aircraft.paintscheme,
             },
-        );
+            fuelMass: flightplan.fuelLoadSetting.fuelMass,
+            payloadMass: flightplan.fuelLoadSetting.payloadMass,
+            checkpoints,
+            conditions,
+        });
 
         const customMissions = new AeroflyMissionsList([mission]);
         return customMissions.toString();
-    }
-
-    getWaypointType(
-        w: AeroflyNavRouteBase,
-    ): import("@fboes/aerofly-custom-missions/types/dto/AeroflyMissionCheckpoint.js").AeroflyMissionCheckpointType {
-        switch (w.constructor) {
-            case AeroflyNavRouteOrigin:
-                return "origin";
-            case AeroflyNavRouteDestination:
-                return "destination";
-            case AeroflyNavRouteDepartureRunway:
-                return "departure_runway";
-            case AeroflyNavRouteDestinationRunway:
-                return "destination_runway";
-            default:
-                return "waypoint";
-        }
     }
 }

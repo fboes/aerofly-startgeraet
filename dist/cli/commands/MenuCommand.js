@@ -7,6 +7,8 @@ import path from "node:path";
 import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { ExportFileAeroflyMainMcfExport } from "../../core/converter/ExportFileAeroflyMainMcfConverter.js";
 import { ExportFileAeroflyCustomMissionsTmcConverter } from "../../core/converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
+import { ExportFileGeoJsonConverter } from "../../core/converter/ExportFileGeoJsonConverter.js";
+import { ExportFileKmlConverter } from "../../core/converter/ExportFileKmlConverter.js";
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
@@ -106,7 +108,7 @@ export class MenuCommand extends ControllerCommand {
                 .sort((a, b) => a.name.localeCompare(b.name)),
         });
         const liveries = this.controller.aircraftService.getAircraft(aeroflyCodeAircraft)?.liveries ?? [];
-        const aeroflyCodeLivery = liveries
+        const aeroflyCodeLivery = liveries.length > 1
             ? await select({
                 message: "Aircraft livery",
                 default: this.controller.getLivery(),
@@ -125,7 +127,7 @@ export class MenuCommand extends ControllerCommand {
         CliFormatter.showMenuTitle(["Fuel & Payload"]);
         const fuel = this.controller.getMaxFuel()
             ? await number({
-                message: `Fuel (kg) - max ${this.controller.getMaxFuel()} kg`,
+                message: `Fuel (kg) - max ${this.controller.getMaxFuel().toFixed()} kg`,
                 default: this.controller.getFuel(),
                 min: 0,
                 max: this.controller.getMaxFuel(),
@@ -136,7 +138,7 @@ export class MenuCommand extends ControllerCommand {
         const maxPayload = this.controller.getMaxRemainingPayload();
         const payload = maxPayload > 0
             ? await number({
-                message: `Payload (kg) - max ${maxPayload} kg`,
+                message: `Payload (kg) - max ${maxPayload.toFixed()} kg`,
                 default: this.controller.getPayload(),
                 min: 0,
                 max: maxPayload,
@@ -226,6 +228,14 @@ export class MenuCommand extends ControllerCommand {
                 {
                     name: "Aerofly TMC custom user missions file",
                     value: ExportFileAeroflyCustomMissionsTmcConverter.fileExtension,
+                },
+                {
+                    name: "GeoJSON file",
+                    value: ExportFileGeoJsonConverter.fileExtension,
+                },
+                {
+                    name: "Keyhole Markup Language (KML) file",
+                    value: ExportFileKmlConverter.fileExtension,
                 },
             ],
         });

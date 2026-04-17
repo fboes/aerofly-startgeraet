@@ -39,7 +39,7 @@ export class ImportFileReader {
      */
     static importFile(filename: string, flightplan: AeroflyFlight, index = 0): void {
         const content = fs.readFileSync(filename, "utf8");
-        return this.importString(content, filename, flightplan, index);
+        this.importString(content, filename, flightplan, index);
     }
 
     /**
@@ -47,7 +47,7 @@ export class ImportFileReader {
      */
     static importString(content: string, filename: string, flightplan: AeroflyFlight, index = 0): void {
         const converter = this.getConverter(filename);
-        return new converter().convert(content, flightplan, index);
+        new converter().convert(content, flightplan, index);
     }
 
     static getConverter(filename: string): new () => ImportFileConverter {
@@ -56,7 +56,17 @@ export class ImportFileReader {
             throw new Error(`Could not determine file type for "${filename}"`);
         }
 
-        const registry: Record<string, new () => ImportFileConverter> = {
+        const registry = this.getRegistry();
+
+        const converter = registry[fileSuffix];
+        if (!converter) {
+            throw new Error(`Unsupported file type: ${fileSuffix}`);
+        }
+        return converter;
+    }
+
+    static getRegistry(): Record<string, (new () => ImportFileConverter) | undefined> {
+        return {
             [ImportFileAeroflyCustomMissionsJsonConverter.fileExtension]: ImportFileAeroflyCustomMissionsJsonConverter,
             [ImportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ImportFileAeroflyCustomMissionsTmcConverter,
             [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
@@ -64,11 +74,5 @@ export class ImportFileReader {
             [ImportFileGarminFplConverter.fileExtension]: ImportFileGarminFplConverter,
             [ImportFileXplaneFms.fileExtension]: ImportFileXplaneFms,
         };
-
-        const converter = registry[fileSuffix];
-        if (!converter) {
-            throw new Error(`Unsupported file type: ${fileSuffix}`);
-        }
-        return converter;
     }
 }

@@ -31,7 +31,7 @@ const getControllerCommand = (arg: string): new (controller: AeroflyFlightServic
         return MenuCommand;
     }
 
-    const registry: Record<string, new (controller: AeroflyFlightService) => ControllerCommand> = {
+    const registry: Record<string, (new (controller: AeroflyFlightService) => ControllerCommand) | undefined> = {
         metar: MetarCommand,
         simbrief: SimbriefCommand,
         time: TimeCommand,

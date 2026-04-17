@@ -7,5 +7,6 @@ import { ExportFileConverter } from "../converter/ExportFileConverter.js";
 export declare class ExportFileWriter {
     static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void;
     static getConverter(filename: string): new () => ExportFileConverter;
+    static getRegistry(): Record<string, (new () => ExportFileConverter) | undefined>;
 }
 //# sourceMappingURL=ExportFileWriter.d.ts.map

@@ -1,7 +1,7 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { ExportFileConverter } from "./ExportFileConverter.js";
 
-export class ExportFileAeroflyMainMcfExport implements ExportFileConverter {
+export class ExportFileAeroflyMainMcfExport extends ExportFileConverter {
     static readonly fileExtension = "mcf";
 
     convert(flightplan: AeroflyFlight): string {

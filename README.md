@@ -28,16 +28,18 @@ The Aerofly Startgerät is a stand-alone application, and is not directly integr
 
 Supported flight plan file formats:
 
-| Format                                                                                                                                                          | Import | Export |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
-| Aerofly FS `main.mcf`                                                                                                                                           |   ✅   |   ✅   |
-| Aerofly FS 4 `tmc` custom missions file                                                                                                                         |   ✅   |   ✅   |
-| Aerofly FS 4 `aerofly.json` custom missions file                                                                                                                |   ✅   |        |
-| [Microsoft FS 2020 / 2024 `pln` flight plan file](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
-| [X-Plane `fms` flight plan file](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                                   |   ✅   |        |
-| [Garmin / Infinite Flight `fpl` flight plan file](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                          |   ✅   |        |
-| [SimBrief API](./docs/importing-flightplans.md)                                                                                                                 |   ✅   |        |
-| [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                                               |   ✅   |        |
+| File Format / API                                                                                                                              | Import | Export |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
+| Aerofly FS `main.mcf`                                                                                                                          |   ✅   |   ✅   |
+| Aerofly FS 4 `tmc` custom missions                                                                                                             |   ✅   |   ✅   |
+| Aerofly FS 4 `aerofly.json` custom missions                                                                                                    |   ✅   |        |
+| [Microsoft FS 2020 / 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
+| [X-Plane `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                                   |   ✅   |        |
+| [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                          |   ✅   |        |
+| GeoJSON                                                                                                                                        |        |   ✅   |
+| Keyhole Markup Language (KML)                                                                                                                  |        |   ✅   |
+| [SimBrief API](./docs/importing-flightplans.md)                                                                                                |   ✅   |        |
+| [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                              |   ✅   |        |
 
 ![](./docs/startgeraet.png)
 

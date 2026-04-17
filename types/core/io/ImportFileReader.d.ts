@@ -27,5 +27,6 @@ export declare class ImportFileReader {
      */
     static importString(content: string, filename: string, flightplan: AeroflyFlight, index?: number): void;
     static getConverter(filename: string): new () => ImportFileConverter;
+    static getRegistry(): Record<string, (new () => ImportFileConverter) | undefined>;
 }
 //# sourceMappingURL=ImportFileReader.d.ts.map

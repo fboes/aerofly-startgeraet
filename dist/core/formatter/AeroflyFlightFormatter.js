@@ -69,7 +69,7 @@ export class AeroflyFlightFormatter {
             const distanceNm = distance / 1852;
             const timeH = currentAircraft.cruiseSpeedKts ? distanceNm / currentAircraft.cruiseSpeedKts : 0;
             const timeString = timeH
-                ? `, ${Math.floor(timeH)}:${Math.floor((timeH * 60) % 60)
+                ? `, ${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
                     .toString()
                     .padStart(2, "0")}h`
                 : "";

@@ -1,6 +1,7 @@
-import { AeroflyMission, AeroflyMissionCheckpoint, AeroflyMissionConditions, AeroflyMissionConditionsCloud, AeroflyMissionsList, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, } from "@fboes/aerofly-custom-missions";
+import { AeroflyMission, AeroflyMissionCheckpoint, AeroflyMissionConditions, AeroflyMissionConditionsCloud, AeroflyMissionsList, } from "@fboes/aerofly-custom-missions";
+import { ExportFileConverter } from "./ExportFileConverter.js";
 import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
-export class ExportFileAeroflyCustomMissionsTmcConverter {
+export class ExportFileAeroflyCustomMissionsTmcConverter extends ExportFileConverter {
     static fileExtension = "tmc";
     convert(flightplan) {
         const aircraftService = new AeroflyAircraftService();
@@ -21,7 +22,7 @@ export class ExportFileAeroflyCustomMissionsTmcConverter {
         const checkpoints = flightplan.navigation.waypoints.map((w) => {
             return new AeroflyMissionCheckpoint(w.identifier, this.getWaypointType(w), w.longitude, w.latitude);
         });
-        const mission = new AeroflyMission(`From ${flightplan.navigation.waypoints[0]?.identifier} to ${flightplan.navigation.waypoints[flightplan.navigation.waypoints.length - 1]?.identifier}`, {
+        const mission = new AeroflyMission(this.getFlightplanTitle(flightplan), {
             aircraft: {
                 name: flightplan.aircraft.name,
                 icao: aircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
@@ -34,19 +35,5 @@ export class ExportFileAeroflyCustomMissionsTmcConverter {
         });
         const customMissions = new AeroflyMissionsList([mission]);
         return customMissions.toString();
-    }
-    getWaypointType(w) {
-        switch (w.constructor) {
-            case AeroflyNavRouteOrigin:
-                return "origin";
-            case AeroflyNavRouteDestination:
-                return "destination";
-            case AeroflyNavRouteDepartureRunway:
-                return "departure_runway";
-            case AeroflyNavRouteDestinationRunway:
-                return "destination_runway";
-            default:
-                return "waypoint";
-        }
     }
 }
