@@ -1,8 +1,8 @@
 import { strict as assert } from "node:assert";
 import { describe, it } from "node:test";
-import { AviationWeatherApi, AviationWeatherNormalizedAirport } from "./AviationWeatherApi.js";
+import { AviationWeatherApi } from "./AviationWeatherApi.js";
 import { Point } from "@fboes/geojson";
-describe("AviationWeatherApi", () => {
+describe("AviationWeatherApi", async () => {
     it("should fetch airports correctly", async () => {
         const icaoCodes = ["KEYW", "KMCI", "KMVY", "KCCR"];
         const airports = await AviationWeatherApi.fetchAirports(icaoCodes);
@@ -22,7 +22,7 @@ describe("AviationWeatherApi", () => {
             assert.strictEqual(typeof airport.beacon, "string", "airport.beacon");
             assert.ok(Array.isArray(airport.runways), "airport.runways");
             assert.ok(Array.isArray(airport.freqs) || typeof airport.freqs === "string", "airport.freqs");
-            const airportNormalized = new AviationWeatherNormalizedAirport(airport);
+            const airportNormalized = AviationWeatherApi.normalizeAirport(airport);
             assert.strictEqual(typeof airportNormalized.icaoId, "string", "airportNormalized.icaoId");
             assert.ok(icaoCodes.indexOf(airportNormalized.icaoId) > -1);
             assert.strictEqual(typeof airportNormalized.name, "string", "airportNormalized.name");

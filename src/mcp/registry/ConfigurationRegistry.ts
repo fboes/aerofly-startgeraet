@@ -21,7 +21,7 @@ export class ConfigurationRegistry {
                     openWorldHint: true,
                 },
             },
-            async (): Promise<CallToolResult> => ({
+            () => ({
                 content: [
                     {
                         type: "text",
@@ -57,13 +57,13 @@ export class ConfigurationRegistry {
                     openWorldHint: true,
                 },
             },
-            async ({
+            ({
                 mainMcfFilePath,
                 simBriefUserName,
             }: {
                 mainMcfFilePath?: string;
                 simBriefUserName?: string;
-            }): Promise<CallToolResult> => {
+            }): CallToolResult => {
                 if (mainMcfFilePath !== undefined) {
                     config.mainMcfFilePath = mainMcfFilePath;
                 }

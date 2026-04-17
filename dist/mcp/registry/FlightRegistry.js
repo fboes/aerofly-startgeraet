@@ -32,7 +32,7 @@ export class FlightRegistry {
                 idempotentHint: false,
                 openWorldHint: false,
             },
-        }, async () => ({
+        }, () => ({
             content: [
                 {
                     type: "text",
@@ -52,12 +52,12 @@ export class FlightRegistry {
                     .describe(`Aerofly livery code. This code must exist for the given aircraft. Keep empty to set default livery.`),
             },
             annotations,
-        }, async ({ aeroflyCodeAircraft, aeroflyCodeLivery, }) => {
+        }, ({ aeroflyCodeAircraft, aeroflyCodeLivery, }) => {
             const result = flightService.setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery ?? "");
             const warnings = flightService.getAircraftData() !== undefined
                 ? []
                 : [
-                    `The aircraft ${aeroflyCodeAircraft} with livery ${aeroflyCodeLivery} does not exist in the current Aerofly FS 4 installation. Please check the available aircraft via ${ResourceRegistry.RESOURCE_AIRCRAFT} and the available liveries for the given aircraft.`,
+                    `The aircraft ${aeroflyCodeAircraft} with livery ${aeroflyCodeLivery ?? "default"} does not exist in the current Aerofly FS 4 installation. Please check the available aircraft via ${ResourceRegistry.RESOURCE_AIRCRAFT} and the available liveries for the given aircraft.`,
                 ];
             return McpHelper.returnResultContent(result, warnings);
         });
@@ -77,14 +77,14 @@ export class FlightRegistry {
                     .describe(`Payload mass in kg. Must not exceed max payload mass.`),
             },
             annotations,
-        }, async ({ fuel, payload }) => {
+        }, ({ fuel, payload }) => {
             const result = flightService.setFuelAndPayload(fuel ?? 0, payload ?? 0);
             const warnings = [];
-            if (fuel !== result.fuelMass) {
-                warnings.push(`The requested fuel mass (${fuel} kg) exceeds the maximum allowed (${result.fuelMass} kg). Fuel mass has been capped.`);
+            if (fuel && fuel !== result.fuelMass) {
+                warnings.push(`The requested fuel mass (${fuel.toString()} kg) exceeds the maximum allowed (${result.fuelMass.toString()} kg). Fuel mass has been capped.`);
             }
-            if (payload !== result.payloadMass) {
-                warnings.push(`The requested payload mass (${payload} kg) exceeds the maximum remaining (${result.payloadMass} kg). Payload mass has been capped.`);
+            if (payload && payload !== result.payloadMass) {
+                warnings.push(`The requested payload mass (${payload.toString()} kg) exceeds the maximum remaining (${result.payloadMass.toString()} kg). Payload mass has been capped.`);
             }
             return McpHelper.returnResultContent(result, warnings);
         });
@@ -95,7 +95,7 @@ export class FlightRegistry {
                 timeDate: z.iso.datetime({ offset: true }).describe(`ISO 8601 date & time including time zone.`),
             },
             annotations,
-        }, async ({ timeDate }) => McpHelper.returnResultContent(flightService.setTimeAndDate(timeDate)));
+        }, ({ timeDate }) => McpHelper.returnResultContent(flightService.setTimeAndDate(timeDate)));
         server.registerTool(FlightRegistry.TOOL_SET_WEATHER, {
             title: `Set visibility, temperature and wind for flight mission setup`,
             description: `Returns the weather conditions afterwards. Returns set weather afterwards. To set clouds call \`${FlightRegistry.TOOL_SET_CLOUDS}\`. Please note that there are no settings for rain, thunderstorms, snow etc.`,
@@ -114,7 +114,7 @@ export class FlightRegistry {
                 gustsKts: z.number().nonnegative().optional().describe(`Gust speed in knots.`),
             },
             annotations,
-        }, async ({ visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts, }) => McpHelper.returnResultContent(flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts)));
+        }, ({ visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts, }) => McpHelper.returnResultContent(flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts)));
         server.registerTool(FlightRegistry.TOOL_SET_CLOUDS, {
             title: `Set cloud layers for flight mission setup`,
             description: `Please note that Aerofly FS 4 only handles up to 3 cloud layers. Returns set clouds afterwards. To set other weather settings call \`${FlightRegistry.TOOL_SET_WEATHER}\`.`,
@@ -130,7 +130,7 @@ export class FlightRegistry {
                     .describe(`List of cloud layers.`),
             },
             annotations,
-        }, async ({ clouds, }) => {
+        }, ({ clouds, }) => {
             const result = flightService.setClouds(clouds);
             const warnings = result.length > 3
                 ? [
@@ -196,7 +196,7 @@ export class FlightRegistry {
                 speed_kts: z.number().nonnegative(),
             },
             annotations,
-        }, async ({ longitude, latitude, altitude_meter, heading_degree, speed_kts, }) => {
+        }, ({ longitude, latitude, altitude_meter, heading_degree, speed_kts, }) => {
             return McpHelper.returnResultContent(flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts));
         });
         server.registerTool(FlightRegistry.TOOL_SET_WAYPOINTS, {
@@ -221,7 +221,7 @@ export class FlightRegistry {
                     .describe(`Cruise altitude in feet. This is not a setting of the flight plan, but can be used to set the altitude of waypoints without altitude information.`),
             },
             annotations,
-        }, async ({ origin, departureRunway, destination, destinationRunway, waypoints, cruiseAltitudeFt, }) => {
+        }, ({ origin, departureRunway, destination, destinationRunway, waypoints, cruiseAltitudeFt, }) => {
             const result = flightService.setFlightplan(origin, destination, {
                 departureRunway,
                 destinationRunway,
@@ -240,7 +240,7 @@ export class FlightRegistry {
                 idempotentHint: false,
                 openWorldHint: true,
             },
-        }, async () => {
+        }, () => {
             try {
                 flightService.writeFile();
             }

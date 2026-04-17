@@ -46,7 +46,7 @@ export class FlightRegistry {
                     openWorldHint: false,
                 },
             },
-            async (): Promise<CallToolResult> => ({
+            (): CallToolResult => ({
                 content: [
                     {
                         type: "text",
@@ -73,19 +73,19 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 aeroflyCodeAircraft,
                 aeroflyCodeLivery,
             }: {
                 aeroflyCodeAircraft: string;
                 aeroflyCodeLivery?: string;
-            }): Promise<CallToolResult> => {
+            }): CallToolResult => {
                 const result = flightService.setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery ?? "");
                 const warnings =
                     flightService.getAircraftData() !== undefined
                         ? []
                         : [
-                              `The aircraft ${aeroflyCodeAircraft} with livery ${aeroflyCodeLivery} does not exist in the current Aerofly FS 4 installation. Please check the available aircraft via ${ResourceRegistry.RESOURCE_AIRCRAFT} and the available liveries for the given aircraft.`,
+                              `The aircraft ${aeroflyCodeAircraft} with livery ${aeroflyCodeLivery ?? "default"} does not exist in the current Aerofly FS 4 installation. Please check the available aircraft via ${ResourceRegistry.RESOURCE_AIRCRAFT} and the available liveries for the given aircraft.`,
                           ];
                 return McpHelper.returnResultContent(result, warnings);
             },
@@ -110,18 +110,18 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({ fuel, payload }: { fuel?: number; payload?: number }): Promise<CallToolResult> => {
+            ({ fuel, payload }: { fuel?: number; payload?: number }): CallToolResult => {
                 const result = flightService.setFuelAndPayload(fuel ?? 0, payload ?? 0);
 
                 const warnings = [];
-                if (fuel !== result.fuelMass) {
+                if (fuel && fuel !== result.fuelMass) {
                     warnings.push(
-                        `The requested fuel mass (${fuel} kg) exceeds the maximum allowed (${result.fuelMass} kg). Fuel mass has been capped.`,
+                        `The requested fuel mass (${fuel.toString()} kg) exceeds the maximum allowed (${result.fuelMass.toString()} kg). Fuel mass has been capped.`,
                     );
                 }
-                if (payload !== result.payloadMass) {
+                if (payload && payload !== result.payloadMass) {
                     warnings.push(
-                        `The requested payload mass (${payload} kg) exceeds the maximum remaining (${result.payloadMass} kg). Payload mass has been capped.`,
+                        `The requested payload mass (${payload.toString()} kg) exceeds the maximum remaining (${result.payloadMass.toString()} kg). Payload mass has been capped.`,
                     );
                 }
                 return McpHelper.returnResultContent(result, warnings);
@@ -138,7 +138,7 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({ timeDate }: { timeDate: string }): Promise<CallToolResult> =>
+            ({ timeDate }: { timeDate: string }): CallToolResult =>
                 McpHelper.returnResultContent(flightService.setTimeAndDate(timeDate)),
         );
 
@@ -163,7 +163,7 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 visibilityM,
                 temperatureCelsius,
                 directionDegrees,
@@ -175,7 +175,7 @@ export class FlightRegistry {
                 directionDegrees: number;
                 speedKts: number;
                 gustsKts?: number;
-            }): Promise<CallToolResult> =>
+            }): CallToolResult =>
                 McpHelper.returnResultContent(
                     flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts),
                 ),
@@ -203,14 +203,14 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 clouds,
             }: {
                 clouds: {
                     cloud_coverage: number;
                     base_feet_agl: number;
                 }[];
-            }): Promise<CallToolResult> => {
+            }): CallToolResult => {
                 const result = flightService.setClouds(clouds);
                 const warnings =
                     result.length > 3
@@ -293,7 +293,7 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 longitude,
                 latitude,
                 altitude_meter,
@@ -305,7 +305,7 @@ export class FlightRegistry {
                 altitude_meter: number;
                 heading_degree: number;
                 speed_kts: number;
-            }): Promise<CallToolResult> => {
+            }): CallToolResult => {
                 return McpHelper.returnResultContent(
                     flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts),
                 );
@@ -343,7 +343,7 @@ export class FlightRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 origin,
                 departureRunway,
                 destination,
@@ -357,7 +357,7 @@ export class FlightRegistry {
                 destinationRunway: AeroflyFlightServiceRunway | undefined;
                 waypoints: AeroflyFlightServiceWaypoint[] | undefined;
                 cruiseAltitudeFt: number | undefined;
-            }): Promise<CallToolResult> => {
+            }): CallToolResult => {
                 const result = flightService.setFlightplan(origin, destination, {
                     departureRunway,
                     destinationRunway,
@@ -381,7 +381,7 @@ export class FlightRegistry {
                     openWorldHint: true,
                 },
             },
-            async (): Promise<CallToolResult> => {
+            (): CallToolResult => {
                 try {
                     flightService.writeFile();
                 } catch (e) {

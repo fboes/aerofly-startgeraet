@@ -24,7 +24,7 @@ export class ResourceRegistry {
                 description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL): Promise<ReadResourceResult> => ({
+            (uri: URL): ReadResourceResult => ({
                 contents: [
                     {
                         uri: uri.href,
@@ -38,7 +38,7 @@ export class ResourceRegistry {
         server.registerResource(
             "aircraft-detail",
             new ResourceTemplate(`${this.RESOURCE_AIRCRAFT}/{aeroflyCode}`, {
-                list: async () => ({
+                list: () => ({
                     resources: resourceService.getAircraftRessources(),
                 }),
             }),
@@ -46,7 +46,7 @@ export class ResourceRegistry {
                 description: `Detailed information for a specific aircraft matching the Aerofly FS4 aircraft code given by \`aeroflyCode\` (string), if available in Aerofly FS 4. This gives you additional technical data like range and cruise speed, as well as a list of available liveries.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL, { aeroflyCode }: Variables): Promise<ReadResourceResult> => ({
+            (uri: URL, { aeroflyCode }: Variables): ReadResourceResult => ({
                 contents: [
                     {
                         uri: uri.href,
@@ -64,7 +64,7 @@ export class ResourceRegistry {
                 description: `A list of all tags which are attached to aircraft in Aerofly FS 4.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL): Promise<ReadResourceResult> => ({
+            (uri: URL): ReadResourceResult => ({
                 contents: [
                     {
                         uri: uri.href,
@@ -78,7 +78,7 @@ export class ResourceRegistry {
         server.registerResource(
             "airport",
             new ResourceTemplate(`${this.RESOURCE_AIRPORTS}/{icaoCode}`, {
-                list: async () => ({
+                list: () => ({
                     resources: resourceService.getAirportRessources(),
                 }),
             }),
@@ -86,7 +86,7 @@ export class ResourceRegistry {
                 description: `Detailed information for a specific airport matching the ICAO code given by \`icaoCode\` (string), if available in Aerofly FS 4. This will give you the ICAO code, name, longitude and latitude of the airport. Be aware that the runways and parking positions available are not available in this MCP server and need to be fetched from online sources.`,
                 mimeType: this.MIME_TYPE_RESPONSE,
             },
-            async (uri: URL, { icaoCode }: Variables): Promise<ReadResourceResult> => ({
+            (uri: URL, { icaoCode }: Variables): ReadResourceResult => ({
                 contents: [
                     {
                         uri: uri.href,
@@ -131,7 +131,7 @@ export class ResourceRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 query,
                 tags,
                 minimumRangeNm,
@@ -141,7 +141,7 @@ export class ResourceRegistry {
                 tags?: string[];
                 minimumRangeNm?: number;
                 minimumCruiseSpeedKts?: number;
-            }): Promise<CallToolResult> => ({
+            }): CallToolResult => ({
                 content: [
                     {
                         type: "text",
@@ -173,13 +173,13 @@ export class ResourceRegistry {
                 },
                 annotations,
             },
-            async ({
+            ({
                 query,
                 geoQuery,
             }: {
                 query?: string;
                 geoQuery?: { longitude: number; latitude: number; radiusKm: number };
-            }): Promise<CallToolResult> => ({
+            }): CallToolResult => ({
                 content: [
                     {
                         type: "text",

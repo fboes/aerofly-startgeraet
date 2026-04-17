@@ -14,7 +14,7 @@ export class ResourceRegistry {
         server.registerResource("aircraft", this.RESOURCE_AIRCRAFT, {
             description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
             mimeType: this.MIME_TYPE_RESPONSE,
-        }, async (uri) => ({
+        }, (uri) => ({
             contents: [
                 {
                     uri: uri.href,
@@ -24,13 +24,13 @@ export class ResourceRegistry {
             ],
         }));
         server.registerResource("aircraft-detail", new ResourceTemplate(`${this.RESOURCE_AIRCRAFT}/{aeroflyCode}`, {
-            list: async () => ({
+            list: () => ({
                 resources: resourceService.getAircraftRessources(),
             }),
         }), {
             description: `Detailed information for a specific aircraft matching the Aerofly FS4 aircraft code given by \`aeroflyCode\` (string), if available in Aerofly FS 4. This gives you additional technical data like range and cruise speed, as well as a list of available liveries.`,
             mimeType: this.MIME_TYPE_RESPONSE,
-        }, async (uri, { aeroflyCode }) => ({
+        }, (uri, { aeroflyCode }) => ({
             contents: [
                 {
                     uri: uri.href,
@@ -42,7 +42,7 @@ export class ResourceRegistry {
         server.registerResource("aircraft-tags", this.RESOURCE_AIRCRAFT_TAGS, {
             description: `A list of all tags which are attached to aircraft in Aerofly FS 4.`,
             mimeType: this.MIME_TYPE_RESPONSE,
-        }, async (uri) => ({
+        }, (uri) => ({
             contents: [
                 {
                     uri: uri.href,
@@ -52,13 +52,13 @@ export class ResourceRegistry {
             ],
         }));
         server.registerResource("airport", new ResourceTemplate(`${this.RESOURCE_AIRPORTS}/{icaoCode}`, {
-            list: async () => ({
+            list: () => ({
                 resources: resourceService.getAirportRessources(),
             }),
         }), {
             description: `Detailed information for a specific airport matching the ICAO code given by \`icaoCode\` (string), if available in Aerofly FS 4. This will give you the ICAO code, name, longitude and latitude of the airport. Be aware that the runways and parking positions available are not available in this MCP server and need to be fetched from online sources.`,
             mimeType: this.MIME_TYPE_RESPONSE,
-        }, async (uri, { icaoCode }) => ({
+        }, (uri, { icaoCode }) => ({
             contents: [
                 {
                     uri: uri.href,
@@ -92,7 +92,7 @@ export class ResourceRegistry {
                 minimumCruiseSpeedKts: z.number().positive().optional().describe("Minimum cruise speed in knots."),
             },
             annotations,
-        }, async ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => ({
+        }, ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => ({
             content: [
                 {
                     type: "text",
@@ -115,7 +115,7 @@ export class ResourceRegistry {
                 }),
             },
             annotations,
-        }, async ({ query, geoQuery, }) => ({
+        }, ({ query, geoQuery, }) => ({
             content: [
                 {
                     type: "text",

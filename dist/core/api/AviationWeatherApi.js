@@ -78,7 +78,7 @@ export class AviationWeatherApi {
         });
     }
     static async doRequest(route, query) {
-        const url = new URL(route + "?" + query, "https://aviationweather.gov");
+        const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
         //console.log(url);
         const response = await fetch(url, {
             headers: {
@@ -88,7 +88,7 @@ export class AviationWeatherApi {
         if (!response.body) {
             throw new Error("No results returned");
         }
-        return await response.json();
+        return (await response.json());
     }
     /**
      *
@@ -100,6 +100,60 @@ export class AviationWeatherApi {
         const southEast = position.getPointBy(new Vector(distance, 225));
         const northWest = position.getPointBy(new Vector(distance, 45));
         return [southEast.latitude, southEast.longitude, northWest.latitude, northWest.longitude];
+    }
+    static normalizeAirport(airport) {
+        return {
+            ...airport,
+            name: airport.name
+                .replace(/_/g, " ")
+                .trim()
+                .replace(/\bINTL\b/g, "INTERNATIONAL")
+                .replace(/\bRGNL\b/g, "REGIONAL")
+                .replace(/\bFLD\b/g, "FIELD")
+                .replace(/(\/)/g, " $1 ")
+                .toLowerCase()
+                .replace(/(^|\s)[a-z]/g, (char) => {
+                return char.toUpperCase();
+            }),
+            magdec: magDecConverter(airport.magdec),
+            tower: airport.tower === "T",
+            beacon: airport.beacon === "B",
+            runways: airport.runways.map((r) => {
+                return new AviationWeatherNormalizedRunway(r);
+            }),
+            freqs: typeof airport.freqs !== "string"
+                ? airport.freqs
+                : airport.freqs.split(";").map((f) => {
+                    const parts = f.split(",");
+                    return {
+                        type: parts[0],
+                        freq: parts[1] ? Number(parts[1]) : undefined,
+                    };
+                }),
+        };
+    }
+    static normalizeWeather(weather) {
+        return {
+            ...weather,
+            reportTime: new Date(weather.reportTime),
+            wdir: weather.wdir !== "VRB" ? weather.wdir : null,
+            visib: typeof weather.visib === "string" ? 10 : weather.visib,
+            clouds: weather.clouds.map((c) => {
+                return {
+                    ...c,
+                    cover: c.cover === "CAVOK" || c.cover === "SKC" ? "CLR" : c.cover,
+                    coverOctas: {
+                        CLR: 0,
+                        CAVOK: 0,
+                        SKC: 0,
+                        FEW: 1,
+                        SCT: 2,
+                        BKN: 4,
+                        OVC: 8,
+                    }[c.cover],
+                };
+            }),
+        };
     }
 }
 /**
@@ -116,66 +170,6 @@ export const magDecConverter = (magdec) => {
     }
     return magDec;
 };
-export class AviationWeatherNormalizedAirport {
-    icaoId;
-    name;
-    type;
-    lat;
-    lon;
-    /**
-     * meters MSL
-     */
-    elev;
-    magdec;
-    rwyNum;
-    tower;
-    beacon;
-    runways;
-    freqs;
-    /**
-     * @param {AviationWeatherApiAirport} apiData
-     */
-    constructor({ icaoId, name, type, lat, lon, elev, magdec, rwyNum, tower, beacon, runways, freqs, }) {
-        this.icaoId = icaoId;
-        this.name = name
-            .replace(/_/g, " ")
-            .trim()
-            .replace(/\bINTL\b/g, "INTERNATIONAL")
-            .replace(/\bRGNL\b/g, "REGIONAL")
-            .replace(/\bFLD\b/g, "FIELD")
-            .replace(/(\/)/g, " $1 ")
-            .toLowerCase()
-            .replace(/(^|\s)[a-z]/g, (char) => {
-            return char.toUpperCase();
-        });
-        this.type = type;
-        this.lat = lat;
-        this.lon = lon;
-        this.elev = elev;
-        this.magdec = magDecConverter(magdec);
-        this.rwyNum = Number(rwyNum);
-        this.tower = tower === "T";
-        this.beacon = beacon === "B";
-        this.runways = runways.map((r) => {
-            return new AviationWeatherNormalizedRunway(r);
-        });
-        this.freqs =
-            typeof freqs !== "string"
-                ? freqs
-                : freqs.split(";").map(
-                /**
-                 * @param {string} f
-                 * @returns {AviationWeatherApiFrequency}
-                 */
-                (f) => {
-                    const parts = f.split(",");
-                    return {
-                        type: parts[0],
-                        freq: parts[1] ? Number(parts[1]) : undefined,
-                    };
-                });
-    }
-}
 export class AviationWeatherNormalizedRunway {
     id;
     /**
@@ -201,94 +195,5 @@ export class AviationWeatherNormalizedRunway {
         });
         this.surface = surface;
         this.alignment = alignment !== "-" ? Number(alignment) : null;
-    }
-}
-export class AviationWeatherNormalizedMetar {
-    icaoId;
-    reportTime;
-    /**
-     * in °C
-     */
-    temp;
-    /**
-     * in °C
-     */
-    dewp;
-    /**
-     * in °, null on VRB
-     */
-    wdir;
-    /**
-     * in kts
-     */
-    wspd;
-    wgst;
-    /**
-     * in SM, 10 on any distance being open-ended
-     */
-    visib;
-    altim;
-    lat;
-    lon;
-    /**
-     * meters MSL
-     */
-    elev;
-    clouds;
-    /**
-     *
-     * @param {AviationWeatherApiMetar} apiData
-     */
-    constructor({ icaoId, reportTime, temp, dewp, wdir, wspd, wgst, visib, altim, lat, lon, elev, clouds, }) {
-        this.icaoId = icaoId;
-        this.reportTime = new Date(reportTime);
-        this.temp = temp;
-        this.dewp = dewp;
-        this.wdir = wdir !== "VRB" ? wdir : null;
-        this.wspd = wspd;
-        /**
-         * @type {number?} in kts
-         */
-        this.wgst = wgst;
-        /**
-         * @type {number} in SM, 10 on any distance being open-ended
-         */
-        this.visib = typeof visib === "string" ? 10 : visib;
-        /**
-         * @type {number} in hPa
-         */
-        this.altim = altim;
-        this.lat = lat;
-        this.lon = lon;
-        this.elev = elev;
-        /**
-         * @type {AviationWeatherNormalizedCloud[]}
-         */
-        this.clouds = clouds.map((c) => {
-            return new AviationWeatherNormalizedCloud(c);
-        });
-    }
-}
-export class AviationWeatherNormalizedCloud {
-    cover;
-    /**
-     *  0..8
-     */
-    coverOctas;
-    /**
-     *  in feet AGL
-     */
-    base;
-    constructor({ cover, base }) {
-        this.cover = cover === "CAVOK" || cover === "SKC" ? "CLR" : cover;
-        const coverOctas = {
-            CLR: 0,
-            FEW: 1,
-            SCT: 2,
-            BKN: 4,
-            OVC: 8,
-        };
-        this.coverOctas = coverOctas[this.cover] ?? 0;
-        this.base = base;
     }
 }

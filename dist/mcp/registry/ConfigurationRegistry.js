@@ -13,7 +13,7 @@ export class ConfigurationRegistry {
                 idempotentHint: false,
                 openWorldHint: true,
             },
-        }, async () => ({
+        }, () => ({
             content: [
                 {
                     type: "text",
@@ -40,7 +40,7 @@ export class ConfigurationRegistry {
                 idempotentHint: true,
                 openWorldHint: true,
             },
-        }, async ({ mainMcfFilePath, simBriefUserName, }) => {
+        }, ({ mainMcfFilePath, simBriefUserName, }) => {
             if (mainMcfFilePath !== undefined) {
                 config.mainMcfFilePath = mainMcfFilePath;
             }

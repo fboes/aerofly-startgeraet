@@ -3,15 +3,29 @@ import { Vector, Point } from "@fboes/geojson";
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataMetar
  */
-export interface AviationWeatherApiCloud {
+export type AviationWeatherApiCloud = {
     cover: "CAVOK" | "CLR" | "SKC" | "FEW" | "SCT" | "BKN" | "OVC";
     base: number | null;
-}
+};
+
+export type AviationWeatherNormalizedCloud = {
+    cover: "CLR" | "FEW" | "SCT" | "BKN" | "OVC";
+
+    /**
+     *  0..8
+     */
+    coverOctas: number;
+
+    /**
+     *  in feet AGL
+     */
+    base: number | null;
+};
 
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataMetar
  */
-export interface AviationWeatherApiMetar {
+export type AviationWeatherApiMetar = {
     icaoId: string;
     reportTime: string;
     temp: number;
@@ -29,32 +43,71 @@ export interface AviationWeatherApiMetar {
      */
     elev: number;
     clouds: AviationWeatherApiCloud[];
-}
+};
+
+export type AviationWeatherNormalizedMetar = {
+    icaoId: string;
+    reportTime: Date;
+
+    /**
+     * in °C
+     */
+    temp: number;
+
+    /**
+     * in °C
+     */
+    dewp: number;
+
+    /**
+     * in °, null on VRB
+     */
+    wdir: number | null;
+    /**
+     * in kts
+     */
+    wspd: number;
+    wgst: number | null;
+
+    /**
+     * in SM, 10 on any distance being open-ended
+     */
+    visib: number;
+    altim: number;
+    lat: number;
+    lon: number;
+
+    /**
+     * meters MSL
+     */
+    elev: number;
+    clouds: AviationWeatherNormalizedCloud[];
+};
 
 type AviationWeatherApiRunwaySurface = "A" | "C" | "G" | "W" | "T" | "H";
 
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataAirport
  */
-export interface AviationWeatherApiRunway {
+export type AviationWeatherApiRunway = {
     id: string;
     dimension: string;
     surface: AviationWeatherApiRunwaySurface;
     alignment: string;
-}
+};
 
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataAirport
  */
-export interface AviationWeatherApiFrequency {
+export type AviationWeatherApiFrequency = {
     type: string;
     freq?: number;
-}
+};
 
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataAirport
  */
-export interface AviationWeatherApiAirport {
+export type AviationWeatherApiAirport = {
     icaoId: string;
     name: string;
     type: "ARP" | "HEL";
@@ -71,14 +124,33 @@ export interface AviationWeatherApiAirport {
     beacon: "B" | "-" | null;
     runways: AviationWeatherApiRunway[];
     freqs: AviationWeatherApiFrequency[] | string;
-}
+};
+
+export type AviationWeatherNormalizedAirport = {
+    icaoId: string;
+    name: string;
+    type: "ARP" | "HEL";
+    lat: number;
+    lon: number;
+
+    /**
+     * meters MSL
+     */
+    elev: number;
+    magdec: number;
+    rwyNum: string;
+    tower: boolean;
+    beacon: boolean;
+    runways: AviationWeatherNormalizedRunway[];
+    freqs: AviationWeatherApiFrequency[];
+};
 
 export type AviationWeatherApiNavaidType = "VORTAC" | "VOR/DME" | "TACAN" | "NDB" | "VOR";
 
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataNavaid
  */
-export interface AviationWeatherApiNavaidRaw {
+export type AviationWeatherApiNavaidRaw = {
     id: string;
     type: AviationWeatherApiNavaidType;
     name: string;
@@ -87,9 +159,9 @@ export interface AviationWeatherApiNavaidRaw {
     elev: number | string;
     freq: number | string;
     mag_dec: string;
-}
+};
 
-export interface AviationWeatherApiNavaid {
+export type AviationWeatherApiNavaid = {
     id: string;
     type: AviationWeatherApiNavaidType;
     name: string;
@@ -111,14 +183,14 @@ export interface AviationWeatherApiNavaid {
      * with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
      */
     mag_dec: number;
-}
+};
 
-export interface AviationWeatherApiFix {
+export type AviationWeatherApiFix = {
     id: string;
-    type: "I" | "L" | "H" | "S" | "D" | "-" | string;
+    type: "I" | "L" | "H" | "S" | "D" | "-";
     lat: number;
     lon: number;
-}
+};
 
 export class AviationWeatherApi {
     static async fetchMetar(ids: string[], date: Date | null = null): Promise<AviationWeatherApiMetar[]> {
@@ -228,7 +300,7 @@ export class AviationWeatherApi {
     }
 
     static async doRequest<T>(route: string, query: URLSearchParams): Promise<T> {
-        const url = new URL(route + "?" + query, "https://aviationweather.gov");
+        const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
         //console.log(url);
         const response = await fetch(url, {
             headers: {
@@ -239,7 +311,7 @@ export class AviationWeatherApi {
             throw new Error("No results returned");
         }
 
-        return await response.json();
+        return (await response.json()) as T;
     }
 
     /**
@@ -252,6 +324,63 @@ export class AviationWeatherApi {
         const southEast = position.getPointBy(new Vector(distance, 225));
         const northWest = position.getPointBy(new Vector(distance, 45));
         return [southEast.latitude, southEast.longitude, northWest.latitude, northWest.longitude];
+    }
+
+    static normalizeAirport(airport: AviationWeatherApiAirport): AviationWeatherNormalizedAirport {
+        return {
+            ...airport,
+            name: airport.name
+                .replace(/_/g, " ")
+                .trim()
+                .replace(/\bINTL\b/g, "INTERNATIONAL")
+                .replace(/\bRGNL\b/g, "REGIONAL")
+                .replace(/\bFLD\b/g, "FIELD")
+                .replace(/(\/)/g, " $1 ")
+                .toLowerCase()
+                .replace(/(^|\s)[a-z]/g, (char) => {
+                    return char.toUpperCase();
+                }),
+            magdec: magDecConverter(airport.magdec),
+            tower: airport.tower === "T",
+            beacon: airport.beacon === "B",
+            runways: airport.runways.map((r) => {
+                return new AviationWeatherNormalizedRunway(r);
+            }),
+            freqs:
+                typeof airport.freqs !== "string"
+                    ? airport.freqs
+                    : airport.freqs.split(";").map((f: string): AviationWeatherApiFrequency => {
+                          const parts = f.split(",");
+                          return {
+                              type: parts[0],
+                              freq: parts[1] ? Number(parts[1]) : undefined,
+                          };
+                      }),
+        };
+    }
+
+    static normalizeWeather(weather: AviationWeatherApiMetar): AviationWeatherNormalizedMetar {
+        return {
+            ...weather,
+            reportTime: new Date(weather.reportTime),
+            wdir: weather.wdir !== "VRB" ? weather.wdir : null,
+            visib: typeof weather.visib === "string" ? 10 : weather.visib,
+            clouds: weather.clouds.map((c) => {
+                return {
+                    ...c,
+                    cover: c.cover === "CAVOK" || c.cover === "SKC" ? "CLR" : c.cover,
+                    coverOctas: {
+                        CLR: 0,
+                        CAVOK: 0,
+                        SKC: 0,
+                        FEW: 1,
+                        SCT: 2,
+                        BKN: 4,
+                        OVC: 8,
+                    }[c.cover],
+                };
+            }),
+        };
     }
 }
 
@@ -269,86 +398,6 @@ export const magDecConverter = (magdec: string): number => {
     }
     return magDec;
 };
-
-export class AviationWeatherNormalizedAirport {
-    icaoId: string;
-    name: string;
-    type: "ARP" | "HEL";
-    lat: number;
-    lon: number;
-
-    /**
-     * meters MSL
-     */
-    elev: number;
-    magdec: number;
-    rwyNum: number;
-    tower: boolean;
-    beacon: boolean;
-    runways: AviationWeatherNormalizedRunway[];
-    freqs: AviationWeatherApiFrequency[];
-
-    /**
-     * @param {AviationWeatherApiAirport} apiData
-     */
-    constructor({
-        icaoId,
-        name,
-        type,
-        lat,
-        lon,
-        elev,
-        magdec,
-        rwyNum,
-        tower,
-        beacon,
-        runways,
-        freqs,
-    }: AviationWeatherApiAirport) {
-        this.icaoId = icaoId;
-
-        this.name = name
-            .replace(/_/g, " ")
-            .trim()
-            .replace(/\bINTL\b/g, "INTERNATIONAL")
-            .replace(/\bRGNL\b/g, "REGIONAL")
-            .replace(/\bFLD\b/g, "FIELD")
-            .replace(/(\/)/g, " $1 ")
-            .toLowerCase()
-            .replace(/(^|\s)[a-z]/g, (char) => {
-                return char.toUpperCase();
-            });
-
-        this.type = type;
-        this.lat = lat;
-        this.lon = lon;
-        this.elev = elev;
-        this.magdec = magDecConverter(magdec);
-        this.rwyNum = Number(rwyNum);
-        this.tower = tower === "T";
-        this.beacon = beacon === "B";
-        this.runways = runways.map((r) => {
-            return new AviationWeatherNormalizedRunway(r);
-        });
-
-        this.freqs =
-            typeof freqs !== "string"
-                ? freqs
-                : freqs.split(";").map(
-                      /**
-                       * @param {string} f
-                       * @returns {AviationWeatherApiFrequency}
-                       */
-                      (f: string): AviationWeatherApiFrequency => {
-                          const parts = f.split(",");
-                          return {
-                              type: parts[0],
-                              freq: parts[1] ? Number(parts[1]) : undefined,
-                          };
-                      },
-                  );
-    }
-}
 
 export class AviationWeatherNormalizedRunway {
     id: [string, string];
@@ -377,124 +426,5 @@ export class AviationWeatherNormalizedRunway {
             });
         this.surface = surface;
         this.alignment = alignment !== "-" ? Number(alignment) : null;
-    }
-}
-
-export class AviationWeatherNormalizedMetar {
-    icaoId: string;
-    reportTime: Date;
-
-    /**
-     * in °C
-     */
-    temp: number;
-
-    /**
-     * in °C
-     */
-    dewp: number;
-
-    /**
-     * in °, null on VRB
-     */
-    wdir: number | null;
-    /**
-     * in kts
-     */
-    wspd: number;
-    wgst: number | null;
-
-    /**
-     * in SM, 10 on any distance being open-ended
-     */
-    visib: number;
-    altim: number;
-    lat: number;
-    lon: number;
-
-    /**
-     * meters MSL
-     */
-    elev: number;
-    clouds: AviationWeatherNormalizedCloud[];
-    /**
-     *
-     * @param {AviationWeatherApiMetar} apiData
-     */
-    constructor({
-        icaoId,
-        reportTime,
-        temp,
-        dewp,
-        wdir,
-        wspd,
-        wgst,
-        visib,
-        altim,
-        lat,
-        lon,
-        elev,
-        clouds,
-    }: AviationWeatherApiMetar) {
-        this.icaoId = icaoId;
-        this.reportTime = new Date(reportTime);
-        this.temp = temp;
-        this.dewp = dewp;
-        this.wdir = wdir !== "VRB" ? wdir : null;
-        this.wspd = wspd;
-
-        /**
-         * @type {number?} in kts
-         */
-        this.wgst = wgst;
-
-        /**
-         * @type {number} in SM, 10 on any distance being open-ended
-         */
-        this.visib = typeof visib === "string" ? 10 : visib;
-
-        /**
-         * @type {number} in hPa
-         */
-        this.altim = altim;
-        this.lat = lat;
-        this.lon = lon;
-        this.elev = elev;
-
-        /**
-         * @type {AviationWeatherNormalizedCloud[]}
-         */
-        this.clouds = clouds.map((c) => {
-            return new AviationWeatherNormalizedCloud(c);
-        });
-    }
-}
-
-export class AviationWeatherNormalizedCloud {
-    cover: "CLR" | "FEW" | "SCT" | "BKN" | "OVC";
-
-    /**
-     *  0..8
-     */
-    coverOctas: number;
-
-    /**
-     *  in feet AGL
-     */
-    base: number | null;
-
-    constructor({ cover, base }: AviationWeatherApiCloud) {
-        this.cover = cover === "CAVOK" || cover === "SKC" ? "CLR" : cover;
-
-        const coverOctas = {
-            CLR: 0,
-            FEW: 1,
-            SCT: 2,
-            BKN: 4,
-            OVC: 8,
-        };
-
-        this.coverOctas = coverOctas[this.cover] ?? 0;
-        this.base = base;
     }
 }
