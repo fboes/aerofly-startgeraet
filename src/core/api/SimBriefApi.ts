@@ -71,7 +71,7 @@ export type SimBriefApiPayload = {
 };
 
 export type SimBriefApiError = {
-    fetch: {
+    fetch?: {
         userid: string;
         static_id: string;
         status: string;
@@ -93,7 +93,7 @@ export class SimBriefApi {
 
         if (!response.ok) {
             const errorResponse = (await response.json()) as SimBriefApiError;
-            throw new Error(errorResponse?.fetch?.status ?? `Response status: ${response.status}`);
+            throw new Error(errorResponse.fetch?.status ?? `Response status: ${response.status.toString()}`);
         }
 
         return await (<Promise<SimBriefApiPayload>>response.json());

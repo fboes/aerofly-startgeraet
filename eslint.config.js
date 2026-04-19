@@ -10,13 +10,8 @@ export default defineConfig([
         extends: ["js/recommended"],
         languageOptions: { globals: globals.browser },
     },
-    tseslint.configs.strictTypeChecked,
+    tseslint.configs.strict,
     {
-        languageOptions: {
-            parserOptions: {
-                projectService: true,
-            },
-        },
         rules: {
             "@typescript-eslint/no-extraneous-class": "off",
         },
