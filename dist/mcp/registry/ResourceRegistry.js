@@ -69,11 +69,7 @@ export class ResourceRegistry {
                 },
             ],
         }));
-        server.registerResource("general-rules", new ResourceTemplate(this.RESOURCE_RULES, {
-            list: () => ({
-                resources: resourceService.getAirportRessources(),
-            }),
-        }), {
+        server.registerResource("general-rules", this.RESOURCE_RULES, {
             description: "General rules and constraints that apply to all workflows",
             mimeType: "text/markdown",
         }, (uri) => ({
@@ -89,8 +85,8 @@ export class ResourceRegistry {
 - **Cloud coverage** is a value from 0.0 (clear) to 1.0 (overcast).
   Maximum 3 layers.
 - **Waypoint identifiers** must be uppercase, 2–8 alphanumeric characters.
-  Use ICAO airport codes where possible, otherwise descriptive IDs like
-  "COAST1", "WPT1".
+  Use ICAO airport codes or offical VOR / NDB codes where possible, otherwise
+  descriptive IDs like "COAST1", "WPT1".
 - **\`${FlightRegistry.TOOL_SET_WAYPOINTS}\` moves the aircraft to the origin airport.**
   Only call \`${FlightRegistry.TOOL_SET_POSITION}\` afterwards if the start is
   not at an airport.
