@@ -6,6 +6,7 @@ export declare class ResourceRegistry {
     static readonly RESOURCE_AIRCRAFT: string;
     static readonly RESOURCE_AIRCRAFT_TAGS: string;
     static readonly RESOURCE_AIRPORTS: string;
+    static readonly RESOURCE_RULES: string;
     static readonly TOOL_SEARCH_AIRCRAFT = "search-aicraft";
     static readonly TOOL_SEARCH_AIRPORTS = "search-airports";
     static registerResources(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;

@@ -4,6 +4,7 @@ import { AeroflyFlightMcpResourceService } from "../services/AeroflyFlightMcpRes
 import { McpHelper } from "../util/McpHelper.js";
 import { ZodExtra } from "../util/ZodExtra.js";
 import { CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
+import { FlightRegistry } from "./FlightRegistry.js";
 
 type Variables = Record<string, string | string[]>;
 
@@ -13,6 +14,7 @@ export class ResourceRegistry {
     static readonly RESOURCE_AIRCRAFT = `${this.RESOURCE_NAME_SPACE}/aircraft`;
     static readonly RESOURCE_AIRCRAFT_TAGS = `${this.RESOURCE_NAME_SPACE}/aircraft-tags`;
     static readonly RESOURCE_AIRPORTS = `${this.RESOURCE_NAME_SPACE}/airports`;
+    static readonly RESOURCE_RULES = `${this.RESOURCE_NAME_SPACE}/general-rules`;
     static readonly TOOL_SEARCH_AIRCRAFT = "search-aicraft";
     static readonly TOOL_SEARCH_AIRPORTS = "search-airports";
 
@@ -92,6 +94,44 @@ export class ResourceRegistry {
                         uri: uri.href,
                         mimeType: this.MIME_TYPE_RESPONSE,
                         text: McpHelper.JSONstringify(resourceService.getAirport(String(icaoCode))),
+                    },
+                ],
+            }),
+        );
+
+        server.registerResource(
+            "general-rules",
+            this.RESOURCE_RULES,
+            {
+                description: "General rules and constraints that apply to all workflows",
+                mimeType: "text/markdown",
+            },
+            (uri: URL): ReadResourceResult => ({
+                contents: [
+                    {
+                        uri: uri.href,
+                        mimeType: "text/markdown",
+                        text: `\
+# Important Rules
+
+- **Always convert local departure time to UTC** before calling
+  \`${FlightRegistry.TOOL_SET_DATE_TIME}\`. Example: 09:21 Moscow time (UTC+3) → 06:21 UTC.
+- **Cloud coverage** is a value from 0.0 (clear) to 1.0 (overcast).
+  Maximum 3 layers.
+- **Waypoint identifiers** must be uppercase, 2–8 alphanumeric characters.
+  Use ICAO airport codes or offical VOR / NDB codes where possible, otherwise
+  descriptive IDs like "COAST1", "WPT1".
+- **\`${FlightRegistry.TOOL_SET_WAYPOINTS}\` moves the aircraft to the origin airport.**
+  Only call \`${FlightRegistry.TOOL_SET_POSITION}\` afterwards if the start is
+  not at an airport.
+- If an exact airport or aircraft is unavailable in Aerofly FS 4, choose
+  the nearest/closest alternative and inform the user clearly.
+- If historical weather data is unavailable, use climatologically plausible
+  conditions for the region and season.
+- Choose liveries matching the historical operator, nationality, or era.
+- For special flight profiles (low-level, carrier ops, record attempts),
+  set cruise altitude and position accordingly.
+`,
                     },
                 ],
             }),

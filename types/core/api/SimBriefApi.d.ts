@@ -67,7 +67,7 @@ export type SimBriefApiPayload = {
     };
 };
 export type SimBriefApiError = {
-    fetch: {
+    fetch?: {
         userid: string;
         static_id: string;
         status: string;

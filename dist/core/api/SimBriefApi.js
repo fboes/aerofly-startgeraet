@@ -10,7 +10,7 @@ export class SimBriefApi {
         });
         if (!response.ok) {
             const errorResponse = (await response.json());
-            throw new Error(errorResponse?.fetch?.status ?? `Response status: ${response.status}`);
+            throw new Error(errorResponse.fetch?.status ?? `Response status: ${response.status.toString()}`);
         }
         return await response.json();
     }

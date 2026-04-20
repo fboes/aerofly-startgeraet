@@ -119,7 +119,14 @@ export class AviationWeatherApi {
             tower: airport.tower === "T",
             beacon: airport.beacon === "B",
             runways: airport.runways.map((r) => {
-                return new AviationWeatherNormalizedRunway(r);
+                const idSplit = r.id.split("/");
+                const dimensionSplit = r.dimension.split("x");
+                return {
+                    ...r,
+                    id: [idSplit[0] ?? "", idSplit[1] ?? ""],
+                    dimension: [Number(dimensionSplit[0] ?? "0"), Number(dimensionSplit[1] ?? "0")],
+                    alignment: r.alignment !== "-" ? Number(r.alignment) : null,
+                };
             }),
             freqs: typeof airport.freqs !== "string"
                 ? airport.freqs
@@ -170,30 +177,3 @@ export const magDecConverter = (magdec) => {
     }
     return magDec;
 };
-export class AviationWeatherNormalizedRunway {
-    id;
-    /**
-     * length, width in ft
-     */
-    dimension;
-    surface;
-    alignment;
-    constructor({ id, dimension, surface, alignment }) {
-        /**
-         * @type {[string,string]} both directions
-         */
-        this.id = ["", ""];
-        id.split("/").forEach((i, index) => {
-            this.id[index] = i;
-        });
-        this.dimension = [0, 0];
-        dimension
-            .split("x")
-            .map((x) => Number(x))
-            .forEach((d, index) => {
-            this.dimension[index] = d;
-        });
-        this.surface = surface;
-        this.alignment = alignment !== "-" ? Number(alignment) : null;
-    }
-}

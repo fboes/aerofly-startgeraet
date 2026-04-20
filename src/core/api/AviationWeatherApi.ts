@@ -96,6 +96,17 @@ export type AviationWeatherApiRunway = {
     alignment: string;
 };
 
+type AviationWeatherNormalizedRunway = {
+    id: [string, string];
+
+    /**
+     * length, width in ft
+     */
+    dimension: [number, number];
+    surface: AviationWeatherApiRunwaySurface;
+    alignment: number | null;
+};
+
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataAirport
  */
@@ -343,8 +354,16 @@ export class AviationWeatherApi {
             magdec: magDecConverter(airport.magdec),
             tower: airport.tower === "T",
             beacon: airport.beacon === "B",
-            runways: airport.runways.map((r) => {
-                return new AviationWeatherNormalizedRunway(r);
+            runways: airport.runways.map((r): AviationWeatherNormalizedRunway => {
+                const idSplit = r.id.split("/");
+                const dimensionSplit = r.dimension.split("x");
+
+                return {
+                    ...r,
+                    id: [idSplit[0] ?? "", idSplit[1] ?? ""],
+                    dimension: [Number(dimensionSplit[0] ?? "0"), Number(dimensionSplit[1] ?? "0")],
+                    alignment: r.alignment !== "-" ? Number(r.alignment) : null,
+                };
             }),
             freqs:
                 typeof airport.freqs !== "string"
@@ -398,33 +417,3 @@ export const magDecConverter = (magdec: string): number => {
     }
     return magDec;
 };
-
-export class AviationWeatherNormalizedRunway {
-    id: [string, string];
-
-    /**
-     * length, width in ft
-     */
-    dimension: [number, number];
-    surface: string;
-    alignment: number | null;
-
-    constructor({ id, dimension, surface, alignment }: AviationWeatherApiRunway) {
-        /**
-         * @type {[string,string]} both directions
-         */
-        this.id = ["", ""];
-        id.split("/").forEach((i, index) => {
-            this.id[index] = i;
-        });
-        this.dimension = [0, 0];
-        dimension
-            .split("x")
-            .map((x) => Number(x))
-            .forEach((d, index) => {
-                this.dimension[index] = d;
-            });
-        this.surface = surface;
-        this.alignment = alignment !== "-" ? Number(alignment) : null;
-    }
-}

@@ -203,9 +203,6 @@ export class AeroflyFlightService {
             heading_degree,
             onGround ? 0 : speed_kts,
             {
-                gear: onGround ? 1 : 0,
-                throttle: onGround ? 0 : 0.8,
-                flaps: 0,
                 configuration: onGround ? "OnGround" : "Cruise",
                 onGround,
             },

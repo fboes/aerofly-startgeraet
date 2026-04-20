@@ -316,7 +316,7 @@ export class FlightRegistry {
             FlightRegistry.TOOL_SET_WAYPOINTS,
             {
                 title: `Set flight plan waypoints for flight mission setup`,
-                description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but not other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport.`,
+                description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but no other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport.`,
                 inputSchema: {
                     origin: ZodExtra.airport().describe(`Origin airport with ICAO code`),
                     departureRunway: ZodExtra.runway()
@@ -415,29 +415,6 @@ You are an Aerofly FS 4 mission planning assistant. Your job is to create
 historically accurate, immersive, and complete flight missions based on user
 requests, using all available tools of this MCP server.
 
-## Available Tools Overview
-
-- \`search-aircraft\` — Find aircraft by name, ICAO code, tag or range
-- \`search-airports\` — Find airports by ICAO code, name or
-  geographical position
-- \`set-aircraft-type-and-livery\` — Set aircraft type and livery
-- \`set-fuel-and-payload\` — Set fuel and payload mass in kg
-- \`set-date-and-time\` — Set UTC date and time (ISO 8601)
-- \`set-weather\` — Set wind, gusts, temperature, visibility
-- \`set-clouds\` — Set up to 3 cloud layers (coverage + base AGL)
-- \`set-flightplan-waypoints\` — Set origin, destination and intermediate
-  waypoints with ICAO codes and coordinates
-- \`set-aircraft-position-and-state\` — Set initial position, heading, altitude,
-  speed (use for non-airport starts, e.g.
-  mid-air, carrier deck, open field)
-- \`set-flightplan-via-simbrief\` — Import a full flight plan from SimBrief
-  (only when explicitly requested by the user)
-- \`get-aerofly-flight\` — Read current mission state from main.mcf
-- \`get-config\` — Read MCP server configuration
-- \`set-config\` — Set main.mcf file path or SimBrief username
-- \`save-flight\` — Write all changes to main.mcf (ALWAYS call
-  this at the end, without waiting to be asked)
-
 ## Standard Workflow
 
 Always follow this sequence unless the user requests SimBrief import:
@@ -481,34 +458,55 @@ Always follow this sequence unless the user requests SimBrief import:
    - Cruise altitude and recommended speed
    - Historical or narrative context
 
-## SimBrief Workflow (only when user requests it)
+Please refer to ${ResourceRegistry.RESOURCE_RULES} for more rules to abide to.
+`,
+                        },
+                    },
+                ],
+            }),
+        );
+
+        server.registerPrompt(
+            "aerofly-mission-import",
+            {
+                title: "Create Aerofly Flight Plan",
+                description:
+                    "Prepare a complete flight plan for Aerofly FS 4, including aircraft, route, weather and time settings. Always follow the standard workflow unless the user explicitly requests SimBrief import.",
+            },
+            () => ({
+                messages: [
+                    {
+                        role: "user",
+                        content: {
+                            type: "text",
+                            text: `\
+You are an Aerofly FS 4 mission planning assistant. Your job is to import flight
+missions from external data sources and add information missing mission
+parameters based on user requests, using available tools of this MCP server.
+
+## Standard Workflow
 
 1. Check \`get-config\` for a stored SimBrief username, or ask the user.
 2. Call \`set-flightplan-via-simbrief\` — this imports aircraft, route and
    weather automatically.
-3. Only call additional set-* tools if the user wants to override something.
-4. Always end with \`save-flight\`.
+3. Present a mission briefing with:
+   - Aircraft & livery
+   - Date and time (local + UTC)
+   - Full route: origin → waypoints → destination
+   - Weather: wind direction/speed/gusts, temperature, visibility, cloud layers
+   - Fuel and payload
+   - Cruise altitude and recommended speed
+3. Ask the user about any changes required, possibly using more tools of the
+   MCP server. This may include:
+   - Change of aircraft, as the aircraft given in SimBrief might not be
+     available in Aerofly FS 4.
+   - Change of livery, as the airline given in SimBrief might not be
+     available in Aerofly FS 4.
+   - Change time, date, and fetch weather accordingly.
+5. Always end with \`save-flight\`.
 
-## Important Rules
-
-- **Always convert local departure time to UTC** before calling
-  \`set-date-and-time\`. Example: 09:21 Moscow time (UTC+3) → 06:21 UTC.
-- **Cloud coverage** is a value from 0.0 (clear) to 1.0 (overcast).
-  Maximum 3 layers.
-- **Waypoint identifiers** must be uppercase, 2–8 alphanumeric characters.
-  Use ICAO airport codes where possible, otherwise descriptive IDs like
-  "COAST1", "WPT1".
-- **\`set-flightplan-waypoints\` moves the aircraft to the origin airport.**
-  Only call \`set-aircraft-position-and-state\` afterwards if the start is
-  not at an airport.
-- If an exact airport or aircraft is unavailable in Aerofly FS 4, choose
-  the nearest/closest alternative and inform the user clearly.
-- If historical weather data is unavailable, use climatologically plausible
-  conditions for the region and season.
-- Choose liveries matching the historical operator, nationality, or era.
-- For special flight profiles (low-level, carrier ops, record attempts),
-  set cruise altitude and position accordingly.
-                            `,
+Please refer to ${ResourceRegistry.RESOURCE_RULES} for more rules to abide to.
+`,
                         },
                     },
                 ],

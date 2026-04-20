@@ -2,8 +2,8 @@ import { strict as assert } from "node:assert";
 import { describe, it } from "node:test";
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
 import { Point } from "@fboes/geojson";
-describe("AviationWeatherApi", async () => {
-    it("should fetch airports correctly", async () => {
+await describe("AviationWeatherApi", async () => {
+    await it("should fetch airports correctly", async () => {
         const icaoCodes = ["KEYW", "KMCI", "KMVY", "KCCR"];
         const airports = await AviationWeatherApi.fetchAirports(icaoCodes);
         //console.log(airports);
@@ -38,7 +38,7 @@ describe("AviationWeatherApi", async () => {
             assert.ok(Array.isArray(airportNormalized.freqs), "airportNormalized.freqs");
         });
     });
-    it("should fetch metar correctly", async () => {
+    await it("should fetch metar correctly", async () => {
         const metars = await AviationWeatherApi.fetchMetar(["KEYw"]);
         assert.strictEqual(metars.length, 1);
         metars.forEach((metar) => {
@@ -47,7 +47,7 @@ describe("AviationWeatherApi", async () => {
             assert.strictEqual(typeof metar.elev, "number", "metar.elev");
         });
     });
-    it("should fetch navaids correctly", async () => {
+    await it("should fetch navaids correctly", async () => {
         const navaids = await AviationWeatherApi.fetchNavaids(["MCI"]);
         assert.ok(Array.isArray(navaids), "navaids is an array");
         assert.ok(navaids.length > 0, "navaids array is not empty");
@@ -56,7 +56,7 @@ describe("AviationWeatherApi", async () => {
             assert.strictEqual(typeof navaid.type, "string", "navaid.type");
         });
     });
-    it("should fetch navaids by position correctly", async () => {
+    await it("should fetch navaids by position correctly", async () => {
         const point = new Point(-94.7371, 39.2853, 0);
         assert.ok(point instanceof Point, "point is an instance of Point");
         const navaids = await AviationWeatherApi.fetchNavaidsByPosition(point, 10000);
@@ -67,7 +67,7 @@ describe("AviationWeatherApi", async () => {
             assert.strictEqual(typeof navaid.type, "string", "navaid.type");
         });
     });
-    it("should fetch metar by position correctly", async () => {
+    await it("should fetch metar by position correctly", async () => {
         const point = new Point(-94.7371, 39.2853, 0);
         assert.ok(point instanceof Point, "point is an instance of Point");
         const metars = await AviationWeatherApi.fetchMetarByPosition(point, 10000);

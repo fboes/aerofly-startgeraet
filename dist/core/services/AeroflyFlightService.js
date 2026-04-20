@@ -114,9 +114,6 @@ export class AeroflyFlightService {
     setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts) {
         const onGround = speed_kts === 0 || altitude_meter === 0;
         this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(longitude, latitude, altitude_meter, heading_degree, onGround ? 0 : speed_kts, {
-            gear: onGround ? 1 : 0,
-            throttle: onGround ? 0 : 0.8,
-            flaps: 0,
             configuration: onGround ? "OnGround" : "Cruise",
             onGround,
         });

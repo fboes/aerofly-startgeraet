@@ -81,6 +81,15 @@ export type AviationWeatherApiRunway = {
     surface: AviationWeatherApiRunwaySurface;
     alignment: string;
 };
+type AviationWeatherNormalizedRunway = {
+    id: [string, string];
+    /**
+     * length, width in ft
+     */
+    dimension: [number, number];
+    surface: AviationWeatherApiRunwaySurface;
+    alignment: number | null;
+};
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataAirport
  */
@@ -205,15 +214,5 @@ export declare class AviationWeatherApi {
  * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
  */
 export declare const magDecConverter: (magdec: string) => number;
-export declare class AviationWeatherNormalizedRunway {
-    id: [string, string];
-    /**
-     * length, width in ft
-     */
-    dimension: [number, number];
-    surface: string;
-    alignment: number | null;
-    constructor({ id, dimension, surface, alignment }: AviationWeatherApiRunway);
-}
 export {};
 //# sourceMappingURL=AviationWeatherApi.d.ts.map
