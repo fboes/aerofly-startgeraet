@@ -1,0 +1,6 @@
+{
+  "main": "dist/cli/index.js",
+  "output": "sea-prep.blob",
+  "mainFormat": "module",
+  "disableExperimentalSEAWarning": true
+}

@@ -12,15 +12,17 @@ export class SkyVectorService {
      * @returns string like 'https://skyvector.com/?ll=58.64732108,16.32458497&chart=301&zoom=4&fpl=N0122A025%20ESSL%205831N01558E%20ESVE%20ESKN'
      */
     toString() {
-        const cruise = (this.cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0");
-        const alt = (this.aeroflyFlight.navigation.cruiseAltitude_ft / 100).toFixed().padStart(3, "0");
+        const cruiseSpeed = this.cruiseSpeed_kts ? "N" + (this.cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0") : "";
+        const cruiseAlt = this.aeroflyFlight.navigation.cruiseAltitude_ft
+            ? "A" + (this.aeroflyFlight.navigation.cruiseAltitude_ft / 100).toFixed().padStart(3, "0")
+            : "";
         const parameters = new URLSearchParams({
             ll: this.aeroflyFlight.flightSetting.latitude.toString() +
                 "," +
                 this.aeroflyFlight.flightSetting.longitude.toString(),
             chart: "301",
             zoom: "3",
-            fpl: "N" + cruise + "A" + alt + " " + this.getWaypointIdentifiers().join(" "),
+            fpl: (cruiseSpeed + cruiseAlt + " " + this.getWaypointIdentifiers().join(" ")).trim(),
         });
         return new URL("?" + parameters.toString(), "https://skyvector.com");
     }

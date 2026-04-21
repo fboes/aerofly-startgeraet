@@ -271,7 +271,7 @@ export class FlightRegistry {
     static registerPrompts(server) {
         server.registerPrompt("aerofly-mission", {
             title: "Create Aerofly Flight Plan",
-            description: "Prepare a complete flight plan for Aerofly FS 4, including aircraft, route, weather and time settings. Always follow the standard workflow unless the user explicitly requests SimBrief import.",
+            description: "Prepare a complete flight plan for Aerofly FS 4, including aircraft, route, weather and time settings.",
         }, () => ({
             messages: [
                 {
@@ -284,8 +284,8 @@ export class FlightRegistry {
             ],
         }));
         server.registerPrompt("aerofly-mission-import", {
-            title: "Create Aerofly Flight Plan",
-            description: "Prepare a complete flight plan for Aerofly FS 4, including aircraft, route, weather and time settings. Always follow the standard workflow unless the user explicitly requests SimBrief import.",
+            title: "Import Aerofly Flight Plan from SimBrief",
+            description: "Prepare a complete flight plan for Aerofly FS 4 by importing almost all data from a SimBrief flight plan.",
         }, () => ({
             messages: [
                 {

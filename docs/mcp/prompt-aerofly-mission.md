@@ -27,10 +27,9 @@ Follow this sequence:
    1. `set-aircraft-type-and-livery`
    2. `set-fuel-and-payload`
    3. `set-date-and-time` ← always convert local time to UTC first
-   4. `set-weather`
-   5. `set-clouds` ← up to 3 layers; cloud_coverage 0.0–1.0
-   6. `set-flightplan-waypoints` ← include origin, destination, and intermediate waypoints with altitude_ft
-   7. `set-aircraft-position-and-state` ← only if start is not at an airport (e.g. mid-air, carrier, field)
+   4. Set weather by either calling `set-weather` & `set-clouds` (← up to 3 layers; cloud_coverage 0.0–1.0) or `set-weather-via-api` (← fetch weather from API if date is not older than two weeks)
+   5. `set-flightplan-waypoints` ← include origin, destination, and intermediate waypoints with altitude_ft
+   6. `set-aircraft-position-and-state` ← only if start is not at an airport (e.g. mid-air, carrier, field)
 
 5. **Save** via `save-flight`. Always do this automatically.
 

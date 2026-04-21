@@ -79,7 +79,7 @@ export class ResourceRegistry {
                 {
                     uri: uri.href,
                     mimeType: "text/markdown",
-                    text: fs.readFileSync(path.join(import.meta.dirname, "../../..", "docs/mcp", "general-rules.md"), "utf-8"),
+                    text: fs.readFileSync(path.join(import.meta.dirname, "../../..", "docs/mcp", "resource-general-rules.md"), "utf-8"),
                 },
             ],
         }));
