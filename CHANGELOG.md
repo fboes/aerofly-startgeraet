@@ -5,6 +5,7 @@
 - Removed community-developed airports from base airport set
 - Improved creation of flight plans
 - Added KML and GeoJSON export
+- Added Skyvector URL generator
 
 ## [1.4.3]
 

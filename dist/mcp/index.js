@@ -13,10 +13,10 @@ const server = new McpServer({
     version: ApplicationService.getApplicationVersion(),
     description: `\
 Flight plan and mission generator for Aerofly FS 4. This MCP server provides functionality to get the current state of the Aerofly FS 4 main configuration file \`main.mcf\`, adds tools to change these settings, and provides data sources for airports, aircraft and aircraft liveries.
-- Call \`${FlightRegistry.TOOL_GET_FLIGHT}\` on starting the MCP server, as it will contain the initial state of \`main.mcf\`.
-- Call tools to plan the next flight.
-- Call \`${FlightRegistry.TOOL_SAVE_FLIGHT}\` to save the planning for the next flight back to the \`main.mcf\`.
-- If the \`main.mcf\` is not readable, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.\
+- Always call \`${FlightRegistry.TOOL_GET_FLIGHT}\` as the first step to read the initial state of \`main.mcf\` to the MCP server.
+- Call additional tools to plan the next flight.
+- Always call \`${FlightRegistry.TOOL_SAVE_FLIGHT}\` as the final step to write the state of the MCP server back to the \`main.mcf\` for Aerofly FS 4 to use.
+- If the \`main.mcf\` is not readable, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\` and make the user provide the path to this file.
 `,
 });
 const config = new Config();

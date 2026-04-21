@@ -37,7 +37,7 @@ await describe("AviationWeatherApi", async (): Promise<void> => {
             assert.strictEqual(typeof airportNormalized.lon, "number", "airportNormalized.lon");
             assert.strictEqual(typeof airportNormalized.elev, "number", "airportNormalized.elev");
             assert.strictEqual(typeof airportNormalized.magdec, "number", "airportNormalized.magdec");
-            assert.strictEqual(typeof airportNormalized.rwyNum, "number", "airportNormalized.rwyNum");
+            assert.strictEqual(typeof airportNormalized.rwyNum, "string", "airportNormalized.rwyNum");
             assert.strictEqual(typeof airportNormalized.tower, "boolean", "airportNormalized.tower");
             assert.strictEqual(typeof airportNormalized.beacon, "boolean", "airportNormalized.beacon");
             assert.ok(Array.isArray(airportNormalized.runways), "airportNormalized.runways");

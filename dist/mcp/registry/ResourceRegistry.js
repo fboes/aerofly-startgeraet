@@ -1,8 +1,9 @@
+import fs from "node:fs";
+import path from "node:path";
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { McpHelper } from "../util/McpHelper.js";
 import { ZodExtra } from "../util/ZodExtra.js";
-import { FlightRegistry } from "./FlightRegistry.js";
 export class ResourceRegistry {
     static MIME_TYPE_RESPONSE = "application/json";
     static RESOURCE_NAME_SPACE = "resource://aerofly";
@@ -12,6 +13,7 @@ export class ResourceRegistry {
     static RESOURCE_RULES = `${this.RESOURCE_NAME_SPACE}/general-rules`;
     static TOOL_SEARCH_AIRCRAFT = "search-aicraft";
     static TOOL_SEARCH_AIRPORTS = "search-airports";
+    static TOOL_WORKFLOW_INSTRUCTIONS = "get-workflow-instructions"; // TODO
     static registerResources(server, resourceService) {
         server.registerResource("aircraft", this.RESOURCE_AIRCRAFT, {
             description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
@@ -77,27 +79,7 @@ export class ResourceRegistry {
                 {
                     uri: uri.href,
                     mimeType: "text/markdown",
-                    text: `\
-# Important Rules
-
-- **Always convert local departure time to UTC** before calling
-  \`${FlightRegistry.TOOL_SET_DATE_TIME}\`. Example: 09:21 Moscow time (UTC+3) → 06:21 UTC.
-- **Cloud coverage** is a value from 0.0 (clear) to 1.0 (overcast).
-  Maximum 3 layers.
-- **Waypoint identifiers** must be uppercase, 2–8 alphanumeric characters.
-  Use ICAO airport codes or offical VOR / NDB codes where possible, otherwise
-  descriptive IDs like "COAST1", "WPT1".
-- **\`${FlightRegistry.TOOL_SET_WAYPOINTS}\` moves the aircraft to the origin airport.**
-  Only call \`${FlightRegistry.TOOL_SET_POSITION}\` afterwards if the start is
-  not at an airport.
-- If an exact airport or aircraft is unavailable in Aerofly FS 4, choose
-  the nearest/closest alternative and inform the user clearly.
-- If historical weather data is unavailable, use climatologically plausible
-  conditions for the region and season.
-- Choose liveries matching the historical operator, nationality, or era.
-- For special flight profiles (low-level, carrier ops, record attempts),
-  set cruise altitude and position accordingly.
-`,
+                    text: fs.readFileSync(path.join(import.meta.dirname, "../../..", "docs/mcp", "general-rules.md"), "utf-8"),
                 },
             ],
         }));

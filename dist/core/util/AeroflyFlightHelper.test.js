@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { AeroflyFlightFallback } from "./AeroflyFlightFallback.js";
+import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightHelper } from "./AeroflyFlightHelper.js";
 describe("AeroflyFlightHelper", () => {

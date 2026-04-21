@@ -2,7 +2,7 @@
 
 The Aerofly Startgerät MCP server acts as an interface usable by local AI clients to set up flight plans as well as other flight parameters in Aerofly FS 4.
 
-The Aerofly Startgerät MCP server is available as a pre-packacked MCPB file (which can be used with Claude Desktop), or as a stand alone Node.js application to use with any other local AI tool which can access a local MCP server.
+The Aerofly Startgerät MCP server is available as a pre-packaged MCPB file (which can be used with Claude Desktop), or as a stand alone Node.js application to use with any other local AI tool which can access a local MCP server.
 
 ## Installation via MCPB file
 
@@ -43,6 +43,12 @@ Once an MCP server is added to a local AI client, its tool definitions are loade
 
 > [!WARNING]
 > To avoid unnecessary overhead, remove MCP servers you don't regularly need.
+
+### Note on MCP integration
+
+Please check with your local MCP / AI client, what tools, resources and prompts are usable. Some clients do only implement tools and do not consider resources and prompts offered by the MCP server.
+
+If your MCP / AI client does not support prompts, you may want to manually enter the [prompt for setting up missions in Aerofly FS 4](./mcp/prompt-aerofly-mission.md), and provide the [general rules for AI to set up missions in Aerofly FS 4](./mcp/resource-general-rules.md).
 
 ---
 

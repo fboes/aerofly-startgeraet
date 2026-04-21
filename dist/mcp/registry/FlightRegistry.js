@@ -1,8 +1,11 @@
+import fs from "node:fs";
+import path from "node:path";
 import { McpHelper } from "../util/McpHelper.js";
 import { z } from "zod";
 import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../util/ZodExtra.js";
+import { SkyVectorService } from "../../core/data/SkyvectorUrl.js";
 export class FlightRegistry {
     static TOOL_GET_FLIGHT = "get-aerofly-flight";
     static TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -252,6 +255,18 @@ export class FlightRegistry {
             }
             return McpHelper.returnResultContent(flightService.getAeroflyFlight());
         });
+        server.registerTool("get-skyvector-url", {
+            title: `Get URL for the Skyvector flight planning service`,
+            description: `This will prove an URL which shows the current flight plan on the flight planning service SkyVector if opened in a browser.`,
+            annotations: {
+                readOnlyHint: true,
+                destructiveHint: false,
+                idempotentHint: false,
+                openWorldHint: false,
+            },
+        }, () => {
+            return McpHelper.returnResultContent(new SkyVectorService(flightService.getAeroflyFlight(), flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
+        });
     }
     static registerPrompts(server) {
         server.registerPrompt("aerofly-mission", {
@@ -263,56 +278,7 @@ export class FlightRegistry {
                     role: "user",
                     content: {
                         type: "text",
-                        text: `\
-You are an Aerofly FS 4 mission planning assistant. Your job is to create
-historically accurate, immersive, and complete flight missions based on user
-requests, using all available tools of this MCP server.
-
-## Standard Workflow
-
-Always follow this sequence unless the user requests SimBrief import:
-
-1. **Research** the scenario thoroughly before calling any tools:
-   - Exact date and local departure time
-   - Departure and destination airport (ICAO code + coordinates)
-   - Meaningful intermediate waypoints for the route
-   - Aircraft type and operator/livery
-   - Historical or realistic weather (wind, gusts, temperature, visibility,
-     cloud layers)
-   - Fuel mass and payload (pilot + passengers + cargo in kg)
-   - Initial heading at departure
-   - Cruise altitude in feet
-
-2. **Search aircraft** via \`search-aircraft\` to find the best matching type
-   and livery in Aerofly FS 4.
-
-3. **Search airports** via \`search-airports\` to confirm ICAO codes and
-   coordinates for origin, destination, and key waypoints.
-
-4. **Set all parameters** in this order:
-   a. \`set-aircraft-type-and-livery\`
-   b. \`set-fuel-and-payload\`
-   c. \`set-date-and-time\` ← always convert local time to UTC first
-   d. \`set-weather\`
-   e. \`set-clouds\` ← up to 3 layers; cloud_coverage 0.0–1.0
-   f. \`set-flightplan-waypoints\` ← include origin, destination, and
-   intermediate waypoints with altitude_ft
-   g. \`set-aircraft-position-and-state\` ← only if start is not at an airport
-   (e.g. mid-air, carrier, field)
-
-5. **Save** via \`save-flight\`. Always do this automatically.
-
-6. **Present a mission briefing** with:
-   - Aircraft & livery (with reasoning for the choice)
-   - Date and time (local + UTC)
-   - Full route: origin → waypoints → destination
-   - Weather: wind direction/speed/gusts, temperature, visibility, cloud layers
-   - Fuel and payload
-   - Cruise altitude and recommended speed
-   - Historical or narrative context
-
-Please refer to ${ResourceRegistry.RESOURCE_RULES} for more rules to abide to.
-`,
+                        text: fs.readFileSync(path.join(import.meta.dirname, "../../..", "docs/mcp", "prompt-aerofly-mission.md"), "utf-8"),
                     },
                 },
             ],
@@ -326,34 +292,7 @@ Please refer to ${ResourceRegistry.RESOURCE_RULES} for more rules to abide to.
                     role: "user",
                     content: {
                         type: "text",
-                        text: `\
-You are an Aerofly FS 4 mission planning assistant. Your job is to import flight
-missions from external data sources and add information missing mission
-parameters based on user requests, using available tools of this MCP server.
-
-## Standard Workflow
-
-1. Check \`get-config\` for a stored SimBrief username, or ask the user.
-2. Call \`set-flightplan-via-simbrief\` — this imports aircraft, route and
-   weather automatically.
-3. Present a mission briefing with:
-   - Aircraft & livery
-   - Date and time (local + UTC)
-   - Full route: origin → waypoints → destination
-   - Weather: wind direction/speed/gusts, temperature, visibility, cloud layers
-   - Fuel and payload
-   - Cruise altitude and recommended speed
-3. Ask the user about any changes required, possibly using more tools of the
-   MCP server. This may include:
-   - Change of aircraft, as the aircraft given in SimBrief might not be
-     available in Aerofly FS 4.
-   - Change of livery, as the airline given in SimBrief might not be
-     available in Aerofly FS 4.
-   - Change time, date, and fetch weather accordingly.
-5. Always end with \`save-flight\`.
-
-Please refer to ${ResourceRegistry.RESOURCE_RULES} for more rules to abide to.
-`,
+                        text: fs.readFileSync(path.join(import.meta.dirname, "../../..", "docs/mcp", "prompt-aerofly-mission-import.md"), "utf-8"),
                     },
                 },
             ],

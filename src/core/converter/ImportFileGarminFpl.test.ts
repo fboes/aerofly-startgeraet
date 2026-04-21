@@ -1,12 +1,16 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
 import fs from "node:fs";
-import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
+import path from "node:path";
+import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { ImportFileGarminFplConverter } from "./ImportFileGarminFplConverter.js";
 
 describe("ImportFileGarminFplConverter", () => {
     it("should find multiple flight plans in a Garmin FPL file", () => {
-        const content = fs.readFileSync("./src/test/fixtures/KBLI.fpl", "utf-8");
+        const content = fs.readFileSync(
+            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "KBLI.fpl"),
+            "utf-8",
+        );
 
         const converter = new ImportFileGarminFplConverter();
         const indices = converter.getIndices(content);
@@ -18,7 +22,10 @@ describe("ImportFileGarminFplConverter", () => {
     it("should convert Garmin FPL files into AeroflyFlight classes", () => {
         const flight = new AeroflyFlightFallback();
 
-        const content = fs.readFileSync("./src/test/fixtures/KBLI.fpl", "utf-8");
+        const content = fs.readFileSync(
+            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "KBLI.fpl"),
+            "utf-8",
+        );
 
         const converter = new ImportFileGarminFplConverter();
         converter.convert(content, flight);
@@ -29,7 +36,10 @@ describe("ImportFileGarminFplConverter", () => {
     it("should convert Garmin FPL files into AeroflyFlight classes, getting the second flight plan", () => {
         const flight = new AeroflyFlightFallback();
 
-        const content = fs.readFileSync("./src/test/fixtures/KBLI.fpl", "utf-8");
+        const content = fs.readFileSync(
+            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "KBLI.fpl"),
+            "utf-8",
+        );
 
         const converter = new ImportFileGarminFplConverter();
         converter.convert(content, flight, 1);

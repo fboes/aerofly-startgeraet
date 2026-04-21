@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
+import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { ImportMetarConverter } from "./ImportMetarConverter.js";
 describe("ImportMetarConverter", () => {
     it("should convert METAR data correctly to AeroFlight classes", () => {

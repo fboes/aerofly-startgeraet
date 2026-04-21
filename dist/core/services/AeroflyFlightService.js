@@ -9,7 +9,7 @@ import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
-import { AeroflyFlightFallback } from "../util/AeroflyFlightFallback.js";
+import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflyAirportService } from "./AeroflyAirportService.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
