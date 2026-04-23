@@ -33,5 +33,10 @@ export declare class ZodExtra {
         elevation_ft: z.ZodOptional<z.ZodNumber>;
         direction_degree: z.ZodOptional<z.ZodNumber>;
     }>;
+    static geoQuery(): z.ZodObject<{
+        longitude: z.ZodNumber;
+        latitude: z.ZodNumber;
+        radiusKm: z.ZodNumber;
+    }>;
 }
 //# sourceMappingURL=ZodExtra.d.ts.map

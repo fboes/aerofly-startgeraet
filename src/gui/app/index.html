@@ -3,21 +3,94 @@
   <head>
     <meta charset="utf-8" />
     <title>Aerofly Startgerät</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div>
-      <menu>
-        <li>Aircraft</li>
-        <li>Fuel / payload</li>
-        <li>Flight plan</li>
-        <li>Time &amp; date</li>
-        <li>Weather</li>
-        <li>Wind</li>
-        <li>Temperature</li>
-        <li>Clouds</li>
-        <li>Visbility</li>
-      </menu>
-    </div>
+    <h1>Aerofly Startgerät</h1>
+
+    <main>
+      <h2>Aircraft</h2>
+
+      <section>
+        <h3>Aircraft</h3>
+        <div>
+          <label>Aircraft</label>
+          <select>
+            <option>Cessna 172</option>
+          </select>
+        </div>
+        <div>
+          <label>Livery</label>
+          <select>
+            <option>default</option>
+          </select>
+        </div>
+      </section>
+
+      <section>
+        <h3>Fuel / payload</h3>
+        <div>Fuel <input type="range" /><output>80kg</output></div>
+        <div>Payload <input type="range" /><output>50kg</output></div>
+      </section>
+
+      <h2>Flight plan</h2>
+
+      <section>
+        <h3>Flight plan</h3>
+        <div>Waypoints <output>KEYW → MTH → KMIA</output></div>
+        <div>Distance <output>120NM</output></div>
+        <div>Flight time <output>0:30h</output></div>
+
+        <!-- Import -->
+        <!-- Export -->
+      </section>
+
+      <section>
+        <h3>Time &amp; date</h3>
+
+        <div>Date (UTC) <input type="date" /><output>2026-04-31 (local)</output></div>
+        <div>Time (UTC) <input type="time" /><output>23:12 (local)</output></div>
+
+        <!-- Sync -->
+      </section>
+
+      <h2>Weather</h2>
+
+      <section>
+        <h3>Wind</h3>
+        <div>Wind speed <input type="range" /><output>5 kts</output></div>
+        <div>Wind gusts <input type="range" /><output>0 kts</output></div>
+        <div>Wind direction <input type="range" /><output>241°</output></div>
+      </section>
+
+      <section>
+        <h3>Temperature</h3>
+        <div>Temperature <input type="range" /><output>21°C / 140°F</output></div>
+      </section>
+
+      <section>
+        <h3>Clouds</h3>
+        <div>Base <input type="range" /><output>1,000ft</output></div>
+        <div>Coverage <input type="range" /><output>80% / OVC</output></div>
+      </section>
+
+      <section>
+        <h3>Clouds</h3>
+        <div>Base <input type="range" /><output>2,000ft</output></div>
+        <div>Coverage <input type="range" /><output>80% / OVC</output></div>
+      </section>
+
+      <section>
+        <h3>Clouds</h3>
+        <div>Base <input type="range" /><output>5,000ft</output></div>
+        <div>Coverage <input type="range" /><output>0% / CLR</output></div>
+      </section>
+
+      <section>
+        <h3>Visbility</h3>
+        <div><label>Visibility</label> <input type="range" /> <output>9,999m / 10SM</output></div>
+      </section>
+    </main>
 
     <!--script src="app.js"></script-->
   </body>

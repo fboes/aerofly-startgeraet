@@ -3,7 +3,8 @@ import path from "node:path";
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { McpHelper } from "../util/McpHelper.js";
-import { ZodExtra } from "../util/ZodExtra.js";
+import { ZodExtra } from "../../core/util/ZodExtra.js";
+import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 export class ResourceRegistry {
     static MIME_TYPE_RESPONSE = "application/json";
     static RESOURCE_NAME_SPACE = "resource://aerofly";
@@ -13,7 +14,7 @@ export class ResourceRegistry {
     static RESOURCE_RULES = `${this.RESOURCE_NAME_SPACE}/general-rules`;
     static TOOL_SEARCH_AIRCRAFT = "search-aicraft";
     static TOOL_SEARCH_AIRPORTS = "search-airports";
-    static TOOL_WORKFLOW_INSTRUCTIONS = "get-workflow-instructions"; // TODO
+    static TOOL_SEARCH_NAVAIDS = "search-navaids";
     static registerResources(server, resourceService) {
         server.registerResource("aircraft", this.RESOURCE_AIRCRAFT, {
             description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
@@ -94,7 +95,7 @@ export class ResourceRegistry {
         };
         server.registerTool(this.TOOL_SEARCH_AIRCRAFT, {
             title: `Search Aerofly FS 4 aircraft`,
-            description: `Search aircraft by ICAO code, Aerofly code, tag, maximum range, maximum payload. All search properties are linked by \`AND\`.`,
+            description: `Search for aircraft by ICAO code, Aerofly code, tag, maximum range, maximum payload. All search properties are linked by \`AND\`. WIll return additional information like payload, cruise speed, existing liveries etc.`,
             inputSchema: {
                 query: z
                     .string()
@@ -118,17 +119,13 @@ export class ResourceRegistry {
         }));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_AIRPORTS, {
             title: `Search Aerofly FS 4 airports`,
-            description: `Search airports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
+            description: `Search for airports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
             inputSchema: {
                 query: z
                     .string()
                     .optional()
                     .describe(`Airport ICAO code or (partial) name of airport. Will only find airports present in Aerofly FS 4.`),
-                geoQuery: z.object({
-                    longitude: ZodExtra.longitude().describe("Longitude of center point for geo search."),
-                    latitude: ZodExtra.latitude().describe("Latitude of center point for geo search."),
-                    radiusKm: z.number().positive().describe("Maximum distance in kilometers from center point."),
-                }),
+                geoQuery: ZodExtra.geoQuery(),
             },
             annotations,
         }, ({ query, geoQuery, }) => ({
@@ -136,6 +133,24 @@ export class ResourceRegistry {
                 {
                     type: "text",
                     text: McpHelper.JSONstringify(resourceService.searchAirports({ query, geoQuery })),
+                },
+            ],
+        }));
+        server.registerTool(ResourceRegistry.TOOL_SEARCH_NAVAIDS, {
+            title: `Search navigational aids`,
+            description: `Search for navigational aids like NDBs and VORs depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, type and frequency.`,
+            inputSchema: {
+                geoQuery: ZodExtra.geoQuery(),
+            },
+            annotations: {
+                ...annotations,
+                openWorldHint: true,
+            },
+        }, async ({ geoQuery, }) => ({
+            content: [
+                {
+                    type: "text",
+                    text: McpHelper.JSONstringify(await AviationWeatherApi.fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)),
                 },
             ],
         }));

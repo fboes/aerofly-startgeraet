@@ -1,1 +1,1 @@
-{"version":3,"file":"AeroflyFlightFallback.d.ts","sourceRoot":"","sources":["../../../src/core/data/AeroflyFlightFallback.ts"],"names":[],"mappings":"AAAA,OAAO,EACH,aAAa,EAQhB,MAAM,gCAAgC,CAAC;AAExC;;GAEG;AACH,qBAAa,qBAAsB,SAAQ,aAAa;;CAcvD"}
+{"version":3,"file":"AeroflyFlightFallback.d.ts","sourceRoot":"","sources":["../../../src/core/data/AeroflyFlightFallback.ts"],"names":[],"mappings":"AAAA,OAAO,EACH,aAAa,EAShB,MAAM,gCAAgC,CAAC;AAExC;;GAEG;AACH,qBAAa,qBAAsB,SAAQ,aAAa;gBACxC,gBAAgB,UAAQ;CAqBvC"}

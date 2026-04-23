@@ -11,9 +11,9 @@ import {
 } from "../../core/services/AeroflyFlightService.js";
 import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
-import { ZodExtra } from "../util/ZodExtra.js";
+import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
-import { SkyVectorService } from "../../core/data/SkyvectorUrl.js";
+import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 
 export class FlightRegistry {
     static readonly TOOL_GET_FLIGHT = "get-aerofly-flight";
@@ -401,7 +401,7 @@ export class FlightRegistry {
         server.registerTool(
             "get-skyvector-url",
             {
-                title: `Get URL for the Skyvector flight planning service`,
+                title: `Get URL for the SkyVector flight planning service`,
                 description: `This will prove an URL which shows the current flight plan on the flight planning service SkyVector if opened in a browser.`,
                 annotations: {
                     readOnlyHint: true,
@@ -412,7 +412,7 @@ export class FlightRegistry {
             },
             (): CallToolResult => {
                 return McpHelper.returnResultContent(
-                    new SkyVectorService(
+                    new SkyVectorUrl(
                         flightService.getAeroflyFlight(),
                         flightService.getAircraftData()?.cruiseSpeedKts ?? 0,
                     ).toString(),

@@ -1,4 +1,3 @@
-import { Point } from "@fboes/geojson";
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataMetar
  */
@@ -163,6 +162,7 @@ export type AviationWeatherApiNavaid = {
      * @see https://aviationweather.gov/data/api/#/Data/dataNavaid
      */
     freq: number;
+    freq_unit: "kHz" | "MHz";
     /**
      * with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
      */
@@ -177,14 +177,16 @@ export type AviationWeatherApiFix = {
 export declare class AviationWeatherApi {
     static fetchMetar(ids: string[], date?: Date | null): Promise<AviationWeatherApiMetar[]>;
     /**
-     * @param position center of search area
+     * @param {number} longitude center of search area
+     * @param {number} latitude center of search area
      * @param distance in meters, default 1000
      * @param date if given, only metars for this date will be returned, otherwise the latest metars
      * @see https://aviationweather.gov/data/api/#/Data/dataMetar
      * @returns {Promise<AviationWeatherApiMetar[]>}
      */
     static fetchMetarByPosition(
-        position: Point,
+        longitude: number,
+        latitude: number,
         distance?: number,
         date?: Date | null,
     ): Promise<AviationWeatherApiMetar[]>;
@@ -192,21 +194,27 @@ export declare class AviationWeatherApi {
     static fetchNavaids(ids: string[]): Promise<AviationWeatherApiNavaid[]>;
     static fetchFix(ids: string[]): Promise<AviationWeatherApiFix[]>;
     /**
-     * @param position center of search area
+     * @param {number} longitude center of search area
+     * @param {number} latitude center of search area
      * @param distance in meters, default 1000
      * @see https://aviationweather.gov/data/api/#/Data/dataNavaid
      * @returns {Promise<AviationWeatherApiNavaid[]>}
      */
-    static fetchNavaidsByPosition(position: Point, distance?: number): Promise<AviationWeatherApiNavaid[]>;
+    static fetchNavaidsByPosition(
+        longitude: number,
+        latitude: number,
+        distance?: number,
+    ): Promise<AviationWeatherApiNavaid[]>;
     private static normalizeNavAid;
     static doRequest<T>(route: string, query: URLSearchParams): Promise<T>;
     /**
      *
-     * @param {Point} position
+     * @param {number} longitude center of search area
+     * @param {number} latitude center of search area
      * @param {number} [distance] in meters
      * @returns {[number,number,number,number]} southEast.latitude, southEast.longitude, northWest.latitude, northWest.longitude
      */
-    static buildBbox(position: Point, distance?: number): [number, number, number, number];
+    static buildBbox(longitude: number, latitude: number, distance?: number): [number, number, number, number];
     static normalizeAirport(airport: AviationWeatherApiAirport): AviationWeatherNormalizedAirport;
     static normalizeWeather(weather: AviationWeatherApiMetar): AviationWeatherNormalizedMetar;
 }

@@ -4,8 +4,8 @@ import { McpHelper } from "../util/McpHelper.js";
 import { z } from "zod";
 import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
-import { ZodExtra } from "../util/ZodExtra.js";
-import { SkyVectorService } from "../../core/data/SkyvectorUrl.js";
+import { ZodExtra } from "../../core/util/ZodExtra.js";
+import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 export class FlightRegistry {
     static TOOL_GET_FLIGHT = "get-aerofly-flight";
     static TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -256,7 +256,7 @@ export class FlightRegistry {
             return McpHelper.returnResultContent(flightService.getAeroflyFlight());
         });
         server.registerTool("get-skyvector-url", {
-            title: `Get URL for the Skyvector flight planning service`,
+            title: `Get URL for the SkyVector flight planning service`,
             description: `This will prove an URL which shows the current flight plan on the flight planning service SkyVector if opened in a browser.`,
             annotations: {
                 readOnlyHint: true,
@@ -265,7 +265,7 @@ export class FlightRegistry {
                 openWorldHint: false,
             },
         }, () => {
-            return McpHelper.returnResultContent(new SkyVectorService(flightService.getAeroflyFlight(), flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
+            return McpHelper.returnResultContent(new SkyVectorUrl(flightService.getAeroflyFlight(), flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
         });
     }
     static registerPrompts(server) {
