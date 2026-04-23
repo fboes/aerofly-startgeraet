@@ -1,4 +1,9 @@
-import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
+import {
+    AeroflyFlight,
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteDestinationRunway,
+    AeroflySettingsCloud,
+} from "@fboes/aerofly-custom-missions";
 export type AeroflylightCategoryIcao = "VFR" | "IFR";
 export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**
@@ -14,9 +19,11 @@ export declare class AeroflyFlightHelper {
      */
     static getDepartureTimeZone(aeroflyFlight: AeroflyFlight): number;
     /**
-     * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center)
+     * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center). Also normalizes the runway identifier to match Aerofly FS4 standards.
      */
-    static positionRunwayWaypoint<T extends AeroflyNavRouteDepartureRunway | AeroflyNavRouteDestinationRunway>(waypoint: T): T;
+    static positionRunwayWaypoint<T extends AeroflyNavRouteDepartureRunway | AeroflyNavRouteDestinationRunway>(
+        waypoint: T,
+    ): T;
     static getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategory;
     static getIcaoFLightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryIcao;
     static getCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined;

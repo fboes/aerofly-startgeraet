@@ -27,7 +27,7 @@ export class AeroflyFlightHelper {
         return Math.round((aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15);
     }
     /**
-     * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center)
+     * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center). Also normalizes the runway identifier to match Aerofly FS4 standards.
      */
     static positionRunwayWaypoint(waypoint) {
         const direction_degree = waypoint.direction_degree ?? Number(waypoint.identifier.replace(/\D+/g, "")) * 10;
@@ -37,6 +37,7 @@ export class AeroflyFlightHelper {
         waypoint.latitude = coordinatesNew.latitude;
         waypoint.longitude = coordinatesNew.longitude;
         waypoint.direction_degree = direction_degree;
+        waypoint.identifier = waypoint.identifier.replace(/^\D+/, "").toUpperCase();
         return waypoint;
     }
     static getFlightCategory(aeroflyFlight) {
