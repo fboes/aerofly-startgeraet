@@ -14,6 +14,7 @@ import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
+import { ExportFileGeoJsonConverter } from "../../core/converter/ExportFileGeoJsonConverter.js";
 
 export class FlightRegistry {
     static readonly TOOL_GET_FLIGHT = "get-aerofly-flight";
@@ -228,7 +229,7 @@ export class FlightRegistry {
         server.registerTool(
             FlightRegistry.TOOL_FETCH_METAR,
             {
-                title: `Replace weather in flight mission setup with weather / METAR data fetched via API`,
+                title: `Get real-life weather / METAR data and insert it into missio`,
                 description: `Will call the Aviation Weather METAR API. Will use the time & date set in flight plan. This day must not be more than two weeks in the past and cannot be in the future. Returns the weather data.`,
                 inputSchema: {
                     airportIcaoCode: ZodExtra.identifier().describe(
@@ -369,6 +370,23 @@ export class FlightRegistry {
                 });
                 flightService.setFlightPositionToDeparture();
                 return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
+            },
+        );
+
+        server.registerTool(
+            "get-flightplan-as-geojson",
+            {
+                title: `Get current flightplan as GeoJSON object`,
+                description: `Will return a LineString for the current route, as well as Points for the waypoints.`,
+                annotations: {
+                    ...annotations,
+                    readOnlyHint: true,
+                },
+            },
+            (): CallToolResult => {
+                return McpHelper.returnResultContent(
+                    new ExportFileGeoJsonConverter().convert(flightService.getAeroflyFlight()),
+                );
             },
         );
 

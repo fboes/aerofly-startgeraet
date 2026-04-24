@@ -10,6 +10,8 @@ export declare class ResourceRegistry {
     static readonly TOOL_SEARCH_AIRCRAFT = "search-aicraft";
     static readonly TOOL_SEARCH_AIRPORTS = "search-airports";
     static readonly TOOL_SEARCH_NAVAIDS = "search-navaids";
+    static readonly TOOL_SEARCH_FIX = "search-waypoint-fix";
+    static readonly TOOL_GET_AIRPORT_DETAILS = "get-airport-details";
     static registerResources(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;
     static registerTools(server: McpServer, resourceService: AeroflyFlightMcpResourceService): void;
 }

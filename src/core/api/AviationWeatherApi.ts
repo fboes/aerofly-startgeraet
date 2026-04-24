@@ -131,8 +131,10 @@ export type AviationWeatherApiAirport = {
     elev: number;
     magdec: string;
     rwyNum: string;
+    services: "S" | "-" | null;
     tower: "T" | "-" | null;
     beacon: "B" | "-" | null;
+    passengers: string;
     runways: AviationWeatherApiRunway[];
     freqs: AviationWeatherApiFrequency[] | string;
 };
@@ -150,8 +152,10 @@ export type AviationWeatherNormalizedAirport = {
     elev: number;
     magdec: number;
     rwyNum: string;
+    services: boolean;
     tower: boolean;
     beacon: boolean;
+    passengers: number;
     runways: AviationWeatherNormalizedRunway[];
     freqs: AviationWeatherApiFrequency[];
 };
@@ -246,14 +250,19 @@ export class AviationWeatherApi {
         );
     }
 
-    static async fetchAirports(ids: string[]): Promise<AviationWeatherApiAirport[]> {
-        return AviationWeatherApi.doRequest(
+    static async fetchAirports(ids: string[]): Promise<AviationWeatherNormalizedAirport[]> {
+        return AviationWeatherApi.doRequest<AviationWeatherApiAirport[]>(
             "/api/data/airport",
             new URLSearchParams({
                 ids: ids.join(","),
                 // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
                 format: "json",
             }),
+        ).then((data) =>
+            data.map(
+                (airport: AviationWeatherApiAirport): AviationWeatherNormalizedAirport =>
+                    AviationWeatherApi.normalizeAirport(airport),
+            ),
         );
     }
 
@@ -265,9 +274,12 @@ export class AviationWeatherApi {
                 format: "json",
                 // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
             }),
-        ).then((data) => {
-            return AviationWeatherApi.normalizeNavAid(data);
-        });
+        ).then((data) =>
+            data.map(
+                (navaid: AviationWeatherApiNavaidRaw): AviationWeatherApiNavaid =>
+                    AviationWeatherApi.normalizeNavAid(navaid),
+            ),
+        );
     }
 
     static async fetchFix(ids: string[]): Promise<AviationWeatherApiFix[]> {
@@ -300,23 +312,39 @@ export class AviationWeatherApi {
                 format: "json",
                 bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
             }),
-        ).then((data) => {
-            return AviationWeatherApi.normalizeNavAid(data);
-        });
+        ).then((data) =>
+            data.map(
+                (navaid: AviationWeatherApiNavaidRaw): AviationWeatherApiNavaid =>
+                    AviationWeatherApi.normalizeNavAid(navaid),
+            ),
+        );
     }
 
-    private static normalizeNavAid(data: AviationWeatherApiNavaidRaw[]): AviationWeatherApiNavaid[] {
-        return data.map((navaid: AviationWeatherApiNavaidRaw): AviationWeatherApiNavaid => {
-            return {
-                ...navaid,
-                lat: Number(navaid.lat),
-                lon: Number(navaid.lon),
-                elev: Number(navaid.elev),
-                freq: Number(navaid.freq),
-                freq_unit: navaid.type === "NDB" ? "kHz" : "MHz",
-                mag_dec: magDecConverter(navaid.mag_dec),
-            };
-        });
+    static async fetchFixByPosition(
+        longitude: number,
+        latitude: number,
+        distance: number = 1000,
+    ): Promise<AviationWeatherApiFix[]> {
+        return AviationWeatherApi.doRequest<AviationWeatherApiFix[]>(
+            "/api/data/fix",
+            new URLSearchParams({
+                // ids: ids.join(","),
+                format: "json",
+                bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+            }),
+        );
+    }
+
+    private static normalizeNavAid(navaid: AviationWeatherApiNavaidRaw): AviationWeatherApiNavaid {
+        return {
+            ...navaid,
+            lat: Number(navaid.lat),
+            lon: Number(navaid.lon),
+            elev: Number(navaid.elev),
+            freq: Number(navaid.freq),
+            freq_unit: navaid.type === "NDB" ? "kHz" : "MHz",
+            mag_dec: magDecConverter(navaid.mag_dec),
+        };
     }
 
     static async doRequest<T>(route: string, query: URLSearchParams): Promise<T> {
@@ -363,8 +391,10 @@ export class AviationWeatherApi {
                     return char.toUpperCase();
                 }),
             magdec: magDecConverter(airport.magdec),
+            services: airport.services === "S",
             tower: airport.tower === "T",
             beacon: airport.beacon === "B",
+            passengers: Number(airport.passengers),
             runways: airport.runways.map((r): AviationWeatherNormalizedRunway => {
                 const idSplit = r.id.split("/");
                 const dimensionSplit = r.dimension.split("x");

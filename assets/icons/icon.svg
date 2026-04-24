@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.1"
-   viewBox="0 0 512 512"
+   viewBox="0 0 192 192"
    id="svg7"
-   sodipodi:docname="favicon-512x512.svg"
-   inkscape:version="1.4.3 (fcd0343856, 2026-01-01)"
-   inkscape:export-filename="favicon-512x512.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   inkscape:export-filename="favicon-64x64.png"
+   inkscape:export-xdpi="32"
+   inkscape:export-ydpi="32"
+   width="192"
+   height="192"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -21,15 +23,31 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.3398438"
-     inkscape:cx="255.62682"
-     inkscape:cy="256"
-     inkscape:window-width="1824"
-     inkscape:window-height="894"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg7" />
+     inkscape:zoom="2.7104744"
+     inkscape:cx="15.679912"
+     inkscape:cy="68.438205"
+     inkscape:window-width="2104"
+     inkscape:window-height="1186"
+     inkscape:window-x="226"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg7"
+     showgrid="true">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="4"
+       spacingy="4"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="6"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
   <defs
      id="defs2">
     <linearGradient
@@ -37,7 +55,8 @@
        x2="512"
        y1="256"
        y2="256"
-       gradientUnits="userSpaceOnUse">
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(0.375)">
       <stop
          stop-color="#1753a0"
          offset="0"
@@ -49,17 +68,18 @@
     </linearGradient>
   </defs>
   <path
-     d="m0 0v512h512v-512z"
+     d="M 0,0 V 192 H 192 V 0 Z"
      fill="url(#linearGradient2642)"
-     stroke-width="10.667"
-     style="paint-order:stroke fill markers"
+     stroke-width="4.00012"
+     style="fill:url(#linearGradient2642);paint-order:stroke fill markers"
      id="path2" />
   <path
      id="rect7"
-     style="fill:#000000;stroke-width:1.27835;opacity:0.25"
-     d="M 258.23828,124.35156 140.61914,358.39258 294.22656,512 512,512 512,378.11329 Z" />
+     style="opacity:0.25;fill:#000000;stroke-width:0.479381"
+     d="M 96,24 24,152 64,192 H 192 V 120 Z"
+     sodipodi:nodetypes="cccccc" />
   <g
-     transform="matrix(1.2252015,0,0,0.91422,3.3971476,36.5872)"
+     transform="matrix(0.75,0,0,0.5,-60.000001,-24.000001)"
      id="g7">
     <g
        transform="translate(16)"

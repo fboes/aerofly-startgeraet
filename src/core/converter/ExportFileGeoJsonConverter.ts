@@ -21,6 +21,7 @@ export class ExportFileGeoJsonConverter extends ExportFileConverter {
                 new Feature(this.getPointForWaypoint(wp), {
                     id: index + 1,
                     title: wp.identifier,
+                    type: wp.type,
                     "marker-symbol": this.getMarkerSymbolForWaypoint(wp),
                 }),
             );
@@ -43,6 +44,7 @@ export class ExportFileGeoJsonConverter extends ExportFileConverter {
                 {
                     id: index + 2,
                     title: this.getFlightplanTitle(flightplan),
+                    type: "flightplan",
                     stroke: "#FF1493",
                 },
             ),
@@ -59,6 +61,7 @@ export class ExportFileGeoJsonConverter extends ExportFileConverter {
                     title: flightplan.aircraft.name,
                     livery: flightplan.aircraft.paintscheme,
                     id: index + 3,
+                    type: "aircraft_position",
                     "marker-symbol": "airfield",
                 },
             ),

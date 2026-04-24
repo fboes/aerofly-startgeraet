@@ -10,15 +10,19 @@
     "email": "info@fboes.org",
     "url": "https://3960.org/"
   },
-  "icon": "./assets/icons/favicon-512x512.png",
+  "icon": "./assets/icons/macos/512x512.png",
   "icons": [
     {
-      "src": "./assets/icons/favicon-64x64.png",
+      "src": "./assets/icons/macos/64x64.png",
       "size": "64x64"
     },
     {
-      "src": "./assets/icons/favicon-512x512.png",
+      "src": "./assets/icons/macos/512x512.png",
       "size": "512x512"
+    },
+    {
+      "src": "./assets/icons/macos/1024x1024.png",
+      "size": "1024x1024"
     }
   ],
   "repository": {

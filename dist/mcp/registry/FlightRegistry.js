@@ -6,6 +6,7 @@ import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
+import { ExportFileGeoJsonConverter } from "../../core/converter/ExportFileGeoJsonConverter.js";
 export class FlightRegistry {
     static TOOL_GET_FLIGHT = "get-aerofly-flight";
     static TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -143,7 +144,7 @@ export class FlightRegistry {
             return McpHelper.returnResultContent(result, warnings);
         });
         server.registerTool(FlightRegistry.TOOL_FETCH_METAR, {
-            title: `Replace weather in flight mission setup with weather / METAR data fetched via API`,
+            title: `Get real-life weather / METAR data and insert it into missio`,
             description: `Will call the Aviation Weather METAR API. Will use the time & date set in flight plan. This day must not be more than two weeks in the past and cannot be in the future. Returns the weather data.`,
             inputSchema: {
                 airportIcaoCode: ZodExtra.identifier().describe(`ICAO code of airport for which to fetch weather / METAR data.`),
@@ -233,6 +234,16 @@ export class FlightRegistry {
             });
             flightService.setFlightPositionToDeparture();
             return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
+        });
+        server.registerTool("get-flightplan-as-geojson", {
+            title: `Get current flightplan as GeoJSON object`,
+            description: `Will return a LineString for the current route, as well as Points for the waypoints.`,
+            annotations: {
+                ...annotations,
+                readOnlyHint: true,
+            },
+        }, () => {
+            return McpHelper.returnResultContent(new ExportFileGeoJsonConverter().convert(flightService.getAeroflyFlight()));
         });
         server.registerTool(FlightRegistry.TOOL_SAVE_FLIGHT, {
             title: `Save the flight mission setup to Aerofly FS 4`,

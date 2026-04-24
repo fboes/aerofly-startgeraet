@@ -15,6 +15,8 @@ export class ResourceRegistry {
     static TOOL_SEARCH_AIRCRAFT = "search-aicraft";
     static TOOL_SEARCH_AIRPORTS = "search-airports";
     static TOOL_SEARCH_NAVAIDS = "search-navaids";
+    static TOOL_SEARCH_FIX = "search-waypoint-fix";
+    static TOOL_GET_AIRPORT_DETAILS = "get-airport-details";
     static registerResources(server, resourceService) {
         server.registerResource("aircraft", this.RESOURCE_AIRCRAFT, {
             description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
@@ -136,9 +138,27 @@ export class ResourceRegistry {
                 },
             ],
         }));
+        server.registerTool(ResourceRegistry.TOOL_GET_AIRPORT_DETAILS, {
+            title: `Get airport details`,
+            description: `Get detailed airport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
+            inputSchema: {
+                icaoCode: z.string().length(4).describe("Airport ICAO code"),
+            },
+            annotations: {
+                ...annotations,
+                openWorldHint: true,
+            },
+        }, async ({ icaoCode }) => ({
+            content: [
+                {
+                    type: "text",
+                    text: McpHelper.JSONstringify(await AviationWeatherApi.fetchAirports([icaoCode])),
+                },
+            ],
+        }));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_NAVAIDS, {
             title: `Search navigational aids`,
-            description: `Search for navigational aids like NDBs and VORs depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, type and frequency.`,
+            description: `Search for navigational aids like NDBs and VORs depending on their geographical location from the Aviation Weather Center API. Will return geographical position, elevation (in meters MSL), identifier, type and frequency.`,
             inputSchema: {
                 geoQuery: ZodExtra.geoQuery(),
             },
@@ -151,6 +171,24 @@ export class ResourceRegistry {
                 {
                     type: "text",
                     text: McpHelper.JSONstringify(await AviationWeatherApi.fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)),
+                },
+            ],
+        }));
+        server.registerTool(ResourceRegistry.TOOL_SEARCH_FIX, {
+            title: `Search waypoints fixes`,
+            description: `Search for waypoints and fixes depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, and type.`,
+            inputSchema: {
+                geoQuery: ZodExtra.geoQuery(),
+            },
+            annotations: {
+                ...annotations,
+                openWorldHint: true,
+            },
+        }, async ({ geoQuery, }) => ({
+            content: [
+                {
+                    type: "text",
+                    text: McpHelper.JSONstringify(await AviationWeatherApi.fetchFixByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)),
                 },
             ],
         }));

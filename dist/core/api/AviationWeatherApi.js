@@ -33,16 +33,14 @@ export class AviationWeatherApi {
             ids: ids.join(","),
             // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
             format: "json",
-        }));
+        })).then((data) => data.map((airport) => AviationWeatherApi.normalizeAirport(airport)));
     }
     static async fetchNavaids(ids) {
         return AviationWeatherApi.doRequest("/api/data/navaid", new URLSearchParams({
             ids: ids.join(","),
             format: "json",
             // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
-        })).then((data) => {
-            return AviationWeatherApi.normalizeNavAid(data);
-        });
+        })).then((data) => data.map((navaid) => AviationWeatherApi.normalizeNavAid(navaid)));
     }
     static async fetchFix(ids) {
         return AviationWeatherApi.doRequest("/api/data/fix", new URLSearchParams({
@@ -63,22 +61,25 @@ export class AviationWeatherApi {
             // ids: ids.join(","),
             format: "json",
             bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
-        })).then((data) => {
-            return AviationWeatherApi.normalizeNavAid(data);
-        });
+        })).then((data) => data.map((navaid) => AviationWeatherApi.normalizeNavAid(navaid)));
     }
-    static normalizeNavAid(data) {
-        return data.map((navaid) => {
-            return {
-                ...navaid,
-                lat: Number(navaid.lat),
-                lon: Number(navaid.lon),
-                elev: Number(navaid.elev),
-                freq: Number(navaid.freq),
-                freq_unit: navaid.type === "NDB" ? "kHz" : "MHz",
-                mag_dec: magDecConverter(navaid.mag_dec),
-            };
-        });
+    static async fetchFixByPosition(longitude, latitude, distance = 1000) {
+        return AviationWeatherApi.doRequest("/api/data/fix", new URLSearchParams({
+            // ids: ids.join(","),
+            format: "json",
+            bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+        }));
+    }
+    static normalizeNavAid(navaid) {
+        return {
+            ...navaid,
+            lat: Number(navaid.lat),
+            lon: Number(navaid.lon),
+            elev: Number(navaid.elev),
+            freq: Number(navaid.freq),
+            freq_unit: navaid.type === "NDB" ? "kHz" : "MHz",
+            mag_dec: magDecConverter(navaid.mag_dec),
+        };
     }
     static async doRequest(route, query) {
         const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
@@ -121,8 +122,10 @@ export class AviationWeatherApi {
                 return char.toUpperCase();
             }),
             magdec: magDecConverter(airport.magdec),
+            services: airport.services === "S",
             tower: airport.tower === "T",
             beacon: airport.beacon === "B",
+            passengers: Number(airport.passengers),
             runways: airport.runways.map((r) => {
                 const idSplit = r.id.split("/");
                 const dimensionSplit = r.dimension.split("x");

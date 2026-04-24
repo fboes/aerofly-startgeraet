@@ -1,6 +1,6 @@
 {
-  "main": "dist/cli/index.js",
-  "output": "sea-prep.blob",
+  "main": "artifacts/cli/index.js",
+  "output": "artifacts/cli/aerofly-startgeraet.blob",
   "mainFormat": "module",
   "disableExperimentalSEAWarning": true
 }

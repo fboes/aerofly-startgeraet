@@ -7,21 +7,7 @@ await describe("AviationWeatherApi", async () => {
         const airports = await AviationWeatherApi.fetchAirports(icaoCodes);
         //console.log(airports);
         assert.strictEqual(airports.length, icaoCodes.length);
-        airports.forEach((airport) => {
-            assert.strictEqual(typeof airport.icaoId, "string", "airport.icaoId");
-            assert.ok(icaoCodes.indexOf(airport.icaoId) > -1);
-            assert.strictEqual(typeof airport.name, "string", "airport.name");
-            assert.strictEqual(typeof airport.type, "string", "airport.type");
-            assert.strictEqual(typeof airport.lat, "number", "airport.lat");
-            assert.strictEqual(typeof airport.lon, "number", "airport.lon");
-            assert.strictEqual(typeof airport.elev, "number", "airport.elev");
-            assert.strictEqual(typeof airport.magdec, "string", "airport.magdec");
-            assert.strictEqual(typeof airport.rwyNum, "string", "airport.rwyNum");
-            assert.strictEqual(typeof airport.tower, "string", "airport.tower");
-            assert.strictEqual(typeof airport.beacon, "string", "airport.beacon");
-            assert.ok(Array.isArray(airport.runways), "airport.runways");
-            assert.ok(Array.isArray(airport.freqs) || typeof airport.freqs === "string", "airport.freqs");
-            const airportNormalized = AviationWeatherApi.normalizeAirport(airport);
+        airports.forEach((airportNormalized) => {
             assert.strictEqual(typeof airportNormalized.icaoId, "string", "airportNormalized.icaoId");
             assert.ok(icaoCodes.indexOf(airportNormalized.icaoId) > -1);
             assert.strictEqual(typeof airportNormalized.name, "string", "airportNormalized.name");

@@ -111,8 +111,10 @@ export type AviationWeatherApiAirport = {
     elev: number;
     magdec: string;
     rwyNum: string;
+    services: "S" | "-" | null;
     tower: "T" | "-" | null;
     beacon: "B" | "-" | null;
+    passengers: string;
     runways: AviationWeatherApiRunway[];
     freqs: AviationWeatherApiFrequency[] | string;
 };
@@ -128,8 +130,10 @@ export type AviationWeatherNormalizedAirport = {
     elev: number;
     magdec: number;
     rwyNum: string;
+    services: boolean;
     tower: boolean;
     beacon: boolean;
+    passengers: number;
     runways: AviationWeatherNormalizedRunway[];
     freqs: AviationWeatherApiFrequency[];
 };
@@ -190,7 +194,7 @@ export declare class AviationWeatherApi {
         distance?: number,
         date?: Date | null,
     ): Promise<AviationWeatherApiMetar[]>;
-    static fetchAirports(ids: string[]): Promise<AviationWeatherApiAirport[]>;
+    static fetchAirports(ids: string[]): Promise<AviationWeatherNormalizedAirport[]>;
     static fetchNavaids(ids: string[]): Promise<AviationWeatherApiNavaid[]>;
     static fetchFix(ids: string[]): Promise<AviationWeatherApiFix[]>;
     /**
@@ -205,6 +209,7 @@ export declare class AviationWeatherApi {
         latitude: number,
         distance?: number,
     ): Promise<AviationWeatherApiNavaid[]>;
+    static fetchFixByPosition(longitude: number, latitude: number, distance?: number): Promise<AviationWeatherApiFix[]>;
     private static normalizeNavAid;
     static doRequest<T>(route: string, query: URLSearchParams): Promise<T>;
     /**
