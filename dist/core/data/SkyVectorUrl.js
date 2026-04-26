@@ -21,7 +21,8 @@ export class SkyVectorUrl {
             zoom: "3",
             fpl: (cruiseSpeed + cruiseAlt + " " + this.getWaypointIdentifiers().join(" ")).trim(),
         });
-        return new URL("?" + parameters.toString(), "https://skyvector.com");
+        // Note: SkyVector does not support "+" for space, but "%20". So we need to replace it with "%20"
+        return new URL("?" + parameters.toString().replace("+", "%20"), "https://skyvector.com");
     }
     /**
      * @returns string like 'https://skyvector.com/?ll=58.64732108,16.32458497&chart=301&zoom=4&fpl=N0122A025%20ESSL%205831N01558E%20ESVE%20ESKN'
