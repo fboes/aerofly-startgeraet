@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { ExportFileAeroflyMainMcfExport } from "../converter/ExportFileAeroflyMainMcfConverter.js";
-import { ExportFileConverter } from "../converter/ExportFileConverter.js";
-import { ExportFileAeroflyCustomMissionsTmcConverter } from "../converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
-import { ExportFileGeoJsonConverter } from "../converter/ExportFileGeoJsonConverter.js";
-import { ExportFileKmlConverter } from "../converter/ExportFileKmlConverter.js";
+import { AeroflyFlightToAeroflyMainMcfConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
+import { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/AeroflyFlightToStringConverter.js";
+import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
+import { AeroflyFlightToGeoJsonConverter } from "../converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
+import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 
 /**
  * Writes a file from an `AeroflyFlight` class instance to an
@@ -18,7 +18,7 @@ export class ExportFileWriter {
         fs.writeFileSync(filename, content, "utf8");
     }
 
-    static getConverter(filename: string): new () => ExportFileConverter {
+    static getConverter(filename: string): new () => AeroflyFlightToStringConverter {
         const fileSuffix = filename.split(".").pop()?.toLowerCase();
         if (!fileSuffix) {
             throw new Error(`Could not determine file type for "${filename}"`);
@@ -33,12 +33,13 @@ export class ExportFileWriter {
         return converter;
     }
 
-    static getRegistry(): Record<string, (new () => ExportFileConverter) | undefined> {
+    static getRegistry(): Record<string, (new () => AeroflyFlightToStringConverter) | undefined> {
         return {
-            [ExportFileAeroflyMainMcfExport.fileExtension]: ExportFileAeroflyMainMcfExport,
-            [ExportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ExportFileAeroflyCustomMissionsTmcConverter,
-            [ExportFileGeoJsonConverter.fileExtension]: ExportFileGeoJsonConverter,
-            [ExportFileKmlConverter.fileExtension]: ExportFileKmlConverter,
+            [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
+            [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]:
+                AeroflyFlightToAeroflyCustomMissionsTmcConverter,
+            [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
+            [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
         };
     }
 }

@@ -1,10 +1,10 @@
 import fs from "node:fs";
-import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
-import { ImportFileGarminFplConverter } from "../converter/ImportFileGarminFplConverter.js";
-import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
-import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
-import { ImportFileAeroflyCustomMissionsTmcConverter } from "../converter/ImportFileAeroflyCustomMissionsTmcConverter.js";
-import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/ImportFileAeroflyCustomMissionsJsonConverter.js";
+import { MsfsPlnToAeroflyFlightConverter } from "../converter/other/MsfsPlnToAeroflyFlightConverter.js";
+import { GarminFplToAeroflyFlightConverter } from "../converter/other/GarminFplToAeroflyFlightConverter.js";
+import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsToAeroflyFlightConverter.js";
+import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
+import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
+import { AeroflyCustomMissionsJsonToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsJsonToAeroflyFlightConverter.js";
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.
@@ -28,9 +28,9 @@ export class ImportFileReader {
      * @param flightplan The AeroflyFlight object to populate with the imported data.
      * @param index If multiple flight plans are present in a given file, select which index to import
      * @throws Will throw an error if the file type is unsupported or if the conversion fails.
-     * @see ImportFileConverter for the interface that specific file handlers must implement.
-     * @see ImportFileMsfs for handling Microsoft Flight Simulator .pln files.
-     * @see ImportFileGarminFplConverter for handling Garmin .fpl files.
+     * @see StringToAeroflyFlightConverter for the interface that specific file handlers must implement.
+     * @see MsfsPlnToAeroflyFlightConverter for handling Microsoft Flight Simulator .pln files.
+     * @see GarminFplToAeroflyFlightConverter for handling Garmin .fpl files.
      */
     static importFile(filename, flightplan, index = 0) {
         const content = fs.readFileSync(filename, "utf8");
@@ -57,12 +57,12 @@ export class ImportFileReader {
     }
     static getRegistry() {
         return {
-            [ImportFileAeroflyCustomMissionsJsonConverter.fileExtension]: ImportFileAeroflyCustomMissionsJsonConverter,
-            [ImportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ImportFileAeroflyCustomMissionsTmcConverter,
-            [ImportFileAeroflyMcfConverter.fileExtension]: ImportFileAeroflyMcfConverter,
-            [ImportFileMsfs.fileExtension]: ImportFileMsfs,
-            [ImportFileGarminFplConverter.fileExtension]: ImportFileGarminFplConverter,
-            [ImportFileXplaneFms.fileExtension]: ImportFileXplaneFms,
+            [AeroflyCustomMissionsJsonToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsJsonToAeroflyFlightConverter,
+            [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,
+            [AeroflyMcfToImportFileConverter.fileExtension]: AeroflyMcfToImportFileConverter,
+            [MsfsPlnToAeroflyFlightConverter.fileExtension]: MsfsPlnToAeroflyFlightConverter,
+            [GarminFplToAeroflyFlightConverter.fileExtension]: GarminFplToAeroflyFlightConverter,
+            [XplaneFmsToAeroflyFlightConverter.fileExtension]: XplaneFmsToAeroflyFlightConverter,
         };
     }
 }

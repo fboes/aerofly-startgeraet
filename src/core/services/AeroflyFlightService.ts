@@ -23,7 +23,7 @@ import { ExportFileWriter } from "../io/ExportFileWriter.js";
 import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
-import { ImportMetarConverter } from "../converter/ImportMetarConverter.js";
+import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflyAirportService } from "./AeroflyAirportService.js";
 
@@ -389,7 +389,7 @@ export class AeroflyFlightService {
     // ----------------------------------------------------------
 
     setWeatherFromMETAR(metar: string): void {
-        const converter = new ImportMetarConverter();
+        const converter = new MetarToAeroflyFlightConverter();
         converter.convert(metar, this.aeroflyFlight);
     }
 

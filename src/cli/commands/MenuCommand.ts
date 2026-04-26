@@ -6,10 +6,10 @@ import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
-import { ExportFileAeroflyMainMcfExport } from "../../core/converter/ExportFileAeroflyMainMcfConverter.js";
-import { ExportFileAeroflyCustomMissionsTmcConverter } from "../../core/converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
-import { ExportFileGeoJsonConverter } from "../../core/converter/ExportFileGeoJsonConverter.js";
-import { ExportFileKmlConverter } from "../../core/converter/ExportFileKmlConverter.js";
+import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
+import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
+import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
+import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -275,19 +275,19 @@ export class MenuCommand extends ControllerCommand {
             choices: [
                 {
                     name: "Aerofly MCF flight plan file",
-                    value: ExportFileAeroflyMainMcfExport.fileExtension,
+                    value: AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
                 },
                 {
                     name: "Aerofly TMC custom user missions file",
-                    value: ExportFileAeroflyCustomMissionsTmcConverter.fileExtension,
+                    value: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
                 },
                 {
                     name: "GeoJSON file",
-                    value: ExportFileGeoJsonConverter.fileExtension,
+                    value: AeroflyFlightToGeoJsonConverter.fileExtension,
                 },
                 {
                     name: "Keyhole Markup Language (KML) file",
-                    value: ExportFileKmlConverter.fileExtension,
+                    value: AeroflyFlightToKmlConverter.fileExtension,
                 },
             ],
         });

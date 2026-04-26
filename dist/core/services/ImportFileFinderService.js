@@ -1,11 +1,11 @@
 import path from "node:path";
 import fs from "node:fs";
-import { ImportFileGarminFplConverter } from "../converter/ImportFileGarminFplConverter.js";
-import { ImportFileMsfs } from "../converter/ImportFileMsfsConverter.js";
-import { ImportFileXplaneFms } from "../converter/ImportFileXplaneFmsConverter.js";
-import { ImportFileAeroflyMcfConverter } from "../converter/ImportFileAeroflyMcfConverter.js";
-import { ImportFileAeroflyCustomMissionsTmcConverter } from "../converter/ImportFileAeroflyCustomMissionsTmcConverter.js";
-import { ImportFileAeroflyCustomMissionsJsonConverter } from "../converter/ImportFileAeroflyCustomMissionsJsonConverter.js";
+import { GarminFplToAeroflyFlightConverter } from "../converter/other/GarminFplToAeroflyFlightConverter.js";
+import { MsfsPlnToAeroflyFlightConverter } from "../converter/other/MsfsPlnToAeroflyFlightConverter.js";
+import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsToAeroflyFlightConverter.js";
+import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
+import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
+import { AeroflyCustomMissionsJsonToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsJsonToAeroflyFlightConverter.js";
 /**
  * Finds local flight plan files
  */
@@ -24,12 +24,12 @@ export class ImportFileFinderService {
             return null;
         }
         const files = fs.readdirSync(importDirectory);
-        const importFiles = files.filter((file) => file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsJsonConverter.fileExtension) ||
-            file.toLowerCase().endsWith(ImportFileAeroflyCustomMissionsTmcConverter.fileExtension) ||
-            file.toLowerCase().endsWith(ImportFileAeroflyMcfConverter.fileExtension) ||
-            file.toLowerCase().endsWith(ImportFileGarminFplConverter.fileExtension) ||
-            file.toLowerCase().endsWith(ImportFileMsfs.fileExtension) ||
-            file.toLowerCase().endsWith(ImportFileXplaneFms.fileExtension));
+        const importFiles = files.filter((file) => file.toLowerCase().endsWith(AeroflyCustomMissionsJsonToAeroflyFlightConverter.fileExtension) ||
+            file.toLowerCase().endsWith(AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension) ||
+            file.toLowerCase().endsWith(AeroflyMcfToImportFileConverter.fileExtension) ||
+            file.toLowerCase().endsWith(GarminFplToAeroflyFlightConverter.fileExtension) ||
+            file.toLowerCase().endsWith(MsfsPlnToAeroflyFlightConverter.fileExtension) ||
+            file.toLowerCase().endsWith(XplaneFmsToAeroflyFlightConverter.fileExtension));
         if (importFiles.length === 0) {
             return null;
         }

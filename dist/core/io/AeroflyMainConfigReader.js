@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { AeroflyFileParser } from "../converter/AeroflyFileParser.js";
-import { AeroflyMainConfigParser } from "../converter/AeroflyMainConfigParser.js";
+import { AeroflyFileParser } from "../converter/parser/AeroflyFileParser.js";
+import { AeroflyMainConfigParser } from "../converter/parser/AeroflyMainConfigParser.js";
 export class AeroflyMainConfigReaderError extends Error {
     code;
     constructor(message, code = "MISSING_SETUP") {

@@ -6,7 +6,7 @@ import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
-import { ExportFileGeoJsonConverter } from "../../core/converter/ExportFileGeoJsonConverter.js";
+import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 export class FlightRegistry {
     static TOOL_GET_FLIGHT = "get-aerofly-flight";
     static TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -243,7 +243,7 @@ export class FlightRegistry {
                 readOnlyHint: true,
             },
         }, () => {
-            return McpHelper.returnResultContent(new ExportFileGeoJsonConverter().convert(flightService.getAeroflyFlight()));
+            return McpHelper.returnResultContent(new AeroflyFlightToGeoJsonConverter().convert(flightService.getAeroflyFlight()));
         });
         server.registerTool(FlightRegistry.TOOL_SAVE_FLIGHT, {
             title: `Save the flight mission setup to Aerofly FS 4`,

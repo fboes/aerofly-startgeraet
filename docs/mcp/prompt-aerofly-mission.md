@@ -24,10 +24,10 @@ Follow this sequence:
    most aligned with the expected wind direction (smallest angle between
    wind direction and runway heading). You perform this calculation yourself.
 
-5. **Build the route** using real navaids and fixes:
-   - Call `search-navaids` and `search-waypoint-fix` near the origin,
-     destination, and along the route to find real VORs, NDBs, and fixes.
-   - Prefer real navaid identifiers over invented waypoint names.
+5. **Build the route** prefering real navaids and fixes:
+   - Call `search-navaids` and `search-waypoint-fix` along the route to find real VORs, NDBs, and fixes.
+   - Prefer real navaid and fix identifiers over invented waypoint names.
+   - Prefix invented waypoint names with "W-".
 
 6. **Set all parameters** in this order:
    1. `set-aircraft-type-and-livery`

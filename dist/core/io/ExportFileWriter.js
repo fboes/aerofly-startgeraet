@@ -1,8 +1,8 @@
 import fs from "node:fs";
-import { ExportFileAeroflyMainMcfExport } from "../converter/ExportFileAeroflyMainMcfConverter.js";
-import { ExportFileAeroflyCustomMissionsTmcConverter } from "../converter/ExportFileAeroflyCustomMissionsTmcConverter.js";
-import { ExportFileGeoJsonConverter } from "../converter/ExportFileGeoJsonConverter.js";
-import { ExportFileKmlConverter } from "../converter/ExportFileKmlConverter.js";
+import { AeroflyFlightToAeroflyMainMcfConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
+import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
+import { AeroflyFlightToGeoJsonConverter } from "../converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
+import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 /**
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.
@@ -27,10 +27,10 @@ export class ExportFileWriter {
     }
     static getRegistry() {
         return {
-            [ExportFileAeroflyMainMcfExport.fileExtension]: ExportFileAeroflyMainMcfExport,
-            [ExportFileAeroflyCustomMissionsTmcConverter.fileExtension]: ExportFileAeroflyCustomMissionsTmcConverter,
-            [ExportFileGeoJsonConverter.fileExtension]: ExportFileGeoJsonConverter,
-            [ExportFileKmlConverter.fileExtension]: ExportFileKmlConverter,
+            [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
+            [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
+            [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
+            [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
         };
     }
 }

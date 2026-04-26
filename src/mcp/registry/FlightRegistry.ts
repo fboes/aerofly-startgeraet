@@ -14,7 +14,7 @@ import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
-import { ExportFileGeoJsonConverter } from "../../core/converter/ExportFileGeoJsonConverter.js";
+import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 
 export class FlightRegistry {
     static readonly TOOL_GET_FLIGHT = "get-aerofly-flight";
@@ -385,7 +385,7 @@ export class FlightRegistry {
             },
             (): CallToolResult => {
                 return McpHelper.returnResultContent(
-                    new ExportFileGeoJsonConverter().convert(flightService.getAeroflyFlight()),
+                    new AeroflyFlightToGeoJsonConverter().convert(flightService.getAeroflyFlight()),
                 );
             },
         );

@@ -2,8 +2,8 @@ import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { Config } from "./Config.js";
 import fs from "node:fs";
 import path from "node:path";
-import { AeroflyFileParser } from "../converter/AeroflyFileParser.js";
-import { AeroflyMainConfigParser } from "../converter/AeroflyMainConfigParser.js";
+import { AeroflyFileParser } from "../converter/parser/AeroflyFileParser.js";
+import { AeroflyMainConfigParser } from "../converter/parser/AeroflyMainConfigParser.js";
 
 export class AeroflyMainConfigReaderError extends Error {
     constructor(
