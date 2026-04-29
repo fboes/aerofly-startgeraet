@@ -31,7 +31,7 @@ export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFli
 
         // Build checkpoints
         const checkpoints = flightplan.navigation.waypoints.map((w) => {
-            return new AeroflyMissionCheckpoint(w.identifier, this.getWaypointType(w), w.longitude, w.latitude);
+            return new AeroflyMissionCheckpoint(w.identifier, w.type, w.longitude, w.latitude);
         });
 
         const mission = new AeroflyMission(this.getFlightplanTitle(flightplan), {

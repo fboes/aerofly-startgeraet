@@ -1,97 +1,306 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Aerofly Startgerät</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <h1>Aerofly Startgerät</h1>
+    <header>
+      <h1>Aerofly Startgerät</h1>
+      <button id="open-dialog-settings" commandfor="dialog-settings" command="show-modal" title="Settings" class="icon">
+        <svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="m7 0-0.55273 2.209a6 6 0 0 0-1.4531 0.59961l-1.9746-1.1855-1.4141 1.4141 1.1895 1.9824a6 6 0 0 0-0.58594 1.4277l-2.209 0.55273v2l2.209 0.55273a6 6 0 0 0 0.57812 1.4141l-1.1816 1.9707 1.4141 1.4141 1.9551-1.1719a6 6 0 0 0 1.4727 0.61133l0.55273 2.209h2l0.55273-2.209a6 6 0 0 0 1.4434-0.59375l1.9238 1.1543 1.4141-1.4141-1.1504-1.918a6 6 0 0 0 0.60742-1.4668l2.209-0.55273v-2l-2.209-0.55273a6 6 0 0 0-0.61523-1.4785l1.1582-1.9316-1.4141-1.4141-1.9473 1.168a6 6 0 0 0-1.4199-0.58203l-0.55273-2.209zm1 5a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3z"
+            fill-rule="evenodd"
+            stroke-width="1.2"
+          ></path>
+        </svg>
+      </button>
+    </header>
+
+    <dialog id="dialog-settings" closedby="any">
+      <h2>Settings</h2>
+
+      <label><code>main.mcf</code> file path</label>
+      <input type="text" />
+
+      <label>SimBrief username</label>
+      <input type="text" />
+
+      <button commandfor="dialog-settings" command="close" title="Close">✕</button>
+    </dialog>
 
     <main>
-      <h2>Aircraft</h2>
+      <details open>
+        <summary><h2>Aircraft</h2></summary>
 
-      <section>
-        <h3>Aircraft</h3>
-        <div>
-          <label>Aircraft</label>
-          <select>
-            <option>Cessna 172</option>
-          </select>
+        <div class="d-flex">
+          <section>
+            <h3>✈️ Aircraft</h3>
+
+            <div class="d-flex">
+              <div>
+                <label for="aircraft-name">Aircraft</label>
+                <select id="aircraft-name">
+                  <option>Cessna 172</option>
+                </select>
+              </div>
+              <div>
+                <label for="aircraft-paintscheme">Livery</label>
+                <select id="aircraft-paintscheme">
+                  <option>default</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="flex-grow-2">
+            <h3>⛽ Fuel / payload</h3>
+            <div class="d-flex">
+              <div>
+                <label for="fuelloadsetting-fuelmass">Fuel</label>
+                <span class="d-flex"
+                  ><input id="fuelloadsetting-fuelmass" type="number" value="50" min="0" /> <span>kg</span></span
+                >
+              </div>
+              <div>
+                <label for="fuelloadsetting-payloadmass">Payload</label>
+                <span class="d-flex"
+                  ><input id="fuelloadsetting-payloadmass" type="number" value="80" min="0" /> <span>kg</span></span
+                >
+              </div>
+            </div>
+          </section>
         </div>
-        <div>
-          <label>Livery</label>
-          <select>
-            <option>default</option>
-          </select>
+      </details>
+
+      <details open>
+        <summary><h2>Flight plan</h2></summary>
+
+        <div class="d-flex">
+          <section class="flex-grow-2">
+            <h3>🛫 Flight plan</h3>
+            <div class="d-flex">
+              <div>
+                <label for="flightplan-route">Route</label>
+                <button
+                  title="Import / export"
+                  id="flightplan-route"
+                  commandfor="dialog-flightplan"
+                  command="show-modal"
+                >
+                  KEYW → MTH → KMIA
+                </button>
+              </div>
+              <div>
+                <label for="flightplan-distance">Distance</label> <output id="flightplan-distance">120NM</output>
+              </div>
+              <div><label for="flightplan-time">Flight time</label> <output id="flightplan-time">0:30h</output></div>
+            </div>
+          </section>
+
+          <dialog id="dialog-flightplan" closedby="any">
+            <h3>Flight plan import / export</h3>
+            <div class="d-flex flex-grow-3">
+              <button id="import-file">Import flight plan from file</button>
+              <button id="import-simbrief">Import flight plan from SimBrief</button>
+              <button id="export-file">Export flight plan to file</button>
+              <button disabled id="mission-generator">Mission generator</button>
+            </div>
+            <button commandfor="dialog-flightplan" command="close" title="Close">✕</button>
+          </dialog>
+
+          <section class="flex-grow-2">
+            <h3>⏰ Time &amp; date</h3>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">UTC</th>
+                  <td><input id="date-utc" title="Date (UTC)" type="date" value="2026-04-27" /></td>
+                  <td><input id="time-utc" title="Time (UTC)" type="time" value="23:12" /></td>
+                  <td rowspan="2">
+                    <button id="synchronize-time" class="w-100" title="Use current time &amp; date">Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    Local (<span id="timezone-local" data-value="-4" title="Nautical time">-4</span>)<sup></sup>
+                  </th>
+                  <td><input id="date-local" title="Date (Local)" type="date" value="2026-04-28" /></td>
+                  <td><input id="time-local" title="Time (Local)" type="time" value="01:12" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
         </div>
-      </section>
+      </details>
 
-      <section>
-        <h3>Fuel / payload</h3>
-        <div>Fuel <input type="range" /><output>80kg</output></div>
-        <div>Payload <input type="range" /><output>50kg</output></div>
-      </section>
+      <details open>
+        <summary><h2>Weather</h2></summary>
 
-      <h2>Flight plan</h2>
+        <div class="d-flex">
+          <section>
+            <h3>⛅ METAR import</h3>
+            <div class="d-flex">
+              <button id="import-weather">Import weather for <span id="">KEYW</span></button>
+              <button id="import-weather">Import weather for <span id="">KMIA</span></button>
+            </div>
+          </section>
 
-      <section>
-        <h3>Flight plan</h3>
-        <div>Waypoints <output>KEYW → MTH → KMIA</output></div>
-        <div>Distance <output>120NM</output></div>
-        <div>Flight time <output>0:30h</output></div>
+          <section class="flex-grow-3">
+            <h3>🧭 Wind</h3>
+            <div class="d-flex">
+              <div>
+                <label for="wind-speed">Wind speed</label>
+                <span class="d-flex"><input id="wind-speed" type="number" min="0" value="5" /> <span>kts</span></span>
+              </div>
+              <div class="inactive">
+                <label for="wind-gust">Wind gusts</label>
+                <span class="d-flex"><input id="wind-gust" type="number" min="0" value="0" /> <span>kts</span></span>
+              </div>
+              <div>
+                <label for="wind-direction">Wind direction</label>
+                <span class="d-flex"
+                  ><input id="wind-direction" type="number" min="-1" max="360" value="241" /> <span>°</span></span
+                >
+              </div>
+            </div>
+          </section>
 
-        <!-- Import -->
-        <!-- Export -->
-      </section>
+          <section>
+            <h3>🌡️ Temperature</h3>
+            <div class="d-flex">
+              <div>
+                <label for="temperature-celsius">Temperature °C</label>
+                <span class="d-flex"><input id="temperature-celsius" type="number" value="14" /> <span>°C</span></span>
+              </div>
+              <div>
+                <label for="temperature-fahrenheit">Temperature °F</label>
+                <span class="d-flex">
+                  <input id="temperature-fahrenheit" type="number" value="57" /> <span>°F</span></span
+                >
+              </div>
+            </div>
+          </section>
 
-      <section>
-        <h3>Time &amp; date</h3>
+          <section>
+            <h3>🌁 Visbility</h3>
+            <div class="d-flex">
+              <div>
+                <label for="visibility-sm">Visibility SM</label>
+                <span class="d-flex"
+                  ><input id="visibility-sm" type="number" min="0" step="0.25" value="10" /> <span>SM</span></span
+                >
+              </div>
+              <div>
+                <label for="visibility-meters">Visibility m</label>
+                <span class="d-flex"
+                  ><input id="visibility-meters" type="number" min="0" step="100" value="9999" /> <span>m</span></span
+                >
+              </div>
+            </div>
+          </section>
 
-        <div>Date (UTC) <input type="date" /><output>2026-04-31 (local)</output></div>
-        <div>Time (UTC) <input type="time" /><output>23:12 (local)</output></div>
-
-        <!-- Sync -->
-      </section>
-
-      <h2>Weather</h2>
-
-      <section>
-        <h3>Wind</h3>
-        <div>Wind speed <input type="range" /><output>5 kts</output></div>
-        <div>Wind gusts <input type="range" /><output>0 kts</output></div>
-        <div>Wind direction <input type="range" /><output>241°</output></div>
-      </section>
-
-      <section>
-        <h3>Temperature</h3>
-        <div>Temperature <input type="range" /><output>21°C / 140°F</output></div>
-      </section>
-
-      <section>
-        <h3>Clouds</h3>
-        <div>Base <input type="range" /><output>1,000ft</output></div>
-        <div>Coverage <input type="range" /><output>80% / OVC</output></div>
-      </section>
-
-      <section>
-        <h3>Clouds</h3>
-        <div>Base <input type="range" /><output>2,000ft</output></div>
-        <div>Coverage <input type="range" /><output>80% / OVC</output></div>
-      </section>
-
-      <section>
-        <h3>Clouds</h3>
-        <div>Base <input type="range" /><output>5,000ft</output></div>
-        <div>Coverage <input type="range" /><output>0% / CLR</output></div>
-      </section>
-
-      <section>
-        <h3>Visbility</h3>
-        <div><label>Visibility</label> <input type="range" /> <output>9,999m / 10SM</output></div>
-      </section>
+          <section>
+            <h3>☁️ Clouds</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Base</th>
+                  <th>Cover</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <span class="d-flex"
+                      ><input id="clouds-0-base" title="Cloud base" type="number" step="100" value="1000" min="0" />
+                      <span>ft</span></span
+                    >
+                  </td>
+                  <td>
+                    <select id="clouds-0-coverage" title="Cloud coverage">
+                      <option value="0">0/8 - Clear</option>
+                      <option>1/8 - Few</option>
+                      <option>2/8 - Few</option>
+                      <option selected>3/8 - Scattered</option>
+                      <option>4/8 - Scattered</option>
+                      <option>5/8 - Broken</option>
+                      <option>6/8 - Broken</option>
+                      <option>7/8 - Broken</option>
+                      <option>8/8 - Overcast</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>
+                    <span class="d-flex"
+                      ><input id="clouds-1-base" title="Cloud base" type="number" step="100" value="5000" min="0" />
+                      <span>ft</span></span
+                    >
+                  </td>
+                  <td>
+                    <select id="clouds-1-coverage" title="Cloud coverage">
+                      <option value="0">0/8 - Clear</option>
+                      <option>1/8 - Few</option>
+                      <option selected>2/8 - Few</option>
+                      <option>3/8 - Scattered</option>
+                      <option>4/8 - Scattered</option>
+                      <option>5/8 - Broken</option>
+                      <option>6/8 - Broken</option>
+                      <option>7/8 - Broken</option>
+                      <option>8/8 - Overcast</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="inactive">
+                  <th scope="row">3</th>
+                  <td>
+                    <span class="d-flex"
+                      ><input id="clouds-2-base" title="Cloud base" type="number" step="100" value="10000" min="0" />
+                      <span>ft</span></span
+                    >
+                  </td>
+                  <td>
+                    <select id="clouds-2-coverage" title="Cloud coverage">
+                      <option value="0">0/8 - Clear</option>
+                      <option>1/8 - Few</option>
+                      <option>2/8 - Few</option>
+                      <option>3/8 - Scattered</option>
+                      <option>4/8 - Scattered</option>
+                      <option>5/8 - Broken</option>
+                      <option>6/8 - Broken</option>
+                      <option>7/8 - Broken</option>
+                      <option>8/8 - Overcast</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </details>
     </main>
 
-    <!--script src="app.js"></script-->
+    <footer>
+      <span id="application-name">Aerofly Startgerät</span> <span id="application-version">1.15.0</span> &middot;
+      <a href="https://github.com/fboes/aerofly-startgeraet">GitHub</a> &middot; &copy; 2026
+    </footer>
+
+    <script src="script.js"></script>
   </body>
 </html>

@@ -9,6 +9,7 @@
     "test:watch": "node --test --watch 'dist/**/*.test.js'",
     "test:mcp": "npx @modelcontextprotocol/inspector node ./dist/mcp/index.js",
     "start": "node ./dist/cli/index.js",
+    "start:gui": "electron .",
     "start:mcp": "node ./dist/mcp/index.js",
     "prettier": "npx prettier --cache --write .",
     "eslint": "npx eslint src --fix",

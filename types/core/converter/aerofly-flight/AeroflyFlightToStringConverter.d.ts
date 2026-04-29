@@ -4,10 +4,12 @@ export type ExportFileConverterWaypointType = "airport" | "runway" | "navaid" | 
 export declare abstract class AeroflyFlightToStringConverter {
     abstract convert(flightplan: AeroflyFlight): string;
     getFlightplanTitle(flightplan: AeroflyFlight): string;
+    /**
+     *
+     * @param {AeroflyNavRouteBase} wp Waypoint to get altitude / elevation from
+     * @returns {number | null} altitude / elevation in meters
+     */
     protected getWaypointAltitude(wp: AeroflyNavRouteBase): number | null;
     protected getWaypointSimplifiedType(wp: AeroflyNavRouteBase): ExportFileConverterWaypointType;
-    protected getWaypointType(
-        wp: AeroflyNavRouteBase,
-    ): import("@fboes/aerofly-custom-missions/types/dto/AeroflyMissionCheckpoint.js").AeroflyMissionCheckpointType;
 }
 //# sourceMappingURL=AeroflyFlightToStringConverter.d.ts.map

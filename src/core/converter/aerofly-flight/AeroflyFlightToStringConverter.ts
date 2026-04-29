@@ -19,6 +19,11 @@ export abstract class AeroflyFlightToStringConverter {
         return `Flightplan ${flightplan.navigation.waypoints.at(0)?.identifier ?? "???"} → ${flightplan.navigation.waypoints.at(-1)?.identifier ?? "???"}`;
     }
 
+    /**
+     *
+     * @param {AeroflyNavRouteBase} wp Waypoint to get altitude / elevation from
+     * @returns {number | null} altitude / elevation in meters
+     */
     protected getWaypointAltitude(wp: AeroflyNavRouteBase): number | null {
         if (wp instanceof AeroflyNavRouteWaypoint) {
             return wp.altitude;
@@ -43,23 +48,6 @@ export abstract class AeroflyFlightToStringConverter {
                 return "runway";
             default:
                 return wp instanceof AeroflyNavRouteWaypoint && wp.navaidFrequency ? "navaid" : "waypoint";
-        }
-    }
-
-    protected getWaypointType(
-        wp: AeroflyNavRouteBase,
-    ): import("@fboes/aerofly-custom-missions/types/dto/AeroflyMissionCheckpoint.js").AeroflyMissionCheckpointType {
-        switch (wp.constructor) {
-            case AeroflyNavRouteOrigin:
-                return "origin";
-            case AeroflyNavRouteDestination:
-                return "destination";
-            case AeroflyNavRouteDepartureRunway:
-                return "departure_runway";
-            case AeroflyNavRouteDestinationRunway:
-                return "destination_runway";
-            default:
-                return "waypoint";
         }
     }
 }
