@@ -1,18 +1,18 @@
 const makeInactiveOnZero = (el) => {
     el.closest("tr, div")?.classList?.toggle("inactive", el.value === "" || el.value === "0");
 };
-document.querySelectorAll("#clouds-0-coverage, #clouds-1-coverage, #clouds-2-coverage, #wind-gust").forEach((e) => {
-    e.addEventListener("input", (ev) => {
-        makeInactiveOnZero(ev.currentTarget);
+document
+    .querySelectorAll("#clouds-0-coverage, #clouds-1-coverage, #clouds-2-coverage, #wind-gust")
+    .forEach((e) => {
+    e.addEventListener("input", () => {
+        makeInactiveOnZero(e);
     });
     makeInactiveOnZero(e);
 });
-
 // -----------------------------------------------------------------------------
-
 const temperatureFahrenheit = document.getElementById("temperature-fahrenheit");
 const temperatureCelsius = document.getElementById("temperature-celsius");
-if (temperatureFahrenheit && temperatureCelsius) {
+if (temperatureFahrenheit instanceof HTMLInputElement && temperatureCelsius instanceof HTMLInputElement) {
     temperatureFahrenheit.addEventListener("input", () => {
         temperatureCelsius.valueAsNumber = Math.round((temperatureFahrenheit.valueAsNumber - 32) * (5 / 9));
     });
@@ -21,12 +21,10 @@ if (temperatureFahrenheit && temperatureCelsius) {
     });
     temperatureFahrenheit.valueAsNumber = Math.round(temperatureCelsius.valueAsNumber * 1.8 + 32);
 }
-
 // -----------------------------------------------------------------------------
-
 const visibilitySm = document.getElementById("visibility-sm");
 const visibilityMeters = document.getElementById("visibility-meters");
-if (visibilitySm && visibilityMeters) {
+if (visibilitySm instanceof HTMLInputElement && visibilityMeters instanceof HTMLInputElement) {
     visibilitySm.addEventListener("input", () => {
         visibilityMeters.valueAsNumber = Math.round((visibilitySm.valueAsNumber * 1609.344) / 100) * 100;
     });
@@ -36,47 +34,46 @@ if (visibilitySm && visibilityMeters) {
                 ? 10
                 : Math.round(visibilityMeters.valueAsNumber / 1609.344 / 0.25) * 0.25;
     });
-
     visibilitySm.valueAsNumber =
         visibilityMeters.valueAsNumber === 9999
             ? 10
             : Math.round(visibilityMeters.valueAsNumber / 1609.344 / 0.25) * 0.25;
 }
-
 // -----------------------------------------------------------------------------
-
 const windDirection = document.getElementById("wind-direction");
-windDirection?.addEventListener("input", () => {
-    windDirection.valueAsNumber = (windDirection.valueAsNumber + 360) % 360;
-});
-
+if (windDirection instanceof HTMLInputElement) {
+    windDirection.addEventListener("input", () => {
+        windDirection.valueAsNumber = (windDirection.valueAsNumber + 360) % 360;
+    });
+}
 // -----------------------------------------------------------------------------
-const elements = {
-    dateUtc: document.getElementById("date-utc"),
-    timeUtc: document.getElementById("time-utc"),
-    dateLocal: document.getElementById("date-local"),
-    timeLocal: document.getElementById("time-local"),
-    timeZoneLocal: document.getElementById("timezone-local"),
-};
-if (elements.dateUtc && elements.timeUtc && elements.dateLocal && elements.timeLocal && elements.timeZoneLocal) {
+const dateUtc = document.getElementById("date-utc");
+const timeUtc = document.getElementById("time-utc");
+const dateLocal = document.getElementById("date-local");
+const timeLocal = document.getElementById("time-local");
+const timeZoneLocal = document.getElementById("timezone-local");
+if (dateUtc instanceof HTMLInputElement &&
+    timeUtc instanceof HTMLInputElement &&
+    dateLocal instanceof HTMLInputElement &&
+    timeLocal instanceof HTMLInputElement &&
+    timeZoneLocal instanceof HTMLElement) {
     const pad = (t) => String(t).padStart(2, "0");
     const utcToLocal = () => {
-        const d = new Date(elements.dateUtc.value + "T" + elements.timeUtc.value + "Z");
-        d.setUTCHours(d.getUTCHours() + Number(elements.timeZoneLocal.dataset.value || "0"));
-        elements.timeLocal.value = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
-        elements.dateLocal.value =
+        const d = new Date(dateUtc.value + "T" + timeUtc.value + "Z");
+        d.setUTCHours(d.getUTCHours() + Number(timeZoneLocal.dataset.value ?? "0"));
+        timeLocal.value = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
+        dateLocal.value =
             d.getFullYear().toString() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
     };
     const localToUtc = () => {
-        const d = new Date(elements.dateLocal.value + "T" + elements.timeLocal.value + "Z");
-        d.setUTCHours(d.getUTCHours() - Number(elements.timeZoneLocal.dataset.value || "0"));
-        elements.timeUtc.value = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
-        elements.dateUtc.value =
+        const d = new Date(dateLocal.value + "T" + timeLocal.value + "Z");
+        d.setUTCHours(d.getUTCHours() - Number(timeZoneLocal.dataset.value ?? "0"));
+        timeUtc.value = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
+        dateUtc.value =
             d.getFullYear().toString() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
     };
-
-    [elements.dateUtc, elements.timeUtc].forEach((e) => e.addEventListener("input", utcToLocal));
-    [elements.dateLocal, elements.timeLocal].forEach((e) => e.addEventListener("input", localToUtc));
-
+    [dateUtc, timeUtc].forEach((e) => e.addEventListener("input", utcToLocal));
+    [dateLocal, timeLocal].forEach((e) => e.addEventListener("input", localToUtc));
     utcToLocal();
 }
+export {};
