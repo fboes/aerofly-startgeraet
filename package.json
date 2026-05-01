@@ -16,7 +16,7 @@
     "tsc": "npx tsc --build",
     "tsc-watch": "npx tsc --watch",
     "fix-access-rights": "find src -type d -name \"@eaDir\" -prune -o -exec chmod 0755 {} \\; && find src -type f -exec chmod 0644 {} \\; && find docs -type f -exec chmod 0644 {} \\; && find assets -type f -exec chmod 0644 {} \\; && find src -type f -name \"index.ts\" -exec chmod 0755 {} \\;",
-    "build": "npm run eslint && npm run fix-access-rights && npm run tsc && npm run prettier && cp src/gui/app/*.{html,css} dist/gui/app/",
+    "build": "npm run eslint && npm run fix-access-rights && npm run tsc && npm run prettier",
     "build:cli:linux": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-linux-x64 --outfile artifacts/cli/aerofly-startgeraet-linux",
     "build:cli:macos": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-x64 --outfile artifacts/cli/aerofly-startgeraet-macos-x64",
     "build:cli:macos-arm64": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-arm64 --outfile artifacts/cli/aerofly-startgeraet-macos-arm64",

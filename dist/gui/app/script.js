@@ -62,15 +62,13 @@ if (dateUtc instanceof HTMLInputElement &&
         const d = new Date(dateUtc.value + "T" + timeUtc.value + "Z");
         d.setUTCHours(d.getUTCHours() + Number(timeZoneLocal.dataset.value ?? "0"));
         timeLocal.value = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
-        dateLocal.value =
-            d.getFullYear().toString() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
+        dateLocal.value = d.getFullYear().toString() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
     };
     const localToUtc = () => {
         const d = new Date(dateLocal.value + "T" + timeLocal.value + "Z");
         d.setUTCHours(d.getUTCHours() - Number(timeZoneLocal.dataset.value ?? "0"));
         timeUtc.value = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
-        dateUtc.value =
-            d.getFullYear().toString() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
+        dateUtc.value = d.getFullYear().toString() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
     };
     [dateUtc, timeUtc].forEach((e) => e.addEventListener("input", utcToLocal));
     [dateLocal, timeLocal].forEach((e) => e.addEventListener("input", localToUtc));

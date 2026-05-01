@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.5.0] - 2026-05-01
 
 - Removed community-developed airports from base airport set
 - Improved creation of flight plans
