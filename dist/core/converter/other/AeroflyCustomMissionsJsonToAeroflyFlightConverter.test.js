@@ -6,7 +6,7 @@ import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
 import { AeroflyCustomMissionsJsonToAeroflyFlightConverter } from "./AeroflyCustomMissionsJsonToAeroflyFlightConverter.js";
 describe("AeroflyCustomMissionsJsonToAeroflyFlightConverter", () => {
     it("should find multiple flight plans in a .aerofly.json file", () => {
-        const content = fs.readFileSync(path.join(import.meta.dirname, "../../..", "src/test/fixtures", "matthias-rust.aerofly.json"), "utf-8");
+        const content = fs.readFileSync(path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "matthias-rust.aerofly.json"), "utf-8");
         const converter = new AeroflyCustomMissionsJsonToAeroflyFlightConverter();
         const indices = converter.getIndices(content);
         assert.strictEqual(1, indices.length);
@@ -14,7 +14,7 @@ describe("AeroflyCustomMissionsJsonToAeroflyFlightConverter", () => {
     });
     it("should convert .aerofly.json files into AeroflyFlight classes", () => {
         const flight = new AeroflyFlightFallback();
-        const content = fs.readFileSync(path.join(import.meta.dirname, "../../..", "src/test/fixtures", "matthias-rust.aerofly.json"), "utf-8");
+        const content = fs.readFileSync(path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "matthias-rust.aerofly.json"), "utf-8");
         const converter = new AeroflyCustomMissionsJsonToAeroflyFlightConverter();
         converter.convert(content, flight);
         assert.strictEqual(flight.aircraft.name, "c172");

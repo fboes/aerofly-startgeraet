@@ -8,7 +8,7 @@ import { GarminFplToAeroflyFlightConverter } from "./GarminFplToAeroflyFlightCon
 describe("GarminFplToAeroflyFlightConverter", () => {
     it("should find multiple flight plans in a Garmin FPL file", () => {
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "KBLI.fpl"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "KBLI.fpl"),
             "utf-8",
         );
 
@@ -23,7 +23,7 @@ describe("GarminFplToAeroflyFlightConverter", () => {
         const flight = new AeroflyFlightFallback();
 
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "KBLI.fpl"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "KBLI.fpl"),
             "utf-8",
         );
 
@@ -37,7 +37,7 @@ describe("GarminFplToAeroflyFlightConverter", () => {
         const flight = new AeroflyFlightFallback();
 
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "KBLI.fpl"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "KBLI.fpl"),
             "utf-8",
         );
 

@@ -7,7 +7,7 @@ import { AeroflyCustomMissionsParser } from "./AeroflyCustomMissionsParser.js";
 describe("AeroflyCustomMissionsParser", () => {
     it("should find multiple missions from TMC files", () => {
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "mach_loop.tmc"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "mach_loop.tmc"),
             "utf-8",
         );
 
@@ -20,7 +20,7 @@ describe("AeroflyCustomMissionsParser", () => {
 
     it("should convert TMC files into AeroflyFlight classes", () => {
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "custom_missions_user.tmc"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "custom_missions_user.tmc"),
             "utf-8",
         );
 

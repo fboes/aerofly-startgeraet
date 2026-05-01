@@ -8,7 +8,7 @@ import { AeroflyCustomMissionsJsonToAeroflyFlightConverter } from "./AeroflyCust
 describe("AeroflyCustomMissionsJsonToAeroflyFlightConverter", () => {
     it("should find multiple flight plans in a .aerofly.json file", () => {
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "matthias-rust.aerofly.json"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "matthias-rust.aerofly.json"),
             "utf-8",
         );
 
@@ -23,7 +23,7 @@ describe("AeroflyCustomMissionsJsonToAeroflyFlightConverter", () => {
         const flight = new AeroflyFlightFallback();
 
         const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../..", "src/test/fixtures", "matthias-rust.aerofly.json"),
+            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "matthias-rust.aerofly.json"),
             "utf-8",
         );
 
