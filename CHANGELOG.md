@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.1] - 2026-05-01
+
+- Fixing CLI toold deployment
+
 ## [1.5.0] - 2026-05-01
 
 - Removed community-developed airports from base airport set

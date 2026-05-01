@@ -1,11 +1,5 @@
-# .github/workflows/build.yml
-name: Build Executables
-
 on:
-  push:
-    tags:
-      - "v*"
-  workflow_dispatch:
+  workflow_call: # Called via release.yml
 
 jobs:
   build:
@@ -31,5 +25,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: executables
+          name: cli-artifact
           path: artifacts/cli/
