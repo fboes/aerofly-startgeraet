@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "aerofly-startgeraet",
   "display_name": "Aerofly Startgerät",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Flight plan and mission generator for Aerofly FS 4.",
   "long_description": "Flight plan and mission generator for Aerofly FS 4. This MCP server provides functionality to get the current state of the Aerofly FS 4 main configuration file `main.mcf`, adds tools to change these settings, and provides data sources for airports, aircraft and aircraft liveries.",
   "author": {
@@ -49,13 +49,21 @@
     "entry_point": "./dist/mcp/index.js",
     "mcp_config": {
       "command": "node",
-      "args": ["${__dirname}/dist/mcp/index.js"],
+      "args": [
+        "${__dirname}/dist/mcp/index.js"
+      ],
       "env": {
         "AEROFLY_USER_DIRECTORY": "${user_config.aerofly_user_directory}",
         "SIMBRIEF_USERNAME": "${user_config.simbrief_username}"
       }
     }
   },
-  "keywords": ["aerofly", "aerofly-fs4", "flightplan", "mission", "flight simulator"],
+  "keywords": [
+    "aerofly",
+    "aerofly-fs4",
+    "flightplan",
+    "mission",
+    "flight simulator"
+  ],
   "license": "MIT"
 }
