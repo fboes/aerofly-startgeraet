@@ -23,11 +23,10 @@
     <dialog id="dialog-settings" closedby="any">
       <h2>Settings</h2>
 
-      <label for="settings-mainpath"><code>main.mcf</code> file path</label>
-      <input id="settings-mainpath" type="text" />
-
-      <label for="settings-simbriefusername">SimBrief username</label>
-      <input id="settings-simbriefusername" type="text" />
+      <section>
+        <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
+        <input id="settings-mainmcffilepath" type="text" required />
+      </section>
 
       <button commandfor="dialog-settings" command="close" title="Close">✕</button>
     </dialog>
@@ -56,7 +55,7 @@
             </div>
           </section>
 
-          <section class="flex-grow-2">
+          <section>
             <h3>⛽ Fuel / payload</h3>
             <div class="d-flex">
               <div>
@@ -80,7 +79,7 @@
         <summary><h2>Flight plan</h2></summary>
 
         <div class="d-flex">
-          <section class="flex-grow-2">
+          <section>
             <h3>🛫 Flight plan</h3>
             <div class="d-flex">
               <div>
@@ -102,7 +101,59 @@
           </section>
 
           <dialog id="dialog-flightplan" closedby="any">
-            <h3>Flight plan import / export</h3>
+            <h3>Flight plan import</h3>
+
+            <div class="d-flex">
+              <section>
+                <label for="import-file">Import flight plan from file</label>
+                <input
+                  id="import-file"
+                  type="file"
+                  accept=".mcf,.tmc,.fpl,.pln,.fms,.json,.gpx,.geojson,.cup"
+                  class="w-100"
+                />
+              </section>
+              <section class="d-flex">
+                <div>
+                  <label for="settings-simbriefusername">SimBrief username</label>
+                  <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" />
+                </div>
+                <button id="import-simbrief">Import flight plan from SimBrief</button>
+              </section>
+              <section class="d-flex inactive">
+                <div>
+                  <label for="mission-generatortype">Mission generator: Type</label>
+                  <select disabled>
+                    <option>Landing pattern</option>
+                    <option>Holding pattern</option>
+                    <option>Helicopter Emergency Medical Services</option>
+                  </select>
+                </div>
+                <button disabled id="mission-generator">Mission generator</button>
+              </section>
+            </div>
+
+            <h3>Flight plan export</h3>
+            <div class="d-flex">
+              <section class="d-flex">
+                <div>
+                  <label for="export-filetype">Export file type</label>
+                  <select id="export-filetype">
+                    <option value="mcf">Aerofly MCF flight plan file</option>
+                    <option value="tmc">Aerofly TMC custom user missions file</option>
+                    <option value="geojson">GeoJSON file</option>
+                    <option value="kml">Keyhole Markup Language (KML) file</option>
+                  </select>
+                </div>
+                <button id="export-file">Export flight plan to file</button>
+              </section>
+            </div>
+
+            <button commandfor="dialog-flightplan" command="close" title="Close">✕</button>
+          </dialog>
+
+          <dialog id="dialog-import-simbrief" closedby="any">
+            <h3>Import flight plan from SimBrief</h3>
             <div class="d-flex flex-grow-3">
               <button id="import-file">Import flight plan from file</button>
               <button id="import-simbrief">Import flight plan from SimBrief</button>
@@ -158,7 +209,7 @@
             </div>
           </section>
 
-          <section class="flex-grow-3">
+          <section class="flex-grow-2">
             <h3>🧭 Wind</h3>
             <div class="d-flex">
               <div>
@@ -212,7 +263,7 @@
             </div>
           </section>
 
-          <section>
+          <section class="flex-grow-2">
             <h3>☁️ Clouds</h3>
             <table>
               <thead>

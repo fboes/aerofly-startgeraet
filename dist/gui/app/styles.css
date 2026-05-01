@@ -17,6 +17,7 @@
     --fontweight-normal: 400;
     --fontweight-bold: 600;
     --fontsize-small: 0.66rem;
+    --border-standard: 1px solid var(--color-darken);
 }
 
 * {
@@ -37,28 +38,37 @@ body {
     height: 100%;
 }
 
-header,
-footer {
+header {
+    padding: 0 1rem;
     text-align: center;
+}
+
+main {
+    padding: 0 1rem;
 }
 
 footer {
     font-size: var(--fontsize-small);
-}
-
-main {
+    text-align: center;
     padding: 1rem;
 }
 
 /* ----- General ------------------------------------------------------------ */
 
-h2,
-h3 {
-    margin-bottom: 0.25rem;
+h1 {
+    font-size: 1.5rem;
+    font-weight: var(--fontweight-normal);
+    font-family: var(--fontfamily-secondary);
 }
 
+h2,
 h3 {
     font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+
+    * + & {
+        margin-top: 1rem;
+    }
 }
 
 a {
@@ -73,16 +83,31 @@ svg {
     fill: currentColor;
 }
 
+.hr + .hr {
+    margin-top: 1rem;
+    border-top: var(--border-standard);
+    padding-top: 1rem;
+}
+
 /* ----- Structure ---------------------------------------------------------- */
 
 section {
     background-color: var(--color-lighten);
-    border: 1px solid var(--color-darken);
+    border: var(--border-standard);
     padding: 0.5rem;
     border-radius: 0.25rem;
 }
 
 details {
+    summary {
+        font-family: var(--fontfamily-secondary);
+
+        h2 {
+            font-size: 1rem;
+            font-weight: var(--fontweight-normal);
+        }
+    }
+
     + details {
         margin-top: 1rem;
     }
@@ -116,22 +141,35 @@ input {
     font: inherit;
     border: none;
     background: none;
+    accent-color: var(--color-highlight);
+    width: 100%;
 
     + label {
         margin-top: 1rem;
     }
 }
 
-button {
-    padding: 0.5rem;
+input {
+    &[type="number"] {
+        max-width: 4.5rem;
+    }
+
+    &[type="date"],
+    &[type="time"] {
+        width: auto;
+    }
+}
+
+button,
+::file-selector-button {
+    font-size: 0.8rem;
+    color: var(--color-text);
     display: inline-block;
     background-color: var(--color-darken);
-    border: 1px solid var(--color-darken);
-    color: var(--color-text);
+    border: var(--border-standard);
+    border-radius: 0.25rem;
     cursor: pointer;
     padding: 0.25rem;
-    border-radius: 0.25rem;
-    accent-color: var(--color-highlight);
 
     &.primary {
         background-color: var(--color-highlight);
@@ -149,8 +187,8 @@ button {
     }
 }
 
-input[type="number"] {
-    max-width: 4.5rem;
+::file-selector-button {
+    margin-bottom: 0.1rem;
 }
 
 .inactive,
@@ -193,7 +231,7 @@ table {
     tr + tr {
         td,
         th {
-            border-top: 1px solid var(--color-darken);
+            border-top: var(--border-standard);
         }
     }
 }
@@ -219,10 +257,6 @@ table {
     > .flex-grow-3 {
         flex-grow: 3;
     }
-
-    > section {
-        min-height: 5rem;
-    }
 }
 
 span.d-flex {
@@ -244,7 +278,7 @@ span.d-flex {
 dialog {
     color: var(--color-text);
     background-color: var(--color-background);
-    border: 1px solid var(--color-darken);
+    border: var(--border-standard);
     padding: 1rem;
     margin: auto !important;
     box-shadow: var(--color-darken) 0.5rem 0.5rem 0.5rem;
@@ -272,7 +306,7 @@ dialog {
     }
 
     input {
-        border-bottom: 1px solid var(--color-darken);
+        border-bottom: var(--border-standard);
         margin-bottom: -1px;
     }
 }

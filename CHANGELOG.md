@@ -6,6 +6,7 @@
 - Improved creation of flight plans
 - Added KML and GeoJSON export
 - Added SkyVector URL generator
+- Added compilation of CLI tool via `bun`
 
 ## [1.4.3]
 

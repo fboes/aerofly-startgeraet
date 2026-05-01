@@ -1,39 +1,35 @@
+# .github/workflows/build.yml
+name: Build Executables
+
 on:
-  workflow_call: # Called via release.yml
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            suffix: linux-x64
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            suffix: windows-x64.exe
-          - os: macos-latest
-            target: x86_64-apple-darwin
-            suffix: macos-x64
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci --omit=dev
+        run: bun install
 
-      - name: Build CLI tool
+      - name: Build executables
         run: |
-          mkdir -p ./artifact/cli
+          bun build src/cli/index.ts --compile --target=bun-linux-x64   --outfile artifacts/cli/aerofly-startgeraet-linux
+          bun build src/cli/index.ts --compile --target=bun-macos-x64   --outfile artifacts/cli/aerofly-startgeraet-macos-x64
+          bun build src/cli/index.ts --compile --target=bun-macos-arm64  --outfile artifacts/cli/aerofly-startgeraet-macos-arm64
+          bun build src/cli/index.ts --compile --target=bun-windows-x64  --outfile artifacts/cli/aerofly-startgeraet-windows.exe
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: cli-artifact-${{ matrix.suffix }}
-          path: ./artifact/cli
+          name: executables
+          path: artifacts/cli/
