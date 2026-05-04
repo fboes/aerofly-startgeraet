@@ -4,25 +4,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci --omit=dev
+        run: bun install
 
-      - name: Build MCP server as MCPB file
+      - name: Build executables
         run: |
-          npm run build:mcp
+          bun build src/mcp/index.ts --compile --target=bun-linux-x64   --outfile artifacts/cli/aerofly-startgeraet-mcp-linux
+          bun build src/mcp/index.ts --compile --target=bun-macos-x64   --outfile artifacts/cli/aerofly-startgeraet-mcp-macos-x64
+          bun build src/mcp/index.ts --compile --target=bun-macos-arm64  --outfile artifacts/cli/aerofly-startgeraet-mcp-macos-arm64
+          bun build src/mcp/index.ts --compile --target=bun-windows-x64  --outfile artifacts/cli/aerofly-startgeraet-mcp-windows.exe
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mcp-artifact
-          path: ./artifacts/mcp
+          name: cli-artifact
+          path: artifacts/cli/

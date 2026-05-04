@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Adding stand-alone MCP server to deployment
+
 ## [1.5.1] - 2026-05-01
 
 - Fixing CLI toold deployment

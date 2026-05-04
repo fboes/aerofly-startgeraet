@@ -6,17 +6,94 @@ The Aerofly Startgerät MCP server is available as a pre-packaged MCPB file (whi
 
 ![](./mcp-example.png)
 
-## Installation via MCPB file
+## Installation
+
+There are two installation options:
+
+3. Installation via MCPB file (recommended for all clients capable of using MCPB files)
+1. Installation via Node.js / NPM (recommended, auto-updating)
+1. Installation as executable file
+
+### 1. Installation via MCPB file
 
 1. Be sure to have a local AI client installed which can import MCPB files.
 1. Download the latest MCPB file from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
 1. Install the MCPB file by double-clicking the it.
 
-## Installation as Node.js application
+### 2. Installation via Node.js / NPM
 
-1. Be sure to have Node.js installed
-1. Install the Node.js package for the Aerofly Stargerät by executing `npm install @fboes/aerofly-startgeraet`
-1. Register the Aerofly Startgerät MCP server at `dist/mcp/index.js` contained in this package with your local AI client.
+This installation method requires [Node.js](https://nodejs.org/en) in at least version 20 to be installed on your local computer.
+
+1. Visit [nodejs.org](https://nodejs.org/en)
+2. Download the LTS (Long Term Support) version
+3. Run the installer and follow the setup wizard
+4. Open your terminal application and verify the correct installation: `node --version`
+
+The Aerofly Startgerät runs directly via `npx` installed alongside `node`, which automatically downloads and executes the latest version.
+
+Call this tool by opening the pre-installed terminal application of your computer and execute this command:
+
+```bash
+npx @fboes/aerofly-startgeraet@latest aerofly-startgeraet-mcp
+```
+
+This will automatically download the latest version of this application and show the main menu of the Aerofly Startgerät.
+
+### 3. Installation as executable file
+
+If you do not want to have Node.js installed, you can also download a pre-compiled version of this tool, which runs on our local machine.
+
+1. Download the latest Aerofly Startgerät CLI tool from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
+1. Move the Aerofly Startgerät CLI tool to a sensible location and mark it as executable (see below).
+1. Start the Aerofly Startgerät CLI tool (see below).
+
+#### Linux / macOS
+
+After downloading, mark the file as executable:
+
+```bash
+# Linux
+chmod +x aerofly-startgeraet-linux
+# or on macOS - Silicon chip
+chmod +x aerofly-startgeraet-macos-arm64
+# or on macOS - Intel chip
+chmod +x aerofly-startgeraet-macos-x64
+```
+
+Then run it:
+
+```bash
+# Linux
+./aerofly-startgeraet-linux
+# or on macOS - Silicon chip
+./aerofly-startgeraet-macos-arm64
+# or on macOS - Intel chip
+./aerofly-startgeraet-macos-x64
+```
+
+#### macOS Gatekeeper
+
+macOS may block the file as it is from an unidentified developer. To allow it:
+
+```bash
+xattr -dr com.apple.quarantine aerofly-startgeraet-macos-arm64
+```
+
+Or via **System Settings → Privacy & Security → Allow anyway**.
+
+#### Windows
+
+Simply double-click `aerofly-startgeraet-windows.exe` or run it in PowerShell:
+
+```powershell
+.\aerofly-startgeraet-windows.exe
+```
+
+For convenience you may want to add a desktop shortcut:
+
+1. Right click on th the application
+1. Select "Create Shortcut"
+1. Drag the shortcut to your desktop
 
 ## Usage
 

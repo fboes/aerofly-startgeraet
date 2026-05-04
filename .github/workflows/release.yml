@@ -10,11 +10,14 @@ jobs:
   build-mcp:
     uses: ./.github/workflows/build-mcp.yml
 
+  build-mcpb:
+    uses: ./.github/workflows/build-mcpb.yml
+
   # build-gui:
   #   uses: ./.github/workflows/build-gui.yml
 
   release:
-    needs: [build-cli, build-mcp] # build-gui
+    needs: [build-cli, build-mcp, build-mcpb] # build-gui
     runs-on: ubuntu-latest
     permissions:
       contents: write
