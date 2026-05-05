@@ -12,7 +12,7 @@
     --color-highlight-contra: #ffffff;
     --color-note: light-dark(#666666, #999999);
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
-    --color-lighten: light-dark(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.2));
+    --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
     --color-warning: #e6007a;
     --fontweight-normal: 400;
     --fontweight-bold: 600;
@@ -96,6 +96,7 @@ section {
     border: var(--border-standard);
     padding: 0.5rem;
     border-radius: 0.25rem;
+    width: calc(50% - 0.5rem);
 }
 
 details {
