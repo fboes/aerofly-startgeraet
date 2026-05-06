@@ -8,9 +8,18 @@ import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/Aerofly
  * external flight plan file by selecting the appropriate converter.
  */
 export class ExportFileWriter {
-    static exportFlightplanToFile(filename, flightplan) {
+    static fileTypes = [
+        AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
+        AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
+        AeroflyFlightToGeoJsonConverter.fileExtension,
+        AeroflyFlightToKmlConverter.fileExtension,
+    ];
+    static exportFlightplanToString(filename, flightplan) {
         const converter = this.getConverter(filename);
-        const content = new converter().convert(flightplan);
+        return new converter().convert(flightplan);
+    }
+    static exportFlightplanToFile(filename, flightplan) {
+        const content = ExportFileWriter.exportFlightplanToString(filename, flightplan);
         fs.writeFileSync(filename, content, "utf8");
     }
     static getConverter(filename) {

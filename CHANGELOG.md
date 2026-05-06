@@ -3,10 +3,11 @@
 ## [Unreleased]
 
 - Adding stand-alone MCP server to deployment
+- Adding import / export functionality to MCP server
 
 ## [1.5.1] - 2026-05-01
 
-- Fixing CLI toold deployment
+- Fixing CLI tool deployment
 
 ## [1.5.0] - 2026-05-01
 

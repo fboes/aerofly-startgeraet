@@ -5,6 +5,8 @@ import { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/Aero
  * external flight plan file by selecting the appropriate converter.
  */
 export declare class ExportFileWriter {
+    static fileTypes: string[];
+    static exportFlightplanToString(filename: string, flightplan: AeroflyFlight): string;
     static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void;
     static getConverter(filename: string): new () => AeroflyFlightToStringConverter;
     static getRegistry(): Record<string, (new () => AeroflyFlightToStringConverter) | undefined>;

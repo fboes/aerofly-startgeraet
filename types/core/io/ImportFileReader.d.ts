@@ -5,13 +5,12 @@ import { StringToAeroflyFlightConverter } from "../converter/other/StringToAerof
  * appropriate converter class.
  */
 export declare class ImportFileReader {
+    static fileTypes: string[];
     static getFlightplansFromFile(filename: string): string[];
     static getFlightplansFromString(content: string, filename: string): string[];
     /**
      * Imports a flight plan from a file and converts it to an AeroflyFlight object.
-     * Supported file types are determined by the file extension:
-     * - .pln: Microsoft Flight Simulator flight plan file
-     * - .fpl: Garmin FPL file
+     * Supported file types are determined by the file extension.
      *
      * @param filename The path to the flight plan file to import.
      * @param flightplan The AeroflyFlight object to populate with the imported data.

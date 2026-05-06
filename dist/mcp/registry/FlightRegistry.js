@@ -6,7 +6,8 @@ import { ResourceRegistry } from "../registry/ResourceRegistry.js";
 import { ConfigurationRegistry } from "./ConfigurationRegistry.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
-import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
+import { ExportFileWriter } from "../../core/io/ExportFileWriter.js";
+import { ImportFileReader } from "../../core/io/ImportFileReader.js";
 export class FlightRegistry {
     static TOOL_GET_FLIGHT = "get-aerofly-flight";
     static TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -235,15 +236,64 @@ export class FlightRegistry {
             flightService.setFlightPositionToDeparture();
             return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
         });
-        server.registerTool("get-flightplan-as-geojson", {
-            title: `Get current flightplan as GeoJSON object`,
-            description: `Will return a LineString for the current route, as well as Points for the waypoints.`,
+        server.registerTool("export-flightplan", {
+            title: `Get current flightplan in a different output format`,
+            description: `\
+Converts and exports the current flight mission setup into an external file format,
+for use in other tools or sharing. Returns a JSON object which contains the raw
+file content as a string, ready for download or passing to another tool.
+Supported file types are:
+- \`mcf\`: Aerofly FS 4 main configuration file format (proprietary syntax).
+  Includes flight plan, aircraft, and weather.
+- \`tmc\`: Aerofly FS 4 custom missions file format (proprietary syntax).
+  Includes flight plan, aircraft, and weather.
+- \`geojson\`: GeoJSON (JSON) with a LineString for the route and Points for
+  each waypoint. Intended for map visualization.
+- \`kml\`: Keyhole Markup Language (XML) with a LineString for the route and
+  Points for each waypoint. Intended for use in Google Earth or similar tools.
+`,
+            inputSchema: {
+                fileType: ZodExtra.exportFileType().describe(`The file ending the file would have been in. Used to determine how to convert the flight plan.`),
+            },
             annotations: {
                 ...annotations,
                 readOnlyHint: true,
             },
-        }, () => {
-            return McpHelper.returnResultContent(new AeroflyFlightToGeoJsonConverter().convert(flightService.getAeroflyFlight()));
+        }, ({ fileType }) => {
+            return McpHelper.returnResultContent(ExportFileWriter.exportFlightplanToString("export." + fileType, flightService.getAeroflyFlight()));
+        });
+        server.registerTool("import-flightplan", {
+            title: `Create flightplan from external file format`,
+            description: `\
+This tool can convert the content of an external flight plan file format into
+the flight missions setup for Aerofly FS 4. Setting the \`index\` parameter to
+\`-1\` will not import a flight plan, but return a list of all available flight
+plans in the file content.
+After conversion this tool will return the resulting flight missions setup.
+Supported file types are:
+- \`mcf\`: Aerofly FS 4 main configuration file values in a proprietary syntax. Will set the complete flight mission setup, including aircraft and weather.
+- \`tmc\`: Aerofly FS 4 custom missions file in a proprietary syntax. Format may contain multiple flight plans. Will set the complete flight mission setup, including aircraft and weather.
+- \`pln\`: Microsoft Flight Simulator 2020 / 2024 file format as XML. Will only set flight plan.
+- \`fpl\`: Garmin / Infinite Flight flight plan file format as XML. Format may contain multiple flight plans. Will only set flight plan.
+- \`fms\`: X-Plane 11/12 flight plan file format in a proprietary syntax. Will only set flight plan.
+`,
+            inputSchema: {
+                content: z.string().describe(`The raw content of the external flight plan file`),
+                fileType: ZodExtra.importFileType().describe(`The file ending the file would have been in. Used to determine how to convert \`content\`.`),
+                index: z.number().min(-1).default(0).describe(`\
+Selects which flight plan to import from files that may
+contain multiple flight plans (tmc, fpl). 0 means the first flight plan.
+Set to -1 to retrieve a list of all available flight plans in the file
+without importing — useful for inspecting multi-plan files before choosing.
+`),
+            },
+            annotations: {
+                ...annotations,
+                readOnlyHint: true,
+            },
+        }, ({ content, fileType, index, }) => {
+            ImportFileReader.importString(content, "import." + fileType, flightService.getAeroflyFlight(), index);
+            return McpHelper.returnResultContent(flightService.getAeroflyFlight());
         });
         server.registerTool(FlightRegistry.TOOL_SAVE_FLIGHT, {
             title: `Save the flight mission setup to Aerofly FS 4`,

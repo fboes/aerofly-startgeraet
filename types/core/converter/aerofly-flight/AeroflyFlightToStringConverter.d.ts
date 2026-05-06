@@ -10,6 +10,7 @@ export declare abstract class AeroflyFlightToStringConverter {
      * @returns {number | null} altitude / elevation in meters
      */
     protected getWaypointAltitude(wp: AeroflyNavRouteBase): number | null;
+    protected getWaypointAltitudeFt(wp: AeroflyNavRouteBase): number | null;
     protected getWaypointSimplifiedType(wp: AeroflyNavRouteBase): ExportFileConverterWaypointType;
 }
 //# sourceMappingURL=AeroflyFlightToStringConverter.d.ts.map

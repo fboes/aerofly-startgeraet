@@ -32,9 +32,8 @@ Supported flight plan file formats:
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
 | Aerofly FS `main.mcf`                                                                                                                          |   ✅   |   ✅   |
 | Aerofly FS 4 `tmc` custom missions                                                                                                             |   ✅   |   ✅   |
-| Aerofly FS 4 `aerofly.json` custom missions                                                                                                    |   ✅   |        |
 | [Microsoft FS 2020 / 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
-| [X-Plane `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                                   |   ✅   |        |
+| [X-Plane 11 / 12 `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                           |   ✅   |        |
 | [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                          |   ✅   |        |
 | GeoJSON                                                                                                                                        |        |   ✅   |
 | Keyhole Markup Language (KML)                                                                                                                  |        |   ✅   |

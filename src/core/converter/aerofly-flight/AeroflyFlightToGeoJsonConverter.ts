@@ -19,15 +19,17 @@ export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConver
         flightplan.navigation.waypoints.forEach((wp, index) => {
             geoJson.addFeature(
                 new Feature(this.getPointForWaypoint(wp), {
-                    id: index + 1,
+                    id: index,
+                    sequence: index + 1,
                     title: wp.identifier,
                     type: wp.type,
+                    altitude_ft: this.getWaypointAltitudeFt(wp),
                     "marker-symbol": this.getMarkerSymbolForWaypoint(wp),
                 }),
             );
         });
 
-        const index = flightplan.navigation.waypoints.length + 2;
+        const index = flightplan.navigation.waypoints.length + 1;
 
         geoJson.addFeature(
             new Feature(
@@ -42,7 +44,7 @@ export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConver
                     }),
                 ]),
                 {
-                    id: index + 2,
+                    id: index + 1,
                     title: this.getFlightplanTitle(flightplan),
                     type: "flightplan",
                     stroke: "#FF1493",
@@ -60,8 +62,9 @@ export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConver
                 {
                     title: flightplan.aircraft.name,
                     livery: flightplan.aircraft.paintscheme,
-                    id: index + 3,
+                    id: index + 2,
                     type: "aircraft_position",
+                    altitude_ft: flightplan.flightSetting.altitude_ft,
                     "marker-symbol": "airfield",
                 },
             ),

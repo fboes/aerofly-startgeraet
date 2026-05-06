@@ -4,12 +4,18 @@ import { GarminFplToAeroflyFlightConverter } from "../converter/other/GarminFplT
 import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsToAeroflyFlightConverter.js";
 import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
 import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
-import { AeroflyCustomMissionsJsonToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsJsonToAeroflyFlightConverter.js";
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.
  */
 export class ImportFileReader {
+    static fileTypes = [
+        AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,
+        AeroflyMcfToImportFileConverter.fileExtension,
+        MsfsPlnToAeroflyFlightConverter.fileExtension,
+        GarminFplToAeroflyFlightConverter.fileExtension,
+        XplaneFmsToAeroflyFlightConverter.fileExtension,
+    ];
     static getFlightplansFromFile(filename) {
         const content = fs.readFileSync(filename, "utf8");
         return this.getFlightplansFromString(content, filename);
@@ -20,9 +26,7 @@ export class ImportFileReader {
     }
     /**
      * Imports a flight plan from a file and converts it to an AeroflyFlight object.
-     * Supported file types are determined by the file extension:
-     * - .pln: Microsoft Flight Simulator flight plan file
-     * - .fpl: Garmin FPL file
+     * Supported file types are determined by the file extension.
      *
      * @param filename The path to the flight plan file to import.
      * @param flightplan The AeroflyFlight object to populate with the imported data.
@@ -57,7 +61,6 @@ export class ImportFileReader {
     }
     static getRegistry() {
         return {
-            [AeroflyCustomMissionsJsonToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsJsonToAeroflyFlightConverter,
             [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,
             [AeroflyMcfToImportFileConverter.fileExtension]: AeroflyMcfToImportFileConverter,
             [MsfsPlnToAeroflyFlightConverter.fileExtension]: MsfsPlnToAeroflyFlightConverter,

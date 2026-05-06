@@ -38,5 +38,7 @@ export declare class ZodExtra {
         latitude: z.ZodNumber;
         radiusKm: z.ZodNumber;
     }>;
+    static exportFileType(): z.ZodEnum;
+    static importFileType(): z.ZodEnum;
 }
 //# sourceMappingURL=ZodExtra.d.ts.map

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { ExportFileWriter } from "../io/ExportFileWriter.js";
+import { ImportFileReader } from "../io/ImportFileReader.js";
 
 export class ZodExtra {
     static longitude(): z.ZodNumber {
@@ -112,5 +114,13 @@ export class ZodExtra {
             latitude: ZodExtra.latitude().describe("Latitude of center point for geo search."),
             radiusKm: z.number().positive().describe("Maximum distance in kilometers from center point."),
         });
+    }
+
+    static exportFileType(): z.ZodEnum {
+        return z.enum(ExportFileWriter.fileTypes);
+    }
+
+    static importFileType(): z.ZodEnum {
+        return z.enum(ImportFileReader.fileTypes);
     }
 }

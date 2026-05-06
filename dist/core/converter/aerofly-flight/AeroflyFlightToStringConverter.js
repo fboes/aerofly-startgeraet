@@ -20,6 +20,18 @@ export class AeroflyFlightToStringConverter {
         }
         return null;
     }
+    getWaypointAltitudeFt(wp) {
+        if (wp instanceof AeroflyNavRouteWaypoint) {
+            return wp.altitude_ft;
+        }
+        else if (wp instanceof AeroflyNavRouteOrigin ||
+            wp instanceof AeroflyNavRouteDepartureRunway ||
+            wp instanceof AeroflyNavRouteDestinationRunway ||
+            wp instanceof AeroflyNavRouteDestination) {
+            return wp.elevation_ft;
+        }
+        return null;
+    }
     getWaypointSimplifiedType(wp) {
         switch (wp.constructor) {
             case AeroflyNavRouteOrigin:
