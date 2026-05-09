@@ -11,6 +11,7 @@ import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflyAirportService } from "./AeroflyAirportService.js";
+import { RoutePlanService } from "./RoutePlanService.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -110,6 +111,16 @@ export class AeroflyFlightService {
     getFlightplanArrivalAirportString() {
         return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)
             ?.identifier ?? "");
+    }
+    getFlightplanLegs(trueAirspeed_kts = 0) {
+        if (trueAirspeed_kts === 0) {
+            trueAirspeed_kts = this.currentAircraft?.cruiseSpeedKts ?? 0;
+        }
+        if (trueAirspeed_kts === 0) {
+            throw new Error("Cruise speed must be bigger than 0");
+        }
+        const route = new RoutePlanService(this.aeroflyFlight);
+        return route.getRouteLegs(trueAirspeed_kts);
     }
     setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts) {
         const onGround = speed_kts === 0 || altitude_meter === 0;

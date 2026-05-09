@@ -458,6 +458,32 @@ without importing — useful for inspecting multi-plan files before choosing.
         );
 
         server.registerTool(
+            "get-flightplan-ges",
+            {
+                title: `Get detailed flight plan information`,
+                description: `\
+Calculates wind-corrected flight plan legs for a given route and weather 
+conditions. Returns an array of legs with per-leg and cumulative distance (nm),
+estimated time enroute (min), true heading (deg), ground speed (kts), and wind
+correction angle (deg), as well a total distance (nm) and time (min).`,
+                inputSchema: {
+                    cruiseSpeed_kts: z.number().min(1).optional().describe(`\
+Cruise speed setting in knots. If not supplied will be inferred from currently selected aircraft type.
+`),
+                },
+                annotations: {
+                    ...annotations,
+                    readOnlyHint: true,
+                },
+            },
+            ({ cruiseSpeed_kts }: { cruiseSpeed_kts?: number }): CallToolResult => {
+                return McpHelper.returnResultContent(flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0));
+            },
+        );
+
+        // getFlightplanLegs(trueAirspeed_kts = 0):
+
+        server.registerTool(
             FlightRegistry.TOOL_SAVE_FLIGHT,
             {
                 title: `Save the flight mission setup to Aerofly FS 4`,

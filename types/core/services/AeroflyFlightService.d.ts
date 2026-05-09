@@ -14,6 +14,7 @@ import { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyAirportService } from "./AeroflyAirportService.js";
+import { RoutePlanServiceLeg } from "./RoutePlanService.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.
@@ -75,6 +76,7 @@ export declare class AeroflyFlightService {
     getFlightplanDepartureRunway(): AeroflyNavRouteDepartureRunway | undefined;
     getFlightplanDepartureAirportString(): string;
     getFlightplanArrivalAirportString(): string;
+    getFlightplanLegs(trueAirspeed_kts?: number): RoutePlanServiceLeg[];
     setFlightPosition(
         longitude: number,
         latitude: number,

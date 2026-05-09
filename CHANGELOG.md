@@ -4,6 +4,7 @@
 
 - Adding stand-alone MCP server to deployment
 - Adding import / export functionality to MCP server
+- Adding wind correction for flight plan
 
 ## [1.5.1] - 2026-05-01
 
