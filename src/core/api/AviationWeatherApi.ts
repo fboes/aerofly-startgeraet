@@ -347,14 +347,16 @@ export class AviationWeatherApi {
         };
     }
 
-    static async doRequest<T>(route: string, query: URLSearchParams): Promise<T> {
+    static async doRequest<T>(route: string, query: URLSearchParams, timeoutMs = 5000): Promise<T> {
         const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
-        //console.log(url);
+
         const response = await fetch(url, {
             headers: {
                 Accept: "application/json",
             },
+            signal: AbortSignal.timeout(timeoutMs),
         });
+
         if (!response.body) {
             throw new Error("No results returned");
         }

@@ -5,6 +5,7 @@
 - Adding stand-alone MCP server to deployment
 - Adding import / export functionality to MCP server
 - Adding wind correction for flight plan
+- Added timeout to API calls
 
 ## [1.5.1] - 2026-05-01
 

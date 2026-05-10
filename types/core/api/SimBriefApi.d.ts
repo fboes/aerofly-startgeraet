@@ -75,6 +75,6 @@ export type SimBriefApiError = {
     };
 };
 export declare class SimBriefApi {
-    fetch(username: string): Promise<SimBriefApiPayload>;
+    fetch(username: string, timeoutMs?: number): Promise<SimBriefApiPayload>;
 }
 //# sourceMappingURL=SimBriefApi.d.ts.map

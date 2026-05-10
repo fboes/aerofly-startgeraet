@@ -211,7 +211,7 @@ export declare class AviationWeatherApi {
     ): Promise<AviationWeatherApiNavaid[]>;
     static fetchFixByPosition(longitude: number, latitude: number, distance?: number): Promise<AviationWeatherApiFix[]>;
     private static normalizeNavAid;
-    static doRequest<T>(route: string, query: URLSearchParams): Promise<T>;
+    static doRequest<T>(route: string, query: URLSearchParams, timeoutMs?: number): Promise<T>;
     /**
      *
      * @param {number} longitude center of search area

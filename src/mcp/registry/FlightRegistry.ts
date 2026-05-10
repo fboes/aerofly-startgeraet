@@ -458,14 +458,15 @@ without importing — useful for inspecting multi-plan files before choosing.
         );
 
         server.registerTool(
-            "get-flightplan-ges",
+            "get-flightplan-legs",
             {
                 title: `Get detailed flight plan information`,
                 description: `\
-Calculates wind-corrected flight plan legs for a given route and weather 
-conditions. Returns an array of legs with per-leg and cumulative distance (nm),
-estimated time enroute (min), true heading (deg), ground speed (kts), and wind
-correction angle (deg), as well a total distance (nm) and time (min).`,
+Calculates wind-corrected flight plan legs for a given route and wind
+conditions for current mission setup. Returns an array of legs with per-leg and
+cumulative distance (nm), estimated time enroute (min), true heading (deg),
+ground speed (kts), and wind correction angle (deg), as well a total
+distance (nm) and time (min).`,
                 inputSchema: {
                     cruiseSpeed_kts: z.number().min(1).optional().describe(`\
 Cruise speed setting in knots. If not supplied will be inferred from currently selected aircraft type.

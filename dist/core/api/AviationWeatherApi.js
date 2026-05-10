@@ -81,13 +81,13 @@ export class AviationWeatherApi {
             mag_dec: magDecConverter(navaid.mag_dec),
         };
     }
-    static async doRequest(route, query) {
+    static async doRequest(route, query, timeoutMs = 5000) {
         const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
-        //console.log(url);
         const response = await fetch(url, {
             headers: {
                 Accept: "application/json",
             },
+            signal: AbortSignal.timeout(timeoutMs),
         });
         if (!response.body) {
             throw new Error("No results returned");
