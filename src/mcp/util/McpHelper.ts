@@ -5,6 +5,17 @@ export class McpHelper {
         return JSON.stringify(value, null, 2);
     }
 
+    static returnSimplifiedResultContent<T>(data: T): CallToolResult {
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: this.JSONstringify(data),
+                },
+            ],
+        };
+    }
+
     static returnResultContent<T>(data: T, warnings: string[] = []): CallToolResult {
         return {
             content: [

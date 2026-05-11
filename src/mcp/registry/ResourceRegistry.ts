@@ -7,6 +7,7 @@ import { McpHelper } from "../util/McpHelper.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
+import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
 
 type Variables = Record<string, string | string[]>;
 
@@ -169,16 +170,10 @@ export class ResourceRegistry {
                 tags?: string[];
                 minimumRangeNm?: number;
                 minimumCruiseSpeedKts?: number;
-            }): CallToolResult => ({
-                content: [
-                    {
-                        type: "text",
-                        text: McpHelper.JSONstringify(
-                            resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts }),
-                        ),
-                    },
-                ],
-            }),
+            }): CallToolResult =>
+                McpHelper.returnSimplifiedResultContent(
+                    resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts }),
+                ),
         );
 
         server.registerTool(
@@ -203,14 +198,8 @@ export class ResourceRegistry {
             }: {
                 query?: string;
                 geoQuery?: { longitude: number; latitude: number; radiusKm: number };
-            }): CallToolResult => ({
-                content: [
-                    {
-                        type: "text",
-                        text: McpHelper.JSONstringify(resourceService.searchAirports({ query, geoQuery })),
-                    },
-                ],
-            }),
+            }): CallToolResult =>
+                McpHelper.returnSimplifiedResultContent(resourceService.searchAirports({ query, geoQuery })),
         );
 
         server.registerTool(
@@ -226,14 +215,8 @@ export class ResourceRegistry {
                     openWorldHint: true,
                 },
             },
-            async ({ icaoCode }: { icaoCode: string }): Promise<CallToolResult> => ({
-                content: [
-                    {
-                        type: "text",
-                        text: McpHelper.JSONstringify(await AviationWeatherApi.fetchAirports([icaoCode])),
-                    },
-                ],
-            }),
+            async ({ icaoCode }: { icaoCode: string }): Promise<CallToolResult> =>
+                McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchAirports([icaoCode])),
         );
 
         server.registerTool(
@@ -253,20 +236,14 @@ export class ResourceRegistry {
                 geoQuery,
             }: {
                 geoQuery: { longitude: number; latitude: number; radiusKm: number };
-            }): Promise<CallToolResult> => ({
-                content: [
-                    {
-                        type: "text",
-                        text: McpHelper.JSONstringify(
-                            await AviationWeatherApi.fetchNavaidsByPosition(
-                                geoQuery.longitude,
-                                geoQuery.latitude,
-                                geoQuery.radiusKm * 1000,
-                            ),
-                        ),
-                    },
-                ],
-            }),
+            }): Promise<CallToolResult> =>
+                McpHelper.returnSimplifiedResultContent(
+                    await AviationWeatherApi.fetchNavaidsByPosition(
+                        geoQuery.longitude,
+                        geoQuery.latitude,
+                        geoQuery.radiusKm * 1000,
+                    ),
+                ),
         );
 
         server.registerTool(
@@ -286,20 +263,44 @@ export class ResourceRegistry {
                 geoQuery,
             }: {
                 geoQuery: { longitude: number; latitude: number; radiusKm: number };
-            }): Promise<CallToolResult> => ({
-                content: [
-                    {
-                        type: "text",
-                        text: McpHelper.JSONstringify(
-                            await AviationWeatherApi.fetchFixByPosition(
-                                geoQuery.longitude,
-                                geoQuery.latitude,
-                                geoQuery.radiusKm * 1000,
-                            ),
-                        ),
-                    },
-                ],
-            }),
+            }): Promise<CallToolResult> =>
+                McpHelper.returnSimplifiedResultContent(
+                    await AviationWeatherApi.fetchFixByPosition(
+                        geoQuery.longitude,
+                        geoQuery.latitude,
+                        geoQuery.radiusKm * 1000,
+                    ),
+                ),
+        );
+
+        server.registerTool(
+            "get-elevation",
+            {
+                title: `Get elevation data`,
+                description: `Fetch elevation data from an external data for a set of geo coordinates. Will return an object with a property \`results\`, which will contain a set of results with elevation data given in meters above sea level. Elevation data may not be provided for the entire earth.`,
+                inputSchema: {
+                    coordinates: z.array(ZodExtra.geoCoordinates()),
+                },
+                annotations: {
+                    ...annotations,
+                    openWorldHint: true,
+                },
+            },
+            async ({
+                coordinates,
+            }: {
+                coordinates: { longitude: number; latitude: number }[];
+            }): Promise<CallToolResult> => {
+                const topoApi = new OpenTopoDataApi();
+                const results = await topoApi.fetch(
+                    coordinates.map((t) => ({
+                        lat: t.latitude,
+                        lng: t.longitude,
+                    })),
+                );
+
+                return McpHelper.returnSimplifiedResultContent(results);
+            },
         );
     }
 }

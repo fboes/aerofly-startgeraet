@@ -129,7 +129,7 @@ export type AviationWeatherNormalizedAirport = {
      */
     elev: number;
     magdec: number;
-    rwyNum: string;
+    rwyNum: number;
     services: boolean;
     tower: boolean;
     beacon: boolean;

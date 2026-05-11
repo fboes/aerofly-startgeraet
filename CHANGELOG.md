@@ -6,6 +6,7 @@
 - Adding import / export functionality to MCP server
 - Adding wind correction for flight plan
 - Added timeout to API calls
+- Added elevation data API
 
 ## [1.5.1] - 2026-05-01
 

@@ -151,7 +151,7 @@ export type AviationWeatherNormalizedAirport = {
      */
     elev: number;
     magdec: number;
-    rwyNum: string;
+    rwyNum: number;
     services: boolean;
     tower: boolean;
     beacon: boolean;
@@ -393,6 +393,7 @@ export class AviationWeatherApi {
                     return char.toUpperCase();
                 }),
             magdec: magDecConverter(airport.magdec),
+            rwyNum: Number(airport.rwyNum),
             services: airport.services === "S",
             tower: airport.tower === "T",
             beacon: airport.beacon === "B",

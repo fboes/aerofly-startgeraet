@@ -101,7 +101,7 @@ export class RoutePlanService {
     }
 
     protected getCoordinatesFromWaypoint(wp: AeroflyNavRouteBase) {
-        return new Point(wp.longitude, wp.longitude, this.getWaypointAltitude(wp));
+        return new Point(wp.longitude, wp.latitude, this.getWaypointAltitude(wp));
     }
 
     /**
@@ -160,11 +160,10 @@ export class RoutePlanService {
         const wind_direction_rad = wind_deg * (Math.PI / 180);
         const course_rad = course * (Math.PI / 180);
 
-        const deltaRad = wind_direction_rad + course_rad;
+        const deltaRad = wind_direction_rad - course_rad;
         const correctionRad =
             deltaRad === 0 || deltaRad === Math.PI ? 0 : Math.asin((windSpeed_kts * Math.sin(deltaRad)) / tas_kts);
-        const heading_rad = course_rad - correctionRad;
-
+        const heading_rad = correctionRad + course_rad;
         const ground_speed = getGroundSpeeed(tas_kts, windSpeed_kts, deltaRad, correctionRad);
 
         return {

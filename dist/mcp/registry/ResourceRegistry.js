@@ -5,6 +5,7 @@ import { z } from "zod";
 import { McpHelper } from "../util/McpHelper.js";
 import { ZodExtra } from "../../core/util/ZodExtra.js";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
+import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
 export class ResourceRegistry {
     static MIME_TYPE_RESPONSE = "application/json";
     static RESOURCE_NAME_SPACE = "resource://aerofly";
@@ -111,14 +112,7 @@ export class ResourceRegistry {
                 minimumCruiseSpeedKts: z.number().positive().optional().describe("Minimum cruise speed in knots."),
             },
             annotations,
-        }, ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => ({
-            content: [
-                {
-                    type: "text",
-                    text: McpHelper.JSONstringify(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })),
-                },
-            ],
-        }));
+        }, ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => McpHelper.returnSimplifiedResultContent(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_AIRPORTS, {
             title: `Search Aerofly FS 4 airports`,
             description: `Search for airports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
@@ -130,14 +124,7 @@ export class ResourceRegistry {
                 geoQuery: ZodExtra.geoQuery(),
             },
             annotations,
-        }, ({ query, geoQuery, }) => ({
-            content: [
-                {
-                    type: "text",
-                    text: McpHelper.JSONstringify(resourceService.searchAirports({ query, geoQuery })),
-                },
-            ],
-        }));
+        }, ({ query, geoQuery, }) => McpHelper.returnSimplifiedResultContent(resourceService.searchAirports({ query, geoQuery })));
         server.registerTool(ResourceRegistry.TOOL_GET_AIRPORT_DETAILS, {
             title: `Get airport details`,
             description: `Get detailed airport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
@@ -148,14 +135,7 @@ export class ResourceRegistry {
                 ...annotations,
                 openWorldHint: true,
             },
-        }, async ({ icaoCode }) => ({
-            content: [
-                {
-                    type: "text",
-                    text: McpHelper.JSONstringify(await AviationWeatherApi.fetchAirports([icaoCode])),
-                },
-            ],
-        }));
+        }, async ({ icaoCode }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchAirports([icaoCode])));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_NAVAIDS, {
             title: `Search navigational aids`,
             description: `Search for navigational aids like NDBs and VORs depending on their geographical location from the Aviation Weather Center API. Will return geographical position, elevation (in meters MSL), identifier, type and frequency.`,
@@ -166,14 +146,7 @@ export class ResourceRegistry {
                 ...annotations,
                 openWorldHint: true,
             },
-        }, async ({ geoQuery, }) => ({
-            content: [
-                {
-                    type: "text",
-                    text: McpHelper.JSONstringify(await AviationWeatherApi.fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)),
-                },
-            ],
-        }));
+        }, async ({ geoQuery, }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_FIX, {
             title: `Search waypoints fixes`,
             description: `Search for waypoints and fixes depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, and type.`,
@@ -184,13 +157,24 @@ export class ResourceRegistry {
                 ...annotations,
                 openWorldHint: true,
             },
-        }, async ({ geoQuery, }) => ({
-            content: [
-                {
-                    type: "text",
-                    text: McpHelper.JSONstringify(await AviationWeatherApi.fetchFixByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)),
-                },
-            ],
-        }));
+        }, async ({ geoQuery, }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchFixByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
+        server.registerTool("get-elevation", {
+            title: `Get elevation data`,
+            description: `Fetch elevation data from an external data for a set of geo coordinates. Will return an object with a property \`results\`, which will contain a set of results with elevation data given in meters above sea level. Elevation data may not be provided for the entire earth.`,
+            inputSchema: {
+                coordinates: z.array(ZodExtra.geoCoordinates()),
+            },
+            annotations: {
+                ...annotations,
+                openWorldHint: true,
+            },
+        }, async ({ coordinates, }) => {
+            const topoApi = new OpenTopoDataApi();
+            const results = await topoApi.fetch(coordinates.map((t) => ({
+                lat: t.latitude,
+                lng: t.longitude,
+            })));
+            return McpHelper.returnSimplifiedResultContent(results);
+        });
     }
 }

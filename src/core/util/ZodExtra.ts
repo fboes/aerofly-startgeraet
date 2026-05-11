@@ -104,6 +104,16 @@ export class ZodExtra {
         });
     }
 
+    static geoCoordinates(): z.ZodObject<{
+        longitude: z.ZodNumber;
+        latitude: z.ZodNumber;
+    }> {
+        return z.object({
+            longitude: ZodExtra.longitude(),
+            latitude: ZodExtra.latitude(),
+        });
+    }
+
     static geoQuery(): z.ZodObject<{
         longitude: z.ZodNumber;
         latitude: z.ZodNumber;

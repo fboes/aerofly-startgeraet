@@ -76,6 +76,12 @@ export class ZodExtra {
             direction_degree: this.degree().optional(),
         });
     }
+    static geoCoordinates() {
+        return z.object({
+            longitude: ZodExtra.longitude(),
+            latitude: ZodExtra.latitude(),
+        });
+    }
     static geoQuery() {
         return z.object({
             longitude: ZodExtra.longitude().describe("Longitude of center point for geo search."),

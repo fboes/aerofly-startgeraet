@@ -3,6 +3,16 @@ export class McpHelper {
     static JSONstringify(value) {
         return JSON.stringify(value, null, 2);
     }
+    static returnSimplifiedResultContent(data) {
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: this.JSONstringify(data),
+                },
+            ],
+        };
+    }
     static returnResultContent(data, warnings = []) {
         return {
             content: [
