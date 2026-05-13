@@ -26,7 +26,7 @@ import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflyAirportService } from "./AeroflyAirportService.js";
-import { RoutePlanService, RoutePlanServiceLeg } from "./RoutePlanService.js";
+import { RoutePlanService, RoutePlanServiceLeg, RoutePlanServiceRoute } from "./RoutePlanService.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -189,7 +189,7 @@ export class AeroflyFlightService {
         );
     }
 
-    getFlightplanLegs(trueAirspeed_kts = 0): RoutePlanServiceLeg[] {
+    getFlightplanLegs(trueAirspeed_kts = 0, consolidated = false): RoutePlanServiceLeg[] | RoutePlanServiceRoute {
         if (trueAirspeed_kts === 0) {
             trueAirspeed_kts = this.currentAircraft?.cruiseSpeedKts ?? 0;
         }
@@ -199,7 +199,7 @@ export class AeroflyFlightService {
         }
 
         const route = new RoutePlanService(this.aeroflyFlight);
-        return route.getRouteLegs(trueAirspeed_kts);
+        return !consolidated ? route.getRouteLegs(trueAirspeed_kts) : route.getRoute(trueAirspeed_kts);
     }
 
     setFlightPosition(

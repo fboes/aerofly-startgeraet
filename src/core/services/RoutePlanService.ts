@@ -27,6 +27,14 @@ export type RoutePlanServiceLeg = {
     onGround: boolean;
 };
 
+export type RoutePlanServiceRoute = {
+    from: string;
+    to: string;
+    distanceTotal_nm: number;
+    estimatedTimeEnrouteTotal_min: number;
+    altitude_ft: number | null;
+};
+
 export class RoutePlanService {
     protected readonly aicraftService: AeroflyAircraftService = new AeroflyAircraftService();
 
@@ -98,6 +106,22 @@ export class RoutePlanService {
         }
 
         return legs;
+    }
+
+    getRoute(cruiseSpeed_kts: null | number = null): RoutePlanServiceRoute {
+        const legs = this.getRouteLegs(cruiseSpeed_kts);
+        if (legs.length < 1) {
+            throw new Error("No flight plan legs found");
+        }
+        const lastLeg = legs[legs.length - 1];
+
+        return {
+            from: legs[0].from,
+            to: lastLeg.to,
+            distanceTotal_nm: lastLeg.distanceTotal_nm,
+            estimatedTimeEnrouteTotal_min: lastLeg.estimatedTimeEnrouteTotal_min,
+            altitude_ft: lastLeg.altitude_ft,
+        };
     }
 
     protected getCoordinatesFromWaypoint(wp: AeroflyNavRouteBase) {

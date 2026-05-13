@@ -112,7 +112,7 @@ export class AeroflyFlightService {
         return (this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)
             ?.identifier ?? "");
     }
-    getFlightplanLegs(trueAirspeed_kts = 0) {
+    getFlightplanLegs(trueAirspeed_kts = 0, consolidated = false) {
         if (trueAirspeed_kts === 0) {
             trueAirspeed_kts = this.currentAircraft?.cruiseSpeedKts ?? 0;
         }
@@ -120,7 +120,7 @@ export class AeroflyFlightService {
             throw new Error("Cruise speed must be bigger than 0");
         }
         const route = new RoutePlanService(this.aeroflyFlight);
-        return route.getRouteLegs(trueAirspeed_kts);
+        return !consolidated ? route.getRouteLegs(trueAirspeed_kts) : route.getRoute(trueAirspeed_kts);
     }
     setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts) {
         const onGround = speed_kts === 0 || altitude_meter === 0;

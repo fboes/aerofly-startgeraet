@@ -62,6 +62,20 @@ export class RoutePlanService {
         }
         return legs;
     }
+    getRoute(cruiseSpeed_kts = null) {
+        const legs = this.getRouteLegs(cruiseSpeed_kts);
+        if (legs.length < 1) {
+            throw new Error("No flight plan legs found");
+        }
+        const lastLeg = legs[legs.length - 1];
+        return {
+            from: legs[0].from,
+            to: lastLeg.to,
+            distanceTotal_nm: lastLeg.distanceTotal_nm,
+            estimatedTimeEnrouteTotal_min: lastLeg.estimatedTimeEnrouteTotal_min,
+            altitude_ft: lastLeg.altitude_ft,
+        };
+    }
     getCoordinatesFromWaypoint(wp) {
         return new Point(wp.longitude, wp.latitude, this.getWaypointAltitude(wp));
     }

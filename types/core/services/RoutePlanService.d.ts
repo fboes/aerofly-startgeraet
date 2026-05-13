@@ -18,11 +18,19 @@ export type RoutePlanServiceLeg = {
     altitude_ft: number | null;
     onGround: boolean;
 };
+export type RoutePlanServiceRoute = {
+    from: string;
+    to: string;
+    distanceTotal_nm: number;
+    estimatedTimeEnrouteTotal_min: number;
+    altitude_ft: number | null;
+};
 export declare class RoutePlanService {
     private aeroflyFlight;
     protected readonly aicraftService: AeroflyAircraftService;
     constructor(aeroflyFlight: AeroflyFlight);
     getRouteLegs(cruiseSpeed_kts?: null | number): RoutePlanServiceLeg[];
+    getRoute(cruiseSpeed_kts?: null | number): RoutePlanServiceRoute;
     protected getCoordinatesFromWaypoint(wp: AeroflyNavRouteBase): Point;
     /**
      *

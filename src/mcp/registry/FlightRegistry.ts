@@ -466,29 +466,42 @@ Calculates wind-corrected flight plan legs for a given route and wind
 conditions for current mission setup. Returns an array of legs with per-leg and
 cumulative distance (nm), estimated time enroute (min), true heading (deg),
 ground speed (kts), and wind correction angle (deg), as well a total
-distance (nm) and time (min).`,
+distance (nm) and time (min). There is only an option to get the consolidated values instead of single legs.`,
                 inputSchema: {
                     cruiseSpeed_kts: z.number().min(1).optional().describe(`\
 Cruise speed setting in knots. If not supplied will be inferred from currently selected aircraft type.
 `),
+                    consolidated: z
+                        .boolean()
+                        .default(false)
+                        .optional()
+                        .describe(
+                            `If this parameter is set to true, will return only the total distance and time instead of single legs.`,
+                        ),
                 },
                 annotations: {
                     ...annotations,
                     readOnlyHint: true,
                 },
             },
-            ({ cruiseSpeed_kts }: { cruiseSpeed_kts?: number }): CallToolResult => {
-                return McpHelper.returnResultContent(flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0));
+            ({
+                cruiseSpeed_kts,
+                consolidated,
+            }: {
+                cruiseSpeed_kts?: number;
+                consolidated?: boolean;
+            }): CallToolResult => {
+                return McpHelper.returnResultContent(
+                    flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0, consolidated ?? false),
+                );
             },
         );
-
-        // getFlightplanLegs(trueAirspeed_kts = 0):
 
         server.registerTool(
             FlightRegistry.TOOL_SAVE_FLIGHT,
             {
                 title: `Save the flight mission setup to Aerofly FS 4`,
-                description: `This will write all changes back to the \`main.mcf\`, which in turn makes the flight mission setup available in Aerofly FS 4. Returns the flight mission setup. Without calling this tool, no changes will be available in Aerofly FS 4.`,
+                description: `This will write all changes back to the \`main.mcf\`. Returns the flight mission setup. Without calling this tool, no changes will be available in Aerofly FS 4.`,
                 annotations: {
                     readOnlyHint: false,
                     destructiveHint: true,
@@ -506,7 +519,9 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
                     ]);
                 }
 
-                return McpHelper.returnResultContent(flightService.getAeroflyFlight());
+                return McpHelper.returnResultContent({
+                    message: "Main configuration file has been saved",
+                });
             },
         );
 
