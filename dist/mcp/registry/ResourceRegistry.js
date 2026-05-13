@@ -18,6 +18,7 @@ export class ResourceRegistry {
     static TOOL_SEARCH_NAVAIDS = "search-navaids";
     static TOOL_SEARCH_FIX = "search-waypoint-fix";
     static TOOL_GET_AIRPORT_DETAILS = "get-airport-details";
+    static TOOL_GET_ELEVATION = "get-elevation";
     static registerResources(server, resourceService) {
         server.registerResource("aircraft", this.RESOURCE_AIRCRAFT, {
             description: `A compressed list of all aircraft available in Aerofly FS 4. This provides the internal aeroflyCode for a given aircraft. There is also a resource providing detailed information for a given aeroflyCode.`,
@@ -48,7 +49,7 @@ export class ResourceRegistry {
             ],
         }));
         server.registerResource("aircraft-tags", this.RESOURCE_AIRCRAFT_TAGS, {
-            description: `A list of all tags which are attached to aircraft in Aerofly FS 4.`,
+            description: `A list of all tags which aircraft in Aerofly FS 4 can be searched by.`,
             mimeType: this.MIME_TYPE_RESPONSE,
         }, (uri) => ({
             contents: [
@@ -64,7 +65,7 @@ export class ResourceRegistry {
                 resources: resourceService.getAirportRessources(),
             }),
         }), {
-            description: `Detailed information for a specific airport matching the ICAO code given by \`icaoCode\` (string), if available in Aerofly FS 4. This will give you the ICAO code, name, longitude and latitude of the airport. Be aware that the runways and parking positions available are not available in this MCP server and need to be fetched from online sources.`,
+            description: `Detailed information for a specific airport / heliport matching the ICAO code given by \`icaoCode\` (string), if available in Aerofly FS 4. This will give you the ICAO code, name, longitude and latitude of the airport. Be aware that the runways and parking positions available are not available in this MCP server and need to be fetched from online sources.`,
             mimeType: this.MIME_TYPE_RESPONSE,
         }, (uri, { icaoCode }) => ({
             contents: [
@@ -115,7 +116,7 @@ export class ResourceRegistry {
         }, ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => McpHelper.returnSimplifiedResultContent(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_AIRPORTS, {
             title: `Search Aerofly FS 4 airports`,
-            description: `Search for airports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
+            description: `Search for airports / heliports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
             inputSchema: {
                 query: z
                     .string()
@@ -127,7 +128,7 @@ export class ResourceRegistry {
         }, ({ query, geoQuery, }) => McpHelper.returnSimplifiedResultContent(resourceService.searchAirports({ query, geoQuery })));
         server.registerTool(ResourceRegistry.TOOL_GET_AIRPORT_DETAILS, {
             title: `Get airport details`,
-            description: `Get detailed airport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
+            description: `Get detailed airport / heliport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
             inputSchema: {
                 icaoCode: z.string().length(4).describe("Airport ICAO code"),
             },
@@ -149,7 +150,7 @@ export class ResourceRegistry {
         }, async ({ geoQuery, }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
         server.registerTool(ResourceRegistry.TOOL_SEARCH_FIX, {
             title: `Search waypoints fixes`,
-            description: `Search for waypoints and fixes depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, and type.`,
+            description: `Search for waypoints and named fixes depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, and type.`,
             inputSchema: {
                 geoQuery: ZodExtra.geoQuery(),
             },
@@ -158,9 +159,9 @@ export class ResourceRegistry {
                 openWorldHint: true,
             },
         }, async ({ geoQuery, }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchFixByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
-        server.registerTool("get-elevation", {
+        server.registerTool(ResourceRegistry.TOOL_GET_ELEVATION, {
             title: `Get elevation data`,
-            description: `Fetch elevation data from an external data for a set of geo coordinates. Will return an object with a property \`results\`, which will contain a set of results with elevation data given in meters above sea level. Elevation data may not be provided for the entire earth.`,
+            description: `Fetch elevation data from an external data for a set of geo coordinates, using the aster30m dataset. Will return an object with a property \`results\`, which will contain a set of results with elevation data given in meters above sea level. Elevation data may not be provided for the entire earth.`,
             inputSchema: {
                 coordinates: z.array(ZodExtra.geoCoordinates()),
             },

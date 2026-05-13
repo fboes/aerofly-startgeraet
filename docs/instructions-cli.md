@@ -37,8 +37,8 @@ This will automatically download the latest version of this application and show
 If you do not want to have Node.js installed, you can also download a pre-compiled version of this tool, which runs on our local machine.
 
 1. Download the latest Aerofly Startgerät CLI tool from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
-1. Move the Aerofly Startgerät CLI tool to a sensible location and mark it as executable (see below).
-1. Start the Aerofly Startgerät CLI tool (see below).
+2. Move the Aerofly Startgerät CLI tool to a sensible location and mark it as executable (see below).
+3. Start the Aerofly Startgerät CLI tool (see below).
 
 #### Linux / macOS
 
@@ -85,8 +85,8 @@ Simply double-click `aerofly-startgeraet-windows.exe` or run it in PowerShell:
 For convenience you may want to add a desktop shortcut:
 
 1. Right click on th the application
-1. Select "Create Shortcut"
-1. Drag the shortcut to your desktop
+2. Select "Create Shortcut"
+3. Drag the shortcut to your desktop
 
 ## Usage
 
