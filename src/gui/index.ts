@@ -1,17 +1,20 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
-function createWindow() {
+import { ApplicationServiceHandler } from "./handler/ApplicationServiceHandler.js";
+
+const createWindow = () => {
     const win = new BrowserWindow({
         width: 900,
-        height: 770,
+        height: 780,
+        autoHideMenuBar: true,
         titleBarStyle: "hidden",
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            sandbox: false,
+            preload: path.join(import.meta.dirname, "preload.js"),
         },
     });
-    win.loadFile(path.join(import.meta.dirname, "app/index.html"));
+    win.loadFile(path.join(import.meta.dirname, "index.html"));
 
     switch (process.platform) {
         case "win32":
@@ -21,9 +24,11 @@ function createWindow() {
             win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/linux/icons/512x512.png"));
             break;
     }
-}
+};
 
 app.whenReady().then(() => {
+    ApplicationServiceHandler.registerHandler(ipcMain);
+
     createWindow();
     app.on("activate", function () {
         if (BrowserWindow.getAllWindows().length === 0) {

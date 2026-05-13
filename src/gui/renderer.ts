@@ -1,14 +1,41 @@
-const makeInactiveOnZero = (el) => {
+import { ApplicationService, Process } from "./preload.js";
+
+declare global {
+    interface Window {
+        process: Process;
+        applicationService: ApplicationService;
+    }
+}
+
+document.body.classList.add("platform-" + window.process.platform);
+
+const h1 = document.querySelector("header h1");
+if (h1) {
+    document.title = h1.textContent ?? "Aerofly Startgerät";
+}
+
+const applicationName = document.getElementById("application-name");
+const applicationVersion = document.getElementById("application-version");
+if (applicationName && applicationVersion) {
+    applicationName.textContent = await window.applicationService?.getApplicationName();
+    applicationVersion.textContent = await window.applicationService?.getApplicationVersion();
+}
+
+// -----------------------------------------------------------------------------
+
+const makeInactiveOnZero = (el: HTMLInputElement | HTMLSelectElement) => {
     el.closest("tr, div")?.classList?.toggle("inactive", el.value === "" || el.value === "0");
 };
-document
-    .querySelectorAll("#clouds-0-coverage, #clouds-1-coverage, #clouds-2-coverage, #wind-gust")
-    .forEach((e) => {
+document.querySelectorAll("#clouds-0-coverage, #clouds-1-coverage, #clouds-2-coverage, #wind-gust").forEach((e) => {
+    if (!(e instanceof HTMLInputElement || e instanceof HTMLSelectElement)) {
+        throw new Error("Expected input element");
+    }
     e.addEventListener("input", () => {
         makeInactiveOnZero(e);
     });
     makeInactiveOnZero(e);
 });
+
 // -----------------------------------------------------------------------------
 const temperatureFahrenheit = document.getElementById("temperature-fahrenheit");
 const temperatureCelsius = document.getElementById("temperature-celsius");
@@ -52,12 +79,14 @@ const timeUtc = document.getElementById("time-utc");
 const dateLocal = document.getElementById("date-local");
 const timeLocal = document.getElementById("time-local");
 const timeZoneLocal = document.getElementById("timezone-local");
-if (dateUtc instanceof HTMLInputElement &&
+if (
+    dateUtc instanceof HTMLInputElement &&
     timeUtc instanceof HTMLInputElement &&
     dateLocal instanceof HTMLInputElement &&
     timeLocal instanceof HTMLInputElement &&
-    timeZoneLocal instanceof HTMLElement) {
-    const pad = (t) => String(t).padStart(2, "0");
+    timeZoneLocal instanceof HTMLElement
+) {
+    const pad = (t: string | number) => String(t).padStart(2, "0");
     const utcToLocal = () => {
         const d = new Date(dateUtc.value + "T" + timeUtc.value + "Z");
         d.setUTCHours(d.getUTCHours() + Number(timeZoneLocal.dataset.value ?? "0"));
@@ -74,4 +103,3 @@ if (dateUtc instanceof HTMLInputElement &&
     [dateLocal, timeLocal].forEach((e) => e.addEventListener("input", localToUtc));
     utcToLocal();
 }
-export {};

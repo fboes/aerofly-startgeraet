@@ -41,6 +41,8 @@ body {
 header {
     padding: 0.5rem 1rem 0;
     text-align: center;
+    -webkit-app-region: drag;
+    cursor: grab;
 }
 
 main {
@@ -195,7 +197,8 @@ button,
 .inactive,
 .disabled,
 :disabled {
-    opacity: 0.54; /* WCAG 2.1 AA */
+    opacity: 0.54;
+    /* WCAG 2.1 AA */
 }
 
 .disabled,
@@ -317,6 +320,11 @@ dialog {
 #open-dialog-settings {
     position: absolute;
     top: 0.5rem;
-    right: 1rem;
+    left: 1rem;
     z-index: 1;
+
+    .platform-darwin & {
+        right: 1rem;
+        left: auto;
+    }
 }
