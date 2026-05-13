@@ -2,7 +2,10 @@
   "name": "@fboes/aerofly-startgeraet",
   "version": "1.5.1",
   "description": "The Auxiliary Power Unit for Aerofly Flight Simulator 4: Improving the main menu with meaningful units and import functionality for weather and flight plans.",
-  "main": "./dist/cli/index.js",
+  "main": "./dist/gui/index.js",
+  "engines": {
+    "node": ">= 22.0.0"
+  },
   "scripts": {
     "test": "node --test 'dist/**/*.test.js'",
     "test:coverage": "node --test --experimental-test-coverage 'dist/**/*.test.js'",
@@ -41,6 +44,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^25.5.2",
+    "electron": "^42.0.1",
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",

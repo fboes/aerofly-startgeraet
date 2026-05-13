@@ -39,7 +39,7 @@ body {
 }
 
 header {
-    padding: 0 1rem;
+    padding: 0.5rem 1rem 0;
     text-align: center;
 }
 
@@ -50,13 +50,13 @@ main {
 footer {
     font-size: var(--fontsize-small);
     text-align: center;
-    padding: 1rem;
+    padding: 1rem 1rem;
 }
 
 /* ----- General ------------------------------------------------------------ */
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: var(--fontweight-normal);
     font-family: var(--fontfamily-secondary);
 }
@@ -317,6 +317,6 @@ dialog {
 #open-dialog-settings {
     position: absolute;
     top: 0.5rem;
-    right: 0.5rem;
+    right: 1rem;
     z-index: 1;
 }
