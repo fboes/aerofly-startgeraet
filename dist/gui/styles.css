@@ -38,21 +38,24 @@ body {
     height: 100%;
 }
 
-header {
+startgeraet-header {
     padding: 0.5rem 1rem 0;
     text-align: center;
     -webkit-app-region: drag;
     cursor: grab;
+    display: block;
 }
 
-main {
+startgeraet-main {
     padding: 0 1rem;
+    display: block;
 }
 
-footer {
+startgeraet-footer {
     font-size: var(--fontsize-small);
     text-align: center;
     padding: 1rem 1rem;
+    display: block;
 }
 
 /* ----- General ------------------------------------------------------------ */
@@ -93,7 +96,7 @@ svg {
 
 /* ----- Structure ---------------------------------------------------------- */
 
-section {
+[aria-role="region"] {
     background-color: var(--color-lighten);
     border: var(--border-standard);
     padding: 0.5rem;
@@ -268,7 +271,7 @@ span.d-flex {
 }
 
 @media screen and (max-width: 43rem) {
-    .d-flex > section {
+    .d-flex > [aria-role="region"] {
         width: 100%;
     }
 }
