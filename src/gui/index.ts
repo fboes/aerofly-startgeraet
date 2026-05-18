@@ -1,6 +1,8 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import { ApplicationServiceHandler } from "./handler/ApplicationServiceHandler.js";
+import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
+import { AeroflyAircraftServiceHandler } from "./handler/AeroflyAircraftServiceHandler.js";
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -24,11 +26,18 @@ const createWindow = () => {
             win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/linux/icons/512x512.png"));
             break;
     }
+
+    ApplicationServiceHandler.registerHandler(ipcMain);
+    const aeroflyAircraftServiceHandler = new AeroflyAircraftServiceHandler(ipcMain, win);
+    const aeroflyFlightServiceHandler = new AeroflyFlightServiceHandler(ipcMain, win);
+
+    win.webContents.on("did-finish-load", () => {
+        aeroflyAircraftServiceHandler.sendAllAircraftLiveries();
+        aeroflyFlightServiceHandler.sendFlightplan();
+    });
 };
 
 app.whenReady().then(() => {
-    ApplicationServiceHandler.registerHandler(ipcMain);
-
     createWindow();
     app.on("activate", function () {
         if (BrowserWindow.getAllWindows().length === 0) {

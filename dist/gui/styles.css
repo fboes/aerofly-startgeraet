@@ -325,6 +325,7 @@ dialog {
     top: 0.5rem;
     left: 1rem;
     z-index: 1;
+    -webkit-app-region: no-drag;
 
     .platform-darwin & {
         right: 1rem;

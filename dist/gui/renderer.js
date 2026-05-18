@@ -1,2 +1,2 @@
-import { AppWebComponent } from "./web-components/AppWebComponent.js";
+import { AppWebComponent } from "./web-components/structure/AppWebComponent.js";
 AppWebComponent.registerElement();

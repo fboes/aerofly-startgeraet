@@ -350,7 +350,7 @@ export class AeroflyFlightService {
     }
 
     getTimeAndDateDeparture() {
-        return AeroflyFlightHelper.getTimeAndDateDeparture(this.aeroflyFlight);
+        return AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);
     }
 
     getTimeAndDateString(): string {
@@ -370,7 +370,7 @@ export class AeroflyFlightService {
      * @returns e.g. "Z" or "+02:00" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneString(): string {
-        const timeZone = AeroflyFlightHelper.getDepartureTimeZone(this.aeroflyFlight);
+        const timeZone = AeroflyFlightHelper.getLocalTomeZoneOffset(this.aeroflyFlight);
         if (timeZone === 0) {
             return "Z";
         }
@@ -382,7 +382,7 @@ export class AeroflyFlightService {
      * @returns e.g. "UTC" or "UTC+2" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneUTCString(): string {
-        const timeZone = AeroflyFlightHelper.getDepartureTimeZone(this.aeroflyFlight);
+        const timeZone = AeroflyFlightHelper.getLocalTomeZoneOffset(this.aeroflyFlight);
 
         return `UTC${timeZone >= 0 ? "+" : "-"}${Math.abs(Math.round(timeZone))}`;
     }

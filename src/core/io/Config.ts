@@ -1,4 +1,5 @@
 import Conf from "conf";
+import Store from "electron-store";
 import os from "node:os";
 import path from "node:path";
 import fs from "fs";
@@ -8,10 +9,14 @@ import fs from "fs";
  * as well as persistence handler.
  */
 export class Config {
-    private readonly conf: Conf;
+    private readonly conf: Conf | Store;
 
+    /**
+     *
+     * @param projectName set this to "electron" on Electron app, otherwise use unique project name
+     */
     constructor(projectName: string = "startgeraet") {
-        this.conf = new Conf({ projectName });
+        this.conf = projectName === "electron" ? new Store() : new Conf({ projectName });
     }
 
     protected get(key: string, defaultValue: string = ""): string {
@@ -36,7 +41,9 @@ export class Config {
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
      */
     get mainMcfFilePath(): string | null {
-        return this.get("mainMcfFilePath", String(process.env.AEROFLY_USER_DIRECTORY)) || this.findMainMcfFilePath();
+        return (
+            this.get("mainMcfFilePath", String(process.env.AEROFLY_USER_DIRECTORY ?? "")) || this.findMainMcfFilePath()
+        );
     }
 
     set mainMcfFilePath(mainMcfFilePath: string) {
