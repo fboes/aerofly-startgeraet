@@ -4,6 +4,7 @@ import * as SunPosition from "./SunPosition.js";
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AeroflyFlightHelper {
     /**
      * @returns nautical time zone offset based on the coordinates of the departure airport

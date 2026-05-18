@@ -8,6 +8,7 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class ImportFileReader {
     static fileTypes = [
         AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,

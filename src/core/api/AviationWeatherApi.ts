@@ -208,8 +208,8 @@ export type AviationWeatherApiFix = {
     lon: number;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AviationWeatherApi {
-    // eslint-disable-line @typescript-eslint/no-extraneous-class
     static async fetchMetar(ids: string[], date: Date | null = null): Promise<AviationWeatherApiMetar[]> {
         return AviationWeatherApi.doRequest<AviationWeatherApiMetar[]>(
             "/api/data/metar",

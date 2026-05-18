@@ -1,4 +1,5 @@
 import { Vector, Point } from "@fboes/geojson";
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AviationWeatherApi {
     static async fetchMetar(ids, date = null) {
         return AviationWeatherApi.doRequest("/api/data/metar", new URLSearchParams({

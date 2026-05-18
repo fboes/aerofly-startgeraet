@@ -15,8 +15,8 @@ export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AeroflyFlightHelper {
-    // eslint-disable-line @typescript-eslint/no-extraneous-class
     /**
      * @returns nautical time zone offset based on the coordinates of the departure airport
      */
