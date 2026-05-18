@@ -1,11 +1,9 @@
 /**
  * Helper class to write styled messages to the console.
  */
-export declare class CliFormatter {
-    static writeln(message: string): void;
-    static writeSuccess(message: string): void;
-    static writeError(message: string): void;
-    static writeCatch(error: unknown): void;
-    static showMenuTitle(titles?: string[]): void;
-}
+export declare function writeln(message: string): void;
+export declare function writeSuccess(message: string): void;
+export declare function writeError(message: string): void;
+export declare function writeCatch(error: unknown): void;
+export declare function showMenuTitle(titles?: string[]): void;
 //# sourceMappingURL=CliFormatter.d.ts.map

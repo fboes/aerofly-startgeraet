@@ -1,5 +1,5 @@
 import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import { ResourceRegistry } from "../registry/ResourceRegistry.js";
+import * as ResourceRegistry from "../registry/ResourceRegistry.js";
 export class AeroflyFlightMcpResourceService {
     aircraftService;
     airportService;

@@ -3,6 +3,6 @@ import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter
 export declare class MetarToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     getIndices(content: string): string[];
     convert(content: string, flightplan: AeroflyFlight, index?: number): void;
-    protected getLines(content: string): string[];
+    private getLines;
 }
 //# sourceMappingURL=MetarToAeroflyFlightConverter.d.ts.map

@@ -7,39 +7,37 @@ import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/Aerofly
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.
  */
-export class ExportFileWriter {
-    static fileTypes = [
-        AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
-        AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
-        AeroflyFlightToGeoJsonConverter.fileExtension,
-        AeroflyFlightToKmlConverter.fileExtension,
-    ];
-    static exportFlightplanToString(filename, flightplan) {
-        const converter = this.getConverter(filename);
-        return new converter().convert(flightplan);
+export const fileTypes = [
+    AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
+    AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
+    AeroflyFlightToGeoJsonConverter.fileExtension,
+    AeroflyFlightToKmlConverter.fileExtension,
+];
+export function exportFlightplanToString(filename, flightplan) {
+    const converter = getConverter(filename);
+    return new converter().convert(flightplan);
+}
+export function exportFlightplanToFile(filename, flightplan) {
+    const content = exportFlightplanToString(filename, flightplan);
+    fs.writeFileSync(filename, content, "utf8");
+}
+export function getConverter(filename) {
+    const fileSuffix = filename.split(".").pop()?.toLowerCase();
+    if (!fileSuffix) {
+        throw new Error(`Could not determine file type for "${filename}"`);
     }
-    static exportFlightplanToFile(filename, flightplan) {
-        const content = ExportFileWriter.exportFlightplanToString(filename, flightplan);
-        fs.writeFileSync(filename, content, "utf8");
+    const registry = getRegistry();
+    const converter = registry[fileSuffix];
+    if (!converter) {
+        throw new Error(`Unsupported file type: ${fileSuffix}`);
     }
-    static getConverter(filename) {
-        const fileSuffix = filename.split(".").pop()?.toLowerCase();
-        if (!fileSuffix) {
-            throw new Error(`Could not determine file type for "${filename}"`);
-        }
-        const registry = this.getRegistry();
-        const converter = registry[fileSuffix];
-        if (!converter) {
-            throw new Error(`Unsupported file type: ${fileSuffix}`);
-        }
-        return converter;
-    }
-    static getRegistry() {
-        return {
-            [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
-            [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
-            [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
-            [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
-        };
-    }
+    return converter;
+}
+export function getRegistry() {
+    return {
+        [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
+        [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
+        [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
+        [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
+    };
 }

@@ -1,10 +1,10 @@
 import { input, number, select, Separator } from "@inquirer/prompts";
-import { CliFormatter } from "../formatter/CliFormatter.js";
+import * as CliFormatter from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
-import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
+import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";

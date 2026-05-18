@@ -1,54 +1,52 @@
 import { CallToolResult, TextContent, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 
-export class McpHelper {
-    static JSONstringify<T>(value: T): string {
-        return JSON.stringify(value, null, 2);
-    }
+export function JSONstringify<T>(value: T): string {
+    return JSON.stringify(value, null, 2);
+}
 
-    static returnSimplifiedResultContent<T>(data: T): CallToolResult {
-        return {
-            content: [
-                {
+export function returnSimplifiedResultContent<T>(data: T): CallToolResult {
+    return {
+        content: [
+            {
+                type: "text",
+                text: JSONstringify(data),
+            },
+        ],
+    };
+}
+
+export function returnResultContent<T>(data: T, warnings: string[] = []): CallToolResult {
+    return {
+        content: [
+            {
+                type: "text",
+                text: JSONstringify({ data }),
+            },
+            ...warnings.map(
+                (text): TextContent => ({
                     type: "text",
-                    text: this.JSONstringify(data),
-                },
-            ],
-        };
-    }
+                    text: "Warning: " + text,
+                }),
+            ),
+        ],
+    };
+}
 
-    static returnResultContent<T>(data: T, warnings: string[] = []): CallToolResult {
+export function returnErrorContent(messages: string[], code: ErrorCode = ErrorCode.InvalidRequest): CallToolResult {
+    {
         return {
-            content: [
-                {
+            content: messages.map(
+                (message): TextContent => ({
                     type: "text",
-                    text: this.JSONstringify({ data }),
-                },
-                ...warnings.map(
-                    (text): TextContent => ({
-                        type: "text",
-                        text: "Warning: " + text,
+                    text: JSON.stringify({
+                        error: {
+                            code,
+                            message,
+                        },
                     }),
-                ),
-            ],
+                }),
+            ),
+            isError: true,
         };
-    }
-
-    static returnErrorContent(messages: string[], code: ErrorCode = ErrorCode.InvalidRequest): CallToolResult {
-        {
-            return {
-                content: messages.map(
-                    (message): TextContent => ({
-                        type: "text",
-                        text: JSON.stringify({
-                            error: {
-                                code,
-                                message,
-                            },
-                        }),
-                    }),
-                ),
-                isError: true,
-            };
-        }
     }
 }

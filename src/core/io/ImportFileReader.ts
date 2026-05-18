@@ -12,6 +12,7 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
  * appropriate converter class.
  */
 export class ImportFileReader {
+    // eslint-disable-line @typescript-eslint/no-extraneous-class
     static fileTypes: string[] = [
         AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,
         AeroflyMcfToImportFileConverter.fileExtension,

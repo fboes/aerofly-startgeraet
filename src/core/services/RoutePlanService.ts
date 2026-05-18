@@ -36,7 +36,7 @@ export type RoutePlanServiceRoute = {
 };
 
 export class RoutePlanService {
-    protected readonly aicraftService: AeroflyAircraftService = new AeroflyAircraftService();
+    private readonly aicraftService: AeroflyAircraftService = new AeroflyAircraftService();
 
     constructor(private aeroflyFlight: AeroflyFlight) {}
 
@@ -124,7 +124,7 @@ export class RoutePlanService {
         };
     }
 
-    protected getCoordinatesFromWaypoint(wp: AeroflyNavRouteBase) {
+    private getCoordinatesFromWaypoint(wp: AeroflyNavRouteBase) {
         return new Point(wp.longitude, wp.latitude, this.getWaypointAltitude(wp));
     }
 
@@ -133,7 +133,7 @@ export class RoutePlanService {
      * @param {AeroflyNavRouteBase} wp Waypoint to get altitude / elevation from
      * @returns {number | null} altitude / elevation in meters
      */
-    protected getWaypointAltitude(wp: AeroflyNavRouteBase): number | null {
+    private getWaypointAltitude(wp: AeroflyNavRouteBase): number | null {
         if (wp instanceof AeroflyNavRouteWaypoint) {
             return wp.altitude;
         } else if (
@@ -147,7 +147,7 @@ export class RoutePlanService {
         return null;
     }
 
-    protected getCruiseSpeedKts(): number {
+    private getCruiseSpeedKts(): number {
         const aircraft = this.aicraftService.getAircraft(this.aeroflyFlight.aircraft.name);
         if (!aircraft) {
             throw Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
@@ -162,7 +162,7 @@ export class RoutePlanService {
      * @param tas_kts in knots
      * @returns ground speed in knots, true heading
      */
-    protected getWindCorrection(
+    private getWindCorrection(
         course: number,
         wind_deg: number,
         tas_kts: number,

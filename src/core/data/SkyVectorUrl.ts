@@ -10,8 +10,8 @@ import { GeoCoordinates } from "./GeoCoordinates.js";
 
 export class SkyVectorUrl {
     constructor(
-        protected aeroflyFlight: AeroflyFlight,
-        protected cruiseSpeed_kts: number | undefined = undefined,
+        private aeroflyFlight: AeroflyFlight,
+        private cruiseSpeed_kts: number | undefined = undefined,
     ) {}
 
     toURL(): URL {
@@ -51,7 +51,7 @@ export class SkyVectorUrl {
             });
     }
 
-    protected getWaypointIdentifier(c: AeroflyNavRouteBase): string {
+    private getWaypointIdentifier(c: AeroflyNavRouteBase): string {
         if (!(c instanceof AeroflyNavRouteWaypoint)) {
             return c.identifier;
         }

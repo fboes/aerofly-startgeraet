@@ -21,7 +21,7 @@ import { AeroflyVector3Float, AeroflyMatrix3Float } from "@fboes/aerofly-custom-
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 
 export class AeroflyMainConfigParser {
-    parser = new AeroflyFileParser();
+    private readonly parser = new AeroflyFileParser();
 
     parse(mainMcfContent: string): AeroflyFlight {
         return new AeroflyFlight(

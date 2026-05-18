@@ -1,25 +1,10 @@
 import { AeroflyNavRouteOrigin, } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
-import { SunPosition } from "./SunPosition.js";
+import * as SunPosition from "./SunPosition.js";
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
  */
 export class AeroflyFlightHelper {
-    /**
-     * @returns total flight distance in meters
-     */
-    static getFlightplanDistance(aeroflyFlight) {
-        let currentCoodinates = null;
-        return aeroflyFlight.navigation.waypoints.reduce((acc, routePoint) => {
-            const newCoordinates = new Point(routePoint.longitude, routePoint.latitude);
-            if (currentCoodinates) {
-                const vector = currentCoodinates.getVectorTo(newCoordinates);
-                acc += vector.meters; // Distance in meters
-            }
-            currentCoodinates = newCoordinates;
-            return acc;
-        }, 0);
-    }
     /**
      * @returns nautical time zone offset based on the coordinates of the departure airport
      */

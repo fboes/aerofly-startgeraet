@@ -3,10 +3,10 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { AeroflyFlightMcpResourceService } from "./services/AeroflyFlightMcpResourceService.js";
-import { ApplicationService } from "../core/services/ApplicationService.js";
-import { ResourceRegistry } from "./registry/ResourceRegistry.js";
-import { ConfigurationRegistry } from "./registry/ConfigurationRegistry.js";
-import { FlightRegistry } from "./registry/FlightRegistry.js";
+import * as ApplicationService from "../core/services/ApplicationService.js";
+import * as ResourceRegistry from "./registry/ResourceRegistry.js";
+import * as ConfigurationRegistry from "./registry/ConfigurationRegistry.js";
+import * as FlightRegistry from "./registry/FlightRegistry.js";
 import { Config } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 

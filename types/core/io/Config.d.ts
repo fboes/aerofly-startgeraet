@@ -3,7 +3,7 @@
  * as well as persistence handler.
  */
 export declare class Config {
-    private conf;
+    private readonly conf;
     constructor(projectName?: string);
     protected get(key: string, defaultValue?: string): string;
     protected set(key: string, value: string | number): void;

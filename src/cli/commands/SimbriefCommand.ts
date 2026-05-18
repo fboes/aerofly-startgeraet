@@ -1,5 +1,5 @@
-import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
-import { CliFormatter } from "../formatter/CliFormatter.js";
+import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
+import * as CliFormatter from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 import { input } from "@inquirer/prompts";
 

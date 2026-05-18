@@ -8,7 +8,7 @@ import fs from "fs";
  * as well as persistence handler.
  */
 export class Config {
-    private conf: Conf;
+    private readonly conf: Conf;
 
     constructor(projectName: string = "startgeraet") {
         this.conf = new Conf({ projectName });

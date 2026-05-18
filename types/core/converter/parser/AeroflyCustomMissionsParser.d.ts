@@ -1,7 +1,6 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyFileParser } from "./AeroflyFileParser.js";
 export declare class AeroflyCustomMissionsParser {
-    parser: AeroflyFileParser;
+    private readonly parser;
     getMissionNames(content: string): string[];
     parse(content: string, index?: number): AeroflyFlight;
     private getMissions;

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { CliFormatter } from "./formatter/CliFormatter.js";
+import * as CliFormatter from "./formatter/CliFormatter.js";
 import { Config } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import { MenuCommand } from "./commands/MenuCommand.js";

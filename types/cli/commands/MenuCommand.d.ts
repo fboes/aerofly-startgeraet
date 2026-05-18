@@ -1,4 +1,3 @@
-import { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
 import { ControllerCommand } from "./Command.js";
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 /**
@@ -14,20 +13,17 @@ export declare class MenuCommand extends ControllerCommand {
     importFlightplan(): Promise<MenuCommandMethod>;
     exportFlightplan(): Promise<MenuCommandMethod>;
     setTimeAndDate(): Promise<MenuCommandMethod>;
-    protected setTimeAndDateManual(timeZoneUTCName: string, timeZoneName: string, timeValue: Date): Promise<string>;
+    private setTimeAndDateManual;
     importWeather(): Promise<MenuCommandMethod>;
     setWind(): Promise<MenuCommandMethod>;
     setTemperature(): Promise<MenuCommandMethod>;
     setVisibility(): Promise<MenuCommandMethod>;
     setClouds(): Promise<MenuCommandMethod>;
-    protected setCloud(index?: number, cloud?: AeroflyFlightServiceCloud): Promise<AeroflyFlightServiceCloud>;
+    private setCloud;
     setConfiguration(): Promise<MenuCommandMethod>;
     saveAndExit(): MenuCommandMethod;
     exit(): null;
-    protected name(option: string, value: string, sub?: boolean): string;
-    protected getMainMenuChoice(): {
-        name: string;
-        value: MenuCommandMethod;
-    };
+    private name;
+    private getMainMenuChoice;
 }
 //# sourceMappingURL=MenuCommand.d.ts.map

@@ -114,7 +114,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         );
     }
 
-    protected getWaypointsFromNavlog(simbriefPayload: SimBriefApiPayload): AeroflyNavRouteWaypoint[] {
+    private getWaypointsFromNavlog(simbriefPayload: SimBriefApiPayload): AeroflyNavRouteWaypoint[] {
         const wayPoints = simbriefPayload.navlog
             .filter((navlogItem) => navlogItem.type !== "ltlg")
             .map(
@@ -137,7 +137,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         return wayPoints;
     }
 
-    protected convertWeather(flight: AeroflyFlight, airport: SimBriefApiPayloadAirport) {
+    private convertWeather(flight: AeroflyFlight, airport: SimBriefApiPayloadAirport) {
         const metar = metarParser(airport.metar);
 
         flight.wind = new AeroflySettingsWind(
@@ -156,7 +156,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         flight.visibility_meter = metar.visibility.meters;
     }
 
-    protected findAeroflyAircraftCode(
+    private findAeroflyAircraftCode(
         simbriefIcaoCode: string,
         simbriefAirlineCode: string,
     ): {

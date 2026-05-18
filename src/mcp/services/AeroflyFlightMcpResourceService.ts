@@ -2,7 +2,7 @@ import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json
 import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
 import { AeroflyAirportService } from "../../core/services/AeroflyAirportService.js";
 import { Resource, McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import { ResourceRegistry } from "../registry/ResourceRegistry.js";
+import * as ResourceRegistry from "../registry/ResourceRegistry.js";
 
 export type AeroflyFlightMcpResourceServiceAircraft = {
     aeroflyCode: string;

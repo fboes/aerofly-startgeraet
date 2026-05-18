@@ -1,4 +1,4 @@
-import { CliFormatter } from "../formatter/CliFormatter.js";
+import * as CliFormatter from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 
 export class MetarCommand extends ControllerCommand {

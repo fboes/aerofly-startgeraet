@@ -209,6 +209,7 @@ export type AviationWeatherApiFix = {
 };
 
 export class AviationWeatherApi {
+    // eslint-disable-line @typescript-eslint/no-extraneous-class
     static async fetchMetar(ids: string[], date: Date | null = null): Promise<AviationWeatherApiMetar[]> {
         return AviationWeatherApi.doRequest<AviationWeatherApiMetar[]>(
             "/api/data/metar",
@@ -343,7 +344,7 @@ export class AviationWeatherApi {
             elev: Number(navaid.elev),
             freq: Number(navaid.freq),
             freq_unit: navaid.type === "NDB" ? "kHz" : "MHz",
-            mag_dec: magDecConverter(navaid.mag_dec),
+            mag_dec: this.magDecConverter(navaid.mag_dec),
         };
     }
 
@@ -392,7 +393,7 @@ export class AviationWeatherApi {
                 .replace(/(^|\s)[a-z]/g, (char) => {
                     return char.toUpperCase();
                 }),
-            magdec: magDecConverter(airport.magdec),
+            magdec: this.magDecConverter(airport.magdec),
             rwyNum: Number(airport.rwyNum),
             services: airport.services === "S",
             tower: airport.tower === "T",
@@ -445,19 +446,19 @@ export class AviationWeatherApi {
             }),
         };
     }
-}
 
-/**
- * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
- */
-export const magDecConverter = (magdec: string): number => {
-    let magDec = 0;
-    const magdecMatch = magdec.match(/^(\d+)(E|W)$/);
-    if (magdecMatch) {
-        magDec = Number(magdecMatch[1]);
-        if (magdecMatch[2] === "W") {
-            magDec *= -1;
+    /**
+     * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
+     */
+    static magDecConverter(magdec: string): number {
+        let magDec = 0;
+        const magdecMatch = magdec.match(/^(\d+)(E|W)$/);
+        if (magdecMatch) {
+            magDec = Number(magdecMatch[1]);
+            if (magdecMatch[2] === "W") {
+                magDec *= -1;
+            }
         }
+        return magDec;
     }
-    return magDec;
-};
+}

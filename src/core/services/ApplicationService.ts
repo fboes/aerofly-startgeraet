@@ -1,35 +1,34 @@
 import PackageJson from "../../../package.json" with { type: "json" };
 
-export class ApplicationService {
-    static getPackageName(): string {
-        return PackageJson.name;
-    }
+export function getPackageName(): string {
+    return PackageJson.name;
+}
 
-    static getApplicationSlug(): string {
-        return this.getPackageName().replace(/^.*?\//, "");
-    }
+export function getApplicationSlug(): string {
+    return getPackageName().replace(/^.*?\//, "");
+}
 
-    static getApplicationName(): string {
-        return "Aerofly Startgerät";
-    }
+export function getApplicationName(): string {
+    return "Aerofly Startgerät";
+}
 
-    static getApplicationVersion(): string {
-        return PackageJson.version;
-    }
+export function getApplicationVersion(): string {
+    return PackageJson.version;
+}
 
-    static getApplicationNameVersion(): string {
-        return this.getApplicationName() + " " + this.getApplicationVersion();
-    }
+export function getApplicationNameVersion(): string {
+    return getApplicationName() + " " + getApplicationVersion();
+}
 
-    static getApplicationDescription(): string {
-        return PackageJson.description;
-    }
+export function getApplicationDescription(): string {
+    return PackageJson.description;
+}
 
-    static toJSON() {
-        return {
-            name: this.getApplicationName(),
-            version: this.getApplicationVersion(),
-            description: this.getApplicationDescription(),
-        };
-    }
+export function getApplicationJSON() {
+    return {
+        slug: getApplicationSlug(),
+        name: getApplicationName(),
+        version: getApplicationVersion(),
+        description: getApplicationDescription(),
+    };
 }

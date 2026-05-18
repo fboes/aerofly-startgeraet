@@ -32,7 +32,7 @@ export class MetarToAeroflyFlightConverter extends StringToAeroflyFlightConverte
         flightplan.visibility_meter = metar.visibility.meters;
     }
 
-    protected getLines(content: string): string[] {
+    private getLines(content: string): string[] {
         return content.split(/\n/);
     }
 }

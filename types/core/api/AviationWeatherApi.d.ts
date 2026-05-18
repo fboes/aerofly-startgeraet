@@ -222,10 +222,10 @@ export declare class AviationWeatherApi {
     static buildBbox(longitude: number, latitude: number, distance?: number): [number, number, number, number];
     static normalizeAirport(airport: AviationWeatherApiAirport): AviationWeatherNormalizedAirport;
     static normalizeWeather(weather: AviationWeatherApiMetar): AviationWeatherNormalizedMetar;
+    /**
+     * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
+     */
+    static magDecConverter(magdec: string): number;
 }
-/**
- * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
- */
-export declare const magDecConverter: (magdec: string) => number;
 export {};
 //# sourceMappingURL=AviationWeatherApi.d.ts.map

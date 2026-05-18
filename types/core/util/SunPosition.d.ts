@@ -1,16 +1,14 @@
-export declare class SunPosition {
-    /**
-     * Simplified elevation/ azimuth calculation
-     */
-    static getSunPosition(
-        utcHours: number,
-        dayOfYear: number,
-        latitude: number,
-        longitude: number,
-    ): {
-        elevation: number;
-        azimuth: number;
-    };
-    static dayOfYear(date: Date): number;
-}
+/**
+ * Simplified elevation/ azimuth calculation
+ */
+export declare function getSunPosition(
+    utcHours: number,
+    dayOfYear: number,
+    latitude: number,
+    longitude: number,
+): {
+    elevation: number;
+    azimuth: number;
+};
+export declare function dayOfYear(date: Date): number;
 //# sourceMappingURL=SunPosition.d.ts.map

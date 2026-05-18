@@ -6,7 +6,7 @@ import {
     AeroflySettingsCloud,
 } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
-import { SunPosition } from "./SunPosition.js";
+import * as SunPosition from "./SunPosition.js";
 
 export type AeroflylightCategoryIcao = "VFR" | "IFR";
 
@@ -16,25 +16,7 @@ export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
  * Offer additional properties derived from `AeroflyFlight` classes
  */
 export class AeroflyFlightHelper {
-    /**
-     * @returns total flight distance in meters
-     */
-    static getFlightplanDistance(aeroflyFlight: AeroflyFlight): number {
-        let currentCoodinates: Point | null = null;
-        return aeroflyFlight.navigation.waypoints.reduce((acc, routePoint) => {
-            const newCoordinates: Point = new Point(routePoint.longitude, routePoint.latitude);
-
-            if (currentCoodinates) {
-                const vector = currentCoodinates.getVectorTo(newCoordinates);
-                acc += vector.meters; // Distance in meters
-            }
-
-            currentCoodinates = newCoordinates;
-
-            return acc;
-        }, 0);
-    }
-
+    // eslint-disable-line @typescript-eslint/no-extraneous-class
     /**
      * @returns nautical time zone offset based on the coordinates of the departure airport
      */

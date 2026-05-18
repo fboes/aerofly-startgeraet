@@ -21,7 +21,7 @@ export declare class GeoCoordinates {
      * Returns N or S
      */
     get latHemisphere(): "N" | "S";
-    protected convertMinute(lonOrLat: number): LonLatMinute;
+    private convertMinute;
     toString(fractionDigits?: number): string;
 }
 export {};

@@ -42,7 +42,7 @@ export class GeoCoordinates {
         return this.lat > 0 ? "N" : "S";
     }
 
-    protected convertMinute(lonOrLat: number): LonLatMinute {
+    private convertMinute(lonOrLat: number): LonLatMinute {
         const l = {
             degree: lonOrLat > 0 ? Math.floor(lonOrLat) : Math.ceil(lonOrLat),
             minutes: 0,

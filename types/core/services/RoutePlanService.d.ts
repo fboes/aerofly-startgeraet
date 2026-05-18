@@ -1,7 +1,4 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
-import { Point } from "@fboes/geojson";
 export type RoutePlanServiceLeg = {
     from: string;
     to: string;
@@ -27,18 +24,18 @@ export type RoutePlanServiceRoute = {
 };
 export declare class RoutePlanService {
     private aeroflyFlight;
-    protected readonly aicraftService: AeroflyAircraftService;
+    private readonly aicraftService;
     constructor(aeroflyFlight: AeroflyFlight);
     getRouteLegs(cruiseSpeed_kts?: null | number): RoutePlanServiceLeg[];
     getRoute(cruiseSpeed_kts?: null | number): RoutePlanServiceRoute;
-    protected getCoordinatesFromWaypoint(wp: AeroflyNavRouteBase): Point;
+    private getCoordinatesFromWaypoint;
     /**
      *
      * @param {AeroflyNavRouteBase} wp Waypoint to get altitude / elevation from
      * @returns {number | null} altitude / elevation in meters
      */
-    protected getWaypointAltitude(wp: AeroflyNavRouteBase): number | null;
-    protected getCruiseSpeedKts(): number;
+    private getWaypointAltitude;
+    private getCruiseSpeedKts;
     /**
      * @see https://e6bx.com/e6b
      *
@@ -46,15 +43,6 @@ export declare class RoutePlanService {
      * @param tas_kts in knots
      * @returns ground speed in knots, true heading
      */
-    protected getWindCorrection(
-        course: number,
-        wind_deg: number,
-        tas_kts: number,
-        windSpeed_kts: number,
-    ): {
-        ground_speed: number;
-        heading_rad: number;
-        heading: number;
-    };
+    private getWindCorrection;
 }
 //# sourceMappingURL=RoutePlanService.d.ts.map

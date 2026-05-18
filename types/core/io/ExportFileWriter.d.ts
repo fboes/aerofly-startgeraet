@@ -4,11 +4,9 @@ import { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/Aero
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.
  */
-export declare class ExportFileWriter {
-    static fileTypes: string[];
-    static exportFlightplanToString(filename: string, flightplan: AeroflyFlight): string;
-    static exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void;
-    static getConverter(filename: string): new () => AeroflyFlightToStringConverter;
-    static getRegistry(): Record<string, (new () => AeroflyFlightToStringConverter) | undefined>;
-}
+export declare const fileTypes: string[];
+export declare function exportFlightplanToString(filename: string, flightplan: AeroflyFlight): string;
+export declare function exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void;
+export declare function getConverter(filename: string): new () => AeroflyFlightToStringConverter;
+export declare function getRegistry(): Record<string, (new () => AeroflyFlightToStringConverter) | undefined>;
 //# sourceMappingURL=ExportFileWriter.d.ts.map

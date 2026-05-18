@@ -1,11 +1,11 @@
 import { input, number, select, Separator } from "@inquirer/prompts";
 import { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
-import { CliFormatter } from "../formatter/CliFormatter.js";
+import * as CliFormatter from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
-import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
+import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
@@ -351,7 +351,7 @@ export class MenuCommand extends ControllerCommand {
         return "mainMenu";
     }
 
-    protected async setTimeAndDateManual(
+    private async setTimeAndDateManual(
         timeZoneUTCName: string,
         timeZoneName: string,
         timeValue: Date,
@@ -507,7 +507,7 @@ export class MenuCommand extends ControllerCommand {
         return "mainMenu";
     }
 
-    protected async setCloud(index = 0, cloud?: AeroflyFlightServiceCloud): Promise<AeroflyFlightServiceCloud> {
+    private async setCloud(index = 0, cloud?: AeroflyFlightServiceCloud): Promise<AeroflyFlightServiceCloud> {
         let cloudLayer = "Cumulus";
         switch (index) {
             case 1:
@@ -576,7 +576,7 @@ export class MenuCommand extends ControllerCommand {
         return null;
     }
 
-    protected name(option: string, value: string, sub: boolean = false): string {
+    private name(option: string, value: string, sub: boolean = false): string {
         if (sub) {
             option = ` ↳ ${option}`;
         }
@@ -586,7 +586,7 @@ export class MenuCommand extends ControllerCommand {
         return `${option.padEnd(20)} ⇒ ${value}`;
     }
 
-    protected getMainMenuChoice(): { name: string; value: MenuCommandMethod } {
+    private getMainMenuChoice(): { name: string; value: MenuCommandMethod } {
         return { name: "Return to main menu", value: "mainMenu" };
     }
 }

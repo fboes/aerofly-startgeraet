@@ -1,48 +1,46 @@
 import { z } from "zod";
-export declare class ZodExtra {
-    static longitude(): z.ZodNumber;
-    static latitude(): z.ZodNumber;
-    static degree(): z.ZodNumber;
-    /**
-     * Create a Zod validator which allows for numbers between [0,1]
-     */
-    static normalized(): z.ZodNumber;
-    /**
-     * Create a Zod validator for ICAO aiports IDs, navaid IDs, fixes and wapoint names.
-     */
-    static identifier(): z.ZodString;
-    static waypointType(): z.ZodEnum;
-    static aircraft(): z.ZodString;
-    static configuration(): z.ZodEnum;
-    static airport(): z.ZodObject<{
-        identifier: z.ZodString;
-        longitude: z.ZodNumber;
-        latitude: z.ZodNumber;
-        elevation_ft: z.ZodOptional<z.ZodNumber>;
-    }>;
-    static waypoint(): z.ZodObject<{
-        identifier: z.ZodString;
-        longitude: z.ZodNumber;
-        latitude: z.ZodNumber;
-        altitude_ft: z.ZodOptional<z.ZodNumber>;
-        flyOver: z.ZodOptional<z.ZodBoolean>;
-    }>;
-    static runway(): z.ZodObject<{
-        identifier: z.ZodString;
-        length: z.ZodOptional<z.ZodNumber>;
-        elevation_ft: z.ZodOptional<z.ZodNumber>;
-        direction_degree: z.ZodOptional<z.ZodNumber>;
-    }>;
-    static geoCoordinates(): z.ZodObject<{
-        longitude: z.ZodNumber;
-        latitude: z.ZodNumber;
-    }>;
-    static geoQuery(): z.ZodObject<{
-        longitude: z.ZodNumber;
-        latitude: z.ZodNumber;
-        radiusKm: z.ZodNumber;
-    }>;
-    static exportFileType(): z.ZodEnum;
-    static importFileType(): z.ZodEnum;
-}
+export declare function longitude(): z.ZodNumber;
+export declare function latitude(): z.ZodNumber;
+export declare function degree(): z.ZodNumber;
+/**
+ * Create a Zod validator which allows for numbers between [0,1]
+ */
+export declare function normalized(): z.ZodNumber;
+/**
+ * Create a Zod validator for ICAO aiports IDs, navaid IDs, fixes and wapoint names.
+ */
+export declare function identifier(): z.ZodString;
+export declare function waypointType(): z.ZodEnum;
+export declare function aircraft(): z.ZodString;
+export declare function configuration(): z.ZodEnum;
+export declare function airport(): z.ZodObject<{
+    identifier: z.ZodString;
+    longitude: z.ZodNumber;
+    latitude: z.ZodNumber;
+    elevation_ft: z.ZodOptional<z.ZodNumber>;
+}>;
+export declare function waypoint(): z.ZodObject<{
+    identifier: z.ZodString;
+    longitude: z.ZodNumber;
+    latitude: z.ZodNumber;
+    altitude_ft: z.ZodOptional<z.ZodNumber>;
+    flyOver: z.ZodOptional<z.ZodBoolean>;
+}>;
+export declare function runway(): z.ZodObject<{
+    identifier: z.ZodString;
+    length: z.ZodOptional<z.ZodNumber>;
+    elevation_ft: z.ZodOptional<z.ZodNumber>;
+    direction_degree: z.ZodOptional<z.ZodNumber>;
+}>;
+export declare function geoCoordinates(): z.ZodObject<{
+    longitude: z.ZodNumber;
+    latitude: z.ZodNumber;
+}>;
+export declare function geoQuery(): z.ZodObject<{
+    longitude: z.ZodNumber;
+    latitude: z.ZodNumber;
+    radiusKm: z.ZodNumber;
+}>;
+export declare function exportFileType(): z.ZodEnum;
+export declare function importFileType(): z.ZodEnum;
 //# sourceMappingURL=ZodExtra.d.ts.map

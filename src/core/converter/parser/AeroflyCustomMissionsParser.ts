@@ -20,7 +20,7 @@ import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-fl
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 
 export class AeroflyCustomMissionsParser {
-    parser = new AeroflyFileParser();
+    private readonly parser = new AeroflyFileParser();
 
     getMissionNames(content: string): string[] {
         const missions = this.getMissions(content);

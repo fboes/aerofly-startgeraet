@@ -4,9 +4,9 @@ import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import { ImportFileReader } from "../io/ImportFileReader.js";
-import { ExportFileWriter } from "../io/ExportFileWriter.js";
+import * as ExportFileWriter from "../io/ExportFileWriter.js";
 import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
-import { AeroflyFlightFormatter } from "../formatter/AeroflyFlightFormatter.js";
+import * as AeroflyFlightFormatter from "../formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
@@ -19,7 +19,6 @@ import { RoutePlanService } from "./RoutePlanService.js";
 export class AeroflyFlightService {
     config;
     currentAircraft;
-    currentLivery;
     aeroflyFlight;
     aeroflyMainConfigReader;
     aircraftService;
@@ -45,7 +44,6 @@ export class AeroflyFlightService {
     }
     setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery) {
         this.currentAircraft = this.aircraftService.getAircraft(aeroflyCodeAircraft);
-        this.currentLivery = this.aircraftService.getLiveryForAircraft(this.currentAircraft, aeroflyCodeLivery);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
         return this.aeroflyFlight.aircraft;
@@ -157,7 +155,6 @@ export class AeroflyFlightService {
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
         this.currentAircraft = this.aircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
-        this.currentLivery = this.aircraftService.getLiveryForAircraft(this.currentAircraft, this.aeroflyFlight.aircraft.paintscheme);
     }
     setFlightplan(origin, destination, { departureRunway, destinationRunway, waypoints, cruiseAltitudeFt, } = {}) {
         this.aeroflyFlight.navigation.waypoints = [

@@ -73,11 +73,11 @@ export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConver
         return JSON.stringify(geoJson, null, 2);
     }
 
-    protected getPointForWaypoint(wp: AeroflyNavRouteBase): Point {
+    private getPointForWaypoint(wp: AeroflyNavRouteBase): Point {
         return new Point(wp.longitude, wp.latitude, this.getWaypointAltitude(wp));
     }
 
-    protected getMarkerSymbolForWaypoint(wp: AeroflyNavRouteBase): string {
+    private getMarkerSymbolForWaypoint(wp: AeroflyNavRouteBase): string {
         if (wp instanceof AeroflyNavRouteOrigin || wp instanceof AeroflyNavRouteDestination) {
             return "airport";
         }

@@ -1,8 +1,7 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 export declare class SkyVectorUrl {
-    protected aeroflyFlight: AeroflyFlight;
-    protected cruiseSpeed_kts: number | undefined;
+    private aeroflyFlight;
+    private cruiseSpeed_kts;
     constructor(aeroflyFlight: AeroflyFlight, cruiseSpeed_kts?: number | undefined);
     toURL(): URL;
     /**
@@ -10,6 +9,6 @@ export declare class SkyVectorUrl {
      */
     toString(): string;
     getWaypointIdentifiers(): string[];
-    protected getWaypointIdentifier(c: AeroflyNavRouteBase): string;
+    private getWaypointIdentifier;
 }
 //# sourceMappingURL=SkyVectorUrl.d.ts.map

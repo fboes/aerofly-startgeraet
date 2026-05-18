@@ -5,37 +5,36 @@ export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
-export declare class AeroflyFlightFormatter {
-    protected readonly aeroflyFlight: AeroflyFlight;
-    protected readonly aircraftService: AeroflyAircraftService;
-    protected readonly airportService: AeroflyAirportService;
-    constructor(
-        aeroflyFlight: AeroflyFlight,
-        aircraftService: AeroflyAircraftService,
-        airportService: AeroflyAirportService,
-    );
-    static getAircraft(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string;
-    static getFuelAndPayload(aeroflyFlight: AeroflyFlight): string;
-    static getFlightplanIdentifier(aeroflyFlight: AeroflyFlight): string;
-    static getFlightplanOriginCode(aeroflyFlight: AeroflyFlight): string;
-    static getFlightplanOriginName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string;
-    static getAirportName(airportCode: string, airportService: AeroflyAirportService): string;
-    static getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string;
-    static getFlightplanDestinationName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string;
-    static getFlightplanSummary(
-        aeroflyFlight: AeroflyFlight,
-        aircraftService: AeroflyAircraftService,
-        airportService: AeroflyAirportService,
-    ): string;
-    static getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string;
-    static getFlightplanDistance(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string;
-    static getFlightCategory(aeroflyFlight: AeroflyFlight): string;
-    static getWind(aeroflyFlight: AeroflyFlight): string;
-    static getTemperature(aeroflyFlight: AeroflyFlight): string;
-    static getVisibility(aeroflyFlight: AeroflyFlight): string;
-    static getClouds(aeroflyFlight: AeroflyFlight): string;
-    static getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition;
-    static numberToString(num: number): string;
-    static dateToString(date: Date): string;
-}
+export declare function getAircraft(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string;
+export declare function getFuelAndPayload(aeroflyFlight: AeroflyFlight): string;
+export declare function getFlightplanIdentifier(aeroflyFlight: AeroflyFlight): string;
+export declare function getFlightplanOriginCode(aeroflyFlight: AeroflyFlight): string;
+export declare function getFlightplanOriginName(
+    aeroflyFlight: AeroflyFlight,
+    airportService: AeroflyAirportService,
+): string;
+export declare function getAirportName(airportCode: string, airportService: AeroflyAirportService): string;
+export declare function getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string;
+export declare function getFlightplanDestinationName(
+    aeroflyFlight: AeroflyFlight,
+    airportService: AeroflyAirportService,
+): string;
+export declare function getFlightplanSummary(
+    aeroflyFlight: AeroflyFlight,
+    aircraftService: AeroflyAircraftService,
+    airportService: AeroflyAirportService,
+): string;
+export declare function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string;
+export declare function getFlightplanDistance(
+    aeroflyFlight: AeroflyFlight,
+    aircraftService: AeroflyAircraftService,
+): string;
+export declare function getFlightCategory(aeroflyFlight: AeroflyFlight): string;
+export declare function getWind(aeroflyFlight: AeroflyFlight): string;
+export declare function getTemperature(aeroflyFlight: AeroflyFlight): string;
+export declare function getVisibility(aeroflyFlight: AeroflyFlight): string;
+export declare function getClouds(aeroflyFlight: AeroflyFlight): string;
+export declare function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition;
+export declare function numberToString(num: number): string;
+export declare function dateToString(date: Date): string;
 //# sourceMappingURL=AeroflyFlightFormatter.d.ts.map

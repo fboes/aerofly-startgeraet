@@ -7,6 +7,7 @@
 - Adding wind correction for flight plan
 - Added timeout to API calls
 - Added elevation data API
+- Changed general visibility from `protected` to `private`
 
 ## [1.5.1] - 2026-05-01
 

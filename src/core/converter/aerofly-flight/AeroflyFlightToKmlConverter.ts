@@ -88,7 +88,7 @@ ${flightplan.navigation.waypoints
 `;
     }
 
-    protected xml(str: string): string {
+    private xml(str: string): string {
         return str
             .replace(/&/g, "&amp;") // must be first!
             .replace(/</g, "&lt;")
@@ -97,7 +97,7 @@ ${flightplan.navigation.waypoints
             .replace(/'/g, "&apos;");
     }
 
-    protected coordinatesToString(wp: AeroflyNavRouteBase) {
+    private coordinatesToString(wp: AeroflyNavRouteBase) {
         return [wp.longitude, wp.latitude, this.getWaypointAltitude(wp) ?? 0].join(",");
     }
 }

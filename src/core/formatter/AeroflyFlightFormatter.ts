@@ -3,165 +3,161 @@ import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 import { AeroflyAirportService } from "../services/AeroflyAirportService.js";
 import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
+import { RoutePlanService } from "../services/RoutePlanService.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";
 
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
-export class AeroflyFlightFormatter {
-    constructor(
-        protected readonly aeroflyFlight: AeroflyFlight,
-        protected readonly aircraftService: AeroflyAircraftService,
-        protected readonly airportService: AeroflyAirportService,
-    ) {}
 
-    static getAircraft(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string {
-        const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
-        if (!currentAircraft) {
-            return "No aircraft selected";
-        }
-
-        const currentLivery = aircraftService.getLiveryForAircraft(currentAircraft, aeroflyFlight.aircraft.paintscheme);
-        return `${currentAircraft.nameFull} - ${currentLivery?.name ?? "Default Livery"}`;
+export function getAircraft(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string {
+    const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
+    if (!currentAircraft) {
+        return "No aircraft selected";
     }
 
-    static getFuelAndPayload(aeroflyFlight: AeroflyFlight): string {
-        return aeroflyFlight.fuelLoadSetting.fuelMass
-            ? `${this.numberToString(aeroflyFlight.fuelLoadSetting.fuelMass)} / ${this.numberToString(aeroflyFlight.fuelLoadSetting.payloadMass)} kg`
-            : "Unset";
+    const currentLivery = aircraftService.getLiveryForAircraft(currentAircraft, aeroflyFlight.aircraft.paintscheme);
+    return `${currentAircraft.nameFull} - ${currentLivery?.name ?? "Default Livery"}`;
+}
+
+export function getFuelAndPayload(aeroflyFlight: AeroflyFlight): string {
+    return aeroflyFlight.fuelLoadSetting.fuelMass
+        ? `${numberToString(aeroflyFlight.fuelLoadSetting.fuelMass)} / ${numberToString(aeroflyFlight.fuelLoadSetting.payloadMass)} kg`
+        : "Unset";
+}
+
+export function getFlightplanIdentifier(aeroflyFlight: AeroflyFlight): string {
+    return `${getFlightplanOriginCode(aeroflyFlight)}-${getFlightplanDestinationCode(aeroflyFlight)}`.replace(
+        /[^a-zA-Z0-9_-]+/g,
+        "-",
+    );
+}
+
+export function getFlightplanOriginCode(aeroflyFlight: AeroflyFlight): string {
+    return (
+        aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.identifier ?? "Unknown"
+    );
+}
+
+export function getFlightplanOriginName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string {
+    const airportCode = getFlightplanOriginCode(aeroflyFlight);
+    const airportName = getAirportName(airportCode, airportService);
+
+    return airportName ? `${airportName} (${airportCode})` : airportCode;
+}
+
+export function getAirportName(airportCode: string, airportService: AeroflyAirportService): string {
+    return airportCode !== "Unknown" ? (airportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
+}
+
+export function getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string {
+    return (
+        aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ??
+        "Unknown"
+    );
+}
+
+export function getFlightplanDestinationName(
+    aeroflyFlight: AeroflyFlight,
+    airportService: AeroflyAirportService,
+): string {
+    const airportCode = getFlightplanDestinationCode(aeroflyFlight);
+    const airportName = getAirportName(airportCode, airportService);
+
+    return airportName ? `${airportName} (${airportCode})` : airportCode;
+}
+
+export function getFlightplanSummary(
+    aeroflyFlight: AeroflyFlight,
+    aircraftService: AeroflyAircraftService,
+    airportService: AeroflyAirportService,
+): string {
+    return `${getFlightplanOriginName(aeroflyFlight, airportService)} → ${getFlightplanDestinationName(aeroflyFlight, airportService)} (${getFlightplanDistance(aeroflyFlight, aircraftService)})`;
+}
+
+export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string {
+    return aeroflyFlight.navigation.waypoints
+        .map((wp: AeroflyNavRouteBase): string => {
+            return wp.identifier;
+        })
+        .join(" → ");
+}
+
+export function getFlightplanDistance(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string {
+    const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
+    if (!currentAircraft) {
+        return "Unknown";
     }
 
-    static getFlightplanIdentifier(aeroflyFlight: AeroflyFlight): string {
-        return `${this.getFlightplanOriginCode(aeroflyFlight)}-${this.getFlightplanDestinationCode(aeroflyFlight)}`.replace(
-            /[^a-zA-Z0-9_-]+/g,
-            "-",
-        );
+    try {
+        const route = new RoutePlanService(aeroflyFlight).getRoute();
+        const distanceNm = route.distanceTotal_nm;
+        const timeH = route.estimatedTimeEnrouteTotal_min * 60;
+        const timeString = timeH
+            ? `, ${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
+                  .toString()
+                  .padStart(2, "0")}h`
+            : "";
+        return `${numberToString(distanceNm)}NM${timeString}`;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+        return "Unknown";
+    }
+}
+
+export function getFlightCategory(aeroflyFlight: AeroflyFlight): string {
+    return `ICAO: ${AeroflyFlightHelper.getIcaoFLightCategory(aeroflyFlight)} | US: ${AeroflyFlightHelper.getFlightCategory(aeroflyFlight)}`;
+}
+
+export function getWind(aeroflyFlight: AeroflyFlight): string {
+    let wind = `${numberToString(aeroflyFlight.wind.directionInDegree)}° @ ${numberToString(aeroflyFlight.wind.speed_kts)}kts`;
+    if (aeroflyFlight.wind.gust_kts > 0) {
+        wind += ` (gusts ${numberToString(aeroflyFlight.wind.gust_kts)}kts)`;
+    }
+    return wind;
+}
+
+export function getTemperature(aeroflyFlight: AeroflyFlight): string {
+    return `${numberToString(aeroflyFlight.wind.temperature_celsius)}°C`;
+}
+
+export function getVisibility(aeroflyFlight: AeroflyFlight): string {
+    if (aeroflyFlight.visibility_sm === 10 || aeroflyFlight.visibility_meter === 9999) {
+        return "10SM / " + numberToString(9999) + "m";
     }
 
-    static getFlightplanOriginCode(aeroflyFlight: AeroflyFlight): string {
-        return (
-            aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.identifier ??
-            "Unknown"
-        );
-    }
+    return `${numberToString(aeroflyFlight.visibility_sm)}SM / ${numberToString(aeroflyFlight.visibility_meter)}m`;
+}
 
-    static getFlightplanOriginName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string {
-        const airportCode = this.getFlightplanOriginCode(aeroflyFlight);
-        const airportName = this.getAirportName(airportCode, airportService);
-
-        return airportName ? `${airportName} (${airportCode})` : airportCode;
-    }
-
-    static getAirportName(airportCode: string, airportService: AeroflyAirportService): string {
-        return airportCode !== "Unknown" ? (airportService.getAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
-    }
-
-    static getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string {
-        return (
-            aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ??
-            "Unknown"
-        );
-    }
-
-    static getFlightplanDestinationName(aeroflyFlight: AeroflyFlight, airportService: AeroflyAirportService): string {
-        const airportCode = this.getFlightplanDestinationCode(aeroflyFlight);
-        const airportName = this.getAirportName(airportCode, airportService);
-
-        return airportName ? `${airportName} (${airportCode})` : airportCode;
-    }
-
-    static getFlightplanSummary(
-        aeroflyFlight: AeroflyFlight,
-        aircraftService: AeroflyAircraftService,
-        airportService: AeroflyAirportService,
-    ): string {
-        return `${this.getFlightplanOriginName(aeroflyFlight, airportService)} → ${this.getFlightplanDestinationName(aeroflyFlight, airportService)} (${this.getFlightplanDistance(aeroflyFlight, aircraftService)})`;
-    }
-
-    static getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string {
-        return aeroflyFlight.navigation.waypoints
-            .map((wp: AeroflyNavRouteBase): string => {
-                return wp.identifier;
+export function getClouds(aeroflyFlight: AeroflyFlight): string {
+    return (
+        aeroflyFlight.clouds
+            .filter((cloud) => cloud.density > 0)
+            .map((cloud) => {
+                return `${cloud.density_code} @ ${numberToString(cloud.height_ft)}ft`;
             })
-            .join(" → ");
+            .join(" | ") || "CLR"
+    );
+}
+
+export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
+    const solarElevationAngleDeg = AeroflyFlightHelper.getSunPosition(aeroflyFlight).elevation;
+    const localTime = AeroflyFlightHelper.getTimeAndDateDeparture(aeroflyFlight);
+
+    if (solarElevationAngleDeg >= 0) {
+        return "Day";
+    } else if (solarElevationAngleDeg <= -6) {
+        return "Night";
     }
 
-    static getFlightplanDistance(aeroflyFlight: AeroflyFlight, aircraftService: AeroflyAircraftService): string {
-        const currentAircraft = aircraftService.getAircraft(aeroflyFlight.aircraft.name);
-        if (!currentAircraft) {
-            return "Unknown";
-        }
+    return localTime.getHours() < 12 ? "Dusk" : "Dawn";
+}
 
-        try {
-            const distance = AeroflyFlightHelper.getFlightplanDistance(aeroflyFlight);
-            const distanceNm = distance / 1852;
-            const timeH = currentAircraft.cruiseSpeedKts ? distanceNm / currentAircraft.cruiseSpeedKts : 0;
-            const timeString = timeH
-                ? `, ${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
-                      .toString()
-                      .padStart(2, "0")}h`
-                : "";
-            return `${this.numberToString(distanceNm)}NM${timeString}`;
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (e) {
-            return "Unknown";
-        }
-    }
+export function numberToString(num: number): string {
+    return new Intl.NumberFormat().format(Math.round(num));
+}
 
-    static getFlightCategory(aeroflyFlight: AeroflyFlight): string {
-        return `ICAO: ${AeroflyFlightHelper.getIcaoFLightCategory(aeroflyFlight)} | US: ${AeroflyFlightHelper.getFlightCategory(aeroflyFlight)}`;
-    }
-
-    static getWind(aeroflyFlight: AeroflyFlight): string {
-        let wind = `${this.numberToString(aeroflyFlight.wind.directionInDegree)}° @ ${this.numberToString(aeroflyFlight.wind.speed_kts)}kts`;
-        if (aeroflyFlight.wind.gust_kts > 0) {
-            wind += ` (gusts ${this.numberToString(aeroflyFlight.wind.gust_kts)}kts)`;
-        }
-        return wind;
-    }
-
-    static getTemperature(aeroflyFlight: AeroflyFlight): string {
-        return `${this.numberToString(aeroflyFlight.wind.temperature_celsius)}°C`;
-    }
-
-    static getVisibility(aeroflyFlight: AeroflyFlight): string {
-        if (aeroflyFlight.visibility_sm === 10 || aeroflyFlight.visibility_meter === 9999) {
-            return "10SM / " + this.numberToString(9999) + "m";
-        }
-
-        return `${this.numberToString(aeroflyFlight.visibility_sm)}SM / ${this.numberToString(aeroflyFlight.visibility_meter)}m`;
-    }
-
-    static getClouds(aeroflyFlight: AeroflyFlight): string {
-        return (
-            aeroflyFlight.clouds
-                .filter((cloud) => cloud.density > 0)
-                .map((cloud) => {
-                    return `${cloud.density_code} @ ${this.numberToString(cloud.height_ft)}ft`;
-                })
-                .join(" | ") || "CLR"
-        );
-    }
-
-    static getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
-        const solarElevationAngleDeg = AeroflyFlightHelper.getSunPosition(aeroflyFlight).elevation;
-        const localTime = AeroflyFlightHelper.getTimeAndDateDeparture(aeroflyFlight);
-
-        if (solarElevationAngleDeg >= 0) {
-            return "Day";
-        } else if (solarElevationAngleDeg <= -6) {
-            return "Night";
-        }
-
-        return localTime.getHours() < 12 ? "Dusk" : "Dawn";
-    }
-
-    static numberToString(num: number): string {
-        return new Intl.NumberFormat().format(Math.round(num));
-    }
-
-    static dateToString(date: Date): string {
-        return date.toISOString().substring(0, 16).replace("T", " ");
-    }
+export function dateToString(date: Date): string {
+    return date.toISOString().substring(0, 16).replace("T", " ");
 }

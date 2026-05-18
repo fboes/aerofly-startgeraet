@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { ApplicationService } from "./ApplicationService.js";
+import * as ApplicationService from "./ApplicationService.js";
 describe("ApplicationService", () => {
     it("should return static strings", () => {
         assert.ok(ApplicationService.getApplicationName());
@@ -9,7 +9,7 @@ describe("ApplicationService", () => {
         assert.ok(ApplicationService.getApplicationDescription());
     });
     it("should convert to JSON", () => {
-        const json = ApplicationService.toJSON();
+        const json = ApplicationService.getApplicationJSON();
         assert.ok(json.name);
         assert.ok(json.version);
         assert.ok(json.description);
