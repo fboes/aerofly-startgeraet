@@ -43,8 +43,8 @@ export class VisibilityWebComponent extends HTMLElement {
 
         this.setSmFromMeters();
 
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.elements.visibilityMeters.valueAsNumber = flightplan.aeroflyFlight.visibility_meter;
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.visibilityMeters.valueAsNumber = state.aeroflyFlight.visibility_meter;
             this.setSmFromMeters();
         });
     }

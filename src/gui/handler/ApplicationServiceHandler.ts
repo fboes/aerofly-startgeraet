@@ -1,11 +1,11 @@
 import { IpcMain } from "electron";
-import * as ApplicationService from "../../core/services/ApplicationService.js";
+import { getApplicationName, getApplicationVersion } from "../../core/services/ApplicationService.js";
 
-export function registerHandler(ipcMain: IpcMain) {
-    ipcMain.handle("getApplicationName", () => {
-        return ApplicationService.getApplicationName();
+export function registerApplicationHandlers(ipcMain: IpcMain) {
+    ipcMain.handle("application:get-name", () => {
+        return getApplicationName();
     });
-    ipcMain.handle("getApplicationVersion", () => {
-        return ApplicationService.getApplicationVersion();
+    ipcMain.handle("application:get-version", () => {
+        return getApplicationVersion();
     });
 }

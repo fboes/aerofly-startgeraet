@@ -1,3 +1,4 @@
+import { sendToMain } from "../../renderer/ipc-bridge.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 export class HeaderWebComponent extends HTMLElement {
     elements;
@@ -14,8 +15,8 @@ export class HeaderWebComponent extends HTMLElement {
         };
     }
     async connectedCallback() {
-        this.elements.title.textContent =
-            (await window.applicationService?.getApplicationName()) ?? "Aerofly Startgerät";
+        const applicationName = await sendToMain("application:get-name");
+        this.elements.title.textContent = applicationName ?? "Aerofly Startgerät";
     }
     static registerElement() {
         customElements.define("startgeraet-header", HeaderWebComponent);

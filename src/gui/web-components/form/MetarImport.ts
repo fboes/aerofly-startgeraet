@@ -25,11 +25,11 @@ export class MetarImport extends HTMLElement {
     }
 
     connectedCallback() {
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
+        window.electronAPI.onStateUpdate((state) => {
             this.elements.importWeatherFromSpan.textContent =
-                flightplan.aeroflyFlight.navigation.waypoints.at(0)?.identifier ?? "Unknown";
+                state.aeroflyFlight.navigation.waypoints.at(0)?.identifier ?? "Unknown";
             this.elements.importWeatherToSpan.textContent =
-                flightplan.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "Unknown";
+                state.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "Unknown";
         });
     }
 

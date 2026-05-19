@@ -87,10 +87,10 @@ export class FlightplanWebComponent extends HTMLElement {
         };
     }
     connectedCallback() {
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.elements.flightplanRoute.textContent = flightplan.route.routeString;
-            this.elements.flightplanDistance.textContent = `${flightplan.route.distance_nm.toFixed(0)}NM`;
-            this.elements.flightplanTime.textContent = `${flightplan.route.flightTime.hours}:${flightplan.route.flightTime.minutes.toString().padStart(2, "0")}h`;
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.flightplanRoute.textContent = state.route.routeString;
+            this.elements.flightplanDistance.textContent = `${state.route.distance_nm.toFixed(0)}NM`;
+            this.elements.flightplanTime.textContent = `${state.route.flightTime.hours}:${state.route.flightTime.minutes.toString().padStart(2, "0")}h`;
         });
     }
     static registerElement() {

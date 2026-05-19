@@ -1,1 +1,1 @@
-{"version":3,"file":"FooterWebComponent.d.ts","sourceRoot":"","sources":["../../../../src/gui/web-components/structure/FooterWebComponent.ts"],"names":[],"mappings":"AAAA,qBAAa,kBAAmB,SAAQ,WAAW;;IAUzC,iBAAiB;IAWvB,MAAM,CAAC,eAAe;CAGzB"}
+{"version":3,"file":"FooterWebComponent.d.ts","sourceRoot":"","sources":["../../../../src/gui/web-components/structure/FooterWebComponent.ts"],"names":[],"mappings":"AAEA,qBAAa,kBAAmB,SAAQ,WAAW;IAC/C,QAAQ,EAAE;QACN,eAAe,EAAE,eAAe,CAAC;QACjC,kBAAkB,EAAE,eAAe,CAAC;KACvC,CAAC;;IAgBI,iBAAiB;IAOvB,MAAM,CAAC,eAAe;CAGzB"}

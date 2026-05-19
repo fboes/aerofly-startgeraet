@@ -33,9 +33,9 @@ export class FuelPayloadWebComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.elements.fuelMass.valueAsNumber = flightplan.aeroflyFlight.fuelLoadSetting.fuelMass;
-            this.elements.payloadMass.valueAsNumber = flightplan.aeroflyFlight.fuelLoadSetting.payloadMass;
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
+            this.elements.payloadMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.payloadMass;
         });
     }
 

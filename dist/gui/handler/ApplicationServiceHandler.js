@@ -1,9 +1,9 @@
-import * as ApplicationService from "../../core/services/ApplicationService.js";
-export function registerHandler(ipcMain) {
-    ipcMain.handle("getApplicationName", () => {
-        return ApplicationService.getApplicationName();
+import { getApplicationName, getApplicationVersion } from "../../core/services/ApplicationService.js";
+export function registerApplicationHandlers(ipcMain) {
+    ipcMain.handle("application:get-name", () => {
+        return getApplicationName();
     });
-    ipcMain.handle("getApplicationVersion", () => {
-        return ApplicationService.getApplicationVersion();
+    ipcMain.handle("application:get-version", () => {
+        return getApplicationVersion();
     });
 }

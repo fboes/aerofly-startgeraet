@@ -1,4 +1,11 @@
+import { sendToMain } from "../../renderer/ipc-bridge.js";
+
 export class FooterWebComponent extends HTMLElement {
+    elements: {
+        applicationName: HTMLSpanElement;
+        applicationVersion: HTMLSpanElement;
+    };
+
     constructor() {
         super();
         this.setAttribute("aria-role", "footer");
@@ -6,17 +13,18 @@ export class FooterWebComponent extends HTMLElement {
 <span id="application-name">xxx</span> <span id="application-version">xxx</span> &middot;
 <a href="https://github.com/fboes/aerofly-startgeraet">GitHub</a> &middot; &copy; 2026
         `;
+
+        this.elements = {
+            applicationName: document.getElementById("application-name") as HTMLSpanElement,
+            applicationVersion: document.getElementById("application-version") as HTMLSpanElement,
+        };
     }
 
     async connectedCallback() {
-        const applicationName = this.querySelector("#application-name");
-        const applicationVersion = this.querySelector("#application-version");
-        if (applicationName && applicationVersion) {
-            applicationName.textContent =
-                (await window.applicationService?.getApplicationName()) ?? "Aerofly Startgerät";
-            applicationVersion.textContent =
-                (await window.applicationService?.getApplicationVersion()) ?? "unknown version";
-        }
+        this.elements.applicationName.textContent =
+            (await sendToMain<string>("application:get-name")) ?? "Aerofly Startgerät";
+        this.elements.applicationVersion.textContent =
+            (await sendToMain<string>("application:get-version")) ?? "unknown version";
     }
 
     static registerElement() {

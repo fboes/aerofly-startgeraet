@@ -1,3 +1,4 @@
+import { sendToMain } from "../../renderer/ipc-bridge.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 
 export class HeaderWebComponent extends HTMLElement {
@@ -21,8 +22,8 @@ export class HeaderWebComponent extends HTMLElement {
     }
 
     async connectedCallback() {
-        this.elements.title.textContent =
-            (await window.applicationService?.getApplicationName()) ?? "Aerofly Startgerät";
+        const applicationName = await sendToMain<string>("application:get-name");
+        this.elements.title.textContent = applicationName ?? "Aerofly Startgerät";
     }
 
     static registerElement() {

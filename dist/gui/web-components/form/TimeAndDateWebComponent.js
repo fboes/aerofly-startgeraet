@@ -46,15 +46,14 @@ export class TimeAndDateWebComponent extends HTMLElement {
         [this.elements.dateUtc, this.elements.timeUtc].forEach((e) => e.addEventListener("input", () => this.setLocalFromUtc()));
         [this.elements.dateLocal, this.elements.timeLocal].forEach((e) => e.addEventListener("input", () => this.setUtcFromLocal()));
         this.setLocalFromUtc();
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.elements.dateUtc.value = flightplan.dateTime.utc.date;
-            this.elements.timeUtc.value = flightplan.dateTime.utc.time;
-            this.elements.timeZoneLocal.dataset.value = flightplan.dateTime.local.timeZoneOffset_h.toString();
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.dateUtc.value = state.dateTime.utc.date;
+            this.elements.timeUtc.value = state.dateTime.utc.time;
+            this.elements.timeZoneLocal.dataset.value = state.dateTime.local.timeZoneOffset_h.toString();
             this.elements.timeZoneLocal.textContent =
-                (flightplan.dateTime.local.timeZoneOffset_h >= 0 ? "+" : "") +
-                    flightplan.dateTime.local.timeZoneOffset_h;
-            this.elements.dateLocal.value = flightplan.dateTime.local.date;
-            this.elements.timeLocal.value = flightplan.dateTime.local.time;
+                (state.dateTime.local.timeZoneOffset_h >= 0 ? "+" : "") + state.dateTime.local.timeZoneOffset_h;
+            this.elements.dateLocal.value = state.dateTime.local.date;
+            this.elements.timeLocal.value = state.dateTime.local.time;
         });
     }
     setLocalFromUtc() {

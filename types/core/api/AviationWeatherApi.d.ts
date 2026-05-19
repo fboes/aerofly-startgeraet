@@ -188,7 +188,12 @@ export declare class AviationWeatherApi {
      * @see https://aviationweather.gov/data/api/#/Data/dataMetar
      * @returns {Promise<AviationWeatherApiMetar[]>}
      */
-    fetchMetarByPosition(longitude: number, latitude: number, distance?: number, date?: Date | null): Promise<AviationWeatherApiMetar[]>;
+    fetchMetarByPosition(
+        longitude: number,
+        latitude: number,
+        distance?: number,
+        date?: Date | null,
+    ): Promise<AviationWeatherApiMetar[]>;
     fetchAirports(ids: string[]): Promise<AviationWeatherNormalizedAirport[]>;
     fetchNavaids(ids: string[]): Promise<AviationWeatherApiNavaid[]>;
     fetchFix(ids: string[]): Promise<AviationWeatherApiFix[]>;

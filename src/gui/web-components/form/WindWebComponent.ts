@@ -47,10 +47,10 @@ export class WindWebComponent extends HTMLElement {
             this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
         });
 
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.elements.windSpeed.valueAsNumber = flightplan.aeroflyFlight.wind.speed_kts;
-            this.elements.windGust.valueAsNumber = flightplan.aeroflyFlight.wind.gust_kts;
-            this.elements.windDirection.valueAsNumber = flightplan.aeroflyFlight.wind.directionInDegree;
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.windSpeed.valueAsNumber = state.aeroflyFlight.wind.speed_kts;
+            this.elements.windGust.valueAsNumber = state.aeroflyFlight.wind.gust_kts;
+            this.elements.windDirection.valueAsNumber = state.aeroflyFlight.wind.directionInDegree;
         });
     }
 

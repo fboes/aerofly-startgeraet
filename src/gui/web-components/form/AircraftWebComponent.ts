@@ -1,4 +1,5 @@
-import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import { sendToMain } from "../../renderer/ipc-bridge.js";
 
 export class AircraftWebComponent extends HTMLElement {
     elements: {
@@ -34,17 +35,14 @@ export class AircraftWebComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        window.aeroflyAircraftService.onSendAllAircraftLiveries((aircraftLiveries: AeroflyAircraft[]) => {
-            this.elements.aircraftName.innerHTML = aircraftLiveries
-                .map(
-                    (aircraft) =>
-                        `<option value="${aircraft.aeroflyCode !== "default" ? aircraft.aeroflyCode : ""}">${aircraft.nameFull}</option>`,
-                )
+        sendToMain<AeroflyAircraft[]>("aircraft:update").then((aircraft) => {
+            this.elements.aircraftName.innerHTML = aircraft
+                .map((aircraft) => `<option value="${aircraft.aeroflyCode}">${aircraft.nameFull}</option>`)
                 .join("");
         });
 
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.setAircraft(flightplan.aeroflyFlight.aircraft.name, flightplan.aeroflyFlight.aircraft.paintscheme);
+        window.electronAPI.onStateUpdate((state) => {
+            this.setAircraft(state.aeroflyFlight.aircraft.name, state.aeroflyFlight.aircraft.paintscheme);
         });
 
         this.elements.aircraftName.addEventListener("input", () => {
@@ -55,9 +53,13 @@ export class AircraftWebComponent extends HTMLElement {
     protected setAircraft(aeroflyCode: string, paintscheme: string = "") {
         console.log(`Setting aircraft to ${aeroflyCode} with paintscheme ${paintscheme}`);
         this.elements.aircraftName.value = aeroflyCode;
-        window.aeroflyAircraftService.getLiveries(aeroflyCode).then((liveries) => {
+
+        sendToMain<AeroflyAircraftLivery[]>("aircraft:liveries", aeroflyCode).then((liveries) => {
             this.elements.aircraftPaintscheme.innerHTML = liveries
-                .map((livery) => `<option value="${livery.aeroflyCode}">${livery.name}</option>`)
+                .map(
+                    (livery) =>
+                        `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${livery.name}</option>`,
+                )
                 .join("");
             this.elements.aircraftPaintscheme.value = paintscheme;
         });

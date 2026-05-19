@@ -1,8 +1,8 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
-import * as ApplicationServiceHandler from "./handler/ApplicationServiceHandler.js";
 import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
-import { AeroflyAircraftServiceHandler } from "./handler/AeroflyAircraftServiceHandler.js";
+import { registerAeroflyAircraftHandlers } from "./handler/AeroflyAircraftServiceHandler.js";
+import { registerApplicationHandlers } from "./handler/ApplicationServiceHandler.js";
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 900,
@@ -16,6 +16,7 @@ const createWindow = () => {
         },
     });
     win.loadFile(path.join(import.meta.dirname, "index.html"));
+    win.webContents.openDevTools(); // TODO: Remove this line before production
     switch (process.platform) {
         case "win32":
             win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/windows/icon.ico"));
@@ -24,11 +25,10 @@ const createWindow = () => {
             win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/linux/icons/512x512.png"));
             break;
     }
-    ApplicationServiceHandler.registerHandler(ipcMain);
-    const aeroflyAircraftServiceHandler = new AeroflyAircraftServiceHandler(ipcMain, win);
+    registerApplicationHandlers(ipcMain);
+    registerAeroflyAircraftHandlers(ipcMain);
     const aeroflyFlightServiceHandler = new AeroflyFlightServiceHandler(ipcMain, win);
     win.webContents.on("did-finish-load", () => {
-        aeroflyAircraftServiceHandler.sendAllAircraftLiveries();
         aeroflyFlightServiceHandler.sendFlightplan();
     });
 };

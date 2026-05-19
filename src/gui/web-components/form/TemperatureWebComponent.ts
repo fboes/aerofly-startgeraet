@@ -42,8 +42,8 @@ export class TemperatureWebComponent extends HTMLElement {
         });
         this.setFahrenheitFromCelsius();
 
-        window.aeroflyFlightService.onSendFlightplan((flightplan) => {
-            this.elements.temperatureCelsius.valueAsNumber = flightplan.aeroflyFlight.wind.temperature_celsius;
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.temperatureCelsius.valueAsNumber = state.aeroflyFlight.wind.temperature_celsius;
             this.setFahrenheitFromCelsius();
         });
     }

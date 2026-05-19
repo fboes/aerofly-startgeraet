@@ -2,15 +2,10 @@ import { contextBridge, ipcRenderer } from "electron";
 contextBridge.exposeInMainWorld("process", {
     platform: process.platform,
 });
-contextBridge.exposeInMainWorld("applicationService", {
-    getApplicationName: () => ipcRenderer.invoke("getApplicationName"),
-    getApplicationVersion: () => ipcRenderer.invoke("getApplicationVersion"),
+contextBridge.exposeInMainWorld("electronAPI", {
+    send: (channel, data) => ipcRenderer.invoke(channel, data),
+    onStateUpdate: (callback) => {
+        ipcRenderer.on("state:update", (_event, state) => callback(state));
+        return () => ipcRenderer.removeAllListeners("state:update");
+    },
 });
-contextBridge.exposeInMainWorld("aeroflyFlightService", {
-    onSendFlightplan: (callback) => ipcRenderer.on("sendFlightplan", (event, flightplan) => callback(flightplan)),
-});
-contextBridge.exposeInMainWorld("aeroflyAircraftService", {
-    onSendAllAircraftLiveries: (callback) => ipcRenderer.on("sendAllAircraftLiveries", (event, aircraftLiveries) => callback(aircraftLiveries)),
-    getLiveries: (aeroflyCode) => ipcRenderer.invoke("getLiveries", aeroflyCode),
-});
-// -----------------------------------------------------------------------------

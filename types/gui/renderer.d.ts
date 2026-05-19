@@ -1,10 +1,8 @@
-import { AeroflyFlightService, ApplicationService, AeroflyAircraftService, Process } from "./preload.js";
+import { ElectronAPI, Process } from "./preload.js";
 declare global {
     interface Window {
         process: Process;
-        applicationService: ApplicationService;
-        aeroflyFlightService: AeroflyFlightService;
-        aeroflyAircraftService: AeroflyAircraftService;
+        electronAPI: ElectronAPI;
     }
 }
 //# sourceMappingURL=renderer.d.ts.map

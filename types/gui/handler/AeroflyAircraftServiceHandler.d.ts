@@ -1,8 +1,3 @@
-import { BrowserWindow, IpcMain } from "electron";
-export declare class AeroflyAircraftServiceHandler {
-    protected ipcMain: IpcMain;
-    protected win: BrowserWindow;
-    constructor(ipcMain: IpcMain, win: BrowserWindow);
-    sendAllAircraftLiveries(): void;
-}
+import { IpcMain } from "electron";
+export declare function registerAeroflyAircraftHandlers(ipcMain: IpcMain): void;
 //# sourceMappingURL=AeroflyAircraftServiceHandler.d.ts.map
