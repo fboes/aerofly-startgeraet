@@ -222,7 +222,7 @@ export class AeroflyFlightService {
      * @returns e.g. "Z" or "+02:00" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneString() {
-        const timeZone = AeroflyFlightHelper.getLocalTomeZoneOffset(this.aeroflyFlight);
+        const timeZone = AeroflyFlightHelper.getLocalTimeZoneOffset(this.aeroflyFlight);
         if (timeZone === 0) {
             return "Z";
         }
@@ -232,7 +232,7 @@ export class AeroflyFlightService {
      * @returns e.g. "UTC" or "UTC+2" nautical time zone offset based on the coordinates of the departure airport
      */
     getDepartureTimeZoneUTCString() {
-        const timeZone = AeroflyFlightHelper.getLocalTomeZoneOffset(this.aeroflyFlight);
+        const timeZone = AeroflyFlightHelper.getLocalTimeZoneOffset(this.aeroflyFlight);
         return `UTC${timeZone >= 0 ? "+" : "-"}${Math.abs(Math.round(timeZone))}`;
     }
     // ----------------------------------------------------------

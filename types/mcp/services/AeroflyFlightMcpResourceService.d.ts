@@ -18,22 +18,14 @@ export declare class AeroflyFlightMcpResourceService {
     getAircraft(code: string): AeroflyAircraft;
     getAircraftRessources(): Resource[];
     getAircraftTags(): string[];
-    searchAircraft({
-        query,
-        tags,
-        minimumRangeNm,
-        minimumCruiseSpeedKts,
-    }?: {
+    searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }?: {
         query?: string | undefined;
         tags?: string[] | undefined;
         minimumRangeNm?: number | undefined;
         minimumCruiseSpeedKts?: number | undefined;
     }): AeroflyAircraft[];
     getAirport(icaoCode: string): AeroflyFlightMcpResourceServiceAirport;
-    searchAirports({
-        query,
-        geoQuery,
-    }?: {
+    searchAirports({ query, geoQuery, }?: {
         query?: string;
         geoQuery?: {
             longitude: number;

@@ -4,6 +4,10 @@
  */
 export declare class Config {
     private readonly conf;
+    /**
+     *
+     * @param projectName set this to "electron" on Electron app, otherwise use unique project name
+     */
     constructor(projectName?: string);
     protected get(key: string, defaultValue?: string): string;
     protected set(key: string, value: string | number): void;

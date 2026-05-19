@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
-import { ApplicationServiceHandler } from "./handler/ApplicationServiceHandler.js";
+import * as ApplicationServiceHandler from "./handler/ApplicationServiceHandler.js";
 import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
 import { AeroflyAircraftServiceHandler } from "./handler/AeroflyAircraftServiceHandler.js";
 const createWindow = () => {

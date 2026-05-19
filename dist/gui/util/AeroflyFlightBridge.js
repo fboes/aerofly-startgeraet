@@ -1,5 +1,5 @@
-import { AeroflyFlightHelper } from "../../core/util/AeroflyFlightHelper.js";
-import { AeroflyFlightFormatter } from "../../core/formatter/AeroflyFlightFormatter.js";
+import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
+import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
 export class AeroflyFlightBridge {
     aeroflyFlight;
@@ -13,7 +13,7 @@ export class AeroflyFlightBridge {
     }
     getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);
-        const timeZoneOffset_h = AeroflyFlightHelper.getLocalTomeZoneOffset(this.aeroflyFlight);
+        const timeZoneOffset_h = AeroflyFlightHelper.getLocalTimeZoneOffset(this.aeroflyFlight);
         return {
             utc: {
                 ...this.formatDateTime(this.aeroflyFlight.timeUtc.time),

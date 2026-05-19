@@ -1,1 +1,1 @@
-{"version":3,"file":"ApplicationServiceHandler.d.ts","sourceRoot":"","sources":["../../../src/gui/handler/ApplicationServiceHandler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,UAAU,CAAC;AAGnC,qBAAa,yBAAyB;IAClC,MAAM,CAAC,eAAe,CAAC,OAAO,EAAE,OAAO;CAQ1C"}
+{"version":3,"file":"ApplicationServiceHandler.d.ts","sourceRoot":"","sources":["../../../src/gui/handler/ApplicationServiceHandler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,UAAU,CAAC;AAGnC,wBAAgB,eAAe,CAAC,OAAO,EAAE,OAAO,QAO/C"}

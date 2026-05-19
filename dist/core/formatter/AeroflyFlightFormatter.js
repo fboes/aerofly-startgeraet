@@ -2,7 +2,7 @@ import { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "@fboes/aerofl
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/AeroflyAircraftService.js";
 import { getAeroflyAirportByIcaoCode } from "../services/AeroflyAirportService.js";
-import { getIcaoFlightCategory, getFlightCategory, getSunPosition, getTimeAndDateDeparture } from "../util/AeroflyFlightHelper.js";
+import { getIcaoFlightCategory, getSunPosition, getLocalTimeAndDate, getFlightCategory } from "../util/AeroflyFlightHelper.js";
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
@@ -102,7 +102,7 @@ export function getClouds(aeroflyFlight) {
 }
 export function getSunPositionName(aeroflyFlight) {
     const solarElevationAngleDeg = getSunPosition(aeroflyFlight).elevation;
-    const localTime = getTimeAndDateDeparture(aeroflyFlight);
+    const localTime = getLocalTimeAndDate(aeroflyFlight);
     if (solarElevationAngleDeg >= 0) {
         return "Day";
     }

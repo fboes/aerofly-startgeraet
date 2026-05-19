@@ -3,12 +3,7 @@ import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-fl
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/AeroflyAircraftService.js";
 import { getAeroflyAirportByIcaoCode } from "../services/AeroflyAirportService.js";
-import {
-    getIcaoFlightCategory,
-    getFlightCategory,
-    getSunPosition,
-    getTimeAndDateDeparture,
-} from "../util/AeroflyFlightHelper.js";
+import { getIcaoFlightCategory, getSunPosition, getLocalTimeAndDate, getFlightCategory } from "../util/AeroflyFlightHelper.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";
 
@@ -141,7 +136,7 @@ export function getClouds(aeroflyFlight: AeroflyFlight): string {
 
 export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
     const solarElevationAngleDeg = getSunPosition(aeroflyFlight).elevation;
-    const localTime = getTimeAndDateDeparture(aeroflyFlight);
+    const localTime = getLocalTimeAndDate(aeroflyFlight);
 
     if (solarElevationAngleDeg >= 0) {
         return "Day";

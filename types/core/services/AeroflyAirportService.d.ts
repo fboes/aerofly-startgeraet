@@ -4,7 +4,5 @@ import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/a
  * Interface to `@fboes/aerofly-data` JSON data.
  */
 export declare function getAllAeroflyAirports(): AeroflyAirportCoordinatesObject[];
-export declare function getAeroflyAirportByIcaoCode(
-    icaoCodeAirport: string,
-): AeroflyAirportCoordinatesObject | undefined;
+export declare function getAeroflyAirportByIcaoCode(icaoCodeAirport: string): AeroflyAirportCoordinatesObject | undefined;
 //# sourceMappingURL=AeroflyAirportService.d.ts.map
