@@ -2,7 +2,7 @@ import { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "@fboes/aerofl
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/AeroflyAircraftService.js";
 import { getAeroflyAirportByIcaoCode } from "../services/AeroflyAirportService.js";
-import { getIcaoFlightCategory, getSunPosition, getTimeAndDateDeparture } from "../util/AeroflyFlightHelper.js";
+import { getIcaoFlightCategory, getFlightCategory, getSunPosition, getTimeAndDateDeparture } from "../util/AeroflyFlightHelper.js";
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
@@ -73,7 +73,7 @@ export function getFlightplanDistance(aeroflyFlight) {
         return "Unknown";
     }
 }
-export function getFlightCategory(aeroflyFlight) {
+export function getCombinedFlightCategory(aeroflyFlight) {
     return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getFlightCategory(aeroflyFlight)}`;
 }
 export function getWind(aeroflyFlight) {

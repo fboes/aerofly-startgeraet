@@ -3,7 +3,12 @@ import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-fl
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/AeroflyAircraftService.js";
 import { getAeroflyAirportByIcaoCode } from "../services/AeroflyAirportService.js";
-import { getIcaoFlightCategory, getSunPosition, getTimeAndDateDeparture } from "../util/AeroflyFlightHelper.js";
+import {
+    getIcaoFlightCategory,
+    getFlightCategory,
+    getSunPosition,
+    getTimeAndDateDeparture,
+} from "../util/AeroflyFlightHelper.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";
 
@@ -99,7 +104,7 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
     }
 }
 
-export function getFlightCategory(aeroflyFlight: AeroflyFlight): string {
+export function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string {
     return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getFlightCategory(aeroflyFlight)}`;
 }
 

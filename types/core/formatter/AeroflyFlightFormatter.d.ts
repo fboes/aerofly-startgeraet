@@ -14,7 +14,7 @@ export declare function getFlightplanDestinationName(aeroflyFlight: AeroflyFligh
 export declare function getFlightplanSummary(aeroflyFlight: AeroflyFlight): string;
 export declare function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string;
 export declare function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string;
-export declare function getFlightCategory(aeroflyFlight: AeroflyFlight): string;
+export declare function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string;
 export declare function getWind(aeroflyFlight: AeroflyFlight): string;
 export declare function getTemperature(aeroflyFlight: AeroflyFlight): string;
 export declare function getVisibility(aeroflyFlight: AeroflyFlight): string;
