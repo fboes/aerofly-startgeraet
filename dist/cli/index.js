@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import * as CliFormatter from "./formatter/CliFormatter.js";
 import { Config } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import { MenuCommand } from "./commands/MenuCommand.js";
@@ -8,6 +7,7 @@ import { HelpCommand } from "./commands/HelpCommand.js";
 import { SetupCommand } from "./commands/SetupCommand.js";
 import { SimbriefCommand } from "./commands/SimbriefCommand.js";
 import { TimeCommand } from "./commands/TimeCommand.js";
+import { writeCatch } from "./formatter/CliFormatter.js";
 //import { AeroflyMainConfigReaderError } from "../core/io/AeroflyMainConfigReader.js";
 const arg = process.argv[2]?.toLowerCase() || "";
 if (arg === "help" || arg === "--help" || arg === "-h") {
@@ -36,7 +36,7 @@ try {
     controller.readMainMcf();
 }
 catch (error) {
-    CliFormatter.writeCatch(error);
+    writeCatch(error);
     const setup = new SetupCommand(config);
     await setup.execute();
     process.stdout.write(`\
@@ -49,5 +49,5 @@ try {
     await controllerCommand.execute();
 }
 catch (error) {
-    CliFormatter.writeCatch(error);
+    writeCatch(error);
 }

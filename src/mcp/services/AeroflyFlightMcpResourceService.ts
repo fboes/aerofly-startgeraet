@@ -1,8 +1,12 @@
 import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { AeroflyAircraftService } from "../../core/services/AeroflyAircraftService.js";
-import { AeroflyAirportService } from "../../core/services/AeroflyAirportService.js";
 import { Resource, McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import * as ResourceRegistry from "../registry/ResourceRegistry.js";
+import {
+    getAllAeroflyAircraftWithLiveries,
+    getAeroflyAircraft,
+    getAeroflyAircraftByIcaoCode,
+} from "../../core/services/AeroflyAircraftService.js";
+import { getAeroflyAirportByIcaoCode, getAllAeroflyAirports } from "../../core/services/AeroflyAirportService.js";
+import { RESOURCE_AIRCRAFT, RESOURCE_AIRPORTS } from "../registry/ResourceRegistry.js";
 
 export type AeroflyFlightMcpResourceServiceAircraft = {
     aeroflyCode: string;
@@ -20,13 +24,8 @@ export type AeroflyFlightMcpResourceServiceAirport = {
 };
 
 export class AeroflyFlightMcpResourceService {
-    constructor(
-        private aircraftService: AeroflyAircraftService,
-        private airportService: AeroflyAirportService,
-    ) {}
-
     getAircraftList(): AeroflyFlightMcpResourceServiceAircraft[] {
-        return this.aircraftService.getAllAircraftLiveries().map((a) => {
+        return getAllAeroflyAircraftWithLiveries().map((a) => {
             return {
                 aeroflyCode: a.aeroflyCode,
                 icaoCode: a.icaoCode,
@@ -38,7 +37,7 @@ export class AeroflyFlightMcpResourceService {
     }
 
     getAircraft(code: string): AeroflyAircraft {
-        const aircraft = this.aircraftService.getAircraft(code) ?? this.aircraftService.getAircraftByIcaoCode(code);
+        const aircraft = getAeroflyAircraft(code) ?? getAeroflyAircraftByIcaoCode(code);
 
         if (aircraft === undefined) {
             throw new McpError(
@@ -54,11 +53,11 @@ export class AeroflyFlightMcpResourceService {
     }
 
     getAircraftRessources(): Resource[] {
-        return [this.aircraftService.getAircraft("a320"), this.aircraftService.getAircraft("c172")]
+        return [getAeroflyAircraft("a320"), getAeroflyAircraft("c172")]
             .filter((a) => a !== undefined)
             .map((a): Resource => {
                 return {
-                    uri: `${ResourceRegistry.RESOURCE_AIRCRAFT}/${a.aeroflyCode}`,
+                    uri: `${RESOURCE_AIRCRAFT}/${a.aeroflyCode}`,
                     name: `Aircraft: ${a.nameFull}`,
                     description: `Detailed aircraft information on ${a.nameFull}`,
                     mimeType: "application/json",
@@ -68,7 +67,7 @@ export class AeroflyFlightMcpResourceService {
 
     getAircraftTags(): string[] {
         const tags: Set<string> = new Set();
-        this.aircraftService.getAllAircraftLiveries().forEach((a) => {
+        getAllAeroflyAircraftWithLiveries().forEach((a) => {
             a.tags.forEach((t) => {
                 tags.add(t);
             });
@@ -94,7 +93,7 @@ export class AeroflyFlightMcpResourceService {
                 ? tags.map((t) => t.trim().toLowerCase()).filter((t) => t !== "")
                 : undefined;
 
-        return this.aircraftService.getAllAircraftLiveries().filter((a) => {
+        return getAllAeroflyAircraftWithLiveries().filter((a) => {
             let returnThis = true;
             if (queryNormalized !== undefined) {
                 returnThis &&=
@@ -121,7 +120,7 @@ export class AeroflyFlightMcpResourceService {
     }
 
     getAirport(icaoCode: string): AeroflyFlightMcpResourceServiceAirport {
-        const airport = this.airportService.getAirportByIcaoCode(icaoCode);
+        const airport = getAeroflyAirportByIcaoCode(icaoCode);
 
         if (airport === undefined) {
             throw new McpError(ErrorCode.InvalidRequest, `Could not find airport by ICAO code ${icaoCode}`, {
@@ -174,7 +173,7 @@ export class AeroflyFlightMcpResourceService {
             };
         }
 
-        return this.airportService.getAllAirports().filter((a) => {
+        return getAllAeroflyAirports().filter((a) => {
             let returnThis = true;
             if (queryNormalized !== undefined) {
                 returnThis &&= a.code === queryNormalized || a.name.toLowerCase().includes(queryNormalized);
@@ -198,11 +197,11 @@ export class AeroflyFlightMcpResourceService {
     }
 
     getAirportRessources(): Resource[] {
-        return [this.airportService.getAirportByIcaoCode("KEYW"), this.airportService.getAirportByIcaoCode("EHAM")]
+        return [getAeroflyAirportByIcaoCode("KEYW"), getAeroflyAirportByIcaoCode("EHAM")]
             .filter((a) => a !== undefined)
             .map((a): Resource => {
                 return {
-                    uri: `${ResourceRegistry.RESOURCE_AIRPORTS}/${a.code}`,
+                    uri: `${RESOURCE_AIRPORTS}/${a.code}`,
                     name: `Airport: ${a.name}`,
                     description: `Detailed airport information on ${a.name}`,
                     mimeType: "application/json",

@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import * as McpHelper from "../util/McpHelper.js";
 import { z } from "zod";
 import {
     AeroflyFlightService,
@@ -15,7 +14,8 @@ import * as ZodExtra from "../../core/util/ZodExtra.js";
 import { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import * as ExportFileWriter from "../../core/io/ExportFileWriter.js";
-import { ImportFileReader } from "../../core/io/ImportFileReader.js";
+import * as ImportFileReader from "../../core/io/ImportFileReader.js";
+import { JSONstringify, returnMcpToolResult, returnMcpToolErrorResult } from "../util/McpHelper.js";
 
 export const TOOL_GET_FLIGHT = "get-aerofly-flight";
 export const TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -54,7 +54,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
             content: [
                 {
                     type: "text",
-                    text: McpHelper.JSONstringify(flightService.getAeroflyFlight()),
+                    text: JSONstringify(flightService.getAeroflyFlight()),
                 },
             ],
         }),
@@ -91,7 +91,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
                     : [
                           `The aircraft ${aeroflyCodeAircraft} with livery ${aeroflyCodeLivery ?? "default"} does not exist in the current Aerofly FS 4 installation. Please check the available aircraft via ${ResourceRegistry.RESOURCE_AIRCRAFT} and the available liveries for the given aircraft.`,
                       ];
-            return McpHelper.returnResultContent(result, warnings);
+            return returnMcpToolResult(result, warnings);
         },
     );
 
@@ -124,7 +124,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
                     `The requested payload mass (${payload.toString()} kg) exceeds the maximum remaining (${result.payloadMass.toString()} kg). Payload mass has been capped.`,
                 );
             }
-            return McpHelper.returnResultContent(result, warnings);
+            return returnMcpToolResult(result, warnings);
         },
     );
 
@@ -139,7 +139,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
             annotations,
         },
         ({ timeDate }: { timeDate: string }): CallToolResult =>
-            McpHelper.returnResultContent(flightService.setTimeAndDate(timeDate)),
+            returnMcpToolResult(flightService.setTimeAndDate(timeDate)),
     );
 
     server.registerTool(
@@ -176,7 +176,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
             speedKts: number;
             gustsKts?: number;
         }): CallToolResult =>
-            McpHelper.returnResultContent(
+            returnMcpToolResult(
                 flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts),
             ),
     );
@@ -215,7 +215,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
                           `Aerofly FS 4 only supports three layers of clouds. Surplus cloud layers will be ignored. You may want to remove clouds layers closer together or with lighter coverage.`,
                       ]
                     : [];
-            return McpHelper.returnResultContent(result, warnings);
+            return returnMcpToolResult(result, warnings);
         },
     );
 
@@ -236,9 +236,9 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
         },
         async ({ airportIcaoCode }: { airportIcaoCode: string }): Promise<CallToolResult> => {
             try {
-                return McpHelper.returnResultContent(await flightService.setWeatherViaApi(airportIcaoCode));
+                return returnMcpToolResult(await flightService.setWeatherViaApi(airportIcaoCode));
             } catch (e) {
-                return McpHelper.returnErrorContent([
+                return returnMcpToolErrorResult([
                     `The METAR rport for this combination of ICAO code and date is missing. Valid dates are up to two weeks in the past.`,
                     e instanceof Error ? e.message : String(e),
                 ]);
@@ -266,13 +266,13 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
             try {
                 await flightService.importFlightplanFromSimBrief(simBriefUserName);
             } catch (e) {
-                return McpHelper.returnErrorContent([
+                return returnMcpToolErrorResult([
                     `The API did not respond with an flight plan. Possibly the user name is unknown, or there is no current flight plan.`,
                     e instanceof Error ? e.message : String(e),
                 ]);
             }
 
-            return McpHelper.returnResultContent(flightService.getAeroflyFlight());
+            return returnMcpToolResult(flightService.getAeroflyFlight());
         },
     );
 
@@ -303,7 +303,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
             heading_degree: number;
             speed_kts: number;
         }): CallToolResult => {
-            return McpHelper.returnResultContent(
+            return returnMcpToolResult(
                 flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts),
             );
         },
@@ -362,7 +362,7 @@ export function registerTools(server: McpServer, flightService: AeroflyFlightSer
                 cruiseAltitudeFt,
             });
             flightService.setFlightPositionToDeparture();
-            return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
+            return returnMcpToolResult(result, ["Aircraft has been re-positioned to origin airport"]);
         },
     );
 
@@ -394,8 +394,8 @@ Supported file types are:
                 readOnlyHint: true,
             },
         },
-        ({ fileType }: { fileType: z.infer<typeof ExportFileWriter.fileTypes> }): CallToolResult => {
-            return McpHelper.returnResultContent(
+        ({ fileType }: { fileType: z.infer<typeof ExportFileWriter.EXPORT_FILE_TYPES> }): CallToolResult => {
+            return returnMcpToolResult(
                 ExportFileWriter.exportFlightplanToString("export." + fileType, flightService.getAeroflyFlight()),
             );
         },
@@ -441,11 +441,11 @@ without importing — useful for inspecting multi-plan files before choosing.
             index,
         }: {
             content: string;
-            fileType: z.infer<typeof ImportFileReader.fileTypes>;
+            fileType: z.infer<typeof ImportFileReader.IMPORT_FILE_TYPES>;
             index: number;
         }): CallToolResult => {
             ImportFileReader.importString(content, "import." + fileType, flightService.getAeroflyFlight(), index);
-            return McpHelper.returnResultContent(flightService.getAeroflyFlight());
+            return returnMcpToolResult(flightService.getAeroflyFlight());
         },
     );
 
@@ -477,9 +477,7 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             },
         },
         ({ cruiseSpeed_kts, consolidated }: { cruiseSpeed_kts?: number; consolidated?: boolean }): CallToolResult => {
-            return McpHelper.returnResultContent(
-                flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0, consolidated ?? false),
-            );
+            return returnMcpToolResult(flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0, consolidated ?? false));
         },
     );
 
@@ -499,13 +497,13 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             try {
                 flightService.writeFile();
             } catch (e) {
-                return McpHelper.returnErrorContent([
+                return returnMcpToolErrorResult([
                     `You might want to check the configuration of the MCP server. To change the configuration, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.`,
                     e instanceof Error ? e.message : String(e),
                 ]);
             }
 
-            return McpHelper.returnResultContent({
+            return returnMcpToolResult({
                 message: "Main configuration file has been saved",
             });
         },
@@ -524,7 +522,7 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             },
         },
         (): CallToolResult => {
-            return McpHelper.returnResultContent(
+            return returnMcpToolResult(
                 new SkyVectorUrl(
                     flightService.getAeroflyFlight(),
                     flightService.getAircraftData()?.cruiseSpeedKts ?? 0,

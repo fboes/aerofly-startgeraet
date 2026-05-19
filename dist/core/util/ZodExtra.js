@@ -1,6 +1,6 @@
 import { z } from "zod";
 import * as ExportFileWriter from "../io/ExportFileWriter.js";
-import { ImportFileReader } from "../io/ImportFileReader.js";
+import * as ImportFileReader from "../io/ImportFileReader.js";
 export function longitude() {
     return z.number().gte(-180).lte(180).describe("Longitude as decimal representation in WGS84");
 }
@@ -89,8 +89,8 @@ export function geoQuery() {
     });
 }
 export function exportFileType() {
-    return z.enum(ExportFileWriter.fileTypes);
+    return z.enum(ExportFileWriter.EXPORT_FILE_TYPES);
 }
 export function importFileType() {
-    return z.enum(ImportFileReader.fileTypes);
+    return z.enum(ImportFileReader.IMPORT_FILE_TYPES);
 }

@@ -4,7 +4,7 @@ import { AviationWeatherApi } from "./AviationWeatherApi.js";
 await describe("AviationWeatherApi", async () => {
     await it("should fetch airports correctly", async () => {
         const icaoCodes = ["KEYW", "KMCI", "KMVY", "KCCR"];
-        const airports = await AviationWeatherApi.fetchAirports(icaoCodes);
+        const airports = await new AviationWeatherApi().fetchAirports(icaoCodes);
         //console.log(airports);
         assert.strictEqual(airports.length, icaoCodes.length);
         airports.forEach((airportNormalized) => {
@@ -24,7 +24,7 @@ await describe("AviationWeatherApi", async () => {
         });
     });
     await it("should fetch metar correctly", async () => {
-        const metars = await AviationWeatherApi.fetchMetar(["KEYw"]);
+        const metars = await new AviationWeatherApi().fetchMetar(["KEYw"]);
         assert.strictEqual(metars.length, 1);
         metars.forEach((metar) => {
             assert.strictEqual(typeof metar.lat, "number", "metar.lat");
@@ -33,7 +33,7 @@ await describe("AviationWeatherApi", async () => {
         });
     });
     await it("should fetch navaids correctly", async () => {
-        const navaids = await AviationWeatherApi.fetchNavaids(["MCI"]);
+        const navaids = await new AviationWeatherApi().fetchNavaids(["MCI"]);
         assert.ok(Array.isArray(navaids), "navaids is an array");
         assert.ok(navaids.length > 0, "navaids array is not empty");
         navaids.forEach((navaid) => {
@@ -42,7 +42,7 @@ await describe("AviationWeatherApi", async () => {
         });
     });
     await it("should fetch navaids by position correctly", async () => {
-        const navaids = await AviationWeatherApi.fetchNavaidsByPosition(-94.7371, 39.2853, 10000);
+        const navaids = await new AviationWeatherApi().fetchNavaidsByPosition(-94.7371, 39.2853, 10000);
         assert.ok(Array.isArray(navaids), "navaids is an array");
         assert.ok(navaids.length > 0, "navaids array is not empty");
         navaids.forEach((navaid) => {
@@ -51,7 +51,7 @@ await describe("AviationWeatherApi", async () => {
         });
     });
     await it("should fetch metar by position correctly", async () => {
-        const metars = await AviationWeatherApi.fetchMetarByPosition(-94.7371, 39.2853, 10000);
+        const metars = await new AviationWeatherApi().fetchMetarByPosition(-94.7371, 39.2853, 10000);
         assert.ok(Array.isArray(metars), "metars is an array");
         /*assert.ok(metars.length > 0, "metars array is not empty");
 

@@ -1,10 +1,9 @@
 import { AeroflyMission, AeroflyMissionCheckpoint, AeroflyMissionConditions, AeroflyMissionConditionsCloud, AeroflyMissionsList, } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
-import { AeroflyAircraftService } from "../../services/AeroflyAircraftService.js";
+import { getAeroflyAircraftByIcaoCode } from "../../services/AeroflyAircraftService.js";
 export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFlightToStringConverter {
     static fileExtension = "tmc";
     convert(flightplan) {
-        const aircraftService = new AeroflyAircraftService();
         // Build time and weather
         const conditions = new AeroflyMissionConditions({
             time: flightplan.timeUtc.time,
@@ -25,7 +24,7 @@ export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFli
         const mission = new AeroflyMission(this.getFlightplanTitle(flightplan), {
             aircraft: {
                 name: flightplan.aircraft.name,
-                icao: aircraftService.getAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
+                icao: getAeroflyAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
                 livery: flightplan.aircraft.paintscheme,
             },
             fuelMass: flightplan.fuelLoadSetting.fuelMass,

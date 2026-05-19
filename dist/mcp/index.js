@@ -30,7 +30,7 @@ catch (e) {
 }
 FlightRegistry.registerTools(server, flightService);
 FlightRegistry.registerPrompts(server);
-const resourceService = new AeroflyFlightMcpResourceService(flightService.aircraftService, flightService.airportService);
+const resourceService = new AeroflyFlightMcpResourceService();
 ResourceRegistry.registerResources(server, resourceService);
 ResourceRegistry.registerTools(server, resourceService);
 const transport = new StdioServerTransport();

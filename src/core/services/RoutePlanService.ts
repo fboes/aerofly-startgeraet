@@ -6,9 +6,9 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { Point } from "@fboes/geojson";
+import { getAeroflyAircraft } from "./AeroflyAircraftService.js";
 
 export type RoutePlanServiceLeg = {
     from: string;
@@ -36,8 +36,6 @@ export type RoutePlanServiceRoute = {
 };
 
 export class RoutePlanService {
-    private readonly aicraftService: AeroflyAircraftService = new AeroflyAircraftService();
-
     constructor(private aeroflyFlight: AeroflyFlight) {}
 
     getRouteLegs(cruiseSpeed_kts: null | number = null): RoutePlanServiceLeg[] {
@@ -148,7 +146,7 @@ export class RoutePlanService {
     }
 
     private getCruiseSpeedKts(): number {
-        const aircraft = this.aicraftService.getAircraft(this.aeroflyFlight.aircraft.name);
+        const aircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
         if (!aircraft) {
             throw Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
         }

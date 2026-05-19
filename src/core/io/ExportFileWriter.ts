@@ -10,7 +10,7 @@ import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/Aerofly
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.
  */
-export const fileTypes: string[] = [
+export const EXPORT_FILE_TYPES: string[] = [
     AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
     AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
     AeroflyFlightToGeoJsonConverter.fileExtension,

@@ -1,12 +1,12 @@
 import { AeroflySettingsCloud, AeroflySettingsWind } from "@fboes/aerofly-custom-missions";
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
 export class AviationWeatherApiAerofly extends AviationWeatherApi {
-    static async fetchMetarToFlight(airportCode, flight) {
-        const weathers = await AviationWeatherApi.fetchMetar([airportCode], flight.timeUtc.time);
+    async fetchMetarToFlight(airportCode, flight) {
+        const weathers = await new AviationWeatherApi().fetchMetar([airportCode], flight.timeUtc.time);
         if (!weathers.length) {
             throw new Error(`No METAR information found for "${airportCode}" on ${flight.timeUtc.time.toISOString()}`);
         }
-        const weather = AviationWeatherApi.normalizeWeather(weathers[0]);
+        const weather = this.normalizeWeather(weathers[0]);
         flight.clouds = weather.clouds.map((c) => {
             const cloud = AeroflySettingsCloud.createInFeet(0, c.base ?? 0);
             cloud.density_code = c.cover;

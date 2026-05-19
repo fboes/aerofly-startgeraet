@@ -14,14 +14,10 @@ import {
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefApi, SimBriefApiPayload, SimBriefApiPayloadAirport } from "./SimBriefApi.js";
-import { AeroflyAircraftService } from "../services/AeroflyAircraftService.js";
 import { metarParser } from "aewx-metar-parser";
+import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/AeroflyAircraftService.js";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
-    constructor(private aircraftService: AeroflyAircraftService) {
-        super();
-    }
-
     public async fetchMission(
         username: string,
         flight: AeroflyFlight,
@@ -163,15 +159,12 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         aeroflyAircraftCode: string;
         aeroflyAircraftLivery: string;
     } {
-        const aeroflyAircraft = this.aircraftService.getAircraftByIcaoCode(simbriefIcaoCode);
+        const aeroflyAircraft = getAeroflyAircraftByIcaoCode(simbriefIcaoCode);
         if (!aeroflyAircraft) {
             throw new Error(`Could not find matching Aerofly aircraft for SimBrief ICAO code ${simbriefIcaoCode}`);
         }
 
-        const aeroflyAircraftLivery = this.aircraftService.getLiveryForAircraftByIcaoCode(
-            aeroflyAircraft,
-            simbriefAirlineCode,
-        );
+        const aeroflyAircraftLivery = getAeroflyLiveryByIcaoCode(aeroflyAircraft, simbriefAirlineCode);
 
         return {
             aeroflyAircraftCode: aeroflyAircraft.aeroflyCode,

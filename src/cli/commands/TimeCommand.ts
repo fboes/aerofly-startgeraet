@@ -1,4 +1,4 @@
-import * as CliFormatter from "../formatter/CliFormatter.js";
+import { writeln } from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 
 export class TimeCommand extends ControllerCommand {
@@ -7,7 +7,7 @@ export class TimeCommand extends ControllerCommand {
 
         this.controller.setTimeAndDate(timeAndDate);
 
-        CliFormatter.writeln(`Time and date set to ${timeAndDate}`);
+        writeln(`Time and date set to ${timeAndDate}`);
 
         return 0;
     }

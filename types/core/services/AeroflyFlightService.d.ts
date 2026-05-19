@@ -11,8 +11,6 @@ import {
     AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
 import { Config } from "../io/Config.js";
-import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
-import { AeroflyAirportService } from "./AeroflyAirportService.js";
 import { RoutePlanServiceLeg, RoutePlanServiceRoute } from "./RoutePlanService.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -50,8 +48,6 @@ export declare class AeroflyFlightService {
     private currentAircraft?;
     private aeroflyFlight;
     private readonly aeroflyMainConfigReader;
-    readonly aircraftService: AeroflyAircraftService;
-    readonly airportService: AeroflyAirportService;
     constructor(config: Config);
     readMainMcf(): void;
     getAeroflyFlight(): AeroflyFlight;

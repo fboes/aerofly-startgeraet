@@ -1,6 +1,6 @@
 import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
-import { AeroflyFlightHelper } from "../../util/AeroflyFlightHelper.js";
+import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 /**
  * Import `.fms` flight plan files from X-Plane 11 / 12
  * @see https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/
@@ -44,7 +44,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 }),
             ];
             if (departureRunway) {
-                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
+                route.push(positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
                     direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
                     uid,
@@ -55,7 +55,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         if (isLast) {
             const route = [];
             if (destinationRunway) {
-                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
+                route.push(positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
                     direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
                     uid,

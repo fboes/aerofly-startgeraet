@@ -1,8 +1,8 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
-import * as AeroflyFlightFormatter from "./AeroflyFlightFormatter.js";
 import { AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
+import { getSunPositionName, getClouds } from "./AeroflyFlightFormatter.js";
 describe("AeroflyFlightFormatter", () => {
     it("should calculate the sun position", () => {
         const aeroflyFlight = new AeroflyFlightFallback();
@@ -14,7 +14,7 @@ describe("AeroflyFlightFormatter", () => {
             ["2026-06-22 06:00:00 UTC", "Night"],
         ]) {
             aeroflyFlight.timeUtc.time = new Date(testCase[0]);
-            assert.strictEqual(testCase[1], AeroflyFlightFormatter.getSunPositionName(aeroflyFlight));
+            assert.strictEqual(testCase[1], getSunPositionName(aeroflyFlight));
         }
     });
     it("should display clouds correctly", () => {
@@ -24,7 +24,7 @@ describe("AeroflyFlightFormatter", () => {
             new AeroflySettingsCloud(0.625, 0.14),
             new AeroflySettingsCloud(0.625, 0.25),
         ];
-        const string = AeroflyFlightFormatter.getClouds(aeroflyFlight);
+        const string = getClouds(aeroflyFlight);
         assert.strictEqual("FEW @ 1,100ft | BKN @ 1,400ft | BKN @ 2,500ft", string);
     });
 });

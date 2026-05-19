@@ -2,10 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import * as McpHelper from "../util/McpHelper.js";
 import * as ZodExtra from "../../core/util/ZodExtra.js";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
+import { JSONstringify, returnMcpToolSimpleResult } from "../util/McpHelper.js";
 const MIME_TYPE_RESPONSE = "application/json";
 const RESOURCE_NAME_SPACE = "resource://aerofly";
 export const RESOURCE_AIRCRAFT = `${RESOURCE_NAME_SPACE}/aircraft`;
@@ -27,7 +27,7 @@ export function registerResources(server, resourceService) {
             {
                 uri: uri.href,
                 mimeType: MIME_TYPE_RESPONSE,
-                text: McpHelper.JSONstringify(resourceService.getAircraftList()),
+                text: JSONstringify(resourceService.getAircraftList()),
             },
         ],
     }));
@@ -43,7 +43,7 @@ export function registerResources(server, resourceService) {
             {
                 uri: uri.href,
                 mimeType: MIME_TYPE_RESPONSE,
-                text: McpHelper.JSONstringify(resourceService.getAircraft(String(aeroflyCode))),
+                text: JSONstringify(resourceService.getAircraft(String(aeroflyCode))),
             },
         ],
     }));
@@ -55,7 +55,7 @@ export function registerResources(server, resourceService) {
             {
                 uri: uri.href,
                 mimeType: MIME_TYPE_RESPONSE,
-                text: McpHelper.JSONstringify(resourceService.getAircraftTags()),
+                text: JSONstringify(resourceService.getAircraftTags()),
             },
         ],
     }));
@@ -71,7 +71,7 @@ export function registerResources(server, resourceService) {
             {
                 uri: uri.href,
                 mimeType: MIME_TYPE_RESPONSE,
-                text: McpHelper.JSONstringify(resourceService.getAirport(String(icaoCode))),
+                text: JSONstringify(resourceService.getAirport(String(icaoCode))),
             },
         ],
     }));
@@ -111,7 +111,7 @@ export function registerTools(server, resourceService) {
             minimumCruiseSpeedKts: z.number().positive().optional().describe("Minimum cruise speed in knots."),
         },
         annotations,
-    }, ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => McpHelper.returnSimplifiedResultContent(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })));
+    }, ({ query, tags, minimumRangeNm, minimumCruiseSpeedKts, }) => returnMcpToolSimpleResult(resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts })));
     server.registerTool(TOOL_SEARCH_AIRPORTS, {
         title: `Search Aerofly FS 4 airports`,
         description: `Search for airports / heliports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
@@ -123,7 +123,7 @@ export function registerTools(server, resourceService) {
             geoQuery: ZodExtra.geoQuery(),
         },
         annotations,
-    }, ({ query, geoQuery, }) => McpHelper.returnSimplifiedResultContent(resourceService.searchAirports({ query, geoQuery })));
+    }, ({ query, geoQuery, }) => returnMcpToolSimpleResult(resourceService.searchAirports({ query, geoQuery })));
     server.registerTool(TOOL_GET_AIRPORT_DETAILS, {
         title: `Get airport details`,
         description: `Get detailed airport / heliport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
@@ -134,7 +134,7 @@ export function registerTools(server, resourceService) {
             ...annotations,
             openWorldHint: true,
         },
-    }, async ({ icaoCode }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchAirports([icaoCode])));
+    }, async ({ icaoCode }) => returnMcpToolSimpleResult(await new AviationWeatherApi().fetchAirports([icaoCode])));
     server.registerTool(TOOL_SEARCH_NAVAIDS, {
         title: `Search navigational aids`,
         description: `Search for navigational aids like NDBs and VORs depending on their geographical location from the Aviation Weather Center API. Will return geographical position, elevation (in meters MSL), identifier, type and frequency.`,
@@ -145,7 +145,7 @@ export function registerTools(server, resourceService) {
             ...annotations,
             openWorldHint: true,
         },
-    }, async ({ geoQuery, }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
+    }, async ({ geoQuery, }) => returnMcpToolSimpleResult(await new AviationWeatherApi().fetchNavaidsByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
     server.registerTool(TOOL_SEARCH_FIX, {
         title: `Search waypoints fixes`,
         description: `Search for waypoints and named fixes depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, and type.`,
@@ -156,7 +156,7 @@ export function registerTools(server, resourceService) {
             ...annotations,
             openWorldHint: true,
         },
-    }, async ({ geoQuery, }) => McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchFixByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
+    }, async ({ geoQuery, }) => returnMcpToolSimpleResult(await new AviationWeatherApi().fetchFixByPosition(geoQuery.longitude, geoQuery.latitude, geoQuery.radiusKm * 1000)));
     server.registerTool(TOOL_GET_ELEVATION, {
         title: `Get elevation data`,
         description: `Fetch elevation data from an external data for a set of geo coordinates, using the aster30m dataset. Will return an object with a property \`results\`, which will contain a set of results with elevation data given in meters above sea level. Elevation data may not be provided for the entire earth.`,
@@ -173,6 +173,6 @@ export function registerTools(server, resourceService) {
             lat: t.latitude,
             lng: t.longitude,
         })));
-        return McpHelper.returnSimplifiedResultContent(results);
+        return returnMcpToolSimpleResult(results);
     });
 }

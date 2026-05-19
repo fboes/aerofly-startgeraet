@@ -1,9 +1,8 @@
 import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
-import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import { Point } from "@fboes/geojson";
+import { getAeroflyAircraft } from "./AeroflyAircraftService.js";
 export class RoutePlanService {
     aeroflyFlight;
-    aicraftService = new AeroflyAircraftService();
     constructor(aeroflyFlight) {
         this.aeroflyFlight = aeroflyFlight;
     }
@@ -97,7 +96,7 @@ export class RoutePlanService {
         return null;
     }
     getCruiseSpeedKts() {
-        const aircraft = this.aicraftService.getAircraft(this.aeroflyFlight.aircraft.name);
+        const aircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
         if (!aircraft) {
             throw Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
         }

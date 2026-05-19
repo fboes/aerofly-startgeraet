@@ -1,13 +1,12 @@
 import { Vector, Point } from "@fboes/geojson";
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AviationWeatherApi {
-    static async fetchMetar(ids, date = null) {
-        return AviationWeatherApi.doRequest("/api/data/metar", new URLSearchParams({
+    async fetchMetar(ids, date = null) {
+        return this.doRequest("/api/data/metar", new URLSearchParams({
             ids: ids.join(","),
             format: "json",
             // taf,
             // hours,
-            // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+            // bbox: this.buildBbox(longitude, latitude, distance).join(","),
             date: date ? date.toISOString().replace(/\.\d+(Z)/, "$1") : "",
         }));
     }
@@ -19,35 +18,35 @@ export class AviationWeatherApi {
      * @see https://aviationweather.gov/data/api/#/Data/dataMetar
      * @returns {Promise<AviationWeatherApiMetar[]>}
      */
-    static async fetchMetarByPosition(longitude, latitude, distance = 1000, date = null) {
-        return AviationWeatherApi.doRequest("/api/data/metar", new URLSearchParams({
+    async fetchMetarByPosition(longitude, latitude, distance = 1000, date = null) {
+        return this.doRequest("/api/data/metar", new URLSearchParams({
             // ids: ids.join(","),
             format: "json",
             // taf,
             // hours,
-            bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+            bbox: this.buildBbox(longitude, latitude, distance).join(","),
             date: date ? date.toISOString().replace(/\.\d+(Z)/, "$1") : "",
         }));
     }
-    static async fetchAirports(ids) {
-        return AviationWeatherApi.doRequest("/api/data/airport", new URLSearchParams({
+    async fetchAirports(ids) {
+        return this.doRequest("/api/data/airport", new URLSearchParams({
             ids: ids.join(","),
-            // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+            // bbox: this.buildBbox(longitude, latitude, distance).join(","),
             format: "json",
-        })).then((data) => data.map((airport) => AviationWeatherApi.normalizeAirport(airport)));
+        })).then((data) => data.map((airport) => this.normalizeAirport(airport)));
     }
-    static async fetchNavaids(ids) {
-        return AviationWeatherApi.doRequest("/api/data/navaid", new URLSearchParams({
+    async fetchNavaids(ids) {
+        return this.doRequest("/api/data/navaid", new URLSearchParams({
             ids: ids.join(","),
             format: "json",
-            // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
-        })).then((data) => data.map((navaid) => AviationWeatherApi.normalizeNavAid(navaid)));
+            // bbox: this.buildBbox(longitude, latitude, distance).join(","),
+        })).then((data) => data.map((navaid) => this.normalizeNavAid(navaid)));
     }
-    static async fetchFix(ids) {
-        return AviationWeatherApi.doRequest("/api/data/fix", new URLSearchParams({
+    async fetchFix(ids) {
+        return this.doRequest("/api/data/fix", new URLSearchParams({
             ids: ids.join(","),
             format: "json",
-            // bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+            // bbox: this.buildBbox(longitude, latitude, distance).join(","),
         }));
     }
     /**
@@ -57,21 +56,21 @@ export class AviationWeatherApi {
      * @see https://aviationweather.gov/data/api/#/Data/dataNavaid
      * @returns {Promise<AviationWeatherApiNavaid[]>}
      */
-    static async fetchNavaidsByPosition(longitude, latitude, distance = 1000) {
-        return AviationWeatherApi.doRequest("/api/data/navaid", new URLSearchParams({
+    async fetchNavaidsByPosition(longitude, latitude, distance = 1000) {
+        return this.doRequest("/api/data/navaid", new URLSearchParams({
             // ids: ids.join(","),
             format: "json",
-            bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
-        })).then((data) => data.map((navaid) => AviationWeatherApi.normalizeNavAid(navaid)));
+            bbox: this.buildBbox(longitude, latitude, distance).join(","),
+        })).then((data) => data.map((navaid) => this.normalizeNavAid(navaid)));
     }
-    static async fetchFixByPosition(longitude, latitude, distance = 1000) {
-        return AviationWeatherApi.doRequest("/api/data/fix", new URLSearchParams({
+    async fetchFixByPosition(longitude, latitude, distance = 1000) {
+        return this.doRequest("/api/data/fix", new URLSearchParams({
             // ids: ids.join(","),
             format: "json",
-            bbox: AviationWeatherApi.buildBbox(longitude, latitude, distance).join(","),
+            bbox: this.buildBbox(longitude, latitude, distance).join(","),
         }));
     }
-    static normalizeNavAid(navaid) {
+    normalizeNavAid(navaid) {
         return {
             ...navaid,
             lat: Number(navaid.lat),
@@ -82,7 +81,7 @@ export class AviationWeatherApi {
             mag_dec: this.magDecConverter(navaid.mag_dec),
         };
     }
-    static async doRequest(route, query, timeoutMs = 5000) {
+    async doRequest(route, query, timeoutMs = 5000) {
         const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
         const response = await fetch(url, {
             headers: {
@@ -102,13 +101,13 @@ export class AviationWeatherApi {
      * @param {number} [distance] in meters
      * @returns {[number,number,number,number]} southEast.latitude, southEast.longitude, northWest.latitude, northWest.longitude
      */
-    static buildBbox(longitude, latitude, distance = 1000) {
+    buildBbox(longitude, latitude, distance = 1000) {
         const position = new Point(longitude, latitude);
         const southEast = position.getPointBy(new Vector(distance * 1.41, 225));
         const northWest = position.getPointBy(new Vector(distance * 1.41, 45));
         return [southEast.latitude, southEast.longitude, northWest.latitude, northWest.longitude];
     }
-    static normalizeAirport(airport) {
+    normalizeAirport(airport) {
         return {
             ...airport,
             name: airport.name
@@ -149,7 +148,7 @@ export class AviationWeatherApi {
                 }),
         };
     }
-    static normalizeWeather(weather) {
+    normalizeWeather(weather) {
         return {
             ...weather,
             reportTime: new Date(weather.reportTime),
@@ -175,7 +174,7 @@ export class AviationWeatherApi {
     /**
      * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
      */
-    static magDecConverter(magdec) {
+    magDecConverter(magdec) {
         let magDec = 0;
         const magdecMatch = magdec.match(/^(\d+)(E|W)$/);
         if (magdecMatch) {

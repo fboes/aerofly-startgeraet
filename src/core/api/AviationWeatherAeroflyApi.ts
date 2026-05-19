@@ -2,13 +2,13 @@ import { AeroflyFlight, AeroflySettingsCloud, AeroflySettingsWind } from "@fboes
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
 
 export class AviationWeatherApiAerofly extends AviationWeatherApi {
-    static async fetchMetarToFlight(airportCode: string, flight: AeroflyFlight): Promise<AeroflyFlight> {
-        const weathers = await AviationWeatherApi.fetchMetar([airportCode], flight.timeUtc.time);
+    async fetchMetarToFlight(airportCode: string, flight: AeroflyFlight): Promise<AeroflyFlight> {
+        const weathers = await new AviationWeatherApi().fetchMetar([airportCode], flight.timeUtc.time);
 
         if (!weathers.length) {
             throw new Error(`No METAR information found for "${airportCode}" on ${flight.timeUtc.time.toISOString()}`);
         }
-        const weather = AviationWeatherApi.normalizeWeather(weathers[0]);
+        const weather = this.normalizeWeather(weathers[0]);
 
         flight.clouds = weather.clouds.map((c) => {
             const cloud = AeroflySettingsCloud.createInFeet(0, c.base ?? 0);

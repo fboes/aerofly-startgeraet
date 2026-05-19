@@ -9,7 +9,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
-import { AeroflyFlightHelper } from "../../util/AeroflyFlightHelper.js";
+import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 
 //type MsfsPlnWaypointType = "none" | "Airport" | "Intersection" | "VOR" | "NDB" | "User" | "ATC";
 type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | "A" | "B";
@@ -63,7 +63,7 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
 
             if (runway) {
                 route.push(
-                    AeroflyFlightHelper.positionRunwayWaypoint(
+                    positionRunwayWaypoint(
                         new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
                             elevation_ft: coords.altitude_ft,
                             direction_degree: Number(runway.replace(/\D+/, "")) * 10,
@@ -78,7 +78,7 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
             const route = [];
             if (runway) {
                 route.push(
-                    AeroflyFlightHelper.positionRunwayWaypoint(
+                    positionRunwayWaypoint(
                         new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
                             elevation_ft: coords.altitude_ft,
                             direction_degree: Number(runway.replace(/\D+/, "")) * 10,

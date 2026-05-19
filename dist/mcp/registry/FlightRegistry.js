@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
-import * as McpHelper from "../util/McpHelper.js";
 import { z } from "zod";
 import * as ResourceRegistry from "../registry/ResourceRegistry.js";
 import * as ConfigurationRegistry from "./ConfigurationRegistry.js";
 import * as ZodExtra from "../../core/util/ZodExtra.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import * as ExportFileWriter from "../../core/io/ExportFileWriter.js";
-import { ImportFileReader } from "../../core/io/ImportFileReader.js";
+import * as ImportFileReader from "../../core/io/ImportFileReader.js";
+import { JSONstringify, returnMcpToolResult, returnMcpToolErrorResult } from "../util/McpHelper.js";
 export const TOOL_GET_FLIGHT = "get-aerofly-flight";
 export const TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
 export const TOOL_SET_WEATHER = "set-weather";
@@ -40,7 +40,7 @@ export function registerTools(server, flightService) {
         content: [
             {
                 type: "text",
-                text: McpHelper.JSONstringify(flightService.getAeroflyFlight()),
+                text: JSONstringify(flightService.getAeroflyFlight()),
             },
         ],
     }));
@@ -63,7 +63,7 @@ export function registerTools(server, flightService) {
             : [
                 `The aircraft ${aeroflyCodeAircraft} with livery ${aeroflyCodeLivery ?? "default"} does not exist in the current Aerofly FS 4 installation. Please check the available aircraft via ${ResourceRegistry.RESOURCE_AIRCRAFT} and the available liveries for the given aircraft.`,
             ];
-        return McpHelper.returnResultContent(result, warnings);
+        return returnMcpToolResult(result, warnings);
     });
     server.registerTool(TOOL_SET_FUEL_PAYLOAD, {
         title: `Set aircraft fuel and payload for flight mission setup`,
@@ -86,7 +86,7 @@ export function registerTools(server, flightService) {
         if (payload && payload !== result.payloadMass) {
             warnings.push(`The requested payload mass (${payload.toString()} kg) exceeds the maximum remaining (${result.payloadMass.toString()} kg). Payload mass has been capped.`);
         }
-        return McpHelper.returnResultContent(result, warnings);
+        return returnMcpToolResult(result, warnings);
     });
     server.registerTool(TOOL_SET_DATE_TIME, {
         title: `Set date & time for flight mission setup`,
@@ -95,7 +95,7 @@ export function registerTools(server, flightService) {
             timeDate: z.iso.datetime({ offset: true }).describe(`ISO 8601 date & time including time zone.`),
         },
         annotations,
-    }, ({ timeDate }) => McpHelper.returnResultContent(flightService.setTimeAndDate(timeDate)));
+    }, ({ timeDate }) => returnMcpToolResult(flightService.setTimeAndDate(timeDate)));
     server.registerTool(TOOL_SET_WEATHER, {
         title: `Set visibility, temperature and wind for flight mission setup`,
         description: `Returns the weather conditions afterwards. Returns set weather afterwards. To set clouds call \`${TOOL_SET_CLOUDS}\`. Please note that there are no settings for rain, thunderstorms, snow etc.`,
@@ -114,7 +114,7 @@ export function registerTools(server, flightService) {
             gustsKts: z.number().nonnegative().optional().describe(`Gust speed in knots.`),
         },
         annotations,
-    }, ({ visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts, }) => McpHelper.returnResultContent(flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts)));
+    }, ({ visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts, }) => returnMcpToolResult(flightService.setWeather(visibilityM, temperatureCelsius, directionDegrees, speedKts, gustsKts)));
     server.registerTool(TOOL_SET_CLOUDS, {
         title: `Set cloud layers for flight mission setup`,
         description: `Please note that Aerofly FS 4 only handles up to 3 cloud layers. Returns set clouds afterwards. To set other weather settings call \`${TOOL_SET_WEATHER}\`.`,
@@ -134,7 +134,7 @@ export function registerTools(server, flightService) {
                 `Aerofly FS 4 only supports three layers of clouds. Surplus cloud layers will be ignored. You may want to remove clouds layers closer together or with lighter coverage.`,
             ]
             : [];
-        return McpHelper.returnResultContent(result, warnings);
+        return returnMcpToolResult(result, warnings);
     });
     server.registerTool(TOOL_FETCH_METAR, {
         title: `Get real-life weather / METAR data and insert it into missio`,
@@ -148,10 +148,10 @@ export function registerTools(server, flightService) {
         },
     }, async ({ airportIcaoCode }) => {
         try {
-            return McpHelper.returnResultContent(await flightService.setWeatherViaApi(airportIcaoCode));
+            return returnMcpToolResult(await flightService.setWeatherViaApi(airportIcaoCode));
         }
         catch (e) {
-            return McpHelper.returnErrorContent([
+            return returnMcpToolErrorResult([
                 `The METAR rport for this combination of ICAO code and date is missing. Valid dates are up to two weeks in the past.`,
                 e instanceof Error ? e.message : String(e),
             ]);
@@ -175,12 +175,12 @@ export function registerTools(server, flightService) {
             await flightService.importFlightplanFromSimBrief(simBriefUserName);
         }
         catch (e) {
-            return McpHelper.returnErrorContent([
+            return returnMcpToolErrorResult([
                 `The API did not respond with an flight plan. Possibly the user name is unknown, or there is no current flight plan.`,
                 e instanceof Error ? e.message : String(e),
             ]);
         }
-        return McpHelper.returnResultContent(flightService.getAeroflyFlight());
+        return returnMcpToolResult(flightService.getAeroflyFlight());
     });
     server.registerTool(TOOL_SET_POSITION, {
         title: `Set initial aircraft position & state for flight mission setup`,
@@ -194,7 +194,7 @@ export function registerTools(server, flightService) {
         },
         annotations,
     }, ({ longitude, latitude, altitude_meter, heading_degree, speed_kts, }) => {
-        return McpHelper.returnResultContent(flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts));
+        return returnMcpToolResult(flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts));
     });
     server.registerTool(TOOL_SET_WAYPOINTS, {
         title: `Set flight plan waypoints for flight mission setup`,
@@ -226,7 +226,7 @@ export function registerTools(server, flightService) {
             cruiseAltitudeFt,
         });
         flightService.setFlightPositionToDeparture();
-        return McpHelper.returnResultContent(result, ["Aircraft has been re-positioned to origin airport"]);
+        return returnMcpToolResult(result, ["Aircraft has been re-positioned to origin airport"]);
     });
     server.registerTool("export-flightplan", {
         title: `Get current flightplan in a different output format`,
@@ -252,7 +252,7 @@ Supported file types are:
             readOnlyHint: true,
         },
     }, ({ fileType }) => {
-        return McpHelper.returnResultContent(ExportFileWriter.exportFlightplanToString("export." + fileType, flightService.getAeroflyFlight()));
+        return returnMcpToolResult(ExportFileWriter.exportFlightplanToString("export." + fileType, flightService.getAeroflyFlight()));
     });
     server.registerTool("import-flightplan", {
         title: `Create flightplan from external file format`,
@@ -285,7 +285,7 @@ without importing — useful for inspecting multi-plan files before choosing.
         },
     }, ({ content, fileType, index, }) => {
         ImportFileReader.importString(content, "import." + fileType, flightService.getAeroflyFlight(), index);
-        return McpHelper.returnResultContent(flightService.getAeroflyFlight());
+        return returnMcpToolResult(flightService.getAeroflyFlight());
     });
     server.registerTool("get-flightplan-legs", {
         title: `Get detailed flight plan information`,
@@ -310,7 +310,7 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             readOnlyHint: true,
         },
     }, ({ cruiseSpeed_kts, consolidated }) => {
-        return McpHelper.returnResultContent(flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0, consolidated ?? false));
+        return returnMcpToolResult(flightService.getFlightplanLegs(cruiseSpeed_kts ?? 0, consolidated ?? false));
     });
     server.registerTool(TOOL_SAVE_FLIGHT, {
         title: `Save the flight mission setup to Aerofly FS 4`,
@@ -326,12 +326,12 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             flightService.writeFile();
         }
         catch (e) {
-            return McpHelper.returnErrorContent([
+            return returnMcpToolErrorResult([
                 `You might want to check the configuration of the MCP server. To change the configuration, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.`,
                 e instanceof Error ? e.message : String(e),
             ]);
         }
-        return McpHelper.returnResultContent({
+        return returnMcpToolResult({
             message: "Main configuration file has been saved",
         });
     });
@@ -345,7 +345,7 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             openWorldHint: false,
         },
     }, () => {
-        return McpHelper.returnResultContent(new SkyVectorUrl(flightService.getAeroflyFlight(), flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
+        return returnMcpToolResult(new SkyVectorUrl(flightService.getAeroflyFlight(), flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
     });
 }
 export function registerPrompts(server) {

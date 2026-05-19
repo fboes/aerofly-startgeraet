@@ -1,5 +1,5 @@
-import * as McpHelper from "../util/McpHelper.js";
 import { z } from "zod";
+import { JSONstringify, returnMcpToolResult } from "../util/McpHelper.js";
 export const TOOL_GET_CONFIG = "get-config";
 export const TOOL_SET_CONFIG = "set-config";
 export function registerTools(server, config) {
@@ -16,7 +16,7 @@ export function registerTools(server, config) {
         content: [
             {
                 type: "text",
-                text: McpHelper.JSONstringify(config),
+                text: JSONstringify(config),
             },
         ],
     }));
@@ -46,6 +46,6 @@ export function registerTools(server, config) {
         if (simBriefUserName !== undefined) {
             config.simBriefUserName = simBriefUserName;
         }
-        return McpHelper.returnResultContent(config);
+        return returnMcpToolResult(config);
     });
 }

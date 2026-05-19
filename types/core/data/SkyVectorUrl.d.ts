@@ -8,7 +8,7 @@ export declare class SkyVectorUrl {
      * @returns string like 'https://skyvector.com/?ll=58.64732108,16.32458497&chart=301&zoom=4&fpl=N0122A025%20ESSL%205831N01558E%20ESVE%20ESKN'
      */
     toString(): string;
-    getWaypointIdentifiers(): string[];
+    private getWaypointIdentifiers;
     private getWaypointIdentifier;
 }
 //# sourceMappingURL=SkyVectorUrl.d.ts.map

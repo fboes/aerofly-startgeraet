@@ -1,6 +1,6 @@
 import { AeroflyNavigationConfig, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
-import { AeroflyFlightHelper } from "../../util/AeroflyFlightHelper.js";
+import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 /**
  * Import `pln` flight plan files from Microsoft Flight Simulator 2020 / 2024
  * @see https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm
@@ -38,7 +38,7 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
                 }),
             ];
             if (runway) {
-                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
+                route.push(positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
                     elevation_ft: coords.altitude_ft,
                     direction_degree: Number(runway.replace(/\D+/, "")) * 10,
                     uid,
@@ -49,7 +49,7 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
         if (isLast) {
             const route = [];
             if (runway) {
-                route.push(AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
+                route.push(positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
                     elevation_ft: coords.altitude_ft,
                     direction_degree: Number(runway.replace(/\D+/, "")) * 10,
                     uid,

@@ -3,11 +3,11 @@ import path from "node:path";
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { AeroflyFlightMcpResourceService } from "../services/AeroflyFlightMcpResourceService.js";
-import * as McpHelper from "../util/McpHelper.js";
 import * as ZodExtra from "../../core/util/ZodExtra.js";
 import { CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
+import { JSONstringify, returnMcpToolSimpleResult } from "../util/McpHelper.js";
 
 type Variables = Record<string, string | string[]>;
 
@@ -37,7 +37,7 @@ export function registerResources(server: McpServer, resourceService: AeroflyFli
                 {
                     uri: uri.href,
                     mimeType: MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstringify(resourceService.getAircraftList()),
+                    text: JSONstringify(resourceService.getAircraftList()),
                 },
             ],
         }),
@@ -59,7 +59,7 @@ export function registerResources(server: McpServer, resourceService: AeroflyFli
                 {
                     uri: uri.href,
                     mimeType: MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstringify(resourceService.getAircraft(String(aeroflyCode))),
+                    text: JSONstringify(resourceService.getAircraft(String(aeroflyCode))),
                 },
             ],
         }),
@@ -77,7 +77,7 @@ export function registerResources(server: McpServer, resourceService: AeroflyFli
                 {
                     uri: uri.href,
                     mimeType: MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstringify(resourceService.getAircraftTags()),
+                    text: JSONstringify(resourceService.getAircraftTags()),
                 },
             ],
         }),
@@ -99,7 +99,7 @@ export function registerResources(server: McpServer, resourceService: AeroflyFli
                 {
                     uri: uri.href,
                     mimeType: MIME_TYPE_RESPONSE,
-                    text: McpHelper.JSONstringify(resourceService.getAirport(String(icaoCode))),
+                    text: JSONstringify(resourceService.getAirport(String(icaoCode))),
                 },
             ],
         }),
@@ -169,7 +169,7 @@ export function registerTools(server: McpServer, resourceService: AeroflyFlightM
             minimumRangeNm?: number;
             minimumCruiseSpeedKts?: number;
         }): CallToolResult =>
-            McpHelper.returnSimplifiedResultContent(
+            returnMcpToolSimpleResult(
                 resourceService.searchAircraft({ query, tags, minimumRangeNm, minimumCruiseSpeedKts }),
             ),
     );
@@ -196,8 +196,7 @@ export function registerTools(server: McpServer, resourceService: AeroflyFlightM
         }: {
             query?: string;
             geoQuery?: { longitude: number; latitude: number; radiusKm: number };
-        }): CallToolResult =>
-            McpHelper.returnSimplifiedResultContent(resourceService.searchAirports({ query, geoQuery })),
+        }): CallToolResult => returnMcpToolSimpleResult(resourceService.searchAirports({ query, geoQuery })),
     );
 
     server.registerTool(
@@ -214,7 +213,7 @@ export function registerTools(server: McpServer, resourceService: AeroflyFlightM
             },
         },
         async ({ icaoCode }: { icaoCode: string }): Promise<CallToolResult> =>
-            McpHelper.returnSimplifiedResultContent(await AviationWeatherApi.fetchAirports([icaoCode])),
+            returnMcpToolSimpleResult(await new AviationWeatherApi().fetchAirports([icaoCode])),
     );
 
     server.registerTool(
@@ -235,8 +234,8 @@ export function registerTools(server: McpServer, resourceService: AeroflyFlightM
         }: {
             geoQuery: { longitude: number; latitude: number; radiusKm: number };
         }): Promise<CallToolResult> =>
-            McpHelper.returnSimplifiedResultContent(
-                await AviationWeatherApi.fetchNavaidsByPosition(
+            returnMcpToolSimpleResult(
+                await new AviationWeatherApi().fetchNavaidsByPosition(
                     geoQuery.longitude,
                     geoQuery.latitude,
                     geoQuery.radiusKm * 1000,
@@ -262,8 +261,8 @@ export function registerTools(server: McpServer, resourceService: AeroflyFlightM
         }: {
             geoQuery: { longitude: number; latitude: number; radiusKm: number };
         }): Promise<CallToolResult> =>
-            McpHelper.returnSimplifiedResultContent(
-                await AviationWeatherApi.fetchFixByPosition(
+            returnMcpToolSimpleResult(
+                await new AviationWeatherApi().fetchFixByPosition(
                     geoQuery.longitude,
                     geoQuery.latitude,
                     geoQuery.radiusKm * 1000,
@@ -297,7 +296,7 @@ export function registerTools(server: McpServer, resourceService: AeroflyFlightM
                 })),
             );
 
-            return McpHelper.returnSimplifiedResultContent(results);
+            return returnMcpToolSimpleResult(results);
         },
     );
 }

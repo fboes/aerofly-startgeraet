@@ -1,14 +1,15 @@
 /**
  * Simplified elevation/ azimuth calculation
  */
-export function getSunPosition(
+export function calculateSunPosition(
     utcHours: number,
-    dayOfYear: number,
+    date: Date,
     latitude: number,
     longitude: number,
 ): { elevation: number; azimuth: number } {
     const toRad = (deg: number) => (deg * Math.PI) / 180;
     const toDeg = (rad: number) => (rad * 180) / Math.PI;
+    const dayOfYear = calculateDayOfYear(date);
 
     const declination = toRad(-23.45 * Math.cos(toRad((360 / 365) * (dayOfYear + 10))));
 
@@ -31,7 +32,7 @@ export function getSunPosition(
     };
 }
 
-export function dayOfYear(date: Date): number {
+function calculateDayOfYear(date: Date): number {
     const start = new Date(date.getFullYear(), 0, 0);
     const diff = date.getTime() - start.getTime();
     return Math.floor(diff / 86400000);

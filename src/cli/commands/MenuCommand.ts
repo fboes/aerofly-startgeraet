@@ -1,6 +1,5 @@
 import { input, number, select, Separator } from "@inquirer/prompts";
 import { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
-import * as CliFormatter from "../formatter/CliFormatter.js";
 import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
@@ -10,6 +9,8 @@ import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aer
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
+import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/AeroflyAircraftService.js";
+import { writeln, writeSuccess, showMenuTitle, writeCatch } from "../formatter/CliFormatter.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
 
@@ -31,7 +32,7 @@ export class MenuCommand extends ControllerCommand {
                     next = "exit";
                 } else {
                     next = "mainMenu";
-                    CliFormatter.writeCatch(error);
+                    writeCatch(error);
                 }
             }
 
@@ -42,16 +43,13 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async mainMenu(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle();
+        showMenuTitle();
 
         const aeroflyFlight = this.controller.getAeroflyFlight();
 
         const choices = [
             {
-                name: this.name(
-                    "Aircraft",
-                    AeroflyFlightFormatter.getAircraft(aeroflyFlight, this.controller.aircraftService),
-                ),
+                name: this.name("Aircraft", AeroflyFlightFormatter.getAircraft(aeroflyFlight)),
                 value: "selectAircraft",
                 short: "Select aircraft",
             },
@@ -61,14 +59,7 @@ export class MenuCommand extends ControllerCommand {
                 short: "Set fuel and payload",
             },
             {
-                name: this.name(
-                    "Flightplan",
-                    AeroflyFlightFormatter.getFlightplanSummary(
-                        aeroflyFlight,
-                        this.controller.aircraftService,
-                        this.controller.airportService,
-                    ),
-                ),
+                name: this.name("Flightplan", AeroflyFlightFormatter.getFlightplanSummary(aeroflyFlight)),
                 value: "importFlightplan",
                 short: "Import / export flightplan",
             },
@@ -116,12 +107,11 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async selectAircraft(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Aircraft"]);
+        showMenuTitle(["Aircraft"]);
         const aeroflyCodeAircraft = await select({
             message: "Aircraft",
             default: this.controller.getAircraft(),
-            choices: this.controller.aircraftService
-                .getAllAircraftLiveries()
+            choices: getAllAeroflyAircraftWithLiveries()
                 .map((livery) => ({
                     name: livery.nameFull,
                     value: livery.aeroflyCode,
@@ -129,7 +119,7 @@ export class MenuCommand extends ControllerCommand {
                 .sort((a, b) => a.name.localeCompare(b.name)),
         });
 
-        const liveries = this.controller.aircraftService.getAircraft(aeroflyCodeAircraft)?.liveries ?? [];
+        const liveries = getAeroflyAircraft(aeroflyCodeAircraft)?.liveries ?? [];
 
         const aeroflyCodeLivery =
             liveries.length > 1
@@ -151,7 +141,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setFuelAndPayload(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Fuel & Payload"]);
+        showMenuTitle(["Fuel & Payload"]);
         const fuel = this.controller.getMaxFuel()
             ? await number({
                   message: `Fuel (kg) - max ${this.controller.getMaxFuel().toFixed()} kg`,
@@ -183,9 +173,9 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async importFlightplan(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Import Flightplan"]);
+        showMenuTitle(["Import Flightplan"]);
 
-        CliFormatter.writeln(
+        writeln(
             `Current flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
         );
 
@@ -229,7 +219,7 @@ export class MenuCommand extends ControllerCommand {
         }
 
         if (choice === "simbrief") {
-            CliFormatter.writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
+            writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
             await this.controller.importFlightplanFromSimBrief(
                 simBriefUserName,
                 this.controller.config.simBriefWeatherFromDestination,
@@ -256,11 +246,11 @@ export class MenuCommand extends ControllerCommand {
                               };
                           }),
                       });
-            CliFormatter.writeln(`Importing flightplan from file ${filename}...`);
+            writeln(`Importing flightplan from file ${filename}...`);
             this.controller.importFlightplanFromFile(filename, Number(index));
         }
-        CliFormatter.writeSuccess("Flightplan imported successfully");
-        CliFormatter.writeln(
+        writeSuccess("Flightplan imported successfully");
+        writeln(
             `Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
         );
 
@@ -268,7 +258,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async exportFlightplan(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Export Flightplan"]);
+        showMenuTitle(["Export Flightplan"]);
 
         const fileType = await select({
             message: "Export file type",
@@ -303,13 +293,13 @@ export class MenuCommand extends ControllerCommand {
         const filePath = path.join(this.controller.config.exportDirectory, fileName);
 
         await this.controller.exportFlightplanToFile(filePath);
-        CliFormatter.writeSuccess(`Flightplan exported successfully to ${filePath}`);
+        writeSuccess(`Flightplan exported successfully to ${filePath}`);
 
         return "mainMenu";
     }
 
     async setTimeAndDate(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Time & Date"]);
+        showMenuTitle(["Time & Date"]);
 
         const departureTimeZoneUTCString = this.controller.getDepartureTimeZoneUTCString();
         const choice = await select({
@@ -386,7 +376,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async importWeather(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Import Weather"]);
+        showMenuTitle(["Import Weather"]);
 
         const choice = await select({
             message: "Import weather",
@@ -418,16 +408,16 @@ export class MenuCommand extends ControllerCommand {
             });
             this.controller.setWeatherFromMETAR(metar);
         } else {
-            CliFormatter.writeln(`Importing METAR for ${choice}...`);
+            writeln(`Importing METAR for ${choice}...`);
             await this.controller.setWeatherViaApi(choice);
         }
-        CliFormatter.writeSuccess("Weather imported successfully");
+        writeSuccess("Weather imported successfully");
 
         return "mainMenu";
     }
 
     async setWind(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Wind"]);
+        showMenuTitle(["Wind"]);
         const windSpeedKts = await number({
             message: "Wind speed (kts)",
             default: this.controller.getWindSpeed(),
@@ -456,7 +446,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setTemperature(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Temperature"]);
+        showMenuTitle(["Temperature"]);
         const temperatureCelsius = await number({
             message: "Temperature (°C)",
             default: Math.round(this.controller.getTemperature()),
@@ -471,7 +461,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setVisibility(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Visibility"]);
+        showMenuTitle(["Visibility"]);
 
         const visibilitySM = Number(this.controller.getVisibilitySM().toPrecision(3));
         const visibilityM = this.controller.getVisibilityM();
@@ -493,7 +483,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setClouds(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Clouds"]);
+        showMenuTitle(["Clouds"]);
 
         const clouds = this.controller.getClouds();
         const cloudData: AeroflyFlightServiceCloud[] = [
@@ -556,7 +546,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setConfiguration(): Promise<MenuCommandMethod> {
-        CliFormatter.showMenuTitle(["Configuration & Help"]);
+        showMenuTitle(["Configuration & Help"]);
 
         process.stdout.write(HelpCommand.getHelpText());
         await SetupCommand.configure(this.controller.config);
@@ -567,7 +557,7 @@ export class MenuCommand extends ControllerCommand {
     saveAndExit(): MenuCommandMethod {
         process.stdout.write("Saving flightplan...\n");
         this.controller.writeFile();
-        CliFormatter.writeSuccess("Flightplan saved successfully");
+        writeSuccess("Flightplan saved successfully");
 
         return "exit";
     }

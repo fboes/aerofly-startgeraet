@@ -24,7 +24,6 @@ export type RoutePlanServiceRoute = {
 };
 export declare class RoutePlanService {
     private aeroflyFlight;
-    private readonly aicraftService;
     constructor(aeroflyFlight: AeroflyFlight);
     getRouteLegs(cruiseSpeed_kts?: null | number): RoutePlanServiceLeg[];
     getRoute(cruiseSpeed_kts?: null | number): RoutePlanServiceRoute;

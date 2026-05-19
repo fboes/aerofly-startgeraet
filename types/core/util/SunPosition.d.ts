@@ -1,14 +1,13 @@
 /**
  * Simplified elevation/ azimuth calculation
  */
-export declare function getSunPosition(
+export declare function calculateSunPosition(
     utcHours: number,
-    dayOfYear: number,
+    date: Date,
     latitude: number,
     longitude: number,
 ): {
     elevation: number;
     azimuth: number;
 };
-export declare function dayOfYear(date: Date): number;
 //# sourceMappingURL=SunPosition.d.ts.map

@@ -1,6 +1,6 @@
 import { input, confirm } from "@inquirer/prompts";
-import * as CliFormatter from "../formatter/CliFormatter.js";
 import { HelpCommand } from "./HelpCommand.js";
+import { writeSuccess } from "../formatter/CliFormatter.js";
 export class SetupCommand {
     config;
     constructor(config) {
@@ -46,6 +46,6 @@ export class SetupCommand {
             default: config.syncTimeOnStartup,
         });
         config.syncTimeOnStartup = syncTimeOnStartup;
-        CliFormatter.writeSuccess("Configuration saved successfully.");
+        writeSuccess("Configuration saved successfully.");
     }
 }

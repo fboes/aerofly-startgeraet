@@ -41,7 +41,7 @@ export class SkyVectorUrl {
         return this.toURL().toString();
     }
 
-    getWaypointIdentifiers(): string[] {
+    private getWaypointIdentifiers(): string[] {
         return this.aeroflyFlight.navigation.waypoints
             .filter((c) => {
                 return !(c instanceof AeroflyNavRouteDepartureRunway || c instanceof AeroflyNavRouteDestinationRunway);

@@ -18,15 +18,14 @@ import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
 import { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
-import { ImportFileReader } from "../io/ImportFileReader.js";
+import * as ImportFileReader from "../io/ImportFileReader.js";
 import * as ExportFileWriter from "../io/ExportFileWriter.js";
-import { AeroflyAircraftService } from "./AeroflyAircraftService.js";
 import * as AeroflyFlightFormatter from "../formatter/AeroflyFlightFormatter.js";
-import { AeroflyFlightHelper } from "../util/AeroflyFlightHelper.js";
+import * as AeroflyFlightHelper from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
-import { AeroflyAirportService } from "./AeroflyAirportService.js";
 import { RoutePlanService, RoutePlanServiceLeg, RoutePlanServiceRoute } from "./RoutePlanService.js";
+import { getAeroflyAircraft } from "./AeroflyAircraftService.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -68,13 +67,7 @@ export class AeroflyFlightService {
     private aeroflyFlight: AeroflyFlight;
     private readonly aeroflyMainConfigReader: AeroflyMainConfigReader;
 
-    public readonly aircraftService: AeroflyAircraftService;
-    public readonly airportService: AeroflyAirportService;
-
     constructor(public readonly config: Config) {
-        this.aircraftService = new AeroflyAircraftService();
-        this.airportService = new AeroflyAirportService();
-
         this.aeroflyMainConfigReader = new AeroflyMainConfigReader(this.config);
         this.aeroflyFlight = new AeroflyFlightFallback();
         this.setAircraft(this.aeroflyFlight.aircraft.name, this.aeroflyFlight.aircraft.paintscheme);
@@ -96,7 +89,7 @@ export class AeroflyFlightService {
     }
 
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft {
-        this.currentAircraft = this.aircraftService.getAircraft(aeroflyCodeAircraft);
+        this.currentAircraft = getAeroflyAircraft(aeroflyCodeAircraft);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
         return this.aeroflyFlight.aircraft;
@@ -251,7 +244,7 @@ export class AeroflyFlightService {
 
     async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: boolean = false) {
         try {
-            const simbrief = new SimBriefAeroflyApi(this.aircraftService);
+            const simbrief = new SimBriefAeroflyApi();
             await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
         } catch (error) {
             if (error instanceof Error && error.message.includes("Unknown UserID")) {
@@ -259,7 +252,7 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = this.aircraftService.getAircraft(this.aeroflyFlight.aircraft.name);
+        this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
     }
 
     setFlightplan(
@@ -402,7 +395,7 @@ export class AeroflyFlightService {
     }
 
     async setWeatherViaApi(airportCode: string): Promise<object> {
-        await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
+        await new AviationWeatherApiAerofly().fetchMetarToFlight(airportCode, this.aeroflyFlight);
 
         return this.getWeather();
     }

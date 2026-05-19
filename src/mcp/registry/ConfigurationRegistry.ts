@@ -1,8 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Config } from "../../core/io/Config.js";
-import * as McpHelper from "../util/McpHelper.js";
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types";
+import { JSONstringify, returnMcpToolResult } from "../util/McpHelper.js";
 
 export const TOOL_GET_CONFIG = "get-config";
 export const TOOL_SET_CONFIG = "set-config";
@@ -24,7 +24,7 @@ export function registerTools(server: McpServer, config: Config): void {
             content: [
                 {
                     type: "text",
-                    text: McpHelper.JSONstringify(config),
+                    text: JSONstringify(config),
                 },
             ],
         }),
@@ -70,7 +70,7 @@ export function registerTools(server: McpServer, config: Config): void {
                 config.simBriefUserName = simBriefUserName;
             }
 
-            return McpHelper.returnResultContent(config);
+            return returnMcpToolResult(config);
         },
     );
 }
