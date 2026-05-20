@@ -15,7 +15,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefApi, SimBriefApiPayload, SimBriefApiPayloadAirport } from "./SimBriefApi.js";
 import { metarParser } from "aewx-metar-parser";
-import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/AeroflyAircraftService.js";
+import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
     public async fetchMission(

@@ -1,4 +1,4 @@
-import { writeln, writeSuccess } from "../formatter/CliFormatter.js";
+import { writeln, writeSuccess } from "../formatter/writeCli.js";
 import { ControllerCommand } from "./Command.js";
 
 export class MetarCommand extends ControllerCommand {

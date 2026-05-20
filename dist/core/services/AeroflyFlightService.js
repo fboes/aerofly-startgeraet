@@ -3,14 +3,14 @@ import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
-import * as ImportFileReader from "../io/ImportFileReader.js";
-import * as ExportFileWriter from "../io/ExportFileWriter.js";
+import * as ImportFileReader from "../io/importFlightplan.js";
+import * as ExportFileWriter from "../io/exportFlightplan.js";
 import * as AeroflyFlightFormatter from "../formatter/AeroflyFlightFormatter.js";
 import * as AeroflyFlightHelper from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { RoutePlanService } from "./RoutePlanService.js";
-import { getAeroflyAircraft } from "./AeroflyAircraftService.js";
+import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.

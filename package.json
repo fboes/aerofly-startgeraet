@@ -35,7 +35,11 @@
     "aerofly-startgeraet": "./dist/cli/index.js",
     "aerofly-startgeraet-mcp": "./dist/mcp/index.js"
   },
-  "author": "Frank Boës <info@fboes.org> (https://3960.org/)",
+  "author": {
+    "name": "Frank Boës",
+    "email": "info@fboes.org",
+    "url": "https://3960.org/"
+  },
   "license": "MIT",
   "type": "module",
   "devDependencies": {

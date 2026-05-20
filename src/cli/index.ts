@@ -9,7 +9,7 @@ import { HelpCommand } from "./commands/HelpCommand.js";
 import { SetupCommand } from "./commands/SetupCommand.js";
 import { SimbriefCommand } from "./commands/SimbriefCommand.js";
 import { TimeCommand } from "./commands/TimeCommand.js";
-import { writeCatch } from "./formatter/CliFormatter.js";
+import { writeCatch } from "./formatter/writeCli.js";
 //import { AeroflyMainConfigReaderError } from "../core/io/AeroflyMainConfigReader.js";
 
 const arg = process.argv[2]?.toLowerCase() || "";

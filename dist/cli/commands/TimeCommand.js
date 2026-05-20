@@ -1,4 +1,4 @@
-import { writeln } from "../formatter/CliFormatter.js";
+import { writeln } from "../formatter/writeCli.js";
 import { ControllerCommand } from "./Command.js";
 export class TimeCommand extends ControllerCommand {
     async execute() {

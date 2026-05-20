@@ -1,0 +1,1 @@
+{"version":3,"file":"writeCli.d.ts","sourceRoot":"","sources":["../../../src/cli/formatter/writeCli.ts"],"names":[],"mappings":"AAGA;;GAEG;AACH,wBAAgB,OAAO,CAAC,OAAO,EAAE,MAAM,QAEtC;AAED,wBAAgB,YAAY,CAAC,OAAO,EAAE,MAAM,QAE3C;AAED,wBAAgB,UAAU,CAAC,OAAO,EAAE,MAAM,QAEzC;AAED,wBAAgB,UAAU,CAAC,KAAK,EAAE,OAAO,QAExC;AAED,wBAAgB,cAAc,CAAC,MAAM,GAAE,MAAM,EAAO,QAEnD"}

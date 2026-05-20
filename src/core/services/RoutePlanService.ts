@@ -8,7 +8,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { Point } from "@fboes/geojson";
-import { getAeroflyAircraft } from "./AeroflyAircraftService.js";
+import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 
 export type RoutePlanServiceLeg = {
     from: string;
