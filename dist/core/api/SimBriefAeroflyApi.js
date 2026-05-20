@@ -1,7 +1,7 @@
 import { AeroflySettingsAircraft, AeroflySettingsFlight, AeroflySettingsFuelLoad, AeroflyTimeUtc, AeroflySettingsWind, AeroflySettingsCloud, AeroflyNavigationConfig, AeroflyNavRouteOrigin, AeroflyNavRouteDestination, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { SimBriefApi } from "./SimBriefApi.js";
 import { metarParser } from "aewx-metar-parser";
-import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/AeroflyAircraftService.js";
+import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 export class SimBriefAeroflyApi extends SimBriefApi {
     async fetchMission(username, flight, useDestinationWeather = false) {
         const simbriefPayload = await this.fetch(username);

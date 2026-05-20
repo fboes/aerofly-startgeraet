@@ -1,5 +1,5 @@
 import { IpcMain } from "electron";
-import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/AeroflyAircraftService.js";
+import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
 
 export function registerAeroflyAircraftHandlers(ipcMain: IpcMain) {
     ipcMain.handle("aircraft:liveries", (event, aeroflyCode: string) => {

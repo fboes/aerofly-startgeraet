@@ -7,7 +7,7 @@ import {
     AeroflyMissionsList,
 } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
-import { getAeroflyAircraftByIcaoCode } from "../../services/AeroflyAircraftService.js";
+import { getAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
 
 export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFlightToStringConverter {
     static readonly fileExtension = "tmc";

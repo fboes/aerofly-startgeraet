@@ -1,4 +1,4 @@
-import { getApplicationName, getApplicationVersion } from "../../core/services/ApplicationService.js";
+import { getApplicationName, getApplicationVersion } from "../../core/services/getApplicationInformation.js";
 export function registerApplicationHandlers(ipcMain) {
     ipcMain.handle("application:get-name", () => {
         return getApplicationName();

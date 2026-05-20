@@ -6,7 +6,7 @@ import {
     AeroflySettingsCloud,
 } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
-import * as SunPosition from "./SunPosition.js";
+import * as SunPosition from "./calculateSunPosition.js";
 
 export type AeroflylightCategoryIcao = "VFR" | "IFR";
 

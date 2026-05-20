@@ -1,6 +1,6 @@
 import { AeroflyNavRouteOrigin, } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
-import * as SunPosition from "./SunPosition.js";
+import * as SunPosition from "./calculateSunPosition.js";
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
  */

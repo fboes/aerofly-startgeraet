@@ -1,6 +1,6 @@
 import { input, confirm } from "@inquirer/prompts";
 import { HelpCommand } from "./HelpCommand.js";
-import { writeSuccess } from "../formatter/CliFormatter.js";
+import { writeSuccess } from "../formatter/writeCli.js";
 export class SetupCommand {
     config;
     constructor(config) {

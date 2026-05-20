@@ -1,8 +1,8 @@
 import { AeroflyFlight, AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "@fboes/aerofly-custom-missions";
 import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { RoutePlanService } from "../services/RoutePlanService.js";
-import { getAeroflyAircraft, getAeroflyLivery } from "../services/AeroflyAircraftService.js";
-import { getAeroflyAirportByIcaoCode } from "../services/AeroflyAirportService.js";
+import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAircraft.js";
+import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
 import {
     getIcaoFlightCategory,
     getSunPosition,

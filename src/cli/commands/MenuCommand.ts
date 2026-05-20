@@ -9,10 +9,10 @@ import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aer
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
-import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/AeroflyAircraftService.js";
-import { writeln, writeSuccess, showMenuTitle, writeCatch } from "../formatter/CliFormatter.js";
+import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
+import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
 
-export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "showMenuTitle" | "name" | "execute">;
+export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "writeMenuTitle" | "name" | "execute">;
 
 /**
  * Providing menu options to set up the flight in a more convenient way.
@@ -43,7 +43,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async mainMenu(): Promise<MenuCommandMethod> {
-        showMenuTitle();
+        writeMenuTitle();
 
         const aeroflyFlight = this.controller.getAeroflyFlight();
 
@@ -107,7 +107,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async selectAircraft(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Aircraft"]);
+        writeMenuTitle(["Aircraft"]);
         const aeroflyCodeAircraft = await select({
             message: "Aircraft",
             default: this.controller.getAircraft(),
@@ -141,7 +141,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setFuelAndPayload(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Fuel & Payload"]);
+        writeMenuTitle(["Fuel & Payload"]);
         const fuel = this.controller.getMaxFuel()
             ? await number({
                   message: `Fuel (kg) - max ${this.controller.getMaxFuel().toFixed()} kg`,
@@ -173,7 +173,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async importFlightplan(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Import Flightplan"]);
+        writeMenuTitle(["Import Flightplan"]);
 
         writeln(
             `Current flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
@@ -258,7 +258,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async exportFlightplan(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Export Flightplan"]);
+        writeMenuTitle(["Export Flightplan"]);
 
         const fileType = await select({
             message: "Export file type",
@@ -299,7 +299,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setTimeAndDate(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Time & Date"]);
+        writeMenuTitle(["Time & Date"]);
 
         const departureTimeZoneUTCString = this.controller.getDepartureTimeZoneUTCString();
         const choice = await select({
@@ -376,7 +376,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async importWeather(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Import Weather"]);
+        writeMenuTitle(["Import Weather"]);
 
         const choice = await select({
             message: "Import weather",
@@ -417,7 +417,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setWind(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Wind"]);
+        writeMenuTitle(["Wind"]);
         const windSpeedKts = await number({
             message: "Wind speed (kts)",
             default: this.controller.getWindSpeed(),
@@ -446,7 +446,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setTemperature(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Temperature"]);
+        writeMenuTitle(["Temperature"]);
         const temperatureCelsius = await number({
             message: "Temperature (°C)",
             default: Math.round(this.controller.getTemperature()),
@@ -461,7 +461,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setVisibility(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Visibility"]);
+        writeMenuTitle(["Visibility"]);
 
         const visibilitySM = Number(this.controller.getVisibilitySM().toPrecision(3));
         const visibilityM = this.controller.getVisibilityM();
@@ -483,7 +483,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setClouds(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Clouds"]);
+        writeMenuTitle(["Clouds"]);
 
         const clouds = this.controller.getClouds();
         const cloudData: AeroflyFlightServiceCloud[] = [
@@ -546,7 +546,7 @@ export class MenuCommand extends ControllerCommand {
     }
 
     async setConfiguration(): Promise<MenuCommandMethod> {
-        showMenuTitle(["Configuration & Help"]);
+        writeMenuTitle(["Configuration & Help"]);
 
         process.stdout.write(HelpCommand.getHelpText());
         await SetupCommand.configure(this.controller.config);
