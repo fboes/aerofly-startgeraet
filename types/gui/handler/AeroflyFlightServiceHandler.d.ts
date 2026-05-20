@@ -5,6 +5,7 @@ export declare class AeroflyFlightServiceHandler {
     protected win: BrowserWindow;
     readonly service: AeroflyFlightService;
     constructor(ipcMain: IpcMain, win: BrowserWindow);
-    sendFlightplan(): void;
+    registerHandlers(): void;
+    sendStateUpdate(): void;
 }
 //# sourceMappingURL=AeroflyFlightServiceHandler.d.ts.map

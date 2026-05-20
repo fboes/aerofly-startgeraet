@@ -109,6 +109,12 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
+    /**
+     *
+     * @param fuel kg
+     * @param payload kg
+     * @returns fuel load setting
+     */
     setFuelAndPayload(fuel: number, payload: number): AeroflySettingsFuelLoad {
         fuel = Math.max(0, Math.min(fuel, this.getMaxFuel()));
         payload = Math.max(0, Math.min(payload, this.getMaxPayload()));

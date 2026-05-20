@@ -1,5 +1,10 @@
-import { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { sendToMain } from "../../renderer/ipc-bridge.js";
+import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import { sendToMain } from "../../renderer/sendToMain.js";
+
+export type AircraftWebComponentState = {
+    aircraftName: string;
+    aircraftPaintscheme: string;
+};
 
 export class AircraftWebComponent extends HTMLElement {
     elements: {
@@ -34,6 +39,13 @@ export class AircraftWebComponent extends HTMLElement {
         };
     }
 
+    get state(): AircraftWebComponentState {
+        return {
+            aircraftName: this.elements.aircraftName.value,
+            aircraftPaintscheme: this.elements.aircraftPaintscheme.value,
+        };
+    }
+
     connectedCallback() {
         sendToMain<AeroflyAircraft[]>("aircraft:update").then((aircraft) => {
             this.elements.aircraftName.innerHTML = aircraft
@@ -42,27 +54,22 @@ export class AircraftWebComponent extends HTMLElement {
         });
 
         window.electronAPI.onStateUpdate((state) => {
-            this.setAircraft(state.aeroflyFlight.aircraft.name, state.aeroflyFlight.aircraft.paintscheme);
+            this.elements.aircraftName.value = state.aeroflyFlight.aircraft.name;
+            this.elements.aircraftPaintscheme.innerHTML =
+                state.aircraftData?.liveries
+                    .map(
+                        (livery) =>
+                            `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${livery.name}</option>`,
+                    )
+                    .join("") ?? `<option value="">default</option>`;
+            this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
         });
 
-        this.elements.aircraftName.addEventListener("input", () => {
-            this.setAircraft(this.elements.aircraftName.value);
-        });
+        this.addEventListener("change", this.handleChange);
     }
 
-    protected setAircraft(aeroflyCode: string, paintscheme: string = "") {
-        console.log(`Setting aircraft to ${aeroflyCode} with paintscheme ${paintscheme}`);
-        this.elements.aircraftName.value = aeroflyCode;
-
-        sendToMain<AeroflyAircraftLivery[]>("aircraft:liveries", aeroflyCode).then((liveries) => {
-            this.elements.aircraftPaintscheme.innerHTML = liveries
-                .map(
-                    (livery) =>
-                        `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${livery.name}</option>`,
-                )
-                .join("");
-            this.elements.aircraftPaintscheme.value = paintscheme;
-        });
+    handleChange() {
+        sendToMain<AircraftWebComponentState>("aircraft:set", this.state);
     }
 
     static registerElement() {

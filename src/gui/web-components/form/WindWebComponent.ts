@@ -1,3 +1,11 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
+
+export type WindWebComponentState = {
+    speed_kts: number;
+    gust_kts: number;
+    directionInDegree: number;
+};
+
 export class WindWebComponent extends HTMLElement {
     elements: {
         windSpeed: HTMLInputElement;
@@ -42,16 +50,27 @@ export class WindWebComponent extends HTMLElement {
         };
     }
 
+    get state(): WindWebComponentState {
+        return {
+            speed_kts: this.elements.windSpeed.valueAsNumber,
+            gust_kts: this.elements.windGust.valueAsNumber,
+            directionInDegree: this.elements.windDirection.valueAsNumber,
+        };
+    }
+
     connectedCallback() {
-        this.elements.windDirection.addEventListener("input", () => {
-            this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.windSpeed.valueAsNumber = Math.round(state.aeroflyFlight.wind.speed_kts);
+            this.elements.windGust.valueAsNumber = Math.round(state.aeroflyFlight.wind.gust_kts);
+            this.elements.windDirection.valueAsNumber = Math.round(state.aeroflyFlight.wind.directionInDegree);
         });
 
-        window.electronAPI.onStateUpdate((state) => {
-            this.elements.windSpeed.valueAsNumber = state.aeroflyFlight.wind.speed_kts;
-            this.elements.windGust.valueAsNumber = state.aeroflyFlight.wind.gust_kts;
-            this.elements.windDirection.valueAsNumber = state.aeroflyFlight.wind.directionInDegree;
-        });
+        this.addEventListener("input", this.handleChange);
+    }
+
+    handleChange() {
+        this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
+        sendToMain<WindWebComponentState>("wind:set", this.state);
     }
 
     static registerElement() {

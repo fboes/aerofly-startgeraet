@@ -1,4 +1,6 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
 export class CloudsWebComponent extends HTMLElement {
+    elements;
     constructor() {
         super();
         this.setAttribute("aria-role", "region");
@@ -42,6 +44,37 @@ export class CloudsWebComponent extends HTMLElement {
     </tbody>
 </table>
 `;
+        this.elements = [...this.querySelectorAll("tbody tr")].map((row) => ({
+            base: row.querySelector(`input`),
+            coverage: row.querySelector(`select`),
+        }));
+    }
+    get state() {
+        return {
+            clouds: this.elements.map((element) => ({
+                baseFt: element.base.valueAsNumber,
+                coverageEighths: element.coverage.selectedIndex,
+            })),
+        };
+    }
+    connectedCallback() {
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.forEach((element, i) => {
+                const cloud = state.clouds[i];
+                if (cloud) {
+                    element.base.valueAsNumber = Math.round(cloud.height_ft / 100) * 100; // round to nearest 100 ft
+                    element.coverage.selectedIndex = Math.round(cloud.density * 8); // 0-1 mapped to 0-8 oktas
+                }
+                else {
+                    element.base.valueAsNumber = 0;
+                    element.coverage.selectedIndex = 0;
+                }
+            });
+        });
+        this.addEventListener("input", () => this.handleChange());
+    }
+    handleChange() {
+        sendToMain("clouds:set", this.state);
     }
     static registerElement() {
         customElements.define("startgeraet-clouds", CloudsWebComponent);

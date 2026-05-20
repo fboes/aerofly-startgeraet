@@ -1,6 +1,8 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-export declare class AeroflyFlightBridge {
+import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
+    readonly aircraftData: AeroflyAircraft | undefined;
     readonly dateTime: {
         utc: {
             date: string;
@@ -21,7 +23,11 @@ export declare class AeroflyFlightBridge {
             minutes: number;
         };
     };
-    constructor(aeroflyFlight: AeroflyFlight);
+    readonly clouds: {
+        height_ft: number;
+        density: number;
+    }[];
+    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined);
     protected getDateTime(): {
         utc: {
             timeZoneOffset_h: number;
@@ -46,5 +52,9 @@ export declare class AeroflyFlightBridge {
             minutes: number;
         };
     };
+    protected getClouds(): {
+        height_ft: number;
+        density: number;
+    }[];
 }
-//# sourceMappingURL=AeroflyFlightBridge.d.ts.map
+//# sourceMappingURL=AppState.d.ts.map

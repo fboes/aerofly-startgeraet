@@ -1,8 +1,8 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
-import { registerAeroflyAircraftHandlers } from "./handler/AeroflyAircraftServiceHandler.js";
-import { registerApplicationHandlers } from "./handler/ApplicationServiceHandler.js";
+import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
+import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -33,7 +33,7 @@ const createWindow = () => {
     const aeroflyFlightServiceHandler = new AeroflyFlightServiceHandler(ipcMain, win);
 
     win.webContents.on("did-finish-load", () => {
-        aeroflyFlightServiceHandler.sendFlightplan();
+        aeroflyFlightServiceHandler.sendStateUpdate();
     });
 };
 

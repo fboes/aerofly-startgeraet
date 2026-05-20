@@ -1,3 +1,10 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
+
+export type FuelPayloadWebComponentState = {
+    fuelMass: number;
+    payloadMass: number;
+};
+
 export class FuelPayloadWebComponent extends HTMLElement {
     elements: {
         fuelMass: HTMLInputElement;
@@ -32,11 +39,29 @@ export class FuelPayloadWebComponent extends HTMLElement {
         };
     }
 
+    get state(): FuelPayloadWebComponentState {
+        return {
+            fuelMass: this.elements.fuelMass.valueAsNumber,
+            payloadMass: this.elements.payloadMass.valueAsNumber,
+        };
+    }
+
     connectedCallback() {
         window.electronAPI.onStateUpdate((state) => {
             this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
+            this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
+            this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
+
             this.elements.payloadMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.payloadMass;
+            this.elements.payloadMass.max = state.aircraftData?.maximumPayloadKg?.toString() ?? "0";
+            this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
         });
+
+        this.addEventListener("input", this.handleChange);
+    }
+
+    handleChange() {
+        sendToMain<FuelPayloadWebComponentState>("fuel-payload:set", this.state);
     }
 
     static registerElement() {

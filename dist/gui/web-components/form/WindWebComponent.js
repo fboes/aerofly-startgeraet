@@ -1,3 +1,4 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
 export class WindWebComponent extends HTMLElement {
     elements;
     constructor() {
@@ -35,15 +36,24 @@ export class WindWebComponent extends HTMLElement {
             windDirection: document.getElementById("wind-direction"),
         };
     }
+    get state() {
+        return {
+            speed_kts: this.elements.windSpeed.valueAsNumber,
+            gust_kts: this.elements.windGust.valueAsNumber,
+            directionInDegree: this.elements.windDirection.valueAsNumber,
+        };
+    }
     connectedCallback() {
-        this.elements.windDirection.addEventListener("input", () => {
-            this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
-        });
         window.electronAPI.onStateUpdate((state) => {
-            this.elements.windSpeed.valueAsNumber = state.aeroflyFlight.wind.speed_kts;
-            this.elements.windGust.valueAsNumber = state.aeroflyFlight.wind.gust_kts;
-            this.elements.windDirection.valueAsNumber = state.aeroflyFlight.wind.directionInDegree;
+            this.elements.windSpeed.valueAsNumber = Math.round(state.aeroflyFlight.wind.speed_kts);
+            this.elements.windGust.valueAsNumber = Math.round(state.aeroflyFlight.wind.gust_kts);
+            this.elements.windDirection.valueAsNumber = Math.round(state.aeroflyFlight.wind.directionInDegree);
         });
+        this.addEventListener("input", this.handleChange);
+    }
+    handleChange() {
+        this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
+        sendToMain("wind:set", this.state);
     }
     static registerElement() {
         customElements.define("startgeraet-wind", WindWebComponent);

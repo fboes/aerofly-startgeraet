@@ -1,4 +1,4 @@
-import { sendToMain } from "../../renderer/ipc-bridge.js";
+import { sendToMain } from "../../renderer/sendToMain.js";
 
 export class FooterWebComponent extends HTMLElement {
     elements: {

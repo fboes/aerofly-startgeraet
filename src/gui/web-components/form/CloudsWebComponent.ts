@@ -1,4 +1,18 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
+
+export type CloudsWebComponentState = {
+    clouds: {
+        baseFt: number;
+        coverageEighths: number;
+    }[];
+};
+
 export class CloudsWebComponent extends HTMLElement {
+    elements: {
+        base: HTMLInputElement;
+        coverage: HTMLSelectElement;
+    }[];
+
     constructor() {
         super();
         this.setAttribute("aria-role", "region");
@@ -44,6 +58,41 @@ export class CloudsWebComponent extends HTMLElement {
     </tbody>
 </table>
 `;
+
+        this.elements = [...this.querySelectorAll("tbody tr")].map((row) => ({
+            base: row.querySelector(`input`) as HTMLInputElement,
+            coverage: row.querySelector(`select`) as HTMLSelectElement,
+        }));
+    }
+
+    get state(): CloudsWebComponentState {
+        return {
+            clouds: this.elements.map((element) => ({
+                baseFt: element.base.valueAsNumber,
+                coverageEighths: element.coverage.selectedIndex,
+            })),
+        };
+    }
+
+    connectedCallback() {
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.forEach((element, i) => {
+                const cloud = state.clouds[i];
+                if (cloud) {
+                    element.base.valueAsNumber = Math.round(cloud.height_ft / 100) * 100; // round to nearest 100 ft
+                    element.coverage.selectedIndex = Math.round(cloud.density * 8); // 0-1 mapped to 0-8 oktas
+                } else {
+                    element.base.valueAsNumber = 0;
+                    element.coverage.selectedIndex = 0;
+                }
+            });
+        });
+
+        this.addEventListener("input", () => this.handleChange());
+    }
+
+    handleChange() {
+        sendToMain<CloudsWebComponentState>("clouds:set", this.state);
     }
 
     static registerElement() {

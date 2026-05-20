@@ -1,3 +1,10 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
+
+export type TimeAndDateWebComponentState = {
+    utcDate: string; // YYYY-MM-DD
+    utcTime: string; // HH:mm
+};
+
 export class TimeAndDateWebComponent extends HTMLElement {
     elements: {
         dateUtc: HTMLInputElement;
@@ -5,6 +12,7 @@ export class TimeAndDateWebComponent extends HTMLElement {
         dateLocal: HTMLInputElement;
         timeLocal: HTMLInputElement;
         timeZoneLocal: HTMLElement;
+        nowButton: HTMLButtonElement;
     };
 
     constructor() {
@@ -48,6 +56,14 @@ export class TimeAndDateWebComponent extends HTMLElement {
             dateLocal: document.getElementById("date-local") as HTMLInputElement,
             timeLocal: document.getElementById("time-local") as HTMLInputElement,
             timeZoneLocal: document.getElementById("timezone-local") as HTMLElement,
+            nowButton: document.getElementById("synchronize-time") as HTMLButtonElement,
+        };
+    }
+
+    get state(): TimeAndDateWebComponentState {
+        return {
+            utcDate: this.elements.dateUtc.value,
+            utcTime: this.elements.timeUtc.value,
         };
     }
 
@@ -58,7 +74,9 @@ export class TimeAndDateWebComponent extends HTMLElement {
         [this.elements.dateLocal, this.elements.timeLocal].forEach((e) =>
             e.addEventListener("input", () => this.setUtcFromLocal()),
         );
-        this.setLocalFromUtc();
+        this.elements.nowButton.addEventListener("click", () => {
+            this.setNow();
+        });
 
         window.electronAPI.onStateUpdate((state) => {
             this.elements.dateUtc.value = state.dateTime.utc.date;
@@ -69,6 +87,12 @@ export class TimeAndDateWebComponent extends HTMLElement {
             this.elements.dateLocal.value = state.dateTime.local.date;
             this.elements.timeLocal.value = state.dateTime.local.time;
         });
+
+        this.addEventListener("input", () => this.handleChange());
+    }
+
+    handleChange() {
+        sendToMain<TimeAndDateWebComponentState>("date-time:set", this.state);
     }
 
     protected setLocalFromUtc() {
@@ -85,6 +109,15 @@ export class TimeAndDateWebComponent extends HTMLElement {
         this.elements.timeUtc.value = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
         this.elements.dateUtc.value =
             d.getFullYear().toString() + "-" + this.pad(d.getUTCMonth() + 1) + "-" + this.pad(d.getUTCDate());
+    }
+
+    protected setNow() {
+        const now = new Date();
+        this.elements.dateUtc.value =
+            now.getUTCFullYear().toString() + "-" + this.pad(now.getUTCMonth() + 1) + "-" + this.pad(now.getUTCDate());
+        this.elements.timeUtc.value = this.pad(now.getUTCHours()) + ":" + this.pad(now.getUTCMinutes());
+        this.setLocalFromUtc();
+        this.handleChange();
     }
 
     protected pad(t: string | number) {

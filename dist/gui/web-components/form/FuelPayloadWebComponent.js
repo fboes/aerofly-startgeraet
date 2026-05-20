@@ -1,3 +1,4 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
 export class FuelPayloadWebComponent extends HTMLElement {
     elements;
     constructor() {
@@ -27,11 +28,25 @@ export class FuelPayloadWebComponent extends HTMLElement {
             payloadMass: document.getElementById("fuelloadsetting-payloadmass"),
         };
     }
+    get state() {
+        return {
+            fuelMass: this.elements.fuelMass.valueAsNumber,
+            payloadMass: this.elements.payloadMass.valueAsNumber,
+        };
+    }
     connectedCallback() {
         window.electronAPI.onStateUpdate((state) => {
             this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
+            this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
+            this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
             this.elements.payloadMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.payloadMass;
+            this.elements.payloadMass.max = state.aircraftData?.maximumPayloadKg?.toString() ?? "0";
+            this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
         });
+        this.addEventListener("input", this.handleChange);
+    }
+    handleChange() {
+        sendToMain("fuel-payload:set", this.state);
     }
     static registerElement() {
         customElements.define("startgeraet-fuel-payload", FuelPayloadWebComponent);

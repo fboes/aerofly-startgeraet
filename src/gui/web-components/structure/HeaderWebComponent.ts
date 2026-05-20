@@ -1,4 +1,4 @@
-import { sendToMain } from "../../renderer/ipc-bridge.js";
+import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 
 export class HeaderWebComponent extends HTMLElement {
