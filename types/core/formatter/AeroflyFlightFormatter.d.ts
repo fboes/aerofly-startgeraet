@@ -12,7 +12,13 @@ export declare function getAirportName(airportCode: string): string;
 export declare function getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string;
 export declare function getFlightplanDestinationName(aeroflyFlight: AeroflyFlight): string;
 export declare function getFlightplanSummary(aeroflyFlight: AeroflyFlight): string;
-export declare function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight): string;
+/**
+ *
+ * @param aeroflyFlight
+ * @param maxLength if >= 2 this will limit the amount of waypoints returned in the string
+ * @returns
+ */
+export declare function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength?: number): string;
 export declare function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string;
 export declare function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string;
 export declare function getWind(aeroflyFlight: AeroflyFlight): string;

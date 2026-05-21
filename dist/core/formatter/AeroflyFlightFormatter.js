@@ -45,12 +45,25 @@ export function getFlightplanDestinationName(aeroflyFlight) {
 export function getFlightplanSummary(aeroflyFlight) {
     return `${getFlightplanOriginName(aeroflyFlight)} → ${getFlightplanDestinationName(aeroflyFlight)} (${getFlightplanDistance(aeroflyFlight)})`;
 }
-export function getFlightplanWaypoints(aeroflyFlight) {
-    return aeroflyFlight.navigation.waypoints
-        .map((wp) => {
+/**
+ *
+ * @param aeroflyFlight
+ * @param maxLength if >= 2 this will limit the amount of waypoints returned in the string
+ * @returns
+ */
+export function getFlightplanWaypoints(aeroflyFlight, maxLength = 0) {
+    const waypoints = (maxLength === 2
+        ? [
+            aeroflyFlight.navigation.waypoints[0],
+            aeroflyFlight.navigation.waypoints[aeroflyFlight.navigation.waypoints.length - 1],
+        ]
+        : aeroflyFlight.navigation.waypoints).map((wp) => {
         return wp.identifier;
-    })
-        .join(" → ");
+    });
+    if (maxLength > 2 && waypoints.length >= maxLength + 1) {
+        waypoints.splice(1, waypoints.length - maxLength + 1, "…");
+    }
+    return waypoints.join(" → ");
 }
 export function getFlightplanDistance(aeroflyFlight) {
     const currentAircraft = getAeroflyAircraft(aeroflyFlight.aircraft.name);
