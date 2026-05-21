@@ -17,7 +17,7 @@ export class TimeAndDateWebComponent extends HTMLElement {
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr class="form-group">
       <th scope="row">UTC</th>
       <td><input id="date-utc" title="Date (UTC)" type="date" value="2026-01-01" /></td>
       <td><input id="time-utc" title="Time (UTC)" type="time" value="00:00" /></td>
@@ -25,7 +25,7 @@ export class TimeAndDateWebComponent extends HTMLElement {
         <button id="synchronize-time" class="w-100" title="Use current time &amp; date">Now</button>
       </td>
     </tr>
-    <tr>
+    <tr class="form-group">
       <th scope="row">
         Local (<span id="timezone-local" data-value="0" title="Nautical time">0</span>)<sup></sup>
       </th>

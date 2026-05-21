@@ -7,14 +7,14 @@ export class VisibilityWebComponent extends HTMLElement {
         this.innerHTML = `\
 <h3>🌁 Visibility</h3>
 <div class="d-flex">
-    <div>
+    <div class="form-group">
         <label for="visibility-sm">Visibility SM</label>
         <span class="d-flex">
             <input id="visibility-sm" type="number" min="0" step="0.25" value="10" />
             <span>SM</span>
         </span>
     </div>
-    <div>
+    <div class="form-group">
         <label for="visibility-meters">Visibility m</label>
         <span class="d-flex">
             <input id="visibility-meters" type="number" min="0" step="100" value="9999" />

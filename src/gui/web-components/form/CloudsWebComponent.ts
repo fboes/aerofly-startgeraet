@@ -21,13 +21,13 @@ export class CloudsWebComponent extends HTMLElement {
             return `\
 <tr>
     <th scope="row">${i + 1}</th>
-    <td>
+    <td class="form-group">
         <span class="d-flex">
             <input id="clouds-${i}-base" title="Cloud base" type="number" step="100" value="${[1000, 5000, 10000][i]}" min="0" />
             <span>ft</span>
-        </span
+        </span>
     </td>
-    <td>
+    <td class="form-group">
         <select id="clouds-${i}-coverage" title="Cloud coverage">
             <option value="0">0/8 - Clear</option>
             <option>1/8 - Few</option>

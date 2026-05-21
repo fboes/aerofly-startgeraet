@@ -197,16 +197,14 @@ button,
     margin-bottom: 0.1rem;
 }
 
-.inactive,
-.disabled,
-:disabled {
-    opacity: 0.54;
-    /* WCAG 2.1 AA */
-}
+.form-group {
+    &:has(:disabled, .inactive) {
+        opacity: 0.54; /* WCAG 2.1 AA */
+    }
 
-.disabled,
-&:disabled {
-    cursor: not-allowed;
+    &:has(:disabled) {
+        cursor: not-allowed;
+    }
 }
 
 :invalid {

@@ -11,17 +11,17 @@ export class FlightplanWebComponent extends HTMLElement {
         this.innerHTML = `\
 <h3>🛫 Flight plan</h3>
 <div class="d-flex">
-    <div>
+    <div class="form-group">
         <label for="flightplan-route">Route</label>
         <button title="Import / export" id="flightplan-route" commandfor="dialog-flightplan" command="show-modal">
             KEYW → MTH → KMIA
         </button>
     </div>
-    <div>
+    <div class="form-group">
         <label for="flightplan-distance">Distance</label>
         <output id="flightplan-distance">120NM</output>
     </div>
-    <div>
+    <div class="form-group">
         <label for="flightplan-time">Flight time</label>
         <output id="flightplan-time">0:30h</output>
     </div>
@@ -31,19 +31,19 @@ export class FlightplanWebComponent extends HTMLElement {
     <h3>Flight plan import</h3>
 
     <div class="d-flex">
-      <section>
+      <section class="form-group">
         <label for="import-file">Import flight plan from file</label>
         <input id="import-file" type="file" accept=".mcf,.tmc,.fpl,.pln,.fms" class="w-100" />
       </section>
       <section class="d-flex">
-        <div>
+        <div class="form-group">
           <label for="settings-simbriefusername">SimBrief username</label>
           <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" />
         </div>
         <button id="import-simbrief">Import flight plan from SimBrief</button>
       </section>
       <section class="d-flex inactive">
-        <div>
+        <div class="form-group">
           <label for="mission-generatortype">Mission generator: Type</label>
           <select disabled>
             <option>Landing pattern</option>
@@ -58,7 +58,7 @@ export class FlightplanWebComponent extends HTMLElement {
     <h3>Flight plan export</h3>
     <div class="d-flex">
       <section class="d-flex">
-        <div>
+        <div class="form-group">
           <label for="export-filetype">Export file type</label>
           <select id="export-filetype">
             <option value="mcf">Aerofly MCF flight plan file</option>

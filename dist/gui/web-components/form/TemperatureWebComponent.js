@@ -7,14 +7,14 @@ export class TemperatureWebComponent extends HTMLElement {
         this.innerHTML = `\
 <h3>🌡️ Temperature</h3>
 <div class="d-flex">
-    <div>
+    <div class="form-group">
         <label for="temperature-celsius">Temperature °C</label>
         <span class="d-flex">
             <input id="temperature-celsius" type="number" value="14" />
             <span>°C</span>
         </span>
     </div>
-    <div>
+    <div class="form-group">
         <label for="temperature-fahrenheit">Temperature °F</label>
         <span class="d-flex">
             <input id="temperature-fahrenheit" type="number" value="57" />
