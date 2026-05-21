@@ -35,7 +35,7 @@ export class AppState {
         return { date: dateStr, time: timeStr };
     }
     getRoute() {
-        const routeString = AeroflyFlightFormatter.getFlightplanWaypoints(this.aeroflyFlight);
+        const routeString = AeroflyFlightFormatter.getFlightplanWaypoints(this.aeroflyFlight, 3);
         const lastLeg = new RoutePlanService(this.aeroflyFlight).getRouteLegs().at(-1);
         const distance_nm = lastLeg?.distanceTotal_nm ?? 0;
         const flightTime_min = lastLeg?.estimatedTimeEnrouteTotal_min ?? 0;
