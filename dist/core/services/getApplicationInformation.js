@@ -36,6 +36,6 @@ export function getApplicationJSON() {
             name: getApplicationAuthorName(),
             email: getApplicationAuthorEmail(),
             url: getApplicationAuthorUrl(),
-        }
+        },
     };
 }
