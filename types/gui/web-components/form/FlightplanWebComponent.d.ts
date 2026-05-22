@@ -1,7 +1,8 @@
 export declare class FlightplanWebComponent extends HTMLElement {
     elements: {
-        flightplanRoute: HTMLButtonElement;
-        flightplanDistance: HTMLOutputElement;
+        flightplanOrigin: HTMLAnchorElement;
+        flightplanDestination: HTMLAnchorElement;
+        flightplanDistance: HTMLAnchorElement;
         flightplanTime: HTMLOutputElement;
     };
     constructor();

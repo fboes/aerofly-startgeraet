@@ -1,4 +1,4 @@
-export class MetarImport extends HTMLElement {
+export class MetarImportWebComponent extends HTMLElement {
     elements;
     constructor() {
         super();
@@ -26,6 +26,6 @@ export class MetarImport extends HTMLElement {
         });
     }
     static registerElement() {
-        customElements.define("startgeraet-metar-import", MetarImport);
+        customElements.define("startgeraet-metar-import", MetarImportWebComponent);
     }
 }

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, shell } from "electron";
 import path from "node:path";
 import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
 import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
@@ -17,6 +17,15 @@ const createWindow = () => {
     });
     win.loadFile(path.join(import.meta.dirname, "index.html"));
     win.webContents.openDevTools(); // TODO: Remove this line before production
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        // config.fileProtocol is my custom file protocol
+        if (url.startsWith("aerofly-startgeraet")) {
+            return { action: "allow" };
+        }
+        // open url in a browser and prevent default
+        shell.openExternal(url);
+        return { action: "deny" };
+    });
     switch (process.platform) {
         case "win32":
             win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/windows/icon.ico"));

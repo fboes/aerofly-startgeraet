@@ -1,4 +1,4 @@
-export declare class MetarImport extends HTMLElement {
+export declare class MetarImportWebComponent extends HTMLElement {
     elements: {
         importWeatherFrom: HTMLButtonElement;
         importWeatherFromSpan: HTMLSpanElement;
@@ -9,4 +9,4 @@ export declare class MetarImport extends HTMLElement {
     connectedCallback(): void;
     static registerElement(): void;
 }
-//# sourceMappingURL=MetarImport.d.ts.map
+//# sourceMappingURL=MetarImportWebComponent.d.ts.map

@@ -2,7 +2,7 @@ import { AircraftWebComponent } from "../form/AircraftWebComponent.js";
 import { CloudsWebComponent } from "../form/CloudsWebComponent.js";
 import { FlightplanWebComponent } from "../form/FlightplanWebComponent.js";
 import { FuelPayloadWebComponent } from "../form/FuelPayloadWebComponent.js";
-import { MetarImport } from "../form/MetarImport.js";
+import { WeatherStatusWebComponent } from "../form/WeatherStatusWebComponent.js";
 import { TemperatureWebComponent } from "../form/TemperatureWebComponent.js";
 import { TimeAndDateWebComponent } from "../form/TimeAndDateWebComponent.js";
 import { VisibilityWebComponent } from "../form/VisibilityWebComponent.js";
@@ -16,7 +16,7 @@ export class MainWebComponent extends HTMLElement {
         FuelPayloadWebComponent.registerElement();
         FlightplanWebComponent.registerElement();
         TimeAndDateWebComponent.registerElement();
-        MetarImport.registerElement();
+        WeatherStatusWebComponent.registerElement();
         WindWebComponent.registerElement();
         TemperatureWebComponent.registerElement();
         VisibilityWebComponent.registerElement();
@@ -43,11 +43,18 @@ export class MainWebComponent extends HTMLElement {
 <details open>
     <summary><h2>Weather</h2></summary>
     <div class="d-flex">
-        <startgeraet-metar-import></startgeraet-metar-import>
+        <startgeraet-weather-status></startgeraet-weather-status>
         <startgeraet-wind class="flex-grow-2"></startgeraet-wind>
         <startgeraet-temperature></startgeraet-temperature>
         <startgeraet-visibility></startgeraet-visibility>
         <startgeraet-clouds class="flex-grow-2"></startgeraet-clouds>
+    </div>
+</details>
+
+<details open>
+    <summary><h2>Import / export</h2></summary>
+    <div class="d-flex">
+        <!-- Other components can be added here -->
     </div>
 </details>
         `;

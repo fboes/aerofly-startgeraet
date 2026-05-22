@@ -1,4 +1,5 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
@@ -17,6 +18,13 @@ export declare class AppState {
     };
     readonly route: {
         routeString: string;
+        routeUrl: string;
+        departureAirport: string;
+        departureAirportCode: string;
+        departureAirportUrl: string;
+        destinationAirport: string;
+        destinationAirportCode: string;
+        destinationAirportUrl: string;
         distance_nm: number;
         flightTime: {
             hours: number;
@@ -27,6 +35,10 @@ export declare class AppState {
         height_ft: number;
         density: number;
     }[];
+    readonly flightCategory: {
+        us: string;
+        icao: string;
+    };
     constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined);
     protected getDateTime(): {
         utc: {
@@ -46,11 +58,22 @@ export declare class AppState {
     };
     protected getRoute(): {
         routeString: string;
+        routeUrl: string;
         distance_nm: number;
         flightTime: {
             hours: number;
             minutes: number;
         };
+        departureAirport: string;
+        departureAirportCode: string;
+        departureAirportUrl: string;
+        destinationAirport: string;
+        destinationAirportCode: string;
+        destinationAirportUrl: string;
+    };
+    protected getFlightCategory(): {
+        us: AeroflyFlightHelper.AeroflylightCategory;
+        icao: AeroflyFlightHelper.AeroflylightCategoryIcao;
     };
     protected getClouds(): {
         height_ft: number;

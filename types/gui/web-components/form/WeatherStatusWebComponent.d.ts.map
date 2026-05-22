@@ -1,0 +1,1 @@
+{"version":3,"file":"WeatherStatusWebComponent.d.ts","sourceRoot":"","sources":["../../../../src/gui/web-components/form/WeatherStatusWebComponent.ts"],"names":[],"mappings":"AAAA,qBAAa,yBAA0B,SAAQ,WAAW;IACtD,QAAQ,EAAE;QACN,gBAAgB,EAAE,iBAAiB,CAAC;QACpC,kBAAkB,EAAE,iBAAiB,CAAC;KACzC,CAAC;;IAwBF,iBAAiB;IAOjB,MAAM,CAAC,eAAe;CAGzB"}

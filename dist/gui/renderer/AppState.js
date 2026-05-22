@@ -1,12 +1,14 @@
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
+import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 export class AppState {
     aeroflyFlight;
     aircraftData;
     dateTime;
     route;
     clouds;
+    flightCategory;
     constructor(aeroflyFlight, aircraftData) {
         this.aeroflyFlight = aeroflyFlight;
         this.aircraftData = aircraftData;
@@ -14,6 +16,7 @@ export class AppState {
         this.dateTime = this.getDateTime();
         this.route = this.getRoute();
         this.clouds = this.getClouds();
+        this.flightCategory = this.getFlightCategory();
     }
     getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);
@@ -43,10 +46,25 @@ export class AppState {
             hours: Math.floor(flightTime_min / 60),
             minutes: Math.round(flightTime_min % 60),
         };
+        const departureAirportCode = AeroflyFlightFormatter.getFlightplanOriginCode(this.aeroflyFlight);
+        const destinationAirportCode = AeroflyFlightFormatter.getFlightplanDestinationCode(this.aeroflyFlight);
         return {
             routeString,
+            routeUrl: new SkyVectorUrl(this.aeroflyFlight).toString(),
             distance_nm,
             flightTime,
+            departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),
+            departureAirportCode,
+            departureAirportUrl: `https://skyvector.com/airport/${encodeURIComponent(departureAirportCode)}`,
+            destinationAirport: AeroflyFlightFormatter.getFlightplanDestinationName(this.aeroflyFlight),
+            destinationAirportCode,
+            destinationAirportUrl: `https://skyvector.com/airport/${encodeURIComponent(destinationAirportCode)}`,
+        };
+    }
+    getFlightCategory() {
+        return {
+            us: AeroflyFlightHelper.getFlightCategory(this.aeroflyFlight),
+            icao: AeroflyFlightHelper.getIcaoFlightCategory(this.aeroflyFlight),
         };
     }
     getClouds() {
