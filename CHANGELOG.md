@@ -12,7 +12,6 @@
 - Added timeout to API calls
 - Added elevation data API
 - Changed general visibility from `protected` to `private`
-- Added Electron app
 
 ## [1.5.1] - 2026-05-01
 
