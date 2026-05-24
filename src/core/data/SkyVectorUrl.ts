@@ -9,13 +9,10 @@ import { URLSearchParams } from "url";
 import { GeoCoordinates } from "./GeoCoordinates.js";
 
 export class SkyVectorUrl {
-    constructor(
-        private aeroflyFlight: AeroflyFlight,
-        private cruiseSpeed_kts: number | undefined = undefined,
-    ) {}
+    constructor(private aeroflyFlight: AeroflyFlight) {}
 
-    toURL(): URL {
-        const cruiseSpeed = this.cruiseSpeed_kts ? "N" + (this.cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0") : "";
+    getRouteURL(cruiseSpeed_kts: number | undefined = undefined): URL {
+        const cruiseSpeed = cruiseSpeed_kts ? "N" + (cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0") : "";
         const cruiseAlt = this.aeroflyFlight.navigation.cruiseAltitude_ft
             ? "A" + (this.aeroflyFlight.navigation.cruiseAltitude_ft / 100).toFixed().padStart(3, "0")
             : "";
@@ -34,11 +31,16 @@ export class SkyVectorUrl {
         return new URL("?" + parameters.toString().replace("+", "%20"), "https://skyvector.com");
     }
 
-    /**
-     * @returns string like 'https://skyvector.com/?ll=58.64732108,16.32458497&chart=301&zoom=4&fpl=N0122A025%20ESSL%205831N01558E%20ESVE%20ESKN'
-     */
-    toString(): string {
-        return this.toURL().toString();
+    getOriginURL(): URL {
+        return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(0)?.identifier ?? "");
+    }
+
+    getDestinationURL(): URL {
+        return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "");
+    }
+
+    getAirportURL(icaoCode: string): URL {
+        return new URL(`/airport/${encodeURIComponent(icaoCode)}`, "https://skyvector.com");
     }
 
     private getWaypointIdentifiers(): string[] {

@@ -193,13 +193,11 @@ button,
 }
 
 .inactive,
-.disabled,
-:disabled {
+.form-group:has(:disabled) {
     opacity: 0.54; /* WCAG 2.1 AA */
 }
 
-.disabled,
-&:disabled {
+.form-group:has(:disabled) {
     cursor: not-allowed;
 }
 

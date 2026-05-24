@@ -3,13 +3,11 @@ import { URLSearchParams } from "url";
 import { GeoCoordinates } from "./GeoCoordinates.js";
 export class SkyVectorUrl {
     aeroflyFlight;
-    cruiseSpeed_kts;
-    constructor(aeroflyFlight, cruiseSpeed_kts = undefined) {
+    constructor(aeroflyFlight) {
         this.aeroflyFlight = aeroflyFlight;
-        this.cruiseSpeed_kts = cruiseSpeed_kts;
     }
-    toURL() {
-        const cruiseSpeed = this.cruiseSpeed_kts ? "N" + (this.cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0") : "";
+    getRouteURL(cruiseSpeed_kts = undefined) {
+        const cruiseSpeed = cruiseSpeed_kts ? "N" + (cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0") : "";
         const cruiseAlt = this.aeroflyFlight.navigation.cruiseAltitude_ft
             ? "A" + (this.aeroflyFlight.navigation.cruiseAltitude_ft / 100).toFixed().padStart(3, "0")
             : "";
@@ -24,11 +22,14 @@ export class SkyVectorUrl {
         // Note: SkyVector does not support "+" for space, but "%20". So we need to replace it with "%20"
         return new URL("?" + parameters.toString().replace("+", "%20"), "https://skyvector.com");
     }
-    /**
-     * @returns string like 'https://skyvector.com/?ll=58.64732108,16.32458497&chart=301&zoom=4&fpl=N0122A025%20ESSL%205831N01558E%20ESVE%20ESKN'
-     */
-    toString() {
-        return this.toURL().toString();
+    getOriginURL() {
+        return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(0)?.identifier ?? "");
+    }
+    getDestinationURL() {
+        return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "");
+    }
+    getAirportURL(icaoCode) {
+        return new URL(`/airport/${encodeURIComponent(icaoCode)}`, "https://skyvector.com");
     }
     getWaypointIdentifiers() {
         return this.aeroflyFlight.navigation.waypoints

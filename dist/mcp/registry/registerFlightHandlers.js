@@ -338,7 +338,7 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             openWorldHint: false,
         },
     }, () => {
-        return returnMcpToolResult(new SkyVectorUrl(flightService.getAeroflyFlight(), flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
+        return returnMcpToolResult(new SkyVectorUrl(flightService.getAeroflyFlight()).getRouteURL(flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
     });
 }
 function registerPrompts(server) {
