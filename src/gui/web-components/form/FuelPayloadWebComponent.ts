@@ -8,7 +8,9 @@ export type FuelPayloadWebComponentState = {
 export class FuelPayloadWebComponent extends HTMLElement {
     elements: {
         fuelMass: HTMLInputElement;
+        fuelMassMax: HTMLSpanElement;
         payloadMass: HTMLInputElement;
+        payloadMassMax: HTMLSpanElement;
     };
 
     constructor() {
@@ -18,14 +20,14 @@ export class FuelPayloadWebComponent extends HTMLElement {
 <h3>⛽ Fuel / payload</h3>
 <div class="d-flex">
     <div class="form-group">
-        <label for="fuelloadsetting-fuelmass">Fuel</label>
+        <label for="fuelloadsetting-fuelmass">Fuel <span></span></label>
         <span class="d-flex">
             <input id="fuelloadsetting-fuelmass" type="number" value="0" min="0" />
             <span>kg</span>
         </span>
     </div>
     <div class="form-group">
-        <label for="fuelloadsetting-payloadmass">Payload</label>
+        <label for="fuelloadsetting-payloadmass">Payload <span></span></label>
         <span class="d-flex">
             <input id="fuelloadsetting-payloadmass" type="number" value="0" min="0" />
             <span>kg</span>
@@ -35,7 +37,9 @@ export class FuelPayloadWebComponent extends HTMLElement {
         `;
         this.elements = {
             fuelMass: document.getElementById("fuelloadsetting-fuelmass") as HTMLInputElement,
+            fuelMassMax: document.querySelector("label[for='fuelloadsetting-fuelmass'] span") as HTMLSpanElement,
             payloadMass: document.getElementById("fuelloadsetting-payloadmass") as HTMLInputElement,
+            payloadMassMax: document.querySelector("label[for='fuelloadsetting-payloadmass'] span") as HTMLSpanElement,
         };
     }
 
@@ -51,10 +55,16 @@ export class FuelPayloadWebComponent extends HTMLElement {
             this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
             this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
+            this.elements.fuelMassMax.textContent = state.aircraftData?.maximumFuelMassKg
+                ? `(max. ${Math.floor(state.aircraftData.maximumFuelMassKg)} kg)`
+                : "";
 
             this.elements.payloadMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.payloadMass;
             this.elements.payloadMass.max = state.aircraftData?.maximumPayloadKg?.toString() ?? "0";
             this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
+            this.elements.payloadMassMax.textContent = state.aircraftData?.maximumPayloadKg
+                ? `(max. ${Math.floor(state.aircraftData.maximumPayloadKg)} kg)`
+                : "";
         });
 
         this.addEventListener("input", this.handleChange);

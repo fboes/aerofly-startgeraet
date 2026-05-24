@@ -63,7 +63,12 @@ export class AeroflyFlightServiceHandler {
 
     sendStateUpdate() {
         const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData());
-        this.service.writeFile();
         this.win.webContents.send("state:update", state);
+        this.startDebouncedWriteFile();
+    }
+
+    startDebouncedWriteFile() {
+        // TODO: Add debounce to avoid writing the file multiple times in a short period
+        this.service.writeFile();
     }
 }

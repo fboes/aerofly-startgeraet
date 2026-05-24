@@ -48,6 +48,7 @@ export class AircraftWebComponent extends HTMLElement {
     connectedCallback() {
         sendToMain<AeroflyAircraft[]>("aircraft:update").then((aircraft) => {
             this.elements.aircraftName.innerHTML = aircraft
+                .sort((a, b) => a.nameFull.localeCompare(b.nameFull))
                 .map((aircraft) => `<option value="${aircraft.aeroflyCode}">${aircraft.nameFull}</option>`)
                 .join("");
         });
@@ -56,6 +57,7 @@ export class AircraftWebComponent extends HTMLElement {
             this.elements.aircraftName.value = state.aeroflyFlight.aircraft.name;
             this.elements.aircraftPaintscheme.innerHTML =
                 state.aircraftData?.liveries
+                    .sort((a, b) => a.name.localeCompare(b.name))
                     .map(
                         (livery) =>
                             `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${livery.name}</option>`,

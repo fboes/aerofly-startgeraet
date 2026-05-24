@@ -7,5 +7,6 @@ export declare class AeroflyFlightServiceHandler {
     constructor(ipcMain: IpcMain, win: BrowserWindow);
     registerHandlers(): void;
     sendStateUpdate(): void;
+    startDebouncedWriteFile(): void;
 }
 //# sourceMappingURL=AeroflyFlightServiceHandler.d.ts.map

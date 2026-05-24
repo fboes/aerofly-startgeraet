@@ -5,7 +5,9 @@ export type FuelPayloadWebComponentState = {
 export declare class FuelPayloadWebComponent extends HTMLElement {
     elements: {
         fuelMass: HTMLInputElement;
+        fuelMassMax: HTMLSpanElement;
         payloadMass: HTMLInputElement;
+        payloadMassMax: HTMLSpanElement;
     };
     constructor();
     get state(): FuelPayloadWebComponentState;

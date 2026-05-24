@@ -52,6 +52,7 @@ export declare class AeroflyFlightService {
     readMainMcf(): void;
     getAeroflyFlight(): AeroflyFlight;
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft;
+    private updateCurrentAircraft;
     getAircraft(): string;
     getLivery(): string;
     getAircraftData(): AeroflyAircraft | undefined;

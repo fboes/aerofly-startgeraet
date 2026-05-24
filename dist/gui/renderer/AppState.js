@@ -51,7 +51,7 @@ export class AppState {
         const destinationAirportCode = AeroflyFlightFormatter.getFlightplanDestinationCode(this.aeroflyFlight);
         return {
             routeString,
-            routeUrl: new SkyVectorUrl(this.aeroflyFlight).getRouteURL().toString(),
+            routeUrl: new SkyVectorUrl(this.aeroflyFlight).toString(),
             distance_nm,
             flightTime,
             departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),

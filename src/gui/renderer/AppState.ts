@@ -94,7 +94,7 @@ export class AppState {
 
         return {
             routeString,
-            routeUrl: new SkyVectorUrl(this.aeroflyFlight).getRouteURL().toString(),
+            routeUrl: new SkyVectorUrl(this.aeroflyFlight).toString(),
             distance_nm,
             flightTime,
             departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),
