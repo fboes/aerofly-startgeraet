@@ -8,16 +8,16 @@ describe("SkyVectorUrl", () => {
         const flight = new AeroflyFlightFallback(true);
         flight.navigation.cruiseAltitude_ft = 15_000;
 
-        const url = new SkyVectorUrl(flight, 250);
+        const url = new SkyVectorUrl(flight);
         //console.log(url.toURL())
 
-        const urlString = url.toString();
+        const urlString = url.getRouteURL(250).toString();
         assert.ok(urlString.includes("https://skyvector.com/?ll="));
         assert.ok(urlString.includes("chart=301"));
         assert.ok(urlString.includes("zoom=3"));
         assert.ok(urlString.includes("fpl=N0250A150"));
 
-        const urlUrl = url.toURL();
+        const urlUrl = url.getRouteURL(250);
         assert.strictEqual(urlUrl.origin, "https://skyvector.com");
         assert.strictEqual(urlUrl.pathname, "/");
         const params = urlUrl.searchParams;

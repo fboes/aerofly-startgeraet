@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Added Electron app
+
+## [1.6.0] - 2026-05-24
+
 - Adding stand-alone MCP server to deployment
 - Adding import / export functionality to MCP server
 - Adding wind correction for flight plan
