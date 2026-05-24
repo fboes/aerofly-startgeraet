@@ -1,4 +1,4 @@
-import { AeroflySettingsWind, AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
+import { AeroflyFlight, AeroflySettingsWind, AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 import { metarParser } from "aewx-metar-parser";
 export class MetarToAeroflyFlightConverter extends StringToAeroflyFlightConverter {

@@ -4,14 +4,14 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import {
     AeroflyFlightService,
-    AeroflyFlightServiceAirport,
-    AeroflyFlightServiceWaypoint,
-    AeroflyFlightServiceRunway,
+    type AeroflyFlightServiceAirport,
+    type AeroflyFlightServiceWaypoint,
+    type AeroflyFlightServiceRunway,
 } from "../../core/services/AeroflyFlightService.js";
 import * as ResourceRegistry from "./registerResourceHandlers.js";
 import * as ConfigurationRegistry from "./registerConfigurationHandlers.js";
 import * as ZodExtra from "../../core/util/zExtra.js";
-import { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
+import type { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import * as ExportFileWriter from "../../core/io/exportFlightplan.js";
 import * as ImportFileReader from "../../core/io/importFlightplan.js";

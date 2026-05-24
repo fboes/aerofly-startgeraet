@@ -1,5 +1,5 @@
-import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { Resource } from "@modelcontextprotocol/sdk/types.js";
+import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import { type Resource } from "@modelcontextprotocol/sdk/types.js";
 export type AeroflyFlightMcpResourceServiceAircraft = {
     aeroflyCode: string;
     icaoCode: string;

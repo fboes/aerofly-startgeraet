@@ -7,6 +7,7 @@ import {
     AeroflySettingsWind,
     AeroflyTimeUtc,
     AeroflySettingsFlight,
+    AeroflyNavRouteBase,
     AeroflyNavRouteWaypoint,
     AeroflyNavRouteOrigin,
     AeroflyNavRouteDestination,
@@ -16,7 +17,6 @@ import {
     AeroflyNavRouteDeparture,
     AeroflyNavRouteArrival,
 } from "@fboes/aerofly-custom-missions";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 
 export class AeroflyCustomMissionsParser {

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import * as AeroflyFlightMcpResourceService from "../services/AeroflyFlightMcpResourceService.js";
 import * as ZodExtra from "../../core/util/zExtra.js";

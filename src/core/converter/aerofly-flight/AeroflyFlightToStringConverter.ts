@@ -1,12 +1,12 @@
 import {
     AeroflyFlight,
+    AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteDestinationRunway,
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
 export type ExportFileConverterWaypointType = "airport" | "runway" | "navaid" | "waypoint";
 

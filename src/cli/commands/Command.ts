@@ -1,4 +1,4 @@
-import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
+import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 
 export interface Command {
     execute: () => Promise<number>;

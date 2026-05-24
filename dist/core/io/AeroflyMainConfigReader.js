@@ -1,3 +1,5 @@
+import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { Config } from "./Config.js";
 import fs from "node:fs";
 import path from "node:path";
 import { AeroflyFileParser } from "../converter/parser/AeroflyFileParser.js";

@@ -13,7 +13,7 @@ import {
     AeroflyNavRouteDestinationRunway,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { SimBriefApi, SimBriefApiPayload, SimBriefApiPayloadAirport } from "./SimBriefApi.js";
+import { SimBriefApi, type SimBriefApiPayload, type SimBriefApiPayloadAirport } from "./SimBriefApi.js";
 import { metarParser } from "aewx-metar-parser";
 import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 

@@ -1,5 +1,5 @@
 import { Config } from "../../core/io/Config.js";
-import { Command } from "./Command.js";
+import type { Command } from "./Command.js";
 export declare class SetupCommand implements Command {
     private config;
     constructor(config: Config);

@@ -1,5 +1,6 @@
 import {
     AeroflyFlight,
+    AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteDestinationRunway,
@@ -8,7 +9,6 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
 import { Feature, FeatureCollection, LineString, Point } from "@fboes/geojson";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
 export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConverter {
     static readonly fileExtension = "geojson";

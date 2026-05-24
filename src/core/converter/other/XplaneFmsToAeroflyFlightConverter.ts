@@ -1,5 +1,6 @@
 import {
     AeroflyFlight,
+    AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteDestinationRunway,
@@ -7,7 +8,6 @@ import {
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 
 // It is 1 for airport, 2 for NDB, 3 for VOR, 11 for named fix and 28 for unnamed lat/lon waypoints.

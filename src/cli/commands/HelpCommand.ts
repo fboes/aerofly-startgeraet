@@ -1,4 +1,4 @@
-import { Command } from "./Command.js";
+import type { Command } from "./Command.js";
 import { styleText } from "node:util";
 
 export class HelpCommand implements Command {

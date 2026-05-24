@@ -1,5 +1,5 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { SimBriefApi, SimBriefApiPayload } from "./SimBriefApi.js";
+import { SimBriefApi, type SimBriefApiPayload } from "./SimBriefApi.js";
 export declare class SimBriefAeroflyApi extends SimBriefApi {
     fetchMission(username: string, flight: AeroflyFlight, useDestinationWeather?: boolean): Promise<void>;
     convertMission(simbriefPayload: SimBriefApiPayload, flight: AeroflyFlight, useDestinationWeather?: boolean): void;

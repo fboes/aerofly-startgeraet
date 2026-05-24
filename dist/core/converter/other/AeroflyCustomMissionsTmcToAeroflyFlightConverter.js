@@ -1,5 +1,6 @@
 import { AeroflyCustomMissionsParser } from "../parser/AeroflyCustomMissionsParser.js";
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export class AeroflyCustomMissionsTmcToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     static fileExtension = "tmc";
     getIndices(content) {

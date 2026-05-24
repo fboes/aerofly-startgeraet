@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { AeroflyFlightService, } from "../../core/services/AeroflyFlightService.js";
 import * as ResourceRegistry from "./registerResourceHandlers.js";
 import * as ConfigurationRegistry from "./registerConfigurationHandlers.js";
 import * as ZodExtra from "../../core/util/zExtra.js";
@@ -338,7 +340,9 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
             openWorldHint: false,
         },
     }, () => {
-        return returnMcpToolResult(new SkyVectorUrl(flightService.getAeroflyFlight()).getRouteURL(flightService.getAircraftData()?.cruiseSpeedKts ?? 0).toString());
+        return returnMcpToolResult(new SkyVectorUrl(flightService.getAeroflyFlight())
+            .getRouteURL(flightService.getAircraftData()?.cruiseSpeedKts ?? 0)
+            .toString());
     });
 }
 function registerPrompts(server) {
