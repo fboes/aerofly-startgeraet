@@ -1,5 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
+import { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 export type ExportFileConverterWaypointType = "airport" | "runway" | "navaid" | "waypoint";
 export declare abstract class AeroflyFlightToStringConverter {
     abstract convert(flightplan: AeroflyFlight): string;

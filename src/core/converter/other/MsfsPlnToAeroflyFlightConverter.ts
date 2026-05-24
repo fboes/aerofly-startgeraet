@@ -1,6 +1,7 @@
 import {
     AeroflyFlight,
     AeroflyNavigationConfig,
+    AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteDestinationRunway,
@@ -8,7 +9,6 @@ import {
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 
 //type MsfsPlnWaypointType = "none" | "Airport" | "Intersection" | "VOR" | "NDB" | "User" | "ATC";

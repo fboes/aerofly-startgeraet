@@ -1,11 +1,11 @@
 import {
     AeroflyFlight,
+    AeroflyNavRouteBase,
     AeroflyNavRouteDestination,
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
 type GarminFplWaypointType = "AIRPORT" | "USER WAYPOINT" | "NDB" | "VOR" | "INT" | "INT-VRP";
 

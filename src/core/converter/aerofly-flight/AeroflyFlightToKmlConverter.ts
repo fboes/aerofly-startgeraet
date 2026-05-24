@@ -1,6 +1,5 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter, ExportFileConverterWaypointType } from "./AeroflyFlightToStringConverter.js";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 
 type KeyholeMarkupLanguageRouteStyle = {
     id: ExportFileConverterWaypointType | "aircraft";

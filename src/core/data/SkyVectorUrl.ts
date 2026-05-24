@@ -1,10 +1,10 @@
 import {
     AeroflyFlight,
+    AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestinationRunway,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflyNavRouteBase.js";
 import { URLSearchParams } from "url";
 import { GeoCoordinates } from "./GeoCoordinates.js";
 
