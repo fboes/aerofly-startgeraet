@@ -1,4 +1,4 @@
-import { type AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { type Resource, McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import {
     getAllAeroflyAircraftWithLiveries,
