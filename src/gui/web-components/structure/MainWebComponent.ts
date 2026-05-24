@@ -7,6 +7,7 @@ import { TemperatureWebComponent } from "../form/TemperatureWebComponent.js";
 import { TimeAndDateWebComponent } from "../form/TimeAndDateWebComponent.js";
 import { VisibilityWebComponent } from "../form/VisibilityWebComponent.js";
 import { WindWebComponent } from "../form/WindWebComponent.js";
+import { ImportExportWebComponent } from "../form/ImportExportWebComponent.js";
 
 export class MainWebComponent extends HTMLElement {
     constructor() {
@@ -21,6 +22,7 @@ export class MainWebComponent extends HTMLElement {
         TemperatureWebComponent.registerElement();
         VisibilityWebComponent.registerElement();
         CloudsWebComponent.registerElement();
+        ImportExportWebComponent.registerElement();
 
         this.setAttribute("aria-role", "main");
         this.innerHTML = `\
@@ -54,7 +56,7 @@ export class MainWebComponent extends HTMLElement {
 <details open>
     <summary><h2>Import / export</h2></summary>
     <div class="d-flex">
-        <!-- Other components can be added here -->
+        <startgeraet-import-export></startgeraet-import-export>
     </div>
 </details>
         `;

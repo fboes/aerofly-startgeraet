@@ -1,36 +1,21 @@
 export class MetarImportWebComponent extends HTMLElement {
-    elements: {
-        importWeatherFrom: HTMLButtonElement;
-        importWeatherFromSpan: HTMLSpanElement;
-        importWeatherTo: HTMLButtonElement;
-        importWeatherToSpan: HTMLSpanElement;
-    };
-
     constructor() {
         super();
-        this.setAttribute("aria-role", "region");
+        this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<h3>⛅ METAR import</h3>
-<div class="d-flex">
-    <button id="import-weather-from">Import weather for <span>KEYW</span></button>
-    <button id="import-weather-to">Import weather for <span>KMIA</span></button>
-</div>
-        `;
-        this.elements = {
-            importWeatherFrom: document.getElementById("import-weather-from") as HTMLButtonElement,
-            importWeatherFromSpan: document.querySelector("#import-weather-from span") as HTMLSpanElement,
-            importWeatherTo: document.getElementById("import-weather-to") as HTMLButtonElement,
-            importWeatherToSpan: document.querySelector("#import-weather-to span") as HTMLSpanElement,
-        };
-    }
+<button commandfor="dialog-metar" command="show-modal">Fetch METAR</button>
 
-    connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
-            this.elements.importWeatherFromSpan.textContent =
-                state.aeroflyFlight.navigation.waypoints.at(0)?.identifier ?? "Unknown";
-            this.elements.importWeatherToSpan.textContent =
-                state.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "Unknown";
-        });
+<dialog id="dialog-metar">
+  <h3>Fetch METAR</h3>
+  <div class="d-flex">
+    <section class="d-flex">
+        KASE / KEYW
+    </section>
+  </div>
+
+  <button commandfor="dialog-metar" command="close" title="Close">✕</button>
+</dialog>
+        `;
     }
 
     static registerElement() {

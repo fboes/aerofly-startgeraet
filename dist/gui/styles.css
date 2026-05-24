@@ -199,7 +199,8 @@ button,
 
 .form-group {
     &:has(:disabled, .inactive) {
-        opacity: 0.54; /* WCAG 2.1 AA */
+        opacity: 0.54;
+        /* WCAG 2.1 AA */
     }
 
     &:has(:disabled) {
