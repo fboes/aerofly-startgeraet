@@ -1,4 +1,4 @@
-import { CallToolResult, ErrorCode, ReadResourceResult } from "@modelcontextprotocol/sdk/types.js";
+import { type CallToolResult, ErrorCode, type ReadResourceResult } from "@modelcontextprotocol/sdk/types.js";
 export declare function returnMcpToolSimpleResult<T>(data: T, warnings?: string[]): CallToolResult;
 export declare function returnMcpToolResult<T>(data: T, warnings?: string[]): CallToolResult;
 export declare function returnMcpToolErrorResult(messages: string[], code?: ErrorCode): CallToolResult;

@@ -1,3 +1,4 @@
+import {} from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import { getAllAeroflyAircraftWithLiveries, getAeroflyAircraft, getAeroflyAircraftByIcaoCode, } from "../../core/services/getAeroflyAircraft.js";
 import { getAeroflyAirportByIcaoCode, getAllAeroflyAirports } from "../../core/services/getAeroflyAirport.js";

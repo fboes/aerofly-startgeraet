@@ -11,7 +11,7 @@ import {
     AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
 import { Config } from "../io/Config.js";
-import { RoutePlanServiceLeg, RoutePlanServiceRoute } from "./RoutePlanService.js";
+import { type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.

@@ -24,7 +24,7 @@ import * as AeroflyFlightFormatter from "../formatter/AeroflyFlightFormatter.js"
 import * as AeroflyFlightHelper from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
-import { RoutePlanService, RoutePlanServiceLeg, RoutePlanServiceRoute } from "./RoutePlanService.js";
+import { RoutePlanService, type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 
 /**

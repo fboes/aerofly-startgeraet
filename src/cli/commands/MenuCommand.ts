@@ -1,5 +1,5 @@
 import { input, number, select, Separator } from "@inquirer/prompts";
-import { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
+import type { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
 import { ControllerCommand } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";

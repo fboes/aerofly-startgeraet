@@ -17,7 +17,7 @@ import {
     AeroflyNavRouteDeparture,
     AeroflyNavRouteArrival,
 } from "@fboes/aerofly-custom-missions";
-import { AeroflyVector3Float, AeroflyMatrix3Float } from "@fboes/aerofly-custom-missions/types/node/Convert.js";
+import type { AeroflyVector3Float, AeroflyMatrix3Float } from "@fboes/aerofly-custom-missions/types/node/Convert.js";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 
 export class AeroflyMainConfigParser {

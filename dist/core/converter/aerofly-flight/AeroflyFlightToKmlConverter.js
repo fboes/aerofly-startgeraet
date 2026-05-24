@@ -1,4 +1,5 @@
-import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
+import { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
+import { AeroflyFlightToStringConverter, } from "./AeroflyFlightToStringConverter.js";
 export class AeroflyFlightToKmlConverter extends AeroflyFlightToStringConverter {
     static fileExtension = "kml";
     convert(flightplan) {

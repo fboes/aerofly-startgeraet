@@ -1,4 +1,9 @@
-import { CallToolResult, TextContent, ErrorCode, ReadResourceResult } from "@modelcontextprotocol/sdk/types.js";
+import {
+    type CallToolResult,
+    type TextContent,
+    ErrorCode,
+    type ReadResourceResult,
+} from "@modelcontextprotocol/sdk/types.js";
 
 /**
  * Ready-to-use result objects for MCP tool and resource repsonses
