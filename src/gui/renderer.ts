@@ -1,4 +1,4 @@
-import { ElectronAPI, Process } from "./preload.js";
+import type { ElectronAPI, Process } from "./preload.js";
 import { AppWebComponent } from "./web-components/structure/AppWebComponent.js";
 
 declare global {

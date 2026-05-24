@@ -1,1 +1,1 @@
-{"version":3,"file":"registerAeroflyAircraftHandlers.d.ts","sourceRoot":"","sources":["../../../src/gui/handler/registerAeroflyAircraftHandlers.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,UAAU,CAAC;AAGnC,wBAAgB,+BAA+B,CAAC,OAAO,EAAE,OAAO,QAQ/D"}
+{"version":3,"file":"registerAeroflyAircraftHandlers.d.ts","sourceRoot":"","sources":["../../../src/gui/handler/registerAeroflyAircraftHandlers.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,UAAU,CAAC;AAGxC,wBAAgB,+BAA+B,CAAC,OAAO,EAAE,OAAO,QAQ/D"}

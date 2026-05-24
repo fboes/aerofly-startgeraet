@@ -1,1 +1,1 @@
-{"version":3,"file":"registerApplicationHandlers.d.ts","sourceRoot":"","sources":["../../../src/gui/handler/registerApplicationHandlers.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,UAAU,CAAC;AAGnC,wBAAgB,2BAA2B,CAAC,OAAO,EAAE,OAAO,QAO3D"}
+{"version":3,"file":"registerApplicationHandlers.d.ts","sourceRoot":"","sources":["../../../src/gui/handler/registerApplicationHandlers.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,UAAU,CAAC;AAGxC,wBAAgB,2BAA2B,CAAC,OAAO,EAAE,OAAO,QAO3D"}

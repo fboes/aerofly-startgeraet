@@ -1,4 +1,4 @@
-import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { sendToMain } from "../../renderer/sendToMain.js";
 
 export type AircraftWebComponentState = {

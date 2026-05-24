@@ -1,6 +1,6 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
-import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
     readonly aircraftData: AeroflyAircraft | undefined;

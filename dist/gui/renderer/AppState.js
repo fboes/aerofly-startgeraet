@@ -1,3 +1,4 @@
+import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
@@ -50,7 +51,7 @@ export class AppState {
         const destinationAirportCode = AeroflyFlightFormatter.getFlightplanDestinationCode(this.aeroflyFlight);
         return {
             routeString,
-            routeUrl: new SkyVectorUrl(this.aeroflyFlight).toString(),
+            routeUrl: new SkyVectorUrl(this.aeroflyFlight).getRouteURL().toString(),
             distance_nm,
             flightTime,
             departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),

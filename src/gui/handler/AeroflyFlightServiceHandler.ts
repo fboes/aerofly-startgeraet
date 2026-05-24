@@ -1,14 +1,14 @@
-import { BrowserWindow, IpcMain } from "electron";
+import { BrowserWindow, type IpcMain } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";
-import { AircraftWebComponentState } from "../web-components/form/AircraftWebComponent.js";
-import { FuelPayloadWebComponentState } from "../web-components/form/FuelPayloadWebComponent.js";
-import { WindWebComponentState } from "../web-components/form/WindWebComponent.js";
-import { TimeAndDateWebComponentState } from "../web-components/form/TimeAndDateWebComponent.js";
-import { TemperatureWebComponentState } from "../web-components/form/TemperatureWebComponent.js";
-import { VisibilityWebComponentState } from "../web-components/form/VisibilityWebComponent.js";
-import { CloudsWebComponentState } from "../web-components/form/CloudsWebComponent.js";
+import type { AircraftWebComponentState } from "../web-components/form/AircraftWebComponent.js";
+import type { FuelPayloadWebComponentState } from "../web-components/form/FuelPayloadWebComponent.js";
+import type { WindWebComponentState } from "../web-components/form/WindWebComponent.js";
+import type { TimeAndDateWebComponentState } from "../web-components/form/TimeAndDateWebComponent.js";
+import type { TemperatureWebComponentState } from "../web-components/form/TemperatureWebComponent.js";
+import type { VisibilityWebComponentState } from "../web-components/form/VisibilityWebComponent.js";
+import type { CloudsWebComponentState } from "../web-components/form/CloudsWebComponent.js";
 
 export class AeroflyFlightServiceHandler {
     readonly service: AeroflyFlightService;

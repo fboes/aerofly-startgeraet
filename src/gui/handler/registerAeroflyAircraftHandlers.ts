@@ -1,4 +1,4 @@
-import { IpcMain } from "electron";
+import type { IpcMain } from "electron";
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
 
 export function registerAeroflyAircraftHandlers(ipcMain: IpcMain) {

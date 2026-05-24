@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
+import { AppState } from "./renderer/AppState.js";
 contextBridge.exposeInMainWorld("process", {
     platform: process.platform,
 });

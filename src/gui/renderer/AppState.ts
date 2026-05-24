@@ -2,7 +2,7 @@ import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
-import { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 
 export class AppState {
@@ -94,7 +94,7 @@ export class AppState {
 
         return {
             routeString,
-            routeUrl: new SkyVectorUrl(this.aeroflyFlight).toString(),
+            routeUrl: new SkyVectorUrl(this.aeroflyFlight).getRouteURL().toString(),
             distance_nm,
             flightTime,
             departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),

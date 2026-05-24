@@ -1,4 +1,4 @@
-import { ElectronAPI, Process } from "./preload.js";
+import type { ElectronAPI, Process } from "./preload.js";
 declare global {
     interface Window {
         process: Process;

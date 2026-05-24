@@ -1,4 +1,4 @@
-import { BrowserWindow, IpcMain } from "electron";
+import { BrowserWindow, type IpcMain } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 export declare class AeroflyFlightServiceHandler {
     protected ipcMain: IpcMain;
