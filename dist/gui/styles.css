@@ -1,5 +1,6 @@
 :root {
     color-scheme: light dark;
+    font-size: 15px;
     --fontfamily-primary:
         -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
@@ -64,6 +65,10 @@ h1 {
     font-size: 1.2rem;
     font-weight: var(--fontweight-normal);
     font-family: var(--fontfamily-secondary);
+
+    small {
+        font-size: 0.5em;
+    }
 }
 
 h2,

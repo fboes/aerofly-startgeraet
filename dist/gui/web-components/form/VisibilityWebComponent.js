@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-export class VisibilityWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
     elements;
     constructor() {
         super();
@@ -24,8 +25,8 @@ export class VisibilityWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            visibilitySm: document.getElementById("visibility-sm"),
-            visibilityMeters: document.getElementById("visibility-meters"),
+            visibilitySm: this.querySelector("#visibility-sm"),
+            visibilityMeters: this.querySelector("#visibility-meters"),
         };
     }
     get state() {
@@ -41,7 +42,7 @@ export class VisibilityWebComponent extends HTMLElement {
             this.setSmFromMeters();
         });
         this.setSmFromMeters();
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.visibilityMeters.valueAsNumber = Math.round(state.aeroflyFlight.visibility_meter);
             this.setSmFromMeters();
         });

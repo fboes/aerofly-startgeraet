@@ -2,10 +2,13 @@ import { BrowserWindow } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";
+import { createNotificationErrorPayload, createNotificationPayload, } from "../renderer/notificationEventHandler.js";
 export class AeroflyFlightServiceHandler {
     ipcMain;
     win;
     service;
+    writeTimer = null;
+    writeDelay = 1_000;
     constructor(ipcMain, win) {
         this.ipcMain = ipcMain;
         this.win = win;
@@ -46,14 +49,40 @@ export class AeroflyFlightServiceHandler {
             })));
             this.sendStateUpdate();
         });
+        this.ipcMain.handle("flightplan:import-simbrief", async (event, simBrief) => {
+            try {
+                this.service.config.simBriefUserName = simBrief.simBriefUserName;
+                await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
+                this.sendStateUpdate();
+            }
+            catch (error) {
+                return createNotificationErrorPayload(error);
+            }
+            return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
+        });
+        this.ipcMain.handle("metar:fetch", async (event, args) => {
+            try {
+                await this.service.setWeatherViaApi(args.icao);
+                this.sendStateUpdate();
+            }
+            catch (error) {
+                return createNotificationErrorPayload(error);
+            }
+            return createNotificationPayload("Successfully fetched METAR", "success");
+        });
     }
     sendStateUpdate() {
-        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData());
+        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.service.config);
         this.win.webContents.send("state:update", state);
         this.startDebouncedWriteFile();
     }
     startDebouncedWriteFile() {
-        // TODO: Add debounce to avoid writing the file multiple times in a short period
-        this.service.writeFile();
+        if (this.writeTimer !== null) {
+            clearTimeout(this.writeTimer);
+        }
+        this.writeTimer = setTimeout(() => {
+            this.writeTimer = null;
+            this.service.writeFile();
+        }, this.writeDelay);
     }
 }

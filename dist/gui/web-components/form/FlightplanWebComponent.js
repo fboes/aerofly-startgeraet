@@ -1,4 +1,5 @@
-export class FlightplanWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
     elements;
     constructor() {
         super();
@@ -29,14 +30,14 @@ export class FlightplanWebComponent extends HTMLElement {
 </table>
 `;
         this.elements = {
-            flightplanOrigin: document.getElementById("flightplan-origin"),
-            flightplanDestination: document.getElementById("flightplan-destination"),
-            flightplanDistance: document.getElementById("flightplan-distance"),
-            flightplanTime: document.getElementById("flightplan-time"),
+            flightplanOrigin: this.querySelector("#flightplan-origin"),
+            flightplanDestination: this.querySelector("#flightplan-destination"),
+            flightplanDistance: this.querySelector("#flightplan-distance"),
+            flightplanTime: this.querySelector("#flightplan-time"),
         };
     }
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.flightplanOrigin.textContent = state.route.departureAirportCode;
             this.elements.flightplanOrigin.title = state.route.departureAirport;
             this.elements.flightplanOrigin.href = state.route.departureAirportUrl;

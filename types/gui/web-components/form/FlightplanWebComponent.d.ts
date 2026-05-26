@@ -1,4 +1,5 @@
-export declare class FlightplanWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export declare class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         flightplanOrigin: HTMLAnchorElement;
         flightplanDestination: HTMLAnchorElement;

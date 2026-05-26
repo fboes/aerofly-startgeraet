@@ -15,8 +15,8 @@ export class FooterWebComponent extends HTMLElement {
         `;
 
         this.elements = {
-            applicationName: document.getElementById("application-name") as HTMLSpanElement,
-            applicationVersion: document.getElementById("application-version") as HTMLSpanElement,
+            applicationName: this.querySelector("#application-name") as HTMLSpanElement,
+            applicationVersion: this.querySelector("#application-version") as HTMLSpanElement,
         };
     }
 

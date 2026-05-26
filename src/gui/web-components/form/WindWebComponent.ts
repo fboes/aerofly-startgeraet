@@ -1,4 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
 export type WindWebComponentState = {
     speed_kts: number;
@@ -6,7 +7,7 @@ export type WindWebComponentState = {
     directionInDegree: number;
 };
 
-export class WindWebComponent extends HTMLElement {
+export class WindWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         windSpeed: HTMLInputElement;
         windGust: HTMLInputElement;
@@ -44,9 +45,9 @@ export class WindWebComponent extends HTMLElement {
         `;
 
         this.elements = {
-            windSpeed: document.getElementById("wind-speed") as HTMLInputElement,
-            windGust: document.getElementById("wind-gust") as HTMLInputElement,
-            windDirection: document.getElementById("wind-direction") as HTMLInputElement,
+            windSpeed: this.querySelector("#wind-speed") as HTMLInputElement,
+            windGust: this.querySelector("#wind-gust") as HTMLInputElement,
+            windDirection: this.querySelector("#wind-direction") as HTMLInputElement,
         };
     }
 
@@ -59,7 +60,7 @@ export class WindWebComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.windSpeed.valueAsNumber = Math.round(state.aeroflyFlight.wind.speed_kts);
             this.elements.windGust.valueAsNumber = Math.round(state.aeroflyFlight.wind.gust_kts);
             this.elements.windDirection.valueAsNumber = Math.round(state.aeroflyFlight.wind.directionInDegree);
@@ -70,7 +71,7 @@ export class WindWebComponent extends HTMLElement {
 
     handleChange() {
         this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
-        sendToMain<WindWebComponentState>("wind:set", this.state);
+        sendToMain("wind:set", this.state);
     }
 
     static registerElement() {

@@ -1,8 +1,9 @@
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export type TimeAndDateWebComponentState = {
     utcDate: string;
     utcTime: string;
 };
-export declare class TimeAndDateWebComponent extends HTMLElement {
+export declare class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         dateUtc: HTMLInputElement;
         timeUtc: HTMLInputElement;

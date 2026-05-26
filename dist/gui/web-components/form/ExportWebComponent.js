@@ -3,7 +3,7 @@ export class ExportWebComponent extends HTMLElement {
         super();
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-export" command="show-modal">Export to file</button>
+<button commandfor="dialog-export" command="show-modal" title="Export flight plan to file">Save flight plan</button>
 
 <dialog id="dialog-export">
   <h3>Flight plan export</h3>

@@ -1,9 +1,10 @@
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export type WindWebComponentState = {
     speed_kts: number;
     gust_kts: number;
     directionInDegree: number;
 };
-export declare class WindWebComponent extends HTMLElement {
+export declare class WindWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         windSpeed: HTMLInputElement;
         windGust: HTMLInputElement;

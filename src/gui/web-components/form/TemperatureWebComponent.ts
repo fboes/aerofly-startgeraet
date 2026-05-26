@@ -1,10 +1,11 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
 export type TemperatureWebComponentState = {
     temperatureCelsius: number;
 };
 
-export class TemperatureWebComponent extends HTMLElement {
+export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         temperatureCelsius: HTMLInputElement;
         temperatureFahrenheit: HTMLInputElement;
@@ -34,8 +35,8 @@ export class TemperatureWebComponent extends HTMLElement {
         `;
 
         this.elements = {
-            temperatureCelsius: document.getElementById("temperature-celsius") as HTMLInputElement,
-            temperatureFahrenheit: document.getElementById("temperature-fahrenheit") as HTMLInputElement,
+            temperatureCelsius: this.querySelector("#temperature-celsius") as HTMLInputElement,
+            temperatureFahrenheit: this.querySelector("#temperature-fahrenheit") as HTMLInputElement,
         };
     }
 
@@ -54,7 +55,7 @@ export class TemperatureWebComponent extends HTMLElement {
         });
         this.setFahrenheitFromCelsius();
 
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.temperatureCelsius.valueAsNumber = Math.round(state.aeroflyFlight.wind.temperature_celsius);
             this.setFahrenheitFromCelsius();
         });

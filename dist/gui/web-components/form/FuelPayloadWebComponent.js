@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-export class FuelPayloadWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     elements;
     constructor() {
         super();
@@ -24,9 +25,9 @@ export class FuelPayloadWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            fuelMass: document.getElementById("fuelloadsetting-fuelmass"),
+            fuelMass: this.querySelector("#fuelloadsetting-fuelmass"),
             fuelMassMax: document.querySelector("label[for='fuelloadsetting-fuelmass'] span"),
-            payloadMass: document.getElementById("fuelloadsetting-payloadmass"),
+            payloadMass: this.querySelector("#fuelloadsetting-payloadmass"),
             payloadMassMax: document.querySelector("label[for='fuelloadsetting-payloadmass'] span"),
         };
     }
@@ -37,7 +38,7 @@ export class FuelPayloadWebComponent extends HTMLElement {
         };
     }
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
             this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";

@@ -17,8 +17,8 @@ export class ImportExportWebComponent extends HTMLElement {
 <h3>📁 Import / export</h3>
 <div class="d-flex">
     <startgeraet-import></startgeraet-import>
-    <startgeraet-import-simbrief></startgeraet-import-simbrief>
     <startgeraet-export></startgeraet-export>
+    <startgeraet-import-simbrief></startgeraet-import-simbrief>
     <startgeraet-metar-import></startgeraet-metar-import>
     <div class="d-flex form-group">
         <button id="mission-generator" disabled="disabled">Mission generator</button>

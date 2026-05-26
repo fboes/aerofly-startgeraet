@@ -1,10 +1,11 @@
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export type CloudsWebComponentState = {
     clouds: {
         baseFt: number;
         coverageEighths: number;
     }[];
 };
-export declare class CloudsWebComponent extends HTMLElement {
+export declare class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         base: HTMLInputElement;
         coverage: HTMLSelectElement;

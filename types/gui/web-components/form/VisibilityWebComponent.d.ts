@@ -1,7 +1,8 @@
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export type VisibilityWebComponentState = {
     visibilityMeters: number;
 };
-export declare class VisibilityWebComponent extends HTMLElement {
+export declare class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         visibilitySm: HTMLInputElement;
         visibilityMeters: HTMLInputElement;

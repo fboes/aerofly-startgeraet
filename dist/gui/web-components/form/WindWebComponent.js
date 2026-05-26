@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-export class WindWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class WindWebComponent extends AbstractStateSubscriberWebComponent {
     elements;
     constructor() {
         super();
@@ -31,9 +32,9 @@ export class WindWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            windSpeed: document.getElementById("wind-speed"),
-            windGust: document.getElementById("wind-gust"),
-            windDirection: document.getElementById("wind-direction"),
+            windSpeed: this.querySelector("#wind-speed"),
+            windGust: this.querySelector("#wind-gust"),
+            windDirection: this.querySelector("#wind-direction"),
         };
     }
     get state() {
@@ -44,7 +45,7 @@ export class WindWebComponent extends HTMLElement {
         };
     }
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.windSpeed.valueAsNumber = Math.round(state.aeroflyFlight.wind.speed_kts);
             this.elements.windGust.valueAsNumber = Math.round(state.aeroflyFlight.wind.gust_kts);
             this.elements.windDirection.valueAsNumber = Math.round(state.aeroflyFlight.wind.directionInDegree);

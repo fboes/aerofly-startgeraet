@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-export class AircraftWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     elements;
     constructor() {
         super();
@@ -22,8 +23,8 @@ export class AircraftWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            aircraftName: document.getElementById("aircraft-name"),
-            aircraftPaintscheme: document.getElementById("aircraft-paintscheme"),
+            aircraftName: this.querySelector("#aircraft-name"),
+            aircraftPaintscheme: this.querySelector("#aircraft-paintscheme"),
         };
     }
     get state() {
@@ -39,7 +40,7 @@ export class AircraftWebComponent extends HTMLElement {
                 .map((aircraft) => `<option value="${aircraft.aeroflyCode}">${aircraft.nameFull}</option>`)
                 .join("");
         });
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.aircraftName.value = state.aeroflyFlight.aircraft.name;
             this.elements.aircraftPaintscheme.innerHTML =
                 state.aircraftData?.liveries

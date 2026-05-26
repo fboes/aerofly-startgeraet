@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-export class TimeAndDateWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
     elements;
     constructor() {
         super();
@@ -36,12 +37,12 @@ export class TimeAndDateWebComponent extends HTMLElement {
 </table>
         `;
         this.elements = {
-            dateUtc: document.getElementById("date-utc"),
-            timeUtc: document.getElementById("time-utc"),
-            dateLocal: document.getElementById("date-local"),
-            timeLocal: document.getElementById("time-local"),
-            timeZoneLocal: document.getElementById("timezone-local"),
-            nowButton: document.getElementById("synchronize-time"),
+            dateUtc: this.querySelector("#date-utc"),
+            timeUtc: this.querySelector("#time-utc"),
+            dateLocal: this.querySelector("#date-local"),
+            timeLocal: this.querySelector("#time-local"),
+            timeZoneLocal: this.querySelector("#timezone-local"),
+            nowButton: this.querySelector("#synchronize-time"),
         };
     }
     get state() {
@@ -56,7 +57,7 @@ export class TimeAndDateWebComponent extends HTMLElement {
         this.elements.nowButton.addEventListener("click", () => {
             this.setNow();
         });
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.dateUtc.value = state.dateTime.utc.date;
             this.elements.timeUtc.value = state.dateTime.utc.time;
             this.elements.timeZoneLocal.dataset.value = state.dateTime.local.timeZoneOffset_h.toString();

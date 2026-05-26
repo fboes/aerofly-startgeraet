@@ -1,4 +1,6 @@
-export class WeatherStatusWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+
+export class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         flightCategoryUs: HTMLOutputElement;
         flightCategoryIcao: HTMLOutputElement;
@@ -21,13 +23,13 @@ export class WeatherStatusWebComponent extends HTMLElement {
 </div>
 `;
         this.elements = {
-            flightCategoryUs: document.getElementById("flight-category-us") as HTMLOutputElement,
-            flightCategoryIcao: document.getElementById("flight-category-icao") as HTMLOutputElement,
+            flightCategoryUs: this.querySelector("#flight-category-us") as HTMLOutputElement,
+            flightCategoryIcao: this.querySelector("#flight-category-icao") as HTMLOutputElement,
         };
     }
 
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.flightCategoryUs.textContent = state.flightCategory.us;
             this.elements.flightCategoryIcao.textContent = state.flightCategory.icao;
         });

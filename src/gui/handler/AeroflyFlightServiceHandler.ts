@@ -9,9 +9,17 @@ import type { TimeAndDateWebComponentState } from "../web-components/form/TimeAn
 import type { TemperatureWebComponentState } from "../web-components/form/TemperatureWebComponent.js";
 import type { VisibilityWebComponentState } from "../web-components/form/VisibilityWebComponent.js";
 import type { CloudsWebComponentState } from "../web-components/form/CloudsWebComponent.js";
+import type { ImportSimBriefWebComponentState } from "../web-components/form/ImportSimBriefWebComponent.js";
+import {
+    createNotificationErrorPayload,
+    createNotificationPayload,
+    type NotificationEventPayload,
+} from "../renderer/notificationEventHandler.js";
 
 export class AeroflyFlightServiceHandler {
-    readonly service: AeroflyFlightService;
+    private readonly service: AeroflyFlightService;
+    private writeTimer: ReturnType<typeof setTimeout> | null = null;
+    private readonly writeDelay = 1_000;
 
     constructor(
         protected ipcMain: IpcMain,
@@ -38,18 +46,22 @@ export class AeroflyFlightServiceHandler {
             this.service.setWind(wind.directionInDegree, wind.speed_kts, wind.gust_kts);
             this.sendStateUpdate();
         });
+
         this.ipcMain.handle("date-time:set", (event, dateTime: TimeAndDateWebComponentState) => {
             this.service.setTimeAndDate(`${dateTime.utcDate}T${dateTime.utcTime}Z`);
             this.sendStateUpdate();
         });
+
         this.ipcMain.handle("temperature:set", (event, temperature: TemperatureWebComponentState) => {
             this.service.setTemperature(temperature.temperatureCelsius);
             this.sendStateUpdate();
         });
+
         this.ipcMain.handle("visibility:set", (event, visibility: VisibilityWebComponentState) => {
             this.service.setVisibilityM(visibility.visibilityMeters);
             this.sendStateUpdate();
         });
+
         this.ipcMain.handle("clouds:set", (event, clouds: CloudsWebComponentState) => {
             this.service.setClouds(
                 clouds.clouds.map((cloud) => ({
@@ -59,16 +71,52 @@ export class AeroflyFlightServiceHandler {
             );
             this.sendStateUpdate();
         });
+
+        this.ipcMain.handle(
+            "flightplan:import-simbrief",
+            async (event, simBrief: ImportSimBriefWebComponentState): Promise<NotificationEventPayload> => {
+                try {
+                    this.service.config.simBriefUserName = simBrief.simBriefUserName;
+                    await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
+                    this.sendStateUpdate();
+                } catch (error) {
+                    return createNotificationErrorPayload(error);
+                }
+
+                return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
+            },
+        );
+
+        this.ipcMain.handle("metar:fetch", async (event, args: { icao: string }): Promise<NotificationEventPayload> => {
+            try {
+                await this.service.setWeatherViaApi(args.icao);
+                this.sendStateUpdate();
+            } catch (error) {
+                return createNotificationErrorPayload(error);
+            }
+
+            return createNotificationPayload("Successfully fetched METAR", "success");
+        });
     }
 
     sendStateUpdate() {
-        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData());
+        const state = new AppState(
+            this.service.getAeroflyFlight(),
+            this.service.getAircraftData(),
+            this.service.config,
+        );
         this.win.webContents.send("state:update", state);
         this.startDebouncedWriteFile();
     }
 
     startDebouncedWriteFile() {
-        // TODO: Add debounce to avoid writing the file multiple times in a short period
-        this.service.writeFile();
+        if (this.writeTimer !== null) {
+            clearTimeout(this.writeTimer);
+        }
+
+        this.writeTimer = setTimeout(() => {
+            this.writeTimer = null;
+            this.service.writeFile();
+        }, this.writeDelay);
     }
 }

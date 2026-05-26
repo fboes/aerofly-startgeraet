@@ -1,4 +1,5 @@
-export declare class WeatherStatusWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export declare class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         flightCategoryUs: HTMLOutputElement;
         flightCategoryIcao: HTMLOutputElement;

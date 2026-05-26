@@ -4,6 +4,7 @@ import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightForma
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
+import type { Config } from "../../core/io/Config.js";
 
 export class AppState {
     readonly dateTime: {
@@ -45,15 +46,19 @@ export class AppState {
         icao: string;
     };
 
+    readonly config: ReturnType<Config["toJSON"]>;
+
     constructor(
         public readonly aeroflyFlight: AeroflyFlight,
         public readonly aircraftData: AeroflyAircraft | undefined,
+        config: Config,
     ) {
         this.aeroflyFlight = aeroflyFlight;
         this.dateTime = this.getDateTime();
         this.route = this.getRoute();
         this.clouds = this.getClouds();
         this.flightCategory = this.getFlightCategory();
+        this.config = config.toJSON();
     }
 
     protected getDateTime() {

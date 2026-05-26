@@ -3,10 +3,11 @@ import path from "node:path";
 import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
 import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
 import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
+app.commandLine.appendSwitch("trace-warnings"); // TODO: Remove this line before production
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 900,
-        height: 780,
+        width: 960,
+        height: 800,
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),

@@ -10,7 +10,8 @@ export class AppState {
     route;
     clouds;
     flightCategory;
-    constructor(aeroflyFlight, aircraftData) {
+    config;
+    constructor(aeroflyFlight, aircraftData, config) {
         this.aeroflyFlight = aeroflyFlight;
         this.aircraftData = aircraftData;
         this.aeroflyFlight = aeroflyFlight;
@@ -18,6 +19,7 @@ export class AppState {
         this.route = this.getRoute();
         this.clouds = this.getClouds();
         this.flightCategory = this.getFlightCategory();
+        this.config = config.toJSON();
     }
     getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);

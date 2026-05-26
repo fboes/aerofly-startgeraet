@@ -1,10 +1,11 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
 export type VisibilityWebComponentState = {
     visibilityMeters: number;
 };
 
-export class VisibilityWebComponent extends HTMLElement {
+export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         visibilitySm: HTMLInputElement;
         visibilityMeters: HTMLInputElement;
@@ -33,8 +34,8 @@ export class VisibilityWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            visibilitySm: document.getElementById("visibility-sm") as HTMLInputElement,
-            visibilityMeters: document.getElementById("visibility-meters") as HTMLInputElement,
+            visibilitySm: this.querySelector("#visibility-sm") as HTMLInputElement,
+            visibilityMeters: this.querySelector("#visibility-meters") as HTMLInputElement,
         };
     }
 
@@ -55,7 +56,7 @@ export class VisibilityWebComponent extends HTMLElement {
 
         this.setSmFromMeters();
 
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.visibilityMeters.valueAsNumber = Math.round(state.aeroflyFlight.visibility_meter);
             this.setSmFromMeters();
         });
@@ -64,7 +65,7 @@ export class VisibilityWebComponent extends HTMLElement {
     }
 
     handleChange() {
-        sendToMain<VisibilityWebComponentState>("visibility:set", this.state);
+        sendToMain("visibility:set", this.state);
     }
 
     protected setMetersFromSm() {

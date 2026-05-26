@@ -3,7 +3,7 @@ export class ImportWebComponent extends HTMLElement {
         super();
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-import" command="show-modal">Import from file</button>
+<button commandfor="dialog-import" command="show-modal" title="Import flight plan from file">Load flight plan</button>
 
 <dialog id="dialog-import">
   <h3>Flight plan import</h3>

@@ -1,4 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
 export type CloudsWebComponentState = {
     clouds: {
@@ -7,7 +8,7 @@ export type CloudsWebComponentState = {
     }[];
 };
 
-export class CloudsWebComponent extends HTMLElement {
+export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         base: HTMLInputElement;
         coverage: HTMLSelectElement;
@@ -75,7 +76,7 @@ export class CloudsWebComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.forEach((element, i) => {
                 const cloud = state.clouds[i];
                 if (cloud) {
@@ -92,7 +93,7 @@ export class CloudsWebComponent extends HTMLElement {
     }
 
     handleChange() {
-        sendToMain<CloudsWebComponentState>("clouds:set", this.state);
+        sendToMain("clouds:set", this.state);
     }
 
     static registerElement() {

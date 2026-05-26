@@ -1,9 +1,22 @@
+import { sendToMain } from "../../renderer/sendToMain.js";
+import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
+
+export type ImportSimBriefWebComponentState = {
+    simBriefUserName: string;
+};
+
 export class ImportSimBriefWebComponent extends HTMLElement {
+    elements: {
+        simBriefUserName: HTMLInputElement;
+        importSimBrief: HTMLButtonElement;
+        dialog: HTMLDialogElement;
+    };
+
     constructor() {
         super();
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-simbrief" command="show-modal">Import from SimBrief</button>
+<button commandfor="dialog-simbrief" command="show-modal">Fetch flight plan from SimBrief</button>
 
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>
@@ -22,6 +35,35 @@ export class ImportSimBriefWebComponent extends HTMLElement {
   <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
 </dialog>
         `;
+        this.elements = {
+            simBriefUserName: this.querySelector("#settings-simbriefusername") as HTMLInputElement,
+            importSimBrief: this.querySelector("#import-simbrief") as HTMLButtonElement,
+            dialog: this.querySelector("dialog") as HTMLDialogElement,
+        };
+    }
+
+    connectedCallback() {
+        window.electronAPI.onStateUpdate((state) => {
+            this.elements.simBriefUserName.value = state.config.simBriefUserName;
+        });
+
+        this.elements.importSimBrief.addEventListener("click", () => {
+            this.handleClick();
+        });
+    }
+
+    private async handleClick() {
+        const simBriefUserName = this.elements.simBriefUserName.value;
+        if (!simBriefUserName) {
+            dispatchNotificationEvent(document.body, `Please enter a valid SimBrief username`, "error");
+            return;
+        }
+
+        this.elements.dialog.close();
+        dispatchNotificationEvent(document.body, `Fetching SimBrief settings for user ${simBriefUserName}`, "waiting");
+
+        const response = await sendToMain<NotificationEventPayload>("flightplan:import-simbrief", { simBriefUserName });
+        dispatchNotificationEvent(document.body, response.message, response.type);
     }
 
     static registerElement() {

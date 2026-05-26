@@ -1,7 +1,8 @@
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export type TemperatureWebComponentState = {
     temperatureCelsius: number;
 };
-export declare class TemperatureWebComponent extends HTMLElement {
+export declare class TemperatureWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         temperatureCelsius: HTMLInputElement;
         temperatureFahrenheit: HTMLInputElement;

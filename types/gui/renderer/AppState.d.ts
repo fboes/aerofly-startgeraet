@@ -1,6 +1,7 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
+import type { Config } from "../../core/io/Config.js";
 export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
     readonly aircraftData: AeroflyAircraft | undefined;
@@ -39,7 +40,8 @@ export declare class AppState {
         us: string;
         icao: string;
     };
-    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined);
+    readonly config: ReturnType<Config["toJSON"]>;
+    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined, config: Config);
     protected getDateTime(): {
         utc: {
             timeZoneOffset_h: number;

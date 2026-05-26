@@ -1,8 +1,9 @@
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export type FuelPayloadWebComponentState = {
     fuelMass: number;
     payloadMass: number;
 };
-export declare class FuelPayloadWebComponent extends HTMLElement {
+export declare class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         fuelMass: HTMLInputElement;
         fuelMassMax: HTMLSpanElement;

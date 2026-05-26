@@ -1,9 +1,10 @@
 import { BrowserWindow, type IpcMain } from "electron";
-import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 export declare class AeroflyFlightServiceHandler {
     protected ipcMain: IpcMain;
     protected win: BrowserWindow;
-    readonly service: AeroflyFlightService;
+    private readonly service;
+    private writeTimer;
+    private readonly writeDelay;
     constructor(ipcMain: IpcMain, win: BrowserWindow);
     registerHandlers(): void;
     sendStateUpdate(): void;

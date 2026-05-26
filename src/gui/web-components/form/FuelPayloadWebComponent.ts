@@ -1,11 +1,12 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
 export type FuelPayloadWebComponentState = {
     fuelMass: number;
     payloadMass: number;
 };
 
-export class FuelPayloadWebComponent extends HTMLElement {
+export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         fuelMass: HTMLInputElement;
         fuelMassMax: HTMLSpanElement;
@@ -36,9 +37,9 @@ export class FuelPayloadWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            fuelMass: document.getElementById("fuelloadsetting-fuelmass") as HTMLInputElement,
+            fuelMass: this.querySelector("#fuelloadsetting-fuelmass") as HTMLInputElement,
             fuelMassMax: document.querySelector("label[for='fuelloadsetting-fuelmass'] span") as HTMLSpanElement,
-            payloadMass: document.getElementById("fuelloadsetting-payloadmass") as HTMLInputElement,
+            payloadMass: this.querySelector("#fuelloadsetting-payloadmass") as HTMLInputElement,
             payloadMassMax: document.querySelector("label[for='fuelloadsetting-payloadmass'] span") as HTMLSpanElement,
         };
     }
@@ -51,7 +52,7 @@ export class FuelPayloadWebComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
             this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
@@ -71,7 +72,7 @@ export class FuelPayloadWebComponent extends HTMLElement {
     }
 
     handleChange() {
-        sendToMain<FuelPayloadWebComponentState>("fuel-payload:set", this.state);
+        sendToMain("fuel-payload:set", this.state);
     }
 
     static registerElement() {

@@ -9,8 +9,8 @@ export class FooterWebComponent extends HTMLElement {
 <a href="https://github.com/fboes/aerofly-startgeraet">GitHub</a> &middot; &copy; 2026
         `;
         this.elements = {
-            applicationName: document.getElementById("application-name"),
-            applicationVersion: document.getElementById("application-version"),
+            applicationName: this.querySelector("#application-name"),
+            applicationVersion: this.querySelector("#application-version"),
         };
     }
     async connectedCallback() {

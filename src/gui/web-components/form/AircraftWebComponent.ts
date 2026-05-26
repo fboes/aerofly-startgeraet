@@ -1,12 +1,13 @@
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
 export type AircraftWebComponentState = {
     aircraftName: string;
     aircraftPaintscheme: string;
 };
 
-export class AircraftWebComponent extends HTMLElement {
+export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     elements: {
         aircraftName: HTMLSelectElement;
         aircraftPaintscheme: HTMLSelectElement;
@@ -33,8 +34,8 @@ export class AircraftWebComponent extends HTMLElement {
 </div>
         `;
         this.elements = {
-            aircraftName: document.getElementById("aircraft-name") as HTMLSelectElement,
-            aircraftPaintscheme: document.getElementById("aircraft-paintscheme") as HTMLSelectElement,
+            aircraftName: this.querySelector("#aircraft-name") as HTMLSelectElement,
+            aircraftPaintscheme: this.querySelector("#aircraft-paintscheme") as HTMLSelectElement,
         };
     }
 
@@ -53,7 +54,7 @@ export class AircraftWebComponent extends HTMLElement {
                 .join("");
         });
 
-        window.electronAPI.onStateUpdate((state) => {
+        this.subscribeToStateUpdates((state) => {
             this.elements.aircraftName.value = state.aeroflyFlight.aircraft.name;
             this.elements.aircraftPaintscheme.innerHTML =
                 state.aircraftData?.liveries
@@ -70,7 +71,7 @@ export class AircraftWebComponent extends HTMLElement {
     }
 
     handleChange() {
-        sendToMain<AircraftWebComponentState>("aircraft:set", this.state);
+        sendToMain("aircraft:set", this.state);
     }
 
     static registerElement() {
