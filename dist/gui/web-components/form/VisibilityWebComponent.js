@@ -1,9 +1,9 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>🌁 Visibility</h3>
@@ -35,32 +35,38 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
         };
     }
     connectedCallback() {
-        this.elements.visibilitySm.addEventListener("input", () => {
-            this.setMetersFromSm();
-        });
-        this.elements.visibilityMeters.addEventListener("input", () => {
-            this.setSmFromMeters();
-        });
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+        this.elements.visibilitySm.addEventListener("input", this.setMetersFromSm);
+        this.elements.visibilityMeters.addEventListener("input", this.setSmFromMeters);
         this.setSmFromMeters();
         this.subscribeToStateUpdates((state) => {
             this.elements.visibilityMeters.valueAsNumber = Math.round(state.aeroflyFlight.visibility_meter);
             this.setSmFromMeters();
         });
-        this.addEventListener("input", () => this.handleChange());
+        this.addEventListener("input", this.handleChange);
     }
-    handleChange() {
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.elements.visibilitySm.removeEventListener("input", this.setMetersFromSm);
+        this.elements.visibilityMeters.removeEventListener("input", this.setSmFromMeters);
+        this.removeEventListener("input", this.handleChange);
+    }
+    handleChange = () => {
         sendToMain("visibility:set", this.state);
-    }
-    setMetersFromSm() {
+    };
+    setMetersFromSm = () => {
         this.elements.visibilityMeters.valueAsNumber =
             Math.round((this.elements.visibilitySm.valueAsNumber * 1609.344) / 100) * 100;
-    }
-    setSmFromMeters() {
+    };
+    setSmFromMeters = () => {
         this.elements.visibilitySm.valueAsNumber =
             this.elements.visibilityMeters.valueAsNumber === 9999
                 ? 10
                 : Math.round(this.elements.visibilityMeters.valueAsNumber / 1609.344 / 0.25) * 0.25;
-    }
+    };
     static registerElement() {
         customElements.define("startgeraet-visibility", VisibilityWebComponent);
     }

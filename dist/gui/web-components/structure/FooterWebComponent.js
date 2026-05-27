@@ -1,8 +1,8 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 export class FooterWebComponent extends HTMLElement {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.setAttribute("aria-role", "footer");
         this.innerHTML = `\
 <span id="application-name">xxx</span> <span id="application-version">xxx</span> &middot;
@@ -14,6 +14,10 @@ export class FooterWebComponent extends HTMLElement {
         };
     }
     async connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         this.elements.applicationName.textContent =
             (await sendToMain("application:get-name")) ?? "Aerofly Startgerät";
         this.elements.applicationVersion.textContent =

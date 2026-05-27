@@ -1,18 +1,19 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 
 export type TemperatureWebComponentState = {
     temperatureCelsius: number;
 };
 
 export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
+    private isInitialized = false;
+
+    private elements!: {
         temperatureCelsius: HTMLInputElement;
         temperatureFahrenheit: HTMLInputElement;
     };
 
-    constructor() {
-        super();
+    private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>🌡️ Temperature</h3>
@@ -47,12 +48,12 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
     }
 
     connectedCallback() {
-        this.elements.temperatureFahrenheit.addEventListener("input", () => {
-            this.setCelsiusFromFahrenheit();
-        });
-        this.elements.temperatureCelsius.addEventListener("input", () => {
-            this.setFahrenheitFromCelsius();
-        });
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+        this.elements.temperatureFahrenheit.addEventListener("input", this.setCelsiusFromFahrenheit);
+        this.elements.temperatureCelsius.addEventListener("input", this.setFahrenheitFromCelsius);
         this.setFahrenheitFromCelsius();
 
         this.subscribeToStateUpdates((state) => {
@@ -60,24 +61,32 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
             this.setFahrenheitFromCelsius();
         });
 
-        this.addEventListener("input", () => this.handleChange());
+        this.addEventListener("input", this.handleChange);
     }
 
-    handleChange() {
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.elements.temperatureFahrenheit.removeEventListener("input", this.setCelsiusFromFahrenheit);
+        this.elements.temperatureCelsius.removeEventListener("input", this.setFahrenheitFromCelsius);
+        this.setFahrenheitFromCelsius();
+        this.removeEventListener("input", this.handleChange);
+    }
+
+    private handleChange = () => {
         sendToMain<TemperatureWebComponentState>("temperature:set", this.state);
-    }
+    };
 
-    protected setCelsiusFromFahrenheit() {
+    private setCelsiusFromFahrenheit = () => {
         this.elements.temperatureCelsius.valueAsNumber = Math.round(
             (this.elements.temperatureFahrenheit.valueAsNumber - 32) * (5 / 9),
         );
-    }
+    };
 
-    protected setFahrenheitFromCelsius() {
+    private setFahrenheitFromCelsius = () => {
         this.elements.temperatureFahrenheit.valueAsNumber = Math.round(
             this.elements.temperatureCelsius.valueAsNumber * 1.8 + 32,
         );
-    }
+    };
 
     static registerElement() {
         customElements.define("startgeraet-temperature", TemperatureWebComponent);

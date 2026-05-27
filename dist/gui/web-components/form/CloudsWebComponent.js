@@ -1,9 +1,17 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    get state() {
+        return {
+            clouds: this.elements.map((element) => ({
+                baseFt: element.base.valueAsNumber,
+                coverageEighths: element.coverage.selectedIndex,
+            })),
+        };
+    }
+    initialize() {
         this.setAttribute("aria-role", "region");
         const cloudInputs = [0, 1, 2].map((i) => {
             return `\
@@ -50,15 +58,11 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
             coverage: row.querySelector(`select`),
         }));
     }
-    get state() {
-        return {
-            clouds: this.elements.map((element) => ({
-                baseFt: element.base.valueAsNumber,
-                coverageEighths: element.coverage.selectedIndex,
-            })),
-        };
-    }
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         this.subscribeToStateUpdates((state) => {
             this.elements.forEach((element, i) => {
                 const cloud = state.clouds[i];
@@ -72,11 +76,15 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
                 }
             });
         });
-        this.addEventListener("input", () => this.handleChange());
+        this.addEventListener("input", this.handleChange);
     }
-    handleChange() {
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener("input", this.handleChange);
+    }
+    handleChange = () => {
         sendToMain("clouds:set", this.state);
-    }
+    };
     static registerElement() {
         customElements.define("startgeraet-clouds", CloudsWebComponent);
     }

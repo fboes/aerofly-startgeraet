@@ -1,4 +1,4 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type CloudsWebComponentState = {
     clouds: {
         baseFt: number;
@@ -6,14 +6,13 @@ export type CloudsWebComponentState = {
     }[];
 };
 export declare class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
-        base: HTMLInputElement;
-        coverage: HTMLSelectElement;
-    }[];
-    constructor();
+    private isInitialized;
+    private elements;
     get state(): CloudsWebComponentState;
+    private initialize;
     connectedCallback(): void;
-    handleChange(): void;
+    disconnectedCallback(): void;
+    private handleChange;
     static registerElement(): void;
 }
 //# sourceMappingURL=CloudsWebComponent.d.ts.map

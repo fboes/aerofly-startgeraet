@@ -1,9 +1,10 @@
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
-export class MetarImportWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
 <button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information">Fetch METAR</button>
@@ -33,7 +34,11 @@ export class MetarImportWebComponent extends HTMLElement {
         };
     }
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+        this.subscribeToStateUpdates((state) => {
             this.elements.metarOrigin.innerHTML = state.route.departureAirport || "Origin";
             this.elements.metarOrigin.dataset.icao = state.route.departureAirportCode || "";
             this.elements.metarDestination.disabled = !state.route.destinationAirportCode;
@@ -41,13 +46,20 @@ export class MetarImportWebComponent extends HTMLElement {
             this.elements.metarDestination.dataset.icao = state.route.destinationAirportCode || "";
             this.elements.metarOrigin.disabled = !state.route.destinationAirportCode;
         });
-        this.elements.metarOrigin.addEventListener("click", () => {
-            this.sendMetar(this.elements.metarOrigin.dataset.icao || "origin");
-        });
-        this.elements.metarDestination.addEventListener("click", () => {
-            this.sendMetar(this.elements.metarDestination.dataset.icao || "destination");
-        });
+        this.elements.metarOrigin.addEventListener("click", this.handleClickOrigin);
+        this.elements.metarDestination.addEventListener("click", this.handleClickDestination);
     }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.elements.metarOrigin.removeEventListener("click", this.handleClickOrigin);
+        this.elements.metarDestination.removeEventListener("click", this.handleClickDestination);
+    }
+    handleClickOrigin = () => {
+        this.sendMetar(this.elements.metarOrigin.dataset.icao || "origin");
+    };
+    handleClickDestination = () => {
+        this.sendMetar(this.elements.metarDestination.dataset.icao || "destination");
+    };
     async sendMetar(icao) {
         this.elements.dialog.close();
         dispatchNotificationEvent(document.body, `Fetching METAR information for ${icao}`, "waiting");

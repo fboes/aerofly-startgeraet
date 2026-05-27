@@ -1,19 +1,21 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
 };
 
-export class ImportSimBriefWebComponent extends HTMLElement {
-    elements: {
+export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
+    private isInitialized = false;
+
+    private elements!: {
         simBriefUserName: HTMLInputElement;
         importSimBrief: HTMLButtonElement;
         dialog: HTMLDialogElement;
     };
 
-    constructor() {
-        super();
+    private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
 <button commandfor="dialog-simbrief" command="show-modal">Fetch flight plan from SimBrief</button>
@@ -43,16 +45,24 @@ export class ImportSimBriefWebComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+
+        this.subscribeToStateUpdates((state) => {
             this.elements.simBriefUserName.value = state.config.simBriefUserName;
         });
 
-        this.elements.importSimBrief.addEventListener("click", () => {
-            this.handleClick();
-        });
+        this.elements.importSimBrief.addEventListener("click", this.handleClick);
     }
 
-    private async handleClick() {
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeEventListener("click", this.handleClick);
+    }
+
+    private handleClick = async () => {
         const simBriefUserName = this.elements.simBriefUserName.value;
         if (!simBriefUserName) {
             dispatchNotificationEvent(document.body, `Please enter a valid SimBrief username`, "error");
@@ -64,7 +74,7 @@ export class ImportSimBriefWebComponent extends HTMLElement {
 
         const response = await sendToMain<NotificationEventPayload>("flightplan:import-simbrief", { simBriefUserName });
         dispatchNotificationEvent(document.body, response.message, response.type);
-    }
+    };
 
     static registerElement() {
         customElements.define("startgeraet-import-simbrief", ImportSimBriefWebComponent);

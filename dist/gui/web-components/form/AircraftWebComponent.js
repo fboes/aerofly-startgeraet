@@ -1,9 +1,15 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    get state() {
+        return {
+            aircraftName: this.elements.aircraftName.value,
+            aircraftPaintscheme: this.elements.aircraftPaintscheme.value,
+        };
+    }
+    initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>✈️ Aircraft</h3>
@@ -27,13 +33,11 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             aircraftPaintscheme: this.querySelector("#aircraft-paintscheme"),
         };
     }
-    get state() {
-        return {
-            aircraftName: this.elements.aircraftName.value,
-            aircraftPaintscheme: this.elements.aircraftPaintscheme.value,
-        };
-    }
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         sendToMain("aircraft:update").then((aircraft) => {
             this.elements.aircraftName.innerHTML = aircraft
                 .sort((a, b) => a.nameFull.localeCompare(b.nameFull))
@@ -51,9 +55,13 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         });
         this.addEventListener("change", this.handleChange);
     }
-    handleChange() {
-        sendToMain("aircraft:set", this.state);
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener("change", this.handleChange);
     }
+    handleChange = () => {
+        sendToMain("aircraft:set", this.state);
+    };
     static registerElement() {
         customElements.define("startgeraet-aircraft", AircraftWebComponent);
     }

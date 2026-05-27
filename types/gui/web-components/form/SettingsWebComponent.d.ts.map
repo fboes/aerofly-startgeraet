@@ -1,1 +1,1 @@
-{"version":3,"file":"SettingsWebComponent.d.ts","sourceRoot":"","sources":["../../../../src/gui/web-components/form/SettingsWebComponent.ts"],"names":[],"mappings":"AAAA,qBAAa,oBAAqB,SAAQ,WAAW;;IA2BjD,MAAM,CAAC,eAAe;CAGzB"}
+{"version":3,"file":"SettingsWebComponent.d.ts","sourceRoot":"","sources":["../../../../src/gui/web-components/form/SettingsWebComponent.ts"],"names":[],"mappings":"AAAA,qBAAa,oBAAqB,SAAQ,WAAW;IACjD,OAAO,CAAC,aAAa,CAAS;IAE9B,OAAO,CAAC,UAAU;IAyBlB,iBAAiB;IAOjB,MAAM,CAAC,eAAe;CAGzB"}

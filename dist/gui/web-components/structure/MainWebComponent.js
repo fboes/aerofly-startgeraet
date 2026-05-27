@@ -9,8 +9,8 @@ import { VisibilityWebComponent } from "../form/VisibilityWebComponent.js";
 import { WindWebComponent } from "../form/WindWebComponent.js";
 import { ImportExportWebComponent } from "../form/ImportExportWebComponent.js";
 export class MainWebComponent extends HTMLElement {
-    constructor() {
-        super();
+    isInitialized = false;
+    initialize() {
         AircraftWebComponent.registerElement();
         FuelPayloadWebComponent.registerElement();
         FlightplanWebComponent.registerElement();
@@ -57,6 +57,12 @@ export class MainWebComponent extends HTMLElement {
     </div>
 </details>
         `;
+    }
+    connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
     }
     static registerElement() {
         customElements.define("startgeraet-main", MainWebComponent);

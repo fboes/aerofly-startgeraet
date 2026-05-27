@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 
 export type TimeAndDateWebComponentState = {
     utcDate: string; // YYYY-MM-DD
@@ -7,7 +7,9 @@ export type TimeAndDateWebComponentState = {
 };
 
 export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
+    private isInitialized = false;
+
+    private elements!: {
         dateUtc: HTMLInputElement;
         timeUtc: HTMLInputElement;
         dateLocal: HTMLInputElement;
@@ -16,8 +18,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         nowButton: HTMLButtonElement;
     };
 
-    constructor() {
-        super();
+    private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>⏰ Time &amp; date</h3>
@@ -69,15 +70,17 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
     }
 
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         [this.elements.dateUtc, this.elements.timeUtc].forEach((e) =>
-            e.addEventListener("input", () => this.setLocalFromUtc()),
+            e.addEventListener("input", this.setLocalFromUtc),
         );
         [this.elements.dateLocal, this.elements.timeLocal].forEach((e) =>
-            e.addEventListener("input", () => this.setUtcFromLocal()),
+            e.addEventListener("input", this.setUtcFromLocal),
         );
-        this.elements.nowButton.addEventListener("click", () => {
-            this.setNow();
-        });
+        this.elements.nowButton.addEventListener("click", this.setNow);
 
         this.subscribeToStateUpdates((state) => {
             this.elements.dateUtc.value = state.dateTime.utc.date;
@@ -89,39 +92,51 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.timeLocal.value = state.dateTime.local.time;
         });
 
-        this.addEventListener("input", () => this.handleChange());
+        this.addEventListener("input", this.handleChange);
     }
 
-    handleChange() {
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        [this.elements.dateUtc, this.elements.timeUtc].forEach((e) =>
+            e.removeEventListener("input", this.setLocalFromUtc),
+        );
+        [this.elements.dateLocal, this.elements.timeLocal].forEach((e) =>
+            e.removeEventListener("input", this.setUtcFromLocal),
+        );
+        this.elements.nowButton.removeEventListener("click", this.setNow);
+        this.removeEventListener("input", this.handleChange);
+    }
+
+    private handleChange = () => {
         sendToMain("date-time:set", this.state);
-    }
+    };
 
-    protected setLocalFromUtc() {
+    private setLocalFromUtc = () => {
         const d = new Date(this.elements.dateUtc.value + "T" + this.elements.timeUtc.value + "Z");
         d.setUTCHours(d.getUTCHours() + Number(this.elements.timeZoneLocal.dataset.value ?? "0"));
         this.elements.timeLocal.value = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
         this.elements.dateLocal.value =
             d.getFullYear().toString() + "-" + this.pad(d.getUTCMonth() + 1) + "-" + this.pad(d.getUTCDate());
-    }
+    };
 
-    protected setUtcFromLocal() {
+    private setUtcFromLocal = () => {
         const d = new Date(this.elements.dateLocal.value + "T" + this.elements.timeLocal.value + "Z");
         d.setUTCHours(d.getUTCHours() - Number(this.elements.timeZoneLocal.dataset.value ?? "0"));
         this.elements.timeUtc.value = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
         this.elements.dateUtc.value =
             d.getFullYear().toString() + "-" + this.pad(d.getUTCMonth() + 1) + "-" + this.pad(d.getUTCDate());
-    }
+    };
 
-    protected setNow() {
+    private setNow = () => {
         const now = new Date();
         this.elements.dateUtc.value =
             now.getUTCFullYear().toString() + "-" + this.pad(now.getUTCMonth() + 1) + "-" + this.pad(now.getUTCDate());
         this.elements.timeUtc.value = this.pad(now.getUTCHours()) + ":" + this.pad(now.getUTCMinutes());
         this.setLocalFromUtc();
         this.handleChange();
-    }
+    };
 
-    protected pad(t: string | number) {
+    private pad(t: string | number) {
         return String(t).padStart(2, "0");
     }
 

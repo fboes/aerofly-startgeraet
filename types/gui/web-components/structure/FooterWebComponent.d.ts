@@ -1,9 +1,7 @@
 export declare class FooterWebComponent extends HTMLElement {
-    elements: {
-        applicationName: HTMLSpanElement;
-        applicationVersion: HTMLSpanElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     connectedCallback(): Promise<void>;
     static registerElement(): void;
 }

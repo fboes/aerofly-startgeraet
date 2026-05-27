@@ -1,5 +1,7 @@
 export declare class ExportWebComponent extends HTMLElement {
-    constructor();
+    private isInitialized;
+    private initialize;
+    connectedCallback(): void;
     static registerElement(): void;
 }
 //# sourceMappingURL=ExportWebComponent.d.ts.map

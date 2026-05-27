@@ -1,9 +1,9 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class WindWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>🧭 Wind</h3>
@@ -45,6 +45,10 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
         };
     }
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         this.subscribeToStateUpdates((state) => {
             this.elements.windSpeed.valueAsNumber = Math.round(state.aeroflyFlight.wind.speed_kts);
             this.elements.windGust.valueAsNumber = Math.round(state.aeroflyFlight.wind.gust_kts);
@@ -52,10 +56,14 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
         });
         this.addEventListener("input", this.handleChange);
     }
-    handleChange() {
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener("input", this.handleChange);
+    }
+    handleChange = () => {
         this.elements.windDirection.valueAsNumber = (this.elements.windDirection.valueAsNumber + 360) % 360;
         sendToMain("wind:set", this.state);
-    }
+    };
     static registerElement() {
         customElements.define("startgeraet-wind", WindWebComponent);
     }

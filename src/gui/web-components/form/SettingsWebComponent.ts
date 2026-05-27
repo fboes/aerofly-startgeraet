@@ -1,6 +1,7 @@
 export class SettingsWebComponent extends HTMLElement {
-    constructor() {
-        super();
+    private isInitialized = false;
+
+    private initialize() {
         this.innerHTML = `\
 <button id="open-dialog-settings" commandfor="dialog-settings" command="show-modal" title="Settings" class="icon">
 <svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -23,6 +24,13 @@ export class SettingsWebComponent extends HTMLElement {
   <button commandfor="dialog-settings" command="close" title="Close">✕</button>
 </dialog>
         `;
+    }
+
+    connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
     }
 
     static registerElement() {

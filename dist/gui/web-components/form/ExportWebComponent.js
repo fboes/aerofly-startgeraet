@@ -1,6 +1,6 @@
 export class ExportWebComponent extends HTMLElement {
-    constructor() {
-        super();
+    isInitialized = false;
+    initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
 <button commandfor="dialog-export" command="show-modal" title="Export flight plan to file">Save flight plan</button>
@@ -25,6 +25,12 @@ export class ExportWebComponent extends HTMLElement {
   <button commandfor="dialog-export" command="close" title="Close">✕</button>
 </dialog>
         `;
+    }
+    connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
     }
     static registerElement() {
         customElements.define("startgeraet-export", ExportWebComponent);

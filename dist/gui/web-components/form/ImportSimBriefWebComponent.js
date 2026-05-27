@@ -1,9 +1,10 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
-export class ImportSimBriefWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
 <button commandfor="dialog-simbrief" command="show-modal">Fetch flight plan from SimBrief</button>
@@ -32,14 +33,20 @@ export class ImportSimBriefWebComponent extends HTMLElement {
         };
     }
     connectedCallback() {
-        window.electronAPI.onStateUpdate((state) => {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+        this.subscribeToStateUpdates((state) => {
             this.elements.simBriefUserName.value = state.config.simBriefUserName;
         });
-        this.elements.importSimBrief.addEventListener("click", () => {
-            this.handleClick();
-        });
+        this.elements.importSimBrief.addEventListener("click", this.handleClick);
     }
-    async handleClick() {
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener("click", this.handleClick);
+    }
+    handleClick = async () => {
         const simBriefUserName = this.elements.simBriefUserName.value;
         if (!simBriefUserName) {
             dispatchNotificationEvent(document.body, `Please enter a valid SimBrief username`, "error");
@@ -49,7 +56,7 @@ export class ImportSimBriefWebComponent extends HTMLElement {
         dispatchNotificationEvent(document.body, `Fetching SimBrief settings for user ${simBriefUserName}`, "waiting");
         const response = await sendToMain("flightplan:import-simbrief", { simBriefUserName });
         dispatchNotificationEvent(document.body, response.message, response.type);
-    }
+    };
     static registerElement() {
         customElements.define("startgeraet-import-simbrief", ImportSimBriefWebComponent);
     }

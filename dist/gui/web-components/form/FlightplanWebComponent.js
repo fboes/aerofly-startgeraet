@@ -1,8 +1,8 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>🛫 Flight plan</h3>
@@ -37,6 +37,10 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         };
     }
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         this.subscribeToStateUpdates((state) => {
             this.elements.flightplanOrigin.textContent = state.route.departureAirportCode;
             this.elements.flightplanOrigin.title = state.route.departureAirport;

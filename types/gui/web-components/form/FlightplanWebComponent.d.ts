@@ -1,12 +1,8 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export declare class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
-        flightplanOrigin: HTMLAnchorElement;
-        flightplanDestination: HTMLAnchorElement;
-        flightplanDistance: HTMLAnchorElement;
-        flightplanTime: HTMLOutputElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     connectedCallback(): void;
     static registerElement(): void;
 }

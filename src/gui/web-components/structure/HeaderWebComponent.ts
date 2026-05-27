@@ -2,13 +2,14 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 
 export class HeaderWebComponent extends HTMLElement {
-    elements: {
+    private isInitialized = false;
+
+    private elements!: {
         title: HTMLHeadingElement;
         version: HTMLElement;
     };
 
-    constructor() {
-        super();
+    private initialize() {
         SettingsWebComponent.registerElement();
 
         this.setAttribute("aria-role", "header");
@@ -24,6 +25,11 @@ export class HeaderWebComponent extends HTMLElement {
     }
 
     async connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+
         const applicationName = await sendToMain<string>("application:get-name");
         this.elements.title.textContent = applicationName ?? "Aerofly Startgerät";
 

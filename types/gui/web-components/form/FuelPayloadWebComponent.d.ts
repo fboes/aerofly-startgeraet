@@ -1,19 +1,16 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type FuelPayloadWebComponentState = {
     fuelMass: number;
     payloadMass: number;
 };
 export declare class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
-        fuelMass: HTMLInputElement;
-        fuelMassMax: HTMLSpanElement;
-        payloadMass: HTMLInputElement;
-        payloadMassMax: HTMLSpanElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     get state(): FuelPayloadWebComponentState;
     connectedCallback(): void;
-    handleChange(): void;
+    disconnectedCallback(): void;
+    private handleChange;
     static registerElement(): void;
 }
 //# sourceMappingURL=FuelPayloadWebComponent.d.ts.map

@@ -1,9 +1,9 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 export class HeaderWebComponent extends HTMLElement {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         SettingsWebComponent.registerElement();
         this.setAttribute("aria-role", "header");
         this.innerHTML = `\
@@ -16,6 +16,10 @@ export class HeaderWebComponent extends HTMLElement {
         };
     }
     async connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         const applicationName = await sendToMain("application:get-name");
         this.elements.title.textContent = applicationName ?? "Aerofly Startgerät";
         const applicationVersion = await sendToMain("application:get-version");

@@ -1,15 +1,16 @@
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type MetarImportWebComponentState = {
     icao: string;
 };
-export declare class MetarImportWebComponent extends HTMLElement {
-    elements: {
-        metarOrigin: HTMLButtonElement;
-        metarDestination: HTMLButtonElement;
-        dialog: HTMLDialogElement;
-    };
-    constructor();
+export declare class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
+    private isInitialized;
+    private elements;
+    private initialize;
     connectedCallback(): void;
-    sendMetar(icao: string): Promise<void>;
+    disconnectedCallback(): void;
+    private handleClickOrigin;
+    private handleClickDestination;
+    private sendMetar;
     static registerElement(): void;
 }
 //# sourceMappingURL=MetarImportWebComponent.d.ts.map

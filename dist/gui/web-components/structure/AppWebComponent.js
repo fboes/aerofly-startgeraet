@@ -1,9 +1,9 @@
 import { HeaderWebComponent } from "./HeaderWebComponent.js";
 import { MainWebComponent } from "./MainWebComponent.js";
-import { NotificationWebComponent } from "./NotificationWebComponent.js";
+import { NotificationWebComponent } from "../util/NotificationWebComponent.js";
 export class AppWebComponent extends HTMLElement {
-    constructor() {
-        super();
+    isInitialized = false;
+    initialize() {
         NotificationWebComponent.registerElement();
         HeaderWebComponent.registerElement();
         MainWebComponent.registerElement();
@@ -13,6 +13,12 @@ export class AppWebComponent extends HTMLElement {
 <startgeraet-header></startgeraet-header>
 <startgeraet-main></startgeraet-main>
         `;
+    }
+    connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
     }
     static registerElement() {
         customElements.define("startgeraet-app", AppWebComponent);

@@ -1,9 +1,7 @@
 export declare class HeaderWebComponent extends HTMLElement {
-    elements: {
-        title: HTMLHeadingElement;
-        version: HTMLElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     connectedCallback(): Promise<void>;
     static registerElement(): void;
 }

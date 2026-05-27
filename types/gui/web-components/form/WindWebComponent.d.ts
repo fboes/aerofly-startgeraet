@@ -1,19 +1,17 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type WindWebComponentState = {
     speed_kts: number;
     gust_kts: number;
     directionInDegree: number;
 };
 export declare class WindWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
-        windSpeed: HTMLInputElement;
-        windGust: HTMLInputElement;
-        windDirection: HTMLInputElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     get state(): WindWebComponentState;
     connectedCallback(): void;
-    handleChange(): void;
+    disconnectedCallback(): void;
+    private handleChange;
     static registerElement(): void;
 }
 //# sourceMappingURL=WindWebComponent.d.ts.map

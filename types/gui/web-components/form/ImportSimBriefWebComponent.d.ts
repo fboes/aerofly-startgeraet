@@ -1,14 +1,13 @@
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
 };
-export declare class ImportSimBriefWebComponent extends HTMLElement {
-    elements: {
-        simBriefUserName: HTMLInputElement;
-        importSimBrief: HTMLButtonElement;
-        dialog: HTMLDialogElement;
-    };
-    constructor();
+export declare class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
+    private isInitialized;
+    private elements;
+    private initialize;
     connectedCallback(): void;
+    disconnectedCallback(): void;
     private handleClick;
     static registerElement(): void;
 }

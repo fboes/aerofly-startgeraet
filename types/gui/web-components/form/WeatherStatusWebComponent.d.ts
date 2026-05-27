@@ -1,10 +1,8 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export declare class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
-        flightCategoryUs: HTMLOutputElement;
-        flightCategoryIcao: HTMLOutputElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     connectedCallback(): void;
     static registerElement(): void;
 }

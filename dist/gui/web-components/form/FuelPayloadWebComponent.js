@@ -1,9 +1,9 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>⛽ Fuel / payload</h3>
@@ -38,6 +38,10 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         };
     }
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         this.subscribeToStateUpdates((state) => {
             this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
             this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
@@ -54,9 +58,13 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         });
         this.addEventListener("input", this.handleChange);
     }
-    handleChange() {
-        sendToMain("fuel-payload:set", this.state);
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener("input", this.handleChange);
     }
+    handleChange = () => {
+        sendToMain("fuel-payload:set", this.state);
+    };
     static registerElement() {
         customElements.define("startgeraet-fuel-payload", FuelPayloadWebComponent);
     }

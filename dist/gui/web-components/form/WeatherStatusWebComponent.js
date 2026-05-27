@@ -1,8 +1,8 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
+    isInitialized = false;
     elements;
-    constructor() {
-        super();
+    initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>⛅ Weather status</h3>
@@ -23,6 +23,10 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
         };
     }
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
         this.subscribeToStateUpdates((state) => {
             this.elements.flightCategoryUs.textContent = state.flightCategory.us;
             this.elements.flightCategoryIcao.textContent = state.flightCategory.icao;

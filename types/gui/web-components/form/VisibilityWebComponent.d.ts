@@ -1,18 +1,17 @@
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type VisibilityWebComponentState = {
     visibilityMeters: number;
 };
 export declare class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
-        visibilitySm: HTMLInputElement;
-        visibilityMeters: HTMLInputElement;
-    };
-    constructor();
+    private isInitialized;
+    private elements;
+    private initialize;
     get state(): VisibilityWebComponentState;
     connectedCallback(): void;
-    handleChange(): void;
-    protected setMetersFromSm(): void;
-    protected setSmFromMeters(): void;
+    disconnectedCallback(): void;
+    private handleChange;
+    private setMetersFromSm;
+    private setSmFromMeters;
     static registerElement(): void;
 }
 //# sourceMappingURL=VisibilityWebComponent.d.ts.map

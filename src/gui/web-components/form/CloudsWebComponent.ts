@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 
 export type CloudsWebComponentState = {
     clouds: {
@@ -9,13 +9,23 @@ export type CloudsWebComponentState = {
 };
 
 export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
-    elements: {
+    private isInitialized = false;
+
+    private elements!: {
         base: HTMLInputElement;
         coverage: HTMLSelectElement;
     }[];
 
-    constructor() {
-        super();
+    get state(): CloudsWebComponentState {
+        return {
+            clouds: this.elements.map((element) => ({
+                baseFt: element.base.valueAsNumber,
+                coverageEighths: element.coverage.selectedIndex,
+            })),
+        };
+    }
+
+    private initialize() {
         this.setAttribute("aria-role", "region");
 
         const cloudInputs: string[] = [0, 1, 2].map((i) => {
@@ -66,16 +76,12 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
         }));
     }
 
-    get state(): CloudsWebComponentState {
-        return {
-            clouds: this.elements.map((element) => ({
-                baseFt: element.base.valueAsNumber,
-                coverageEighths: element.coverage.selectedIndex,
-            })),
-        };
-    }
-
     connectedCallback() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+
         this.subscribeToStateUpdates((state) => {
             this.elements.forEach((element, i) => {
                 const cloud = state.clouds[i];
@@ -89,12 +95,17 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
             });
         });
 
-        this.addEventListener("input", () => this.handleChange());
+        this.addEventListener("input", this.handleChange);
     }
 
-    handleChange() {
-        sendToMain("clouds:set", this.state);
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeEventListener("input", this.handleChange);
     }
+
+    private handleChange = () => {
+        sendToMain("clouds:set", this.state);
+    };
 
     static registerElement() {
         customElements.define("startgeraet-clouds", CloudsWebComponent);
