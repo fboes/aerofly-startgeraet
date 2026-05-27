@@ -16,11 +16,15 @@ export class NotificationWebComponent extends HTMLElement {
         this.elements.output.role = "alert";
         this.elements.output.ariaLive = "assertive";
         this.elements.output.ariaAtomic = "true";
+        this.elements.output.innerText = "Example"; // TODO
         this.appendChild(this.elements.output);
     }
 
     connectedCallback() {
         document.body.addEventListener(NOTIFICATION_EVENT_IDENTIFIER, this.handleNotification);
+        this.addEventListener("click", () => {
+            this.elements.output.classList.toggle("is-visible");
+        });
     }
 
     disconnectedCallback(): void {
