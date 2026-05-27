@@ -11,18 +11,17 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
 
 <dialog id="dialog-metar">
   <h3>Fetch METAR</h3>
-  <div class="d-flex">
-    <section class="d-flex">
-        <div class="form-group">
-            <label for="metar-origin">Fetch Metar for origin</label>
-            <button id="metar-origin" title="Fetch METAR for current flight plan origin">Fetch METAR for current flight plan origin</button>
-        </div>
-        <div class="form-group">
-            <label for="metar-destination">Fetch Metar for destination</label>
-            <button id="metar-destination" title="Fetch METAR for current flight plan destination">Fetch METAR for current flight plan destination</button>
-        </div>
-    </section>
-  </div>
+
+  <section class="d-flex">
+    <div class="form-group">
+       <label for="metar-origin">Fetch Metar for origin</label>
+       <button id="metar-origin" title="Fetch METAR for current flight plan origin">Fetch METAR for current flight plan origin</button>
+    </div>
+    <div class="form-group">
+      <label for="metar-destination">Fetch Metar for destination</label>
+        <button id="metar-destination" title="Fetch METAR for current flight plan destination">Fetch METAR for current flight plan destination</button>
+      </div>
+  </section>
 
   <button commandfor="dialog-metar" command="close" title="Close">✕</button>
 </dialog>

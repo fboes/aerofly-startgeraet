@@ -13,6 +13,7 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3>✈️ Aircraft</h3>
+
 <div class="d-flex">
     <div class="form-group">
         <label for="aircraft-name">Aircraft</label>

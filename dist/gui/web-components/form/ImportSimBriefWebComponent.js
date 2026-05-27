@@ -12,16 +12,13 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>
 
-  <div class="d-flex">
-
-    <section class="d-flex">
-      <div class="form-group">
-        <label for="settings-simbriefusername">SimBrief username</label>
-        <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" />
-      </div>
-      <button id="import-simbrief">Import flight plan from SimBrief</button>
-    </section>
-  </div>
+  <section class="d-flex">
+    <div class="form-group w-100">
+      <label for="settings-simbriefusername">SimBrief username</label>
+      <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" required="required" />
+    </div>
+    <button id="import-simbrief" class="w-100">Import flight plan from SimBrief</button>
+  </section>
 
   <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
 </dialog>

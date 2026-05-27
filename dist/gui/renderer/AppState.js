@@ -35,10 +35,11 @@ export class AppState {
             },
         };
     }
-    formatDateTime(date) {
-        const dateStr = date.toISOString().split("T")[0];
-        const timeStr = date.toTimeString().split(" ")[0];
-        return { date: dateStr, time: timeStr };
+    formatDateTime(dateIn) {
+        const isoString = dateIn.toISOString().split("T");
+        const date = isoString[0];
+        const time = isoString[1].substring(0, 5);
+        return { date, time };
     }
     getRoute() {
         const routeString = AeroflyFlightFormatter.getFlightplanWaypoints(this.aeroflyFlight, 3);

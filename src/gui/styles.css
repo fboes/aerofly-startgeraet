@@ -14,6 +14,7 @@
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
     --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
     --color-warning: #e6007a;
+    --color-black: light-dark(#363537, #000000);
     --fontweight-normal: 400;
     --fontweight-bold: 600;
     --fontsize-small: 0.66rem;
@@ -348,10 +349,22 @@ startgeraet-notification {
         padding: 0.25rem 1rem;
         box-shadow: var(--color-darken) 0.25rem 0.25rem 0.5rem;
         text-align: center;
-        max-width: 20em;
-        min-width: 10em;
-        transition: bottom 0.5s;
+        max-width: 20rem;
+        min-width: 10rem;
+        transition: all 0.5s;
         transform: translateX(-50%);
+        background-color: var(--color-highlight);
+        color: var(--color-highlight-contra);
+        border-radius: 0.25rem 0.25rem 0 0;
+        z-index: 2;
+
+        &.error {
+            background-color: var(--color-warning);
+        }
+
+        &.waiting {
+            background-color: var(--color-black);
+        }
 
         &.is-visible {
             bottom: 0;

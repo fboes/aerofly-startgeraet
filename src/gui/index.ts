@@ -4,8 +4,6 @@ import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandl
 import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
 import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
 
-app.commandLine.appendSwitch("trace-warnings"); // TODO: Remove this line before production
-
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 960,
@@ -21,11 +19,9 @@ const createWindow = () => {
     win.loadFile(path.join(import.meta.dirname, "index.html"));
     win.webContents.openDevTools(); // TODO: Remove this line before production
     win.webContents.setWindowOpenHandler(({ url }) => {
-        // config.fileProtocol is my custom file protocol
         if (url.startsWith("aerofly-startgeraet")) {
             return { action: "allow" };
         }
-        // open url in a browser and prevent default
         shell.openExternal(url);
         return { action: "deny" };
     });

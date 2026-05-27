@@ -11,7 +11,6 @@ export class NotificationWebComponent extends HTMLElement {
         this.elements.output.role = "alert";
         this.elements.output.ariaLive = "assertive";
         this.elements.output.ariaAtomic = "true";
-        this.elements.output.innerText = "Example"; // TODO
         this.appendChild(this.elements.output);
     }
     connectedCallback() {
@@ -25,7 +24,7 @@ export class NotificationWebComponent extends HTMLElement {
     }
     handleNotification = (event) => {
         const details = parseNotificationEvent(event);
-        this.elements.output.classList.remove("info", "success", "error", "waiting", "is-visible");
+        this.elements.output.classList.remove("info", "success", "error", "waiting");
         this.elements.output.classList.add(details.type, "is-visible");
         this.elements.output.innerText = details.message;
         this.hideTimer = setTimeout(() => {

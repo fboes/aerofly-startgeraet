@@ -77,10 +77,11 @@ export class AppState {
         };
     }
 
-    protected formatDateTime(date: Date): { date: string; time: string } {
-        const dateStr = date.toISOString().split("T")[0];
-        const timeStr = date.toTimeString().split(" ")[0];
-        return { date: dateStr, time: timeStr };
+    protected formatDateTime(dateIn: Date): { date: string; time: string } {
+        const isoString = dateIn.toISOString().split("T");
+        const date = isoString[0];
+        const time = isoString[1].substring(0, 5);
+        return { date, time };
     }
 
     protected getRoute() {

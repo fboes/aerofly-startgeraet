@@ -54,7 +54,7 @@ export declare class AppState {
             time: string;
         };
     };
-    protected formatDateTime(date: Date): {
+    protected formatDateTime(dateIn: Date): {
         date: string;
         time: string;
     };
