@@ -1,5 +1,13 @@
-export class SettingsWebComponent extends HTMLElement {
+import { sendToMain } from "../../renderer/sendToMain.js";
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
+    elements;
+    get state() {
+        return {
+            mainMcfFilePath: this.elements.mainMcfFilePath.value,
+        };
+    }
     initialize() {
         this.innerHTML = `\
 <button id="open-dialog-settings" commandfor="dialog-settings" command="show-modal" title="Settings" class="icon">
@@ -23,13 +31,23 @@ export class SettingsWebComponent extends HTMLElement {
   <button commandfor="dialog-settings" command="close" title="Close">✕</button>
 </dialog>
         `;
+        this.elements = {
+            mainMcfFilePath: this.querySelector("#settings-mainmcffilepath"),
+        };
     }
     connectedCallback() {
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
         }
+        this.subscribeToStateUpdates((state) => {
+            this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
+        });
+        this.addEventListener("input", this.handleChange);
     }
+    handleChange = async () => {
+        sendToMain("config:set", this.state);
+    };
     static registerElement() {
         customElements.define("startgeraet-settings", SettingsWebComponent);
     }

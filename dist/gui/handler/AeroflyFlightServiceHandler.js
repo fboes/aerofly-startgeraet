@@ -18,6 +18,10 @@ export class AeroflyFlightServiceHandler {
         this.registerHandlers();
     }
     registerHandlers() {
+        this.ipcMain.handle("config:set", (event, config) => {
+            this.service.config.mainMcfFilePath = config.mainMcfFilePath;
+            this.sendStateUpdate();
+        });
         this.ipcMain.handle("aircraft:set", (event, aircraft) => {
             this.service.setAircraft(aircraft.aircraftName, aircraft.aircraftPaintscheme);
             this.sendStateUpdate();
