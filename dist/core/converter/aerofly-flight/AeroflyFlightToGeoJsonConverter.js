@@ -2,6 +2,7 @@ import { AeroflyFlight, AeroflyNavRouteBase, AeroflyNavRouteDepartureRunway, Aer
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
 import { Feature, FeatureCollection, LineString, Point } from "@fboes/geojson";
 export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConverter {
+    static fileName = "GeoJSON";
     static fileExtension = "geojson";
     convert(flightplan) {
         const geoJson = new FeatureCollection();

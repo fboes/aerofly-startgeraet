@@ -1,4 +1,4 @@
-import { BrowserWindow, type IpcMain } from "electron";
+import { BrowserWindow, dialog, type IpcMain, type IpcMainInvokeEvent } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";
@@ -16,6 +16,18 @@ import {
     type NotificationEventPayload,
 } from "../renderer/notificationEventHandler.js";
 import type { SettingsWebComponentState } from "../web-components/form/SettingsWebComponent.js";
+import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../../core/converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
+import { AeroflyMcfToImportFileConverter } from "../../core/converter/other/AeroflyMcfToImportFileConverter.js";
+import { GarminFplToAeroflyFlightConverter } from "../../core/converter/other/GarminFplToAeroflyFlightConverter.js";
+import { MsfsPlnToAeroflyFlightConverter } from "../../core/converter/other/MsfsPlnToAeroflyFlightConverter.js";
+import { XplaneFmsToAeroflyFlightConverter } from "../../core/converter/other/XplaneFmsToAeroflyFlightConverter.js";
+import { IMPORT_FILE_TYPES } from "../../core/io/importFlightplan.js";
+import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
+import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
+import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
+import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
+import path from "node:path";
+import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -78,32 +90,129 @@ export class AeroflyFlightServiceHandler {
             this.sendStateUpdate();
         });
 
-        this.ipcMain.handle(
-            "flightplan:import-simbrief",
-            async (event, simBrief: ImportSimBriefWebComponentState): Promise<NotificationEventPayload> => {
-                try {
-                    this.service.config.simBriefUserName = simBrief.simBriefUserName;
-                    await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
-                    this.sendStateUpdate();
-                } catch (error) {
-                    return createNotificationErrorPayload(error);
-                }
+        this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
+        this.ipcMain.handle("flightplan:import-file", this.importFile);
+        this.ipcMain.handle("flightplan:export-file", this.exportFile);
 
-                return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
-            },
-        );
-
-        this.ipcMain.handle("metar:fetch", async (event, args: { icao: string }): Promise<NotificationEventPayload> => {
-            try {
-                await this.service.setWeatherViaApi(args.icao);
-                this.sendStateUpdate();
-            } catch (error) {
-                return createNotificationErrorPayload(error);
-            }
-
-            return createNotificationPayload("Successfully fetched METAR", "success");
-        });
+        this.ipcMain.handle("metar:fetch", this.fetchMetar);
     }
+
+    private importSimbrief = async (
+        event: IpcMainInvokeEvent,
+        simBrief: ImportSimBriefWebComponentState,
+    ): Promise<NotificationEventPayload> => {
+        try {
+            this.service.config.simBriefUserName = simBrief.simBriefUserName;
+            await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
+            this.sendStateUpdate();
+        } catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+
+        return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
+    };
+
+    private importFile = async (): Promise<NotificationEventPayload> => {
+        const result = await dialog.showOpenDialog(this.win, {
+            title: "Select Flight Plan File",
+            defaultPath: this.service.config.importDirectory,
+            properties: ["openFile"],
+            filters: [
+                {
+                    name: "All supported file types",
+                    extensions: IMPORT_FILE_TYPES,
+                },
+                {
+                    name: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileName,
+                    extensions: [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension],
+                },
+                {
+                    name: AeroflyMcfToImportFileConverter.fileName,
+                    extensions: [AeroflyMcfToImportFileConverter.fileExtension],
+                },
+                {
+                    name: MsfsPlnToAeroflyFlightConverter.fileName,
+                    extensions: [MsfsPlnToAeroflyFlightConverter.fileExtension],
+                },
+                {
+                    name: GarminFplToAeroflyFlightConverter.fileName,
+                    extensions: [GarminFplToAeroflyFlightConverter.fileExtension],
+                },
+                {
+                    name: XplaneFmsToAeroflyFlightConverter.fileName,
+                    extensions: [XplaneFmsToAeroflyFlightConverter.fileExtension],
+                },
+            ],
+        });
+
+        if (result.canceled) {
+            return createNotificationPayload("");
+        }
+
+        try {
+            this.service.importFlightplanFromFile(result.filePaths[0]); // TODO
+            this.sendStateUpdate();
+        } catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+
+        return createNotificationPayload("Successfully imported file", "success");
+    };
+
+    private exportFile = async (): Promise<NotificationEventPayload> => {
+        const result = await dialog.showSaveDialog(this.win, {
+            title: "Select Flight Plan File",
+            defaultPath: path.join(
+                this.service.config.exportDirectory,
+                `flight-${getFlightplanIdentifier(this.service.getAeroflyFlight())}.${AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension}`,
+            ),
+            filters: [
+                {
+                    name: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileName,
+                    extensions: [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension],
+                },
+                {
+                    name: AeroflyFlightToAeroflyMainMcfConverter.fileName,
+                    extensions: [AeroflyFlightToAeroflyMainMcfConverter.fileExtension],
+                },
+                {
+                    name: AeroflyFlightToGeoJsonConverter.fileName,
+                    extensions: [AeroflyFlightToGeoJsonConverter.fileExtension],
+                },
+                {
+                    name: AeroflyFlightToKmlConverter.fileName,
+                    extensions: [AeroflyFlightToKmlConverter.fileExtension],
+                },
+            ],
+        });
+
+        if (result.canceled) {
+            return createNotificationPayload("");
+        }
+
+        try {
+            this.service.exportFlightplanToFile(result.filePath);
+            this.sendStateUpdate();
+        } catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+
+        return createNotificationPayload("Successfully exported file", "success");
+    };
+
+    private fetchMetar = async (
+        event: IpcMainInvokeEvent,
+        args: { icao: string },
+    ): Promise<NotificationEventPayload> => {
+        try {
+            await this.service.setWeatherViaApi(args.icao);
+            this.sendStateUpdate();
+        } catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+
+        return createNotificationPayload("Successfully fetched METAR", "success");
+    };
 
     sendStateUpdate() {
         const state = new AppState(

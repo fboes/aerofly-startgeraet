@@ -1,36 +1,31 @@
+import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
+import { sendToMain } from "../../renderer/sendToMain.js";
 export class ExportWebComponent extends HTMLElement {
     isInitialized = false;
+    elements;
     initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-export" command="show-modal" title="Export flight plan to file">Save flight plan</button>
-
-<dialog id="dialog-export">
-  <h3>Flight plan export</h3>
-
-  <section class="d-flex">
-    <div class="form-group w-100">
-      <label for="export-filetype">Export file type</label>
-      <select id="export-filetype">
-        <option value="mcf">Aerofly MCF flight plan file</option>
-        <option value="tmc">Aerofly TMC custom user missions file</option>
-        <option value="geojson">GeoJSON file</option>
-        <option value="kml">Keyhole Markup Language (KML) file</option>
-      </select>
-    </div>
-    <button id="export-file" class="w-100">Export flight plan to file</button>
-  </section>
-
-  <button commandfor="dialog-export" command="close" title="Close">✕</button>
-</dialog>
+<button id="flightplan-export">Save / export flight plan</button>
         `;
+        this.elements = {
+            button: this.querySelector("button"),
+        };
     }
     connectedCallback() {
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
         }
+        this.elements.button.addEventListener("click", this.handleClick);
     }
+    disconnectedCallback() {
+        this.elements.button.addEventListener("click", this.handleClick);
+    }
+    handleClick = async () => {
+        const response = await sendToMain("flightplan:export-file");
+        dispatchNotificationEvent(document.body, response.message, response.type);
+    };
     static registerElement() {
         customElements.define("startgeraet-export", ExportWebComponent);
     }

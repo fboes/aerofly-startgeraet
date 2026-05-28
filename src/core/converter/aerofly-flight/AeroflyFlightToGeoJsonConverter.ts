@@ -11,6 +11,7 @@ import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter
 import { Feature, FeatureCollection, LineString, Point } from "@fboes/geojson";
 
 export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConverter {
+    static readonly fileName = "GeoJSON";
     static readonly fileExtension = "geojson";
 
     convert(flightplan: AeroflyFlight): string {

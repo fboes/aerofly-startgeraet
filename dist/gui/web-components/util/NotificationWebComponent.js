@@ -1,4 +1,4 @@
-import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent } from "../../renderer/notificationEventHandler.js";
+import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../renderer/notificationEventHandler.js";
 export class NotificationWebComponent extends HTMLElement {
     hideTimer = null;
     hideDelay = 5_000;
@@ -24,12 +24,21 @@ export class NotificationWebComponent extends HTMLElement {
     }
     handleNotification = (event) => {
         const details = parseNotificationEvent(event);
+        if (details.message === "") {
+            return;
+        }
+        this.log(details);
         this.elements.output.classList.remove("info", "success", "error", "waiting");
         this.elements.output.classList.add(details.type, "is-visible");
         this.elements.output.innerText = details.message;
+        if (this.hideTimer !== null) {
+            clearTimeout(this.hideTimer);
+        }
         this.hideTimer = setTimeout(() => {
             this.elements.output.classList.remove(details.type, "is-visible");
         }, this.hideDelay);
+    };
+    log(details) {
         switch (details.type) {
             case "error":
                 console.error(details.message);
@@ -41,7 +50,7 @@ export class NotificationWebComponent extends HTMLElement {
                 console.log(details.message);
                 break;
         }
-    };
+    }
     static registerElement() {
         customElements.define("startgeraet-notification", NotificationWebComponent);
     }

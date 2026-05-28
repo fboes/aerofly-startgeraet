@@ -6,6 +6,7 @@ export declare class NotificationWebComponent extends HTMLElement {
     connectedCallback(): void;
     disconnectedCallback(): void;
     private handleNotification;
+    private log;
     static registerElement(): void;
 }
 //# sourceMappingURL=NotificationWebComponent.d.ts.map

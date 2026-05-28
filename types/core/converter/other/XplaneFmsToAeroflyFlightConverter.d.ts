@@ -6,6 +6,7 @@ import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
 export declare class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+    static readonly fileName = "X-Plane Flight Plan File";
     static readonly fileExtension = "fms";
     convert(content: string, flightplan: AeroflyFlight, index?: number): void;
     private getRunway;

@@ -10,6 +10,7 @@ import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter
 import { getAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
 
 export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFlightToStringConverter {
+    static readonly fileName = "Aerofly Custom Missions";
     static readonly fileExtension = "tmc";
 
     convert(flightplan: AeroflyFlight): string {

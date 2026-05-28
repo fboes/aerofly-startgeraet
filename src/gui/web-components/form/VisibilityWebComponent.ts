@@ -77,7 +77,9 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
 
     private setMetersFromSm = () => {
         this.elements.visibilityMeters.valueAsNumber =
-            Math.round((this.elements.visibilitySm.valueAsNumber * 1609.344) / 100) * 100;
+            this.elements.visibilitySm.valueAsNumber === 10
+                ? 9999
+                : Math.round((this.elements.visibilitySm.valueAsNumber * 1609.344) / 100) * 100;
     };
 
     private setSmFromMeters = () => {

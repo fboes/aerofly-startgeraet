@@ -10,6 +10,7 @@ type KeyholeMarkupLanguageRouteStyle = {
 };
 
 export class AeroflyFlightToKmlConverter extends AeroflyFlightToStringConverter {
+    static readonly fileName = "Keyhole Markup Language";
     static readonly fileExtension = "kml";
 
     convert(flightplan: AeroflyFlight): string {
