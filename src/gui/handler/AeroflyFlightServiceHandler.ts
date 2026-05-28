@@ -15,6 +15,7 @@ import {
     createNotificationPayload,
     type NotificationEventPayload,
 } from "../renderer/notificationEventHandler.js";
+import type { SettingsWebComponentState } from "../web-components/form/SettingsWebComponent.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -32,6 +33,11 @@ export class AeroflyFlightServiceHandler {
     }
 
     registerHandlers() {
+        this.ipcMain.handle("config:set", (event, config: SettingsWebComponentState) => {
+            this.service.config.mainMcfFilePath = config.mainMcfFilePath;
+            this.sendStateUpdate();
+        });
+
         this.ipcMain.handle("aircraft:set", (event, aircraft: AircraftWebComponentState) => {
             this.service.setAircraft(aircraft.aircraftName, aircraft.aircraftPaintscheme);
             this.sendStateUpdate();
