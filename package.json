@@ -30,20 +30,26 @@
   },
   "build": {
     "directories": {
-      "output": "artifacts/gui"
+      "output": "artifacts/gui",
+      "buildResources": "."
     },
     "productName": "AeroflyStartgeraet",
     "win": {
       "target": "portable",
-      "artifactName": "AeroflyStartgeraet-Windows.exe"
+      "icon": "assets/icons/windows/icon.ico"
+    },
+    "portable": {
+      "artifactName": "${productName}-Windows.${ext}"
     },
     "mac": {
       "target": "dmg",
-      "artifactName": "AeroflyStartgeraet-MacOS.dmg"
+      "artifactName": "${productName}-MacOS.${ext}",
+      "icon": "assets/icons/macos/icon.icns"
     },
     "linux": {
       "target": "AppImage",
-      "artifactName": "AeroflyStartgeraet-Linux.AppImage"
+      "artifactName": "${productName}-Linux.${ext}",
+      "icon": "assets/icons/linux/icons/512x512.png"
     }
   },
   "keywords": [
