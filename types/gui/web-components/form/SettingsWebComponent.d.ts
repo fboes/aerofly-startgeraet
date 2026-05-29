@@ -8,7 +8,9 @@ export declare class SettingsWebComponent extends AbstractStateSubscriberWebComp
     get state(): SettingsWebComponentState;
     private initialize;
     connectedCallback(): void;
+    disconnectedCallback(): void;
     handleChange: () => Promise<void>;
+    handlePathChooserClick: () => Promise<void>;
     static registerElement(): void;
 }
 //# sourceMappingURL=SettingsWebComponent.d.ts.map

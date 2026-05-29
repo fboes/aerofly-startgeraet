@@ -25,7 +25,10 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 
   <section>
     <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
-    <input id="settings-mainmcffilepath" type="text" required />
+    <span class="d-flex">
+        <input id="settings-mainmcffilepath" type="text" required />
+        <button id="choose-mainmcffilepath">Choose</button>
+    </span>
   </section>
 
   <button commandfor="dialog-settings" command="close" title="Close">✕</button>
@@ -33,6 +36,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         `;
         this.elements = {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath"),
+            mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath"),
         };
     }
     connectedCallback() {
@@ -44,9 +48,18 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
             this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
         });
         this.addEventListener("input", this.handleChange);
+        this.elements.mainMcfFilePathChooser.addEventListener("click", this.handlePathChooserClick);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener("input", this.handleChange);
+        this.elements.mainMcfFilePathChooser.removeEventListener("click", this.handlePathChooserClick);
     }
     handleChange = async () => {
         sendToMain("config:set", this.state);
+    };
+    handlePathChooserClick = async () => {
+        sendToMain("config:choose-main-mcf-path", this.state);
     };
     static registerElement() {
         customElements.define("startgeraet-settings", SettingsWebComponent);

@@ -65,11 +65,36 @@ export class AeroflyFlightServiceHandler {
             })));
             this.sendStateUpdate();
         });
+        this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.importFile);
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
     }
+    chooseMainMcfPath = async (event, payload) => {
+        const result = await dialog.showOpenDialog(this.win, {
+            title: "Select Aerofly Main Configuration File",
+            defaultPath: payload.mainMcfFilePath || (this.service.config.mainMcfFilePath ?? this.service.config.importDirectory),
+            properties: ["openFile"],
+            filters: [
+                {
+                    name: AeroflyMcfToImportFileConverter.fileName,
+                    extensions: [AeroflyMcfToImportFileConverter.fileExtension],
+                },
+            ],
+        });
+        if (result.canceled) {
+            return createNotificationPayload("");
+        }
+        try {
+            this.service.config.mainMcfFilePath = path.dirname(result.filePaths[0]);
+            this.sendStateUpdate();
+        }
+        catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+        return createNotificationPayload("Successfully located main.mcf file", "success");
+    };
     importSimbrief = async (event, simBrief) => {
         try {
             this.service.config.simBriefUserName = simBrief.simBriefUserName;
@@ -170,6 +195,9 @@ export class AeroflyFlightServiceHandler {
         }
         return createNotificationPayload("Successfully fetched METAR", "success");
     };
+    onClose() {
+        this.service.writeFile();
+    }
     sendStateUpdate() {
         const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.service.config);
         this.win.webContents.send("state:update", state);

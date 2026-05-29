@@ -10,6 +10,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 
     private elements!: {
         mainMcfFilePath: HTMLInputElement;
+        mainMcfFilePathChooser: HTMLButtonElement;
     };
 
     get state(): SettingsWebComponentState {
@@ -35,7 +36,10 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 
   <section>
     <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
-    <input id="settings-mainmcffilepath" type="text" required />
+    <span class="d-flex">
+        <input id="settings-mainmcffilepath" type="text" required />
+        <button id="choose-mainmcffilepath">Choose</button>
+    </span>
   </section>
 
   <button commandfor="dialog-settings" command="close" title="Close">✕</button>
@@ -44,6 +48,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 
         this.elements = {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath") as HTMLInputElement,
+            mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath") as HTMLButtonElement,
         };
     }
 
@@ -58,10 +63,21 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         });
 
         this.addEventListener("input", this.handleChange);
+        this.elements.mainMcfFilePathChooser.addEventListener("click", this.handlePathChooserClick);
+    }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeEventListener("input", this.handleChange);
+        this.elements.mainMcfFilePathChooser.removeEventListener("click", this.handlePathChooserClick);
     }
 
     handleChange = async () => {
         sendToMain("config:set", this.state);
+    };
+
+    handlePathChooserClick = async () => {
+        sendToMain("config:choose-main-mcf-path", this.state);
     };
 
     static registerElement() {

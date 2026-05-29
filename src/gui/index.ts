@@ -44,7 +44,7 @@ const createWindow = () => {
 
     win.on("close", () => {
         aeroflyFlightServiceHandler.onClose();
-    })
+    });
 };
 
 app.whenReady().then(() => {

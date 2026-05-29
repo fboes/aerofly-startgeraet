@@ -7,10 +7,12 @@ export declare class AeroflyFlightServiceHandler {
     private readonly writeDelay;
     constructor(ipcMain: IpcMain, win: BrowserWindow);
     registerHandlers(): void;
+    private chooseMainMcfPath;
     private importSimbrief;
     private importFile;
     private exportFile;
     private fetchMetar;
+    onClose(): void;
     sendStateUpdate(): void;
     startDebouncedWriteFile(): void;
 }

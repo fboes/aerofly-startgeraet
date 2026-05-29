@@ -45,42 +45,48 @@ export class AeroflyFlightServiceHandler {
     }
 
     registerHandlers() {
-        this.ipcMain.handle("config:set", (event, config: SettingsWebComponentState) => {
+        this.ipcMain.handle("config:set", (event: IpcMainInvokeEvent, config: SettingsWebComponentState) => {
             this.service.config.mainMcfFilePath = config.mainMcfFilePath;
             this.sendStateUpdate();
         });
 
-        this.ipcMain.handle("aircraft:set", (event, aircraft: AircraftWebComponentState) => {
+        this.ipcMain.handle("aircraft:set", (event: IpcMainInvokeEvent, aircraft: AircraftWebComponentState) => {
             this.service.setAircraft(aircraft.aircraftName, aircraft.aircraftPaintscheme);
             this.sendStateUpdate();
         });
 
-        this.ipcMain.handle("fuel-payload:set", (event, fuelPayload: FuelPayloadWebComponentState) => {
-            this.service.setFuelAndPayload(fuelPayload.fuelMass, fuelPayload.payloadMass);
-            this.sendStateUpdate();
-        });
+        this.ipcMain.handle(
+            "fuel-payload:set",
+            (event: IpcMainInvokeEvent, fuelPayload: FuelPayloadWebComponentState) => {
+                this.service.setFuelAndPayload(fuelPayload.fuelMass, fuelPayload.payloadMass);
+                this.sendStateUpdate();
+            },
+        );
 
-        this.ipcMain.handle("wind:set", (event, wind: WindWebComponentState) => {
+        this.ipcMain.handle("wind:set", (event: IpcMainInvokeEvent, wind: WindWebComponentState) => {
             this.service.setWind(wind.directionInDegree, wind.speed_kts, wind.gust_kts);
             this.sendStateUpdate();
         });
 
-        this.ipcMain.handle("date-time:set", (event, dateTime: TimeAndDateWebComponentState) => {
+        this.ipcMain.handle("date-time:set", (event: IpcMainInvokeEvent, dateTime: TimeAndDateWebComponentState) => {
             this.service.setTimeAndDate(`${dateTime.utcDate}T${dateTime.utcTime}Z`);
             this.sendStateUpdate();
         });
 
-        this.ipcMain.handle("temperature:set", (event, temperature: TemperatureWebComponentState) => {
-            this.service.setTemperature(temperature.temperatureCelsius);
-            this.sendStateUpdate();
-        });
+        this.ipcMain.handle(
+            "temperature:set",
+            (event: IpcMainInvokeEvent, temperature: TemperatureWebComponentState) => {
+                this.service.setTemperature(temperature.temperatureCelsius);
+                this.sendStateUpdate();
+            },
+        );
 
-        this.ipcMain.handle("visibility:set", (event, visibility: VisibilityWebComponentState) => {
+        this.ipcMain.handle("visibility:set", (event: IpcMainInvokeEvent, visibility: VisibilityWebComponentState) => {
             this.service.setVisibilityM(visibility.visibilityMeters);
             this.sendStateUpdate();
         });
 
-        this.ipcMain.handle("clouds:set", (event, clouds: CloudsWebComponentState) => {
+        this.ipcMain.handle("clouds:set", (event: IpcMainInvokeEvent, clouds: CloudsWebComponentState) => {
             this.service.setClouds(
                 clouds.clouds.map((cloud) => ({
                     base_feet_agl: cloud.baseFt,
@@ -90,12 +96,43 @@ export class AeroflyFlightServiceHandler {
             this.sendStateUpdate();
         });
 
+        this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.importFile);
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
-
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
     }
+
+    private chooseMainMcfPath = async (
+        event: IpcMainInvokeEvent,
+        payload: SettingsWebComponentState,
+    ): Promise<NotificationEventPayload> => {
+        const result = await dialog.showOpenDialog(this.win, {
+            title: "Select Aerofly Main Configuration File",
+            defaultPath:
+                payload.mainMcfFilePath || (this.service.config.mainMcfFilePath ?? this.service.config.importDirectory),
+            properties: ["openFile"],
+            filters: [
+                {
+                    name: AeroflyMcfToImportFileConverter.fileName,
+                    extensions: [AeroflyMcfToImportFileConverter.fileExtension],
+                },
+            ],
+        });
+
+        if (result.canceled) {
+            return createNotificationPayload("");
+        }
+
+        try {
+            this.service.config.mainMcfFilePath = path.dirname(result.filePaths[0]);
+            this.sendStateUpdate();
+        } catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+
+        return createNotificationPayload("Successfully located main.mcf file", "success");
+    };
 
     private importSimbrief = async (
         event: IpcMainInvokeEvent,
