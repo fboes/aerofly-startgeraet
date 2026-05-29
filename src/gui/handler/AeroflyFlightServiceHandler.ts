@@ -214,6 +214,10 @@ export class AeroflyFlightServiceHandler {
         return createNotificationPayload("Successfully fetched METAR", "success");
     };
 
+    onClose() {
+        this.service.writeFile();
+    }
+
     sendStateUpdate() {
         const state = new AppState(
             this.service.getAeroflyFlight(),

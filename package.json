@@ -24,8 +24,27 @@
     "build:cli:macos": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-x64 --outfile artifacts/cli/aerofly-startgeraet-macos-x64",
     "build:cli:macos-arm64": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-arm64 --outfile artifacts/cli/aerofly-startgeraet-macos-arm64",
     "build:cli:windows": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-windows-x64 --outfile artifacts/cli/aerofly-startgeraet-windows.exe",
+    "build:gui": "npx electron-builder --publish never",
     "build:mcp": "mkdir -p artifacts/mcp && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcp/",
     "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md"
+  },
+  "build": {
+    "directories": {
+      "output": "artifacts/gui"
+    },
+    "productName": "AeroflyStartgeraet",
+    "win": {
+      "target": "portable",
+      "artifactName": "AeroflyStartgeraet-Windows.exe"
+    },
+    "mac": {
+      "target": "dmg",
+      "artifactName": "AeroflyStartgeraet-MacOS.dmg"
+    },
+    "linux": {
+      "target": "AppImage",
+      "artifactName": "AeroflyStartgeraet-Linux.AppImage"
+    }
   },
   "keywords": [
     "aerofly",

@@ -17,7 +17,6 @@ const createWindow = () => {
         },
     });
     win.loadFile(path.join(import.meta.dirname, "index.html"));
-    win.webContents.openDevTools(); // TODO: Remove this line before production
     win.webContents.setWindowOpenHandler(({ url }) => {
         if (url.startsWith("aerofly-startgeraet")) {
             return { action: "allow" };
@@ -42,6 +41,10 @@ const createWindow = () => {
     win.webContents.on("did-finish-load", () => {
         aeroflyFlightServiceHandler.sendStateUpdate();
     });
+
+    win.on("close", () => {
+        aeroflyFlightServiceHandler.onClose();
+    })
 };
 
 app.whenReady().then(() => {
