@@ -23,6 +23,11 @@ export declare function importFile(filename: string, flightplan: AeroflyFlight, 
 /**
  * @see importFile
  */
-export declare function importString(content: string, filename: string, flightplan: AeroflyFlight, index?: number): void;
+export declare function importString(
+    content: string,
+    filename: string,
+    flightplan: AeroflyFlight,
+    index?: number,
+): void;
 export declare function getImportConverter(filename: string): new () => StringToAeroflyFlightConverter;
 //# sourceMappingURL=importFlightplan.d.ts.map

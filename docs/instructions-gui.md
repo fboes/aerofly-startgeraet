@@ -10,7 +10,7 @@ This application supports computers running Microsoft Windows, Apple OSX and Lin
 
 ## Usage
 
-* `--no-sandbox` on Linux
+- `--no-sandbox` on Linux
 
 ---
 

@@ -1,4 +1,9 @@
-import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
+import {
+    AeroflyFlight,
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteDestinationRunway,
+    AeroflySettingsCloud,
+} from "@fboes/aerofly-custom-missions";
 export type AeroflylightCategoryIcao = "VFR" | "IFR";
 export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**
@@ -11,7 +16,9 @@ export declare function getLocalTimeZoneOffset(aeroflyFlight: AeroflyFlight): nu
 /**
  * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center). Also normalizes the runway identifier to match Aerofly FS4 standards.
  */
-export declare function positionRunwayWaypoint<T extends AeroflyNavRouteDepartureRunway | AeroflyNavRouteDestinationRunway>(waypoint: T): T;
+export declare function positionRunwayWaypoint<
+    T extends AeroflyNavRouteDepartureRunway | AeroflyNavRouteDestinationRunway,
+>(waypoint: T): T;
 export declare function getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategory;
 export declare function getIcaoFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryIcao;
 export declare function getCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined;

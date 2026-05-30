@@ -1,5 +1,15 @@
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrigin, AeroflySettingsCloud, AeroflySettingsFlight, AeroflySettingsAircraft, AeroflySettingsFuelLoad, AeroflyTimeUtc, AeroflyNavigationConfig } from "@fboes/aerofly-custom-missions";
+import {
+    AeroflyFlight,
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteOrigin,
+    AeroflySettingsCloud,
+    AeroflySettingsFlight,
+    AeroflySettingsAircraft,
+    AeroflySettingsFuelLoad,
+    AeroflyTimeUtc,
+    AeroflyNavigationConfig,
+} from "@fboes/aerofly-custom-missions";
 import { Config } from "../io/Config.js";
 import { type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 /**
@@ -68,15 +78,30 @@ export declare class AeroflyFlightService {
     getFlightplanDepartureAirportString(): string;
     getFlightplanArrivalAirportString(): string;
     getFlightplanLegs(trueAirspeed_kts?: number, consolidated?: boolean): RoutePlanServiceLeg[] | RoutePlanServiceRoute;
-    setFlightPosition(longitude: number, latitude: number, altitude_meter: number, heading_degree: number, speed_kts: number): AeroflySettingsFlight;
+    setFlightPosition(
+        longitude: number,
+        latitude: number,
+        altitude_meter: number,
+        heading_degree: number,
+        speed_kts: number,
+    ): AeroflySettingsFlight;
     setFlightPositionToDeparture(): void;
     importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
-    setFlightplan(origin: AeroflyFlightServiceAirport, destination: AeroflyFlightServiceAirport, { departureRunway, destinationRunway, waypoints, cruiseAltitudeFt, }?: {
-        departureRunway?: AeroflyFlightServiceRunway;
-        destinationRunway?: AeroflyFlightServiceRunway;
-        waypoints?: AeroflyFlightServiceWaypoint[];
-        cruiseAltitudeFt?: number;
-    }): AeroflyNavigationConfig;
+    setFlightplan(
+        origin: AeroflyFlightServiceAirport,
+        destination: AeroflyFlightServiceAirport,
+        {
+            departureRunway,
+            destinationRunway,
+            waypoints,
+            cruiseAltitudeFt,
+        }?: {
+            departureRunway?: AeroflyFlightServiceRunway;
+            destinationRunway?: AeroflyFlightServiceRunway;
+            waypoints?: AeroflyFlightServiceWaypoint[];
+            cruiseAltitudeFt?: number;
+        },
+    ): AeroflyNavigationConfig;
     exportFlightplanToFile(filePath: string): Promise<void>;
     getImportFiles(): string[] | null;
     getImportableFlightplans(filePath: string): string[];
@@ -97,7 +122,13 @@ export declare class AeroflyFlightService {
     getDepartureTimeZoneUTCString(): string;
     setWeatherFromMETAR(metar: string): void;
     setWeatherViaApi(airportCode: string): Promise<object>;
-    setWeather(visibilityM: number, temperatureCelsius: number, directionDegrees: number, speedKts: number, gustsKts?: number): object;
+    setWeather(
+        visibilityM: number,
+        temperatureCelsius: number,
+        directionDegrees: number,
+        speedKts: number,
+        gustsKts?: number,
+    ): object;
     getWeather(): object;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;
