@@ -1,0 +1,26 @@
+directories:
+  output: artifacts/gui
+  buildResources: .
+productName: Aerofly_Startgeraet
+win:
+  target: portable
+  icon: assets/icons/windows/icon.ico
+portable:
+  artifactName: ${productName}-Windows.${ext}
+mac:
+  target: dmg
+  artifactName: ${productName}-MacOS.${ext}
+  icon: assets/icons/macos/icon.icns
+linux:
+  target:
+    - AppImage
+    - deb
+  executableArgs:
+    - "--no-sandbox"
+  artifactName: ${productName}-Linux.${ext}
+  icon: assets/icons/linux/icons
+  category: Utility
+  desktop:
+    entry:
+      Name: My Application
+files: []

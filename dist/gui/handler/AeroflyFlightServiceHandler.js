@@ -21,13 +21,27 @@ export class AeroflyFlightServiceHandler {
     service;
     writeTimer = null;
     writeDelay = 1_000;
+    isMissingMainMcf = false;
     constructor(ipcMain, win) {
         this.ipcMain = ipcMain;
         this.win = win;
         const config = new Config("electron");
         this.service = new AeroflyFlightService(config);
-        this.service.readMainMcf();
+        this.loadMainMcf();
         this.registerHandlers();
+    }
+    loadMainMcf() {
+        try {
+            this.service.readMainMcf();
+        }
+        catch (e) {
+            if (e instanceof Error) {
+                this.isMissingMainMcf = true;
+            }
+            else {
+                throw e;
+            }
+        }
     }
     registerHandlers() {
         this.ipcMain.handle("config:set", (event, config) => {

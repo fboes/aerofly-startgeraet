@@ -8,6 +8,10 @@ This application supports computers running Microsoft Windows, Apple OSX and Lin
 
 > TODO: This sections needs more instructions
 
+## Usage
+
+* `--no-sandbox` on Linux
+
 ---
 
 [Back to top](../README.md)

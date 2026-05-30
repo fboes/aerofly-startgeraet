@@ -12,7 +12,8 @@
     "test:watch": "node --test --watch 'dist/**/*.test.js'",
     "test:mcp": "npx @modelcontextprotocol/inspector node ./dist/mcp/index.js",
     "start": "node ./dist/cli/index.js",
-    "start:gui": "electron .",
+    "start:gui": "npx electron .",
+    "start:gui:linux": "npx electron . --ozone-platform=x11",
     "start:mcp": "node ./dist/mcp/index.js",
     "prettier": "npx prettier --cache --write .",
     "eslint": "npx eslint src --fix",
@@ -27,30 +28,6 @@
     "build:gui": "npx electron-builder --publish never",
     "build:mcp": "mkdir -p artifacts/mcp && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcp/",
     "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md"
-  },
-  "build": {
-    "directories": {
-      "output": "artifacts/gui",
-      "buildResources": "."
-    },
-    "productName": "AeroflyStartgeraet",
-    "win": {
-      "target": "portable",
-      "icon": "assets/icons/windows/icon.ico"
-    },
-    "portable": {
-      "artifactName": "${productName}-Windows.${ext}"
-    },
-    "mac": {
-      "target": "dmg",
-      "artifactName": "${productName}-MacOS.${ext}",
-      "icon": "assets/icons/macos/icon.icns"
-    },
-    "linux": {
-      "target": "AppImage",
-      "artifactName": "${productName}-Linux.${ext}",
-      "icon": "assets/icons/linux/icons/512x512.png"
-    }
   },
   "keywords": [
     "aerofly",

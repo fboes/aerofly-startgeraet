@@ -33,6 +33,7 @@ export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
     private writeTimer: ReturnType<typeof setTimeout> | null = null;
     private readonly writeDelay = 1_000;
+    private isMissingMainMcf = false;
 
     constructor(
         protected ipcMain: IpcMain,
@@ -40,8 +41,20 @@ export class AeroflyFlightServiceHandler {
     ) {
         const config = new Config("electron");
         this.service = new AeroflyFlightService(config);
-        this.service.readMainMcf();
+        this.loadMainMcf();
         this.registerHandlers();
+    }
+
+    loadMainMcf() {
+        try {
+            this.service.readMainMcf();
+        } catch (e) {
+            if (e instanceof Error) {
+                this.isMissingMainMcf = true;
+            } else {
+                throw e;
+            }
+        }
     }
 
     registerHandlers() {

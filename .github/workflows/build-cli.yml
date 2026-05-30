@@ -17,10 +17,10 @@ jobs:
 
       - name: Build executables
         run: |
-          bun build src/cli/index.ts --compile --target=bun-linux-x64   --outfile artifacts/cli/aerofly-startgeraet-linux
-          bun build src/cli/index.ts --compile --target=bun-macos-x64   --outfile artifacts/cli/aerofly-startgeraet-macos-x64
-          bun build src/cli/index.ts --compile --target=bun-macos-arm64  --outfile artifacts/cli/aerofly-startgeraet-macos-arm64
-          bun build src/cli/index.ts --compile --target=bun-windows-x64  --outfile artifacts/cli/aerofly-startgeraet-windows.exe
+          bun build src/cli/index.ts --compile --target=bun-linux-x64   --outfile artifacts/cli/aerofly-startgeraet-cli-linux
+          bun build src/cli/index.ts --compile --target=bun-macos-x64   --outfile artifacts/cli/aerofly-startgeraet-cli-macos-x64
+          bun build src/cli/index.ts --compile --target=bun-macos-arm64  --outfile artifacts/cli/aerofly-startgeraet-cli-macos-arm64
+          bun build src/cli/index.ts --compile --target=bun-windows-x64  --outfile artifacts/cli/aerofly-startgeraet-cli-windows.exe
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

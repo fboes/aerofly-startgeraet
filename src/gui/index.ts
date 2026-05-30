@@ -17,6 +17,7 @@ const createWindow = () => {
         },
     });
     win.loadFile(path.join(import.meta.dirname, "index.html"));
+    //win.webContents.openDevTools();
     win.webContents.setWindowOpenHandler(({ url }) => {
         if (url.startsWith("aerofly-startgeraet")) {
             return { action: "allow" };

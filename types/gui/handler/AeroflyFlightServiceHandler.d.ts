@@ -5,7 +5,9 @@ export declare class AeroflyFlightServiceHandler {
     private readonly service;
     private writeTimer;
     private readonly writeDelay;
+    private isMissingMainMcf;
     constructor(ipcMain: IpcMain, win: BrowserWindow);
+    loadMainMcf(): void;
     registerHandlers(): void;
     private chooseMainMcfPath;
     private importSimbrief;

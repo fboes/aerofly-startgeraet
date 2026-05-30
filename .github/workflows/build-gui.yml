@@ -8,13 +8,13 @@ jobs:
         include:
           - os: windows-latest
             suffix: windows
-            artifact: "AeroflyStartgeraet-Windows.exe"
+            artifact: "Aerofly_Startgeraet-Windows.exe"
           - os: macos-latest
             suffix: macos
-            artifact: "AeroflyStartgeraet-MacOS.dmg"
+            artifact: "Aerofly_Startgeraet-MacOS.dmg"
           - os: ubuntu-latest
             suffix: linux
-            artifact: "AeroflyStartgeraet-Linux.AppImage"
+            artifact: "Aerofly_Startgeraet-Linux.AppImage"
 
     runs-on: ${{ matrix.os }}
 
@@ -33,7 +33,8 @@ jobs:
 
       - name: Install Linux build deps
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y fakeroot
+        run: |
+          sudo apt-get install -y fakeroot binutils
 
       - name: Build GUI application
         run: |
