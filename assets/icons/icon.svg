@@ -5,13 +5,14 @@
    id="svg7"
    sodipodi:docname="icon.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
-   inkscape:export-filename="favicon-64x64.png"
-   inkscape:export-xdpi="32"
-   inkscape:export-ydpi="32"
+   inkscape:export-filename="/Users/fboes/Downloads/icon-1024x1024.png"
+   inkscape:export-xdpi="512"
+   inkscape:export-ydpi="512"
    width="192"
    height="192"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
@@ -23,9 +24,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="2.7104744"
-     inkscape:cx="15.679912"
-     inkscape:cy="68.438205"
+     inkscape:zoom="3.1427909"
+     inkscape:cx="26.727836"
+     inkscape:cy="71.751513"
      inkscape:window-width="2104"
      inkscape:window-height="1186"
      inkscape:window-x="226"
@@ -51,6 +52,18 @@
   <defs
      id="defs2">
     <linearGradient
+       id="linearGradient11"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#17529e;stop-opacity:1;"
+         offset="0"
+         id="stop11" />
+      <stop
+         style="stop-color:#010c32;stop-opacity:1;"
+         offset="1"
+         id="stop12" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient2642"
        x2="512"
        y1="256"
@@ -66,38 +79,46 @@
          offset="1"
          id="stop2" />
     </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11"
+       id="linearGradient12"
+       x1="32"
+       y1="44"
+       x2="172"
+       y2="124"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <path
-     d="M 0,0 V 192 H 192 V 0 Z"
-     fill="url(#linearGradient2642)"
-     stroke-width="4.00012"
-     style="fill:url(#linearGradient2642);paint-order:stroke fill markers"
-     id="path2" />
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;stroke-linejoin:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1;fill:url(#linearGradient12);stroke:none"
+     d="m 35.693359,14.970703 a 4.0004001,4.0004001 0 0 0 -2,0.53711 4.0004001,4.0004001 0 0 0 -2,3.46289 V 96 173.0293 a 4.0004001,4.0004001 0 0 0 6,3.46289 L 104.4043,137.97852 171.11133,99.464844 a 4.0004001,4.0004001 0 0 0 0,-6.929688 L 104.4043,54.021484 37.693359,15.507813 a 4.0004001,4.0004001 0 0 0 -2,-0.53711 z"
+     id="path10" />
   <path
-     id="rect7"
-     style="opacity:0.25;fill:#000000;stroke-width:0.479381"
-     d="M 96,24 24,152 64,192 H 192 V 120 Z"
-     sodipodi:nodetypes="cccccc" />
+     d="M 26.901566,92.737881 152,68 l -42.67986,82.78426 -33.7766,-23.85439 -13.614407,4.68184 -1.250981,-15.01942 z"
+     fill="#f0f6ff"
+     id="path8"
+     style="opacity:0.35;fill:#000000;fill-opacity:1;stroke-width:0.455228"
+     sodipodi:nodetypes="ccccccc" />
   <g
-     transform="matrix(0.75,0,0,0.5,-60.000001,-24.000001)"
-     id="g7">
-    <g
-       transform="translate(16)"
-       id="g6">
-      <path
-         d="m 96,352 96,-256 96,256 h -72 l -24,32 -24,-32 z"
-         fill="#f0f6ff"
-         id="path4"
-         style="fill:#e2eeff;fill-opacity:1" />
-      <path
-         d="M 192,384 V 96 l -24,256 z"
-         opacity="0.3"
-         id="path5" />
-      <path
-         d="M 192,384 V 96 l 24,256 z"
-         fill="#ffffff"
-         opacity="0.3"
-         id="path6" />
-    </g>
+     transform="matrix(0.46911918,0.33131103,-0.31274612,0.22087401,87.952745,-24.815623)"
+     id="g6">
+    <path
+       d="m 96,352 96,-256 79.44497,255.63566 h -72 L 192,384 168,352 Z"
+       fill="#f0f6ff"
+       id="path4"
+       style="fill:#f6f6ee;fill-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       d="M 192,384 V 96 l -24,256 z"
+       opacity="0.3"
+       id="path5"
+       style="opacity:0.35" />
+    <path
+       d="M 192,384 V 96 l 7.44497,255.63566 z"
+       fill="#ffffff"
+       opacity="0.3"
+       id="path6"
+       sodipodi:nodetypes="cccc"
+       style="opacity:0.4" />
   </g>
 </svg>

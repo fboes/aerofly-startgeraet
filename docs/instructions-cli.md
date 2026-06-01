@@ -1,4 +1,4 @@
-# ![](../assets/icons/favicon-64x64.png) Aerofly Startgerät - CLI Tool
+# ![](../assets/icons/linux/icons/64x64.png) Aerofly Startgerät - CLI Tool
 
 ## Requirements
 
@@ -46,22 +46,22 @@ After downloading, mark the file as executable:
 
 ```bash
 # Linux
-chmod +x aerofly-startgeraet-linux
+chmod +x aerofly-startgeraet-cli-linux
 # or on macOS - Silicon chip
-chmod +x aerofly-startgeraet-macos-arm64
+chmod +x aerofly-startgeraet-cli-macos-arm64
 # or on macOS - Intel chip
-chmod +x aerofly-startgeraet-macos-x64
+chmod +x aerofly-startgeraet-cli-macos-x64
 ```
 
 Then run it:
 
 ```bash
 # Linux
-./aerofly-startgeraet-linux
+./aerofly-startgeraet-cli-linux
 # or on macOS - Silicon chip
-./aerofly-startgeraet-macos-arm64
+./aerofly-startgeraet-cli-macos-arm64
 # or on macOS - Intel chip
-./aerofly-startgeraet-macos-x64
+./aerofly-startgeraet-cli-macos-x64
 ```
 
 #### macOS Gatekeeper
@@ -69,17 +69,17 @@ Then run it:
 macOS may block the file as it is from an unidentified developer. To allow it:
 
 ```bash
-xattr -dr com.apple.quarantine aerofly-startgeraet-macos-arm64
+xattr -dr com.apple.quarantine aerofly-startgeraet-cli-macos-arm64
 ```
 
 Or via **System Settings → Privacy & Security → Allow anyway**.
 
 #### Windows
 
-Simply double-click `aerofly-startgeraet-windows.exe` or run it in PowerShell:
+Simply double-click `aerofly-startgeraet-cli-windows.exe` or run it in PowerShell:
 
 ```powershell
-.\aerofly-startgeraet-windows.exe
+.\aerofly-startgeraet-cli-windows.exe
 ```
 
 For convenience you may want to add a desktop shortcut:

@@ -4,6 +4,11 @@
 
 - Added Electron app
 
+## [1.6.3] - 2026-06-01
+
+- Updated icon
+- Fixed CLI deployment
+
 ## [1.6.0] - 2026-05-24
 
 - Adding stand-alone MCP server to deployment
