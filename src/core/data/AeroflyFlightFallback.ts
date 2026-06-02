@@ -35,7 +35,7 @@ export class AeroflyFlightFallback extends AeroflyFlight {
             new AeroflyTimeUtc(new Date()),
             new AeroflySettingsWind(0, 0, 0),
             [],
-            new AeroflyNavigationConfig(0, [
+            new AeroflyNavigationConfig(demoWaypoints[0]?.altitude ?? 0, [
                 new AeroflyNavRouteOrigin("KEYW", -81.759956, 24.556119, {
                     elevation_ft: 3,
                 }),

@@ -5,6 +5,7 @@ import { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/Aero
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightToGeoJsonConverter } from "../converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
+import { AeroflyFlightToMarkdownConverter } from "../converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 
 /**
  * Writes a file from an `AeroflyFlight` class instance to an
@@ -15,6 +16,7 @@ export const EXPORT_FILE_TYPES: string[] = [
     AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
     AeroflyFlightToGeoJsonConverter.fileExtension,
     AeroflyFlightToKmlConverter.fileExtension,
+    AeroflyFlightToMarkdownConverter.fileExtension,
 ] as const;
 
 const EXPORT_REGISTRY: Record<string, (new () => AeroflyFlightToStringConverter) | undefined> = {
@@ -22,6 +24,7 @@ const EXPORT_REGISTRY: Record<string, (new () => AeroflyFlightToStringConverter)
     [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
     [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
     [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
+    [AeroflyFlightToMarkdownConverter.fileExtension]: AeroflyFlightToMarkdownConverter,
 };
 
 export function exportFlightplanToString(filename: string, flightplan: AeroflyFlight): string {

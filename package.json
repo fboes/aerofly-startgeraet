@@ -1,6 +1,6 @@
 {
   "name": "@fboes/aerofly-startgeraet",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "The Auxiliary Power Unit for Aerofly Flight Simulator 4: Improving the main menu with meaningful units and import functionality for weather and flight plans.",
   "main": "./dist/gui/index.js",
   "engines": {
@@ -26,7 +26,7 @@
     "build:cli:macos-arm64": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-arm64 --outfile artifacts/cli/aerofly-startgeraet-macos-arm64",
     "build:cli:windows": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-windows-x64 --outfile artifacts/cli/aerofly-startgeraet-windows.exe",
     "build:gui": "npx electron-builder --publish never",
-    "build:mcp": "mkdir -p artifacts/mcp && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcp/",
+    "build:mcpb": "mkdir -p artifacts/mcpb && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcpb/",
     "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md"
   },
   "keywords": [

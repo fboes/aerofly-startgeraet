@@ -73,18 +73,21 @@ export function getFlightplanDistance(aeroflyFlight) {
     try {
         const route = new RoutePlanService(aeroflyFlight).getRoute();
         const distanceNm = route.distanceTotal_nm;
-        const timeH = route.estimatedTimeEnrouteTotal_min * 60;
-        const timeString = timeH
-            ? `, ${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
-                .toString()
-                .padStart(2, "0")}h`
-            : "";
-        return `${numberToString(distanceNm)}NM${timeString}`;
+        const minuteString = getHourString(route.estimatedTimeEnrouteTotal_min);
+        return `${numberToString(distanceNm)}NM${minuteString ? ", " + minuteString : ""}`;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }
     catch (e) {
         return "Unknown";
     }
+}
+export function getHourString(minutes) {
+    const timeH = minutes / 60;
+    return timeH
+        ? `${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
+            .toString()
+            .padStart(2, "0")}h`
+        : "";
 }
 export function getCombinedFlightCategory(aeroflyFlight) {
     return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getFlightCategory(aeroflyFlight)}`;
