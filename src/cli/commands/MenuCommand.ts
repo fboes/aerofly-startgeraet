@@ -11,6 +11,7 @@ import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-fl
 import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
 import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
+import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "writeMenuTitle" | "name" | "execute">;
 
@@ -278,6 +279,10 @@ export class MenuCommand extends ControllerCommand {
                 {
                     name: "Keyhole Markup Language (KML) file",
                     value: AeroflyFlightToKmlConverter.fileExtension,
+                },
+                {
+                    name: AeroflyFlightToMarkdownConverter.fileName,
+                    value: AeroflyFlightToMarkdownConverter.fileExtension,
                 },
             ],
         });

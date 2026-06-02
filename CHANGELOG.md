@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Added Electron app
+- Added Markdown export
 
 ## [1.7.0] - 2026-06-01
 

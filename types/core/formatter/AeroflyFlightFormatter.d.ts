@@ -20,6 +20,7 @@ export declare function getFlightplanSummary(aeroflyFlight: AeroflyFlight): stri
  */
 export declare function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength?: number): string;
 export declare function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string;
+export declare function getHourString(minutes: number): string;
 export declare function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string;
 export declare function getWind(aeroflyFlight: AeroflyFlight): string;
 export declare function getTemperature(aeroflyFlight: AeroflyFlight): string;
