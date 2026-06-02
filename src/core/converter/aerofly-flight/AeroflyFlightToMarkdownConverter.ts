@@ -2,7 +2,6 @@ import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
 import {
     dateToString,
-    getCombinedFlightCategory,
     getFlightplanDestinationName,
     getFlightplanOriginCode,
     getFlightplanOriginName,
@@ -12,7 +11,7 @@ import {
 import { markdownTable } from "../../formatter/markdownTable.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
-import { getFlightCategory, getIcaoFlightCategory, getTimeAndDateDeparture } from "../../util/AeroflyFlightHelper.js";
+import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
 
 export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConverter {
     static readonly fileName = "Markdown Text File";
@@ -79,7 +78,7 @@ ${markdownTable([
     ["UTC", ...dateToString(flightplan.timeUtc.time).split(" "), ""],
     [
         getFlightplanOriginCode(flightplan),
-        ...dateToString(getTimeAndDateDeparture(flightplan)).split(" "),
+        ...dateToString(getLocalTimeAndDate(flightplan)).split(" "),
         getSunPositionName(flightplan),
     ],
 ])}

@@ -1,9 +1,9 @@
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
-import { dateToString, getCombinedFlightCategory, getFlightplanDestinationName, getFlightplanOriginCode, getFlightplanOriginName, getHourString, getSunPositionName, } from "../../formatter/AeroflyFlightFormatter.js";
+import { dateToString, getFlightplanDestinationName, getFlightplanOriginCode, getFlightplanOriginName, getHourString, getSunPositionName, } from "../../formatter/AeroflyFlightFormatter.js";
 import { markdownTable } from "../../formatter/markdownTable.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
-import { getFlightCategory, getIcaoFlightCategory, getTimeAndDateDeparture } from "../../util/AeroflyFlightHelper.js";
+import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
 export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConverter {
     static fileName = "Markdown Text File";
     static fileExtension = "md";
@@ -63,7 +63,7 @@ ${markdownTable([
             ["UTC", ...dateToString(flightplan.timeUtc.time).split(" "), ""],
             [
                 getFlightplanOriginCode(flightplan),
-                ...dateToString(getTimeAndDateDeparture(flightplan)).split(" "),
+                ...dateToString(getLocalTimeAndDate(flightplan)).split(" "),
                 getSunPositionName(flightplan),
             ],
         ])}
