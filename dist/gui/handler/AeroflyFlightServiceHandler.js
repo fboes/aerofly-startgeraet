@@ -15,6 +15,7 @@ import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-fl
 import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 import path from "node:path";
 import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
+import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 export class AeroflyFlightServiceHandler {
     ipcMain;
     win;
@@ -184,6 +185,10 @@ export class AeroflyFlightServiceHandler {
                 {
                     name: AeroflyFlightToKmlConverter.fileName,
                     extensions: [AeroflyFlightToKmlConverter.fileExtension],
+                },
+                {
+                    name: AeroflyFlightToMarkdownConverter.fileName,
+                    extensions: [AeroflyFlightToMarkdownConverter.fileExtension],
                 },
             ],
         });

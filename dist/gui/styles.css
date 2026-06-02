@@ -341,7 +341,7 @@ dialog {
 startgeraet-notification {
     output {
         position: fixed;
-        bottom: -5rem;
+        bottom: -8rem;
         left: 50%;
         margin: 0 auto;
         display: inline-block;
