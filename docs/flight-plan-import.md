@@ -1,4 +1,4 @@
-# ![](../assets/icons/linux/icons/64x64.png) Aerofly Startgerät - Importing flight plans
+# ![](../assets/icons/icon.svg) Aerofly Startgerät - Importing flight plans
 
 Importing flight plans is not completely straightforward with the Aerofly Startgerät. This workflow will get you started:
 

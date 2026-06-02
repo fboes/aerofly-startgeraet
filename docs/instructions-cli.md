@@ -1,4 +1,4 @@
-# ![](../assets/icons/linux/icons/64x64.png) Aerofly Startgerät - CLI Tool
+# ![](../assets/icons/icon.svg) Aerofly Startgerät - CLI Tool
 
 ## Requirements
 

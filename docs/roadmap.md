@@ -1,4 +1,4 @@
-# ![](../assets/icons/linux/icons/64x64.png) Aerofly Startgerät - Roadmap
+# ![](../assets/icons/icon.svg) Aerofly Startgerät - Roadmap
 
 This application will grow in multiple steps:
 

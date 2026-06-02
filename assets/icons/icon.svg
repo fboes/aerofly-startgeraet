@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.1"
-   viewBox="0 0 192 192"
+   viewBox="0 0 48 48"
    id="svg7"
    sodipodi:docname="icon.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    inkscape:export-filename="/Users/fboes/Downloads/icon-1024x1024.png"
-   inkscape:export-xdpi="512"
-   inkscape:export-ydpi="512"
-   width="192"
-   height="192"
+   inkscape:export-xdpi="2048"
+   inkscape:export-ydpi="2048"
+   width="48"
+   height="48"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -24,9 +24,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="3.1427909"
-     inkscape:cx="26.727836"
-     inkscape:cy="71.751513"
+     inkscape:zoom="4.5128625"
+     inkscape:cx="-35.011038"
+     inkscape:cy="0.55397212"
      inkscape:window-width="2104"
      inkscape:window-height="1186"
      inkscape:window-x="226"
@@ -39,29 +39,29 @@
        units="px"
        originx="0"
        originy="0"
-       spacingx="4"
-       spacingy="4"
+       spacingx="1"
+       spacingy="1"
        empcolor="#0099e5"
        empopacity="0.30196078"
        color="#0099e5"
        opacity="0.14901961"
-       empspacing="6"
+       empspacing="3"
        enabled="true"
        visible="true" />
   </sodipodi:namedview>
   <defs
      id="defs2">
     <linearGradient
-       id="linearGradient11"
+       id="linearGradient13"
        inkscape:collect="always">
       <stop
-         style="stop-color:#17529e;stop-opacity:1;"
+         style="stop-color:#17529e;stop-opacity:1"
          offset="0"
-         id="stop11" />
+         id="stop13" />
       <stop
-         style="stop-color:#010c32;stop-opacity:1;"
+         style="stop-color:#041540;stop-opacity:1"
          offset="1"
-         id="stop12" />
+         id="stop14" />
     </linearGradient>
     <linearGradient
        id="linearGradient2642"
@@ -81,26 +81,27 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient11"
-       id="linearGradient12"
-       x1="32"
-       y1="44"
-       x2="172"
-       y2="124"
-       gradientUnits="userSpaceOnUse" />
+       xlink:href="#linearGradient13"
+       id="linearGradient14"
+       x1="-11.640625"
+       y1="2.445312"
+       x2="6.0406122"
+       y2="33.070114"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99201587,0,0,0.99702475,20.539701,1.8287455)" />
   </defs>
   <path
-     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;stroke-linejoin:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1;fill:url(#linearGradient12);stroke:none"
-     d="m 35.693359,14.970703 a 4.0004001,4.0004001 0 0 0 -2,0.53711 4.0004001,4.0004001 0 0 0 -2,3.46289 V 96 173.0293 a 4.0004001,4.0004001 0 0 0 6,3.46289 L 104.4043,137.97852 171.11133,99.464844 a 4.0004001,4.0004001 0 0 0 0,-6.929688 L 104.4043,54.021484 37.693359,15.507813 a 4.0004001,4.0004001 0 0 0 -2,-0.53711 z"
-     id="path10" />
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:url(#linearGradient14);fill-opacity:1;stroke-width:0.994517;stroke-linejoin:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+     d="M 9.9840317,4.0000001 A 1.9842293,1.994248 0 0 0 8.9920159,4.266782 1.9842293,1.994248 0 0 0 8,5.9940496 V 24.000861 42.005726 a 1.9842293,1.994248 0 0 0 2.976048,1.727267 l 15.515748,-9.002432 15.515748,-9.002432 a 1.9842293,1.994248 0 0 0 0,-3.454535 L 26.491796,13.269215 10.976048,4.266782 A 1.9842293,1.994248 0 0 0 9.9840317,4.0000001 Z"
+     id="path9" />
   <path
-     d="M 26.901566,92.737881 152,68 l -42.67986,82.78426 -33.7766,-23.85439 -13.614407,4.68184 -1.250981,-15.01942 z"
+     d="M 5.6188465,23.359429 36.554233,17.119992 26,38 17.64744,31.9834 14.280755,33.164263 13.971403,29.376035 Z"
      fill="#f0f6ff"
      id="path8"
-     style="opacity:0.35;fill:#000000;fill-opacity:1;stroke-width:0.455228"
+     style="opacity:0.35;fill:#000000;fill-opacity:1;stroke-width:0.11369"
      sodipodi:nodetypes="ccccccc" />
   <g
-     transform="matrix(0.46911918,0.33131103,-0.31274612,0.22087401,87.952745,-24.815623)"
+     transform="matrix(0.11625,0.08404413,-0.0775,0.05602941,21.119999,-6.5152972)"
      id="g6">
     <path
        d="m 96,352 96,-256 79.44497,255.63566 h -72 L 192,384 168,352 Z"
