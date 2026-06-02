@@ -297,7 +297,6 @@ export class AeroflyFlightService {
     setClouds(clouds) {
         this.aeroflyFlight.clouds = []; // Clear existing clouds
         this.aeroflyFlight.clouds = clouds
-            .filter((cloud) => cloud.cloud_coverage > 0)
             .map((cloud) => AeroflySettingsCloud.createInFeet(cloud.cloud_coverage, cloud.base_feet_agl));
         return this.aeroflyFlight.clouds;
     }
