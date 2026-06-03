@@ -50,7 +50,13 @@ export class AeroflyFileParser {
      */
     setGroup(subject, groupType, indent, insertValue) {
         const indentString = "    ".repeat(indent);
-        return subject.replace(new RegExp("(\\n" + indentString + ")(<\\[" + groupType + "\\]\\S*)([\\s\\S]+?)(\\n" + indentString + ">)"), (match, p1) => {
+        return subject.replace(new RegExp("(\\n" +
+            indentString +
+            ")(<\\[" +
+            groupType +
+            "\\]\\[[^\\]]*\\]\\[[^\\]]*\\])(>|([\\s\\S]+?)\\n" +
+            indentString +
+            ">)"), (match, p1) => {
             return p1 + insertValue.trim();
         });
     }

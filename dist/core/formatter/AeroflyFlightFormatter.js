@@ -102,19 +102,19 @@ export function getWind(aeroflyFlight) {
 export function getTemperature(aeroflyFlight) {
     return `${numberToString(aeroflyFlight.wind.temperature_celsius)}°C`;
 }
-export function getVisibility(aeroflyFlight) {
+export function getVisibility(aeroflyFlight, separator = "/") {
     if (aeroflyFlight.visibility_sm === 10 || aeroflyFlight.visibility_meter === 9999) {
-        return "10SM / " + numberToString(9999) + "m";
+        return `10SM ${separator} ${numberToString(9999)}m`;
     }
-    return `${numberToString(aeroflyFlight.visibility_sm)}SM / ${numberToString(aeroflyFlight.visibility_meter)}m`;
+    return `${numberToString(aeroflyFlight.visibility_sm)}SM ${separator} ${numberToString(aeroflyFlight.visibility_meter)}m`;
 }
-export function getClouds(aeroflyFlight) {
+export function getClouds(aeroflyFlight, join = " | ") {
     return (aeroflyFlight.clouds
         .filter((cloud) => cloud.density > 0)
         .map((cloud) => {
         return `${cloud.density_code} @ ${numberToString(cloud.height_ft)}ft`;
     })
-        .join(" | ") || "CLR");
+        .join(join) || "CLR");
 }
 export function getSunPositionName(aeroflyFlight) {
     const solarElevationAngleDeg = getSunPosition(aeroflyFlight).elevation;

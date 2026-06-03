@@ -2,11 +2,14 @@ import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
 import {
     dateToString,
+    getClouds,
     getFlightplanDestinationName,
     getFlightplanOriginCode,
     getFlightplanOriginName,
     getHourString,
-    getSunPositionName,
+    getTemperature,
+    getVisibility,
+    getWind,
 } from "../../formatter/AeroflyFlightFormatter.js";
 import { markdownTable } from "../../formatter/markdownTable.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyAircraft.js";
@@ -37,24 +40,14 @@ ${this.getFlightSummary(flightplan)}
         }
         const currentLivery = getAeroflyLivery(currentAircraft, flightplan.aircraft.paintscheme);
 
-        const fuel =
-            flightplan.fuelLoadSetting.fuelMass || flightplan.fuelLoadSetting.payloadMass
-                ? markdownTable([
-                      ["Fuel load", "Payload"],
-                      ["---:", "---:"],
-                      [
-                          this.numericOutput(flightplan.fuelLoadSetting.fuelMass, " kg"),
-                          this.numericOutput(flightplan.fuelLoadSetting.payloadMass, " kg"),
-                      ],
-                  ])
-                : "";
+        const fuel = flightplan.fuelLoadSetting.fuelMass || flightplan.fuelLoadSetting.payloadMass;
 
         return `\
 ## Aircraft
 
 ${markdownTable([
-    ["Aircraft", "Livery", "Cruise speed", "Cruise altitude"],
-    ["---", "---", "---:", "---:"],
+    ["Aircraft", "Livery", "Cruise speed", "Cruise altitude", "Fuel load", "Payload"],
+    ["---", "---", "---:", "---:", "---:", "---:"],
     [
         currentAircraft.nameFull,
         currentLivery?.name ?? "Default",
@@ -62,9 +55,10 @@ ${markdownTable([
         flightplan.navigation.cruiseAltitude_ft
             ? this.numericOutput(flightplan.navigation.cruiseAltitude_ft, " ft")
             : "not set",
+        fuel ? this.numericOutput(flightplan.fuelLoadSetting.fuelMass, " kg") : "",
+        fuel ? this.numericOutput(flightplan.fuelLoadSetting.payloadMass, " kg") : "",
     ],
-])}\
-${fuel ? "\n\n###Fuel & payload\n\n" + fuel : ""}
+])}
 `;
     }
 
@@ -73,14 +67,10 @@ ${fuel ? "\n\n###Fuel & payload\n\n" + fuel : ""}
 ## Departure time & date
 
 ${markdownTable([
-    ["Timezone", "Date", "Time", "Remark"],
-    ["---", "--:", "---:", "---"],
-    ["UTC", ...dateToString(flightplan.timeUtc.time).split(" "), ""],
-    [
-        getFlightplanOriginCode(flightplan),
-        ...dateToString(getLocalTimeAndDate(flightplan)).split(" "),
-        getSunPositionName(flightplan),
-    ],
+    ["Timezone", "Date", "Time"],
+    ["---", "--:", "---:"],
+    ["UTC", ...dateToString(flightplan.timeUtc.time).split(" ")],
+    [getFlightplanOriginCode(flightplan), ...dateToString(getLocalTimeAndDate(flightplan)).split(" ")],
 ])}
 `;
     }
@@ -89,7 +79,17 @@ ${markdownTable([
         return `\
 ## Weather
 
-Flight category: ${getIcaoFlightCategory(flightplan)} (ICAO), ${getFlightCategory(flightplan)} (US)
+${markdownTable([
+    ["Wind", "Clouds", "Visibility", "Temperature", "Flight Categegory"],
+    ["---", "--:", "--:", "--:", "---"],
+    [
+        getWind(flightplan),
+        getClouds(flightplan, " <br> "),
+        getVisibility(flightplan, "<br>"),
+        getTemperature(flightplan),
+        `${getIcaoFlightCategory(flightplan)} (ICAO) <br> ${getFlightCategory(flightplan)} (US)`,
+    ],
+])}
 `;
     }
 
@@ -99,13 +99,20 @@ Flight category: ${getIcaoFlightCategory(flightplan)} (ICAO), ${getFlightCategor
 ## Flight details
 
 ${markdownTable([
-    ["From", "To", "Altitude", "Track", "HDG", "GS", "Dist", "ETE", "ETO"],
-    ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
+    ["From", "To", "Freq", "Altitude", "Track", "HDG", "GS", "Dist", "ETE", "ETO"],
+    ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
     ...route
         .getRouteLegs()
         .map((l) => [
             l.from,
             l.to,
+            l.frequency_mhz
+                ? this.numericOutput(
+                      l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz / 1000,
+                      l.frequency_mhz > 1 ? " MHz" : " kHZ",
+                      l.frequency_mhz > 1 ? 1 : 0,
+                  )
+                : "",
             l.altitude_ft ? this.numericOutput(l.altitude_ft, " ft") : "",
             this.numericOutput(l.track_deg, "°"),
             this.numericOutput(l.heading_deg, "°"),

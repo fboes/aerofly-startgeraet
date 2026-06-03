@@ -12,7 +12,14 @@ export type RoutePlanServiceLeg = {
     distanceTotal_nm: number;
     estimatedTimeEnroute_min: number;
     estimatedTimeEnrouteTotal_min: number;
+    /**
+     * Altitude for TO
+     */
     altitude_ft: number | null;
+    /**
+     * Frequency for TO
+     */
+    frequency_mhz: number | null;
     onGround: boolean;
 };
 export type RoutePlanServiceRoute = {
@@ -34,6 +41,7 @@ export declare class RoutePlanService {
      * @returns {number | null} altitude / elevation in meters
      */
     private getWaypointAltitude;
+    private getFrequencyMhz;
     private getCruiseSpeedKts;
     /**
      * @see https://e6bx.com/e6b

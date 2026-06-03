@@ -23,7 +23,16 @@ export type RoutePlanServiceLeg = {
     distanceTotal_nm: number;
     estimatedTimeEnroute_min: number;
     estimatedTimeEnrouteTotal_min: number;
+
+    /**
+     * Altitude for TO
+     */
     altitude_ft: number | null;
+
+    /**
+     * Frequency for TO
+     */
+    frequency_mhz: number | null;
     onGround: boolean;
 };
 
@@ -80,6 +89,8 @@ export class RoutePlanService {
                 estimatedTimeEnrouteTotal_min += estimatedTimeEnroute_min;
                 distanceTotal_nm += distance_nm;
 
+                const frequency_mhz = this.getFrequencyMhz(wp);
+
                 const leg = {
                     from: lastWaypoint.identifier,
                     to: wp.identifier,
@@ -93,7 +104,8 @@ export class RoutePlanService {
                     distanceTotal_nm,
                     estimatedTimeEnroute_min,
                     estimatedTimeEnrouteTotal_min,
-                    altitude_ft: lastCoordinates.elevation ? lastCoordinates.elevation * 3.28084 : null,
+                    altitude_ft: coords.elevation ? coords.elevation * 3.28084 : null,
+                    frequency_mhz,
                     onGround,
                 };
                 legs.push(leg);
@@ -141,6 +153,13 @@ export class RoutePlanService {
             wp instanceof AeroflyNavRouteDestination
         ) {
             return wp.elevation;
+        }
+        return null;
+    }
+
+    private getFrequencyMhz(wp: AeroflyNavRouteBase): number | null {
+        if (wp instanceof AeroflyNavRouteWaypoint) {
+            return wp.navaidFrequency_mhz;
         }
         return null;
     }
