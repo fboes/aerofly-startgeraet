@@ -62,9 +62,16 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
         this.elements.temperatureCelsius.valueAsNumber = Math.round((this.elements.temperatureFahrenheit.valueAsNumber - 32) * (5 / 9));
     };
     setFahrenheitFromCelsius = () => {
-        const fahrenheit = Math.round(this.elements.temperatureCelsius.valueAsNumber * 1.8 + 32);
-        // TODO: User inputs from Fahrenheit may be reverted by rounding - only overwrite if _rounded_ value in Fahrenheit cannot be a _rounded_ representation of Celsius.
-        this.elements.temperatureFahrenheit.valueAsNumber = fahrenheit;
+        const celsius = this.elements.temperatureCelsius.valueAsNumber;
+        const fahrenheit = Math.round(celsius * 1.8 + 32);
+        // Only overwrite if the existing rounded Fahrenheit value would not
+        // convert back to the same rounded Celsius — i.e. the two fields are
+        // genuinely inconsistent, not just a rounding artefact.
+        const existingFahrenheit = Math.round(this.elements.temperatureFahrenheit.valueAsNumber);
+        const celsiusFromExisting = Math.round((existingFahrenheit - 32) / 1.8);
+        if (celsiusFromExisting !== Math.round(celsius)) {
+            this.elements.temperatureFahrenheit.valueAsNumber = fahrenheit;
+        }
     };
     static registerElement() {
         customElements.define("startgeraet-temperature", TemperatureWebComponent);
