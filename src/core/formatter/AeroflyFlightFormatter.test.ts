@@ -38,12 +38,12 @@ describe("AeroflyFlightFormatter", () => {
         assert.strictEqual(aeroflyFlight.navigation.waypoints.length, 5);
 
         for (const testCase of <[number, string][]>[
-            [0, "KEYW → MTH → MNATE → HST → KMIA"],
-            [1, "KEYW → MTH → MNATE → HST → KMIA"],
+            [0, "KEYW → KMTH → MNATE → HST → KMIA"],
+            [1, "KEYW → KMTH → MNATE → HST → KMIA"],
             [2, "KEYW → KMIA"],
             [3, "KEYW → … → KMIA"],
             [4, "KEYW → … → HST → KMIA"],
-            [5, "KEYW → MTH → MNATE → HST → KMIA"],
+            [5, "KEYW → KMTH → MNATE → HST → KMIA"],
         ]) {
             const string = getFlightplanWaypoints(aeroflyFlight, testCase[0]);
             assert.strictEqual(string, testCase[1]);

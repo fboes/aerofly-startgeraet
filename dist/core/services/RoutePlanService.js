@@ -38,6 +38,7 @@ export class RoutePlanService {
                 const estimatedTimeEnroute_min = (distance_nm / groundSpeed_kts) * 60;
                 estimatedTimeEnrouteTotal_min += estimatedTimeEnroute_min;
                 distanceTotal_nm += distance_nm;
+                const frequency_mhz = this.getFrequencyMhz(wp);
                 const leg = {
                     from: lastWaypoint.identifier,
                     to: wp.identifier,
@@ -51,7 +52,8 @@ export class RoutePlanService {
                     distanceTotal_nm,
                     estimatedTimeEnroute_min,
                     estimatedTimeEnrouteTotal_min,
-                    altitude_ft: lastCoordinates.elevation ? lastCoordinates.elevation * 3.28084 : null,
+                    altitude_ft: coords.elevation ? coords.elevation * 3.28084 : null,
+                    frequency_mhz,
                     onGround,
                 };
                 legs.push(leg);
@@ -92,6 +94,12 @@ export class RoutePlanService {
             wp instanceof AeroflyNavRouteDestinationRunway ||
             wp instanceof AeroflyNavRouteDestination) {
             return wp.elevation;
+        }
+        return null;
+    }
+    getFrequencyMhz(wp) {
+        if (wp instanceof AeroflyNavRouteWaypoint) {
+            return wp.navaidFrequency_mhz;
         }
         return null;
     }

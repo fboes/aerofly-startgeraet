@@ -19,7 +19,7 @@ export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**
  * @returns nautical time zone offset based on the coordinates of the departure airport
  */
-export function getDepartureTimeZone(aeroflyFlight: AeroflyFlight): number {
+export function getLocalTimeZoneOffset(aeroflyFlight: AeroflyFlight): number {
     return Math.round(
         (aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15,
     );
@@ -82,8 +82,8 @@ export function getSunPosition(aeroflyFlight: AeroflyFlight): { elevation: numbe
     );
 }
 
-export function getTimeAndDateDeparture(aeroflyFlight: AeroflyFlight): Date {
-    const departureTimeZoneOffset = getDepartureTimeZone(aeroflyFlight) * 60;
+export function getLocalTimeAndDate(aeroflyFlight: AeroflyFlight): Date {
+    const departureTimeZoneOffset = getLocalTimeZoneOffset(aeroflyFlight) * 60;
     const localTime = new Date(aeroflyFlight.timeUtc.time.getTime() + departureTimeZoneOffset * 60000);
     return localTime;
 }

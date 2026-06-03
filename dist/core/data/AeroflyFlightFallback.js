@@ -6,7 +6,7 @@ export class AeroflyFlightFallback extends AeroflyFlight {
     constructor(addDemoWaypoints = false) {
         const demoWaypoints = addDemoWaypoints
             ? [
-                new AeroflyNavRouteWaypoint("MTH", -81.051417, 24.726286, {
+                new AeroflyNavRouteWaypoint("KMTH", -81.051417, 24.726286, {
                     altitude_ft: 8000,
                 }),
                 new AeroflyNavRouteWaypoint("MNATE", -80.524028, 24.979317, {

@@ -7,7 +7,7 @@ import * as SunPosition from "./calculateSunPosition.js";
 /**
  * @returns nautical time zone offset based on the coordinates of the departure airport
  */
-export function getDepartureTimeZone(aeroflyFlight) {
+export function getLocalTimeZoneOffset(aeroflyFlight) {
     return Math.round((aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15);
 }
 /**
@@ -52,8 +52,8 @@ export function getCeiling(aeroflyFlight) {
 export function getSunPosition(aeroflyFlight) {
     return SunPosition.calculateSunPosition(aeroflyFlight.timeUtc.timeHours, aeroflyFlight.timeUtc.time, aeroflyFlight.navigation.waypoints[0].latitude, aeroflyFlight.navigation.waypoints[0].longitude);
 }
-export function getTimeAndDateDeparture(aeroflyFlight) {
-    const departureTimeZoneOffset = getDepartureTimeZone(aeroflyFlight) * 60;
+export function getLocalTimeAndDate(aeroflyFlight) {
+    const departureTimeZoneOffset = getLocalTimeZoneOffset(aeroflyFlight) * 60;
     const localTime = new Date(aeroflyFlight.timeUtc.time.getTime() + departureTimeZoneOffset * 60000);
     return localTime;
 }

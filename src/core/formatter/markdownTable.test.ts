@@ -11,7 +11,7 @@ describe("markdownTable", () => {
         ]);
 
         assert.ok(markdownTableOuput);
-        console.log(markdownTableOuput);
+        //console.log(markdownTableOuput);
     });
 
     it("should build a well formatted table with mssing table cells", () => {
@@ -24,6 +24,6 @@ describe("markdownTable", () => {
         ]);
 
         assert.ok(markdownTableOuput);
-        console.log(markdownTableOuput);
+        //console.log(markdownTableOuput);
     });
 });

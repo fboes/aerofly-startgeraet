@@ -4,6 +4,7 @@
 
 - Added Electron app
 - Added Markdown export
+- Fixed cloud bug which brakes the `main.mcf`
 
 ## [1.7.0] - 2026-06-01
 

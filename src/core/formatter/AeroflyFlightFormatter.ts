@@ -11,7 +11,7 @@ import {
     getIcaoFlightCategory,
     getFlightCategory,
     getSunPosition,
-    getTimeAndDateDeparture,
+    getLocalTimeAndDate,
 } from "../util/AeroflyFlightHelper.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";
@@ -146,28 +146,28 @@ export function getTemperature(aeroflyFlight: AeroflyFlight): string {
     return `${numberToString(aeroflyFlight.wind.temperature_celsius)}°C`;
 }
 
-export function getVisibility(aeroflyFlight: AeroflyFlight): string {
+export function getVisibility(aeroflyFlight: AeroflyFlight, separator = "/"): string {
     if (aeroflyFlight.visibility_sm === 10 || aeroflyFlight.visibility_meter === 9999) {
-        return "10SM / " + numberToString(9999) + "m";
+        return `10SM ${separator} ${numberToString(9999)}m`;
     }
 
-    return `${numberToString(aeroflyFlight.visibility_sm)}SM / ${numberToString(aeroflyFlight.visibility_meter)}m`;
+    return `${numberToString(aeroflyFlight.visibility_sm)}SM ${separator} ${numberToString(aeroflyFlight.visibility_meter)}m`;
 }
 
-export function getClouds(aeroflyFlight: AeroflyFlight): string {
+export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
     return (
         aeroflyFlight.clouds
             .filter((cloud) => cloud.density > 0)
             .map((cloud) => {
                 return `${cloud.density_code} @ ${numberToString(cloud.height_ft)}ft`;
             })
-            .join(" | ") || "CLR"
+            .join(join) || "CLR"
     );
 }
 
 export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
     const solarElevationAngleDeg = getSunPosition(aeroflyFlight).elevation;
-    const localTime = getTimeAndDateDeparture(aeroflyFlight);
+    const localTime = getLocalTimeAndDate(aeroflyFlight);
 
     if (solarElevationAngleDeg >= 0) {
         return "Day";

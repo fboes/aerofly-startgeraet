@@ -9,7 +9,7 @@ describe("markdownTable", () => {
             ["EHAM", `${24} min`, `${56} km`],
         ]);
         assert.ok(markdownTableOuput);
-        console.log(markdownTableOuput);
+        //console.log(markdownTableOuput);
     });
     it("should build a well formatted table with mssing table cells", () => {
         const markdownTableOuput = markdownTable([
@@ -20,6 +20,6 @@ describe("markdownTable", () => {
             }),
         ]);
         assert.ok(markdownTableOuput);
-        console.log(markdownTableOuput);
+        //console.log(markdownTableOuput);
     });
 });

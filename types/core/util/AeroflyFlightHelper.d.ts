@@ -12,7 +12,7 @@ export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**
  * @returns nautical time zone offset based on the coordinates of the departure airport
  */
-export declare function getDepartureTimeZone(aeroflyFlight: AeroflyFlight): number;
+export declare function getLocalTimeZoneOffset(aeroflyFlight: AeroflyFlight): number;
 /**
  * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center). Also normalizes the runway identifier to match Aerofly FS4 standards.
  */
@@ -26,5 +26,5 @@ export declare function getSunPosition(aeroflyFlight: AeroflyFlight): {
     elevation: number;
     azimuth: number;
 };
-export declare function getTimeAndDateDeparture(aeroflyFlight: AeroflyFlight): Date;
+export declare function getLocalTimeAndDate(aeroflyFlight: AeroflyFlight): Date;
 //# sourceMappingURL=AeroflyFlightHelper.d.ts.map

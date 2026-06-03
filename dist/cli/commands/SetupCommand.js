@@ -43,7 +43,7 @@ export class SetupCommand {
         });
         config.importDirectory = importDirectory;
         const syncTimeOnStartup = await confirm({
-            message: "Autmmoatically synchronize time / date on start-up",
+            message: "Automatically synchronize time / date on start-up",
             default: config.syncTimeOnStartup,
         });
         config.syncTimeOnStartup = syncTimeOnStartup;

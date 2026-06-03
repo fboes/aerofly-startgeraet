@@ -14,7 +14,7 @@ describe("RoutePlanService", () => {
         assert.strictEqual(flight.navigation.waypoints[1].identifier, legs[0].to);
         assert.strictEqual(legs[0].to, legs[1].from);
         //console.log(legs[0]);
-        assert.ok(75 < legs[0].track_deg && legs[0].track_deg < 76, "Tracking to MTH");
+        assert.ok(75 < legs[0].track_deg && legs[0].track_deg < 76, "Tracking to KMTH");
         assert.strictEqual(legs[0].wind_deg, flight.wind.directionInDegree, "Wind direction");
         assert.ok(70 < legs[0].heading_deg && legs[0].heading_deg < 71, "Wind from the left, correction to the left");
     });
@@ -29,7 +29,7 @@ describe("RoutePlanService", () => {
         assert.strictEqual(flight.navigation.waypoints[1].identifier, legs[0].to);
         assert.strictEqual(legs[0].to, legs[1].from);
         //console.log(legs[0]);
-        assert.ok(75 < legs[0].track_deg && legs[0].track_deg < 76, "Tracking to MTH");
+        assert.ok(75 < legs[0].track_deg && legs[0].track_deg < 76, "Tracking to KMTH");
         assert.strictEqual(legs[0].wind_deg, flight.wind.directionInDegree, "Wind direction");
         assert.ok(79 < legs[0].heading_deg && legs[0].heading_deg < 80, "Wind from the right, correction to the right");
     });
@@ -45,7 +45,7 @@ describe("RoutePlanService", () => {
         assert.strictEqual(flight.navigation.waypoints[1].identifier, legs[0].to);
         assert.strictEqual(legs[0].to, legs[1].from);
         //console.log(legs[0]);
-        assert.ok(75 < legs[0].track_deg && legs[0].track_deg < 76, "Tracking to MTH");
+        assert.ok(75 < legs[0].track_deg && legs[0].track_deg < 76, "Tracking to KMTH");
         assert.strictEqual(legs[0].wind_deg, flight.wind.directionInDegree, "Wind direction");
         assert.ok(76 < legs[0].heading_deg && legs[0].heading_deg < 77, "Wind from the front, correction to the right");
     });
