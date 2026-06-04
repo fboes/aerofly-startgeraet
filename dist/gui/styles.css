@@ -149,16 +149,29 @@ summary {
 }
 
 select,
-input {
+input,
+textarea {
     font: inherit;
     border: none;
-    background: none;
     accent-color: var(--color-highlight);
     width: 100%;
 
     + label {
         margin-top: 1rem;
     }
+}
+
+select,
+input {
+    background: none;
+}
+
+textarea {
+    background-color: var(--color-lighten);
+    border: var(--border-standard);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
 }
 
 input {

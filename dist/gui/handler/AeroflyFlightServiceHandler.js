@@ -80,6 +80,10 @@ export class AeroflyFlightServiceHandler {
             })));
             this.sendStateUpdate();
         });
+        this.ipcMain.handle("metar:set", (event, metar) => {
+            this.service.setWeatherFromMETAR(metar.metar);
+            this.sendStateUpdate();
+        });
         this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.importFile);

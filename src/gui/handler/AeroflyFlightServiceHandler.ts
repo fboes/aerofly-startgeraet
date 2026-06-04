@@ -29,6 +29,7 @@ import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight
 import path from "node:path";
 import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
+import type { MetarInputWebComponentState } from "../web-components/form/MetarInputWebComponent.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -107,6 +108,11 @@ export class AeroflyFlightServiceHandler {
                     cloud_coverage: cloud.coverageEighths / 8, // convert oktas to 0-1
                 })),
             );
+            this.sendStateUpdate();
+        });
+
+        this.ipcMain.handle("metar:set", (event: IpcMainInvokeEvent, metar: MetarInputWebComponentState) => {
+            this.service.setWeatherFromMETAR(metar.metar);
             this.sendStateUpdate();
         });
 

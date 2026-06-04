@@ -7,7 +7,7 @@ import { registerApplicationHandlers } from "./handler/registerApplicationHandle
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 960,
-        height: 800,
+        height: 730,
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),

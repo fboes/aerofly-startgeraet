@@ -2,6 +2,13 @@ directories:
   output: artifacts/gui
   buildResources: .
 productName: Aerofly_Startgeraet
+fileAssociations:
+  - ext:
+      - tmc
+      - mcf
+      - fpl
+      - pln
+      - fms
 win:
   target: portable
   icon: assets/icons/windows/icon.ico

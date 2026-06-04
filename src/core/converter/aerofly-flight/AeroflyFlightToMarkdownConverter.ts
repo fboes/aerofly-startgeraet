@@ -16,6 +16,7 @@ import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyA
 import { RoutePlanService } from "../../services/RoutePlanService.js";
 import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
 import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
+import { SkyVectorUrl } from "../../data/SkyVectorUrl.js";
 
 export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConverter {
     static readonly fileName = "Markdown Text File";
@@ -99,6 +100,7 @@ ${markdownTable([
     }
 
     private getFlightSummary(flightplan: AeroflyFlight) {
+        const skyvector = new SkyVectorUrl(flightplan);
         const route = new RoutePlanService(flightplan);
         return `\
 ## Flight details
@@ -127,6 +129,10 @@ ${markdownTable([
             getHourString(l.estimatedTimeEnrouteTotal_min),
         ]),
 ])}
+
+- [Skyvector: ${getFlightplanOriginName(flightplan)}](${skyvector.getOriginURL().toString()})
+- [Skyvector: ${getFlightplanDestinationName(flightplan)}](${skyvector.getDestinationURL().toString()})
+- [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 `;
     }
 

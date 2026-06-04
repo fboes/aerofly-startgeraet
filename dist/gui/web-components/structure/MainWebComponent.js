@@ -8,6 +8,7 @@ import { TimeAndDateWebComponent } from "../form/TimeAndDateWebComponent.js";
 import { VisibilityWebComponent } from "../form/VisibilityWebComponent.js";
 import { WindWebComponent } from "../form/WindWebComponent.js";
 import { ImportExportWebComponent } from "../form/ImportExportWebComponent.js";
+import { MetarInputWebComponent } from "../form/MetarInputWebComponent.js";
 export class MainWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {
@@ -21,6 +22,7 @@ export class MainWebComponent extends HTMLElement {
         VisibilityWebComponent.registerElement();
         CloudsWebComponent.registerElement();
         ImportExportWebComponent.registerElement();
+        MetarInputWebComponent.registerElement();
         this.setAttribute("aria-role", "main");
         this.innerHTML = `\
 <details open>
@@ -50,10 +52,11 @@ export class MainWebComponent extends HTMLElement {
     </div>
 </details>
 
-<details open>
+<details>
     <summary><h2>Import / export</h2></summary>
     <div class="d-flex">
         <startgeraet-import-export></startgeraet-import-export>
+        <startgeraet-metar-input class="flex-grow-2"></startgeraet-metar-input>
     </div>
 </details>
         `;

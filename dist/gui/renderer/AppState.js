@@ -52,17 +52,18 @@ export class AppState {
         };
         const departureAirportCode = AeroflyFlightFormatter.getFlightplanOriginCode(this.aeroflyFlight);
         const destinationAirportCode = AeroflyFlightFormatter.getFlightplanDestinationCode(this.aeroflyFlight);
+        const skyVector = new SkyVectorUrl(this.aeroflyFlight);
         return {
             routeString,
-            routeUrl: new SkyVectorUrl(this.aeroflyFlight).toString(),
+            routeUrl: skyVector.getRouteURL().toString(),
             distance_nm,
             flightTime,
             departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),
             departureAirportCode,
-            departureAirportUrl: `https://skyvector.com/airport/${encodeURIComponent(departureAirportCode)}`,
+            departureAirportUrl: skyVector.getOriginURL().toString(),
             destinationAirport: AeroflyFlightFormatter.getFlightplanDestinationName(this.aeroflyFlight),
             destinationAirportCode,
-            destinationAirportUrl: `https://skyvector.com/airport/${encodeURIComponent(destinationAirportCode)}`,
+            destinationAirportUrl: skyVector.getDestinationURL().toString(),
         };
     }
     getFlightCategory() {
