@@ -11,11 +11,14 @@ fileAssociations:
       - fms
 win:
   target: portable
+  signingHashAlgorithms: null
+  sign: null
   icon: assets/icons/windows/icon.ico
 portable:
   artifactName: ${productName}-Windows.${ext}
 mac:
   target: dmg
+  identity: null
   artifactName: ${productName}-MacOS.${ext}
   icon: assets/icons/macos/icon.icns
 linux:
