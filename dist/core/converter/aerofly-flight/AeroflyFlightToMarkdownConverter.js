@@ -4,6 +4,7 @@ import { markdownTable } from "../../formatter/markdownTable.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
 import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
+import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
 export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConverter {
     static fileName = "Markdown Text File";
     static fileExtension = "md";
@@ -58,8 +59,11 @@ ${markdownTable([
 `;
     }
     getWeatherSummary(flightplan) {
+        const m = new AeroflyFlightToMetarConverter();
         return `\
 ## Weather
+
+> ${m.convert(flightplan)}
 
 ${markdownTable([
             ["Wind", "Clouds", "Visibility", "Temperature", "Flight Categegory"],
