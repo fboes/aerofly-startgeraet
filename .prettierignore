@@ -4,3 +4,4 @@ dist/**/*.js
 .vscode
 *.mcpb
 **/*.d.ts.map
+**/*.d.ts

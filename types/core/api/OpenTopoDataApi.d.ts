@@ -19,10 +19,6 @@ export type OpenTopoDataApiCoordinates = {
     lng: number;
 };
 export declare class OpenTopoDataApi {
-    fetch(
-        coordinates: OpenTopoDataApiCoordinates[],
-        datasetName?: string,
-        timeoutMs?: number,
-    ): Promise<OpenTopoDataApiResult>;
+    fetch(coordinates: OpenTopoDataApiCoordinates[], datasetName?: string, timeoutMs?: number): Promise<OpenTopoDataApiResult>;
 }
 //# sourceMappingURL=OpenTopoDataApi.d.ts.map
