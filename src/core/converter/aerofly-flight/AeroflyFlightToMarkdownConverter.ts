@@ -106,7 +106,7 @@ ${markdownTable([
 ## Flight details
 
 ${markdownTable([
-    ["From", "To", "Freq", "Altitude", "Track", "HDG", "GS", "Dist", "ETE", "ETO"],
+    ["From", "To", "Freq¹", "Altitude¹", "Track", "HDG", "GS", "Dist", "ETE²", "ETO²"],
     ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
     ...route
         .getRouteLegs()
@@ -133,6 +133,9 @@ ${markdownTable([
 - [Skyvector: ${getFlightplanOriginName(flightplan)}](${skyvector.getOriginURL().toString()})
 - [Skyvector: ${getFlightplanDestinationName(flightplan)}](${skyvector.getDestinationURL().toString()})
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
+
+- ¹) Value for "To" waypoint
+- ²) Duration in hh:mm
 `;
     }
 

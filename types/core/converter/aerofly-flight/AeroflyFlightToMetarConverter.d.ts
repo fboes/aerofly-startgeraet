@@ -4,6 +4,7 @@ export declare class AeroflyFlightToMetarConverter {
     private getTimeAndDate;
     private getWind;
     private getVisibility;
+    private roundVisibilityMeters;
     private getClouds;
     private getTemperature;
     private tempString;

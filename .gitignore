@@ -6,3 +6,4 @@
 /tmp
 *.tsbuildinfo
 /artifacts
+**/*.d.ts.map

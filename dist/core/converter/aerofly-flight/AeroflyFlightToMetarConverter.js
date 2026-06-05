@@ -19,9 +19,22 @@ export class AeroflyFlightToMetarConverter {
             "KT");
     }
     getVisibility(flightplan) {
-        return flightplan.visibility_meter < 10000
-            ? flightplan.visibility_meter.toFixed().padStart(4, "0")
+        const asMeters = flightplan.visibility_meter < 10000 && flightplan.visibility_sm % 1 !== 0;
+        return asMeters
+            ? this.roundVisibilityMeters(flightplan.visibility_meter).toFixed().padStart(4, "0")
             : Math.round(flightplan.visibility_sm).toFixed() + "SM";
+    }
+    roundVisibilityMeters(value) {
+        if (value < 800) {
+            return Math.floor(value / 50) * 50;
+        }
+        if (value < 5000) {
+            return Math.floor(value / 100) * 100;
+        }
+        if (value === 9999) {
+            return value;
+        }
+        return Math.floor(value / 1000) * 1000;
     }
     getClouds(flightplan) {
         return (flightplan.clouds
