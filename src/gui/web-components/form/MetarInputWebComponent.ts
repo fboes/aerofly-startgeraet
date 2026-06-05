@@ -21,12 +21,12 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
     intialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>METAR</h3>
+<h3>🎏 METAR</h3>
 <div class="form-group">
     <label for="metar-input">METAR string</label>
-    <textarea id="metar-input" rows="4" placeholder="Enter METAR string here..."></textarea>
+    <textarea id="metar-input" rows="3" placeholder="Enter METAR string here…"></textarea>
 </div>
-        `;
+`;
 
         this.elements = {
             metar: this.querySelector("#metar-input") as HTMLTextAreaElement,

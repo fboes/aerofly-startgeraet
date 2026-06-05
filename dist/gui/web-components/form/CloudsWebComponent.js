@@ -75,6 +75,7 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
                     element.coverage.selectedIndex = 0;
                 }
             });
+            this.checkDisable();
         });
         this.addEventListener("input", this.handleChange);
     }
@@ -82,7 +83,19 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
         super.disconnectedCallback();
         this.removeEventListener("input", this.handleChange);
     }
+    checkDisable() {
+        for (const element of this.elements) {
+            element.base.classList.toggle("inactive", element.coverage.selectedIndex === 0);
+        }
+    }
     handleChange = () => {
+        this.checkDisable();
+        for (const element of this.elements) {
+            const step = Number(element.base.step ?? 100);
+            if (element.base.valueAsNumber > 0 && element.base.valueAsNumber < step) {
+                element.base.valueAsNumber = step;
+            }
+        }
         sendToMain("clouds:set", this.state);
     };
     static registerElement() {

@@ -12,6 +12,7 @@ export declare class CloudsWebComponent extends AbstractStateSubscriberWebCompon
     private initialize;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private checkDisable;
     private handleChange;
     static registerElement(): void;
 }

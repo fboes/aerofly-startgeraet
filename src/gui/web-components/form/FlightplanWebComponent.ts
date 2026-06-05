@@ -28,7 +28,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
       <th scope="row">From</th>
       <td><a href="#" target="skyvector" id="flightplan-origin">Unknown</a></td>
       <td rowspan="2"><a href="#" target="skyvector" id="flightplan-distance">0NM</a></td>
-      <td rowspan="2"><output id="flightplan-time">0:00h</output></td>
+      <td rowspan="2"><output id="flightplan-time" title="hh:mm">0:00</output></td>
     </tr>
     <tr class="form-group">
       <th scope="row">To</th>
@@ -63,7 +63,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanDistance.textContent = `${state.route.distance_nm.toFixed(0)}NM`;
             this.elements.flightplanDistance.href = state.route.routeUrl;
 
-            this.elements.flightplanTime.textContent = `${state.route.flightTime.hours}:${state.route.flightTime.minutes.toString().padStart(2, "0")}h`;
+            this.elements.flightplanTime.textContent = `${state.route.flightTime.hours}:${state.route.flightTime.minutes.toString().padStart(2, "0")}`;
         });
     }
 

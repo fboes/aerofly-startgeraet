@@ -52,14 +52,14 @@ export class MainWebComponent extends HTMLElement {
         <startgeraet-temperature></startgeraet-temperature>
         <startgeraet-visibility></startgeraet-visibility>
         <startgeraet-clouds class="flex-grow-2"></startgeraet-clouds>
+        <startgeraet-metar-input class="flex-grow-2"></startgeraet-metar-input>
     </div>
 </details>
 
-<details>
+<details open>
     <summary><h2>Import / export</h2></summary>
     <div class="d-flex">
         <startgeraet-import-export></startgeraet-import-export>
-        <startgeraet-metar-input class="flex-grow-2"></startgeraet-metar-input>
     </div>
 </details>
         `;
