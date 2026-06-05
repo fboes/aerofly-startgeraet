@@ -112,9 +112,9 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
     try {
         const route = new RoutePlanService(aeroflyFlight).getRoute();
         const distanceNm = route.distanceTotal_nm;
-        const minuteString = getHourString(route.estimatedTimeEnrouteTotal_min);
+        const hourString = getHourString(route.estimatedTimeEnrouteTotal_min);
 
-        return `${numberToString(distanceNm)}NM${minuteString ? ", " + minuteString : ""}`;
+        return `${numberToString(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}`;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
         return "Unknown";
@@ -126,7 +126,7 @@ export function getHourString(minutes: number): string {
     return timeH
         ? `${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
               .toString()
-              .padStart(2, "0")}h`
+              .padStart(2, "0")}`
         : "";
 }
 

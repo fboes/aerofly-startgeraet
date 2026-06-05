@@ -84,7 +84,7 @@ ${markdownTable([
 ## Flight details
 
 ${markdownTable([
-            ["From", "To", "Freq", "Altitude", "Track", "HDG", "GS", "Dist", "ETE", "ETO"],
+            ["From", "To", "Freq¹", "Altitude¹", "Track", "HDG", "GS", "Dist", "ETE²", "ETO²"],
             ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
             ...route
                 .getRouteLegs()
@@ -103,6 +103,9 @@ ${markdownTable([
                 getHourString(l.estimatedTimeEnrouteTotal_min),
             ]),
         ])}
+
+- ¹) Value for "To" waypoint
+- ²) Duration in hh:mm
 `;
     }
     numericOutput(value, unit = "", minimumFractionDigits = 0) {
