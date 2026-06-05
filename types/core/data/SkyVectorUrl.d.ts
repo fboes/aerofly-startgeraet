@@ -1,6 +1,7 @@
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export declare class SkyVectorUrl {
     private aeroflyFlight;
+    private readonly baseURL;
     constructor(aeroflyFlight: AeroflyFlight);
     getRouteURL(cruiseSpeed_kts?: number | undefined): URL;
     getOriginURL(): URL;

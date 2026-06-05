@@ -3,6 +3,7 @@ import { URLSearchParams } from "url";
 import { GeoCoordinates } from "./GeoCoordinates.js";
 export class SkyVectorUrl {
     aeroflyFlight;
+    baseURL = "https://skyvector.com";
     constructor(aeroflyFlight) {
         this.aeroflyFlight = aeroflyFlight;
     }
@@ -20,7 +21,7 @@ export class SkyVectorUrl {
             fpl: (cruiseSpeed + cruiseAlt + " " + this.getWaypointIdentifiers().join(" ")).trim(),
         });
         // Note: SkyVector does not support "+" for space, but "%20". So we need to replace it with "%20"
-        return new URL("?" + parameters.toString().replace("+", "%20"), "https://skyvector.com");
+        return new URL("?" + parameters.toString().replace("+", "%20"), this.baseURL);
     }
     getOriginURL() {
         return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(0)?.identifier ?? "");
@@ -29,7 +30,7 @@ export class SkyVectorUrl {
         return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "");
     }
     getAirportURL(icaoCode) {
-        return new URL(`/airport/${encodeURIComponent(icaoCode)}`, "https://skyvector.com");
+        return new URL(`/airport/${encodeURIComponent(icaoCode)}`, this.baseURL);
     }
     getWaypointIdentifiers() {
         return this.aeroflyFlight.navigation.waypoints

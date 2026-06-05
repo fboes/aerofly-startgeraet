@@ -18,13 +18,13 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
   <tbody>
     <tr class="form-group">
       <th scope="row">From</th>
-      <td><a href="#" target="skyvector" id="flightplan-origin">Unknown</a></td>
-      <td rowspan="2"><a href="#" target="skyvector" id="flightplan-distance">0NM</a></td>
-      <td rowspan="2"><output id="flightplan-time" title="hh:mm">0:00</output></td>
+      <td><a href="#" target="skyvector" id="flightplan-origin" title="See SkyVector airport data">Unknown</a></td>
+      <td rowspan="2"><a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a></td>
+      <td rowspan="2"><output id="flightplan-time">Unknown</output></td>
     </tr>
     <tr class="form-group">
       <th scope="row">To</th>
-      <td><a href="#" target="skyvector" id="flightplan-destination">Unknown</a></td>
+      <td><a href="#" target="skyvector" id="flightplan-destination" title="See SkyVector airport data">Unknown</a></td>
     </tr>
   </tbody>
 </table>
@@ -43,14 +43,17 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         }
         this.subscribeToStateUpdates((state) => {
             this.elements.flightplanOrigin.textContent = state.route.departureAirportCode;
-            this.elements.flightplanOrigin.title = state.route.departureAirport;
+            this.elements.flightplanOrigin.title = `See SkyVector airport data for ${state.route.departureAirport}`;
             this.elements.flightplanOrigin.href = state.route.departureAirportUrl;
             this.elements.flightplanDestination.textContent = state.route.destinationAirportCode;
-            this.elements.flightplanDestination.title = state.route.destinationAirport;
+            this.elements.flightplanDestination.title = `See SkyVector airport data for ${state.route.destinationAirport}`;
             this.elements.flightplanDestination.href = state.route.destinationAirportUrl;
-            this.elements.flightplanDistance.textContent = `${state.route.distance_nm.toFixed(0)}NM`;
+            this.elements.flightplanDistance.textContent = `${state.route.distance_nm.toFixed(0)} NM`;
             this.elements.flightplanDistance.href = state.route.routeUrl;
-            this.elements.flightplanTime.textContent = `${state.route.flightTime.hours}:${state.route.flightTime.minutes.toString().padStart(2, "0")}`;
+            this.elements.flightplanDistance.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
+            this.elements.flightplanTime.textContent = state.route.flightTime.hours
+                ? `${state.route.flightTime.hours} h `
+                : "" + `${state.route.flightTime.minutes.toString().padStart(2, "0")} min`;
         });
     }
     static registerElement() {
