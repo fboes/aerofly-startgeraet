@@ -54,16 +54,16 @@ export class NotificationWebComponent extends HTMLElement {
         }, this.hideDelay);
     };
 
-    private log(details: NotificationEventPayload) {
+    private log<T>(details: NotificationEventPayload<T>): void {
         switch (details.type) {
             case "error":
-                console.error(details.message);
+                console.error(details.message, details.payload);
                 break;
             case "waiting":
-                console.warn(details.message);
+                console.warn(details.message, details.payload);
                 break;
             default:
-                console.log(details.message);
+                console.log(details.message, details.payload);
                 break;
         }
     }

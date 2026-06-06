@@ -1,3 +1,7 @@
+export type ImportWebComponentPayload = {
+    flightplans: string[];
+    filepath: string;
+};
 export declare class ImportWebComponent extends HTMLElement {
     private isInitialized;
     private elements;

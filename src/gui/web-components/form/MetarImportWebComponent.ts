@@ -81,7 +81,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
         this.elements.dialog.close();
         dispatchNotificationEvent(document.body, `Fetching METAR information for ${icao}`, "waiting");
 
-        const response = await sendToMain<NotificationEventPayload>("metar:fetch", {
+        const response = await sendToMain<NotificationEventPayload<undefined>>("metar:fetch", {
             icao,
         });
         dispatchNotificationEvent(document.body, response.message, response.type);

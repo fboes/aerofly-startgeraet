@@ -33,7 +33,7 @@ export class ExportWebComponent extends HTMLElement {
     }
 
     handleClick = async () => {
-        const response = await sendToMain<NotificationEventPayload>("flightplan:export-file");
+        const response = await sendToMain<NotificationEventPayload<undefined>>("flightplan:export-file");
         dispatchNotificationEvent(document.body, response.message, response.type);
     };
 

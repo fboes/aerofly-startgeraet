@@ -69,7 +69,9 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         this.elements.dialog.close();
         dispatchNotificationEvent(document.body, `Fetching SimBrief settings for user ${simBriefUserName}`, "waiting");
 
-        const response = await sendToMain<NotificationEventPayload>("flightplan:import-simbrief", { simBriefUserName });
+        const response = await sendToMain<NotificationEventPayload<undefined>>("flightplan:import-simbrief", {
+            simBriefUserName,
+        });
         dispatchNotificationEvent(document.body, response.message, response.type);
     };
 

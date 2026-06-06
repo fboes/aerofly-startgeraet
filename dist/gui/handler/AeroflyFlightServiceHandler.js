@@ -87,6 +87,17 @@ export class AeroflyFlightServiceHandler {
         this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.importFile);
+        this.ipcMain.handle("flightplan:import-flightplan-index", (event, payload) => {
+            try {
+                this.service.importFlightplanFromFile(payload.filepath, payload.flightPlanIndex);
+                this.sendStateUpdate();
+            }
+            catch (error) {
+                return createNotificationErrorPayload(error);
+            }
+            this.service.config.importDirectory = path.dirname(payload.filepath);
+            return createNotificationPayload("Successfully imported file", "success");
+        });
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
     }
@@ -160,13 +171,22 @@ export class AeroflyFlightServiceHandler {
         if (result.canceled) {
             return createNotificationPayload("");
         }
+        const filepath = result.filePaths[0];
         try {
-            this.service.importFlightplanFromFile(result.filePaths[0]); // TODO
+            const flightplans = this.service.getImportableFlightplans(filepath);
+            if (flightplans.length > 1) {
+                return createNotificationPayload("Multiple flightplans found in file. Please select the desired flightplan in the app.", "info", {
+                    flightplans,
+                    filepath,
+                });
+            }
+            this.service.importFlightplanFromFile(filepath);
             this.sendStateUpdate();
         }
         catch (error) {
             return createNotificationErrorPayload(error);
         }
+        this.service.config.importDirectory = path.dirname(filepath);
         return createNotificationPayload("Successfully imported file", "success");
     };
     exportFile = async () => {
@@ -206,6 +226,7 @@ export class AeroflyFlightServiceHandler {
         catch (error) {
             return createNotificationErrorPayload(error);
         }
+        this.service.config.exportDirectory = path.dirname(result.filePath);
         return createNotificationPayload("Successfully exported file", "success");
     };
     fetchMetar = async (event, args) => {

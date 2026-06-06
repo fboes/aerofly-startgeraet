@@ -217,12 +217,12 @@ button,
 }
 
 .form-group {
-    &:has(:disabled, .inactive) {
+    &:has(input:disabled, select:disabled, .inactive) {
         opacity: 0.54;
         /* WCAG 2.1 AA */
     }
 
-    &:has(:disabled) {
+    &:has(input:disabled, select:disabled) {
         cursor: not-allowed;
     }
 }

@@ -30,6 +30,8 @@ import path from "node:path";
 import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 import type { MetarInputWebComponentState } from "../web-components/form/MetarInputWebComponent.js";
+import type { ImportWebComponentPayload } from "../web-components/form/ImportWebComponent.js";
+import type { FlightPlanChooserWebComponentState } from "../web-components/form/FlightPlanChooserWebComponent.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -119,6 +121,21 @@ export class AeroflyFlightServiceHandler {
         this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.importFile);
+        this.ipcMain.handle(
+            "flightplan:import-flightplan-index",
+            (event: IpcMainInvokeEvent, payload: FlightPlanChooserWebComponentState) => {
+                try {
+                    this.service.importFlightplanFromFile(payload.filepath, payload.flightPlanIndex);
+                    this.sendStateUpdate();
+                } catch (error) {
+                    return createNotificationErrorPayload(error);
+                }
+
+                this.service.config.importDirectory = path.dirname(payload.filepath);
+
+                return createNotificationPayload("Successfully imported file", "success");
+            },
+        );
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
     }
@@ -126,7 +143,7 @@ export class AeroflyFlightServiceHandler {
     private chooseMainMcfPath = async (
         event: IpcMainInvokeEvent,
         payload: SettingsWebComponentState,
-    ): Promise<NotificationEventPayload> => {
+    ): Promise<NotificationEventPayload<undefined>> => {
         const result = await dialog.showOpenDialog(this.win, {
             title: "Select Aerofly Main Configuration File",
             defaultPath:
@@ -157,7 +174,7 @@ export class AeroflyFlightServiceHandler {
     private importSimbrief = async (
         event: IpcMainInvokeEvent,
         simBrief: ImportSimBriefWebComponentState,
-    ): Promise<NotificationEventPayload> => {
+    ): Promise<NotificationEventPayload<undefined>> => {
         try {
             this.service.config.simBriefUserName = simBrief.simBriefUserName;
             await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
@@ -169,7 +186,7 @@ export class AeroflyFlightServiceHandler {
         return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
     };
 
-    private importFile = async (): Promise<NotificationEventPayload> => {
+    private importFile = async (): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>> => {
         const result = await dialog.showOpenDialog(this.win, {
             title: "Select Flight Plan File",
             defaultPath: this.service.config.importDirectory,
@@ -206,17 +223,33 @@ export class AeroflyFlightServiceHandler {
             return createNotificationPayload("");
         }
 
+        const filepath = result.filePaths[0];
+
         try {
-            this.service.importFlightplanFromFile(result.filePaths[0]); // TODO
+            const flightplans = this.service.getImportableFlightplans(filepath);
+            if (flightplans.length > 1) {
+                return createNotificationPayload<ImportWebComponentPayload>(
+                    "Multiple flightplans found in file. Please select the desired flightplan in the app.",
+                    "info",
+                    {
+                        flightplans,
+                        filepath,
+                    },
+                );
+            }
+
+            this.service.importFlightplanFromFile(filepath);
             this.sendStateUpdate();
         } catch (error) {
             return createNotificationErrorPayload(error);
         }
 
+        this.service.config.importDirectory = path.dirname(filepath);
+
         return createNotificationPayload("Successfully imported file", "success");
     };
 
-    private exportFile = async (): Promise<NotificationEventPayload> => {
+    private exportFile = async (): Promise<NotificationEventPayload<undefined>> => {
         const result = await dialog.showSaveDialog(this.win, {
             title: "Select Flight Plan File",
             defaultPath: path.join(
@@ -258,13 +291,15 @@ export class AeroflyFlightServiceHandler {
             return createNotificationErrorPayload(error);
         }
 
+        this.service.config.exportDirectory = path.dirname(result.filePath);
+
         return createNotificationPayload("Successfully exported file", "success");
     };
 
     private fetchMetar = async (
         event: IpcMainInvokeEvent,
         args: { icao: string },
-    ): Promise<NotificationEventPayload> => {
+    ): Promise<NotificationEventPayload<undefined>> => {
         try {
             await this.service.setWeatherViaApi(args.icao);
             this.sendStateUpdate();

@@ -3,23 +3,24 @@ export const NOTIFICATION_EVENT_IDENTIFIER = "notification:sent";
  * Create a NotificationEvent via `createNotificationEvent` and dispatch it for the `element`
  * @see createNotificationEvent
  */
-export function dispatchNotificationEvent(element, message, type = "info") {
-    return element.dispatchEvent(createNotificationEvent(message, type));
+export function dispatchNotificationEvent(element, message, type = "info", payload = undefined) {
+    return element.dispatchEvent(createNotificationEvent(message, type, payload));
 }
 /**
  * @param message shown to the user
  * @param type of message, which will change colors and icons on the message
  * @returns a CustomEvent
  */
-export function createNotificationEvent(message, type = "info") {
+export function createNotificationEvent(message, type = "info", payload = undefined) {
     return new CustomEvent(NOTIFICATION_EVENT_IDENTIFIER, {
-        detail: createNotificationPayload(message, type),
+        detail: createNotificationPayload(message, type, payload),
     });
 }
-export function createNotificationPayload(message, type = "info") {
+export function createNotificationPayload(message, type = "info", payload = undefined) {
     return {
         message,
         type,
+        payload,
     };
 }
 export function createNotificationErrorPayload(error) {
