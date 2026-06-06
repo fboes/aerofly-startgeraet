@@ -7,6 +7,9 @@ jobs:
   build-cli:
     uses: ./.github/workflows/build-cli.yml
 
+  build-gui:
+    uses: ./.github/workflows/build-gui.yml
+
   build-mcp:
     uses: ./.github/workflows/build-mcp.yml
 
@@ -17,7 +20,7 @@ jobs:
   #   uses: ./.github/workflows/build-gui.yml
 
   release:
-    needs: [build-cli, build-mcp, build-mcpb] # build-gui
+    needs: [build-cli, build-gui, build-mcp, build-mcpb]
     runs-on: ubuntu-latest
     permissions:
       contents: write
