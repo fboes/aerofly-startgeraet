@@ -11,26 +11,26 @@ fileAssociations:
       - fms
 win:
   target: portable
-  signingHashAlgorithms: null
-  sign: null
+  signExecutable: false
   icon: assets/icons/windows/icon.ico
 portable:
   artifactName: ${productName}-Windows.${ext}
 mac:
   target: dmg
-  identity: null
   artifactName: ${productName}-MacOS.${ext}
   icon: assets/icons/macos/icon.icns
 linux:
   target:
     - AppImage
-    - deb
   executableArgs:
     - "--no-sandbox"
   artifactName: ${productName}-Linux.${ext}
+  executableName: Aerofly_Startgeraet-Linux
   icon: assets/icons/linux/icons
   category: Utility
   desktop:
     entry:
-      Name: My Application
+      Name: Aerofly Startgerät
+      Icon: Aerofly_Startgeraet-Linux
+      StartupWMClass: Aerofly_Startgeraet-Linux
 files: []
