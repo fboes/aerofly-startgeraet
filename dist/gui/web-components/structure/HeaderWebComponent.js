@@ -7,7 +7,11 @@ export class HeaderWebComponent extends HTMLElement {
         SettingsWebComponent.registerElement();
         this.setAttribute("aria-role", "header");
         this.innerHTML = `\
-<h1><span>Aerofly Startgerät</span> <small>0.0.0</small></h1>
+<h1>
+    <img src="../../assets/icons/icon.svg" alt="App Icon" width="24" height="24">
+    <span>Aerofly Startgerät</span>
+    <small>0.0.0</small>
+</h1>
 <startgeraet-settings></startgeraet-settings>
         `;
         this.elements = {
