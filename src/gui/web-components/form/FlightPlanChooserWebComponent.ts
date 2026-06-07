@@ -35,7 +35,7 @@ export class FlightPlanChooserWebComponent extends HTMLElement {
     private initialize() {
         this.innerHTML = `\
 <dialog id="dialog-fp-choose">
-  <h3>Fetch METAR</h3>
+  <h3>Select Flight Plan from File</h3>
 
   <section class="d-flex">
     <div class="form-group w-100">

@@ -28,6 +28,8 @@ export class ImportWebComponent extends HTMLElement {
             button: this.querySelector("button") as HTMLButtonElement,
             fpChooser: this.querySelector("aerofly-flightplan-chooser") as FlightPlanChooserWebComponent,
         };
+
+        this.elements.fpChooser.style.position = "absolute";
     }
 
     connectedCallback() {
