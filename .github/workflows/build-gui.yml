@@ -1,5 +1,5 @@
 on:
-  workflow_call: # Called via release.yml
+  workflow_call:
 
 jobs:
   build:
@@ -14,7 +14,6 @@ jobs:
             artifact: "aerofly-startgeraet-gui-macos.dmg"
           - os: ubuntu-latest
             suffix: linux
-            artifact: "aerofly-startgeraet-gui-linux.AppImage"
 
     runs-on: ${{ matrix.os }}
 
@@ -43,8 +42,18 @@ jobs:
           mkdir -p ./artifacts/gui
           npx electron-builder --publish never
 
-      - name: Upload artifacts
+      - name: Upload artifacts (Windows/macOS)
+        if: runner.os != 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: gui-artifact-${{ matrix.suffix }}
           path: ./artifacts/gui/${{ matrix.artifact }}
+
+      - name: Upload artifacts (Linux)
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gui-artifact-linux
+          path: |
+            ./artifacts/gui/*.AppImage
+            ./artifacts/gui/*.deb
