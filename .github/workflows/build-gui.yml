@@ -8,13 +8,13 @@ jobs:
         include:
           - os: windows-latest
             suffix: windows
-            artifact: "Aerofly_Startgeraet-Windows.exe"
+            artifact: "aerofly-startgeraet-gui-windows.exe"
           - os: macos-latest
             suffix: macos
-            artifact: "Aerofly_Startgeraet-MacOS.dmg"
+            artifact: "aerofly-startgeraet-gui-macos.dmg"
           - os: ubuntu-latest
             suffix: linux
-            artifact: "Aerofly_Startgeraet-Linux.AppImage"
+            artifact: "aerofly-startgeraet-gui-linux.AppImage"
 
     runs-on: ${{ matrix.os }}
 

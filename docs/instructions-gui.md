@@ -21,18 +21,18 @@ After downloading, mark the file as executable:
 
 ```bash
 # Linux
-chmod +x Aerofly_Startgeraet-Linux
+chmod +x aerofly-startgeraet-gui-linux
 # or on macOS
-chmod +x Aerofly_Startgeraet-MacOS
+chmod +x aerofly-startgeraet-gui-macos
 ```
 
 Then run it:
 
 ```bash
 # Linux
-./Aerofly_Startgeraet-Linux
+./aerofly-startgeraet-gui-linux
 # or on macOS
-./Aerofly_Startgeraet-MacOS
+./aerofly-startgeraet-gui-macos
 ```
 
 #### macOS Gatekeeper
@@ -40,17 +40,17 @@ Then run it:
 macOS may block the file as it is from an unidentified developer. To allow it:
 
 ```bash
-xattr -dr com.apple.quarantine Aerofly_Startgeraet-MacOS
+xattr -dr com.apple.quarantine aerofly-startgeraet-gui-macos
 ```
 
 Or via **System Settings → Privacy & Security → Allow anyway**.
 
 #### Windows
 
-Simply double-click `Aerofly_Startgeraet-Windows.exe` or run it in PowerShell:
+Simply double-click `aerofly-startgeraet-gui-windows.exe` or run it in PowerShell:
 
 ```powershell
-.\Aerofly_Startgeraet-Windows.exe
+.\aerofly-startgeraet-gui-windows.exe
 ```
 
 For convenience you may want to add a desktop shortcut:
