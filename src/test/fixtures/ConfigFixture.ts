@@ -1,8 +1,9 @@
 import { Config } from "../../core/io/Config.js";
+import path from "node:path";
 
 export class ConfigFixture extends Config {
     private confFixture: { [key: string]: number | string | boolean } = {
-        importDirectory: "./src/test/fixtures",
+        importDirectory: path.join(import.meta.dirname, "../../..", "src/test/fixtures"),
     };
 
     protected get(key: string, defaultValue: string = ""): string {

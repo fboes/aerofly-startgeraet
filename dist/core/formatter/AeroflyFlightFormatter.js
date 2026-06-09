@@ -128,7 +128,7 @@ export function getSunPositionName(aeroflyFlight) {
     return localTime.getHours() < 12 ? "Dusk" : "Dawn";
 }
 export function numberToString(num) {
-    return new Intl.NumberFormat().format(Math.round(num));
+    return new Intl.NumberFormat("en-US").format(Math.round(num));
 }
 export function dateToString(date) {
     return date.toISOString().substring(0, 16).replace("T", " ");

@@ -179,7 +179,7 @@ export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightF
 }
 
 export function numberToString(num: number): string {
-    return new Intl.NumberFormat().format(Math.round(num));
+    return new Intl.NumberFormat("en-US").format(Math.round(num));
 }
 
 export function dateToString(date: Date): string {
