@@ -1,9 +1,9 @@
 import {
-    AeroflyFlight,
+    type AeroflyFlight,
     AeroflyNavRouteOrigin,
-    AeroflyNavRouteDepartureRunway,
-    AeroflyNavRouteDestinationRunway,
-    AeroflySettingsCloud,
+    type AeroflyNavRouteDepartureRunway,
+    type AeroflyNavRouteDestinationRunway,
+    type AeroflySettingsCloud,
 } from "@fboes/aerofly-custom-missions";
 import { Point, Vector } from "@fboes/geojson";
 import * as SunPosition from "./calculateSunPosition.js";

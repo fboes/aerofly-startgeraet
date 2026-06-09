@@ -1,4 +1,4 @@
-import { BrowserWindow, type IpcMain } from "electron";
+import { type BrowserWindow, type IpcMain } from "electron";
 export declare class AeroflyFlightServiceHandler {
     protected ipcMain: IpcMain;
     protected win: BrowserWindow;

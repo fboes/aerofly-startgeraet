@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import {
+import type {
     AeroflyFlightService,
-    type AeroflyFlightServiceAirport,
-    type AeroflyFlightServiceWaypoint,
-    type AeroflyFlightServiceRunway,
+    AeroflyFlightServiceAirport,
+    AeroflyFlightServiceWaypoint,
+    AeroflyFlightServiceRunway,
 } from "../../core/services/AeroflyFlightService.js";
 import * as ResourceRegistry from "./registerResourceHandlers.js";
 import * as ConfigurationRegistry from "./registerConfigurationHandlers.js";

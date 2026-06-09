@@ -1,4 +1,4 @@
-import { AeroflyFlight, AeroflyNavRouteBase, AeroflyNavRouteDestination, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
+import { AeroflyNavRouteDestination, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 /**
  * Import `fpl` Gamin FPL files

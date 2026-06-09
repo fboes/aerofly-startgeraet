@@ -7,7 +7,7 @@ import {
     AeroflySettingsWind,
     AeroflyTimeUtc,
     AeroflySettingsFlight,
-    AeroflyNavRouteBase,
+    type AeroflyNavRouteBase,
     AeroflyNavRouteWaypoint,
     AeroflyNavRouteOrigin,
     AeroflyNavRouteDestination,

@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { type AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export declare class SkyVectorUrl {
     private aeroflyFlight;
     private readonly baseURL;

@@ -1,6 +1,6 @@
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
-import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrigin, AeroflySettingsCloud, AeroflySettingsFlight, AeroflySettingsAircraft, AeroflySettingsFuelLoad, AeroflyTimeUtc, AeroflyNavigationConfig } from "@fboes/aerofly-custom-missions";
-import { Config } from "../io/Config.js";
+import { type AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrigin, AeroflySettingsCloud, AeroflySettingsFlight, type AeroflySettingsAircraft, type AeroflySettingsFuelLoad, type AeroflyTimeUtc, type AeroflyNavigationConfig } from "@fboes/aerofly-custom-missions";
+import type { Config } from "../io/Config.js";
 import { type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.

@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { type AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 /**
  * Import `pln` flight plan files from Microsoft Flight Simulator 2020 / 2024

@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, type IpcMain, type IpcMainInvokeEvent } from "electron";
+import { type BrowserWindow, dialog, type IpcMain, type IpcMainInvokeEvent } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";

@@ -1,4 +1,4 @@
-import { AeroflyFlight, AeroflySettingsCloud, AeroflySettingsWind } from "@fboes/aerofly-custom-missions";
+import { type AeroflyFlight, AeroflySettingsCloud, AeroflySettingsWind } from "@fboes/aerofly-custom-missions";
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
 
 export class AviationWeatherApiAerofly extends AviationWeatherApi {

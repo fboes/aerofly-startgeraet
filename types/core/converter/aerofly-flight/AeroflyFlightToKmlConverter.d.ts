@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
 export declare class AeroflyFlightToKmlConverter extends AeroflyFlightToStringConverter {
     static readonly fileName = "Keyhole Markup Language";

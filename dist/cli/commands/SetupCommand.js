@@ -1,5 +1,4 @@
 import { input, confirm } from "@inquirer/prompts";
-import { Config } from "../../core/io/Config.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { writeSuccess } from "../formatter/writeCli.js";
 export class SetupCommand {

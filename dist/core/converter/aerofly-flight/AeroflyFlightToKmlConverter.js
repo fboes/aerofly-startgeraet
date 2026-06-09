@@ -1,4 +1,3 @@
-import { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToStringConverter, } from "./AeroflyFlightToStringConverter.js";
 export class AeroflyFlightToKmlConverter extends AeroflyFlightToStringConverter {
     static fileName = "Keyhole Markup Language";

@@ -1,5 +1,5 @@
 import {
-    AeroflyFlight,
+    type AeroflyFlight,
     AeroflyMission,
     AeroflyMissionCheckpoint,
     AeroflyMissionConditions,

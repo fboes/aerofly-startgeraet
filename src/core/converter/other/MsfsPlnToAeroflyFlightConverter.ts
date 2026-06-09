@@ -1,7 +1,7 @@
 import {
-    AeroflyFlight,
+    type AeroflyFlight,
     AeroflyNavigationConfig,
-    AeroflyNavRouteBase,
+    type AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteDestinationRunway,

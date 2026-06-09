@@ -1,4 +1,4 @@
-import { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 import {
     AeroflyFlightToStringConverter,
     type ExportFileConverterWaypointType,

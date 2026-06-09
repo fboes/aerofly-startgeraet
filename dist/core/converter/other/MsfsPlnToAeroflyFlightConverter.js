@@ -1,4 +1,4 @@
-import { AeroflyFlight, AeroflyNavigationConfig, AeroflyNavRouteBase, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
+import { AeroflyNavigationConfig, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
 import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 /**

@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { type AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 export declare class MetarToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     getIndices(content: string): string[];

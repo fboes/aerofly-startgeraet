@@ -1,6 +1,6 @@
 import {
-    AeroflyFlight,
-    AeroflyNavRouteBase,
+    type AeroflyFlight,
+    type AeroflyNavRouteBase,
     AeroflyNavRouteDestination,
     AeroflyNavRouteOrigin,
 } from "@fboes/aerofly-custom-missions";
@@ -109,16 +109,11 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
         return "Unknown";
     }
 
-    try {
-        const route = new RoutePlanService(aeroflyFlight).getRoute();
-        const distanceNm = route.distanceTotal_nm;
-        const hourString = getHourString(route.estimatedTimeEnrouteTotal_min);
+    const route = new RoutePlanService(aeroflyFlight).getRoute();
+    const distanceNm = route.distanceTotal_nm;
+    const hourString = getHourString(route.estimatedTimeEnrouteTotal_min);
 
-        return `${numberToString(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}`;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (e) {
-        return "Unknown";
-    }
+    return distanceNm ? `${numberToString(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}` : "Unknown";
 }
 
 export function getHourString(minutes: number): string {

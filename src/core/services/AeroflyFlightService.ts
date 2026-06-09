@@ -1,6 +1,6 @@
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import {
-    AeroflyFlight,
+    type AeroflyFlight,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
     AeroflyNavRouteDestinationRunway,
@@ -8,14 +8,14 @@ import {
     AeroflyNavRouteWaypoint,
     AeroflySettingsCloud,
     AeroflySettingsFlight,
-    AeroflySettingsAircraft,
-    AeroflySettingsFuelLoad,
-    AeroflyTimeUtc,
-    AeroflyNavigationConfig,
+    type AeroflySettingsAircraft,
+    type AeroflySettingsFuelLoad,
+    type AeroflyTimeUtc,
+    type AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
 import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
-import { Config } from "../io/Config.js";
+import type { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import * as ImportFileReader from "../io/importFlightplan.js";

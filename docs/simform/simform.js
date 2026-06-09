@@ -109,7 +109,7 @@ export class SimformInputRound extends HTMLElement {
         }
 
         for (const eventType of ["mouseleave", "mouseup", "touchend"]) {
-            this.addEventListener(eventType, (e) => {
+            this.addEventListener(eventType, () => {
                 this._isChangeMode = false;
             });
         }
@@ -484,7 +484,7 @@ export class SimformOutputDatetime extends HTMLElement {
 
     set offset(offset) {
         this._offset = offset;
-        this._update;
+        this._update();
     }
 
     _getFormattedDate(date, offset = null) {

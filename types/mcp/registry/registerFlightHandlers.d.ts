@@ -1,5 +1,5 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 export declare const TOOL_GET_FLIGHT = "get-aerofly-flight";
 export declare const TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
 export declare const TOOL_SET_WEATHER = "set-weather";

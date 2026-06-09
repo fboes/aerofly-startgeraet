@@ -1,5 +1,5 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/AeroflyFlightToStringConverter.js";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/AeroflyFlightToStringConverter.js";
 /**
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.

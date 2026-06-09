@@ -1,4 +1,4 @@
-import { Config } from "../../core/io/Config.js";
+import type { Config } from "../../core/io/Config.js";
 import type { Command } from "./Command.js";
 export declare class SetupCommand implements Command {
     private config;

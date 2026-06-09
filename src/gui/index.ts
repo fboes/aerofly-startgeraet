@@ -4,6 +4,8 @@ import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandl
 import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
 import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
 
+const rootDir = path.join(import.meta.dirname, "../..");
+
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 960,
@@ -13,10 +15,10 @@ const createWindow = () => {
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),
         webPreferences: {
             sandbox: false,
-            preload: path.join(import.meta.dirname, "preload.js"),
+            preload: path.join(rootDir, "dist/gui/preload.js"),
         },
     });
-    win.loadFile(path.join(import.meta.dirname, "index.html"));
+    win.loadFile(path.join(rootDir, "assets/gui/index.html"));
     //win.webContents.openDevTools();
     win.webContents.setWindowOpenHandler(({ url }) => {
         if (url.startsWith("aerofly-startgeraet")) {
@@ -28,10 +30,10 @@ const createWindow = () => {
 
     switch (process.platform) {
         case "win32":
-            win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/windows/icon.ico"));
+            win.setIcon(path.join(rootDir, "assets/icons/windows/icon.ico"));
             break;
         case "linux":
-            win.setIcon(path.join(import.meta.dirname, "../..", "assets/icons/linux/icons/512x512.png"));
+            win.setIcon(path.join(rootDir, "assets/icons/linux/icons/512x512.png"));
             break;
     }
 

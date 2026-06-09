@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import type { Config } from "../../core/io/Config.js";

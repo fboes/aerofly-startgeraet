@@ -1,6 +1,6 @@
 import { AeroflyCustomMissionsParser } from "../parser/AeroflyCustomMissionsParser.js";
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
 export class AeroflyCustomMissionsTmcToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     static readonly fileName = "Aerofly Custom Missions";

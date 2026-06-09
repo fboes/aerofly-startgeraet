@@ -1,5 +1,5 @@
 import { input, confirm } from "@inquirer/prompts";
-import { Config } from "../../core/io/Config.js";
+import type { Config } from "../../core/io/Config.js";
 import type { Command } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { writeSuccess } from "../formatter/writeCli.js";

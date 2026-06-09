@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export declare abstract class StringToAeroflyFlightConverter {
     /**
      * In a given file there may be multiple flight plans present.

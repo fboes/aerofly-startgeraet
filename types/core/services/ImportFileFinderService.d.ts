@@ -1,4 +1,4 @@
-import { Config } from "../io/Config.js";
+import type { Config } from "../io/Config.js";
 /**
  * Finds local flight plan files
  */

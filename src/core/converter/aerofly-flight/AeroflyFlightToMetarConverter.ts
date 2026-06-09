@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { getFlightplanOriginCode } from "../../formatter/AeroflyFlightFormatter.js";
 
 export class AeroflyFlightToMetarConverter {

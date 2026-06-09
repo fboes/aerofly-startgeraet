@@ -1,5 +1,3 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { Config } from "../../core/io/Config.js";
 import { z } from "zod";
 import { returnMcpToolSimpleResult, returnMcpToolResult } from "../util/returnMcpResult.js";
 export const TOOL_GET_CONFIG = "get-config";

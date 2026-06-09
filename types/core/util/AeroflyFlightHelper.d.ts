@@ -1,4 +1,4 @@
-import { AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
+import { type AeroflyFlight, type AeroflyNavRouteDepartureRunway, type AeroflyNavRouteDestinationRunway, type AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
 export type AeroflylightCategoryIcao = "VFR" | "IFR";
 export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 /**

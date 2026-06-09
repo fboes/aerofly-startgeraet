@@ -1,5 +1,5 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { Config } from "../../core/io/Config.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { Config } from "../../core/io/Config.js";
 import { z } from "zod";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types";
 import { returnMcpToolSimpleResult, returnMcpToolResult } from "../util/returnMcpResult.js";

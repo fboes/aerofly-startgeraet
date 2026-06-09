@@ -2,7 +2,7 @@
 
 import { Config } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
-import { ControllerCommand } from "./commands/Command.js";
+import type { ControllerCommand } from "./commands/Command.js";
 import { MenuCommand } from "./commands/MenuCommand.js";
 import { MetarCommand } from "./commands/MetarCommand.js";
 import { HelpCommand } from "./commands/HelpCommand.js";

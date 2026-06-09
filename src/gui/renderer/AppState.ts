@@ -1,4 +1,4 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";

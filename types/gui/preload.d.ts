@@ -1,4 +1,4 @@
-import { AppState } from "./renderer/AppState.js";
+import type { AppState } from "./renderer/AppState.js";
 export type Process = {
     platform: NodeJS.Platform;
 };

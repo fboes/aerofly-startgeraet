@@ -1,5 +1,5 @@
-import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { StringToAeroflyFlightConverter } from "../converter/other/StringToAeroflyFlightConverter.js";
+import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import type { StringToAeroflyFlightConverter } from "../converter/other/StringToAeroflyFlightConverter.js";
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.

@@ -1,4 +1,4 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { type McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 export declare const RESOURCE_AIRCRAFT = "resource://aerofly/aircraft";
 export declare const RESOURCE_AIRCRAFT_TAGS = "resource://aerofly/aircraft-tags";
 export declare const RESOURCE_AIRPORTS = "resource://aerofly/airports";
