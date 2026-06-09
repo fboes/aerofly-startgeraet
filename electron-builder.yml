@@ -1,7 +1,7 @@
 directories:
   output: artifacts/gui
   buildResources: .
-productName: aerofly-startgeraet-gui
+productName: "Aerofly Startgeraet"
 fileAssociations:
   - ext:
       - tmc
@@ -14,10 +14,10 @@ win:
   signExecutable: false
   icon: assets/icons/windows/icon.ico
 portable:
-  artifactName: ${productName}-windows.${ext}
+  artifactName: aerofly-startgeraet-gui-windows.${ext}
 mac:
   target: dmg
-  artifactName: ${productName}-macos.${ext}
+  artifactName: aerofly-startgeraet-gui-macos.${ext}
   icon: assets/icons/macos/icon.icns
 linux:
   target:
@@ -25,7 +25,7 @@ linux:
     - deb
   executableArgs:
     - "--no-sandbox"
-  artifactName: ${productName}-linux.${ext}
+  artifactName: aerofly-startgeraet-gui-linux.${ext}
   executableName: aerofly-startgeraet
   syncDesktopName: true
   icon: assets/icons/linux/icons

@@ -29,9 +29,10 @@ Follow this sequence:
      the route — but not immediately adjacent to origin or destination, as
      these add no value.
    - Prefer waypoints by priority: real navaid/fix > real airport > custom
-     waypoint. Use custom waypoints (prefixed "W-", max 8 chars total) only
-     where no suitable airport or navaid exists near a geographically important
-     point (pass, coastline turn, valley entry).
+     waypoint. Use custom waypoints (prefixed "W-", max 11 chars total, or or in
+     Place-Baring-Distance notation) only where no suitable airport or navaid
+     exists near a geographically important point (pass, coastline turn,
+     valley entry).
 
 6. **Set all parameters** in this order:
    1. `set-aircraft-type-and-livery`

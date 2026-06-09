@@ -2,7 +2,6 @@
 
 ![](./gui-example.png)
 
-
 ## Requirements
 
 This application supports computers running Microsoft Windows, Apple OSX and Linux.
@@ -69,4 +68,3 @@ Call this tool by double-clicking the GUI app. On a successful start-up, you wil
 ---
 
 [Back to top](../README.md)
-
