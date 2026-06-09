@@ -42,9 +42,16 @@ export declare class AeroflyFlightService {
     readMainMcf(): void;
     getAeroflyFlight(): AeroflyFlight;
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft;
+    private updateCurrentAircraft;
     getAircraft(): string;
     getLivery(): string;
     getAircraftData(): AeroflyAircraft | undefined;
+    /**
+     *
+     * @param fuel kg
+     * @param payload kg
+     * @returns fuel load setting
+     */
     setFuelAndPayload(fuel: number, payload: number): AeroflySettingsFuelLoad;
     setFuel(fuel: number): void;
     getFuel(): number;

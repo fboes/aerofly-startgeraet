@@ -30,7 +30,7 @@ export function identifier(): z.ZodString {
         .uppercase()
         .regex(/^[A-Z0-9-]+$/)
         .min(2)
-        .max(8);
+        .max(12);
 }
 
 export function waypointType(): z.ZodEnum {
@@ -81,7 +81,9 @@ export function waypoint(): z.ZodObject<{
     flyOver: z.ZodOptional<z.ZodBoolean>;
 }> {
     return z.object({
-        identifier: identifier(),
+        identifier: identifier().describe(
+            `Identifier of waypoint, can be ICAO identifier of airport, navaid or fix, but also any custom name for a user defined waypoint. For custom waypoints use either Place/Bearing/Distance notation, or prefix the waypoint with \`W-\` to avoid conflicts with real world waypoints.`,
+        ),
         longitude: longitude(),
         latitude: latitude(),
         altitude_ft: z.number().optional(),
@@ -96,7 +98,7 @@ export function runway(): z.ZodObject<{
     direction_degree: z.ZodOptional<z.ZodNumber>;
 }> {
     return z.object({
-        identifier: identifier(),
+        identifier: identifier().describe(`Identifier of runway like 09L, 27R, etc.`),
         length: z.number().optional(),
         elevation_ft: z.number().optional(),
         direction_degree: degree().optional(),

@@ -80,6 +80,7 @@ export class AeroflyFlightService {
 
     readMainMcf() {
         this.aeroflyFlight = this.aeroflyMainConfigReader.read();
+        this.updateCurrentAircraft();
     }
 
     // ----------------------------------------------------------
@@ -89,10 +90,14 @@ export class AeroflyFlightService {
     }
 
     setAircraft(aeroflyCodeAircraft: string, aeroflyCodeLivery: string): AeroflySettingsAircraft {
-        this.currentAircraft = getAeroflyAircraft(aeroflyCodeAircraft);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
+        this.updateCurrentAircraft();
         return this.aeroflyFlight.aircraft;
+    }
+
+    private updateCurrentAircraft() {
+        this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
     }
 
     getAircraft(): string {
@@ -109,6 +114,12 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
+    /**
+     *
+     * @param fuel kg
+     * @param payload kg
+     * @returns fuel load setting
+     */
     setFuelAndPayload(fuel: number, payload: number): AeroflySettingsFuelLoad {
         fuel = Math.max(0, Math.min(fuel, this.getMaxFuel()));
         payload = Math.max(0, Math.min(payload, this.getMaxPayload()));
@@ -252,7 +263,7 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
+        this.updateCurrentAircraft();
     }
 
     setFlightplan(
@@ -336,6 +347,7 @@ export class AeroflyFlightService {
     importFlightplanFromFile(filePath: string, index = 0): void {
         ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
         this.setFlightPositionToDeparture();
+        this.updateCurrentAircraft();
     }
 
     // ----------------------------------------------------------

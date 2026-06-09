@@ -9,9 +9,9 @@ import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAirc
 import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
 import {
     getIcaoFlightCategory,
-    getFlightCategory,
     getSunPosition,
     getLocalTimeAndDate,
+    getFlightCategory,
 } from "../util/AeroflyFlightHelper.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";

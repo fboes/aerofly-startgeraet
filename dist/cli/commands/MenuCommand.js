@@ -223,19 +223,19 @@ export class MenuCommand extends ControllerCommand {
             message: "Export file type",
             choices: [
                 {
-                    name: "Aerofly MCF flight plan file",
+                    name: AeroflyFlightToAeroflyMainMcfConverter.fileName,
                     value: AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
                 },
                 {
-                    name: "Aerofly TMC custom user missions file",
+                    name: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileName,
                     value: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
                 },
                 {
-                    name: "GeoJSON file",
+                    name: AeroflyFlightToGeoJsonConverter.fileName,
                     value: AeroflyFlightToGeoJsonConverter.fileExtension,
                 },
                 {
-                    name: "Keyhole Markup Language (KML) file",
+                    name: AeroflyFlightToKmlConverter.fileName,
                     value: AeroflyFlightToKmlConverter.fileExtension,
                 },
                 {

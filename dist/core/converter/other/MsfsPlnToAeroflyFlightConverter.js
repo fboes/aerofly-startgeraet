@@ -7,6 +7,7 @@ import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
 export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+    static fileName = "Microsoft Flight Simulator Flight Plan File";
     static fileExtension = "pln";
     convert(content, flightplan, index = 0) {
         if (index > 0) {

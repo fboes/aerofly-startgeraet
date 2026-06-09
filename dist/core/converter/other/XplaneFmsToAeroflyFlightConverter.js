@@ -7,6 +7,7 @@ import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
 export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+    static fileName = "X-Plane Flight Plan File";
     static fileExtension = "fms";
     convert(content, flightplan, index = 0) {
         if (index > 0) {

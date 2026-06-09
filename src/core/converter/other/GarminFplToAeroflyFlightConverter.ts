@@ -22,6 +22,7 @@ type GarminFplWaypoint = {
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
 export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+    static readonly fileName = "Garmin Flight Plan File";
     static readonly fileExtension = "fpl";
 
     getIndices(content: string): string[] {

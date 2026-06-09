@@ -1,6 +1,7 @@
 import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 export declare class AeroflyMcfToImportFileConverter extends StringToAeroflyFlightConverter {
+    static readonly fileName = "Aerofly Main Configuration File";
     static readonly fileExtension = "mcf";
     convert(content: string, flightplan: AeroflyFlight): void;
 }

@@ -2,7 +2,7 @@ import { AeroflyFlight, AeroflyNavRouteBase, AeroflyNavRouteDestination, Aerofly
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAircraft.js";
 import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
-import { getIcaoFlightCategory, getFlightCategory, getSunPosition, getLocalTimeAndDate, } from "../util/AeroflyFlightHelper.js";
+import { getIcaoFlightCategory, getSunPosition, getLocalTimeAndDate, getFlightCategory, } from "../util/AeroflyFlightHelper.js";
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */

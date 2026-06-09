@@ -6,6 +6,7 @@ import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
 export declare class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+    static readonly fileName = "Microsoft Flight Simulator Flight Plan File";
     static readonly fileExtension = "pln";
     convert(content: string, flightplan: AeroflyFlight, index?: number): void;
     private getWaypoints;

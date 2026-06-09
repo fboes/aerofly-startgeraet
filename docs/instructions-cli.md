@@ -1,5 +1,7 @@
 # ![](../assets/icons/icon.svg) Aerofly Startgerät - CLI Tool
 
+![](./startgeraet.png)
+
 ## Requirements
 
 This application supports computers running Microsoft Windows, Apple OSX and Linux.

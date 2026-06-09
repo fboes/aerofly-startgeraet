@@ -1,20 +1,19 @@
 on:
-  workflow_call: # Called via release.yml
+  workflow_call:
 
 jobs:
   build:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            suffix: linux-x64
           - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            suffix: windows-x64.exe
+            suffix: windows
+            artifact: "aerofly-startgeraet-gui-windows.exe"
           - os: macos-latest
-            target: x86_64-apple-darwin
-            suffix: macos-x64
+            suffix: macos
+            artifact: "aerofly-startgeraet-gui-macos.dmg"
+          - os: ubuntu-latest
+            suffix: linux
 
     runs-on: ${{ matrix.os }}
 
@@ -29,14 +28,32 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci --omit=dev
+        run: npm ci
+
+      - name: Install Linux build deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y fakeroot binutils
 
       - name: Build GUI application
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
         run: |
-          mkdir -p ./artifact/gui
+          mkdir -p ./artifacts/gui
+          npx electron-builder --publish never
 
-      - name: Upload artifacts
+      - name: Upload artifacts (Windows/macOS)
+        if: runner.os != 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: gui-artifact-${{ matrix.suffix }}
-          path: ./artifact/gui
+          path: ./artifacts/gui/${{ matrix.artifact }}
+
+      - name: Upload artifacts (Linux)
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gui-artifact-linux
+          path: |
+            ./artifacts/gui/*.AppImage
+            ./artifacts/gui/*.deb

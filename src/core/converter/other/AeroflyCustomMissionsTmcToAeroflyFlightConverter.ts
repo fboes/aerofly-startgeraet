@@ -3,6 +3,7 @@ import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter
 import { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
 export class AeroflyCustomMissionsTmcToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+    static readonly fileName = "Aerofly Custom Missions";
     static readonly fileExtension = "tmc";
 
     getIndices(content: string): string[] {

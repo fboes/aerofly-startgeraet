@@ -41,7 +41,7 @@ Supported flight plan file formats:
 | [SimBrief API](./docs/importing-flightplans.md)                                                                                                |   ✅   |        |
 | [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                              |   ✅   |        |
 
-![](./docs/startgeraet.png)
+![](./docs/gui-example.png)
 
 It also comes with an MCP server, which gives you the power of manipulating the settings above via AI, using LLMs as a mission generator for any setup you can think of.
 
@@ -49,10 +49,10 @@ It also comes with an MCP server, which gives you the power of manipulating the 
 
 The Aerofly Startgerät comes in multiple versions. Refer to the different instruction on how to install and use these:
 
+- [**The Aerofly Startgerät Graphical User Interface (GUI) app**](./docs/instructions-gui.md):  
+  A desktop app with a grahpical user interface (GUI).
 - [**The Aerofly Startgerät Command Line Interface (CLI) Tool**](./docs/instructions-cli.md):  
-  A very basic menu without any mouse interaction, but it gets the job done.
-- **The Aerofly Startgerät Graphical User Interface (GUI) app**:  
-  Coming soon…
+  A very basic text menu without any mouse interaction, but it gets the job done.
 - [**The Aerofly Startgerät Model Context Protocol (MCP) Server**](./docs/instructions-mcp.md):  
   Allow an AI / LLM to create new flight plans & flight settings via this MCP server.
 

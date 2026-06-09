@@ -33,16 +33,20 @@ export class AeroflyFlightService {
     // ----------------------------------------------------------
     readMainMcf() {
         this.aeroflyFlight = this.aeroflyMainConfigReader.read();
+        this.updateCurrentAircraft();
     }
     // ----------------------------------------------------------
     getAeroflyFlight() {
         return this.aeroflyFlight;
     }
     setAircraft(aeroflyCodeAircraft, aeroflyCodeLivery) {
-        this.currentAircraft = getAeroflyAircraft(aeroflyCodeAircraft);
         this.aeroflyFlight.setAircraftName(aeroflyCodeAircraft);
         this.aeroflyFlight.aircraft.paintscheme = aeroflyCodeLivery;
+        this.updateCurrentAircraft();
         return this.aeroflyFlight.aircraft;
+    }
+    updateCurrentAircraft() {
+        this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
     }
     getAircraft() {
         return this.aeroflyFlight.aircraft.name;
@@ -54,6 +58,12 @@ export class AeroflyFlightService {
         return this.currentAircraft;
     }
     // ----------------------------------------------------------
+    /**
+     *
+     * @param fuel kg
+     * @param payload kg
+     * @returns fuel load setting
+     */
     setFuelAndPayload(fuel, payload) {
         fuel = Math.max(0, Math.min(fuel, this.getMaxFuel()));
         payload = Math.max(0, Math.min(payload, this.getMaxPayload()));
@@ -150,7 +160,7 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
+        this.updateCurrentAircraft();
     }
     setFlightplan(origin, destination, { departureRunway, destinationRunway, waypoints, cruiseAltitudeFt, } = {}) {
         this.aeroflyFlight.navigation.waypoints = [
@@ -197,6 +207,7 @@ export class AeroflyFlightService {
     importFlightplanFromFile(filePath, index = 0) {
         ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
         this.setFlightPositionToDeparture();
+        this.updateCurrentAircraft();
     }
     // ----------------------------------------------------------
     setTimeAndDate(timeDate) {

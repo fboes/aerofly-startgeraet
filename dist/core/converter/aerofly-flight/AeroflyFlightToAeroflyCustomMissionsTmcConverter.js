@@ -2,6 +2,7 @@ import { AeroflyFlight, AeroflyMission, AeroflyMissionCheckpoint, AeroflyMission
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
 import { getAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
 export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFlightToStringConverter {
+    static fileName = "Aerofly Custom Missions";
     static fileExtension = "tmc";
     convert(flightplan) {
         // Build time and weather

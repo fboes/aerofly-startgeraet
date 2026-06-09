@@ -5,6 +5,7 @@ import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
 export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+    static fileName = "Garmin Flight Plan File";
     static fileExtension = "fpl";
     getIndices(content) {
         return this.getRoutes(content).map((r) => this.getXmlNode(r, "route-name"));

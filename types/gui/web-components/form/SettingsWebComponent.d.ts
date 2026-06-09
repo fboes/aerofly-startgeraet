@@ -1,0 +1,16 @@
+import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+export type SettingsWebComponentState = {
+    mainMcfFilePath: string;
+};
+export declare class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
+    private isInitialized;
+    private elements;
+    get state(): SettingsWebComponentState;
+    private initialize;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    handleChange: () => Promise<void>;
+    handlePathChooserClick: () => Promise<void>;
+    static registerElement(): void;
+}
+//# sourceMappingURL=SettingsWebComponent.d.ts.map
