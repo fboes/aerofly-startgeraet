@@ -1,7 +1,7 @@
 import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../renderer/notificationEventHandler.js";
 export class NotificationWebComponent extends HTMLElement {
     hideTimer = null;
-    hideDelay = 5_000;
+    hideDelay = 3_000;
     elements;
     constructor() {
         super();
