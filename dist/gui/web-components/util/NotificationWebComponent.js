@@ -2,7 +2,7 @@ import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../re
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     hideTimer = null;
-    hideDelay = 5_000;
+    hideDelay = 3_000;
     elements;
     constructor() {
         super();
@@ -56,9 +56,9 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
             case "info":
                 return "ℹ️ ";
             case "success":
-                return "✅ ";
+                return "✓ ";
             case "error":
-                return "⛔ ";
+                return "✗ ";
             case "waiting":
                 return "⏳ ";
         }
