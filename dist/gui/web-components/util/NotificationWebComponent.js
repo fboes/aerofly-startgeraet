@@ -1,7 +1,8 @@
 import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../renderer/notificationEventHandler.js";
-export class NotificationWebComponent extends HTMLElement {
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     hideTimer = null;
-    hideDelay = 3_000;
+    hideDelay = 5_000;
     elements;
     constructor() {
         super();
@@ -18,8 +19,17 @@ export class NotificationWebComponent extends HTMLElement {
         this.addEventListener("click", () => {
             this.elements.output.classList.toggle("is-visible");
         });
+        this.subscribeToStateUpdates((state) => {
+            if (state.isMissingMainMcf) {
+                this.handleNotificationDetails({
+                    message: "`main.mcf` not found or not writable. Please use the configuration to set the correct path.",
+                    type: "error",
+                });
+            }
+        });
     }
     disconnectedCallback() {
+        super.disconnectedCallback();
         document.body.removeEventListener(NOTIFICATION_EVENT_IDENTIFIER, this.handleNotification);
     }
     handleNotification = (event) => {
@@ -27,17 +37,32 @@ export class NotificationWebComponent extends HTMLElement {
         if (details.message === "") {
             return;
         }
+        this.handleNotificationDetails(details);
+    };
+    handleNotificationDetails(details) {
         this.log(details);
         this.elements.output.classList.remove("info", "success", "error", "waiting");
         this.elements.output.classList.add(details.type, "is-visible");
-        this.elements.output.innerText = details.message;
+        this.elements.output.innerText = this.getEmoji(details.type) + details.message;
         if (this.hideTimer !== null) {
             clearTimeout(this.hideTimer);
         }
         this.hideTimer = setTimeout(() => {
             this.elements.output.classList.remove(details.type, "is-visible");
         }, this.hideDelay);
-    };
+    }
+    getEmoji(type) {
+        switch (type) {
+            case "info":
+                return "ℹ️ ";
+            case "success":
+                return "✅ ";
+            case "error":
+                return "⛔ ";
+            case "waiting":
+                return "⏳ ";
+        }
+    }
     log(details) {
         switch (details.type) {
             case "error":

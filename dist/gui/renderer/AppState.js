@@ -2,27 +2,25 @@ import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
-import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMetarConverter.js";
 export class AppState {
     aeroflyFlight;
     aircraftData;
+    isMissingMainMcf;
     dateTime;
     route;
     clouds;
     flightCategory;
-    metar;
     config;
-    metarConverter = new AeroflyFlightToMetarConverter();
-    constructor(aeroflyFlight, aircraftData, config) {
+    constructor(aeroflyFlight, aircraftData, isMissingMainMcf, config) {
         this.aeroflyFlight = aeroflyFlight;
         this.aircraftData = aircraftData;
+        this.isMissingMainMcf = isMissingMainMcf;
         this.aeroflyFlight = aeroflyFlight;
         this.dateTime = this.getDateTime();
         this.route = this.getRoute();
         this.clouds = this.getClouds();
         this.flightCategory = this.getFlightCategory();
         this.config = config.toJSON();
-        this.metar = this.metarConverter.convert(aeroflyFlight);
     }
     getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);

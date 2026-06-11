@@ -8,6 +8,7 @@ export declare class AeroflyFlightServiceHandler {
     private isMissingMainMcf;
     constructor(ipcMain: IpcMain, win: BrowserWindow);
     loadMainMcf(): void;
+    writeMainMcf(): void;
     registerHandlers(): void;
     private chooseMainMcfPath;
     private importSimbrief;
