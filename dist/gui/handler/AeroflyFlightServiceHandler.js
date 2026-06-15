@@ -102,7 +102,7 @@ export class AeroflyFlightServiceHandler {
         });
         this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
-        this.ipcMain.handle("flightplan:import-file", this.importFile);
+        this.ipcMain.handle("flightplan:import-file", this.openDialogAndImportFile);
         this.ipcMain.handle("flightplan:import-flightplan-index", (event, payload) => {
             try {
                 this.service.importFlightplanFromFile(payload.filepath, payload.flightPlanIndex);
@@ -144,6 +144,7 @@ export class AeroflyFlightServiceHandler {
     importSimbrief = async (event, simBrief) => {
         try {
             this.service.config.simBriefUserName = simBrief.simBriefUserName;
+            this.service.config.simBriefWeatherFromDestination = simBrief.simBriefWeatherFromDestination;
             await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
             this.sendStateUpdate();
         }
@@ -152,7 +153,7 @@ export class AeroflyFlightServiceHandler {
         }
         return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
     };
-    importFile = async () => {
+    openDialogAndImportFile = async () => {
         const result = await dialog.showOpenDialog(this.win, {
             title: "Select Flight Plan File",
             defaultPath: this.service.config.importDirectory,
@@ -188,6 +189,9 @@ export class AeroflyFlightServiceHandler {
             return createNotificationPayload("");
         }
         const filepath = result.filePaths[0];
+        return this.importFlightplanFromFile(filepath);
+    };
+    async importFlightplanFromFile(filepath) {
         try {
             const flightplans = this.service.getImportableFlightplans(filepath);
             if (flightplans.length > 1) {
@@ -204,7 +208,7 @@ export class AeroflyFlightServiceHandler {
         }
         this.service.config.importDirectory = path.dirname(filepath);
         return createNotificationPayload("Successfully imported file", "success");
-    };
+    }
     exportFile = async () => {
         const result = await dialog.showSaveDialog(this.win, {
             title: "Select Flight Plan File",

@@ -3,8 +3,10 @@ import path from "node:path";
 import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandler.js";
 import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
 import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
-const rootDir = path.join(import.meta.dirname, "../..");
+import { IMPORT_FILE_TYPES } from "../core/io/importFlightplan.js";
+let fileToOpen = null;
 const createWindow = () => {
+    const rootDir = path.join(import.meta.dirname, "../..");
     const win = new BrowserWindow({
         width: 960,
         height: 790,
@@ -37,22 +39,32 @@ const createWindow = () => {
     registerAeroflyAircraftHandlers(ipcMain);
     const aeroflyFlightServiceHandler = new AeroflyFlightServiceHandler(ipcMain, win);
     win.webContents.on("did-finish-load", () => {
+        if (fileToOpen) {
+            aeroflyFlightServiceHandler.importFlightplanFromFile(fileToOpen);
+            fileToOpen = null;
+        }
         aeroflyFlightServiceHandler.sendStateUpdate();
     });
     win.on("close", () => {
         aeroflyFlightServiceHandler.onClose();
     });
 };
-app.whenReady().then(() => {
-    createWindow();
-    app.on("activate", function () {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
+if (!app.requestSingleInstanceLock()) {
+    app.quit();
+}
+else {
+    app.whenReady().then(() => {
+        fileToOpen = process.argv.find((arg) => IMPORT_FILE_TYPES.some((ext) => arg.endsWith(ext))) ?? null;
+        createWindow();
+        app.on("activate", function () {
+            if (BrowserWindow.getAllWindows().length === 0) {
+                createWindow();
+            }
+        });
+    });
+    app.on("window-all-closed", () => {
+        if (process.platform !== "darwin") {
+            app.quit();
         }
     });
-});
-app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-    }
-});
+}

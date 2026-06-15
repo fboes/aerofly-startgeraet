@@ -1,4 +1,6 @@
 import { type BrowserWindow, type IpcMain } from "electron";
+import { type NotificationEventPayload } from "../renderer/notificationEventHandler.js";
+import type { ImportWebComponentPayload } from "../web-components/form/ImportWebComponent.js";
 export declare class AeroflyFlightServiceHandler {
     protected ipcMain: IpcMain;
     protected win: BrowserWindow;
@@ -12,7 +14,8 @@ export declare class AeroflyFlightServiceHandler {
     registerHandlers(): void;
     private chooseMainMcfPath;
     private importSimbrief;
-    private importFile;
+    private openDialogAndImportFile;
+    importFlightplanFromFile(filepath: string): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>>;
     private exportFile;
     private fetchMetar;
     onClose(): void;

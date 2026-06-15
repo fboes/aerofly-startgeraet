@@ -17,6 +17,10 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
       <label for="settings-simbriefusername">SimBrief username</label>
       <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" required="required" />
     </div>
+    <div class="form-group w-100">
+        <label for="setting-simbrief-weather-from-destination">Fetch weather for destination</label>
+        <input id="setting-simbrief-weather-from-destination" type="checkbox" />
+    </div>
     <button id="import-simbrief" class="w-100">Import flight plan from SimBrief</button>
   </section>
 
@@ -25,8 +29,15 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         `;
         this.elements = {
             simBriefUserName: this.querySelector("#settings-simbriefusername"),
+            simBriefWeatherFromDestination: this.querySelector("#setting-simbrief-weather-from-destination"),
             importSimBrief: this.querySelector("#import-simbrief"),
             dialog: this.querySelector("dialog"),
+        };
+    }
+    get state() {
+        return {
+            simBriefUserName: this.elements.simBriefUserName.value,
+            simBriefWeatherFromDestination: this.elements.simBriefWeatherFromDestination.checked,
         };
     }
     connectedCallback() {
@@ -36,6 +47,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         }
         this.subscribeToStateUpdates((state) => {
             this.elements.simBriefUserName.value = state.config.simBriefUserName;
+            this.elements.simBriefWeatherFromDestination.checked = state.config.simBriefWeatherFromDestination;
         });
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
     }
@@ -44,16 +56,14 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         this.removeEventListener("click", this.handleClick);
     }
     handleClick = async () => {
-        const simBriefUserName = this.elements.simBriefUserName.value;
-        if (!simBriefUserName) {
+        const state = this.state;
+        if (!state.simBriefUserName) {
             dispatchNotificationEvent(document.body, `Please enter a valid SimBrief username`, "error");
             return;
         }
         this.elements.dialog.close();
-        dispatchNotificationEvent(document.body, `Fetching SimBrief settings for user ${simBriefUserName}`, "waiting");
-        const response = await sendToMain("flightplan:import-simbrief", {
-            simBriefUserName,
-        });
+        dispatchNotificationEvent(document.body, `Fetching SimBrief settings for user ${state.simBriefUserName}`, "waiting");
+        const response = await sendToMain("flightplan:import-simbrief", state);
         dispatchNotificationEvent(document.body, response.message, response.type);
     };
     static registerElement() {

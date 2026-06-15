@@ -41,6 +41,11 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.metarOrigin.innerHTML = state.route.departureAirport || "Origin";
             this.elements.metarOrigin.dataset.icao = state.route.departureAirportCode || "";
             this.elements.metarDestination.disabled = !state.route.destinationAirportCode;
+            const formGroup = this.elements.metarDestination.closest(".form-group");
+            if (formGroup instanceof HTMLElement) {
+                formGroup.style.display =
+                    state.route.destinationAirportCode == state.route.departureAirportCode ? "none" : "block";
+            }
             this.elements.metarDestination.innerHTML = state.route.destinationAirport || "Destination";
             this.elements.metarDestination.dataset.icao = state.route.destinationAirportCode || "";
             this.elements.metarOrigin.disabled = !state.route.destinationAirportCode;
