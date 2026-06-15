@@ -27,6 +27,9 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
             this.isInitialized = true;
         }
         this.elements.metar.addEventListener("input", this.handleChange);
+        this.subscribeToStateUpdates((state) => {
+            this.elements.metar.placeholder = state.metar ?? "Enter METAR string here…";
+        });
     }
     disconnectedCallback() {
         super.disconnectedCallback();

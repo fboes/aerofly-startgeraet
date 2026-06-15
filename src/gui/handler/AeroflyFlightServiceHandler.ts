@@ -33,6 +33,7 @@ import type { MetarInputWebComponentState } from "../web-components/form/MetarIn
 import type { ImportWebComponentPayload } from "../web-components/form/ImportWebComponent.js";
 import type { FlightPlanChooserWebComponentState } from "../web-components/form/FlightPlanChooserWebComponent.js";
 import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
+import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMetarConverter.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -202,7 +203,9 @@ export class AeroflyFlightServiceHandler {
         return createNotificationPayload("Successfully imported flightplan from SimBrief", "success");
     };
 
-    private openDialogAndImportFile = async (): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>> => {
+    private openDialogAndImportFile = async (): Promise<
+        NotificationEventPayload<ImportWebComponentPayload | undefined>
+    > => {
         const result = await dialog.showOpenDialog(this.win, {
             title: "Select Flight Plan File",
             defaultPath: this.service.config.importDirectory,
@@ -244,7 +247,9 @@ export class AeroflyFlightServiceHandler {
         return this.importFlightplanFromFile(filepath);
     };
 
-    async importFlightplanFromFile(filepath: string): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>> {
+    async importFlightplanFromFile(
+        filepath: string,
+    ): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>> {
         try {
             const flightplans = this.service.getImportableFlightplans(filepath);
             if (flightplans.length > 1) {
@@ -330,6 +335,10 @@ export class AeroflyFlightServiceHandler {
         return createNotificationPayload("Successfully fetched METAR", "success");
     };
 
+    private getMetar(): string {
+        return new AeroflyFlightToMetarConverter().convert(this.service.getAeroflyFlight());
+    }
+
     onClose() {
         this.writeMainMcf();
     }
@@ -339,6 +348,7 @@ export class AeroflyFlightServiceHandler {
             this.service.getAeroflyFlight(),
             this.service.getAircraftData(),
             this.isMissingMainMcf,
+            this.getMetar(),
             this.service.config,
         );
         this.win.webContents.send("state:update", state);

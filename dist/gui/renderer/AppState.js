@@ -6,15 +6,17 @@ export class AppState {
     aeroflyFlight;
     aircraftData;
     isMissingMainMcf;
+    metar;
     dateTime;
     route;
     clouds;
     flightCategory;
     config;
-    constructor(aeroflyFlight, aircraftData, isMissingMainMcf, config) {
+    constructor(aeroflyFlight, aircraftData, isMissingMainMcf, metar, config) {
         this.aeroflyFlight = aeroflyFlight;
         this.aircraftData = aircraftData;
         this.isMissingMainMcf = isMissingMainMcf;
+        this.metar = metar;
         this.aeroflyFlight = aeroflyFlight;
         this.dateTime = this.getDateTime();
         this.route = this.getRoute();

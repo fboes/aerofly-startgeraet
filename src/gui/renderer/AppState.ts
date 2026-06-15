@@ -52,6 +52,7 @@ export class AppState {
         public readonly aeroflyFlight: AeroflyFlight,
         public readonly aircraftData: AeroflyAircraft | undefined,
         public readonly isMissingMainMcf: boolean,
+        public readonly metar: string | null,
         config: Config,
     ) {
         this.aeroflyFlight = aeroflyFlight;

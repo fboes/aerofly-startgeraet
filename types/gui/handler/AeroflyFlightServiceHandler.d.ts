@@ -18,6 +18,7 @@ export declare class AeroflyFlightServiceHandler {
     importFlightplanFromFile(filepath: string): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>>;
     private exportFile;
     private fetchMetar;
+    private getMetar;
     onClose(): void;
     sendStateUpdate(): void;
     startDebouncedWriteFile(): void;

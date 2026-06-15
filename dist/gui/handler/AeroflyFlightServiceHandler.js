@@ -17,6 +17,7 @@ import path from "node:path";
 import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
+import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMetarConverter.js";
 export class AeroflyFlightServiceHandler {
     ipcMain;
     win;
@@ -259,11 +260,14 @@ export class AeroflyFlightServiceHandler {
         }
         return createNotificationPayload("Successfully fetched METAR", "success");
     };
+    getMetar() {
+        return new AeroflyFlightToMetarConverter().convert(this.service.getAeroflyFlight());
+    }
     onClose() {
         this.writeMainMcf();
     }
     sendStateUpdate() {
-        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.isMissingMainMcf, this.service.config);
+        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.isMissingMainMcf, this.getMetar(), this.service.config);
         this.win.webContents.send("state:update", state);
         this.startDebouncedWriteFile();
     }

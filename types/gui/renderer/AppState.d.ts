@@ -6,6 +6,7 @@ export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
     readonly aircraftData: AeroflyAircraft | undefined;
     readonly isMissingMainMcf: boolean;
+    readonly metar: string | null;
     readonly dateTime: {
         utc: {
             date: string;
@@ -42,7 +43,7 @@ export declare class AppState {
         icao: string;
     };
     readonly config: ReturnType<Config["toJSON"]>;
-    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined, isMissingMainMcf: boolean, config: Config);
+    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined, isMissingMainMcf: boolean, metar: string | null, config: Config);
     protected getDateTime(): {
         utc: {
             timeZoneOffset_h: number;
