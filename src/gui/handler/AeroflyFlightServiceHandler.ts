@@ -32,6 +32,7 @@ import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-f
 import type { MetarInputWebComponentState } from "../web-components/form/MetarInputWebComponent.js";
 import type { ImportWebComponentPayload } from "../web-components/form/ImportWebComponent.js";
 import type { FlightPlanChooserWebComponentState } from "../web-components/form/FlightPlanChooserWebComponent.js";
+import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -52,8 +53,22 @@ export class AeroflyFlightServiceHandler {
     loadMainMcf() {
         try {
             this.service.readMainMcf();
+            this.isMissingMainMcf = false;
         } catch (e) {
-            if (e instanceof Error) {
+            if (e instanceof AeroflyMainConfigReaderError) {
+                this.isMissingMainMcf = true;
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    writeMainMcf() {
+        try {
+            this.service.writeFile();
+            this.isMissingMainMcf = false;
+        } catch (e) {
+            if (e instanceof AeroflyMainConfigReaderError) {
                 this.isMissingMainMcf = true;
             } else {
                 throw e;
@@ -311,13 +326,14 @@ export class AeroflyFlightServiceHandler {
     };
 
     onClose() {
-        this.service.writeFile();
+        this.writeMainMcf();
     }
 
     sendStateUpdate() {
         const state = new AppState(
             this.service.getAeroflyFlight(),
             this.service.getAircraftData(),
+            this.isMissingMainMcf,
             this.service.config,
         );
         this.win.webContents.send("state:update", state);
@@ -331,7 +347,7 @@ export class AeroflyFlightServiceHandler {
 
         this.writeTimer = setTimeout(() => {
             this.writeTimer = null;
-            this.service.writeFile();
+            this.writeMainMcf();
         }, this.writeDelay);
     }
 }

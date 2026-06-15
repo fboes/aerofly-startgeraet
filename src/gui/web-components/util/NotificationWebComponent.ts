@@ -2,9 +2,11 @@ import {
     NOTIFICATION_EVENT_IDENTIFIER,
     parseNotificationEvent,
     type NotificationEventPayload,
+    type NotificationEventType,
 } from "../../renderer/notificationEventHandler.js";
+import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 
-export class NotificationWebComponent extends HTMLElement {
+export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     private hideTimer: ReturnType<typeof setTimeout> | null = null;
     private readonly hideDelay = 5_000;
 
@@ -28,9 +30,20 @@ export class NotificationWebComponent extends HTMLElement {
         this.addEventListener("click", () => {
             this.elements.output.classList.toggle("is-visible");
         });
+
+        this.subscribeToStateUpdates((state) => {
+            if (state.isMissingMainMcf) {
+                this.handleNotificationDetails({
+                    message:
+                        "`main.mcf` not found or not writable. Please use the configuration to set the correct path.",
+                    type: "error",
+                });
+            }
+        });
     }
 
     disconnectedCallback(): void {
+        super.disconnectedCallback();
         document.body.removeEventListener(NOTIFICATION_EVENT_IDENTIFIER, this.handleNotification);
     }
 
@@ -40,11 +53,15 @@ export class NotificationWebComponent extends HTMLElement {
             return;
         }
 
+        this.handleNotificationDetails(details);
+    };
+
+    handleNotificationDetails<T>(details: NotificationEventPayload<T>) {
         this.log(details);
 
         this.elements.output.classList.remove("info", "success", "error", "waiting");
         this.elements.output.classList.add(details.type, "is-visible");
-        this.elements.output.innerText = details.message;
+        this.elements.output.innerText = this.getEmoji(details.type) + details.message;
 
         if (this.hideTimer !== null) {
             clearTimeout(this.hideTimer);
@@ -52,7 +69,20 @@ export class NotificationWebComponent extends HTMLElement {
         this.hideTimer = setTimeout(() => {
             this.elements.output.classList.remove(details.type, "is-visible");
         }, this.hideDelay);
-    };
+    }
+
+    private getEmoji(type: NotificationEventType) {
+        switch (type) {
+            case "info":
+                return "ℹ️ ";
+            case "success":
+                return "✅ ";
+            case "error":
+                return "⛔ ";
+            case "waiting":
+                return "⏳ ";
+        }
+    }
 
     private log<T>(details: NotificationEventPayload<T>): void {
         switch (details.type) {
