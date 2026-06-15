@@ -8,7 +8,7 @@ import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWe
 
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     private hideTimer: ReturnType<typeof setTimeout> | null = null;
-    private readonly hideDelay = 5_000;
+    private readonly hideDelay = 3_000;
 
     private elements: {
         output: HTMLOutputElement;
@@ -76,9 +76,9 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
             case "info":
                 return "ℹ️ ";
             case "success":
-                return "✅ ";
+                return "✓ ";
             case "error":
-                return "⛔ ";
+                return "✗ ";
             case "waiting":
                 return "⏳ ";
         }

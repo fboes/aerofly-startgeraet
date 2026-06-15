@@ -16,6 +16,7 @@ import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight
 import path from "node:path";
 import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
+import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
 export class AeroflyFlightServiceHandler {
     ipcMain;
     win;
@@ -34,9 +35,24 @@ export class AeroflyFlightServiceHandler {
     loadMainMcf() {
         try {
             this.service.readMainMcf();
+            this.isMissingMainMcf = false;
         }
         catch (e) {
-            if (e instanceof Error) {
+            if (e instanceof AeroflyMainConfigReaderError) {
+                this.isMissingMainMcf = true;
+            }
+            else {
+                throw e;
+            }
+        }
+    }
+    writeMainMcf() {
+        try {
+            this.service.writeFile();
+            this.isMissingMainMcf = false;
+        }
+        catch (e) {
+            if (e instanceof AeroflyMainConfigReaderError) {
                 this.isMissingMainMcf = true;
             }
             else {
@@ -240,10 +256,10 @@ export class AeroflyFlightServiceHandler {
         return createNotificationPayload("Successfully fetched METAR", "success");
     };
     onClose() {
-        this.service.writeFile();
+        this.writeMainMcf();
     }
     sendStateUpdate() {
-        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.service.config);
+        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.isMissingMainMcf, this.service.config);
         this.win.webContents.send("state:update", state);
         this.startDebouncedWriteFile();
     }
@@ -253,7 +269,7 @@ export class AeroflyFlightServiceHandler {
         }
         this.writeTimer = setTimeout(() => {
             this.writeTimer = null;
-            this.service.writeFile();
+            this.writeMainMcf();
         }, this.writeDelay);
     }
 }
