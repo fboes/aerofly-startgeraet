@@ -6,6 +6,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
     get state() {
         return {
             mainMcfFilePath: this.elements.mainMcfFilePath.value,
+            // syncTimeOnStartup: this.elements.syncTimeOnStartup.value,
         };
     }
     initialize() {
@@ -37,6 +38,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         this.elements = {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath"),
             mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath"),
+            // syncTimeOnStartup
         };
     }
     connectedCallback() {
@@ -46,6 +48,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         }
         this.subscribeToStateUpdates((state) => {
             this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
+            // syncTimeOnStartup
         });
         this.addEventListener("input", this.handleChange);
         this.elements.mainMcfFilePathChooser.addEventListener("click", this.handlePathChooserClick);

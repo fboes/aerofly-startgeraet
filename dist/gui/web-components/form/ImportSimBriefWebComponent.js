@@ -20,7 +20,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     <div class="form-group w-100">
         <label for="setting-simbrief-weather">Use SimBrief weather on import</label>
         <select id="setting-simbrief-weather">
-            <option value="0">Use SimBrieforigin weather</option>
+            <option value="0">Use SimBrief origin weather</option>
             <option value="1">Use SimBrief destination weather</option>
             <option value="-1">Do not use SimBrief weather</option>
         </select>
