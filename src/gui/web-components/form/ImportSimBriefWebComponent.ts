@@ -33,9 +33,9 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     <div class="form-group w-100">
         <label for="setting-simbrief-weather">Use SimBrief weather on import</label>
         <select id="setting-simbrief-weather">
+            <option value="-1">Do not use SimBrief weather</option>
             <option value="0">Use SimBrief origin weather</option>
             <option value="1">Use SimBrief destination weather</option>
-            <option value="-1">Do not use SimBrief weather</option>
         </select>
     </div>
     <button id="import-simbrief" class="w-100">Import flight plan from SimBrief</button>
@@ -47,7 +47,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         this.elements = {
             simBriefUserName: this.querySelector("#settings-simbriefusername") as HTMLInputElement,
             importSimBrief: this.querySelector("#import-simbrief") as HTMLButtonElement,
-            useSimBriefWeather: this.querySelector("setting-simbrief-weather") as HTMLSelectElement,
+            useSimBriefWeather: this.querySelector("#setting-simbrief-weather") as HTMLSelectElement,
             dialog: this.querySelector("dialog") as HTMLDialogElement,
         };
     }
@@ -55,7 +55,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     get state(): ImportSimBriefWebComponentState {
         return {
             simBriefUserName: this.elements.simBriefUserName.value,
-            useSimBriefWeather: Number(this.elements.useSimBriefWeather.value ?? 0),
+            useSimBriefWeather: this.elements.useSimBriefWeather.selectedIndex - 1,
         };
     }
 
@@ -67,7 +67,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
 
         this.subscribeToStateUpdates((state) => {
             this.elements.simBriefUserName.value = state.config.simBriefUserName;
-            this.elements.useSimBriefWeather.value = state.config.useSimBriefWeather.toString();
+            this.elements.useSimBriefWeather.selectedIndex = state.config.useSimBriefWeather + 1;
         });
 
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
