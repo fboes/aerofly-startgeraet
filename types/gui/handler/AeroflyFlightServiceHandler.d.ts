@@ -5,6 +5,7 @@ export declare class AeroflyFlightServiceHandler {
     protected ipcMain: IpcMain;
     protected win: BrowserWindow;
     private readonly service;
+    private readonly metar;
     private writeTimer;
     private readonly writeDelay;
     private isMissingMainMcf;

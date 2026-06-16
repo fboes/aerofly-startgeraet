@@ -5,18 +5,18 @@ import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 export class AppState {
     aeroflyFlight;
     aircraftData;
-    isMissingMainMcf;
     metar;
+    isMissingMainMcf;
     dateTime;
     route;
     clouds;
     flightCategory;
     config;
-    constructor(aeroflyFlight, aircraftData, isMissingMainMcf, metar, config) {
+    constructor(aeroflyFlight, aircraftData, metar, isMissingMainMcf, config) {
         this.aeroflyFlight = aeroflyFlight;
         this.aircraftData = aircraftData;
-        this.isMissingMainMcf = isMissingMainMcf;
         this.metar = metar;
+        this.isMissingMainMcf = isMissingMainMcf;
         this.aeroflyFlight = aeroflyFlight;
         this.dateTime = this.getDateTime();
         this.route = this.getRoute();

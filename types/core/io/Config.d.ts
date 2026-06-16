@@ -13,6 +13,8 @@ export declare class Config {
     protected set(key: string, value: string | number): void;
     protected getBoolean(key: string): boolean;
     protected setBoolean(key: string, value: boolean): void;
+    protected getNumber(key: string): number;
+    protected setNumber(key: string, value: number): void;
     /**
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
      */
@@ -24,8 +26,14 @@ export declare class Config {
      */
     get simBriefUserName(): string;
     set simBriefUserName(simBriefUserName: string);
-    get simBriefWeatherFromDestination(): boolean;
-    set simBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean);
+    /**
+     * @returns 0 for origin, 1 for destination, -1 for none at all
+     */
+    get useSimBriefWeather(): number;
+    /**
+     * @param useSimBriefWeather 0 for origin, 1 for destination, -1 for none at all
+     */
+    set useSimBriefWeather(useSimBriefWeather: number);
     get importDirectory(): string;
     set importDirectory(importDirectory: string);
     get exportDirectory(): string;
@@ -35,7 +43,7 @@ export declare class Config {
     toJSON(): {
         mainMcfFilePath: string | null;
         simBriefUserName: string;
-        simBriefWeatherFromDestination: boolean;
+        useSimBriefWeather: number;
         importDirectory: string;
         exportDirectory: string;
         syncTimeOnStartup: boolean;

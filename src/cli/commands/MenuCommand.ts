@@ -223,7 +223,7 @@ export class MenuCommand extends ControllerCommand {
             writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
             await this.controller.importFlightplanFromSimBrief(
                 simBriefUserName,
-                this.controller.config.simBriefWeatherFromDestination,
+                this.controller.config.useSimBriefWeather,
             );
         } else {
             const filename =

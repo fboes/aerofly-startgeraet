@@ -253,7 +253,12 @@ export class AeroflyFlightService {
 
     // ----------------------------------------------------------
 
-    async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: boolean = false) {
+    /**
+     *
+     * @param simBriefUserName
+     * @param getWeatherFromDestination 0 for origin, 1 for destination, -1 for none at all
+     */
+    async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: number = 0) {
         try {
             const simbrief = new SimBriefAeroflyApi();
             await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);

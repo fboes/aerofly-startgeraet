@@ -70,7 +70,12 @@ export declare class AeroflyFlightService {
     getFlightplanLegs(trueAirspeed_kts?: number, consolidated?: boolean): RoutePlanServiceLeg[] | RoutePlanServiceRoute;
     setFlightPosition(longitude: number, latitude: number, altitude_meter: number, heading_degree: number, speed_kts: number): AeroflySettingsFlight;
     setFlightPositionToDeparture(): void;
-    importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: boolean): Promise<void>;
+    /**
+     *
+     * @param simBriefUserName
+     * @param getWeatherFromDestination 0 for origin, 1 for destination, -1 for none at all
+     */
+    importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination?: number): Promise<void>;
     setFlightplan(origin: AeroflyFlightServiceAirport, destination: AeroflyFlightServiceAirport, { departureRunway, destinationRunway, waypoints, cruiseAltitudeFt, }?: {
         departureRunway?: AeroflyFlightServiceRunway;
         destinationRunway?: AeroflyFlightServiceRunway;

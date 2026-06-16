@@ -1,4 +1,4 @@
-import { input, confirm } from "@inquirer/prompts";
+import { input, confirm, select } from "@inquirer/prompts";
 import type { Config } from "../../core/io/Config.js";
 import type { Command } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
@@ -37,12 +37,25 @@ export class SetupCommand implements Command {
 
         config.simBriefUserName = simbriefUserName;
 
-        const simBriefWeatherFromDestination = await confirm({
-            message: "Use SimBrief weather from destination airport (instead of departure airport)?",
-            default: config.simBriefWeatherFromDestination,
+        const useSimBriefWeather = await select({
+            message: "Use SimBrief weather on import",
+            choices: [
+                {
+                    name: "Use SimBrief origin weather",
+                    value: "0",
+                },
+                {
+                    name: "Use SimBrief destination weather",
+                    value: "1",
+                },
+                {
+                    name: "Do not use SimBrief weather",
+                    value: "-1",
+                },
+            ],
         });
 
-        config.simBriefWeatherFromDestination = simBriefWeatherFromDestination;
+        config.useSimBriefWeather = Number(useSimBriefWeather);
 
         const importDirectory = await input({
             message: "Import directory for local flightplan files (e.g. .pln files)",

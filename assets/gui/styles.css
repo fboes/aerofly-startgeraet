@@ -187,7 +187,9 @@ input {
     }
 
     &[type="date"],
-    &[type="time"] {
+    &[type="time"],
+    &[type="checkbox"],
+    &[type="radio"] {
         width: auto;
     }
 }

@@ -189,7 +189,7 @@ export class MenuCommand extends ControllerCommand {
         }
         if (choice === "simbrief") {
             writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
-            await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.config.simBriefWeatherFromDestination);
+            await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.config.useSimBriefWeather);
         }
         else {
             const filename = choice === "localFiles"

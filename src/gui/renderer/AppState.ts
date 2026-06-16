@@ -51,8 +51,8 @@ export class AppState {
     constructor(
         public readonly aeroflyFlight: AeroflyFlight,
         public readonly aircraftData: AeroflyAircraft | undefined,
-        public readonly isMissingMainMcf: boolean,
         public readonly metar: string | null,
+        public readonly isMissingMainMcf: boolean,
         config: Config,
     ) {
         this.aeroflyFlight = aeroflyFlight;

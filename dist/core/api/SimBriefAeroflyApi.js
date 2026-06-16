@@ -3,12 +3,26 @@ import { SimBriefApi } from "./SimBriefApi.js";
 import { metarParser } from "aewx-metar-parser";
 import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 export class SimBriefAeroflyApi extends SimBriefApi {
-    async fetchMission(username, flight, useDestinationWeather = false) {
+    /**
+     *
+     * @param username
+     * @param flight
+     * @param useDestinationWeather 0 for origin, 1 for destination, -1 for none at all
+     */
+    async fetchMission(username, flight, useDestinationWeather = 0) {
         const simbriefPayload = await this.fetch(username);
         this.convertMission(simbriefPayload, flight, useDestinationWeather);
     }
-    convertMission(simbriefPayload, flight, useDestinationWeather = false) {
-        this.convertWeather(flight, !useDestinationWeather ? simbriefPayload.origin : simbriefPayload.destination);
+    /**
+     *
+     * @param simbriefPayload
+     * @param flight
+     * @param useDestinationWeather 0 for origin, 1 for destination, -1 for none at all
+     */
+    convertMission(simbriefPayload, flight, useDestinationWeather = 0) {
+        if (useDestinationWeather >= 0) {
+            this.convertWeather(flight, useDestinationWeather === 0 ? simbriefPayload.origin : simbriefPayload.destination);
+        }
         const { aeroflyAircraftCode, aeroflyAircraftLivery } = this.findAeroflyAircraftCode(simbriefPayload.aircraft.icaocode, simbriefPayload.general.icao_airline);
         const originRunwayOrientation = Number(simbriefPayload.origin.plan_rwy.replace(/\D+/, "")) * 10;
         const destinationRunwayOrientation = Number(simbriefPayload.destination.plan_rwy.replace(/\D+/, "")) * 10;

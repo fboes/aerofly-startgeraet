@@ -18,21 +18,38 @@ import { metarParser } from "aewx-metar-parser";
 import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
+    /**
+     *
+     * @param username
+     * @param flight
+     * @param useDestinationWeather 0 for origin, 1 for destination, -1 for none at all
+     */
     public async fetchMission(
         username: string,
         flight: AeroflyFlight,
-        useDestinationWeather: boolean = false,
+        useDestinationWeather: number = 0,
     ): Promise<void> {
         const simbriefPayload = await this.fetch(username);
         this.convertMission(simbriefPayload, flight, useDestinationWeather);
     }
 
+    /**
+     *
+     * @param simbriefPayload
+     * @param flight
+     * @param useDestinationWeather 0 for origin, 1 for destination, -1 for none at all
+     */
     public convertMission(
         simbriefPayload: SimBriefApiPayload,
         flight: AeroflyFlight,
-        useDestinationWeather = false,
+        useDestinationWeather: number = 0,
     ): void {
-        this.convertWeather(flight, !useDestinationWeather ? simbriefPayload.origin : simbriefPayload.destination);
+        if (useDestinationWeather >= 0) {
+            this.convertWeather(
+                flight,
+                useDestinationWeather === 0 ? simbriefPayload.origin : simbriefPayload.destination,
+            );
+        }
 
         const { aeroflyAircraftCode, aeroflyAircraftLivery } = this.findAeroflyAircraftCode(
             simbriefPayload.aircraft.icaocode,

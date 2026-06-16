@@ -11,11 +11,13 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
     private elements!: {
         mainMcfFilePath: HTMLInputElement;
         mainMcfFilePathChooser: HTMLButtonElement;
+        // syncTimeOnStartup
     };
 
     get state(): SettingsWebComponentState {
         return {
             mainMcfFilePath: this.elements.mainMcfFilePath.value,
+            // syncTimeOnStartup: this.elements.syncTimeOnStartup.value,
         };
     }
 
@@ -49,6 +51,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         this.elements = {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath") as HTMLInputElement,
             mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath") as HTMLButtonElement,
+            // syncTimeOnStartup
         };
     }
 
@@ -60,6 +63,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 
         this.subscribeToStateUpdates((state) => {
             this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
+            // syncTimeOnStartup
         });
 
         this.addEventListener("input", this.handleChange);

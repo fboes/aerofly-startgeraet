@@ -148,7 +148,12 @@ export class AeroflyFlightService {
         });
     }
     // ----------------------------------------------------------
-    async importFlightplanFromSimBrief(simBriefUserName, getWeatherFromDestination = false) {
+    /**
+     *
+     * @param simBriefUserName
+     * @param getWeatherFromDestination 0 for origin, 1 for destination, -1 for none at all
+     */
+    async importFlightplanFromSimBrief(simBriefUserName, getWeatherFromDestination = 0) {
         try {
             const simbrief = new SimBriefAeroflyApi();
             await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);

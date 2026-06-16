@@ -22,6 +22,7 @@ export class AeroflyFlightServiceHandler {
     ipcMain;
     win;
     service;
+    metar;
     writeTimer = null;
     writeDelay = 1_000;
     isMissingMainMcf = false;
@@ -30,6 +31,7 @@ export class AeroflyFlightServiceHandler {
         this.win = win;
         const config = new Config("electron");
         this.service = new AeroflyFlightService(config);
+        this.metar = new AeroflyFlightToMetarConverter();
         this.loadMainMcf();
         this.registerHandlers();
     }
@@ -145,8 +147,8 @@ export class AeroflyFlightServiceHandler {
     importSimbrief = async (event, simBrief) => {
         try {
             this.service.config.simBriefUserName = simBrief.simBriefUserName;
-            this.service.config.simBriefWeatherFromDestination = simBrief.simBriefWeatherFromDestination;
-            await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
+            this.service.config.useSimBriefWeather = simBrief.useSimBriefWeather;
+            await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, simBrief.useSimBriefWeather);
             this.sendStateUpdate();
         }
         catch (error) {
@@ -261,13 +263,13 @@ export class AeroflyFlightServiceHandler {
         return createNotificationPayload("Successfully fetched METAR", "success");
     };
     getMetar() {
-        return new AeroflyFlightToMetarConverter().convert(this.service.getAeroflyFlight());
+        return this.metar.convert(this.service.getAeroflyFlight());
     }
     onClose() {
         this.writeMainMcf();
     }
     sendStateUpdate() {
-        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.isMissingMainMcf, this.getMetar(), this.service.config);
+        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.getMetar(), this.isMissingMainMcf, this.service.config);
         this.win.webContents.send("state:update", state);
         this.startDebouncedWriteFile();
     }

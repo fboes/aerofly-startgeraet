@@ -28,6 +28,12 @@ export class Config {
     setBoolean(key, value) {
         this.conf.set(key, value);
     }
+    getNumber(key) {
+        return Number(this.conf.get(key, 0));
+    }
+    setNumber(key, value) {
+        this.conf.set(key, value);
+    }
     // ----------------------------------------------------------
     /**
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
@@ -60,11 +66,17 @@ export class Config {
     set simBriefUserName(simBriefUserName) {
         this.set("simBriefUserName", simBriefUserName.trim());
     }
-    get simBriefWeatherFromDestination() {
-        return this.getBoolean("simBriefWeatherFromDestination");
+    /**
+     * @returns 0 for origin, 1 for destination, -1 for none at all
+     */
+    get useSimBriefWeather() {
+        return this.getNumber("useSimBriefWeather");
     }
-    set simBriefWeatherFromDestination(simBriefWeatherFromDestination) {
-        this.setBoolean("simBriefWeatherFromDestination", simBriefWeatherFromDestination);
+    /**
+     * @param useSimBriefWeather 0 for origin, 1 for destination, -1 for none at all
+     */
+    set useSimBriefWeather(useSimBriefWeather) {
+        this.setNumber("useSimBriefWeather", useSimBriefWeather);
     }
     get importDirectory() {
         return this.get("importDirectory", path.join(os.homedir(), "Downloads"));
@@ -88,7 +100,7 @@ export class Config {
         return {
             mainMcfFilePath: this.mainMcfFilePath,
             simBriefUserName: this.simBriefUserName,
-            simBriefWeatherFromDestination: this.simBriefWeatherFromDestination,
+            useSimBriefWeather: this.useSimBriefWeather,
             importDirectory: this.importDirectory,
             exportDirectory: this.exportDirectory,
             syncTimeOnStartup: this.syncTimeOnStartup,

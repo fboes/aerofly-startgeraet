@@ -35,6 +35,14 @@ export class Config {
         this.conf.set(key, value);
     }
 
+    protected getNumber(key: string): number {
+        return Number(this.conf.get(key, 0));
+    }
+
+    protected setNumber(key: string, value: number): void {
+        this.conf.set(key, value);
+    }
+
     // ----------------------------------------------------------
 
     /**
@@ -84,12 +92,18 @@ export class Config {
         this.set("simBriefUserName", simBriefUserName.trim());
     }
 
-    get simBriefWeatherFromDestination(): boolean {
-        return this.getBoolean("simBriefWeatherFromDestination");
+    /**
+     * @returns 0 for origin, 1 for destination, -1 for none at all
+     */
+    get useSimBriefWeather(): number {
+        return this.getNumber("useSimBriefWeather");
     }
 
-    set simBriefWeatherFromDestination(simBriefWeatherFromDestination: boolean) {
-        this.setBoolean("simBriefWeatherFromDestination", simBriefWeatherFromDestination);
+    /**
+     * @param useSimBriefWeather 0 for origin, 1 for destination, -1 for none at all
+     */
+    set useSimBriefWeather(useSimBriefWeather: number) {
+        this.setNumber("useSimBriefWeather", useSimBriefWeather);
     }
 
     get importDirectory(): string {
@@ -120,7 +134,7 @@ export class Config {
         return {
             mainMcfFilePath: this.mainMcfFilePath,
             simBriefUserName: this.simBriefUserName,
-            simBriefWeatherFromDestination: this.simBriefWeatherFromDestination,
+            useSimBriefWeather: this.useSimBriefWeather,
             importDirectory: this.importDirectory,
             exportDirectory: this.exportDirectory,
             syncTimeOnStartup: this.syncTimeOnStartup,

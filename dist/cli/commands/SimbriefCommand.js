@@ -22,7 +22,7 @@ export class SimbriefCommand extends ControllerCommand {
         }
         writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
         try {
-            await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.config.simBriefWeatherFromDestination);
+            await this.controller.importFlightplanFromSimBrief(simBriefUserName, this.controller.config.useSimBriefWeather);
             writeSuccess("Flightplan imported successfully");
             writeln(`Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`);
         }

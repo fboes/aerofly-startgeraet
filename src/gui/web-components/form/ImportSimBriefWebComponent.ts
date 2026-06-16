@@ -4,7 +4,7 @@ import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscr
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
-    simBriefWeatherFromDestination: boolean;
+    useSimBriefWeather: number;
 };
 
 export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
@@ -13,7 +13,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     private elements!: {
         simBriefUserName: HTMLInputElement;
         importSimBrief: HTMLButtonElement;
-        simBriefWeatherFromDestination: HTMLInputElement;
+        useSimBriefWeather: HTMLSelectElement;
         dialog: HTMLDialogElement;
     };
 
@@ -31,8 +31,12 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
       <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" required="required" />
     </div>
     <div class="form-group w-100">
-        <label for="setting-simbrief-weather-from-destination">Fetch weather for destination</label>
-        <input id="setting-simbrief-weather-from-destination" type="checkbox" />
+        <label for="setting-simbrief-weather">Use SimBrief weather on import</label>
+        <select id="setting-simbrief-weather">
+            <option value="0">Use SimBrieforigin weather</option>
+            <option value="1">Use SimBrief destination weather</option>
+            <option value="-1">Do not use SimBrief weather</option>
+        </select>
     </div>
     <button id="import-simbrief" class="w-100">Import flight plan from SimBrief</button>
   </section>
@@ -42,10 +46,8 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         `;
         this.elements = {
             simBriefUserName: this.querySelector("#settings-simbriefusername") as HTMLInputElement,
-            simBriefWeatherFromDestination: this.querySelector(
-                "#setting-simbrief-weather-from-destination",
-            ) as HTMLInputElement,
             importSimBrief: this.querySelector("#import-simbrief") as HTMLButtonElement,
+            useSimBriefWeather: this.querySelector("setting-simbrief-weather") as HTMLSelectElement,
             dialog: this.querySelector("dialog") as HTMLDialogElement,
         };
     }
@@ -53,7 +55,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     get state(): ImportSimBriefWebComponentState {
         return {
             simBriefUserName: this.elements.simBriefUserName.value,
-            simBriefWeatherFromDestination: this.elements.simBriefWeatherFromDestination.checked,
+            useSimBriefWeather: Number(this.elements.useSimBriefWeather.value ?? 0),
         };
     }
 
@@ -65,7 +67,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
 
         this.subscribeToStateUpdates((state) => {
             this.elements.simBriefUserName.value = state.config.simBriefUserName;
-            this.elements.simBriefWeatherFromDestination.checked = state.config.simBriefWeatherFromDestination;
+            this.elements.useSimBriefWeather.value = state.config.useSimBriefWeather.toString();
         });
 
         this.elements.importSimBrief.addEventListener("click", this.handleClick);

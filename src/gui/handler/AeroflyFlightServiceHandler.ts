@@ -37,6 +37,7 @@ import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flig
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
+    private readonly metar: AeroflyFlightToMetarConverter;
     private writeTimer: ReturnType<typeof setTimeout> | null = null;
     private readonly writeDelay = 1_000;
     private isMissingMainMcf = false;
@@ -47,6 +48,7 @@ export class AeroflyFlightServiceHandler {
     ) {
         const config = new Config("electron");
         this.service = new AeroflyFlightService(config);
+        this.metar = new AeroflyFlightToMetarConverter();
         this.loadMainMcf();
         this.registerHandlers();
     }
@@ -193,8 +195,8 @@ export class AeroflyFlightServiceHandler {
     ): Promise<NotificationEventPayload<undefined>> => {
         try {
             this.service.config.simBriefUserName = simBrief.simBriefUserName;
-            this.service.config.simBriefWeatherFromDestination = simBrief.simBriefWeatherFromDestination;
-            await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, false);
+            this.service.config.useSimBriefWeather = simBrief.useSimBriefWeather;
+            await this.service.importFlightplanFromSimBrief(simBrief.simBriefUserName, simBrief.useSimBriefWeather);
             this.sendStateUpdate();
         } catch (error) {
             return createNotificationErrorPayload(error);
@@ -336,7 +338,7 @@ export class AeroflyFlightServiceHandler {
     };
 
     private getMetar(): string {
-        return new AeroflyFlightToMetarConverter().convert(this.service.getAeroflyFlight());
+        return this.metar.convert(this.service.getAeroflyFlight());
     }
 
     onClose() {
@@ -347,8 +349,8 @@ export class AeroflyFlightServiceHandler {
         const state = new AppState(
             this.service.getAeroflyFlight(),
             this.service.getAircraftData(),
-            this.isMissingMainMcf,
             this.getMetar(),
+            this.isMissingMainMcf,
             this.service.config,
         );
         this.win.webContents.send("state:update", state);

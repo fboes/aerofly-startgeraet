@@ -1,7 +1,7 @@
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
-    simBriefWeatherFromDestination: boolean;
+    useSimBriefWeather: number;
 };
 export declare class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
