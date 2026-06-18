@@ -19,6 +19,8 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
             throw Error("Unknown flight plan version ID");
         }
         flightplan.navigation = new AeroflyNavigationConfig(Number(this.getXmlNode(waypointTableXml, "CruisingAlt")), this.getWaypoints(waypointTableXml));
+        flightplan._missionTitle = this.getXmlNode(waypointTableXml, "Title");
+        flightplan._missionBriefing = this.getXmlNode(waypointTableXml, "Descr");
     }
     getWaypoints(waypointTableXml) {
         const waypointsXml = this.getXmlNodes(waypointTableXml, "ATCWaypoint");

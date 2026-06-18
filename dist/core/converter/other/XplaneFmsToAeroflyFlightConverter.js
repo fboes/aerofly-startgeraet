@@ -17,6 +17,8 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         const departureRunway = this.getRunway(content, "DEPRWY");
         const destinationRunway = this.getRunway(content, "DESRWY");
         flightplan.navigation.waypoints = waypoints.flatMap((waypoint, index) => this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1, departureRunway, destinationRunway));
+        flightplan._missionTitle = "";
+        flightplan._missionBriefing = "";
     }
     getRunway(content, type) {
         const match = content.match(new RegExp(`\\s${type} RW(\\S+)`));

@@ -23,6 +23,7 @@ export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFli
             return new AeroflyMissionCheckpoint(w.identifier, w.type, w.longitude, w.latitude);
         });
         const mission = new AeroflyMission(this.getFlightplanTitle(flightplan), {
+            description: this.getMissionBriefing(flightplan),
             aircraft: {
                 name: flightplan.aircraft.name,
                 icao: getAeroflyAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",

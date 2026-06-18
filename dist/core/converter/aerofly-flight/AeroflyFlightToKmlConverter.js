@@ -16,6 +16,7 @@ export class AeroflyFlightToKmlConverter extends AeroflyFlightToStringConverter 
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>${this.xml(this.getFlightplanTitle(flightplan))}</name>
+    <description>${this.xml(this.getMissionBriefing(flightplan))}</description>
     <Style id="flightplan">
       <LineStyle>
         <color>ff${routeColor}</color>

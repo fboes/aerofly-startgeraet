@@ -26,7 +26,7 @@ export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConvert
     static readonly fileExtension = "fpl";
 
     getIndices(content: string): string[] {
-        return this.getRoutes(content).map((r) => this.getXmlNode(r, "route-name"));
+        return this.getRoutes(content).map((r, i) => this.getXmlNode(r, "route-name") || `Route ${i + 1}`);
     }
 
     convert(content: string, flightplan: AeroflyFlight, index = 0): void {
@@ -40,6 +40,8 @@ export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConvert
         flightplan.navigation.waypoints = waypoints.map((waypoint, index) =>
             this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1),
         );
+        flightplan._missionTitle = this.getXmlNode(route, "route-name");
+        flightplan._missionBriefing = this.getXmlNode(route, "route-description");
     }
 
     private getRoutes(content: string): string[] {

@@ -1,7 +1,13 @@
 import { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestination, AeroflyNavRouteDestinationRunway, AeroflyNavRouteOrigin, AeroflyNavRouteWaypoint, } from "@fboes/aerofly-custom-missions";
+import { getFlightplanDestinationCode, getFlightplanDestinationName, getFlightplanOriginCode, getFlightplanOriginName, } from "../../formatter/AeroflyFlightFormatter.js";
 export class AeroflyFlightToStringConverter {
     getFlightplanTitle(flightplan) {
-        return `Flightplan ${flightplan.navigation.waypoints.at(0)?.identifier ?? "???"} → ${flightplan.navigation.waypoints.at(-1)?.identifier ?? "???"}`;
+        return (flightplan._missionTitle ||
+            `Flightplan ${getFlightplanOriginCode(flightplan)} → ${getFlightplanDestinationCode(flightplan)}`);
+    }
+    getMissionBriefing(flightplan) {
+        return (flightplan._missionBriefing ||
+            `Flight from ${getFlightplanOriginName(flightplan)} to ${getFlightplanDestinationName(flightplan)}.`);
     }
     /**
      *

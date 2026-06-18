@@ -3,6 +3,7 @@ export type ExportFileConverterWaypointType = "airport" | "runway" | "navaid" | 
 export declare abstract class AeroflyFlightToStringConverter {
     abstract convert(flightplan: AeroflyFlight): string;
     getFlightplanTitle(flightplan: AeroflyFlight): string;
+    getMissionBriefing(flightplan: AeroflyFlight): string;
     /**
      *
      * @param {AeroflyNavRouteBase} wp Waypoint to get altitude / elevation from

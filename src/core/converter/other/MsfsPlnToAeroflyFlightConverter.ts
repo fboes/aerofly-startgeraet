@@ -39,6 +39,9 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
             Number(this.getXmlNode(waypointTableXml, "CruisingAlt")),
             this.getWaypoints(waypointTableXml),
         );
+
+        flightplan._missionTitle = this.getXmlNode(waypointTableXml, "Title");
+        flightplan._missionBriefing = this.getXmlNode(waypointTableXml, "Descr");
     }
 
     private getWaypoints(waypointTableXml: string): AeroflyNavRouteBase[] {

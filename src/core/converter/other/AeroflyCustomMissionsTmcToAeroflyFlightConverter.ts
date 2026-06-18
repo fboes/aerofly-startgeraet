@@ -22,5 +22,7 @@ export class AeroflyCustomMissionsTmcToAeroflyFlightConverter extends StringToAe
         flightplan.timeUtc = newFlightplan.timeUtc;
         flightplan.wind = newFlightplan.wind;
         flightplan.navigation = newFlightplan.navigation;
+        flightplan._missionTitle = newFlightplan._missionTitle;
+        flightplan._missionBriefing = newFlightplan._missionBriefing;
     }
 }

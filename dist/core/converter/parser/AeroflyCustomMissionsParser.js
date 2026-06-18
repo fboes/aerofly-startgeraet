@@ -19,6 +19,8 @@ export class AeroflyCustomMissionsParser {
         return new AeroflyFlight(this.parseAircraftSettings(mission), this.parseFlightSettings(mission), this.parseTimeSettings(missionTime), this.parseWindSettings(missionConditions), this.parseCloudSettings(missionConditions), this.parseNavigationConfig(mission), {
             fuelLoadSetting: this.parseFuelLoadSettings(mission),
             visibility_meter: this.parser.getNumber(missionConditions, "visibility"),
+            _missionTitle: this.parser.getValue(mission, "title"),
+            _missionBriefing: this.parser.getValue(mission, "description"),
         });
     }
     getMissions(content) {

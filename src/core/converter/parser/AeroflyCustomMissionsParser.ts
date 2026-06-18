@@ -48,6 +48,8 @@ export class AeroflyCustomMissionsParser {
             {
                 fuelLoadSetting: this.parseFuelLoadSettings(mission),
                 visibility_meter: this.parser.getNumber(missionConditions, "visibility"),
+                _missionTitle: this.parser.getValue(mission, "title"),
+                _missionBriefing: this.parser.getValue(mission, "description"),
             },
         );
     }

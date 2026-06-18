@@ -49,6 +49,9 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 destinationRunway,
             ),
         );
+
+        flightplan._missionTitle = "";
+        flightplan._missionBriefing = "";
     }
 
     private getRunway(content: string, type: "DEPRWY" | "DESRWY"): string | null {
