@@ -7,6 +7,7 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
+import { getFlightplanDestinationCode, getFlightplanDestinationName, getFlightplanOriginCode, getFlightplanOriginName } from "../../formatter/AeroflyFlightFormatter.js";
 
 export type ExportFileConverterWaypointType = "airport" | "runway" | "navaid" | "waypoint";
 
@@ -16,7 +17,12 @@ export abstract class AeroflyFlightToStringConverter {
     abstract convert(flightplan: AeroflyFlight): string;
 
     getFlightplanTitle(flightplan: AeroflyFlight): string {
-        return `Flightplan ${flightplan.navigation.waypoints.at(0)?.identifier ?? "???"} → ${flightplan.navigation.waypoints.at(-1)?.identifier ?? "???"}`;
+        return `Flightplan ${getFlightplanOriginCode(flightplan)} → ${getFlightplanDestinationCode(flightplan)}`;
+    }
+
+    getMissionBriefing(flightplan: AeroflyFlight) {
+        // TODO: For custom missions there may be a new property required in `flightplan`
+        return `Flight from ${getFlightplanOriginName(flightplan)} to ${getFlightplanDestinationName(flightplan)}.`;
     }
 
     /**

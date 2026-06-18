@@ -47,6 +47,7 @@ export class AeroflyFlightToGeoJsonConverter extends AeroflyFlightToStringConver
                 {
                     id: id++,
                     title: this.getFlightplanTitle(flightplan),
+                    description: this.getMissionBriefing(flightplan),
                     type: "flightplan",
                     stroke: "#FF1493",
                 },

@@ -8,7 +8,7 @@ jobs:
         include:
           - os: windows-latest
             suffix: windows
-            artifact: "aerofly-startgeraet-gui-windows.exe"
+            artifact: "aerofly-startgeraet-gui-windows-setup.exe"
           - os: macos-latest
             suffix: macos
             artifact: "aerofly-startgeraet-gui-macos.dmg"
