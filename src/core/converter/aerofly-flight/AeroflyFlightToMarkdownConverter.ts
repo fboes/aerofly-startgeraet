@@ -26,7 +26,7 @@ export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConve
         return `\
 # ${this.getFlightplanTitle(flightplan)}
 
-Flight from ${getFlightplanOriginName(flightplan)} to ${getFlightplanDestinationName(flightplan)}
+${this.getMissionBriefing(flightplan)}
 
 ${this.getAircraftSummary(flightplan)}
 ${this.getTimeSummary(flightplan)}

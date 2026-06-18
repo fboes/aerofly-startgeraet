@@ -20,6 +20,7 @@ nsis:
   createDesktopShortcut: true
   createStartMenuShortcut: true
   artifactName: aerofly-startgeraet-gui-windows-setup.${ext}
+  unicode: true
 #portable:
   #artifactName: aerofly-startgeraet-gui-windows.${ext}
 mac:
