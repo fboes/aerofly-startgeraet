@@ -84,6 +84,27 @@ export type AviationWeatherNormalizedMetar = {
     clouds: AviationWeatherNormalizedCloud[];
 };
 
+/*export type AviationWeatherApiTaf = {
+    icaoId: string;
+    issueTime: string;
+    lat: number;
+    lon: number;
+    elev: number;
+    fcsts: AviationWeatherApiTafForecast[];
+};
+
+export type AviationWeatherApiTafForecast = {
+    timeFrom: number;
+    timeTo: number;
+    wdir: "VRB" | number | null;
+    wspd: number | null;
+    wgst: number | null;
+    visib: string | number | null;
+    altim: number | null;
+    clouds: AviationWeatherApiCloud[];
+    temp: number[];
+}*/
+
 type AviationWeatherApiRunwaySurface = "A" | "C" | "G" | "W" | "T" | "H";
 
 /**

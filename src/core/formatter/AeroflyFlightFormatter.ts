@@ -117,9 +117,12 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
 }
 
 export function getHourString(minutes: number): string {
-    const timeH = minutes / 60;
-    return timeH
-        ? `${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
+    return getMinuteString(minutes / 60);
+}
+
+export function getMinuteString(minutes: number): string {
+    return minutes
+        ? `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
               .toString()
               .padStart(2, "0")}`
         : "";

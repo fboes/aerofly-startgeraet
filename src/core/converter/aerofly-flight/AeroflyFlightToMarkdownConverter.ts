@@ -7,6 +7,7 @@ import {
     getFlightplanOriginCode,
     getFlightplanOriginName,
     getHourString,
+    getMinuteString,
     getTemperature,
     getVisibility,
     getWind,
@@ -102,32 +103,34 @@ ${markdownTable([
     private getFlightSummary(flightplan: AeroflyFlight) {
         const skyvector = new SkyVectorUrl(flightplan);
         const route = new RoutePlanService(flightplan);
+        const routeLegs = route.getRouteLegs();
+        const routeTotalTime = routeLegs.at(-1)?.estimatedTimeEnrouteTotal_min ?? 0;
+        const timeFunction: (minutes: number) => string = routeTotalTime < 60 ? getMinuteString : getHourString;
+
         return `\
 ## Flight details
 
 ${markdownTable([
     ["From", "To", "Freq¹", "Altitude¹", "Track", "HDG", "GS", "Dist", "ETE²", "ETO²"],
     ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
-    ...route
-        .getRouteLegs()
-        .map((l) => [
-            l.from,
-            l.to,
-            l.frequency_mhz
-                ? this.numericOutput(
-                      l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz / 1000,
-                      l.frequency_mhz > 1 ? " MHz" : " kHZ",
-                      l.frequency_mhz > 1 ? 1 : 0,
-                  )
-                : "",
-            l.altitude_ft ? this.numericOutput(l.altitude_ft, " ft") : "",
-            this.numericOutput(l.track_deg, "°"),
-            this.numericOutput(l.heading_deg, "°"),
-            this.numericOutput(l.groundSpeed_kts, " kts"),
-            this.numericOutput(l.distance_nm, " NM", 1),
-            getHourString(l.estimatedTimeEnroute_min),
-            getHourString(l.estimatedTimeEnrouteTotal_min),
-        ]),
+    ...routeLegs.map((l) => [
+        l.from,
+        l.to,
+        l.frequency_mhz
+            ? this.numericOutput(
+                  l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz / 1000,
+                  l.frequency_mhz > 1 ? " MHz" : " kHZ",
+                  l.frequency_mhz > 1 ? 1 : 0,
+              )
+            : "",
+        l.altitude_ft ? this.numericOutput(l.altitude_ft, " ft") : "",
+        this.numericOutput(l.track_deg, "°"),
+        this.numericOutput(l.heading_deg, "°"),
+        this.numericOutput(l.groundSpeed_kts, " kts"),
+        this.numericOutput(l.distance_nm, " NM", 1),
+        timeFunction(l.estimatedTimeEnroute_min),
+        timeFunction(l.estimatedTimeEnrouteTotal_min),
+    ]),
 ])}
 
 - [Skyvector: ${getFlightplanOriginName(flightplan)}](${skyvector.getOriginURL().toString()})
@@ -135,7 +138,7 @@ ${markdownTable([
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 
 - ¹) Value for "To" waypoint
-- ²) Duration in hh:mm
+- ²) Duration in ${timeFunction === getMinuteString ? "mm:ss" : "hh:mm"}
 `;
     }
 
