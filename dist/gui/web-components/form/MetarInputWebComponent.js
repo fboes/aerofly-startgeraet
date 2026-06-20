@@ -11,10 +11,10 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
     intialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>🎏 METAR</h3>
+<h3>🎏 METAR / TAF</h3>
 <div class="form-group">
-    <label for="metar-input">METAR string</label>
-    <textarea id="metar-input" rows="3" placeholder="Enter METAR string here…"></textarea>
+    <label for="metar-input">METAR / TAF string</label>
+    <textarea id="metar-input" rows="3" placeholder="Enter METAR / TAF string here…"></textarea>
 </div>
 `;
         this.elements = {
@@ -28,7 +28,7 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
         }
         this.elements.metar.addEventListener("input", this.handleChange);
         this.subscribeToStateUpdates((state) => {
-            this.elements.metar.placeholder = state.metar ?? "Enter METAR string here…";
+            this.elements.metar.placeholder = state.metar ?? "Enter METAR / TAF string here…";
         });
     }
     disconnectedCallback() {

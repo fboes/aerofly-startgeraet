@@ -7,10 +7,10 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information">Fetch METAR</button>
+<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR / TAF weather information">Fetch METAR / TAF</button>
 
 <dialog id="dialog-metar">
-  <h3>Fetch METAR</h3>
+  <h3>Fetch METAR / TAF</h3>
 
   <section class="d-flex">
     <div class="form-group">

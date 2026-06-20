@@ -76,9 +76,11 @@ export function getFlightplanDistance(aeroflyFlight) {
     return distanceNm ? `${numberToString(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}` : "Unknown";
 }
 export function getHourString(minutes) {
-    const timeH = minutes / 60;
-    return timeH
-        ? `${Math.floor(timeH).toFixed()}:${Math.floor((timeH * 60) % 60)
+    return getMinuteString(minutes / 60);
+}
+export function getMinuteString(minutes) {
+    return minutes
+        ? `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
             .toString()
             .padStart(2, "0")}`
         : "";

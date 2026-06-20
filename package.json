@@ -69,7 +69,7 @@
     "@fboes/geojson": "^2.0.0",
     "@inquirer/prompts": "^8.3.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "aewx-metar-parser": "^2.0.1",
+    "aewx-metar-parser": "^3.0.0",
     "conf": "^15.1.0",
     "electron-store": "^11.0.2",
     "zod": "^4.3.6"
