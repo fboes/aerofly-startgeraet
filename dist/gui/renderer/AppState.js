@@ -5,6 +5,7 @@ import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 export class AppState {
     aeroflyFlight;
     aircraftData;
+    getMaxRemainingPayload_kg;
     metar;
     isMissingMainMcf;
     dateTime;
@@ -12,9 +13,10 @@ export class AppState {
     clouds;
     flightCategory;
     config;
-    constructor(aeroflyFlight, aircraftData, metar, isMissingMainMcf, config) {
+    constructor(aeroflyFlight, aircraftData, getMaxRemainingPayload_kg, metar, isMissingMainMcf, config) {
         this.aeroflyFlight = aeroflyFlight;
         this.aircraftData = aircraftData;
+        this.getMaxRemainingPayload_kg = getMaxRemainingPayload_kg;
         this.metar = metar;
         this.isMissingMainMcf = isMissingMainMcf;
         this.aeroflyFlight = aeroflyFlight;

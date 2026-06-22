@@ -5,6 +5,7 @@ import type { Config } from "../../core/io/Config.js";
 export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
     readonly aircraftData: AeroflyAircraft | undefined;
+    readonly getMaxRemainingPayload_kg: number;
     readonly metar: string | null;
     readonly isMissingMainMcf: boolean;
     readonly dateTime: {
@@ -43,7 +44,7 @@ export declare class AppState {
         icao: string;
     };
     readonly config: ReturnType<Config["toJSON"]>;
-    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined, metar: string | null, isMissingMainMcf: boolean, config: Config);
+    constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined, getMaxRemainingPayload_kg: number, metar: string | null, isMissingMainMcf: boolean, config: Config);
     protected getDateTime(): {
         utc: {
             timeZoneOffset_h: number;

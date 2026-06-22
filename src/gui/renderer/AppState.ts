@@ -51,6 +51,7 @@ export class AppState {
     constructor(
         public readonly aeroflyFlight: AeroflyFlight,
         public readonly aircraftData: AeroflyAircraft | undefined,
+        public readonly getMaxRemainingPayload_kg: number,
         public readonly metar: string | null,
         public readonly isMissingMainMcf: boolean,
         config: Config,

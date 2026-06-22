@@ -269,7 +269,7 @@ export class AeroflyFlightServiceHandler {
         this.writeMainMcf();
     }
     sendStateUpdate() {
-        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.getMetar(), this.isMissingMainMcf, this.service.config);
+        const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.service.getMaxRemainingPayload(), this.getMetar(), this.isMissingMainMcf, this.service.config);
         this.win.webContents.send("state:update", state);
         this.startDebouncedWriteFile();
     }

@@ -67,10 +67,10 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
                 : "";
 
             this.elements.payloadMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.payloadMass;
-            this.elements.payloadMass.max = state.aircraftData?.maximumPayloadKg?.toString() ?? "0";
+            this.elements.payloadMass.max = state.getMaxRemainingPayload_kg.toString();
             this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
-            this.elements.payloadMassMax.textContent = state.aircraftData?.maximumPayloadKg
-                ? `(max. ${Math.floor(state.aircraftData.maximumPayloadKg)} kg)`
+            this.elements.payloadMassMax.textContent = state.getMaxRemainingPayload_kg
+                ? `(max. ${Math.floor(state.getMaxRemainingPayload_kg)} kg)`
                 : "";
         });
 
