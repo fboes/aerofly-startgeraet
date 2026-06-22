@@ -43,14 +43,14 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.isInitialized = true;
         }
         this.subscribeToStateUpdates((state) => {
-            this.elements.fuelMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.fuelMass;
-            this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toString() ?? "0";
+            this.elements.fuelMass.valueAsNumber = Math.floor(state.aeroflyFlight.fuelLoadSetting.fuelMass);
+            this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toFixed() ?? "0";
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
             this.elements.fuelMassMax.textContent = state.aircraftData?.maximumFuelMassKg
                 ? `(max. ${Math.floor(state.aircraftData.maximumFuelMassKg)} kg)`
                 : "";
-            this.elements.payloadMass.valueAsNumber = state.aeroflyFlight.fuelLoadSetting.payloadMass;
-            this.elements.payloadMass.max = state.getMaxRemainingPayload_kg.toString();
+            this.elements.payloadMass.valueAsNumber = Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass);
+            this.elements.payloadMass.max = state.getMaxRemainingPayload_kg.toFixed();
             this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
             this.elements.payloadMassMax.textContent = state.getMaxRemainingPayload_kg
                 ? `(max. ${Math.floor(state.getMaxRemainingPayload_kg)} kg)`

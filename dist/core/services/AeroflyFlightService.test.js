@@ -51,4 +51,30 @@ describe("AeroflyFlightService", () => {
         assert.ok(wp4 instanceof AeroflyNavRouteDestination);
         //console.log(flightplan);
     });
+    it("should calculate fuel & payload correctly and do capping", () => {
+        const config = new ConfigFixture();
+        const service = new AeroflyFlightService(config);
+        const testAircraft = "c172", megaFuel = 2000, megaPayload = 2000;
+        service.setAircraft(testAircraft, "");
+        const flight = service.getAeroflyFlight();
+        assert.strictEqual(flight.aircraft.name, testAircraft, "Aircraft has been set correctly");
+        const aircraftData = service.getAircraftData();
+        assert.strictEqual(aircraftData?.aeroflyCode, testAircraft, "Aircraft data has been found for aircraft");
+        assert.ok(aircraftData.maximumFuelMassKg !== undefined);
+        assert.ok(aircraftData.maximumFuelMassKg < megaFuel, `Aircraft has less than ${megaFuel.toString()} of max fuel mass`);
+        assert.ok(aircraftData.maximumPayloadKg !== undefined);
+        assert.ok(aircraftData.maximumPayloadKg < megaPayload, `Aircraft has less than ${megaPayload.toString()}kg of max payload mass`);
+        /*console.log("aircraftData", {
+            maximumFuelMassKg: aircraftData.maximumFuelMassKg,
+            maximumPayloadKg: aircraftData.maximumPayloadKg,
+            operatingEmptyMassKg: aircraftData.operatingEmptyMassKg,
+        });*/
+        service.setFuelAndPayload(megaFuel, megaPayload);
+        assert.ok(flight.fuelLoadSetting.fuelMass < megaFuel, "Even if set to beyond max fuelMass, fuelMass is capped to max fuelMass");
+        assert.ok(flight.fuelLoadSetting.payloadMass < megaPayload, "Even if set to beyond max payloadMass, payloadMass is capped to max payloadMass");
+        const maxPayload = service.getMaxRemainingPayload();
+        assert.ok(maxPayload < aircraftData?.maximumPayloadKg, "Available max payload is smaller than absolute max payload due to fuel eating up the payload");
+        assert.ok(flight.fuelLoadSetting.payloadMass < aircraftData?.maximumPayloadKg, "Also the payload added is smaller than absolute max payload");
+        /*console.log("Flight settings", { ...flight.fuelLoadSetting, maxPayload });*/
+    });
 });
