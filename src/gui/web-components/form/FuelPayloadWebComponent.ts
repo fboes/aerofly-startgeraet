@@ -14,8 +14,8 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         fuelMassMax: HTMLSpanElement;
         payloadMass: HTMLInputElement;
         payloadMassMax: HTMLSpanElement;
-        passengers: HTMLInputElement;
-        passengersMax: HTMLSpanElement;
+        persons: HTMLInputElement;
+        personsMax: HTMLSpanElement;
     };
 
     private weightProPerson_kg = 82;
@@ -33,8 +33,8 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         </span>
     </div>
     <div class="form-group">
-        <label for="fuelloadsetting-passengers">Passengers <span></span></label>
-        <input id="fuelloadsetting-passengers" type="number" value="0" min="0" />
+        <label for="fuelloadsetting-persons">Persons <span></span></label>
+        <input id="fuelloadsetting-persons" type="number" value="0" min="0" />
     </div>
     <div class="form-group">
         <label for="fuelloadsetting-payloadmass">Payload <span></span></label>
@@ -50,8 +50,8 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             fuelMassMax: document.querySelector("label[for='fuelloadsetting-fuelmass'] span") as HTMLSpanElement,
             payloadMass: this.querySelector("#fuelloadsetting-payloadmass") as HTMLInputElement,
             payloadMassMax: document.querySelector("label[for='fuelloadsetting-payloadmass'] span") as HTMLSpanElement,
-            passengers: this.querySelector("#fuelloadsetting-passengers") as HTMLInputElement,
-            passengersMax: document.querySelector("label[for='fuelloadsetting-passengers'] span") as HTMLSpanElement,
+            persons: this.querySelector("#fuelloadsetting-persons") as HTMLInputElement,
+            personsMax: document.querySelector("label[for='fuelloadsetting-persons'] span") as HTMLSpanElement,
         };
     }
 
@@ -60,7 +60,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             fuelMass: this.elements.fuelMass.valueAsNumber,
             payloadMass:
                 this.elements.payloadMass.valueAsNumber +
-                this.elements.passengers.valueAsNumber * this.weightProPerson_kg,
+                this.elements.persons.valueAsNumber * this.weightProPerson_kg,
         };
     }
 
@@ -78,13 +78,16 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
                 ? `(max. ${this.numberFormat(state.aircraftData.maximumFuelMassKg)} kg)`
                 : "";
 
-            const maxPassengers = Math.floor(state.getMaxRemainingPayload_kg / this.weightProPerson_kg);
-            const passengersMass = Math.floor(this.elements.passengers.valueAsNumber * this.weightProPerson_kg);
+            const maxPersons = Math.min(
+                state.aircraftData?.maximumPersonsOnBoard ?? Infinity,
+                Math.floor(state.getMaxRemainingPayload_kg / this.weightProPerson_kg),
+            );
+            const personsMass = Math.floor(this.elements.persons.valueAsNumber * this.weightProPerson_kg);
 
-            const maxPayload = Math.floor(state.getMaxRemainingPayload_kg - passengersMass);
+            const maxPayload = Math.floor(state.getMaxRemainingPayload_kg - personsMass);
             const payloadMass = Math.max(
                 0,
-                Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass - passengersMass),
+                Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass - personsMass),
             );
 
             this.elements.payloadMass.valueAsNumber = payloadMass;
@@ -94,10 +97,10 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
                 ? `(max. ${this.numberFormat(maxPayload)} kg)`
                 : "";
 
-            this.elements.passengers.max = maxPassengers.toFixed();
-            this.elements.passengers.disabled = this.elements.passengers.max === "0";
-            this.elements.passengersMax.textContent = state.getMaxRemainingPayload_kg
-                ? `(max. ${this.numberFormat(maxPassengers)} persons)`
+            this.elements.persons.max = maxPersons.toFixed();
+            this.elements.persons.disabled = this.elements.persons.max === "0";
+            this.elements.personsMax.textContent = state.getMaxRemainingPayload_kg
+                ? `(max. ${this.numberFormat(maxPersons)} ${maxPersons === 1 ? "person" : "persons"})`
                 : "";
         });
 
