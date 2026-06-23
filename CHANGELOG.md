@@ -7,6 +7,7 @@
 - Added METAR export
 - Fixed cloud bug which brakes the `main.mcf`
 - Markdown now changes to minute output if flight plan is less than an hour
+- Added passenger input field to GUI
 
 ## [1.7.0] - 2026-06-01
 

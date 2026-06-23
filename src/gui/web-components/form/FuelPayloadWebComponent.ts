@@ -14,7 +14,11 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         fuelMassMax: HTMLSpanElement;
         payloadMass: HTMLInputElement;
         payloadMassMax: HTMLSpanElement;
+        passengers: HTMLInputElement;
+        passengersMax: HTMLSpanElement;
     };
+
+    private weightProPerson_kg = 82;
 
     private initialize() {
         this.setAttribute("aria-role", "region");
@@ -27,6 +31,10 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             <input id="fuelloadsetting-fuelmass" type="number" value="0" min="0" />
             <span>kg</span>
         </span>
+    </div>
+    <div class="form-group">
+        <label for="fuelloadsetting-passengers">Passengers <span></span></label>
+        <input id="fuelloadsetting-passengers" type="number" value="0" min="0" />
     </div>
     <div class="form-group">
         <label for="fuelloadsetting-payloadmass">Payload <span></span></label>
@@ -42,13 +50,17 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             fuelMassMax: document.querySelector("label[for='fuelloadsetting-fuelmass'] span") as HTMLSpanElement,
             payloadMass: this.querySelector("#fuelloadsetting-payloadmass") as HTMLInputElement,
             payloadMassMax: document.querySelector("label[for='fuelloadsetting-payloadmass'] span") as HTMLSpanElement,
+            passengers: this.querySelector("#fuelloadsetting-passengers") as HTMLInputElement,
+            passengersMax: document.querySelector("label[for='fuelloadsetting-passengers'] span") as HTMLSpanElement,
         };
     }
 
     get state(): FuelPayloadWebComponentState {
         return {
             fuelMass: this.elements.fuelMass.valueAsNumber,
-            payloadMass: this.elements.payloadMass.valueAsNumber,
+            payloadMass:
+                this.elements.payloadMass.valueAsNumber +
+                this.elements.passengers.valueAsNumber * this.weightProPerson_kg,
         };
     }
 
@@ -63,14 +75,29 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toFixed() ?? "0";
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
             this.elements.fuelMassMax.textContent = state.aircraftData?.maximumFuelMassKg
-                ? `(max. ${Math.floor(state.aircraftData.maximumFuelMassKg)} kg)`
+                ? `(max. ${this.numberFormat(state.aircraftData.maximumFuelMassKg)} kg)`
                 : "";
 
-            this.elements.payloadMass.valueAsNumber = Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass);
-            this.elements.payloadMass.max = state.getMaxRemainingPayload_kg.toFixed();
+            const maxPassengers = Math.floor(state.getMaxRemainingPayload_kg / this.weightProPerson_kg);
+            const passengersMass = Math.floor(this.elements.passengers.valueAsNumber * this.weightProPerson_kg);
+
+            const maxPayload = Math.floor(state.getMaxRemainingPayload_kg - passengersMass);
+            const payloadMass = Math.max(
+                0,
+                Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass - passengersMass),
+            );
+
+            this.elements.payloadMass.valueAsNumber = payloadMass;
+            this.elements.payloadMass.max = maxPayload.toFixed();
             this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
             this.elements.payloadMassMax.textContent = state.getMaxRemainingPayload_kg
-                ? `(max. ${Math.floor(state.getMaxRemainingPayload_kg)} kg)`
+                ? `(max. ${this.numberFormat(maxPayload)} kg)`
+                : "";
+
+            this.elements.passengers.max = maxPassengers.toFixed();
+            this.elements.passengers.disabled = this.elements.passengers.max === "0";
+            this.elements.passengersMax.textContent = state.getMaxRemainingPayload_kg
+                ? `(max. ${this.numberFormat(maxPassengers)} persons)`
                 : "";
         });
 
@@ -85,6 +112,13 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     private handleChange = () => {
         sendToMain("fuel-payload:set", this.state);
     };
+
+    private numberFormat(value: number): string {
+        return new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(value);
+    }
 
     static registerElement() {
         customElements.define("startgeraet-fuel-payload", FuelPayloadWebComponent);

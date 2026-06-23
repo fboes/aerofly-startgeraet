@@ -6,11 +6,13 @@ export type FuelPayloadWebComponentState = {
 export declare class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
     private elements;
+    private weightProPerson_kg;
     private initialize;
     get state(): FuelPayloadWebComponentState;
     connectedCallback(): void;
     disconnectedCallback(): void;
     private handleChange;
+    private numberFormat;
     static registerElement(): void;
 }
 //# sourceMappingURL=FuelPayloadWebComponent.d.ts.map
