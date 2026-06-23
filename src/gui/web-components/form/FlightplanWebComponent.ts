@@ -64,9 +64,9 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanDistance.href = state.route.routeUrl;
             this.elements.flightplanDistance.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
 
-            this.elements.flightplanTime.textContent = state.route.flightTime.hours
-                ? `${state.route.flightTime.hours} h `
-                : "" + `${state.route.flightTime.minutes.toString().padStart(2, "0")} min`;
+            this.elements.flightplanTime.textContent =
+                (state.route.flightTime.hours ? `${state.route.flightTime.hours} h ` : "") +
+                `${state.route.flightTime.minutes.toString().padStart(2, "0")} min`;
         });
     }
 
