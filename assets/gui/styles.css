@@ -12,6 +12,7 @@
     --color-highlight: light-dark(#1f6ed6, #3681e4);
     --color-highlight-contra: #ffffff;
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
+    --color-darken-more: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4));
     --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
     --color-warning: #e6007a;
     --color-black: light-dark(#363537, #000000);
@@ -99,6 +100,11 @@ a {
 
 svg {
     fill: currentColor;
+}
+
+abbr {
+    text-decoration: none;
+    border-bottom: 1px dotted var(--color-darken-more);
 }
 
 .hr + .hr {
@@ -271,6 +277,10 @@ table {
 }
 
 /* ----- Flex --------------------------------------------------------------- */
+
+.d-none {
+    display: none;
+}
 
 .d-flex {
     display: flex;
