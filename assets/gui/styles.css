@@ -282,7 +282,8 @@ table {
     display: none;
 }
 
-.d-flex {
+.d-flex,
+.input-group {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
@@ -301,6 +302,10 @@ table {
     > .flex-grow-3 {
         flex-grow: 3;
     }
+}
+
+.input-group {
+    flex-wrap: nowrap;
 }
 
 span.d-flex {

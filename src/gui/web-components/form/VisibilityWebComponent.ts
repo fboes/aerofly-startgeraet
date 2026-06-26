@@ -20,14 +20,14 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
 <div class="d-flex">
     <div class="form-group">
         <label for="visibility-sm">Visibility SM</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="visibility-sm" type="number" min="0" step="0.25" value="10" />
             <span>SM</span>
         </span>
     </div>
     <div class="form-group">
         <label for="visibility-meters">Visibility m</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="visibility-meters" type="number" min="0" step="100" value="9999" />
             <span>m</span>
         </span>

@@ -20,14 +20,14 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
 <div class="d-flex">
     <div class="form-group">
         <label for="temperature-celsius">Temperature °C</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="temperature-celsius" type="number" value="14" />
             <span>°C</span>
         </span>
     </div>
     <div class="form-group">
         <label for="temperature-fahrenheit">Temperature °F</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="temperature-fahrenheit" type="number" value="57" />
             <span>°F</span>
         </span>

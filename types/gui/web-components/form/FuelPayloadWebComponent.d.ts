@@ -11,6 +11,7 @@ export declare class FuelPayloadWebComponent extends AbstractStateSubscriberWebC
     get state(): FuelPayloadWebComponentState;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private handleRangeChange;
     private handleChange;
     private numberFormat;
     static registerElement(): void;

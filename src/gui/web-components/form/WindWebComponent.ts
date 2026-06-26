@@ -23,21 +23,21 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
 <div class="d-flex">
     <div class="form-group">
         <label for="wind-speed">Wind speed</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="wind-speed" type="number" min="0" value="5" />
             <span>kts</span>
         </span>
     </div>
     <div class="form-group">
         <label for="wind-gust">Wind gusts</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="wind-gust" type="number" min="0" value="0" />
             <span>kts</span>
         </span>
     </div>
     <div class="form-group">
         <label for="wind-direction">Wind direction</label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="wind-direction" type="number" min="-1" max="360" value="241" />
             <span>°</span>
         </span>

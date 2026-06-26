@@ -11,15 +11,15 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
 <div class="d-flex">
     <div class="form-group">
         <label for="fuelloadsetting-fuelmass">Fuel <span></span></label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="fuelloadsetting-fuelmass" type="number" value="0" min="0" />
             <span>kg</span>
         </span>
     </div>
-    <div class="form-group d-none">
+    <div class="form-group">
         <label for="fuelloadsetting-range">Range <span></span></label>
-        <span class="d-flex">
-            <input readonly="readonly" id="fuelloadsetting-range" type="number" value="0" min="0" />
+        <span class="input-group">
+            <input id="fuelloadsetting-range" type="number" value="0" min="0" />
             <span>NM</span>
         </span>
     </div>
@@ -29,7 +29,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     </div>
     <div class="form-group">
         <label for="fuelloadsetting-payloadmass">Payload <span></span></label>
-        <span class="d-flex">
+        <span class="input-group">
             <input id="fuelloadsetting-payloadmass" type="number" value="0" min="0" />
             <span>kg</span>
         </span>
@@ -50,7 +50,8 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     get state() {
         return {
             fuelMass: this.elements.fuelMass.valueAsNumber,
-            payloadMass: this.elements.payloadMass.valueAsNumber + this.elements.persons.valueAsNumber * this.weightProPerson_kg,
+            payloadMass: (this.elements.payloadMass.valueAsNumber || 0) +
+                (this.elements.persons.valueAsNumber || 0) * this.weightProPerson_kg,
         };
     }
     connectedCallback() {
@@ -58,17 +59,21 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.initialize();
             this.isInitialized = true;
         }
+        this.elements.range.addEventListener("input", this.handleRangeChange);
         this.subscribeToStateUpdates((state) => {
+            const fuelMassMax = Math.floor(state.aircraftData?.maximumFuelMassKg ?? 0);
             this.elements.fuelMass.valueAsNumber = Math.floor(state.aeroflyFlight.fuelLoadSetting.fuelMass);
-            this.elements.fuelMass.max = state.aircraftData?.maximumFuelMassKg?.toFixed() ?? "0";
+            this.elements.fuelMass.max = fuelMassMax.toFixed();
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
-            this.elements.fuelMassMax.textContent = state.aircraftData?.maximumFuelMassKg
-                ? `(max. ${this.numberFormat(state.aircraftData.maximumFuelMassKg)} kg)`
-                : "";
-            const maxRange = state.aircraftData?.maximumRangeNm ?? 0;
-            const currentRange = maxRange *
-                (state.aeroflyFlight.fuelLoadSetting.fuelMass / (state.aircraftData?.maximumFuelMassKg ?? 1));
-            this.elements.range.valueAsNumber = Math.floor(currentRange);
+            this.elements.fuelMassMax.textContent = fuelMassMax ? `(max. ${this.numberFormat(fuelMassMax)} kg)` : "";
+            const maxRange = Math.floor(state.aircraftData?.maximumRangeNm ?? 0);
+            const calculateRange = (fuelMass) => maxRange * (fuelMass / (fuelMassMax || 1));
+            const currentRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass);
+            // Only change range slider if slider value could not have been created from the given fuel mass
+            if (calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass - 1) > this.elements.range.valueAsNumber ||
+                calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass + 1) < this.elements.range.valueAsNumber) {
+                this.elements.range.valueAsNumber = Math.floor(currentRange);
+            }
             this.elements.range.max = maxRange.toFixed();
             this.elements.range.disabled = this.elements.range.max === "0" || this.elements.fuelMass.max === "0";
             this.elements.rangeMax.textContent = maxRange ? `(max. ${this.numberFormat(maxRange)} NM)` : "";
@@ -92,8 +97,17 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     }
     disconnectedCallback() {
         super.disconnectedCallback();
+        this.elements.range.removeEventListener("input", this.handleRangeChange);
         this.removeEventListener("input", this.handleChange);
     }
+    handleRangeChange = () => {
+        const maxRange = parseFloat(this.elements.range.max);
+        const range = this.elements.range.valueAsNumber;
+        if (maxRange > 0) {
+            const fuelMass = Math.ceil((range / maxRange) * parseFloat(this.elements.fuelMass.max));
+            this.elements.fuelMass.valueAsNumber = fuelMass;
+        }
+    };
     handleChange = () => {
         sendToMain("fuel-payload:set", this.state);
     };
