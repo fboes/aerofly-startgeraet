@@ -27,11 +27,33 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             <option>default</option>
         </select>
     </div>
+    <!-- --- -->
+    <div class="form-group">
+        <label for="aircraft-icao">ICAO code</label>
+        <output id="aircraft-icao"></output>
+    </div>
+    <div class="form-group">
+        <label for="aircraft-cruise-speed">Cruise speed</label>
+        <span class="input-group">
+            <output id="aircraft-cruise-speed"></output>
+            <span>kts</span>
+        </span>
+    </div>
+     <div class="form-group">
+        <label for="aircraft-cruise-altitude">Cruise altitude</label>
+        <span class="input-group">
+            <output id="aircraft-cruise-altitude"></output>
+            <span>ft</span>
+        </span>
+    </div>
 </div>
         `;
         this.elements = {
             aircraftName: this.querySelector("#aircraft-name"),
             aircraftPaintscheme: this.querySelector("#aircraft-paintscheme"),
+            aircraftIcaoCode: this.querySelector("#aircraft-icao"),
+            aircraftCruiseSpeed: this.querySelector("#aircraft-cruise-speed"),
+            aircraftCruiseAltitude: this.querySelector("#aircraft-cruise-altitude"),
         };
     }
     connectedCallback() {
@@ -53,6 +75,10 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
                     .map((livery) => `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${livery.name}</option>`)
                     .join("") ?? `<option value="">default</option>`;
             this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
+            // ---------------
+            this.elements.aircraftIcaoCode.value = state.aircraftData?.icaoCode ?? "---";
+            this.elements.aircraftCruiseSpeed.value = this.numberFormat(state.aircraftData?.cruiseSpeedKts);
+            this.elements.aircraftCruiseAltitude.value = this.numberFormat(state.aircraftData?.cruiseAltitudeFt);
         });
         this.addEventListener("change", this.handleChange);
     }
@@ -65,5 +91,14 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     };
     static registerElement() {
         customElements.define("startgeraet-aircraft", AircraftWebComponent);
+    }
+    numberFormat(value) {
+        if (value === undefined) {
+            return "---";
+        }
+        return new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(value);
     }
 }

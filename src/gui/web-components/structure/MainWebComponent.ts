@@ -31,8 +31,8 @@ export class MainWebComponent extends HTMLElement {
 <details open>
     <summary><h2>Aircraft</h2></summary>
     <div class="d-flex">
-        <startgeraet-aircraft></startgeraet-aircraft>
-        <startgeraet-fuel-payload></startgeraet-fuel-payload>
+        <startgeraet-aircraft class="w-100"></startgeraet-aircraft>
+        <startgeraet-fuel-payload class="w-100"></startgeraet-fuel-payload>
     </div>
 </details>
 
