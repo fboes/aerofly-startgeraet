@@ -7,6 +7,8 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         return {
             aircraftName: this.elements.aircraftName.value,
             aircraftPaintscheme: this.elements.aircraftPaintscheme.value,
+            cruiseSpeed_kts: this.elements.aircraftCruiseSpeed.valueAsNumber,
+            cruiseAltitude_ft: this.elements.aircraftCruiseAltitude.valueAsNumber,
         };
     }
     initialize() {
@@ -35,14 +37,14 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     <div class="form-group">
         <label for="aircraft-cruise-speed">Cruise speed</label>
         <span class="input-group">
-            <output id="aircraft-cruise-speed"></output>
+            <input id="aircraft-cruise-speed" type="number" min="0" step="1" />
             <span>kts</span>
         </span>
     </div>
      <div class="form-group">
         <label for="aircraft-cruise-altitude">Cruise altitude</label>
         <span class="input-group">
-            <output id="aircraft-cruise-altitude"></output>
+            <input id="aircraft-cruise-altitude" type="number" min="0" step="1" />
             <span>ft</span>
         </span>
     </div>
@@ -77,8 +79,8 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
             // ---------------
             this.elements.aircraftIcaoCode.value = state.aircraftData?.icaoCode ?? "---";
-            this.elements.aircraftCruiseSpeed.value = this.numberFormat(state.aircraftData?.cruiseSpeedKts);
-            this.elements.aircraftCruiseAltitude.value = this.numberFormat(state.aircraftData?.cruiseAltitudeFt);
+            this.elements.aircraftCruiseSpeed.valueAsNumber = Math.round(state.route.cruiseSpeed_kts);
+            this.elements.aircraftCruiseAltitude.valueAsNumber = Math.round(state.route.cruiseAltitude_ft);
         });
         this.addEventListener("change", this.handleChange);
     }

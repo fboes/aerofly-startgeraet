@@ -45,7 +45,15 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.aircraft;
     }
     updateCurrentAircraft() {
+        if (this.aeroflyFlight.aircraft.name === this.currentAircraft?.aeroflyCode) {
+            return;
+        }
         this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
+        if (!this.currentAircraft) {
+            return;
+        }
+        this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
+        this.aeroflyFlight.navigation._cruiseSpeed_kts = this.currentAircraft.cruiseSpeedKts;
     }
     getAircraft() {
         return this.aeroflyFlight.aircraft.name;
@@ -146,6 +154,11 @@ export class AeroflyFlightService {
             configuration: "OnGround",
             onGround: true,
         });
+    }
+    setCruise(cruiseAltitudeFt, cruiseSpeedKts) {
+        this.aeroflyFlight.navigation.cruiseAltitude_ft = cruiseAltitudeFt;
+        this.aeroflyFlight.navigation._cruiseSpeed_kts = cruiseSpeedKts;
+        return this.aeroflyFlight.navigation;
     }
     // ----------------------------------------------------------
     /**

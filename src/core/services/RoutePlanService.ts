@@ -165,6 +165,10 @@ export class RoutePlanService {
     }
 
     private getCruiseSpeedKts(): number {
+        if (this.aeroflyFlight.navigation._cruiseSpeed_kts) {
+            return this.aeroflyFlight.navigation._cruiseSpeed_kts;
+        }
+
         const aircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
         if (!aircraft) {
             throw Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);

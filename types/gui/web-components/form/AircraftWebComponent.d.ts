@@ -2,6 +2,8 @@ import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscr
 export type AircraftWebComponentState = {
     aircraftName: string;
     aircraftPaintscheme: string;
+    cruiseSpeed_kts: number;
+    cruiseAltitude_ft: number;
 };
 export declare class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;

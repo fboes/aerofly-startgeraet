@@ -5,6 +5,8 @@ import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscr
 export type AircraftWebComponentState = {
     aircraftName: string;
     aircraftPaintscheme: string;
+    cruiseSpeed_kts: number;
+    cruiseAltitude_ft: number;
 };
 
 export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
@@ -14,14 +16,16 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         aircraftName: HTMLSelectElement;
         aircraftPaintscheme: HTMLSelectElement;
         aircraftIcaoCode: HTMLOutputElement;
-        aircraftCruiseSpeed: HTMLOutputElement;
-        aircraftCruiseAltitude: HTMLOutputElement;
+        aircraftCruiseSpeed: HTMLInputElement;
+        aircraftCruiseAltitude: HTMLInputElement;
     };
 
     get state(): AircraftWebComponentState {
         return {
             aircraftName: this.elements.aircraftName.value,
             aircraftPaintscheme: this.elements.aircraftPaintscheme.value,
+            cruiseSpeed_kts: this.elements.aircraftCruiseSpeed.valueAsNumber,
+            cruiseAltitude_ft: this.elements.aircraftCruiseAltitude.valueAsNumber,
         };
     }
 
@@ -51,14 +55,14 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     <div class="form-group">
         <label for="aircraft-cruise-speed">Cruise speed</label>
         <span class="input-group">
-            <output id="aircraft-cruise-speed"></output>
+            <input id="aircraft-cruise-speed" type="number" min="0" step="1" />
             <span>kts</span>
         </span>
     </div>
      <div class="form-group">
         <label for="aircraft-cruise-altitude">Cruise altitude</label>
         <span class="input-group">
-            <output id="aircraft-cruise-altitude"></output>
+            <input id="aircraft-cruise-altitude" type="number" min="0" step="1" />
             <span>ft</span>
         </span>
     </div>
@@ -69,8 +73,8 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             aircraftPaintscheme: this.querySelector("#aircraft-paintscheme") as HTMLSelectElement,
 
             aircraftIcaoCode: this.querySelector("#aircraft-icao") as HTMLOutputElement,
-            aircraftCruiseSpeed: this.querySelector("#aircraft-cruise-speed") as HTMLOutputElement,
-            aircraftCruiseAltitude: this.querySelector("#aircraft-cruise-altitude") as HTMLOutputElement,
+            aircraftCruiseSpeed: this.querySelector("#aircraft-cruise-speed") as HTMLInputElement,
+            aircraftCruiseAltitude: this.querySelector("#aircraft-cruise-altitude") as HTMLInputElement,
         };
     }
 
@@ -101,8 +105,8 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
 
             // ---------------
             this.elements.aircraftIcaoCode.value = state.aircraftData?.icaoCode ?? "---";
-            this.elements.aircraftCruiseSpeed.value = this.numberFormat(state.aircraftData?.cruiseSpeedKts);
-            this.elements.aircraftCruiseAltitude.value = this.numberFormat(state.aircraftData?.cruiseAltitudeFt);
+            this.elements.aircraftCruiseSpeed.valueAsNumber = Math.round(state.route.cruiseSpeed_kts);
+            this.elements.aircraftCruiseAltitude.valueAsNumber = Math.round(state.route.cruiseAltitude_ft);
         });
 
         this.addEventListener("change", this.handleChange);

@@ -30,6 +30,8 @@ export declare class AppState {
         destinationAirportCode: string;
         destinationAirportUrl: string;
         distance_nm: number;
+        cruiseAltitude_ft: number;
+        cruiseSpeed_kts: number;
         flightTime: {
             hours: number;
             minutes: number;
@@ -75,6 +77,8 @@ export declare class AppState {
         destinationAirport: string;
         destinationAirportCode: string;
         destinationAirportUrl: string;
+        cruiseAltitude_ft: number;
+        cruiseSpeed_kts: number;
     };
     protected getFlightCategory(): {
         us: AeroflyFlightHelper.AeroflylightCategory;

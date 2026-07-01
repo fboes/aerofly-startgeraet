@@ -86,6 +86,7 @@ export class AeroflyFlightServiceHandler {
         });
 
         this.ipcMain.handle("aircraft:set", (event: IpcMainInvokeEvent, aircraft: AircraftWebComponentState) => {
+            this.service.setCruise(aircraft.cruiseAltitude_ft, aircraft.cruiseSpeed_kts);
             this.service.setAircraft(aircraft.aircraftName, aircraft.aircraftPaintscheme);
             this.sendStateUpdate();
         });

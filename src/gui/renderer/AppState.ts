@@ -30,6 +30,8 @@ export class AppState {
         destinationAirportCode: string;
         destinationAirportUrl: string;
         distance_nm: number;
+        cruiseAltitude_ft: number;
+        cruiseSpeed_kts: number;
         flightTime: {
             hours: number;
             minutes: number;
@@ -88,9 +90,11 @@ export class AppState {
     }
 
     protected getRoute() {
+        const cruiseAltitude_ft = this.aeroflyFlight.navigation.cruiseAltitude_ft;
+        const cruiseSpeed_kts = this.aeroflyFlight.navigation._cruiseSpeed_kts ?? 0;
         const routeString = AeroflyFlightFormatter.getFlightplanWaypoints(this.aeroflyFlight, 3);
 
-        const lastLeg = new RoutePlanService(this.aeroflyFlight).getRouteLegs().at(-1);
+        const lastLeg = new RoutePlanService(this.aeroflyFlight).getRouteLegs(cruiseSpeed_kts).at(-1);
         const distance_nm = lastLeg?.distanceTotal_nm ?? 0;
         const flightTime_min = lastLeg?.estimatedTimeEnrouteTotal_min ?? 0;
         const flightTime = {
@@ -114,6 +118,8 @@ export class AppState {
             destinationAirport: AeroflyFlightFormatter.getFlightplanDestinationName(this.aeroflyFlight),
             destinationAirportCode,
             destinationAirportUrl: skyVector.getDestinationURL().toString(),
+            cruiseAltitude_ft,
+            cruiseSpeed_kts,
         };
     }
 

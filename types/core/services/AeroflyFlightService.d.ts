@@ -70,6 +70,7 @@ export declare class AeroflyFlightService {
     getFlightplanLegs(trueAirspeed_kts?: number, consolidated?: boolean): RoutePlanServiceLeg[] | RoutePlanServiceRoute;
     setFlightPosition(longitude: number, latitude: number, altitude_meter: number, heading_degree: number, speed_kts: number): AeroflySettingsFlight;
     setFlightPositionToDeparture(): void;
+    setCruise(cruiseAltitudeFt: number, cruiseSpeedKts: number): AeroflyNavigationConfig;
     /**
      *
      * @param simBriefUserName
