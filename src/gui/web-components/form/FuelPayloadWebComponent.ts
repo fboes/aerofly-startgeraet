@@ -9,6 +9,8 @@ export type FuelPayloadWebComponentState = {
 export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
 
+    private maximumTakeoffMassKg = 0;
+
     private elements!: {
         fuelMass: HTMLInputElement;
         fuelMassMax: HTMLSpanElement;
@@ -97,11 +99,14 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             const maxPayload = Math.floor(state.getMaxRemainingPayload_kg - personsMass);
             const payloadMass = Math.max(0, Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass - personsMass));
 
+            this.maximumTakeoffMassKg = state.aircraftData?.maximumTakeoffMassKg ?? 1;
             const calculateRange = (fuelMass: number) =>
                 maxRange *
                 (fuelMass / (fuelMassMax || 1)) *
-                (1 - state.aeroflyFlight.fuelLoadSetting.payloadMass / (state.aircraftData?.maximumTakeoffMassKg ?? 1));
-            const currentRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass);
+                (1 - state.aeroflyFlight.fuelLoadSetting.payloadMass / this.maximumTakeoffMassKg);
+            const currentRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass),
+                lowerBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass - 1),
+                upperBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass + 1);
 
             // ----------------------------------
 
@@ -111,10 +116,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.fuelMassMax.textContent = fuelMassMax ? `(max. ${this.numberFormat(fuelMassMax)} kg)` : "";
 
             // TODO: Only change range slider if slider value could not have been created from the given fuel mass
-            if (
-                calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass - 1) > this.elements.range.valueAsNumber ||
-                calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass + 1) < this.elements.range.valueAsNumber
-            ) {
+            if (lowerBound > this.elements.range.valueAsNumber || upperBound < this.elements.range.valueAsNumber) {
                 this.elements.range.valueAsNumber = Math.floor(currentRange);
             }
 
@@ -161,7 +163,10 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         const range = this.elements.range.valueAsNumber;
 
         if (maxRange > 0) {
-            const fuelMass = Math.ceil((range / maxRange) * parseFloat(this.elements.fuelMass.max));
+            const fuelMass = Math.ceil(
+                ((range / maxRange) * parseFloat(this.elements.fuelMass.max)) /
+                    (1 - this.elements.payloadMass.valueAsNumber / this.maximumTakeoffMassKg),
+            );
             this.elements.fuelMass.valueAsNumber = fuelMass;
         }
     };

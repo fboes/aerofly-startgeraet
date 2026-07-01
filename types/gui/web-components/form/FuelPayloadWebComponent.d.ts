@@ -5,6 +5,7 @@ export type FuelPayloadWebComponentState = {
 };
 export declare class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
+    private maximumTakeoffMassKg;
     private elements;
     private weightProPerson_kg;
     private initialize;
