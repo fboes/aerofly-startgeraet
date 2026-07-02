@@ -65,14 +65,20 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             const fuelMassMax = Math.floor(state.aircraftData?.maximumFuelMassKg ?? 0);
             const maxRange = Math.floor(state.aircraftData?.maximumRangeNm ?? 0);
             const maxPersons = Math.min(state.aircraftData?.maximumPersonsOnBoard ?? Infinity, Math.floor(state.getMaxRemainingPayload_kg / this.weightProPerson_kg));
-            const personsMass = Math.floor(this.elements.persons.valueAsNumber * this.weightProPerson_kg);
+            const personsMass = this.getPersonMass();
             const maxPayload = Math.floor(state.getMaxRemainingPayload_kg - personsMass);
             const payloadMass = Math.max(0, Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass - personsMass));
             this.maximumTakeoffMassKg = state.aircraftData?.maximumTakeoffMassKg ?? 1;
             const calculateRange = (fuelMass) => maxRange *
                 (fuelMass / (fuelMassMax || 1)) *
                 (1 - state.aeroflyFlight.fuelLoadSetting.payloadMass / this.maximumTakeoffMassKg);
-            const currentRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass), lowerBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass - 1), upperBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass + 1);
+            const calculatedRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass), lowerBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass - 1), upperBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass + 1);
+            /*console.log({
+                lowerBound,
+                valueAsNumber: this.elements.range.valueAsNumber,
+                upperBound,
+                calculatedRange,
+            });*/
             // ----------------------------------
             this.elements.fuelMass.valueAsNumber = Math.floor(state.aeroflyFlight.fuelLoadSetting.fuelMass);
             this.elements.fuelMass.max = fuelMassMax.toFixed();
@@ -80,7 +86,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.fuelMassMax.textContent = fuelMassMax ? `(max. ${this.numberFormat(fuelMassMax)} kg)` : "";
             // TODO: Only change range slider if slider value could not have been created from the given fuel mass
             if (lowerBound > this.elements.range.valueAsNumber || upperBound < this.elements.range.valueAsNumber) {
-                this.elements.range.valueAsNumber = Math.floor(currentRange);
+                this.elements.range.valueAsNumber = Math.floor(calculatedRange);
             }
             this.elements.range.classList.toggle("input-warning", this.elements.range.valueAsNumber < state.route.distance_nm);
             this.title = `Recommended minimal range: ${state.route.distance_nm.toFixed()} NM`;
@@ -109,14 +115,21 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         this.removeEventListener("input", this.handleChange);
     }
     handleRangeChange = () => {
-        const maxRange = parseFloat(this.elements.range.max);
         const range = this.elements.range.valueAsNumber;
+        if (range < 1) {
+            this.elements.fuelMass.valueAsNumber = 0;
+            return;
+        }
+        const maxRange = parseFloat(this.elements.range.max);
         if (maxRange > 0) {
-            const fuelMass = Math.ceil(((range / maxRange) * parseFloat(this.elements.fuelMass.max)) /
-                (1 - this.elements.payloadMass.valueAsNumber / this.maximumTakeoffMassKg));
+            const divider = 1 - (this.elements.payloadMass.valueAsNumber + this.getPersonMass()) / this.maximumTakeoffMassKg || 1;
+            const fuelMass = Math.ceil(((range / maxRange) * parseFloat(this.elements.fuelMass.max)) / divider);
             this.elements.fuelMass.valueAsNumber = fuelMass;
         }
     };
+    getPersonMass() {
+        return this.elements.persons.valueAsNumber * this.weightProPerson_kg;
+    }
     handleChange = () => {
         sendToMain("fuel-payload:set", this.state);
     };

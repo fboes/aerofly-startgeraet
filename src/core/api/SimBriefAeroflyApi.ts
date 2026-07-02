@@ -86,7 +86,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
 
         const waypoints = this.getWaypointsFromNavlog(simbriefPayload);
         flight.navigation = new AeroflyNavigationConfig(
-            waypoints.reduce((acc, wp) => Math.max(acc, wp.altitude ?? 0), 0), // max altitude of all waypoints for cruise altitude
+            Number(simbriefPayload.general.initial_altitude),
             [
                 new AeroflyNavRouteOrigin(
                     simbriefPayload.origin.icao_code,
@@ -124,6 +124,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
                     },
                 ),
             ],
+            Number(simbriefPayload.general.cruise_tas),
         );
     }
 

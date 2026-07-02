@@ -94,19 +94,27 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
                 state.aircraftData?.maximumPersonsOnBoard ?? Infinity,
                 Math.floor(state.getMaxRemainingPayload_kg / this.weightProPerson_kg),
             );
-            const personsMass = Math.floor(this.elements.persons.valueAsNumber * this.weightProPerson_kg);
+            const personsMass = this.getPersonMass();
 
             const maxPayload = Math.floor(state.getMaxRemainingPayload_kg - personsMass);
             const payloadMass = Math.max(0, Math.floor(state.aeroflyFlight.fuelLoadSetting.payloadMass - personsMass));
 
             this.maximumTakeoffMassKg = state.aircraftData?.maximumTakeoffMassKg ?? 1;
+
             const calculateRange = (fuelMass: number) =>
                 maxRange *
                 (fuelMass / (fuelMassMax || 1)) *
                 (1 - state.aeroflyFlight.fuelLoadSetting.payloadMass / this.maximumTakeoffMassKg);
-            const currentRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass),
+            const calculatedRange = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass),
                 lowerBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass - 1),
                 upperBound = calculateRange(state.aeroflyFlight.fuelLoadSetting.fuelMass + 1);
+
+            /*console.log({
+                lowerBound,
+                valueAsNumber: this.elements.range.valueAsNumber,
+                upperBound,
+                calculatedRange,
+            });*/
 
             // ----------------------------------
 
@@ -117,7 +125,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
 
             // TODO: Only change range slider if slider value could not have been created from the given fuel mass
             if (lowerBound > this.elements.range.valueAsNumber || upperBound < this.elements.range.valueAsNumber) {
-                this.elements.range.valueAsNumber = Math.floor(currentRange);
+                this.elements.range.valueAsNumber = Math.floor(calculatedRange);
             }
 
             this.elements.range.classList.toggle(
@@ -159,17 +167,25 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     }
 
     private handleRangeChange = () => {
-        const maxRange = parseFloat(this.elements.range.max);
         const range = this.elements.range.valueAsNumber;
+        if (range < 1) {
+            this.elements.fuelMass.valueAsNumber = 0;
+            return;
+        }
 
+        const maxRange = parseFloat(this.elements.range.max);
         if (maxRange > 0) {
-            const fuelMass = Math.ceil(
-                ((range / maxRange) * parseFloat(this.elements.fuelMass.max)) /
-                    (1 - this.elements.payloadMass.valueAsNumber / this.maximumTakeoffMassKg),
-            );
+            const divider =
+                1 - (this.elements.payloadMass.valueAsNumber + this.getPersonMass()) / this.maximumTakeoffMassKg || 1;
+
+            const fuelMass = Math.ceil(((range / maxRange) * parseFloat(this.elements.fuelMass.max)) / divider);
             this.elements.fuelMass.valueAsNumber = fuelMass;
         }
     };
+
+    private getPersonMass() {
+        return this.elements.persons.valueAsNumber * this.weightProPerson_kg;
+    }
 
     private handleChange = () => {
         sendToMain("fuel-payload:set", this.state);

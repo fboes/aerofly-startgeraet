@@ -41,8 +41,13 @@ export type SimBriefApiPayloadFmsDownload = {
 
 export type SimBriefApiPayload = {
     general: {
+        /**
+         * Feet
+         */
+        initial_altitude: string;
         icao_airline: string;
         cruise_tas: string;
+        passengers: string;
     };
     origin: SimBriefApiPayloadAirport;
     destination: SimBriefApiPayloadAirport;
