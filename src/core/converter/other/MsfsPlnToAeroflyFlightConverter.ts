@@ -8,8 +8,9 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
+import { parseXmlAttribute, parseXmlNode, parseXmlNodes } from "../parser/parseXml.js";
 
 //type MsfsPlnWaypointType = "none" | "Airport" | "Intersection" | "VOR" | "NDB" | "User" | "ATC";
 type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | "A" | "B";
@@ -19,7 +20,7 @@ type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | 
  * @see https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
-export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     static readonly fileName = "Microsoft Flight Simulator Flight Plan File";
     static readonly fileExtension = "pln";
 
@@ -28,32 +29,32 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
             throw new Error("File format only contains one flight plan");
         }
 
-        const waypointTableXml = this.getXmlNode(content, "FlightPlan.FlightPlan");
+        const waypointTableXml = parseXmlNode(content, "FlightPlan.FlightPlan");
 
-        const versionId = Number(this.getXmlNode(waypointTableXml, "AppVersionMajor"));
+        const versionId = Number(parseXmlNode(waypointTableXml, "AppVersionMajor"));
         if (versionId <= 0 || versionId > 12) {
             throw Error("Unknown flight plan version ID");
         }
 
         flightplan.navigation = new AeroflyNavigationConfig(
-            Number(this.getXmlNode(waypointTableXml, "CruisingAlt")),
+            Number(parseXmlNode(waypointTableXml, "CruisingAlt")),
             this.getWaypoints(waypointTableXml),
         );
 
-        flightplan._missionTitle = this.getXmlNode(waypointTableXml, "Title");
-        flightplan._missionBriefing = this.getXmlNode(waypointTableXml, "Descr");
+        flightplan._missionTitle = parseXmlNode(waypointTableXml, "Title");
+        flightplan._missionBriefing = parseXmlNode(waypointTableXml, "Descr");
     }
 
     private getWaypoints(waypointTableXml: string): AeroflyNavRouteBase[] {
-        const waypointsXml = this.getXmlNodes(waypointTableXml, "ATCWaypoint");
+        const waypointsXml = parseXmlNodes(waypointTableXml, "ATCWaypoint");
         return waypointsXml.flatMap((xml, index): AeroflyNavRouteBase[] => {
             return this.convertWaypointToAerofly(xml, index === 0, index === waypointsXml.length - 1);
         });
     }
 
     private convertWaypointToAerofly(xml: string, isFirst: boolean, isLast: boolean): AeroflyNavRouteBase[] {
-        const coords = this.convertCoordinate(this.getXmlNode(xml, "WorldPosition"));
-        const identifier = this.getXmlNode(xml, "ICAOIdent") || this.getXmlAttribute(xml, "id");
+        const coords = this.convertCoordinate(parseXmlNode(xml, "WorldPosition"));
+        const identifier = parseXmlNode(xml, "ICAOIdent") || parseXmlAttribute(xml, "id");
         const runway = isFirst || isLast ? this.getRunway(xml) : null;
         const uid = this.geoToUid(coords.lon, coords.lat);
 
@@ -108,12 +109,12 @@ export class MsfsPlnToAeroflyFlightConverter extends XMLToAeroflyFlightConverter
     }
 
     private getRunway(xml: string): string | null {
-        const runwayNumberFP = this.getXmlNode(xml, "RunwayNumberFP");
+        const runwayNumberFP = parseXmlNode(xml, "RunwayNumberFP");
         if (!runwayNumberFP) {
             return null;
         }
 
-        const runwayDesignatorFP = this.getXmlNode(xml, "RunwayDesignatorFP") as MsfsPlnRunwayDesignator | "";
+        const runwayDesignatorFP = parseXmlNode(xml, "RunwayDesignatorFP") as MsfsPlnRunwayDesignator | "";
         return runwayNumberFP + (runwayDesignatorFP === "NONE" ? "" : runwayDesignatorFP.substring(0, 1));
     }
 

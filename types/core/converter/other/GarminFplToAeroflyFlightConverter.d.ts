@@ -1,10 +1,10 @@
 import { type AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
 /**
  * Import `fpl` Gamin FPL files
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
-export declare class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+export declare class GarminFplToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     static readonly fileName = "Garmin Flight Plan File";
     static readonly fileExtension = "fpl";
     getIndices(content: string): string[];

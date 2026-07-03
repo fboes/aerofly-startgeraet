@@ -16,20 +16,4 @@ export declare abstract class StringToAeroflyFlightConverter {
      */
     protected geoToUid(lon: number, lat: number): bigint | undefined;
 }
-/**
- * This special ImportFileHandler adds basic XML parser functionality.
- */
-export declare abstract class XMLToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
-    protected getXmlNode(xml: string, tag: string): string;
-    protected getXmlNodes(xml: string, tag: string): string[];
-    protected getXmlAttribute(xml: string, attribute: string): string;
-    protected unXml(text: string): string;
-}
-export type JSONUnvalidated = Record<string, unknown>;
-export declare abstract class JSONToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
-    protected getJSONArray(json: unknown): JSONUnvalidated[];
-    protected getJSONObject(json: unknown): JSONUnvalidated;
-    protected getJSONNumber(json: unknown): number;
-    protected getJSONString(json: unknown): string;
-}
 //# sourceMappingURL=StringToAeroflyFlightConverter.d.ts.map

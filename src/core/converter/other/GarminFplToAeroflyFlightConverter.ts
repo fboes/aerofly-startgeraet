@@ -5,7 +5,8 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { XMLToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { parseXmlNode, parseXmlNodes } from "../parser/parseXml.js";
 
 type GarminFplWaypointType = "AIRPORT" | "USER WAYPOINT" | "NDB" | "VOR" | "INT" | "INT-VRP";
 
@@ -21,12 +22,12 @@ type GarminFplWaypoint = {
  * Import `fpl` Gamin FPL files
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
-export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConverter {
+export class GarminFplToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
     static readonly fileName = "Garmin Flight Plan File";
     static readonly fileExtension = "fpl";
 
     getIndices(content: string): string[] {
-        return this.getRoutes(content).map((r, i) => this.getXmlNode(r, "route-name") || `Route ${i + 1}`);
+        return this.getRoutes(content).map((r, i) => parseXmlNode(r, "route-name") || `Route ${i + 1}`);
     }
 
     convert(content: string, flightplan: AeroflyFlight, index = 0): void {
@@ -40,20 +41,20 @@ export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConvert
         flightplan.navigation.waypoints = waypoints.map((waypoint, index) =>
             this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1),
         );
-        flightplan._missionTitle = this.getXmlNode(route, "route-name");
-        flightplan._missionBriefing = this.getXmlNode(route, "route-description");
+        flightplan._missionTitle = parseXmlNode(route, "route-name");
+        flightplan._missionBriefing = parseXmlNode(route, "route-description");
     }
 
     private getRoutes(content: string): string[] {
-        return this.getXmlNodes(content, "route");
+        return parseXmlNodes(content, "route");
     }
 
     private getWaypoints(content: string, routeTableXml: string): GarminFplWaypoint[] {
         const waypointDefinitions = this.getWaypointDefinitions(content);
-        const waypointsXml = this.getXmlNodes(routeTableXml, "route-point");
+        const waypointsXml = parseXmlNodes(routeTableXml, "route-point");
 
         return waypointsXml.map((xml): GarminFplWaypoint => {
-            const waypointDefinition = waypointDefinitions.get(this.getXmlNode(xml, "waypoint-identifier"));
+            const waypointDefinition = waypointDefinitions.get(parseXmlNode(xml, "waypoint-identifier"));
             if (waypointDefinition === undefined) {
                 throw new Error("Missing waypoint definition for route point");
             }
@@ -64,14 +65,14 @@ export class GarminFplToAeroflyFlightConverter extends XMLToAeroflyFlightConvert
 
     private getWaypointDefinitions(content: string): Map<string, GarminFplWaypoint> {
         const waypointDefinitions = new Map<string, GarminFplWaypoint>();
-        const waypointTableXml = this.getXmlNode(content, "waypoint-table") || this.getXmlNode(content, "waypoints");
-        this.getXmlNodes(waypointTableXml, "waypoint").forEach((xml) => {
-            const elevation = this.getXmlNode(xml, "elevation");
-            waypointDefinitions.set(this.getXmlNode(xml, "identifier"), {
-                identifier: this.getXmlNode(xml, "identifier"),
-                type: <GarminFplWaypointType>this.getXmlNode(xml, "type"),
-                lat: Number(this.getXmlNode(xml, "lat")),
-                lon: Number(this.getXmlNode(xml, "lon")),
+        const waypointTableXml = parseXmlNode(content, "waypoint-table") || parseXmlNode(content, "waypoints");
+        parseXmlNodes(waypointTableXml, "waypoint").forEach((xml) => {
+            const elevation = parseXmlNode(xml, "elevation");
+            waypointDefinitions.set(parseXmlNode(xml, "identifier"), {
+                identifier: parseXmlNode(xml, "identifier"),
+                type: <GarminFplWaypointType>parseXmlNode(xml, "type"),
+                lat: Number(parseXmlNode(xml, "lat")),
+                lon: Number(parseXmlNode(xml, "lon")),
                 elevationMeter: elevation ? Number(elevation) : undefined,
             });
         });
