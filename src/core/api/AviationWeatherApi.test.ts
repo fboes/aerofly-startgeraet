@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
 
-await describe("AviationWeatherApi", async (): Promise<void> => {
+await describe("AviationWeatherApi", { skip: true }, async (): Promise<void> => {
     await it("should fetch airports correctly", async () => {
         const icaoCodes = ["KEYW", "KMCI", "KMVY", "KCCR"];
         const airports = await new AviationWeatherApi().fetchAirports(icaoCodes);

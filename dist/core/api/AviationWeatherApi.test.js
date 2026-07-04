@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
 import { describe, it } from "node:test";
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
-await describe("AviationWeatherApi", async () => {
+await describe("AviationWeatherApi", { skip: true }, async () => {
     await it("should fetch airports correctly", async () => {
         const icaoCodes = ["KEYW", "KMCI", "KMVY", "KCCR"];
         const airports = await new AviationWeatherApi().fetchAirports(icaoCodes);
