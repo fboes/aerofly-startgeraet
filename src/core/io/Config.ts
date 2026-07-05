@@ -70,8 +70,8 @@ export class Config {
                 "Library",
                 "Application Support",
                 "Aerofly FS 4",
-            ), // (Apple Mac OSX, App Store Version)
-            path.join(os.homedir(), "Library", "Application Support", "Aerofly FS 4"), // (Apple Mac OSX, Steam Version)
+            ), // (Apple macOS, App Store Version)
+            path.join(os.homedir(), "Library", "Application Support", "Aerofly FS 4"), // (Apple macOS, Steam Version)
             path.join(os.homedir(), ".config", "Aerofly FS 4"), // (Linux, hidden folder)
         ].reduce((acc: null | string, possiblePath: string) => {
             if (fs.existsSync(possiblePath)) {

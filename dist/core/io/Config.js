@@ -47,8 +47,8 @@ export class Config {
     findMainMcfFilePath() {
         return [
             path.join(os.homedir(), "Documents", "Aerofly FS 4"), // (Microsoft Windows)
-            path.join(os.homedir(), "Library", "Containers", "com.aerofly.aerofly-fs-4-mac", "Data", "Library", "Application Support", "Aerofly FS 4"), // (Apple Mac OSX, App Store Version)
-            path.join(os.homedir(), "Library", "Application Support", "Aerofly FS 4"), // (Apple Mac OSX, Steam Version)
+            path.join(os.homedir(), "Library", "Containers", "com.aerofly.aerofly-fs-4-mac", "Data", "Library", "Application Support", "Aerofly FS 4"), // (Apple macOS, App Store Version)
+            path.join(os.homedir(), "Library", "Application Support", "Aerofly FS 4"), // (Apple macOS, Steam Version)
             path.join(os.homedir(), ".config", "Aerofly FS 4"), // (Linux, hidden folder)
         ].reduce((acc, possiblePath) => {
             if (fs.existsSync(possiblePath)) {

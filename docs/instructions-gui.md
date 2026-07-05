@@ -4,7 +4,7 @@
 
 ## Requirements
 
-This application supports computers running Microsoft Windows, Apple OSX and Linux. For Linux a Debian installer as well as an AppImage is provided, which should run on most versions of Linux.
+This application supports computers running Microsoft Windows, Apple macOS and Linux. For Linux a Debian installer as well as an AppImage is provided, which should run on most versions of Linux.
 
 ## Installation
 

@@ -4,7 +4,7 @@
 
 ## Requirements
 
-This application supports computers running Microsoft Windows, Apple OSX and Linux.
+This application supports computers running Microsoft Windows, Apple macOS and Linux.
 
 The Aerofly Startgerät is a Command Line Interface (CLI) tool, which means you need to open a terminal to run it.
 

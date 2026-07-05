@@ -1,8 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
 ## [2.0.1] - 2026-07-05
 
-- Added universal compilation of Startgerät GUI application for OSX.
+- Added universal compilation of Startgerät GUI application for Apple macOS.
 
 ## [2.0.0] - 2026-07-04
 
