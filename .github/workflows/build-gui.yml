@@ -40,7 +40,7 @@ jobs:
           CSC_IDENTITY_AUTO_DISCOVERY: false
         run: |
           mkdir -p ./artifacts/gui
-          npx electron-builder --publish never
+          npx electron-builder --publish never ${{ runner.os == 'macOS' && '--universal' || '' }}
 
       - name: Upload artifacts (Windows/macOS)
         if: runner.os != 'Linux'

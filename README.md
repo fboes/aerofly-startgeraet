@@ -22,8 +22,6 @@ All off these changes are directly written to Aerofly's `main.mcf` main configur
 
 In this manner the Aerofly Startgerät combines the capabilities of the [Aerofly Wettergerät](https://github.com/fboes/aerofly-wettergeraet) (but for multiple operating systems) and the [Aerofly Missionsgerät](https://github.com/fboes/aerofly-missions) (but directly injecting the new flight plan without any extra steps in-between).
 
-This tool also comes with non-interactive short-cuts to simply import SimBrief flight plans, synchronizing time & date and fetching the latest METAR information.
-
 The Aerofly Startgerät is a stand-alone application, and is not directly integrated into Aerofly FS 4.
 
 Supported flight plan file formats:
@@ -43,8 +41,6 @@ Supported flight plan file formats:
 
 ![](./docs/gui-example.png)
 
-It also comes with an MCP server, which gives you the power of manipulating the settings above via AI, using LLMs as a mission generator for any setup you can think of.
-
 ## Installation & Instructions
 
 The Aerofly Startgerät comes in multiple versions. Refer to the different instruction on how to install and use these:
@@ -52,7 +48,7 @@ The Aerofly Startgerät comes in multiple versions. Refer to the different instr
 - [**The Aerofly Startgerät Graphical User Interface (GUI) app**](./docs/instructions-gui.md):  
   A desktop app with a grahpical user interface (GUI).
 - [**The Aerofly Startgerät Command Line Interface (CLI) Tool**](./docs/instructions-cli.md):  
-  A very basic text menu without any mouse interaction, but it gets the job done.
+  A terminal application for automatisations, e.g. importing SimBrief flight plans or importing weather information.
 - [**The Aerofly Startgerät Model Context Protocol (MCP) Server**](./docs/instructions-mcp.md):  
   Allow an AI / LLM to create new flight plans & flight settings via this MCP server.
 

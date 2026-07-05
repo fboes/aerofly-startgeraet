@@ -14,12 +14,10 @@ This application supports computers running Microsoft Windows, Apple OSX and Lin
 
 ## Usage
 
-Call this tool by double-clicking the GUI app. On a successful start-up, you will see a main app windows. After changing settings int the app windows, changes will be saved to the `main.mcf` after a second of inactivity.
+Call this tool by double-clicking the GUI app. On a successful start-up, you will see the main app window.
 
 > [!WARNING]
 > The Aerofly Startgerät may break your `main.mcf`. Be sure to have a backup of this file.
-
-This will show the main configuration screen of the Aerofly Startgerät.
 
 ![](./gui-example.png)
 
