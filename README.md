@@ -74,8 +74,7 @@ Enter your SimBrief username and click **Fetch**. Startgerät automatically inje
 
 **Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the Flgihtplan and then fetch the plan via Startgerät, which takes literally seconds to do.
 
-> [!NOTE]
-> Instructions kindly provided by [AeRodri on the Aerofly Forum](https://www.aerofly.com/community/forum/index.php?thread/29251-aerofly-startger%C3%A4t-manual-set-up-and-import-of-flight-plans/&postID=191692#post191692)
+> Instructions contributed by AeRodri from [RealFlightOps](https://www.youtube.com/@RealFlightOps)
 
 ### Other flight planning software workflow
 
