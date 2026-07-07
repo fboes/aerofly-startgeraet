@@ -30,6 +30,9 @@ export class ImportWebComponent extends HTMLElement {
     handleClick = async () => {
         const response = await sendToMain("flightplan:import-file");
         dispatchNotificationEvent(document.body, response.message, response.type, response.payload);
+        if (response.type === "success") {
+            dispatchNotificationEvent(document.body, "Please remember to set the initial starting position of your aircraft in the simulator.", "info");
+        }
         if (response.payload) {
             console.log(this.elements.fpChooser);
             this.elements.fpChooser.values = response.payload;

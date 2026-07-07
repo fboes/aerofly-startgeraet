@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Improved `NotificationWebComponent` to handle mutiple messages
+
 ## [2.0.1] - 2026-07-05
 
 - Added universal compilation of Startgerät GUI application for Apple macOS.

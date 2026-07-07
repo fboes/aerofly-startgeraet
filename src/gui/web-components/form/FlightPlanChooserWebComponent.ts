@@ -84,6 +84,14 @@ export class FlightPlanChooserWebComponent extends HTMLElement {
         );
         dispatchNotificationEvent(document.body, response.message, response.type);
 
+        if (response.type === "success") {
+            dispatchNotificationEvent<undefined>(
+                document.body,
+                "Please remember to set the initial starting position of your aircraft in the simulator.",
+                "info",
+            );
+        }
+
         this.elements.dialog.close();
     };
 

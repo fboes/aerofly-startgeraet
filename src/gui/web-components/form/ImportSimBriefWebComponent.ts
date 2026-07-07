@@ -94,6 +94,14 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
 
         const response = await sendToMain<NotificationEventPayload<undefined>>("flightplan:import-simbrief", state);
         dispatchNotificationEvent(document.body, response.message, response.type);
+
+        if (response.type === "success") {
+            dispatchNotificationEvent<undefined>(
+                document.body,
+                "Please remember to set the initial starting position of your aircraft in the simulator.",
+                "info",
+            );
+        }
     };
 
     static registerElement() {

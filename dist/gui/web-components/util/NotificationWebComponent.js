@@ -1,24 +1,16 @@
 import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
-    hideTimer = null;
     hideDelay = 3_000;
-    elements;
+    animiationDuration = 500;
     constructor() {
         super();
-        this.elements = {
-            output: document.createElement("output"),
-        };
-        this.elements.output.role = "alert";
-        this.elements.output.ariaLive = "assertive";
-        this.elements.output.ariaAtomic = "true";
-        this.appendChild(this.elements.output);
+        this.role = "alert";
+        this.ariaLive = "assertive";
+        this.ariaAtomic = "true";
     }
     connectedCallback() {
         document.body.addEventListener(NOTIFICATION_EVENT_IDENTIFIER, this.handleNotification);
-        this.addEventListener("click", () => {
-            this.elements.output.classList.toggle("is-visible");
-        });
         this.subscribeToStateUpdates((state) => {
             if (state.isMissingMainMcf) {
                 this.handleNotificationDetails({
@@ -41,14 +33,17 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
     };
     handleNotificationDetails(details) {
         this.log(details);
-        this.elements.output.classList.remove("info", "success", "error", "waiting");
-        this.elements.output.classList.add(details.type, "is-visible");
-        this.elements.output.innerText = this.getEmoji(details.type) + details.message;
-        if (this.hideTimer !== null) {
-            clearTimeout(this.hideTimer);
-        }
-        this.hideTimer = setTimeout(() => {
-            this.elements.output.classList.remove(details.type, "is-visible");
+        const output = document.createElement("output");
+        output.innerText = this.getEmoji(details.type) + details.message;
+        this.appendChild(output);
+        setTimeout(() => {
+            output.classList.add(details.type, "is-visible");
+        }, 1);
+        setTimeout(() => {
+            output.classList.remove("is-visible");
+            setTimeout(() => {
+                output.remove();
+            }, this.animiationDuration);
         }, this.hideDelay);
     }
     getEmoji(type) {

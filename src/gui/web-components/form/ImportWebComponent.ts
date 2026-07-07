@@ -55,6 +55,14 @@ export class ImportWebComponent extends HTMLElement {
             response.payload,
         );
 
+        if (response.type === "success") {
+            dispatchNotificationEvent<undefined>(
+                document.body,
+                "Please remember to set the initial starting position of your aircraft in the simulator.",
+                "info",
+            );
+        }
+
         if (response.payload) {
             console.log(this.elements.fpChooser);
             this.elements.fpChooser.values = response.payload;
