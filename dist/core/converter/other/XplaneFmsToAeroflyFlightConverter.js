@@ -38,19 +38,16 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         }));
     }
     convertWaypointToAerofly(waypoint, isFirst, isLast, departureRunway, destinationRunway) {
-        const uid = this.geoToUid(waypoint.lon, waypoint.lat);
         if (isFirst) {
             const route = [
                 new AeroflyNavRouteOrigin(waypoint.identifier, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
-                    uid,
                 }),
             ];
             if (departureRunway) {
                 route.push(positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
                     direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
-                    uid,
                 })));
             }
             return route;
@@ -61,19 +58,16 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 route.push(positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
                     direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
-                    uid,
                 })));
             }
             route.push(new AeroflyNavRouteDestination(waypoint.identifier, waypoint.lon, waypoint.lat, {
                 elevation_ft: waypoint.elevationFeet,
-                uid,
             }));
             return route;
         }
         return [
             new AeroflyNavRouteWaypoint(waypoint.identifier, waypoint.lon, waypoint.lat, {
                 altitude_ft: waypoint.elevationFeet,
-                uid,
             }),
         ];
     }

@@ -16,16 +16,4 @@ export abstract class StringToAeroflyFlightConverter {
     }
 
     abstract convert(content: string, flightplan: AeroflyFlight, index: number): void;
-
-    /**
-     * This function is a placeholder until the method to encode UIDs is discovered.
-     *
-     * @param lon - Longitude in degrees (-180 … +180)
-     * @param lat - Latitude in degrees  (-90  … +90)
-     * @returns UID as a BigInt (unsigned 64-bit integer)
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected geoToUid(lon: number, lat: number): bigint | undefined {
-        return undefined;
-    }
 }

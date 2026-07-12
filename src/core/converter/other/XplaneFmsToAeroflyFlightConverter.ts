@@ -82,12 +82,10 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         departureRunway: string | null,
         destinationRunway: string | null,
     ): AeroflyNavRouteBase[] {
-        const uid = this.geoToUid(waypoint.lon, waypoint.lat);
         if (isFirst) {
             const route = [
                 new AeroflyNavRouteOrigin(waypoint.identifier, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
-                    uid,
                 }),
             ];
             if (departureRunway) {
@@ -96,7 +94,6 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                         new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
                             elevation_ft: waypoint.elevationFeet,
                             direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
-                            uid,
                         }),
                     ),
                 );
@@ -111,7 +108,6 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                         new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
                             elevation_ft: waypoint.elevationFeet,
                             direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
-                            uid,
                         }),
                     ),
                 );
@@ -119,7 +115,6 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
             route.push(
                 new AeroflyNavRouteDestination(waypoint.identifier, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
-                    uid,
                 }),
             );
             return route;
@@ -127,7 +122,6 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         return [
             new AeroflyNavRouteWaypoint(waypoint.identifier, waypoint.lon, waypoint.lat, {
                 altitude_ft: waypoint.elevationFeet,
-                uid,
             }),
         ];
     }

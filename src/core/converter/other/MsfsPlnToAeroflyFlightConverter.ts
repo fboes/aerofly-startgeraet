@@ -56,13 +56,11 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         const coords = this.convertCoordinate(parseXmlNode(xml, "WorldPosition"));
         const identifier = parseXmlNode(xml, "ICAOIdent") || parseXmlAttribute(xml, "id");
         const runway = isFirst || isLast ? this.getRunway(xml) : null;
-        const uid = this.geoToUid(coords.lon, coords.lat);
 
         if (isFirst) {
             const route = [
                 new AeroflyNavRouteOrigin(identifier, coords.lon, coords.lat, {
                     elevation_ft: coords.altitude_ft,
-                    uid,
                 }),
             ];
 
@@ -72,7 +70,6 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
                         new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
                             elevation_ft: coords.altitude_ft,
                             direction_degree: Number(runway.replace(/\D+/, "")) * 10,
-                            uid,
                         }),
                     ),
                 );
@@ -87,7 +84,6 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
                         new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
                             elevation_ft: coords.altitude_ft,
                             direction_degree: Number(runway.replace(/\D+/, "")) * 10,
-                            uid,
                         }),
                     ),
                 );
@@ -95,7 +91,6 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
             route.push(
                 new AeroflyNavRouteDestination(identifier, coords.lon, coords.lat, {
                     elevation_ft: coords.altitude_ft,
-                    uid,
                 }),
             );
             return route;
@@ -103,7 +98,6 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         return [
             new AeroflyNavRouteWaypoint(identifier, coords.lon, coords.lat, {
                 altitude_ft: coords.altitude_ft,
-                uid,
             }),
         ];
     }
