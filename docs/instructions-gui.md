@@ -12,6 +12,16 @@ This application supports computers running Microsoft Windows, Apple macOS and L
 2. Double-click the downloaded installer to set-up the application on your system (see below).
 3. Start the Aerofly Startgerät GUI app (see below).
 
+### macOS Gatekeeper
+
+macOS may block the file as it is from an unidentified developer. To allow it:
+
+```bash
+xattr -dr com.apple.quarantine aerofly-startgeraet-gui-macos
+```
+
+Or via **System Settings → Privacy & Security → Allow anyway**.
+
 ## Usage
 
 Call this tool by double-clicking the GUI app. On a successful start-up, you will see the main app window.
