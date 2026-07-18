@@ -8,6 +8,10 @@ export class SkyVectorUrl {
         this.aeroflyFlight = aeroflyFlight;
     }
     getRouteURL(cruiseSpeed_kts = undefined) {
+        const waypointIdentifiers = this.getWaypointIdentifiers().join(" ");
+        if (!waypointIdentifiers) {
+            return new URL("", this.baseURL);
+        }
         const cruiseSpeed = cruiseSpeed_kts ? "N" + (cruiseSpeed_kts ?? 0).toFixed().padStart(4, "0") : "";
         const cruiseAlt = this.aeroflyFlight.navigation.cruiseAltitude_ft
             ? "A" + (this.aeroflyFlight.navigation.cruiseAltitude_ft / 100).toFixed().padStart(3, "0")
@@ -18,7 +22,7 @@ export class SkyVectorUrl {
                 this.aeroflyFlight.flightSetting.longitude.toString(),
             chart: "301",
             zoom: "3",
-            fpl: (cruiseSpeed + cruiseAlt + " " + this.getWaypointIdentifiers().join(" ")).trim(),
+            fpl: (cruiseSpeed + cruiseAlt + " " + waypointIdentifiers).trim(),
         });
         // Note: SkyVector does not support "+" for space, but "%20". So we need to replace it with "%20"
         return new URL("?" + parameters.toString().replace("+", "%20"), this.baseURL);
@@ -30,7 +34,7 @@ export class SkyVectorUrl {
         return this.getAirportURL(this.aeroflyFlight.navigation.waypoints.at(-1)?.identifier ?? "");
     }
     getAirportURL(icaoCode) {
-        return new URL(`/airport/${encodeURIComponent(icaoCode)}`, this.baseURL);
+        return new URL(icaoCode ? `/airport/${encodeURIComponent(icaoCode)}` : "/airports", this.baseURL);
     }
     getWaypointIdentifiers() {
         return this.aeroflyFlight.navigation.waypoints

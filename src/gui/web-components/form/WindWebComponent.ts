@@ -68,11 +68,14 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
 
         this.subscribeToStateUpdates((state) => {
             this.elements.windSpeed.valueAsNumber = Math.round(state.aeroflyFlight.wind.speed_kts);
-            this.elements.windGust.valueAsNumber =
-                state.aeroflyFlight.wind.gust_kts > state.aeroflyFlight.wind.speed_kts
-                    ? Math.round(state.aeroflyFlight.wind.gust_kts)
-                    : 0;
+            this.elements.windGust.valueAsNumber = Math.round(state.aeroflyFlight.wind.gust_kts);
             this.elements.windDirection.valueAsNumber = Math.round(state.aeroflyFlight.wind.directionInDegree);
+
+            this.elements.windGust.classList.toggle(
+                "input-warning",
+                state.aeroflyFlight.wind.gust_kts !== 0 &&
+                    state.aeroflyFlight.wind.gust_kts <= state.aeroflyFlight.wind.speed_kts,
+            );
         });
 
         this.addEventListener("input", this.handleChange);

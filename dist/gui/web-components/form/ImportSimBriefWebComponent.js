@@ -13,6 +13,8 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
   <h3>Flight plan import</h3>
 
   <section class="d-flex">
+    <p>Remember to generate a flight plan using the <a href="https://dispatch.simbrief.com/" target="simbrief">SimBrief</a> Dispatch before importing.</p>
+
     <div class="form-group w-100">
       <label for="settings-simbriefusername">SimBrief username</label>
       <input id="settings-simbriefusername" type="text" pattern="[A-Za-z0-9]+" required="required" />

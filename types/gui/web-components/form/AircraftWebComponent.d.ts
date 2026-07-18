@@ -7,6 +7,7 @@ export type AircraftWebComponentState = {
 };
 export declare class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
+    private showIcaoCode;
     private elements;
     get state(): AircraftWebComponentState;
     private initialize;

@@ -2,6 +2,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
+    showIcaoCode = true;
     elements;
     get state() {
         return {
@@ -66,7 +67,13 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         sendToMain("aircraft:update").then((aircraft) => {
             this.elements.aircraftName.innerHTML = aircraft
                 .sort((a, b) => a.nameFull.localeCompare(b.nameFull))
-                .map((aircraft) => `<option value="${aircraft.aeroflyCode}">${aircraft.nameFull}</option>`)
+                .map((aircraft) => {
+                let optionLabel = aircraft.nameFull;
+                if (this.showIcaoCode && aircraft.icaoCode) {
+                    optionLabel += ` (${aircraft.icaoCode})`;
+                }
+                return `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
+            })
                 .join("");
         });
         this.subscribeToStateUpdates((state) => {
@@ -74,7 +81,13 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             this.elements.aircraftPaintscheme.innerHTML =
                 state.aircraftData?.liveries
                     .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((livery) => `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${livery.name}</option>`)
+                    .map((livery) => {
+                    let optionLabel = livery.name;
+                    if (this.showIcaoCode && livery.icaoCode) {
+                        optionLabel += ` (${livery.icaoCode})`;
+                    }
+                    return `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${optionLabel}</option>`;
+                })
                     .join("") ?? `<option value="">default</option>`;
             this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
             // ---------------
