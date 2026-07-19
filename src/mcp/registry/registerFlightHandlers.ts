@@ -360,6 +360,32 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
     );
 
     server.registerTool(
+        "set-mission-briefing",
+        {
+            title: `Set mission title and briefing for flight mission setup`,
+            description: `Store a mission title and briefing for the current flight plan. This is not a setting of Aerofly FS 4, but can be used to store information about the current flight plan for other export formats.`,
+            inputSchema: {
+                title: z.string().optional().describe(`Title of the mission briefing.`),
+                briefing: z.string().optional().describe(`Text of the mission briefing.`),
+            },
+            annotations,
+        },
+        ({ title, briefing }: { title?: string; briefing?: string }): CallToolResult => {
+            const result = flightService.getAeroflyFlight();
+            if (title) {
+                result._missionTitle = title;
+            }
+            if (briefing) {
+                result._missionBriefing = briefing;
+            }
+            return returnMcpToolResult({
+                missionTitle: result._missionTitle,
+                missionBriefing: result._missionBriefing,
+            });
+        },
+    );
+
+    server.registerTool(
         "export-flightplan",
         {
             title: `Get current flightplan in a different output format`,
@@ -376,6 +402,7 @@ Supported file types are:
   each waypoint. Intended for map visualization.
 - \`kml\`: Keyhole Markup Language (XML) with a LineString for the route and
   Points for each waypoint. Intended for use in Google Earth or similar tools.
+- \`md\`: Markdown (text) with a table of waypoints and route information. Intended for documentation or sharing in text format.
 `,
             inputSchema: {
                 fileType: ZodExtra.exportFileType().describe(

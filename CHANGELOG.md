@@ -5,6 +5,7 @@
 - Improved `NotificationWebComponent` to handle mutiple messages
 - Added multiple small frontend changes to GUI
 - Added flight category selector to GUI
+- Added mission title and briefing to MCP
 
 ## [2.0.1] - 2026-07-05
 
