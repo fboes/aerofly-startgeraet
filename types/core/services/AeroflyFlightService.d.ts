@@ -2,6 +2,7 @@ import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries
 import { type AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrigin, AeroflySettingsCloud, AeroflySettingsFlight, type AeroflySettingsAircraft, type AeroflySettingsFuelLoad, type AeroflyTimeUtc, type AeroflyNavigationConfig } from "@fboes/aerofly-custom-missions";
 import type { Config } from "../io/Config.js";
 import { type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
+import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.
@@ -104,6 +105,8 @@ export declare class AeroflyFlightService {
     setWeatherFromMETAR(metar: string): void;
     setWeatherViaApi(airportCode: string): Promise<object>;
     setWeather(visibilityM: number, temperatureCelsius: number, directionDegrees: number, speedKts: number, gustsKts?: number): object;
+    setWeatherViaFlightCategory(category: AeroflylightCategoryUs): void;
+    setWeatherViaFlightCategoryIcao(category: AeroflylightCategoryIcao): void;
     getWeather(): object;
     setWind(directionDegrees: number, speedKts: number, gustsKts?: number): void;
     getWindDirection(): number;

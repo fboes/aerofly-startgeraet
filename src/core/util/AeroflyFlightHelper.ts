@@ -10,7 +10,7 @@ import * as SunPosition from "./calculateSunPosition.js";
 
 export type AeroflylightCategoryIcao = "VFR" | "IFR";
 
-export type AeroflylightCategory = AeroflylightCategoryIcao | "MVFR" | "LIFR";
+export type AeroflylightCategoryUs = AeroflylightCategoryIcao | "MVFR" | "LIFR";
 
 /**
  * Offer additional properties derived from `AeroflyFlight` classes
@@ -45,7 +45,7 @@ export function positionRunwayWaypoint<T extends AeroflyNavRouteDepartureRunway 
     return waypoint;
 }
 
-export function getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategory {
+export function getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryUs {
     const ceiling = getCeiling(aeroflyFlight);
     const visibility_miles = aeroflyFlight.visibility_sm;
 

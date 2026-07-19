@@ -120,6 +120,14 @@ export class AeroflyFlightServiceHandler {
         });
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
+        this.ipcMain.handle("flight-category:us:set", (event, category) => {
+            this.service.setWeatherViaFlightCategory(category);
+            this.sendStateUpdate();
+        });
+        this.ipcMain.handle("flight-category:icao:set", (event, category) => {
+            this.service.setWeatherViaFlightCategoryIcao(category);
+            this.sendStateUpdate();
+        });
     }
     chooseMainMcfPath = async (event, payload) => {
         const result = await dialog.showOpenDialog(this.win, {

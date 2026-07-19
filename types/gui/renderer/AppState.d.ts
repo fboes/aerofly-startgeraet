@@ -2,6 +2,7 @@ import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import type { Config } from "../../core/io/Config.js";
+import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
 export declare class AppState {
     readonly aeroflyFlight: AeroflyFlight;
     readonly aircraftData: AeroflyAircraft | undefined;
@@ -42,8 +43,8 @@ export declare class AppState {
         density: number;
     }[];
     readonly flightCategory: {
-        us: string;
-        icao: string;
+        us: AeroflylightCategoryUs;
+        icao: AeroflylightCategoryIcao;
     };
     readonly config: ReturnType<Config["toJSON"]>;
     constructor(aeroflyFlight: AeroflyFlight, aircraftData: AeroflyAircraft | undefined, getMaxRemainingPayload_kg: number, metar: string | null, isMissingMainMcf: boolean, config: Config);
@@ -81,7 +82,7 @@ export declare class AppState {
         cruiseSpeed_kts: number;
     };
     protected getFlightCategory(): {
-        us: AeroflyFlightHelper.AeroflylightCategory;
+        us: AeroflyFlightHelper.AeroflylightCategoryUs;
         icao: AeroflyFlightHelper.AeroflylightCategoryIcao;
     };
     protected getClouds(): {

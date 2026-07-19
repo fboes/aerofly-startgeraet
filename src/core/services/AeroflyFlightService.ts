@@ -26,6 +26,7 @@ import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAerofly
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { RoutePlanService, type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
+import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -447,6 +448,35 @@ export class AeroflyFlightService {
         this.setWind(directionDegrees, speedKts, gustsKts);
 
         return this.getWeather();
+    }
+
+    setWeatherViaFlightCategory(category: AeroflylightCategoryUs) {
+        this.aeroflyFlight.clouds = []; // Clear existing clouds
+        switch (category) {
+            case "LIFR":
+                this.aeroflyFlight.visibility_sm = Math.min(this.aeroflyFlight.visibility_sm, 0.75);
+                break;
+            case "IFR":
+                this.aeroflyFlight.visibility_sm = 1;
+                break;
+            case "MVFR":
+                this.aeroflyFlight.visibility_sm = 3;
+                break;
+            default: // VFR
+                this.aeroflyFlight.visibility_sm = Math.max(this.aeroflyFlight.visibility_sm, 5.25);
+                break;
+        }
+    }
+    setWeatherViaFlightCategoryIcao(category: AeroflylightCategoryIcao) {
+        this.aeroflyFlight.clouds = []; // Clear existing clouds
+        switch (category) {
+            case "IFR":
+                this.aeroflyFlight.visibility_meter = Math.min(this.aeroflyFlight.visibility_meter, 4999);
+                break;
+            default: // VFR
+                this.aeroflyFlight.visibility_meter = Math.max(this.aeroflyFlight.visibility_meter, 5000);
+                break;
+        }
     }
 
     getWeather(): object {

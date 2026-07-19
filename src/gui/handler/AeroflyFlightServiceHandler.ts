@@ -34,6 +34,7 @@ import type { ImportWebComponentPayload } from "../web-components/form/ImportWeb
 import type { FlightPlanChooserWebComponentState } from "../web-components/form/FlightPlanChooserWebComponent.js";
 import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
 import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMetarConverter.js";
+import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -157,6 +158,17 @@ export class AeroflyFlightServiceHandler {
         );
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
+        this.ipcMain.handle("flight-category:us:set", (event: IpcMainInvokeEvent, category: AeroflylightCategoryUs) => {
+            this.service.setWeatherViaFlightCategory(category);
+            this.sendStateUpdate();
+        });
+        this.ipcMain.handle(
+            "flight-category:icao:set",
+            (event: IpcMainInvokeEvent, category: AeroflylightCategoryIcao) => {
+                this.service.setWeatherViaFlightCategoryIcao(category);
+                this.sendStateUpdate();
+            },
+        );
     }
 
     private chooseMainMcfPath = async (

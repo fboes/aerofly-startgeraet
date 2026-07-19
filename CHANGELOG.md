@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 - Improved `NotificationWebComponent` to handle mutiple messages
+- Added multiple small frontend changes to GUI
+- Added flight category selector to GUI
 
 ## [2.0.1] - 2026-07-05
 

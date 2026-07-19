@@ -1,11 +1,13 @@
+import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../../core/util/AeroflyFlightHelper.js";
+import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 
 export class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {
-        flightCategoryUs: HTMLOutputElement;
-        flightCategoryIcao: HTMLOutputElement;
+        flightCategoryUs: HTMLSelectElement;
+        flightCategoryIcao: HTMLSelectElement;
     };
 
     private initialize() {
@@ -15,17 +17,25 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
 <div class="d-flex">
     <div class="form-group">
         <label for="flight-category-us">Flight category (US)</label>
-        <output id="flight-category-us">Unknown</output>
+        <select id="flight-category-us">
+            <option value="VFR">VFR</option>
+            <option value="MVFR">MVFR</option>
+            <option value="IFR">IFR</option>
+            <option value="LIFR">LIFR</option>
+        </select>
     </div>
         <div class="form-group">
         <label for="flight-category-icao">Flight category (ICAO)</label>
-        <output id="flight-category-icao">Unknown</output>
+        <select id="flight-category-icao">
+            <option value="VFR">VFR</option>
+            <option value="IFR">IFR</option>
+        </select>
     </div>
 </div>
 `;
         this.elements = {
-            flightCategoryUs: this.querySelector("#flight-category-us") as HTMLOutputElement,
-            flightCategoryIcao: this.querySelector("#flight-category-icao") as HTMLOutputElement,
+            flightCategoryUs: this.querySelector("#flight-category-us") as HTMLSelectElement,
+            flightCategoryIcao: this.querySelector("#flight-category-icao") as HTMLSelectElement,
         };
     }
 
@@ -36,10 +46,27 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
         }
 
         this.subscribeToStateUpdates((state) => {
-            this.elements.flightCategoryUs.textContent = state.flightCategory.us;
-            this.elements.flightCategoryIcao.textContent = state.flightCategory.icao;
+            this.elements.flightCategoryUs.value = state.flightCategory.us;
+            this.elements.flightCategoryIcao.value = state.flightCategory.icao;
         });
+
+        this.elements.flightCategoryUs.addEventListener("change", this.handleFlightCategoryUsChange);
+        this.elements.flightCategoryIcao.addEventListener("change", this.handleFlightCategoryIcaoChange);
     }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.elements.flightCategoryUs.removeEventListener("change", this.handleFlightCategoryUsChange);
+        this.elements.flightCategoryIcao.removeEventListener("change", this.handleFlightCategoryIcaoChange);
+    }
+
+    private handleFlightCategoryUsChange = () => {
+        sendToMain("flight-category:us:set", this.elements.flightCategoryUs.value as AeroflylightCategoryUs);
+    };
+
+    private handleFlightCategoryIcaoChange = () => {
+        sendToMain("flight-category:icao:set", this.elements.flightCategoryIcao.value as AeroflylightCategoryIcao);
+    };
 
     static registerElement() {
         customElements.define("startgeraet-weather-status", WeatherStatusWebComponent);

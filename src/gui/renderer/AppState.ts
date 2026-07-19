@@ -5,6 +5,7 @@ import { RoutePlanService } from "../../core/services/RoutePlanService.js";
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import type { Config } from "../../core/io/Config.js";
+import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
 
 export class AppState {
     readonly dateTime: {
@@ -44,8 +45,8 @@ export class AppState {
     }[];
 
     readonly flightCategory: {
-        us: string;
-        icao: string;
+        us: AeroflylightCategoryUs;
+        icao: AeroflylightCategoryIcao;
     };
 
     readonly config: ReturnType<Config["toJSON"]>;
