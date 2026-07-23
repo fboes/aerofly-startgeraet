@@ -24,7 +24,7 @@ export function registerConfigurationHandlers(server, config) {
             simBriefUserName: z
                 .string()
                 .optional()
-                .describe(`Username or UserID for SimBrief API. Only required if user asks to populate Aerofly FS 4 by importing a Simbrief flightplan.`),
+                .describe(`Username or UserID for SimBrief API. Only required if user asks to populate Aerofly FS 4 by importing a SimBrief flightplan.`),
         },
         annotations: {
             readOnlyHint: false,

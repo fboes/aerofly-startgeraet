@@ -137,7 +137,7 @@ export class AeroflyFlightService {
 
         this.aeroflyFlight.fuelLoadSetting.fuelMass = fuel;
         this.aeroflyFlight.fuelLoadSetting.payloadMass = payload;
-        this.aeroflyFlight.fuelLoadSetting.configuration ="Keep";
+        this.aeroflyFlight.fuelLoadSetting.configuration = "Keep";
 
         return this.aeroflyFlight.fuelLoadSetting;
     }

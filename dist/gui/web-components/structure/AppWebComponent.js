@@ -1,17 +1,20 @@
 import { HeaderWebComponent } from "./HeaderWebComponent.js";
 import { MainWebComponent } from "./MainWebComponent.js";
 import { NotificationWebComponent } from "../util/NotificationWebComponent.js";
+import { FooterWebComponent } from "./FooterWebComponent.js";
 export class AppWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {
         NotificationWebComponent.registerElement();
         HeaderWebComponent.registerElement();
         MainWebComponent.registerElement();
+        FooterWebComponent.registerElement();
         this.classList.add("platform-" + window.process.platform);
         this.innerHTML = `\
 <startgeraet-notification></startgeraet-notification>
 <startgeraet-header></startgeraet-header>
 <startgeraet-main></startgeraet-main>
+<startgeraet-footer></startgeraet-footer>
         `;
     }
     connectedCallback() {

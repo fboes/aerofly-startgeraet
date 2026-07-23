@@ -1,7 +1,7 @@
 import { AircraftWebComponent } from "../form/AircraftWebComponent.js";
 import { CloudsWebComponent } from "../form/CloudsWebComponent.js";
 import { FlightplanWebComponent } from "../form/FlightplanWebComponent.js";
-import { FuelPayloadWebComponent } from "../form/FuelPayloadWebComponent.js";
+//import { FuelPayloadWebComponent } from "../form/FuelPayloadWebComponent.js";
 import { WeatherStatusWebComponent } from "../form/WeatherStatusWebComponent.js";
 import { TemperatureWebComponent } from "../form/TemperatureWebComponent.js";
 import { TimeAndDateWebComponent } from "../form/TimeAndDateWebComponent.js";
@@ -13,7 +13,7 @@ export class MainWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {
         AircraftWebComponent.registerElement();
-        FuelPayloadWebComponent.registerElement();
+        //FuelPayloadWebComponent.registerElement();
         FlightplanWebComponent.registerElement();
         TimeAndDateWebComponent.registerElement();
         WeatherStatusWebComponent.registerElement();
@@ -29,7 +29,7 @@ export class MainWebComponent extends HTMLElement {
     <summary><h2>Aircraft</h2></summary>
     <div class="d-flex">
         <startgeraet-aircraft class="w-100"></startgeraet-aircraft>
-        <startgeraet-fuel-payload class="w-100"></startgeraet-fuel-payload>
+        <!-- <startgeraet-fuel-payload class="w-100"></startgeraet-fuel-payload> -->
     </div>
 </details>
 

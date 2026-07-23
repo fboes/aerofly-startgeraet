@@ -26,7 +26,7 @@ Available commands:
   ${styleText(["blueBright"], "help, --help, -h")}    Show this help message
   ${styleText(["blueBright"], "setup")}               Run the initial setup wizard
   ${styleText(["blueBright"], "metar")}               Fetch and display current weather information
-  ${styleText(["blueBright"], "simbrief")}            Import flight plans from Simbrief
+  ${styleText(["blueBright"], "simbrief")}            Import flight plans from SimBrief
   ${styleText(["blueBright"], "time")}                Display the current time in Aerofly FS 4
 
 If you run the Startgerät without any arguments, it will launch an interactive menu that guides you through the setup process.

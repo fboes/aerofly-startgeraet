@@ -159,8 +159,8 @@ export class MenuCommand extends ControllerCommand {
             choices: [
                 {
                     name: simBriefUserName
-                        ? `Import via Simbrief username ${simBriefUserName}`
-                        : "Import via Simbrief - please set SimBrief username in configuration",
+                        ? `Import via SimBrief username ${simBriefUserName}`
+                        : "Import via SimBrief - please set SimBrief username in configuration",
                     value: "simbrief",
                     disabled: !simBriefUserName,
                 },

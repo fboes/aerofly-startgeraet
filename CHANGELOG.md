@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-- Improved `NotificationWebComponent` to handle mutiple messages
+- Removed fuel & payload selector (cannot be set in Aerofly FS)
+
+## [2.0.2] - 2026-07-19
+
+- Improved `NotificationWebComponent` to handle multiple messages
 - Added multiple small frontend changes to GUI
 - Added flight category selector to GUI
 - Added mission title and briefing to MCP

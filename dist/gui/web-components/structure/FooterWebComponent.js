@@ -1,27 +1,16 @@
-import { sendToMain } from "../../renderer/sendToMain.js";
 export class FooterWebComponent extends HTMLElement {
     isInitialized = false;
-    elements;
     initialize() {
         this.setAttribute("aria-role", "footer");
         this.innerHTML = `\
-<span id="application-name">xxx</span> <span id="application-version">xxx</span> &middot;
-<a href="https://github.com/fboes/aerofly-startgeraet">GitHub</a> &middot; &copy; 2026
+Please be aware that this application cannot set fuel, payload, runway waypoints, as well as starting position in the simulator. You must set these values manually in the simulator before starting a flight.
         `;
-        this.elements = {
-            applicationName: this.querySelector("#application-name"),
-            applicationVersion: this.querySelector("#application-version"),
-        };
     }
     async connectedCallback() {
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
         }
-        this.elements.applicationName.textContent =
-            (await sendToMain("application:get-name")) ?? "Aerofly Startgerät";
-        this.elements.applicationVersion.textContent =
-            (await sendToMain("application:get-version")) ?? "unknown version";
     }
     static registerElement() {
         customElements.define("startgeraet-footer", FooterWebComponent);
