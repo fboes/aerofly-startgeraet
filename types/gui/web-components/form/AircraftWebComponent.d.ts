@@ -15,6 +15,5 @@ export declare class AircraftWebComponent extends AbstractStateSubscriberWebComp
     disconnectedCallback(): void;
     private handleChange;
     static registerElement(): void;
-    private numberFormat;
 }
 //# sourceMappingURL=AircraftWebComponent.d.ts.map

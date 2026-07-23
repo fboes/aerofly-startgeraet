@@ -30,11 +30,6 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             <option>default</option>
         </select>
     </div>
-    <!-- --- -->
-    <div class="form-group">
-        <label for="aircraft-icao">ICAO code</label>
-        <output id="aircraft-icao"></output>
-    </div>
     <div class="form-group">
         <label for="aircraft-cruise-speed">Cruise speed</label>
         <span class="input-group">
@@ -54,7 +49,6 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         this.elements = {
             aircraftName: this.querySelector("#aircraft-name"),
             aircraftPaintscheme: this.querySelector("#aircraft-paintscheme"),
-            aircraftIcaoCode: this.querySelector("#aircraft-icao"),
             aircraftCruiseSpeed: this.querySelector("#aircraft-cruise-speed"),
             aircraftCruiseAltitude: this.querySelector("#aircraft-cruise-altitude"),
         };
@@ -90,8 +84,6 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
                 })
                     .join("") ?? `<option value="">default</option>`;
             this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
-            // ---------------
-            this.elements.aircraftIcaoCode.value = state.aircraftData?.icaoCode ?? "---";
             this.elements.aircraftCruiseSpeed.valueAsNumber = Math.round(state.route.cruiseSpeed_kts);
             this.elements.aircraftCruiseAltitude.valueAsNumber = Math.round(state.route.cruiseAltitude_ft);
         });
@@ -106,14 +98,5 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     };
     static registerElement() {
         customElements.define("startgeraet-aircraft", AircraftWebComponent);
-    }
-    numberFormat(value) {
-        if (value === undefined) {
-            return "---";
-        }
-        return new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(value);
     }
 }
