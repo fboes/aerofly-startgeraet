@@ -76,7 +76,7 @@ export class AeroflyFlightService {
         payload = Math.max(0, Math.min(payload, this.getMaxRemainingPayload()));
         this.aeroflyFlight.fuelLoadSetting.fuelMass = fuel;
         this.aeroflyFlight.fuelLoadSetting.payloadMass = payload;
-        this.aeroflyFlight.fuelLoadSetting.configuration = fuel > 0 ? "Keep" : "Invalid";
+        this.aeroflyFlight.fuelLoadSetting.configuration = "Keep";
         return this.aeroflyFlight.fuelLoadSetting;
     }
     setFuel(fuel) {

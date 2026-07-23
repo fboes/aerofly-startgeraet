@@ -60,7 +60,7 @@ The Aerofly Startgerät comes in multiple versions. Refer to the different instr
 - Importing flight plans almost certainly will require to set-up the starting location of you aircraft in Aerofly FS 4, as the parking positions of aircraft are unknown.
 - Importing flight plans almost certainly will require to set-up the runways you want to use in Aerofly FS 4, as the runway IDs are unknown.
 - Importing of SIDs and STARs is not possible, so you will also need to add these manually in Aerofly FS 4.
-- On importing take into account Aerofly's oudated AIRAC 1301 navigation database.
+- On importing take into account Aerofly's possibly outdated navigation database.
 - The Aerofly Startgerät is able to alter the date and a third cloud layer, which both are not editable in Aerofly FS 4.
 - The mapping of aircrafts & airlines from Simbrief import relies on the correct ICAO code of the aircraft being chosen.
 
@@ -70,7 +70,7 @@ See also [the instructions on how to import flight plans](./docs/flight-plan-imp
 
 Enter your SimBrief username and click **Fetch**. Startgerät automatically injects your active/latest flight plan directly into Aerofly FS 4 in less then a second.
 
-**Important Navigation Data Note:** SimBrief utilizes the modern AIRAC database 2503 for free users, whereas Aerofly FS 4 relies on a legacy internal AIRAC 1301. Because of this data gap, roughly up to 5% of modern waypoints might be automatically dropped during import. This is completely normal and rarely impacts standard routes. You may simply need to adjust your terminal procedures (SID/STAR) inside the native Aerofly menu before clicking "Fly".
+**Important Navigation Data Note:** SimBrief utilizes the modern AIRAC database 2503 for free users, whereas Aerofly FS 4 relies on a legacy internal database. This may cause a data gap. This is completely normal and rarely impacts standard routes. You may simply need to adjust your terminal procedures (SID/STAR) inside the native Aerofly menu before clicking "Fly".
 
 **Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the Flgihtplan and then fetch the plan via Startgerät, which takes literally seconds to do.
 
@@ -78,7 +78,7 @@ Enter your SimBrief username and click **Fetch**. Startgerät automatically inje
 
 ### Other flight planning software workflow
 
-Create your route on any flight planning software, and crucially, manually select AIRAC Cycle 1301 to perfectly align with Aerofly's native database.
+Create your route on any flight planning software, and crucially, manually select a AIRAC Cycle matching with Aerofly's native database.
 
 ## Technical stuff
 
