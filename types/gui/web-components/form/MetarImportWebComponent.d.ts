@@ -8,6 +8,7 @@ export declare class MetarImportWebComponent extends AbstractStateSubscriberWebC
     private initialize;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private isButtonDisabled;
     private handleClickOrigin;
     private handleClickDestination;
     private sendMetar;

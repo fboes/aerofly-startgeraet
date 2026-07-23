@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 - Removed fuel & payload selector (cannot be set in Aerofly FS)
+- Added correct UID generator via `@fboes/aerofly-custom-missions`
+- Disable METAR button in GUI if date is out of range
 
 ## [2.0.2] - 2026-07-19
 

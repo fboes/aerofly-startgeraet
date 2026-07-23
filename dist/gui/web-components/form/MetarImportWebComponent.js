@@ -27,6 +27,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
 </dialog>
         `;
         this.elements = {
+            metarButton: this.querySelector("button"),
             metarOrigin: this.querySelector("#metar-origin"),
             metarDestination: this.querySelector("#metar-destination"),
             dialog: this.querySelector("dialog"),
@@ -38,6 +39,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
             this.isInitialized = true;
         }
         this.subscribeToStateUpdates((state) => {
+            this.elements.metarButton.disabled = this.isButtonDisabled(state);
             this.elements.metarOrigin.innerHTML = state.route.departureAirport || "Origin";
             this.elements.metarOrigin.dataset.icao = state.route.departureAirportCode || "";
             this.elements.metarDestination.disabled = !state.route.destinationAirportCode;
@@ -57,6 +59,15 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
         super.disconnectedCallback();
         this.elements.metarOrigin.removeEventListener("click", this.handleClickOrigin);
         this.elements.metarDestination.removeEventListener("click", this.handleClickDestination);
+    }
+    isButtonDisabled(state) {
+        const date = new Date(state.dateTime.utc.date + "T" + state.dateTime.utc.time + "Z");
+        const fourWeeksAgo = new Date();
+        fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28);
+        if (date < fourWeeksAgo || date > new Date()) {
+            return true;
+        }
+        return !state.route.departureAirportCode && !state.route.destinationAirportCode;
     }
     handleClickOrigin = () => {
         this.sendMetar(this.elements.metarOrigin.dataset.icao || "origin");
