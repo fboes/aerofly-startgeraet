@@ -177,17 +177,27 @@ function registerTools(server, flightService) {
     });
     server.registerTool(TOOL_SET_POSITION, {
         title: `Set initial aircraft position & state for flight mission setup`,
-        description: `Assumes at a speed of 0 kts the aircraft to be positioned on the ground. Returns the initial aircraft position & state.`,
+        description: `Be aware that altitude needs to be set correctly. Returns the initial aircraft position & state.`,
         inputSchema: {
             longitude: ZodExtra.longitude(),
             latitude: ZodExtra.latitude(),
-            altitude_meter: z.number(),
+            altitude_meter: z.number().describe(`Altitude MSL`),
             heading_degree: ZodExtra.degree(),
-            speed_kts: z.number().nonnegative(),
+            speed_kts: z
+                .number()
+                .nonnegative()
+                .optional()
+                .describe(`Intial speed in knots. Additional behavior:
+
+ - If speed is not set and \`configuration\` parameter is \`OnGround\`, speed will be set to \`0\`
+ - If speed is not set and \`configuration\` parameter is _not_ \`OnGround\`, speed will be set to the current aircraft's cruise speed`),
+            configuration: ZodExtra.flightConfiguration()
+                .optional()
+                .describe(`Configuration will set the initial flaps, gear and throttle. If not set, this will default to "Cruise".`),
         },
         annotations,
-    }, ({ longitude, latitude, altitude_meter, heading_degree, speed_kts, }) => {
-        return returnMcpToolResult(flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts));
+    }, ({ longitude, latitude, altitude_meter, heading_degree, speed_kts, configuration, }) => {
+        return returnMcpToolResult(flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts, configuration));
     });
     server.registerTool(TOOL_SET_WAYPOINTS, {
         title: `Set flight plan waypoints for flight mission setup`,

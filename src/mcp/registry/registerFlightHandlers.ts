@@ -16,6 +16,7 @@ import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import * as ExportFileWriter from "../../core/io/exportFlightplan.js";
 import * as ImportFileReader from "../../core/io/importFlightplan.js";
 import { returnMcpToolResult, returnMcpToolErrorResult, returnMcpToolSimpleResult } from "../util/returnMcpResult.js";
+import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
 
 export const TOOL_GET_FLIGHT = "get-aerofly-flight";
 export const TOOL_SET_AIRCRAFT = "set-aircraft-type-and-livery";
@@ -273,13 +274,27 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         TOOL_SET_POSITION,
         {
             title: `Set initial aircraft position & state for flight mission setup`,
-            description: `Assumes at a speed of 0 kts the aircraft to be positioned on the ground. Returns the initial aircraft position & state.`,
+            description: `Be aware that altitude needs to be set correctly. Returns the initial aircraft position & state.`,
             inputSchema: {
                 longitude: ZodExtra.longitude(),
                 latitude: ZodExtra.latitude(),
-                altitude_meter: z.number(),
+                altitude_meter: z.number().describe(`Altitude MSL`),
                 heading_degree: ZodExtra.degree(),
-                speed_kts: z.number().nonnegative(),
+                speed_kts: z
+                    .number()
+                    .nonnegative()
+                    .optional()
+                    .describe(
+                        `Intial speed in knots. Additional behavior:
+
+ - If speed is not set and \`configuration\` parameter is \`OnGround\`, speed will be set to \`0\`
+ - If speed is not set and \`configuration\` parameter is _not_ \`OnGround\`, speed will be set to the current aircraft's cruise speed`,
+                    ),
+                configuration: ZodExtra.flightConfiguration()
+                    .optional()
+                    .describe(
+                        `Configuration will set the initial flaps, gear and throttle. If not set, this will default to "Cruise".`,
+                    ),
             },
             annotations,
         },
@@ -289,15 +304,24 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
             altitude_meter,
             heading_degree,
             speed_kts,
+            configuration,
         }: {
             longitude: number;
             latitude: number;
             altitude_meter: number;
             heading_degree: number;
-            speed_kts: number;
+            speed_kts?: number;
+            configuration?: z.infer<AeroflySettingsFlightConfiguration>;
         }): CallToolResult => {
             return returnMcpToolResult(
-                flightService.setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts),
+                flightService.setFlightPosition(
+                    longitude,
+                    latitude,
+                    altitude_meter,
+                    heading_degree,
+                    speed_kts,
+                    configuration as AeroflySettingsFlightConfiguration | undefined,
+                ),
             );
         },
     );

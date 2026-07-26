@@ -17,7 +17,10 @@ import {
     AeroflyNavRouteDeparture,
     AeroflyNavRouteArrival,
 } from "@fboes/aerofly-custom-missions";
-import type { AeroflyVector3Float, AeroflyMatrix3Float } from "@fboes/aerofly-custom-missions/types/node/Convert.js";
+import type {
+    AeroflyVector3FloatArray,
+    AeroflyMatrix3FloatArray,
+} from "@fboes/aerofly-custom-missions/types/node/AeroflyTypes.js";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
 
 export class AeroflyMainConfigParser {
@@ -99,9 +102,9 @@ export class AeroflyMainConfigParser {
 
     private parseFlightSettings(tmsettings_flight: string): AeroflySettingsFlight {
         return AeroflySettingsFlight.createInCartesian(
-            this.parser.getNumberArray(tmsettings_flight, "position") as AeroflyVector3Float,
-            this.parser.getNumberArray(tmsettings_flight, "velocity") as AeroflyVector3Float,
-            this.parser.getNumberArray(tmsettings_flight, "orientation") as AeroflyMatrix3Float,
+            this.parser.getNumberArray(tmsettings_flight, "position") as AeroflyVector3FloatArray,
+            this.parser.getNumberArray(tmsettings_flight, "velocity") as AeroflyVector3FloatArray,
+            this.parser.getNumberArray(tmsettings_flight, "orientation") as AeroflyMatrix3FloatArray,
             {
                 gear: this.parser.getNumber(tmsettings_flight, "gear"),
                 flaps: this.parser.getNumber(tmsettings_flight, "flaps"),
@@ -123,7 +126,7 @@ export class AeroflyMainConfigParser {
             .map((wp) => {
                 const typeMatch = wp.match(/^[^\]]+/);
                 const identifier = this.parser.getValue(wp, "Identifier");
-                const position = this.parser.getNumberArray(wp, "Position") as AeroflyVector3Float;
+                const position = this.parser.getNumberArray(wp, "Position") as AeroflyVector3FloatArray;
                 const navaidFrequency = this.parser.getNumber(wp, "NavaidFrequency", NaN);
                 const altitude = this.parser.getNumber(wp, "Altitude", NaN);
                 const elevation = this.parser.getNumber(wp, "Elevation", NaN);

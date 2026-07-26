@@ -94,3 +94,17 @@ export function exportFileType() {
 export function importFileType() {
     return z.enum(ImportFileReader.IMPORT_FILE_TYPES);
 }
+const FLIGHT_CONFIGURATION = [
+    "Keep",
+    "ColdAndDark",
+    "BeforeStart", // TODO
+    "Parking",
+    "OnGround",
+    "Takeoff",
+    "Cruise",
+    "ShortFinal",
+    "Final",
+];
+export function flightConfiguration() {
+    return z.enum(FLIGHT_CONFIGURATION);
+}

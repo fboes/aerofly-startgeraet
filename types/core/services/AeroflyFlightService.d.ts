@@ -3,6 +3,7 @@ import { type AeroflyFlight, AeroflyNavRouteDepartureRunway, AeroflyNavRouteOrig
 import type { Config } from "../io/Config.js";
 import { type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
+import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.
@@ -69,7 +70,17 @@ export declare class AeroflyFlightService {
     getFlightplanDepartureAirportString(): string;
     getFlightplanArrivalAirportString(): string;
     getFlightplanLegs(trueAirspeed_kts?: number, consolidated?: boolean): RoutePlanServiceLeg[] | RoutePlanServiceRoute;
-    setFlightPosition(longitude: number, latitude: number, altitude_meter: number, heading_degree: number, speed_kts: number): AeroflySettingsFlight;
+    /**
+     * Will set the position of the aircraft, using some defaults.
+     * @param longitude WGS84
+     * @param latitude WHS84
+     * @param altitude_meter must be set, even if aircraft is on ground
+     * @param heading_degree
+     * @param speed_kts if set to `undefined`, will be set to cruise speed
+     * @param configuration if set to `undefined`, will be set to `Cruise`, or to `OnGround` if speed_kts is `0`. Configuration will set throttle, flaps and gear.
+     * @returns evaluated flight settings
+     */
+    setFlightPosition(longitude: number, latitude: number, altitude_meter: number, heading_degree: number, speed_kts?: number | undefined, configuration?: AeroflySettingsFlightConfiguration | undefined): AeroflySettingsFlight;
     setFlightPositionToDeparture(): void;
     setCruise(cruiseAltitudeFt: number, cruiseSpeedKts: number): AeroflyNavigationConfig;
     /**

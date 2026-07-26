@@ -133,11 +133,27 @@ export class AeroflyFlightService {
         const route = new RoutePlanService(this.aeroflyFlight);
         return !consolidated ? route.getRouteLegs(trueAirspeed_kts) : route.getRoute(trueAirspeed_kts);
     }
-    setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts) {
-        const onGround = speed_kts === 0 || altitude_meter === 0;
-        this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(longitude, latitude, altitude_meter, heading_degree, onGround ? 0 : speed_kts, {
-            configuration: onGround ? "OnGround" : "Cruise",
-            onGround,
+    /**
+     * Will set the position of the aircraft, using some defaults.
+     * @param longitude WGS84
+     * @param latitude WHS84
+     * @param altitude_meter must be set, even if aircraft is on ground
+     * @param heading_degree
+     * @param speed_kts if set to `undefined`, will be set to cruise speed
+     * @param configuration if set to `undefined`, will be set to `Cruise`, or to `OnGround` if speed_kts is `0`. Configuration will set throttle, flaps and gear.
+     * @returns evaluated flight settings
+     */
+    setFlightPosition(longitude, latitude, altitude_meter, heading_degree, speed_kts = undefined, configuration = undefined) {
+        if (speed_kts === undefined) {
+            speed_kts =
+                configuration === "OnGround" || !this.currentAircraft?.cruiseSpeedKts
+                    ? 0
+                    : this.currentAircraft?.cruiseSpeedKts;
+        }
+        configuration = configuration ?? (speed_kts > 0 ? "Cruise" : "OnGround");
+        this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(longitude, latitude, altitude_meter, heading_degree, speed_kts, {
+            configuration,
+            onGround: configuration === "OnGround",
         });
         return this.aeroflyFlight.flightSetting;
     }

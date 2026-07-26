@@ -27,6 +27,7 @@ import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { RoutePlanService, type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
+import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -215,23 +216,41 @@ export class AeroflyFlightService {
         return !consolidated ? route.getRouteLegs(trueAirspeed_kts) : route.getRoute(trueAirspeed_kts);
     }
 
+    /**
+     * Will set the position of the aircraft, using some defaults.
+     * @param longitude WGS84
+     * @param latitude WHS84
+     * @param altitude_meter must be set, even if aircraft is on ground
+     * @param heading_degree
+     * @param speed_kts if set to `undefined`, will be set to cruise speed
+     * @param configuration if set to `undefined`, will be set to `Cruise`, or to `OnGround` if speed_kts is `0`. Configuration will set throttle, flaps and gear.
+     * @returns evaluated flight settings
+     */
     setFlightPosition(
         longitude: number,
         latitude: number,
         altitude_meter: number,
         heading_degree: number,
-        speed_kts: number,
+        speed_kts: number | undefined = undefined,
+        configuration: AeroflySettingsFlightConfiguration | undefined = undefined,
     ): AeroflySettingsFlight {
-        const onGround = speed_kts === 0 || altitude_meter === 0;
+        if (speed_kts === undefined) {
+            speed_kts =
+                configuration === "OnGround" || !this.currentAircraft?.cruiseSpeedKts
+                    ? 0
+                    : this.currentAircraft?.cruiseSpeedKts;
+        }
+        configuration = configuration ?? (speed_kts > 0 ? "Cruise" : "OnGround");
+
         this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(
             longitude,
             latitude,
             altitude_meter,
             heading_degree,
-            onGround ? 0 : speed_kts,
+            speed_kts,
             {
-                configuration: onGround ? "OnGround" : "Cruise",
-                onGround,
+                configuration,
+                onGround: configuration === "OnGround",
             },
         );
 

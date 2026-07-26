@@ -1,6 +1,7 @@
 import { z } from "zod";
 import * as ExportFileWriter from "../io/exportFlightplan.js";
 import * as ImportFileReader from "../io/importFlightplan.js";
+import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
 
 export function longitude(): z.ZodNumber {
     return z.number().gte(-180).lte(180).describe("Longitude as decimal representation in WGS84");
@@ -133,4 +134,20 @@ export function exportFileType(): z.ZodEnum {
 
 export function importFileType(): z.ZodEnum {
     return z.enum(ImportFileReader.IMPORT_FILE_TYPES);
+}
+
+const FLIGHT_CONFIGURATION: AeroflySettingsFlightConfiguration[] = [
+    "Keep",
+    "ColdAndDark",
+    "BeforeStart", // TODO
+    "Parking",
+    "OnGround",
+    "Takeoff",
+    "Cruise",
+    "ShortFinal",
+    "Final",
+];
+
+export function flightConfiguration(): z.ZodEnum {
+    return z.enum(FLIGHT_CONFIGURATION);
 }

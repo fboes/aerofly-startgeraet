@@ -43,4 +43,5 @@ export declare function geoQuery(): z.ZodObject<{
 }>;
 export declare function exportFileType(): z.ZodEnum;
 export declare function importFileType(): z.ZodEnum;
+export declare function flightConfiguration(): z.ZodEnum;
 //# sourceMappingURL=zExtra.d.ts.map
