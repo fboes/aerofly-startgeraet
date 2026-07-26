@@ -5,7 +5,8 @@
 - Removed fuel & payload selector (cannot be set in Aerofly FS)
 - Added correct UID generator via `@fboes/aerofly-custom-missions`
 - Disable METAR button in GUI if date is out of range
-- Changed MCP capability for setting intial aircraft state / speed
+- Changed MCP capability for setting initial aircraft state / speed
+- Improved MCP tool descriptions
 
 ## [2.0.2] - 2026-07-19
 

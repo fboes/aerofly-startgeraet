@@ -274,26 +274,47 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         TOOL_SET_POSITION,
         {
             title: `Set initial aircraft position & state for flight mission setup`,
-            description: `Be aware that altitude needs to be set correctly. Returns the initial aircraft position & state.`,
+            description: `\
+Sets the aircraft's initial position (latitude, longitude, altitude, heading) and flight state (configuration, speed) in Aerofly FS 4. Note that configuration only affects systems, flaps, gear, and throttle settings — it does _not_ change the aircraft's position or altitude.
+
+When using \`configuration\` values \`OnGround\`, \`Takeoff\`, \`ShortFinal\`, or \`Final\`, ensure \`altitude_meter\` matches the actual terrain/airport elevation (use \`get-airport-details\` or \`get-elevation\` beforehand) — the aircraft will not be automatically placed on the ground. Returns the resulting aircraft position and state.
+
+Be aware that calling \`set-flightplan-waypoints\` might yet again reposition the aircraft.`,
             inputSchema: {
-                longitude: ZodExtra.longitude(),
-                latitude: ZodExtra.latitude(),
-                altitude_meter: z.number().describe(`Altitude MSL`),
-                heading_degree: ZodExtra.degree(),
+                longitude: ZodExtra.longitude().describe(
+                    `Longitude of the aircraft's starting position, as a decimal value in WGS84.`,
+                ),
+                latitude: ZodExtra.latitude().describe(
+                    `Latitude of the aircraft's starting position, as a decimal value in WGS84.`,
+                ),
+                altitude_meter: z
+                    .number()
+                    .describe(
+                        `Altitude of the aircraft above mean sea level (MSL), in meters. For ground-based configurations (\`OnGround\`, \`Parking\`, \`ColdAndDark\`, \`BeforeStart\`, \`Takeoff\`), this should match the airport/terrain elevation at the given coordinates — this is not applied automatically. For airborne configurations (\`Cruise\`, \`ShortFinal\`, \`Final\`), set the intended altitude for that phase of flight.`,
+                    ),
+                heading_degree: ZodExtra.degree().describe(
+                    `Aircraft heading in degrees (0-359.99), as a decimal value.`,
+                ),
                 speed_kts: z
                     .number()
                     .nonnegative()
                     .optional()
                     .describe(
-                        `Intial speed in knots. Additional behavior:
-
- - If speed is not set and \`configuration\` parameter is \`OnGround\`, speed will be set to \`0\`
- - If speed is not set and \`configuration\` parameter is _not_ \`OnGround\`, speed will be set to the current aircraft's cruise speed`,
+                        `Initial airspeed in knots. If not set: defaults to \`0\` when \`configuration\` is \`OnGround\`, otherwise defaults to the aircraft's current cruise speed.`,
                     ),
                 configuration: ZodExtra.flightConfiguration()
                     .optional()
                     .describe(
-                        `Configuration will set the initial flaps, gear and throttle. If not set, this will default to "Cruise".`,
+                        `\
+Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect the aircraft's position, altitude, or heading - those are controlled solely by the other parameters. \`BeforeStart\` and \`Parking\` can generally be ignored/skipped, as they behave equivalently to \`ColdAndDark\` for most purposes. Defaults to \`Cruise\` if not set. Available values:
+
+- \`Keep\`: Leave the current configuration unchanged.
+- \`ColdAndDark\`: Engines and systems off.
+- \`BeforeStart\` / \`Parking\`: Can be ignored — functionally similar to \`ColdAndDark\`.
+- \`OnGround\`: Aircraft on the ground, engines running, ready to taxi/depart.
+- \`Takeoff\`: Takeoff configuration (flaps/throttle set for departure).
+- \`Cruise\`: Cruise configuration (default).
+- \`ShortFinal\` / \`Final\`: Landing approach configuration (flaps/gear extended).`,
                     ),
             },
             annotations,
@@ -330,7 +351,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         TOOL_SET_WAYPOINTS,
         {
             title: `Set flight plan waypoints for flight mission setup`,
-            description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but no other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport.`,
+            description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but no other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport using \`set-position\` internally. If you intend to have a different starting pisiton, call \`set-position\` after this tool.`,
             inputSchema: {
                 origin: ZodExtra.airport().describe(`Origin airport with ICAO code`),
                 departureRunway: ZodExtra.runway()
@@ -420,13 +441,21 @@ file content as a string, ready for download or passing to another tool.
 Supported file types are:
 - \`mcf\`: Aerofly FS 4 main configuration file format (proprietary syntax).
   Includes flight plan, aircraft, and weather.
+  Does _not_ include information set by \`set-mission-briefing\`.
 - \`tmc\`: Aerofly FS 4 custom missions file format (proprietary syntax).
   Includes flight plan, aircraft, and weather.
+  Includes information set by \`set-mission-briefing\`, else using a fallback.
 - \`geojson\`: GeoJSON (JSON) with a LineString for the route and Points for
   each waypoint. Intended for map visualization.
+  Includes information set by \`set-mission-briefing\`, else using a fallback.
 - \`kml\`: Keyhole Markup Language (XML) with a LineString for the route and
   Points for each waypoint. Intended for use in Google Earth or similar tools.
-- \`md\`: Markdown (text) with a table of waypoints and route information. Intended for documentation or sharing in text format.
+  Includes information set by \`set-mission-briefing\`, else using a fallback.
+- \`md\`: Markdown (text) with aircraft, weather, and a waypoint/leg table
+  (distance, heading, ground speed, ETE where calculable — some legs may
+  show incomplete values if wind-corrected data isn't available), plus
+  SkyVector links.
+  Includes information set by \`set-mission-briefing\`, else using a fallback.
 `,
             inputSchema: {
                 fileType: ZodExtra.exportFileType().describe(
