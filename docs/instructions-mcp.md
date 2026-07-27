@@ -1,7 +1,7 @@
 # ![](../assets/icons/icon.svg) Aerofly Startgerät - MCP Server
 
 > [!WARNING]
-> Warning: The MCP server currently has an open [security advisory](https://github.com/advisories/GHSA-frvp-7c67-39w9) introduced by [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk). As soon as an update becomes available, the Aerofly Startgerät MCP server will also be updated.
+> The MCP server currently has an open [security advisory](https://github.com/advisories/GHSA-frvp-7c67-39w9) introduced by [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk). As soon as an update becomes available, the Aerofly Startgerät MCP server will also be updated.
 
 The Aerofly Startgerät MCP server acts as an interface usable by local AI clients to set up flight plans as well as other flight parameters in Aerofly FS 4.
 

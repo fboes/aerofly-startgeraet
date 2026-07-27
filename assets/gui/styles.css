@@ -58,7 +58,7 @@ startgeraet-main {
 startgeraet-footer {
     font-size: var(--fontsize-small);
     text-align: center;
-    padding: 1rem 1rem;
+    padding: 0.33rem 1rem;
     display: block;
 }
 
