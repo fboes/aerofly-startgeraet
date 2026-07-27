@@ -2,11 +2,14 @@
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-07-27
+
 - Removed fuel & payload selector (cannot be set in Aerofly FS)
 - Added correct UID generator via `@fboes/aerofly-custom-missions`
 - Disable METAR button in GUI if date is out of range
 - Changed MCP capability for setting initial aircraft state / speed
 - Improved MCP tool descriptions
+- [Security advisory GHSA-frvp-7c67-39w9](https://github.com/advisories/GHSA-frvp-7c67-39w9) introduced by [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk) is not yet fixed, awaiting upstream updates.
 
 ## [2.0.2] - 2026-07-19
 

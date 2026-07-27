@@ -1,5 +1,8 @@
 # ![](../assets/icons/icon.svg) Aerofly Startgerät - MCP Server
 
+> [!WARNING]
+> Warning: The MCP server currently has an open [security advisory](https://github.com/advisories/GHSA-frvp-7c67-39w9) introduced by [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk). As soon as an update becomes available, the Aerofly Startgerät MCP server will also be updated.
+
 The Aerofly Startgerät MCP server acts as an interface usable by local AI clients to set up flight plans as well as other flight parameters in Aerofly FS 4.
 
 The Aerofly Startgerät MCP server is available as a pre-packaged MCPB file (which can be used with Claude Desktop), as a stand-alone Node.js application to use with any other local AI tool which can access a local MCP server, or as a stand-alone apllication which does not require Node.js but needs to be available for your operating system.

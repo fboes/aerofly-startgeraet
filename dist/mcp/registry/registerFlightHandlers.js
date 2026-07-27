@@ -186,7 +186,9 @@ Be aware that calling \`set-flightplan-waypoints\` might yet again reposition th
         inputSchema: {
             longitude: ZodExtra.longitude().describe(`Longitude of the aircraft's starting position, as a decimal value in WGS84.`),
             latitude: ZodExtra.latitude().describe(`Latitude of the aircraft's starting position, as a decimal value in WGS84.`),
-            altitude_meter: z.number().describe(`Altitude of the aircraft above mean sea level (MSL), in meters. For ground-based configurations (\`OnGround\`, \`Parking\`, \`ColdAndDark\`, \`BeforeStart\`, \`Takeoff\`), this should match the airport/terrain elevation at the given coordinates — this is not applied automatically. For airborne configurations (\`Cruise\`, \`ShortFinal\`, \`Final\`), set the intended altitude for that phase of flight.`),
+            altitude_meter: z
+                .number()
+                .describe(`Altitude of the aircraft above mean sea level (MSL), in meters. For ground-based configurations (\`OnGround\`, \`Parking\`, \`ColdAndDark\`, \`BeforeStart\`, \`Takeoff\`), this should match the airport/terrain elevation at the given coordinates — this is not applied automatically. For airborne configurations (\`Cruise\`, \`ShortFinal\`, \`Final\`), set the intended altitude for that phase of flight.`),
             heading_degree: ZodExtra.degree().describe(`Aircraft heading in degrees (0-359.99), as a decimal value.`),
             speed_kts: z
                 .number()
