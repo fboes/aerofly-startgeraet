@@ -146,6 +146,15 @@ export class Config {
         this.setDate("lastUpdateCheck", d);
     }
 
+    /**
+     * @returns if a sufficient cool down has occured after last update check
+     */
+    isUpdateCheckNeeded(cooldownHours = 24): boolean {
+        const thresholdDate = new Date();
+        thresholdDate.setHours(thresholdDate.getHours() - cooldownHours); // 24h have elapsed since last update check
+        return thresholdDate < this.lastUpdateCheck;
+    }
+
     toJSON() {
         return {
             mainMcfFilePath: this.mainMcfFilePath,

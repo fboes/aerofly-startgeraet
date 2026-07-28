@@ -1,6 +1,8 @@
 export declare function getPackageName(): string;
 export declare function getApplicationSlug(): string;
 export declare function getApplicationName(): string;
+export declare function getGithubUsername(): string;
+export declare function getGithubReponame(): string;
 export declare function getApplicationVersion(): string;
 export declare function getApplicationNameVersion(): string;
 export declare function getApplicationDescription(): string;

@@ -103,10 +103,18 @@ export class Config {
         this.setBoolean("syncTimeOnStartup", syncTimeOnStartup);
     }
     get lastUpdateCheck() {
-        return this.getDate('lastUpdateCheck');
+        return this.getDate("lastUpdateCheck");
     }
     set lastUpdateCheck(d) {
-        this.setDate('lastUpdateCheck', d);
+        this.setDate("lastUpdateCheck", d);
+    }
+    /**
+     * @returns if a sufficient cool down has occured after last update check
+     */
+    isUpdateCheckNeeded(cooldownHours = 24) {
+        const thresholdDate = new Date();
+        thresholdDate.setHours(thresholdDate.getHours() - cooldownHours); // 24h have elapsed since last update check
+        return thresholdDate < this.lastUpdateCheck;
     }
     toJSON() {
         return {

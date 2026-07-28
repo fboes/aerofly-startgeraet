@@ -28,6 +28,12 @@ import { RoutePlanService, type RoutePlanServiceLeg, type RoutePlanServiceRoute 
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
 import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
+import { UpdateCheckService, type GithubReleaseApiPayload } from "./UpdateCheckService.js";
+import {
+    getApplicationVersion,
+    getGithubReponame as getGithubRepositorySlug,
+    getGithubUsername as getGithubUserName,
+} from "./getApplicationInformation.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -573,6 +579,20 @@ export class AeroflyFlightService {
     }
 
     // ----------------------------------------------------------
+
+    /**
+     * Will only be executed if last update check had a sufficient cool down
+     * @returns null if no update is needs, GithubReleaseApiPayload if an update is available
+     */
+    async getUpdateInformation(): Promise<GithubReleaseApiPayload | null> {
+        if (!this.config.isUpdateCheckNeeded()) {
+            return null;
+        }
+        const update = new UpdateCheckService(getGithubUserName(), getGithubRepositorySlug());
+
+        this.config.lastUpdateCheck = new Date();
+        return update.isUpdateAvailable(getApplicationVersion());
+    }
 
     writeFile(): void {
         this.aeroflyMainConfigReader.write(this.aeroflyFlight);

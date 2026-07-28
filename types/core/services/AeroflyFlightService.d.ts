@@ -4,6 +4,7 @@ import type { Config } from "../io/Config.js";
 import { type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
 import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
+import { type GithubReleaseApiPayload } from "./UpdateCheckService.js";
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
  * @property {number} cloud_coverage - The cloud coverage as a value between 0 and 1, where 0 means no clouds and 1 means completely overcast.
@@ -131,6 +132,11 @@ export declare class AeroflyFlightService {
     getTemperature(): number;
     setClouds(clouds: AeroflyFlightServiceCloud[]): AeroflySettingsCloud[];
     getClouds(): AeroflyFlightServiceCloud[];
+    /**
+     * Will only be executed if last update check had a sufficient cool down
+     * @returns null if no update is needs, GithubReleaseApiPayload if an update is available
+     */
+    getUpdateInformation(): Promise<GithubReleaseApiPayload | null>;
     writeFile(): void;
 }
 //# sourceMappingURL=AeroflyFlightService.d.ts.map

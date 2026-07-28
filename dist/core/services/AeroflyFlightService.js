@@ -11,6 +11,8 @@ import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAerofly
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { RoutePlanService } from "./RoutePlanService.js";
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
+import { UpdateCheckService } from "./UpdateCheckService.js";
+import { getApplicationVersion, getGithubReponame as getGithubRepositorySlug, getGithubUsername as getGithubUserName, } from "./getApplicationInformation.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -380,6 +382,18 @@ export class AeroflyFlightService {
         });
     }
     // ----------------------------------------------------------
+    /**
+     * Will only be executed if last update check had a sufficient cool down
+     * @returns null if no update is needs, GithubReleaseApiPayload if an update is available
+     */
+    async getUpdateInformation() {
+        if (!this.config.isUpdateCheckNeeded()) {
+            return null;
+        }
+        const update = new UpdateCheckService(getGithubUserName(), getGithubRepositorySlug());
+        this.config.lastUpdateCheck = new Date();
+        return update.isUpdateAvailable(getApplicationVersion());
+    }
     writeFile() {
         this.aeroflyMainConfigReader.write(this.aeroflyFlight);
     }

@@ -1,4 +1,4 @@
-type GithubReleaseApiPayload = {
+export type GithubReleaseApiPayload = {
     tag_name: string;
     name: string;
     html_url: string;

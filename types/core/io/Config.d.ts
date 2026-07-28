@@ -44,6 +44,10 @@ export declare class Config {
     set syncTimeOnStartup(syncTimeOnStartup: boolean);
     get lastUpdateCheck(): Date;
     set lastUpdateCheck(d: Date);
+    /**
+     * @returns if a sufficient cool down has occured after last update check
+     */
+    isUpdateCheckNeeded(cooldownHours?: number): boolean;
     toJSON(): {
         mainMcfFilePath: string | null;
         simBriefUserName: string;

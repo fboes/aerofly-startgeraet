@@ -8,6 +8,12 @@ export function getApplicationSlug() {
 export function getApplicationName() {
     return "Aerofly Startgerät";
 }
+export function getGithubUsername() {
+    return "fboes";
+}
+export function getGithubReponame() {
+    return "aerofly-startgeraet";
+}
 export function getApplicationVersion() {
     return PackageJson.version;
 }

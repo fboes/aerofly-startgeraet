@@ -12,6 +12,14 @@ export function getApplicationName(): string {
     return "Aerofly Startgerät";
 }
 
+export function getGithubUsername(): string {
+    return "fboes";
+}
+
+export function getGithubReponame(): string {
+    return "aerofly-startgeraet";
+}
+
 export function getApplicationVersion(): string {
     return PackageJson.version;
 }

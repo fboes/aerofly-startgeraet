@@ -1,4 +1,4 @@
-type GithubReleaseApiPayload = {
+export type GithubReleaseApiPayload = {
     tag_name: string;
     name: string;
     html_url: string;
@@ -13,5 +13,4 @@ export declare class UpdateCheckService {
     isUpdateAvailable(currentLocalVersion: string): Promise<GithubReleaseApiPayload | null>;
     makeGithubReleaseRequest(timeoutMs?: number): Promise<GithubReleaseApiPayload>;
 }
-export {};
 //# sourceMappingURL=UpdateCheckService.d.ts.map
