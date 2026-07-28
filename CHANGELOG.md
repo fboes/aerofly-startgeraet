@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## [2.2.0]
+
+- Updated `@modelcontextprotocol/sdk` to fix security advisory
 
 ## [2.1.0] - 2026-07-27
 
