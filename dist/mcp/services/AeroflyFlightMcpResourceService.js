@@ -1,4 +1,4 @@
-import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
+import { ProtocolError, ProtocolErrorCode } from "@modelcontextprotocol/server";
 import { getAllAeroflyAircraftWithLiveries, getAeroflyAircraft, getAeroflyAircraftByIcaoCode, } from "../../core/services/getAeroflyAircraft.js";
 import { getAeroflyAirportByIcaoCode, getAllAeroflyAirports } from "../../core/services/getAeroflyAirport.js";
 import { RESOURCE_AIRCRAFT, RESOURCE_AIRPORTS } from "../registry/registerResourceHandlers.js";
@@ -16,7 +16,7 @@ export function getAircraftList() {
 export function getAircraft(code) {
     const aircraft = getAeroflyAircraft(code) ?? getAeroflyAircraftByIcaoCode(code);
     if (aircraft === undefined) {
-        throw new McpError(ErrorCode.InvalidRequest, `Could not find aircraft by Aerofly Code / ICAO code ${code}`, {
+        throw new ProtocolError(ProtocolErrorCode.InvalidRequest, `Could not find aircraft by Aerofly Code / ICAO code ${code}`, {
             hint: `Obviously the aircraft does not exist in Aerofly FS 4. Please refer to the list of available aircraft, and use the aeroflyCode.`,
         });
     }
@@ -70,7 +70,7 @@ export function searchAircraft({ query = undefined, tags = undefined, minimumRan
 export function getAirport(icaoCode) {
     const airport = getAeroflyAirportByIcaoCode(icaoCode);
     if (airport === undefined) {
-        throw new McpError(ErrorCode.InvalidRequest, `Could not find airport by ICAO code ${icaoCode}`, {
+        throw new ProtocolError(ProtocolErrorCode.InvalidRequest, `Could not find airport by ICAO code ${icaoCode}`, {
             hint: `Obviously the airport does not exist in Aerofly FS 4. Please choose a different airport if you need to take-off or land at this airport.`,
         });
     }
@@ -79,7 +79,7 @@ export function getAirport(icaoCode) {
 export function searchAirports({ query = undefined, geoQuery = undefined, } = {}) {
     const queryNormalized = query !== undefined && query.trim() !== "" ? query.trim().toLowerCase() : undefined;
     if (queryNormalized === undefined && geoQuery === undefined) {
-        throw new McpError(ErrorCode.InvalidRequest, `You need to supply at least one search parameter, otherwise the list of results will contain all the worlds airports.`);
+        throw new ProtocolError(ProtocolErrorCode.InvalidRequest, `You need to supply at least one search parameter, otherwise the list of results will contain all the worlds airports.`);
     }
     let geoQueryNormalized = undefined;
     const haversineKm = (lat1, lng1, lat2, lng2) => {

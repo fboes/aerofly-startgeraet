@@ -1,9 +1,9 @@
 import {
     type CallToolResult,
     type TextContent,
-    ErrorCode,
+    ProtocolErrorCode,
     type ReadResourceResult,
-} from "@modelcontextprotocol/sdk/types.js";
+} from "@modelcontextprotocol/server";
 
 /**
  * Ready-to-use result objects for MCP tool and resource repsonses
@@ -36,7 +36,7 @@ export function returnMcpToolResult<T>(data: T, warnings: string[] = []): CallTo
 
 export function returnMcpToolErrorResult(
     messages: string[],
-    code: ErrorCode = ErrorCode.InvalidRequest,
+    code: ProtocolErrorCode = ProtocolErrorCode.InvalidRequest,
 ): CallToolResult {
     {
         return {

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer, CallToolResult, ToolAnnotations } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import type {
     AeroflyFlightService,
@@ -11,7 +11,6 @@ import type {
 import * as ResourceRegistry from "./registerResourceHandlers.js";
 import * as ConfigurationRegistry from "./registerConfigurationHandlers.js";
 import * as ZodExtra from "../../core/util/zExtra.js";
-import type { CallToolResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import * as ExportFileWriter from "../../core/io/exportFlightplan.js";
 import * as ImportFileReader from "../../core/io/importFlightplan.js";
@@ -59,7 +58,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Set aircraft type & livery for flight mission setup`,
             description: `Call \`${ResourceRegistry.TOOL_SEARCH_AIRCRAFT}\` to search for the required Aerofly aircraft and livery codes. Returns the aircraft state afterwards.`,
-            inputSchema: {
+            inputSchema: z.object({
                 aeroflyCodeAircraft: ZodExtra.aircraft().describe(`Aerofly aircraft code`),
                 aeroflyCodeLivery: z
                     .string()
@@ -68,7 +67,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
                     .describe(
                         `Aerofly livery code. This code must exist for the given aircraft. Keep empty to set default livery.`,
                     ),
-            },
+            }),
             annotations,
         },
         ({
@@ -94,14 +93,14 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Set aircraft fuel and payload for flight mission setup`,
             description: `Call \`${ResourceRegistry.TOOL_SEARCH_AIRCRAFT}\` to search for the available maximum fuel ad payload mass. If given too much fuel and payload this will be capped automatically. Returns the fuel and payload state afterwards.`,
-            inputSchema: {
+            inputSchema: z.object({
                 fuel: z.number().nonnegative().optional().describe(`Fuel mass in kg. Must not exceed max fuel mass.`),
                 payload: z
                     .number()
                     .nonnegative()
                     .optional()
                     .describe(`Payload mass in kg. Must not exceed max payload mass.`),
-            },
+            }),
             annotations,
         },
         ({ fuel, payload }: { fuel?: number; payload?: number }): CallToolResult => {
@@ -127,9 +126,9 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Set date & time for flight mission setup`,
             description: `Returns the set time afterwards.`,
-            inputSchema: {
+            inputSchema: z.object({
                 timeDate: z.iso.datetime({ offset: true }).describe(`ISO 8601 date & time including time zone.`),
-            },
+            }),
             annotations,
         },
         ({ timeDate }: { timeDate: string }): CallToolResult =>
@@ -141,7 +140,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Set visibility, temperature and wind for flight mission setup`,
             description: `Returns the weather conditions afterwards. Returns set weather afterwards. To set clouds call \`${TOOL_SET_CLOUDS}\`. Please note that there are no settings for rain, thunderstorms, snow etc.`,
-            inputSchema: {
+            inputSchema: z.object({
                 visibilityM: z
                     .number()
                     .nonnegative()
@@ -154,7 +153,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
                 directionDegrees: ZodExtra.degree().describe(`Wind direction in degrees.`),
                 speedKts: z.number().nonnegative().describe(`Wind speed in knots.`),
                 gustsKts: z.number().nonnegative().optional().describe(`Gust speed in knots.`),
-            },
+            }),
             annotations,
         },
         ({
@@ -180,7 +179,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Set cloud layers for flight mission setup`,
             description: `Please note that Aerofly FS 4 only handles up to 3 cloud layers. Returns set clouds afterwards. To set other weather settings call \`${TOOL_SET_WEATHER}\`.`,
-            inputSchema: {
+            inputSchema: z.object({
                 clouds: z
                     .array(
                         z.object({
@@ -191,7 +190,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
                         }),
                     )
                     .describe(`List of cloud layers.`),
-            },
+            }),
             annotations,
         },
         ({
@@ -218,11 +217,11 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Get real-life weather / METAR data and insert it into missio`,
             description: `Will call the Aviation Weather METAR API. Will use the time & date set in flight plan. This day must not be more than two weeks in the past and cannot be in the future. Returns the weather data.`,
-            inputSchema: {
+            inputSchema: z.object({
                 airportIcaoCode: ZodExtra.identifier().describe(
                     `ICAO code of airport for which to fetch weather / METAR data.`,
                 ),
-            },
+            }),
             annotations: {
                 ...annotations,
                 openWorldHint: true,
@@ -245,12 +244,12 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         {
             title: `Replace complete flight mission setup with SimBrief flight plan fetched via API`,
             description: `Will use the SimBrief API to fetch the latest flight plan for the given SimBrief user, including weather and aircraft type. Should only be called if user explicitly requests SimBrief import. Returns the flight mission setup. The SimBrief username can be stored by calling ${ConfigurationRegistry.TOOL_SET_CONFIG}, and (if stored) can be read by calling ${ConfigurationRegistry.TOOL_GET_CONFIG}.`,
-            inputSchema: {
+            inputSchema: z.object({
                 simBriefUserName: z
                     .string()
                     .regex(/^[a-zA-Z0-9_]+$/)
                     .describe(`SimBrief username or user id.`),
-            },
+            }),
             annotations: {
                 ...annotations,
                 openWorldHint: true,
@@ -280,7 +279,7 @@ Sets the aircraft's initial position (latitude, longitude, altitude, heading) an
 When using \`configuration\` values \`OnGround\`, \`Takeoff\`, \`ShortFinal\`, or \`Final\`, ensure \`altitude_meter\` matches the actual terrain/airport elevation (use \`get-airport-details\` or \`get-elevation\` beforehand) — the aircraft will not be automatically placed on the ground. Returns the resulting aircraft position and state.
 
 Be aware that calling \`set-flightplan-waypoints\` might yet again reposition the aircraft.`,
-            inputSchema: {
+            inputSchema: z.object({
                 longitude: ZodExtra.longitude().describe(
                     `Longitude of the aircraft's starting position, as a decimal value in WGS84.`,
                 ),
@@ -316,7 +315,7 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
 - \`Cruise\`: Cruise configuration (default).
 - \`ShortFinal\` / \`Final\`: Landing approach configuration (flaps/gear extended).`,
                     ),
-            },
+            }),
             annotations,
         },
         ({
@@ -352,7 +351,7 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
         {
             title: `Set flight plan waypoints for flight mission setup`,
             description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but no other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport using \`set-position\` internally. If you intend to have a different starting pisiton, call \`set-position\` after this tool.`,
-            inputSchema: {
+            inputSchema: z.object({
                 origin: ZodExtra.airport().describe(`Origin airport with ICAO code`),
                 departureRunway: ZodExtra.runway()
                     .optional()
@@ -375,7 +374,7 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
                     .describe(
                         `Cruise altitude in feet. This is not a setting of the flight plan, but can be used to set the altitude of waypoints without altitude information.`,
                     ),
-            },
+            }),
             annotations,
         },
         ({
@@ -387,11 +386,11 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
             cruiseAltitudeFt,
         }: {
             origin: AeroflyFlightServiceAirport;
-            departureRunway: AeroflyFlightServiceRunway | undefined;
+            departureRunway?: AeroflyFlightServiceRunway;
             destination: AeroflyFlightServiceAirport;
-            destinationRunway: AeroflyFlightServiceRunway | undefined;
-            waypoints: AeroflyFlightServiceWaypoint[] | undefined;
-            cruiseAltitudeFt: number | undefined;
+            destinationRunway?: AeroflyFlightServiceRunway;
+            waypoints?: AeroflyFlightServiceWaypoint[];
+            cruiseAltitudeFt?: number;
         }): CallToolResult => {
             const result = flightService.setFlightplan(origin, destination, {
                 departureRunway,
@@ -409,10 +408,10 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
         {
             title: `Set mission title and briefing for flight mission setup`,
             description: `Store a mission title and briefing for the current flight plan. This is not a setting of Aerofly FS 4, but can be used to store information about the current flight plan for other export formats.`,
-            inputSchema: {
+            inputSchema: z.object({
                 title: z.string().optional().describe(`Title of the mission briefing.`),
                 briefing: z.string().optional().describe(`Text of the mission briefing.`),
-            },
+            }),
             annotations,
         },
         ({ title, briefing }: { title?: string; briefing?: string }): CallToolResult => {
@@ -457,11 +456,11 @@ Supported file types are:
   SkyVector links.
   Includes information set by \`set-mission-briefing\`, else using a fallback.
 `,
-            inputSchema: {
+            inputSchema: z.object({
                 fileType: ZodExtra.exportFileType().describe(
                     `The file ending the file would have been in. Used to determine how to convert the flight plan.`,
                 ),
-            },
+            }),
             annotations: {
                 ...annotations,
                 readOnlyHint: true,
@@ -491,7 +490,7 @@ Supported file types are:
 - \`fpl\`: Garmin / Infinite Flight flight plan file format as XML. Format may contain multiple flight plans. Will only set flight plan.
 - \`fms\`: X-Plane 11/12 flight plan file format in a proprietary syntax. Will only set flight plan.
 `,
-            inputSchema: {
+            inputSchema: z.object({
                 content: z.string().describe(`The raw content of the external flight plan file`),
                 fileType: ZodExtra.importFileType().describe(
                     `The file ending the file would have been in. Used to determine how to convert \`content\`.`,
@@ -502,7 +501,7 @@ contain multiple flight plans (tmc, fpl). 0 means the first flight plan.
 Set to -1 to retrieve a list of all available flight plans in the file
 without importing — useful for inspecting multi-plan files before choosing.
 `),
-            },
+            }),
             annotations: {
                 ...annotations,
                 readOnlyHint: true,
@@ -532,7 +531,7 @@ conditions for current mission setup. Returns an array of legs with per-leg and
 cumulative distance (nm), estimated time enroute (min), true heading (deg),
 ground speed (kts), and wind correction angle (deg), as well a total
 distance (nm) and time (min). There is only an option to get the consolidated values instead of single legs.`,
-            inputSchema: {
+            inputSchema: z.object({
                 cruiseSpeed_kts: z.number().min(1).optional().describe(`\
 Cruise speed setting in knots. If not supplied will be inferred from currently selected aircraft type.
 `),
@@ -543,7 +542,7 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
                     .describe(
                         `If this parameter is set to true, will return only the total distance and time instead of single legs.`,
                     ),
-            },
+            }),
             annotations: {
                 ...annotations,
                 readOnlyHint: true,
@@ -611,9 +610,9 @@ function registerPrompts(server: McpServer) {
             title: "Create Aerofly Flight Plan",
             description:
                 "Prepare a complete flight plan for Aerofly FS 4, including aircraft, route, weather and time settings.",
-            argsSchema: {
+            argsSchema: z.object({
                 missionIdea: z.string().describe("Mission idea to build mission for"),
-            },
+            }),
         },
         ({ missionIdea }) => ({
             messages: [

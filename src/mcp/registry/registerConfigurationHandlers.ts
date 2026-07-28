@@ -1,7 +1,6 @@
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer, CallToolResult } from "@modelcontextprotocol/server";
 import type { Config } from "../../core/io/Config.js";
 import { z } from "zod";
-import type { CallToolResult } from "@modelcontextprotocol/sdk/types";
 import { returnMcpToolSimpleResult, returnMcpToolResult } from "../util/returnMcpResult.js";
 
 export const TOOL_GET_CONFIG = "get-config";
@@ -28,7 +27,7 @@ export function registerConfigurationHandlers(server: McpServer, config: Config)
         {
             title: `Set configuration of MCP server`,
             description: `Update the basic settings of the MCP server, like data needed to interface with Aerofly FS 4 as well as the local file system. After updating will return the new configuration state.`,
-            inputSchema: {
+            inputSchema: z.object({
                 mainMcfFilePath: z
                     .string()
                     .optional()
@@ -41,7 +40,7 @@ export function registerConfigurationHandlers(server: McpServer, config: Config)
                     .describe(
                         `Username or UserID for SimBrief API. Only required if user asks to populate Aerofly FS 4 by importing a SimBrief flightplan.`,
                     ),
-            },
+            }),
             annotations: {
                 readOnlyHint: false,
                 destructiveHint: true,

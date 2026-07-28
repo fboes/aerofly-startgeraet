@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { type McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { ResourceTemplate } from "@modelcontextprotocol/server";
+import type { McpServer, CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import * as AeroflyFlightMcpResourceService from "../services/AeroflyFlightMcpResourceService.js";
 import * as ZodExtra from "../../core/util/zExtra.js";
-import type { CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/sdk/types";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
 import { returnMcpResourceResult, returnMcpToolSimpleResult } from "../util/returnMcpResult.js";
@@ -120,7 +120,7 @@ function registerTools(server: McpServer) {
         {
             title: `Search Aerofly FS 4 aircraft`,
             description: `Search for aircraft by ICAO code, Aerofly code, tag, maximum range, maximum payload. All search properties are linked by \`AND\`. WIll return additional information like payload, cruise speed, existing liveries etc.`,
-            inputSchema: {
+            inputSchema: z.object({
                 query: z
                     .string()
                     .optional()
@@ -135,7 +135,7 @@ function registerTools(server: McpServer) {
                     ),
                 minimumRangeNm: z.number().positive().optional().describe("Minimum range in nautical miles."),
                 minimumCruiseSpeedKts: z.number().positive().optional().describe("Minimum cruise speed in knots."),
-            },
+            }),
             annotations,
         },
         ({
@@ -159,7 +159,7 @@ function registerTools(server: McpServer) {
         {
             title: `Search Aerofly FS 4 airports`,
             description: `Search for airports / heliports by ICAO code, (partial) name and/or geographical location. All search properties are linked by \`AND\`.`,
-            inputSchema: {
+            inputSchema: z.object({
                 query: z
                     .string()
                     .optional()
@@ -167,7 +167,7 @@ function registerTools(server: McpServer) {
                         `Airport ICAO code or (partial) name of airport. Will only find airports present in Aerofly FS 4.`,
                     ),
                 geoQuery: ZodExtra.geoQuery(),
-            },
+            }),
             annotations,
         },
         ({
@@ -185,9 +185,9 @@ function registerTools(server: McpServer) {
         {
             title: `Get airport details`,
             description: `Get detailed airport / heliport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
-            inputSchema: {
+            inputSchema: z.object({
                 icaoCode: z.string().length(4).describe("Airport ICAO code"),
-            },
+            }),
             annotations: {
                 ...annotations,
                 openWorldHint: true,
@@ -202,9 +202,9 @@ function registerTools(server: McpServer) {
         {
             title: `Search navigational aids`,
             description: `Search for navigational aids like NDBs and VORs depending on their geographical location from the Aviation Weather Center API. Will return geographical position, elevation (in meters MSL), identifier, type and frequency.`,
-            inputSchema: {
+            inputSchema: z.object({
                 geoQuery: ZodExtra.geoQuery(),
-            },
+            }),
             annotations: {
                 ...annotations,
                 openWorldHint: true,
@@ -229,9 +229,9 @@ function registerTools(server: McpServer) {
         {
             title: `Search waypoints fixes`,
             description: `Search for waypoints and named fixes depending on their geographical location from the Aviation Weather Center API. Will return geographical position, identifier, and type.`,
-            inputSchema: {
+            inputSchema: z.object({
                 geoQuery: ZodExtra.geoQuery(),
-            },
+            }),
             annotations: {
                 ...annotations,
                 openWorldHint: true,
@@ -256,9 +256,9 @@ function registerTools(server: McpServer) {
         {
             title: `Get elevation data`,
             description: `Fetch elevation data from an external data for a set of geo coordinates, using the aster30m dataset. Will return an object with a property \`results\`, which will contain a set of results with elevation data given in meters above sea level. Elevation data may not be provided for the entire earth.`,
-            inputSchema: {
+            inputSchema: z.object({
                 coordinates: z.array(ZodExtra.geoCoordinates()),
-            },
+            }),
             annotations: {
                 ...annotations,
                 openWorldHint: true,

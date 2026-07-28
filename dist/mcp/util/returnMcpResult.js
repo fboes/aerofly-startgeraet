@@ -1,4 +1,4 @@
-import { ErrorCode, } from "@modelcontextprotocol/sdk/types.js";
+import { ProtocolErrorCode, } from "@modelcontextprotocol/server";
 /**
  * Ready-to-use result objects for MCP tool and resource repsonses
  */
@@ -22,7 +22,7 @@ export function returnMcpToolSimpleResult(data, warnings = []) {
 export function returnMcpToolResult(data, warnings = []) {
     return returnMcpToolSimpleResult({ data }, warnings);
 }
-export function returnMcpToolErrorResult(messages, code = ErrorCode.InvalidRequest) {
+export function returnMcpToolErrorResult(messages, code = ProtocolErrorCode.InvalidRequest) {
     {
         return {
             content: messages.map((message) => ({

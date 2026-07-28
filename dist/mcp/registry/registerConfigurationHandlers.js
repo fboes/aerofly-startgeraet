@@ -16,7 +16,7 @@ export function registerConfigurationHandlers(server, config) {
     server.registerTool(TOOL_SET_CONFIG, {
         title: `Set configuration of MCP server`,
         description: `Update the basic settings of the MCP server, like data needed to interface with Aerofly FS 4 as well as the local file system. After updating will return the new configuration state.`,
-        inputSchema: {
+        inputSchema: z.object({
             mainMcfFilePath: z
                 .string()
                 .optional()
@@ -25,7 +25,7 @@ export function registerConfigurationHandlers(server, config) {
                 .string()
                 .optional()
                 .describe(`Username or UserID for SimBrief API. Only required if user asks to populate Aerofly FS 4 by importing a SimBrief flightplan.`),
-        },
+        }),
         annotations: {
             readOnlyHint: false,
             destructiveHint: true,
