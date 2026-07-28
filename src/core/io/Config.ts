@@ -43,6 +43,14 @@ export class Config {
         this.conf.set(key, value);
     }
 
+    protected getDate(key: string): Date {
+        return new Date(this.get(key));
+    }
+
+    protected setDate(key: string, value: Date): void {
+        this.conf.set(key, value.toISOString());
+    }
+
     // ----------------------------------------------------------
 
     /**
@@ -130,6 +138,14 @@ export class Config {
         this.setBoolean("syncTimeOnStartup", syncTimeOnStartup);
     }
 
+    get lastUpdateCheck(): Date {
+        return this.getDate("lastUpdateCheck");
+    }
+
+    set lastUpdateCheck(d: Date) {
+        this.setDate("lastUpdateCheck", d);
+    }
+
     toJSON() {
         return {
             mainMcfFilePath: this.mainMcfFilePath,
@@ -138,6 +154,7 @@ export class Config {
             importDirectory: this.importDirectory,
             exportDirectory: this.exportDirectory,
             syncTimeOnStartup: this.syncTimeOnStartup,
+            lastUpdateCheck: this.lastUpdateCheck,
         };
     }
 }

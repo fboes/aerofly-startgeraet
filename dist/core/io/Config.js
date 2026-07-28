@@ -34,6 +34,12 @@ export class Config {
     setNumber(key, value) {
         this.conf.set(key, value);
     }
+    getDate(key) {
+        return new Date(this.get(key));
+    }
+    setDate(key, value) {
+        this.conf.set(key, value.toISOString());
+    }
     // ----------------------------------------------------------
     /**
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
@@ -96,6 +102,12 @@ export class Config {
     set syncTimeOnStartup(syncTimeOnStartup) {
         this.setBoolean("syncTimeOnStartup", syncTimeOnStartup);
     }
+    get lastUpdateCheck() {
+        return this.getDate('lastUpdateCheck');
+    }
+    set lastUpdateCheck(d) {
+        this.setDate('lastUpdateCheck', d);
+    }
     toJSON() {
         return {
             mainMcfFilePath: this.mainMcfFilePath,
@@ -104,6 +116,7 @@ export class Config {
             importDirectory: this.importDirectory,
             exportDirectory: this.exportDirectory,
             syncTimeOnStartup: this.syncTimeOnStartup,
+            lastUpdateCheck: this.lastUpdateCheck,
         };
     }
 }

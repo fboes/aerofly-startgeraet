@@ -15,6 +15,8 @@ export declare class Config {
     protected setBoolean(key: string, value: boolean): void;
     protected getNumber(key: string): number;
     protected setNumber(key: string, value: number): void;
+    protected getDate(key: string): Date;
+    protected setDate(key: string, value: Date): void;
     /**
      * @returns The file path to the main.mcf file of Aerofly FS 4, which contains the flight plan.
      */
@@ -40,6 +42,8 @@ export declare class Config {
     set exportDirectory(exportDirectory: string);
     get syncTimeOnStartup(): boolean;
     set syncTimeOnStartup(syncTimeOnStartup: boolean);
+    get lastUpdateCheck(): Date;
+    set lastUpdateCheck(d: Date);
     toJSON(): {
         mainMcfFilePath: string | null;
         simBriefUserName: string;
@@ -47,6 +51,7 @@ export declare class Config {
         importDirectory: string;
         exportDirectory: string;
         syncTimeOnStartup: boolean;
+        lastUpdateCheck: Date;
     };
 }
 //# sourceMappingURL=Config.d.ts.map
