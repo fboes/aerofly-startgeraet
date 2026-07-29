@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Improved import / export documentation
+
 ## [2.2.1] - 2026-07-29
 
 - Improved handling of import files

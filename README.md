@@ -2,6 +2,8 @@
 
 > The Auxiliary Power Unit for [Aerofly Flight Simulator 4](https://www.aerofly.com/): Improving the main menu with meaningful units and import functionality for weather and flight plans.
 
+![](./docs/gui-example.png)
+
 Introducing the Aerofly Startgerät as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
 
 - Change aircraft, livery as well as set-up fuel and payload.
@@ -26,21 +28,23 @@ The Aerofly Startgerät is a stand-alone application, and is not directly integr
 
 Supported flight plan file formats:
 
-| File Format / API                                                                                                                       | Import | Export |
-| --------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
-| Aerofly FS `main.mcf`                                                                                                                   |   ✅   |   ✅   |
-| Aerofly FS 4 `tmc` custom missions                                                                                                      |   ✅   |   ✅   |
-| [Microsoft FS 2020 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
-| [Microsoft FS 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |  (✅)  |        |
-| [X-Plane 11 / 12 `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                    |   ✅   |        |
-| [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                   |   ✅   |        |
-| GeoJSON                                                                                                                                 |        |   ✅   |
-| Keyhole Markup Language (KML)                                                                                                           |        |   ✅   |
-| Markdown Text File (for mission briefing)                                                                                               |        |   ✅   |
-| [SimBrief API](./docs/importing-flightplans.md)                                                                                         |   ✅   |        |
-| [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                       |   ✅   |        |
+| File Format / API                                                                                                                       | Import           | Export           |
+| --------------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :--------------- |
+| Aerofly FS `main.mcf`                                                                                                                   | ✅ <sup>1)</sup> | ✅ <sup>1)</sup> |
+| Aerofly FS 4 `tmc` custom missions                                                                                                      | ✅ <sup>1)</sup> | ✅ <sup>1)</sup> |
+| [Microsoft FS 2020 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) | ✅               |                  |
+| [Microsoft FS 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) | ✅ <sup>2)</sup> |                  |
+| [X-Plane 11 / 12 `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                    | ✅               |                  |
+| [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                   | ✅               |                  |
+| [SimBrief API](./docs/importing-flightplans.md)                                                                                         | ✅ <sup>1)</sup> |                  |
+| [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                       | ✅ <sup>3)</sup> |                  |
+| GeoJSON                                                                                                                                 |                  | ✅               |
+| Keyhole Markup Language (KML)                                                                                                           |                  | ✅               |
+| Markdown Text File (for mission briefing)                                                                                               |                  | ✅ <sup>1)</sup> |
 
-![](./docs/gui-example.png)
+- <sup>1)</sup> Marked file format import / export also includes aircraft and weather settings
+- <sup>2)</sup> Marked file format import may fail depending on exporting application due to missing information required by Aerofly FS
+- <sup>3)</sup> Marked file format import / export only contains weather data
 
 ## Installation & Instructions
 
