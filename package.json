@@ -1,7 +1,7 @@
 {
   "name": "@fboes/aerofly-startgeraet",
   "desktopName": "aerofly-startgeraet",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "The Auxiliary Power Unit for Aerofly Flight Simulator 4: Improving the main menu with meaningful units and import functionality for weather and flight plans.",
   "main": "./dist/gui/index.js",
   "engines": {
