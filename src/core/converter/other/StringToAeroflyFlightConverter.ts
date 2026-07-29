@@ -15,5 +15,18 @@ export abstract class StringToAeroflyFlightConverter {
         return ["default"];
     }
 
+    parseNumberOrError(content: string, reference: string = ""): number {
+        const v = Number(content);
+        if (isNaN(v)) {
+            throw new Error(`Could not parse "${content}" as number` + (reference ? `, reference "${reference}"` : ""));
+        }
+        return v;
+    }
+
+    parseNumber(content: string, fallback: number): number {
+        const v = Number(content);
+        return isNaN(v) ? fallback : v;
+    }
+
     abstract convert(content: string, flightplan: AeroflyFlight, index: number): void;
 }

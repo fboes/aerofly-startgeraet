@@ -12,5 +12,6 @@ export declare class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFl
     private getRunway;
     private getWaypoints;
     private convertWaypointToAerofly;
+    private parseRunwayDirection;
 }
 //# sourceMappingURL=XplaneFmsToAeroflyFlightConverter.d.ts.map

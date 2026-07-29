@@ -26,18 +26,19 @@ The Aerofly Startgerät is a stand-alone application, and is not directly integr
 
 Supported flight plan file formats:
 
-| File Format / API                                                                                                                              | Import | Export |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
-| Aerofly FS `main.mcf`                                                                                                                          |   ✅   |   ✅   |
-| Aerofly FS 4 `tmc` custom missions                                                                                                             |   ✅   |   ✅   |
-| [Microsoft FS 2020 / 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
-| [X-Plane 11 / 12 `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                           |   ✅   |        |
-| [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                          |   ✅   |        |
-| GeoJSON                                                                                                                                        |        |   ✅   |
-| Keyhole Markup Language (KML)                                                                                                                  |        |   ✅   |
-| Markdown Text File (for mission briefing)                                                                                                      |        |   ✅   |
-| [SimBrief API](./docs/importing-flightplans.md)                                                                                                |   ✅   |        |
-| [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                              |   ✅   |        |
+| File Format / API                                                                                                                       | Import | Export |
+| --------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----: |
+| Aerofly FS `main.mcf`                                                                                                                   |   ✅   |   ✅   |
+| Aerofly FS 4 `tmc` custom missions                                                                                                      |   ✅   |   ✅   |
+| [Microsoft FS 2020 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |   ✅   |        |
+| [Microsoft FS 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) |  (✅)  |        |
+| [X-Plane 11 / 12 `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                    |   ✅   |        |
+| [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                   |   ✅   |        |
+| GeoJSON                                                                                                                                 |        |   ✅   |
+| Keyhole Markup Language (KML)                                                                                                           |        |   ✅   |
+| Markdown Text File (for mission briefing)                                                                                               |        |   ✅   |
+| [SimBrief API](./docs/importing-flightplans.md)                                                                                         |   ✅   |        |
+| [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                       |   ✅   |        |
 
 ![](./docs/gui-example.png)
 

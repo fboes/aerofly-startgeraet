@@ -31,7 +31,7 @@ export function createNotificationErrorPayload(error) {
  */
 export function parseNotificationEvent(event) {
     if (!(event instanceof CustomEvent) || event.type !== NOTIFICATION_EVENT_IDENTIFIER) {
-        throw Error("Invalid event type, expected " + NOTIFICATION_EVENT_IDENTIFIER);
+        throw new Error("Invalid event type, expected " + NOTIFICATION_EVENT_IDENTIFIER);
     }
     return event.detail;
 }

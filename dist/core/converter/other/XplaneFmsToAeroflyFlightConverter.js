@@ -29,13 +29,16 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         if (!waypointLines) {
             throw new Error("No nav lines found");
         }
-        return Array.from(waypointLines).map((m) => ({
-            identifier: m[2],
-            type: Number(m[1]),
-            lat: Number(m[4]),
-            lon: Number(m[5]),
-            elevationFeet: Number(m[3]),
-        }));
+        return Array.from(waypointLines).map((m) => {
+            const mString = m.join(" ");
+            return {
+                identifier: m[2],
+                type: this.parseNumberOrError(m[1], mString),
+                lat: this.parseNumberOrError(m[4], mString),
+                lon: this.parseNumberOrError(m[5], mString),
+                elevationFeet: this.parseNumber(m[3], 0),
+            };
+        });
     }
     convertWaypointToAerofly(waypoint, isFirst, isLast, departureRunway, destinationRunway) {
         if (isFirst) {
@@ -47,7 +50,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
             if (departureRunway) {
                 route.push(positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
-                    direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
+                    direction_degree: this.parseRunwayDirection(departureRunway),
                 })));
             }
             return route;
@@ -57,7 +60,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
             if (destinationRunway) {
                 route.push(positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
                     elevation_ft: waypoint.elevationFeet,
-                    direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
+                    direction_degree: this.parseRunwayDirection(destinationRunway),
                 })));
             }
             route.push(new AeroflyNavRouteDestination(waypoint.identifier, waypoint.lon, waypoint.lat, {
@@ -70,5 +73,8 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 altitude_ft: waypoint.elevationFeet,
             }),
         ];
+    }
+    parseRunwayDirection(runway) {
+        return this.parseNumber(runway.replace(/^\D+/, ""), 0) * 10;
     }
 }

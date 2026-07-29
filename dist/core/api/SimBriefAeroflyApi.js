@@ -23,10 +23,8 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         if (useDestinationWeather >= 0) {
             this.convertWeather(flight, useDestinationWeather === 0 ? simbriefPayload.origin : simbriefPayload.destination);
         }
-        const { aeroflyAircraftCode, aeroflyAircraftLivery } = this.findAeroflyAircraftCode(simbriefPayload.aircraft.icaocode, simbriefPayload.general.icao_airline);
         const originRunwayOrientation = Number(simbriefPayload.origin.plan_rwy.replace(/\D+/, "")) * 10;
         const destinationRunwayOrientation = Number(simbriefPayload.destination.plan_rwy.replace(/\D+/, "")) * 10;
-        flight.aircraft = new AeroflySettingsAircraft(aeroflyAircraftCode, aeroflyAircraftLivery);
         flight.flightSetting = AeroflySettingsFlight.createInFeet(Number(simbriefPayload.origin.pos_long), Number(simbriefPayload.origin.pos_lat), Number(simbriefPayload.origin.elevation), originRunwayOrientation, 0, {
             gear: 1,
             throttle: 0,
@@ -36,7 +34,16 @@ export class SimBriefAeroflyApi extends SimBriefApi {
             airport: simbriefPayload.origin.icao_code,
             runway: simbriefPayload.origin.plan_rwy,
         });
-        flight.fuelLoadSetting = new AeroflySettingsFuelLoad(aeroflyAircraftCode, Number(simbriefPayload.fuel.plan_ramp), Number(simbriefPayload.weights.payload), "Keep");
+        try {
+            const { aeroflyAircraftCode, aeroflyAircraftLivery } = this.findAeroflyAircraftCode(simbriefPayload.aircraft.icaocode, simbriefPayload.general.icao_airline);
+            flight.aircraft = new AeroflySettingsAircraft(aeroflyAircraftCode, aeroflyAircraftLivery);
+            flight.fuelLoadSetting = new AeroflySettingsFuelLoad(aeroflyAircraftCode, Number(simbriefPayload.fuel.plan_ramp), Number(simbriefPayload.weights.payload), "Keep");
+        }
+        catch (e) {
+            if (!(e instanceof Error)) {
+                throw e;
+            }
+        }
         flight.timeUtc = new AeroflyTimeUtc(new Date(simbriefPayload.times.sched_out));
         const waypoints = this.getWaypointsFromNavlog(simbriefPayload);
         flight.navigation = new AeroflyNavigationConfig(Number(simbriefPayload.general.initial_altitude), [

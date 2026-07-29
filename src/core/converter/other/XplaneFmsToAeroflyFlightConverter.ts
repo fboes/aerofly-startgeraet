@@ -64,15 +64,16 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         if (!waypointLines) {
             throw new Error("No nav lines found");
         }
-        return Array.from(waypointLines).map(
-            (m): XplaneFmsWaypoint => ({
+        return Array.from(waypointLines).map((m): XplaneFmsWaypoint => {
+            const mString = m.join(" ");
+            return {
                 identifier: m[2],
-                type: Number(m[1]) as XplaneFmsWaypointType,
-                lat: Number(m[4]),
-                lon: Number(m[5]),
-                elevationFeet: Number(m[3]),
-            }),
-        );
+                type: this.parseNumberOrError(m[1], mString) as XplaneFmsWaypointType,
+                lat: this.parseNumberOrError(m[4], mString),
+                lon: this.parseNumberOrError(m[5], mString),
+                elevationFeet: this.parseNumber(m[3], 0),
+            };
+        });
     }
 
     private convertWaypointToAerofly(
@@ -93,7 +94,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                     positionRunwayWaypoint(
                         new AeroflyNavRouteDepartureRunway(departureRunway, waypoint.lon, waypoint.lat, {
                             elevation_ft: waypoint.elevationFeet,
-                            direction_degree: Number(departureRunway.replace(/^\D+/, "")) * 10,
+                            direction_degree: this.parseRunwayDirection(departureRunway),
                         }),
                     ),
                 );
@@ -107,7 +108,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                     positionRunwayWaypoint(
                         new AeroflyNavRouteDestinationRunway(destinationRunway, waypoint.lon, waypoint.lat, {
                             elevation_ft: waypoint.elevationFeet,
-                            direction_degree: Number(destinationRunway.replace(/^\D+/, "")) * 10,
+                            direction_degree: this.parseRunwayDirection(destinationRunway),
                         }),
                     ),
                 );
@@ -124,5 +125,9 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 altitude_ft: waypoint.elevationFeet,
             }),
         ];
+    }
+
+    private parseRunwayDirection(runway: string): number {
+        return this.parseNumber(runway.replace(/^\D+/, ""), 0) * 10;
     }
 }

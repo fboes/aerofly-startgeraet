@@ -1,6 +1,6 @@
 export function markdownTable(rows: string[][]): string {
     if (rows.length < 3) {
-        throw Error("Not enough rows");
+        throw new Error("Not enough rows");
     }
 
     const lengths: number[] = [];

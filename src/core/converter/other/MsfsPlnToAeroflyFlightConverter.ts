@@ -31,13 +31,13 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
 
         const waypointTableXml = parseXmlNode(content, "FlightPlan.FlightPlan");
 
-        const versionId = Number(parseXmlNode(waypointTableXml, "AppVersionMajor"));
+        const versionId = this.parseNumber(parseXmlNode(waypointTableXml, "AppVersionMajor") || "0", 0);
         if (versionId <= 0 || versionId > 12) {
-            throw Error("Unknown flight plan version ID");
+            throw new Error("Unknown flight plan version ID");
         }
 
         flightplan.navigation = new AeroflyNavigationConfig(
-            Number(parseXmlNode(waypointTableXml, "CruisingAlt")),
+            this.parseNumber(parseXmlNode(waypointTableXml, "CruisingAlt"), 0),
             this.getWaypoints(waypointTableXml),
         );
 
@@ -56,6 +56,7 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         const coords = this.convertCoordinate(parseXmlNode(xml, "WorldPosition"));
         const identifier = parseXmlNode(xml, "ICAOIdent") || parseXmlAttribute(xml, "id");
         const runway = isFirst || isLast ? this.getRunway(xml) : null;
+        const runwayDirection = runway ? Number(runway.replace(/\D+/, "")) * 10 : undefined;
 
         if (isFirst) {
             const route = [
@@ -64,12 +65,12 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
                 }),
             ];
 
-            if (runway) {
+            if (runway && runwayDirection && !isNaN(runwayDirection)) {
                 route.push(
                     positionRunwayWaypoint(
                         new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
                             elevation_ft: coords.altitude_ft,
-                            direction_degree: Number(runway.replace(/\D+/, "")) * 10,
+                            direction_degree: runwayDirection,
                         }),
                     ),
                 );
@@ -78,12 +79,12 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         }
         if (isLast) {
             const route = [];
-            if (runway) {
+            if (runway && runwayDirection && !isNaN(runwayDirection)) {
                 route.push(
                     positionRunwayWaypoint(
                         new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {
                             elevation_ft: coords.altitude_ft,
-                            direction_degree: Number(runway.replace(/\D+/, "")) * 10,
+                            direction_degree: runwayDirection,
                         }),
                     ),
                 );
@@ -128,9 +129,9 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         const numbers = parts.map((p): number => {
             const m = p.match(/([NSEW])(\d+)\D+(\d+)\D+([0-9.]+)/);
             if (m) {
-                let b = Number(m[2]); // degree
-                b += Number(m[3]) / 60; // minutes
-                b += Number(m[4]) / 3600; // seconds
+                let b = this.parseNumberOrError(m[2], coordinate); // degree
+                b += this.parseNumberOrError(m[3], coordinate) / 60; // minutes
+                b += this.parseNumberOrError(m[4], coordinate) / 3600; // seconds
                 return m[1] === "S" || m[1] === "W" ? -b : b;
             }
             return 0;
@@ -139,7 +140,7 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         return {
             lon: numbers[1],
             lat: numbers[0],
-            altitude_ft: Number(parts[2] || 0),
+            altitude_ft: this.parseNumberOrError(parts[2] || "0", coordinate),
         };
     }
 }

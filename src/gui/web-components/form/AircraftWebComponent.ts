@@ -69,6 +69,11 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             aircraftCruiseSpeed: this.querySelector("#aircraft-cruise-speed") as HTMLInputElement,
             aircraftCruiseAltitude: this.querySelector("#aircraft-cruise-altitude") as HTMLInputElement,
         };
+
+        if (this.showIcaoCode) {
+            this.elements.aircraftName.title = "ICAO codes in brackets";
+            this.elements.aircraftPaintscheme.title = "ICAO codes in brackets";
+        }
     }
 
     connectedCallback() {
@@ -83,7 +88,7 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
                 .map((aircraft) => {
                     let optionLabel = aircraft.nameFull;
                     if (this.showIcaoCode && aircraft.icaoCode) {
-                        optionLabel += ` (${aircraft.icaoCode})`;
+                        optionLabel += ` [${aircraft.icaoCode}]`;
                     }
                     return `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
                 })
@@ -98,7 +103,7 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
                     .map((livery) => {
                         let optionLabel = livery.name;
                         if (this.showIcaoCode && livery.icaoCode) {
-                            optionLabel += ` (${livery.icaoCode})`;
+                            optionLabel += ` [${livery.icaoCode}]`;
                         }
                         return `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${optionLabel}</option>`;
                     })

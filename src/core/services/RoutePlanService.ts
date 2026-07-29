@@ -171,7 +171,7 @@ export class RoutePlanService {
 
         const aircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
         if (!aircraft) {
-            throw Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
+            throw new Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
         }
         return aircraft.cruiseSpeedKts;
     }

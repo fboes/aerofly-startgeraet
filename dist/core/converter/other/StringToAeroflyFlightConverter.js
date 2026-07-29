@@ -11,4 +11,15 @@ export class StringToAeroflyFlightConverter {
         }
         return ["default"];
     }
+    parseNumberOrError(content, reference = "") {
+        const v = Number(content);
+        if (isNaN(v)) {
+            throw new Error(`Could not parse "${content}" as number` + (reference ? `, reference "${reference}"` : ""));
+        }
+        return v;
+    }
+    parseNumber(content, fallback) {
+        const v = Number(content);
+        return isNaN(v) ? fallback : v;
+    }
 }

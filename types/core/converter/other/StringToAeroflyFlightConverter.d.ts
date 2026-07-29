@@ -6,6 +6,8 @@ export declare abstract class StringToAeroflyFlightConverter {
      * In most files there will be only a single flight plan included, so this will return a single string called "default".
      */
     getIndices(content: string): string[];
+    parseNumberOrError(content: string, reference?: string): number;
+    parseNumber(content: string, fallback: number): number;
     abstract convert(content: string, flightplan: AeroflyFlight, index: number): void;
 }
 //# sourceMappingURL=StringToAeroflyFlightConverter.d.ts.map

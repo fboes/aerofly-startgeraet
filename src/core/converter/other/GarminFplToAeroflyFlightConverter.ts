@@ -71,9 +71,9 @@ export class GarminFplToAeroflyFlightConverter extends StringToAeroflyFlightConv
             waypointDefinitions.set(parseXmlNode(xml, "identifier"), {
                 identifier: parseXmlNode(xml, "identifier"),
                 type: <GarminFplWaypointType>parseXmlNode(xml, "type"),
-                lat: Number(parseXmlNode(xml, "lat")),
-                lon: Number(parseXmlNode(xml, "lon")),
-                elevationMeter: elevation ? Number(elevation) : undefined,
+                lat: this.parseNumberOrError(parseXmlNode(xml, "lat"), xml),
+                lon: this.parseNumberOrError(parseXmlNode(xml, "lon"), xml),
+                elevationMeter: elevation ? this.parseNumberOrError(elevation, xml) : undefined,
             });
         });
         return waypointDefinitions;

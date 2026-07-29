@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SimBase.Document Type="AceXML" version="1,0">
+    <Descr>AceXML Document</Descr>
+    <FlightPlan.FlightPlan>
+        <Title>KEYW to KMIA</Title>
+        <FPType>IFR</FPType>
+        <RouteType>HighAlt</RouteType>
+        <CruisingAlt>27000.000</CruisingAlt>
+        <DepartureID>KEYW</DepartureID>
+        <DepartureLLA>N24° 33' 22.03",W81° 45' 35.84",+000003.00</DepartureLLA>
+        <DestinationID>KMIA</DestinationID>
+        <DestinationLLA>N25° 47' 43.30",W80° 17' 24.42",+000009.00</DestinationLLA>
+        <Descr>KEYW to KMIA created by SimBrief</Descr>
+        <DepartureName>Key West Intl</DepartureName>
+        <DestinationName>Miami Intl</DestinationName>
+        <AppVersion>
+            <AppVersionMajor>11</AppVersionMajor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+        <ATCWaypoint id="KEYW">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N24° 33' 22.03",W81° 45' 35.84",+000003.00</WorldPosition>
+            <RunwayNumberFP>27</RunwayNumberFP>
+            <ICAO>
+                <ICAOIdent>KEYW</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="CARNU">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N25° 8' 18.13",W81° 19' 32.12",+027000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>K7</ICAORegion>
+                <ICAOIdent>CARNU</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="SNDBR">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N25° 23' 14.77",W80° 51' 36.85",+027000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>K7</ICAORegion>
+                <ICAOIdent>SNDBR</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="KMIA">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N25° 47' 43.30",W80° 17' 24.42",+000009.00</WorldPosition>
+            <RunwayNumberFP>30</RunwayNumberFP>
+            <ICAO>
+                <ICAOIdent>KMIA</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>
