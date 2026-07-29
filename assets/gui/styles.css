@@ -76,8 +76,10 @@ h1 {
         height: 1.5rem;
     }
 
-    small {
+    .version {
         font-size: var(--fontsize-small);
+        -webkit-app-region: no-drag;
+        text-decoration: none;
     }
 }
 

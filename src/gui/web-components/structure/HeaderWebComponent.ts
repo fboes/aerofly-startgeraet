@@ -1,3 +1,4 @@
+import type { ApplicationJSON } from "../../../core/services/getApplicationInformation.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 
@@ -6,7 +7,7 @@ export class HeaderWebComponent extends HTMLElement {
 
     private elements!: {
         title: HTMLHeadingElement;
-        version: HTMLElement;
+        version: HTMLAnchorElement;
     };
 
     private initialize() {
@@ -17,14 +18,14 @@ export class HeaderWebComponent extends HTMLElement {
 <h1>
     <img src="../../assets/icons/icon.svg" alt="App Icon" width="24" height="24">
     <span>Aerofly Startgerät</span>
-    <small>0.0.0</small>
+    <a href="https://github.com/" target="update" class="version" title="Check for updates">0.0.0</a>
 </h1>
 <startgeraet-settings></startgeraet-settings>
         `;
 
         this.elements = {
             title: this.querySelector("h1 span") as HTMLHeadingElement,
-            version: this.querySelector("h1 small") as HTMLElement,
+            version: this.querySelector("h1 .version") as HTMLAnchorElement,
         };
     }
 
@@ -34,11 +35,11 @@ export class HeaderWebComponent extends HTMLElement {
             this.isInitialized = true;
         }
 
-        const applicationName = await sendToMain<string>("application:get-name");
-        this.elements.title.textContent = applicationName ?? "Aerofly Startgerät";
+        const appInfo = await sendToMain<ApplicationJSON>("application:get-information");
 
-        const applicationVersion = await sendToMain<string>("application:get-version");
-        this.elements.version.textContent = applicationVersion ?? "";
+        this.elements.title.textContent = appInfo.name;
+        this.elements.version.textContent = appInfo.version;
+        this.elements.version.href = appInfo.github.releaseUrl;
     }
 
     static registerElement() {

@@ -20,6 +20,10 @@ export function getGithubReponame(): string {
     return "aerofly-startgeraet";
 }
 
+export function getReleaseUrl(): string {
+    return `https://github.com/${getGithubUsername()}/${getGithubReponame()}/releases/latest`;
+}
+
 export function getApplicationVersion(): string {
     return PackageJson.version;
 }
@@ -44,7 +48,24 @@ export function getApplicationAuthorUrl(): string {
     return PackageJson.author.url;
 }
 
-export function getApplicationJSON() {
+export type ApplicationJSON = {
+    slug: string;
+    name: string;
+    version: string;
+    description: string;
+    author: {
+        name: string;
+        email: string;
+        url: string;
+    };
+    github: {
+        username: string;
+        reponame: string;
+        releaseUrl: string;
+    };
+};
+
+export function getApplicationJSON(): ApplicationJSON {
     return {
         slug: getApplicationSlug(),
         name: getApplicationName(),
@@ -54,6 +75,11 @@ export function getApplicationJSON() {
             name: getApplicationAuthorName(),
             email: getApplicationAuthorEmail(),
             url: getApplicationAuthorUrl(),
+        },
+        github: {
+            username: getGithubUsername(),
+            reponame: getGithubReponame(),
+            releaseUrl: getReleaseUrl(),
         },
     };
 }
