@@ -1,4 +1,6 @@
 import type { ApplicationJSON } from "../../../core/services/getApplicationInformation.js";
+import type { GithubReleaseApiPayload } from "../../../core/services/UpdateCheckService.js";
+import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 
@@ -33,6 +35,7 @@ export class HeaderWebComponent extends HTMLElement {
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
+            setTimeout(this.getUpdateInformation, 2_000);
         }
 
         const appInfo = await sendToMain<ApplicationJSON>("application:get-information");
@@ -40,6 +43,12 @@ export class HeaderWebComponent extends HTMLElement {
         this.elements.title.textContent = appInfo.name;
         this.elements.version.textContent = appInfo.version;
         this.elements.version.href = appInfo.github.releaseUrl;
+    }
+
+    async getUpdateInformation() {
+        const response =
+            await sendToMain<NotificationEventPayload<GithubReleaseApiPayload | null>>("update:get-information");
+        dispatchNotificationEvent(document.body, response.message, response.type);
     }
 
     static registerElement() {

@@ -3,6 +3,7 @@ export declare class HeaderWebComponent extends HTMLElement {
     private elements;
     private initialize;
     connectedCallback(): Promise<void>;
+    getUpdateInformation(): Promise<void>;
     static registerElement(): void;
 }
 //# sourceMappingURL=HeaderWebComponent.d.ts.map

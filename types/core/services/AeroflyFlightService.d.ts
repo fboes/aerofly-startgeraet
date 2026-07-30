@@ -136,7 +136,7 @@ export declare class AeroflyFlightService {
      * Will only be executed if last update check had a sufficient cool down
      * @returns null if no update is needs, GithubReleaseApiPayload if an update is available
      */
-    getUpdateInformation(): Promise<GithubReleaseApiPayload | null>;
+    getUpdateInformation(force?: boolean): Promise<GithubReleaseApiPayload | null>;
     writeFile(): void;
 }
 //# sourceMappingURL=AeroflyFlightService.d.ts.map

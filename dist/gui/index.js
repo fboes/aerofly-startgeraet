@@ -43,7 +43,7 @@ const createWindow = () => {
             aeroflyFlightServiceHandler.importFlightplanFromFile(fileToOpen);
             fileToOpen = null;
         }
-        aeroflyFlightServiceHandler.sendStateUpdate();
+        aeroflyFlightServiceHandler.sendStateUpdate(true);
     });
     win.on("close", () => {
         aeroflyFlightServiceHandler.onClose();

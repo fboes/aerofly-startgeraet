@@ -584,14 +584,14 @@ export class AeroflyFlightService {
      * Will only be executed if last update check had a sufficient cool down
      * @returns null if no update is needs, GithubReleaseApiPayload if an update is available
      */
-    async getUpdateInformation(): Promise<GithubReleaseApiPayload | null> {
-        if (!this.config.isUpdateCheckNeeded()) {
+    async getUpdateInformation(force = false): Promise<GithubReleaseApiPayload | null> {
+        if (!this.config.isUpdateCheckNeeded() && !force) {
             return null;
         }
         const update = new UpdateCheckService(getGithubUserName(), getGithubRepositorySlug());
 
         this.config.lastUpdateCheck = new Date();
-        return update.isUpdateAvailable(getApplicationVersion());
+        return update.isUpdateAvailable(force ? "0.0.0" : getApplicationVersion());
     }
 
     writeFile(): void {

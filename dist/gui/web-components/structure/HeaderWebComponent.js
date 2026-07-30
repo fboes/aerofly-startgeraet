@@ -1,3 +1,4 @@
+import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
 export class HeaderWebComponent extends HTMLElement {
@@ -23,11 +24,16 @@ export class HeaderWebComponent extends HTMLElement {
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
+            setTimeout(this.getUpdateInformation, 2_000);
         }
         const appInfo = await sendToMain("application:get-information");
         this.elements.title.textContent = appInfo.name;
         this.elements.version.textContent = appInfo.version;
         this.elements.version.href = appInfo.github.releaseUrl;
+    }
+    async getUpdateInformation() {
+        const response = await sendToMain("update:get-information");
+        dispatchNotificationEvent(document.body, response.message, response.type);
     }
     static registerElement() {
         customElements.define("startgeraet-header", HeaderWebComponent);

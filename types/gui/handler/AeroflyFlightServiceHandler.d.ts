@@ -21,7 +21,7 @@ export declare class AeroflyFlightServiceHandler {
     private fetchMetar;
     private getMetar;
     onClose(): void;
-    sendStateUpdate(): void;
+    sendStateUpdate(intial?: boolean): void;
     startDebouncedWriteFile(): void;
 }
 //# sourceMappingURL=AeroflyFlightServiceHandler.d.ts.map

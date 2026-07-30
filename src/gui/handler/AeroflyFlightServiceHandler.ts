@@ -35,6 +35,7 @@ import type { FlightPlanChooserWebComponentState } from "../web-components/form/
 import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
 import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMetarConverter.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
+import type { GithubReleaseApiPayload } from "../../core/services/UpdateCheckService.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -167,6 +168,17 @@ export class AeroflyFlightServiceHandler {
             (event: IpcMainInvokeEvent, category: AeroflylightCategoryIcao) => {
                 this.service.setWeatherViaFlightCategoryIcao(category);
                 this.sendStateUpdate();
+            },
+        );
+        this.ipcMain.handle(
+            "update:get-information",
+            async (): Promise<NotificationEventPayload<GithubReleaseApiPayload | null>> => {
+                const update = await this.service.getUpdateInformation();
+                return createNotificationPayload<GithubReleaseApiPayload | null>(
+                    update !== null ? `Update ${update.tag_name} available` : "",
+                    "info",
+                    update,
+                );
             },
         );
     }
@@ -358,7 +370,7 @@ export class AeroflyFlightServiceHandler {
         this.writeMainMcf();
     }
 
-    sendStateUpdate() {
+    sendStateUpdate(intial = false) {
         const state = new AppState(
             this.service.getAeroflyFlight(),
             this.service.getAircraftData(),
@@ -368,7 +380,9 @@ export class AeroflyFlightServiceHandler {
             this.service.config,
         );
         this.win.webContents.send("state:update", state);
-        this.startDebouncedWriteFile();
+        if (intial) {
+            this.startDebouncedWriteFile();
+        }
     }
 
     startDebouncedWriteFile() {

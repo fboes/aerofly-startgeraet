@@ -128,6 +128,10 @@ export class AeroflyFlightServiceHandler {
             this.service.setWeatherViaFlightCategoryIcao(category);
             this.sendStateUpdate();
         });
+        this.ipcMain.handle("update:get-information", async () => {
+            const update = await this.service.getUpdateInformation();
+            return createNotificationPayload(update !== null ? `Update ${update.tag_name} available` : "", "info", update);
+        });
     }
     chooseMainMcfPath = async (event, payload) => {
         const result = await dialog.showOpenDialog(this.win, {
@@ -277,10 +281,12 @@ export class AeroflyFlightServiceHandler {
     onClose() {
         this.writeMainMcf();
     }
-    sendStateUpdate() {
+    sendStateUpdate(intial = false) {
         const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.service.getMaxRemainingPayload(), this.getMetar(), this.isMissingMainMcf, this.service.config);
         this.win.webContents.send("state:update", state);
-        this.startDebouncedWriteFile();
+        if (intial) {
+            this.startDebouncedWriteFile();
+        }
     }
     startDebouncedWriteFile() {
         if (this.writeTimer !== null) {
