@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Improved import / export documentation
+- Improved X-Plane importer, prohibting X-Plane 9/10 FMS files
 
 ## [2.2.1] - 2026-07-29
 

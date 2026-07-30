@@ -13,12 +13,23 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         if (index > 0) {
             throw new Error("File format only contains one flight plan");
         }
+        const version = this.getVersion(content);
+        if (version < 1100) {
+            throw new Error("Flight plan file format too old, please use X-Plane 11/12 FMS");
+        }
         const waypoints = this.getWaypoints(content);
         const departureRunway = this.getRunway(content, "DEPRWY");
         const destinationRunway = this.getRunway(content, "DESRWY");
         flightplan.navigation.waypoints = waypoints.flatMap((waypoint, index) => this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1, departureRunway, destinationRunway));
         flightplan._missionTitle = "";
         flightplan._missionBriefing = "";
+    }
+    getVersion(content) {
+        const match = content.match(/\s(\d+) VERSION\s/i);
+        if (!match || !match[1]) {
+            throw new Error("Missing version information from import file");
+        }
+        return this.parseNumberOrError(match[1]);
     }
     getRunway(content, type) {
         const match = content.match(new RegExp(`\\s${type} RW(\\S+)`));
@@ -30,12 +41,14 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
             throw new Error("No nav lines found");
         }
         return Array.from(waypointLines).map((m) => {
-            const mString = m.join(" ");
+            if (m.length !== 6) {
+                throw new Error(`Broken waypoint, expected 6, got ${m.length.toString()} cells`);
+            }
             return {
                 identifier: m[2],
-                type: this.parseNumberOrError(m[1], mString),
-                lat: this.parseNumberOrError(m[4], mString),
-                lon: this.parseNumberOrError(m[5], mString),
+                type: this.parseNumberOrError(m[1], m[0].trim()),
+                lat: this.parseNumberOrError(m[4], m[0].trim()),
+                lon: this.parseNumberOrError(m[5], m[0].trim()),
                 elevationFeet: this.parseNumber(m[3], 0),
             };
         });

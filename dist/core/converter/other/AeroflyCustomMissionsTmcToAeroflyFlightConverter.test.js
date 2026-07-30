@@ -1,12 +1,11 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import fs from "node:fs";
-import path from "node:path";
 import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
 import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "./AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
+import { loadFixture } from "../../../test/loadFixture.js";
 describe("AeroflyCustomMissionsTmcToAeroflyFlightConverter", () => {
     it("should find multiple flight plans in a Aerofly Custom Missions file", () => {
-        const content = fs.readFileSync(path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "custom_missions_user.tmc"), "utf-8");
+        const content = loadFixture("custom_missions_user.tmc");
         const converter = new AeroflyCustomMissionsTmcToAeroflyFlightConverter();
         const indices = converter.getIndices(content);
         assert.strictEqual(2, indices.length);
@@ -14,7 +13,7 @@ describe("AeroflyCustomMissionsTmcToAeroflyFlightConverter", () => {
     });
     it("should convert Aerofly Custom Missions files into AeroflyFlight classes", () => {
         const flight = new AeroflyFlightFallback();
-        const content = fs.readFileSync(path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "custom_missions_user.tmc"), "utf-8");
+        const content = loadFixture("custom_missions_user.tmc");
         const converter = new AeroflyCustomMissionsTmcToAeroflyFlightConverter();
         converter.convert(content, flight);
         assert.strictEqual(flight.navigation.waypoints.length, 4);
@@ -23,7 +22,7 @@ describe("AeroflyCustomMissionsTmcToAeroflyFlightConverter", () => {
     });
     it("should convert Aerofly Custom Missions files into AeroflyFlight classes, getting the second flight plan", () => {
         const flight = new AeroflyFlightFallback();
-        const content = fs.readFileSync(path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "custom_missions_user.tmc"), "utf-8");
+        const content = loadFixture("custom_missions_user.tmc");
         const converter = new AeroflyCustomMissionsTmcToAeroflyFlightConverter();
         converter.convert(content, flight, 1);
         assert.strictEqual(flight._missionTitle, "Landing practice #2: Concord / Buchanan Field");

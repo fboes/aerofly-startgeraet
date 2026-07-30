@@ -1,21 +1,30 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import fs from "node:fs";
-import path from "node:path";
 import { XplaneFmsToAeroflyFlightConverter } from "./XplaneFmsToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
+import { loadFixture } from "../../../test/loadFixture.js";
 
 describe("XplaneFmsToAeroflyFlightConverter", () => {
     it("should do a regular import", () => {
         const flight = new AeroflyFlightFallback();
-        const content = fs.readFileSync(
-            path.join(import.meta.dirname, "../../../..", "src/test/fixtures", "KEYWKMIA01.fms"),
-            "utf-8",
-        );
+        const content = loadFixture("KEYWKMIA01.fms");
 
         const converter = new XplaneFmsToAeroflyFlightConverter();
         converter.convert(content, flight);
 
         assert.strictEqual(flight.navigation.waypoints.length, 6);
+    });
+
+    it("should fail on X-Plane 9/10 file", () => {
+        const flight = new AeroflyFlightFallback();
+        const content = loadFixture("OTHHELLX01_Xplane9-10.fms");
+
+        const converter = new XplaneFmsToAeroflyFlightConverter();
+        try {
+            converter.convert(content, flight);
+            assert.strictEqual(flight.navigation.waypoints.length, 81);
+        } catch (e) {
+            assert.ok(e instanceof Error);
+        }
     });
 });

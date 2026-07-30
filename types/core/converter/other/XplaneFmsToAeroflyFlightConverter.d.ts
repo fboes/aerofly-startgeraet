@@ -9,6 +9,7 @@ export declare class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFl
     static readonly fileName = "X-Plane Flight Plan File";
     static readonly fileExtension = "fms";
     convert(content: string, flightplan: AeroflyFlight, index?: number): void;
+    private getVersion;
     private getRunway;
     private getWaypoints;
     private convertWaypointToAerofly;
