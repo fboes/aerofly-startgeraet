@@ -1,6 +1,10 @@
 # Changelog
 
-## [2.2.2 - Unreleased]
+## [Unreleased]
+
+- Added wide screen styling
+
+## [2.2.2] -2026-07-31
 
 - Improved import / export documentation
 - Improved X-Plane importer, making it more robust
