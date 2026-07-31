@@ -14,7 +14,7 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
             throw new Error("File format only contains one flight plan");
         }
         const version = this.getVersion(content);
-        if (version < 1100) {
+        if (version < 3) {
             throw new Error("Flight plan file format too old, please use X-Plane 11/12 FMS");
         }
         const waypoints = this.getWaypoints(content);
@@ -40,18 +40,27 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         if (!waypointLines) {
             throw new Error("No nav lines found");
         }
-        return Array.from(waypointLines).map((m) => {
+        return Array.from(waypointLines)
+            .map((m) => {
             if (m.length !== 6) {
                 throw new Error(`Broken waypoint, expected 6, got ${m.length.toString()} cells`);
             }
             return {
-                identifier: m[2],
+                identifier: this.normalizeIdentifier(m[2]),
                 type: this.parseNumberOrError(m[1], m[0].trim()),
                 lat: this.parseNumberOrError(m[4], m[0].trim()),
                 lon: this.parseNumberOrError(m[5], m[0].trim()),
                 elevationFeet: this.parseNumber(m[3], 0),
             };
-        });
+        })
+            .filter((wp) => wp.identifier !== "----");
+    }
+    normalizeIdentifier(identifer) {
+        const match = identifer.match(/^([+-])([0-9.]+).([+-])([0-9.]+)$/);
+        if (!match) {
+            return identifer;
+        }
+        return "W-" + Number(match[2]).toFixed().padStart(3, "0") + Number(match[4]).toFixed().padStart(3, "0");
     }
     convertWaypointToAerofly(waypoint, isFirst, isLast, departureRunway, destinationRunway) {
         if (isFirst) {

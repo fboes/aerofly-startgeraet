@@ -12,6 +12,7 @@ export declare class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFl
     private getVersion;
     private getRunway;
     private getWaypoints;
+    private normalizeIdentifier;
     private convertWaypointToAerofly;
     private parseRunwayDirection;
 }
