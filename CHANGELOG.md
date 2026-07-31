@@ -1,9 +1,10 @@
 # Changelog
 
-## [Unreleased]
+## [2.2.2 - Unreleased]
 
 - Improved import / export documentation
 - Improved X-Plane importer, prohibting X-Plane 9/10 FMS files
+- Added update notification for GUI
 
 ## [2.2.1] - 2026-07-29
 
