@@ -35,7 +35,7 @@ export class HeaderWebComponent extends HTMLElement {
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
-            setTimeout(this.getUpdateInformation, 2_000);
+            setTimeout(() => this.getUpdateInformation(), 2_000);
         }
 
         const appInfo = await sendToMain<ApplicationJSON>("application:get-information");
@@ -48,7 +48,12 @@ export class HeaderWebComponent extends HTMLElement {
     async getUpdateInformation() {
         const response =
             await sendToMain<NotificationEventPayload<GithubReleaseApiPayload | null>>("update:get-information");
-        dispatchNotificationEvent(document.body, response.message, response.type);
+
+        if (response.payload) {
+            dispatchNotificationEvent(document.body, response.message, response.type);
+            this.elements.version.title = response.message;
+            this.elements.version.classList.add("has-update-available");
+        }
     }
 
     static registerElement() {

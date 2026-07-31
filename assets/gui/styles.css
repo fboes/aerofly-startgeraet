@@ -80,6 +80,22 @@ h1 {
         font-size: var(--fontsize-small);
         -webkit-app-region: no-drag;
         text-decoration: none;
+        position: relative;
+        display: inline-block;
+        padding-right: 0.6rem;
+        padding-top: 0.25rem;
+
+        &.has-update-available::after {
+            display: inline-block;
+            top: 0;
+            right: 0;
+            content: " ";
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--color-warning);
+            position: absolute;
+        }
     }
 }
 
