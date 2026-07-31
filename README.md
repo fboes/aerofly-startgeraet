@@ -106,4 +106,8 @@ Copyright & license: See [LICENSE.txt](LICENSE.txt)
 
 This tool is NOT affiliated with, endorsed, or sponsored by IPACS GbR. As stated in the [LICENSE.txt](LICENSE.txt), this tool comes with no warranty and might damage your files.
 
-This software complies with the General Data Protection Regulation (GDPR) as it does not collect nor transmits any personal data to third parties, but for the usage of the [Aviation Weather Center API](https://aviationweather.gov/) and the [SimBrief API](https://www.simbrief.com/). For their data protection statement you might want to check their terms of service.
+This software complies with the General Data Protection Regulation (GDPR) as it does not collect nor transmits any personal data to third parties. Exceptions are listed below. For these data protection statement you might want to check their terms of service.
+
+- [Aviation Weather Center API](https://aviationweather.gov/): Used for fetching METAR data on demand in the CLI / GUI, or for METAR / NAVAID data in the MCP
+- [SimBrief API](https://www.simbrief.com/): Used for fetching flight plans on demand in all application
+- GitHub API: Used for cechking update status in the GUI
