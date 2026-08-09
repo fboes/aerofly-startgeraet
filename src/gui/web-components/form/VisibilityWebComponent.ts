@@ -16,10 +16,9 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
     private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>🌁 Visibility</h3>
 <div class="d-flex">
     <div class="form-group">
-        <label for="visibility-sm">Visibility SM</label>
+        <label for="visibility-sm" class="header">🌁 Visibility</label>
         <span class="input-group">
             <input id="visibility-sm" type="number" min="0" step="0.25" value="10" />
             <span>SM</span>

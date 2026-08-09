@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 
-- Added wide screen styling
+- Improved GUI for wide screen
+- Added more compact GUI
 
 ## [2.2.2] -2026-07-31
 

@@ -11,7 +11,7 @@ const createWindow = () => {
     const rootDir = path.join(import.meta.dirname, "../..");
     const win = new BrowserWindow({
         width: 960,
-        height: 810,
+        height: 755,
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),

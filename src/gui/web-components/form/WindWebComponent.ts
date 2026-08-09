@@ -19,10 +19,9 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
     private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>🧭 Wind</h3>
 <div class="d-flex">
     <div class="form-group">
-        <label for="wind-speed">Wind speed</label>
+        <label for="wind-speed" class="header">🧭 Wind</label>
         <span class="input-group">
             <input id="wind-speed" type="number" min="0" value="5" />
             <span>kts</span>

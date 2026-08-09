@@ -6,10 +6,9 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
     initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>🌡️ Temperature</h3>
 <div class="d-flex">
     <div class="form-group">
-        <label for="temperature-celsius">Temperature °C</label>
+        <label for="temperature-celsius" class="header">🌡️ Temperature</label>
         <span class="input-group">
             <input id="temperature-celsius" type="number" value="14" />
             <span>°C</span>

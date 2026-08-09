@@ -13,8 +13,14 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
     private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>⛅ Weather status</h3>
 <div class="d-flex">
+    <div class="form-group">
+        <label for="flight-category-icao" class="header">⛅ Flight category</label>
+        <select id="flight-category-icao">
+            <option value="VFR">VFR</option>
+            <option value="IFR">IFR</option>
+        </select>
+    </div>
     <div class="form-group">
         <label for="flight-category-us">Flight category (US)</label>
         <select id="flight-category-us">
@@ -22,13 +28,6 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
             <option value="MVFR">MVFR</option>
             <option value="IFR">IFR</option>
             <option value="LIFR">LIFR</option>
-        </select>
-    </div>
-        <div class="form-group">
-        <label for="flight-category-icao">Flight category (ICAO)</label>
-        <select id="flight-category-icao">
-            <option value="VFR">VFR</option>
-            <option value="IFR">IFR</option>
         </select>
     </div>
 </div>

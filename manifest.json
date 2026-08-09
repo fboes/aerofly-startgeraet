@@ -49,21 +49,13 @@
     "entry_point": "./dist/mcp/index.js",
     "mcp_config": {
       "command": "node",
-      "args": [
-        "${__dirname}/dist/mcp/index.js"
-      ],
+      "args": ["${__dirname}/dist/mcp/index.js"],
       "env": {
         "AEROFLY_USER_DIRECTORY": "${user_config.aerofly_user_directory}",
         "SIMBRIEF_USERNAME": "${user_config.simbrief_username}"
       }
     }
   },
-  "keywords": [
-    "aerofly",
-    "aerofly-fs4",
-    "flightplan",
-    "mission",
-    "flight simulator"
-  ],
+  "keywords": ["aerofly", "aerofly-fs4", "flightplan", "mission", "flight simulator"],
   "license": "MIT"
 }

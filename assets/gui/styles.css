@@ -103,6 +103,7 @@ h2,
 h3 {
     font-size: 1.1rem;
     margin-bottom: 0.25rem;
+    font-weight: var(--fontweight-bold);
 
     * + & {
         margin-top: 1rem;
@@ -142,7 +143,7 @@ abbr {
     width: calc(50% - 0.5rem);
 
     @media screen and (min-width: 1100px) {
-            width: calc(33% - 0.5rem);
+        width: calc(33% - 0.5rem);
     }
 }
 
@@ -176,6 +177,19 @@ button {
 label,
 .label {
     font-size: var(--fontsize-small);
+}
+
+label {
+    height: 1.7rem;
+    display: flex;
+    align-items: flex-end;
+    line-height: 1;
+
+    &.header {
+        font-size: 1.1rem;
+        font-weight: var(--fontweight-bold);
+        padding-bottom: 0.25rem;
+    }
 }
 
 button,
@@ -306,6 +320,10 @@ table {
     display: none;
 }
 
+.d-hidden {
+    visibility: hidden;
+}
+
 .d-flex,
 .input-group {
     display: flex;
@@ -374,7 +392,8 @@ dialog {
     }
 
     h2,
-    h3 {
+    h3,
+    .h3 {
         font-size: 1.1rem;
     }
 

@@ -21,10 +21,9 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
     intialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>🎏 METAR / TAF</h3>
 <div class="form-group">
-    <label for="metar-input">METAR / TAF string</label>
-    <textarea id="metar-input" rows="3" placeholder="Enter METAR / TAF string here…"></textarea>
+    <label for="metar-input" class="header">🎏 METAR / TAF</label>
+    <textarea id="metar-input" rows="4" placeholder="Enter METAR / TAF string here…"></textarea>
 </div>
 `;
 
