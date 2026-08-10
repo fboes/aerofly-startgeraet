@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type VisibilityWebComponentState = {
     visibilityMeters: number;
@@ -18,7 +19,7 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
         this.innerHTML = `\
 <div class="d-flex">
     <div class="form-group">
-        <label for="visibility-sm" class="header">🌁 Visibility</label>
+        <label for="visibility-sm" class="header"><startgeraet-icon icon="cloud-haze"></startgeraet-icon>&nbsp;Visibility</label>
         <span class="input-group">
             <input id="visibility-sm" type="number" min="0" step="0.25" value="10" />
             <span>SM</span>
@@ -41,7 +42,7 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
 
     get state(): VisibilityWebComponentState {
         return {
-            visibilityMeters: this.elements.visibilityMeters.valueAsNumber,
+            visibilityMeters: this.elements.visibilityMeters.valueAsNumber || 0,
         };
     }
 
@@ -89,6 +90,6 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
     };
 
     static registerElement() {
-        customElements.define("startgeraet-visibility", VisibilityWebComponent);
+        registerElement("startgeraet-visibility", VisibilityWebComponent);
     }
 }

@@ -1,6 +1,7 @@
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
@@ -84,6 +85,6 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
         dispatchNotificationEvent(document.body, response.message, response.type);
     }
     static registerElement() {
-        customElements.define("startgeraet-metar-import", MetarImportWebComponent);
+        registerElement("startgeraet-metar-import", MetarImportWebComponent);
     }
 }

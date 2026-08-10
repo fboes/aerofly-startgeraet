@@ -2,6 +2,7 @@ import { ExportWebComponent } from "./ExportWebComponent.js";
 import { ImportSimBriefWebComponent } from "./ImportSimBriefWebComponent.js";
 import { ImportWebComponent } from "./ImportWebComponent.js";
 import { MetarImportWebComponent } from "./MetarImportWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export class ImportExportWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -14,7 +15,7 @@ export class ImportExportWebComponent extends HTMLElement {
 
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>📁 Import / export</h3>
+<h3><startgeraet-icon icon="folder"></startgeraet-icon>&nbsp;Import / export</h3>
 <div class="d-flex">
     <startgeraet-import></startgeraet-import>
     <startgeraet-export></startgeraet-export>
@@ -35,6 +36,6 @@ export class ImportExportWebComponent extends HTMLElement {
     }
 
     static registerElement() {
-        customElements.define("startgeraet-import-export", ImportExportWebComponent);
+        registerElement("startgeraet-import-export", ImportExportWebComponent);
     }
 }

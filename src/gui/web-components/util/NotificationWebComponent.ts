@@ -5,6 +5,7 @@ import {
     type NotificationEventType,
 } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "./registerElement.js";
 
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     private readonly hideDelay = 3_000;
@@ -49,7 +50,8 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
         this.log(details);
 
         const output = document.createElement("output");
-        output.innerText = this.getEmoji(details.type) + details.message;
+        output.innerHTML = this.getEmoji(details.type) + "<span></span>";
+        (output.querySelector("span") as HTMLSpanElement).innerText = details.message;
         this.appendChild(output);
 
         setTimeout(() => {
@@ -68,13 +70,13 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
     private getEmoji(type: NotificationEventType) {
         switch (type) {
             case "info":
-                return "ℹ️ ";
+                return `<startgeraet-icon icon="info"></startgeraet-icon>&nbsp;`;
             case "success":
-                return "✓ ";
+                return `<startgeraet-icon icon="check"></startgeraet-icon>&nbsp;`;
             case "error":
-                return "✗ ";
+                return `<startgeraet-icon icon="x"></startgeraet-icon>&nbsp;`;
             case "waiting":
-                return "⏳ ";
+                return `<startgeraet-icon icon="hourglass-split"></startgeraet-icon>&nbsp;`;
         }
     }
 
@@ -93,6 +95,6 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
     }
 
     static registerElement() {
-        customElements.define("startgeraet-notification", NotificationWebComponent);
+        registerElement("startgeraet-notification", NotificationWebComponent);
     }
 }

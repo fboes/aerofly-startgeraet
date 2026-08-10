@@ -1,4 +1,5 @@
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
@@ -13,7 +14,7 @@ export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponen
     private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>✈️ <span>Aircraft</span></h3>
+<h3><startgeraet-icon icon="airplane"></startgeraet-icon>&nbsp;<span>Aircraft</span></h3>
 
 <div class="d-flex">
     <div class="form-group">
@@ -59,7 +60,7 @@ export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponen
     }
 
     static registerElement() {
-        customElements.define("startgeraet-aircraft-info", AircraftInfoWebComponent);
+        registerElement("startgeraet-aircraft-info", AircraftInfoWebComponent);
     }
 
     private numberFormat(value: number | undefined): string {

@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type WindWebComponentState = {
     speed_kts: number;
@@ -21,7 +22,7 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
         this.innerHTML = `\
 <div class="d-flex">
     <div class="form-group">
-        <label for="wind-speed" class="header">🧭 Wind</label>
+        <label for="wind-speed" class="header"><startgeraet-icon icon="wind"></startgeraet-icon>&nbsp;Wind</label>
         <span class="input-group">
             <input id="wind-speed" type="number" min="0" value="5" />
             <span>kts</span>
@@ -53,9 +54,9 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
 
     get state(): WindWebComponentState {
         return {
-            speed_kts: this.elements.windSpeed.valueAsNumber,
-            gust_kts: this.elements.windGust.valueAsNumber,
-            directionInDegree: this.elements.windDirection.valueAsNumber,
+            speed_kts: this.elements.windSpeed.valueAsNumber || 0,
+            gust_kts: this.elements.windGust.valueAsNumber || 0,
+            directionInDegree: this.elements.windDirection.valueAsNumber || 0,
         };
     }
 
@@ -91,6 +92,6 @@ export class WindWebComponent extends AbstractStateSubscriberWebComponent {
     };
 
     static registerElement() {
-        customElements.define("startgeraet-wind", WindWebComponent);
+        registerElement("startgeraet-wind", WindWebComponent);
     }
 }

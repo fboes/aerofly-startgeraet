@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type FuelPayloadWebComponentState = {
     fuelMass: number;
@@ -27,7 +28,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     private initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>⛽ Fuel / payload</h3>
+<h3><startgeraet-icon icon="fuel-pump"></startgeraet-icon>&nbsp;Fuel / payload</h3>
 <div class="d-flex">
     <div class="form-group">
         <label for="fuelloadsetting-fuelmass">Fuel <span></span></label>
@@ -70,7 +71,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
 
     get state(): FuelPayloadWebComponentState {
         return {
-            fuelMass: this.elements.fuelMass.valueAsNumber,
+            fuelMass: this.elements.fuelMass.valueAsNumber || 0,
             payloadMass:
                 (this.elements.payloadMass.valueAsNumber || 0) +
                 (this.elements.persons.valueAsNumber || 0) * this.weightProPerson_kg,
@@ -199,6 +200,6 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     }
 
     static registerElement() {
-        customElements.define("startgeraet-fuel-payload", FuelPayloadWebComponent);
+        registerElement("startgeraet-fuel-payload", FuelPayloadWebComponent);
     }
 }

@@ -3,6 +3,7 @@ import type { GithubReleaseApiPayload } from "../../../core/services/UpdateCheck
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export class HeaderWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -57,6 +58,6 @@ export class HeaderWebComponent extends HTMLElement {
     }
 
     static registerElement() {
-        customElements.define("startgeraet-header", HeaderWebComponent);
+        registerElement("startgeraet-header", HeaderWebComponent);
     }
 }

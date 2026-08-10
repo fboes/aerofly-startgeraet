@@ -2,6 +2,7 @@ import type { AppState } from "../../renderer/AppState.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type MetarImportWebComponentState = {
     icao: string;
@@ -108,6 +109,6 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     }
 
     static registerElement() {
-        customElements.define("startgeraet-metar-import", MetarImportWebComponent);
+        registerElement("startgeraet-metar-import", MetarImportWebComponent);
     }
 }

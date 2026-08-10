@@ -1,5 +1,6 @@
 import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "./registerElement.js";
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     hideDelay = 3_000;
     animiationDuration = 500;
@@ -34,7 +35,8 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
     handleNotificationDetails(details) {
         this.log(details);
         const output = document.createElement("output");
-        output.innerText = this.getEmoji(details.type) + details.message;
+        output.innerHTML = this.getEmoji(details.type) + "<span></span>";
+        output.querySelector("span").innerText = details.message;
         this.appendChild(output);
         setTimeout(() => {
             output.classList.add(details.type, "is-visible");
@@ -49,13 +51,13 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
     getEmoji(type) {
         switch (type) {
             case "info":
-                return "ℹ️ ";
+                return `<startgeraet-icon icon="info"></startgeraet-icon>&nbsp;`;
             case "success":
-                return "✓ ";
+                return `<startgeraet-icon icon="check"></startgeraet-icon>&nbsp;`;
             case "error":
-                return "✗ ";
+                return `<startgeraet-icon icon="x"></startgeraet-icon>&nbsp;`;
             case "waiting":
-                return "⏳ ";
+                return `<startgeraet-icon icon="hourglass-split"></startgeraet-icon>&nbsp;`;
         }
     }
     log(details) {
@@ -72,6 +74,6 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
         }
     }
     static registerElement() {
-        customElements.define("startgeraet-notification", NotificationWebComponent);
+        registerElement("startgeraet-notification", NotificationWebComponent);
     }
 }

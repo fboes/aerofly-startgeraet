@@ -2,6 +2,7 @@ import { HeaderWebComponent } from "./HeaderWebComponent.js";
 import { MainWebComponent } from "./MainWebComponent.js";
 import { NotificationWebComponent } from "../util/NotificationWebComponent.js";
 import { FooterWebComponent } from "./FooterWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export class AppWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -29,6 +30,6 @@ export class AppWebComponent extends HTMLElement {
     }
 
     static registerElement() {
-        customElements.define("startgeraet-app", AppWebComponent);
+        registerElement("startgeraet-app", AppWebComponent);
     }
 }

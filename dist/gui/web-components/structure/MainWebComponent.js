@@ -9,6 +9,8 @@ import { VisibilityWebComponent } from "../form/VisibilityWebComponent.js";
 import { WindWebComponent } from "../form/WindWebComponent.js";
 import { ImportExportWebComponent } from "../form/ImportExportWebComponent.js";
 import { MetarInputWebComponent } from "../form/MetarInputWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
+import { IconWebComponent } from "../util/IconWebComponent.js";
 export class MainWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {
@@ -23,6 +25,7 @@ export class MainWebComponent extends HTMLElement {
         CloudsWebComponent.registerElement();
         ImportExportWebComponent.registerElement();
         MetarInputWebComponent.registerElement();
+        IconWebComponent.registerElement();
         this.setAttribute("aria-role", "main");
         this.innerHTML = `\
 <details open>
@@ -68,6 +71,6 @@ export class MainWebComponent extends HTMLElement {
         }
     }
     static registerElement() {
-        customElements.define("startgeraet-main", MainWebComponent);
+        registerElement("startgeraet-main", MainWebComponent);
     }
 }

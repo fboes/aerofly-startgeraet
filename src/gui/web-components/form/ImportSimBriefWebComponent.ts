@@ -1,6 +1,7 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
@@ -107,6 +108,6 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     };
 
     static registerElement() {
-        customElements.define("startgeraet-import-simbrief", ImportSimBriefWebComponent);
+        registerElement("startgeraet-import-simbrief", ImportSimBriefWebComponent);
     }
 }

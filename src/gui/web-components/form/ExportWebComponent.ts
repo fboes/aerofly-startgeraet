@@ -1,5 +1,6 @@
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { registerElement } from "../util/registerElement.js";
 
 export class ExportWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -38,6 +39,6 @@ export class ExportWebComponent extends HTMLElement {
     };
 
     static registerElement() {
-        customElements.define("startgeraet-export", ExportWebComponent);
+        registerElement("startgeraet-export", ExportWebComponent);
     }
 }

@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     showIcaoCode = true;
@@ -8,8 +9,8 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         return {
             aircraftName: this.elements.aircraftName.value,
             aircraftPaintscheme: this.elements.aircraftPaintscheme.value,
-            cruiseSpeed_kts: this.elements.aircraftCruiseSpeed.valueAsNumber,
-            cruiseAltitude_ft: this.elements.aircraftCruiseAltitude.valueAsNumber,
+            cruiseSpeed_kts: this.elements.aircraftCruiseSpeed.valueAsNumber || 1,
+            cruiseAltitude_ft: this.elements.aircraftCruiseAltitude.valueAsNumber || 1,
         };
     }
     initialize() {
@@ -17,7 +18,7 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         this.innerHTML = `\
 <div class="d-flex">
     <div class="form-group">
-        <label for="aircraft-name" class="header">✈️ Aircraft</label>
+        <label for="aircraft-name" class="header"><startgeraet-icon icon="airplane"></startgeraet-icon>&nbsp;Aircraft</label>
         <select id="aircraft-name">
             <option>Cessna 172</option>
         </select>
@@ -99,6 +100,6 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         sendToMain("aircraft:set", this.state);
     };
     static registerElement() {
-        customElements.define("startgeraet-aircraft", AircraftWebComponent);
+        registerElement("startgeraet-aircraft", AircraftWebComponent);
     }
 }

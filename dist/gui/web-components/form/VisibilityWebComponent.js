@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
@@ -8,7 +9,7 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
         this.innerHTML = `\
 <div class="d-flex">
     <div class="form-group">
-        <label for="visibility-sm" class="header">🌁 Visibility</label>
+        <label for="visibility-sm" class="header"><startgeraet-icon icon="cloud-haze"></startgeraet-icon>&nbsp;Visibility</label>
         <span class="input-group">
             <input id="visibility-sm" type="number" min="0" step="0.25" value="10" />
             <span>SM</span>
@@ -30,7 +31,7 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
     }
     get state() {
         return {
-            visibilityMeters: this.elements.visibilityMeters.valueAsNumber,
+            visibilityMeters: this.elements.visibilityMeters.valueAsNumber || 0,
         };
     }
     connectedCallback() {
@@ -69,6 +70,6 @@ export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent 
                 : Math.round(this.elements.visibilityMeters.valueAsNumber / 1609.344 / 0.25) * 0.25;
     };
     static registerElement() {
-        customElements.define("startgeraet-visibility", VisibilityWebComponent);
+        registerElement("startgeraet-visibility", VisibilityWebComponent);
     }
 }

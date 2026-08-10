@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
@@ -8,7 +9,7 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
         this.innerHTML = `\
 <div class="d-flex">
     <div class="form-group">
-        <label for="flight-category-icao" class="header">⛅ Flight category</label>
+        <label for="flight-category-icao" class="header"><startgeraet-icon icon="cloud-sun"></startgeraet-icon>&nbsp;Flight category</label>
         <select id="flight-category-icao">
             <option value="VFR">VFR</option>
             <option value="IFR">IFR</option>
@@ -54,6 +55,6 @@ export class WeatherStatusWebComponent extends AbstractStateSubscriberWebCompone
         sendToMain("flight-category:icao:set", this.elements.flightCategoryIcao.value);
     };
     static registerElement() {
-        customElements.define("startgeraet-weather-status", WeatherStatusWebComponent);
+        registerElement("startgeraet-weather-status", WeatherStatusWebComponent);
     }
 }

@@ -1,11 +1,12 @@
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
     initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>🛫 Flight plan</h3>
+<h3><startgeraet-icon icon="clipboard-check"></startgeraet-icon>&nbsp;Flight plan</h3>
 <table>
   <thead>
     <tr>
@@ -58,6 +59,6 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         });
     }
     static registerElement() {
-        customElements.define("startgeraet-flightplan", FlightplanWebComponent);
+        registerElement("startgeraet-flightplan", FlightplanWebComponent);
     }
 }

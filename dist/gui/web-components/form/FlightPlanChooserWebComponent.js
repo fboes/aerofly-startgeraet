@@ -1,5 +1,6 @@
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
+import { registerElement } from "../util/registerElement.js";
 export class FlightPlanChooserWebComponent extends HTMLElement {
     isInitialized = false;
     elements;
@@ -65,6 +66,6 @@ export class FlightPlanChooserWebComponent extends HTMLElement {
         this.elements.dialog.close();
     };
     static registerElement() {
-        customElements.define("aerofly-flightplan-chooser", FlightPlanChooserWebComponent);
+        registerElement("aerofly-flightplan-chooser", FlightPlanChooserWebComponent);
     }
 }

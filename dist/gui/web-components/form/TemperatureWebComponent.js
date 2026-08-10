@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
@@ -8,7 +9,7 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
         this.innerHTML = `\
 <div class="d-flex">
     <div class="form-group">
-        <label for="temperature-celsius" class="header">🌡️ Temperature</label>
+        <label for="temperature-celsius" class="header"><startgeraet-icon icon="thermometer-half"></startgeraet-icon>&nbsp;Temperature</label>
         <span class="input-group">
             <input id="temperature-celsius" type="number" value="14" />
             <span>°C</span>
@@ -30,7 +31,7 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
     }
     get state() {
         return {
-            temperatureCelsius: this.elements.temperatureCelsius.valueAsNumber,
+            temperatureCelsius: this.elements.temperatureCelsius.valueAsNumber || 0,
         };
     }
     connectedCallback() {
@@ -73,6 +74,6 @@ export class TemperatureWebComponent extends AbstractStateSubscriberWebComponent
         }
     };
     static registerElement() {
-        customElements.define("startgeraet-temperature", TemperatureWebComponent);
+        registerElement("startgeraet-temperature", TemperatureWebComponent);
     }
 }

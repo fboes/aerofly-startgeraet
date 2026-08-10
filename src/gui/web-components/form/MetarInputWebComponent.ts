@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type MetarInputWebComponentState = {
     metar: string;
@@ -22,7 +23,7 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <div class="form-group">
-    <label for="metar-input" class="header">🎏 METAR / TAF</label>
+    <label for="metar-input" class="header"><startgeraet-icon icon="clipboard"></startgeraet-icon>&nbsp;METAR / TAF</label>
     <textarea id="metar-input" rows="4" placeholder="Enter METAR / TAF string here…"></textarea>
 </div>
 `;
@@ -53,6 +54,6 @@ export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent 
     };
 
     static registerElement() {
-        customElements.define("startgeraet-metar-input", MetarInputWebComponent);
+        registerElement("startgeraet-metar-input", MetarInputWebComponent);
     }
 }

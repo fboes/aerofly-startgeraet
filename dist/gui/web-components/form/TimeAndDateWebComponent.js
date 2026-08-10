@@ -1,12 +1,13 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
     initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3>⏰ Time &amp; date</h3>
+<h3><startgeraet-icon icon="clock"></startgeraet-icon>&nbsp;Date &amp; time</h3>
 
 <table>
   <thead>
@@ -106,6 +107,6 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         return String(t).padStart(2, "0");
     }
     static registerElement() {
-        customElements.define("startgeraet-time-and-date", TimeAndDateWebComponent);
+        registerElement("startgeraet-time-and-date", TimeAndDateWebComponent);
     }
 }

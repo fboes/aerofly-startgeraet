@@ -1,5 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 
 export type CloudsWebComponentState = {
     clouds: {
@@ -19,8 +20,8 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
     get state(): CloudsWebComponentState {
         return {
             clouds: this.elements.map((element) => ({
-                baseFt: element.base.valueAsNumber,
-                coverageEighths: element.coverage.selectedIndex,
+                baseFt: element.base.valueAsNumber || 0,
+                coverageEighths: element.coverage.selectedIndex || 0,
             })),
         };
     }
@@ -55,7 +56,7 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
         });
 
         this.innerHTML = `\
-<h3>☁️ Clouds</h3>
+<h3><startgeraet-icon icon="clouds"></startgeraet-icon>&nbsp;Clouds</h3>
 <table>
     <thead>
         <tr>
@@ -122,6 +123,6 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
     };
 
     static registerElement() {
-        customElements.define("startgeraet-clouds", CloudsWebComponent);
+        registerElement("startgeraet-clouds", CloudsWebComponent);
     }
 }

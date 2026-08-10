@@ -1,3 +1,4 @@
+import { registerElement } from "../util/registerElement.js";
 export class FooterWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {
@@ -13,6 +14,6 @@ This application cannot set fuel, payload, runway waypoints, and the starting po
         }
     }
     static registerElement() {
-        customElements.define("startgeraet-footer", FooterWebComponent);
+        registerElement("startgeraet-footer", FooterWebComponent);
     }
 }

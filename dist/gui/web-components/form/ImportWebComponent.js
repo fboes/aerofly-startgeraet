@@ -1,6 +1,7 @@
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { FlightPlanChooserWebComponent } from "./FlightPlanChooserWebComponent.js";
+import { registerElement } from "../util/registerElement.js";
 export class ImportWebComponent extends HTMLElement {
     isInitialized = false;
     elements;
@@ -40,6 +41,6 @@ export class ImportWebComponent extends HTMLElement {
         }
     };
     static registerElement() {
-        customElements.define("startgeraet-import", ImportWebComponent);
+        registerElement("startgeraet-import", ImportWebComponent);
     }
 }
