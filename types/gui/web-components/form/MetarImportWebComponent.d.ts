@@ -4,6 +4,7 @@ export type MetarImportWebComponentState = {
 };
 export declare class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
+    private shortcut;
     private elements;
     private initialize;
     connectedCallback(): void;

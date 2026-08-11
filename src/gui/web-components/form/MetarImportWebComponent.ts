@@ -3,6 +3,7 @@ import { dispatchNotificationEvent, type NotificationEventPayload } from "../../
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { registerShortcut } from "../../renderer/registerShortcut.js";
 
 export type MetarImportWebComponentState = {
     icao: string;
@@ -10,6 +11,7 @@ export type MetarImportWebComponentState = {
 
 export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
+    private shortcut: (() => void) | undefined = undefined;
 
     private elements!: {
         metarButton: HTMLButtonElement;
@@ -21,7 +23,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information">Fetch METAR</button>
+<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information, CTRL+I / OPT+I">Fetch <u>M</u>ETAR</button>
 
 <dialog id="dialog-metar">
   <h3>Fetch METAR</h3>
@@ -72,12 +74,18 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
 
         this.elements.metarOrigin.addEventListener("click", this.handleClickOrigin);
         this.elements.metarDestination.addEventListener("click", this.handleClickDestination);
+        this.shortcut = registerShortcut("m", () => {
+            this.elements.dialog.showModal();
+        });
     }
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
         this.elements.metarOrigin.removeEventListener("click", this.handleClickOrigin);
         this.elements.metarDestination.removeEventListener("click", this.handleClickDestination);
+        if (this.shortcut) {
+            this.shortcut();
+        }
     }
 
     private isButtonDisabled(state: AppState): boolean {

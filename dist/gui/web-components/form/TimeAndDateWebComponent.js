@@ -1,8 +1,10 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { registerShortcut } from "../../renderer/registerShortcut.js";
 export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
+    shortcut = undefined;
     elements;
     initialize() {
         this.setAttribute("aria-role", "region");
@@ -24,7 +26,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
       <td><input id="date-utc" title="Date (UTC)" type="date" value="2026-01-01" /></td>
       <td><input id="time-utc" title="Time (UTC)" type="time" value="00:00" /></td>
       <td rowspan="2">
-        <button id="synchronize-time" class="w-100" title="Use current time &amp; date">Now</button>
+        <button id="synchronize-time" class="w-100" title="Use current time &amp; date, CTRL+T / OPT+T">Now</button>
       </td>
     </tr>
     <tr class="form-group">
@@ -70,6 +72,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.timeLocal.value = state.dateTime.local.time;
         });
         this.addEventListener("input", this.handleChange);
+        this.shortcut = registerShortcut("t", this.setNow);
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -77,6 +80,9 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         [this.elements.dateLocal, this.elements.timeLocal].forEach((e) => e.removeEventListener("input", this.setUtcFromLocal));
         this.elements.nowButton.removeEventListener("click", this.setNow);
         this.removeEventListener("input", this.handleChange);
+        if (this.shortcut) {
+            this.shortcut();
+        }
     }
     handleChange = () => {
         sendToMain("date-time:set", this.state);

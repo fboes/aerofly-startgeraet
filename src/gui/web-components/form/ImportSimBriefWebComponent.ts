@@ -2,6 +2,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { registerShortcut } from "../../renderer/registerShortcut.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
@@ -10,6 +11,7 @@ export type ImportSimBriefWebComponentState = {
 
 export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
+    private shortcut: (() => void) | undefined = undefined;
 
     private elements!: {
         simBriefUserName: HTMLInputElement;
@@ -21,7 +23,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-simbrief" command="show-modal">Fetch flight plan from SimBrief</button>
+<button commandfor="dialog-simbrief" command="show-modal" title="CTRL+B / OPT+B">Fetch flight plan from <u>S</u>imBrief</button>
 
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>
@@ -41,7 +43,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
             <option value="1">Use SimBrief destination weather</option>
         </select>
     </div>
-    <button id="import-simbrief" class="w-100">Import flight plan from SimBrief</button>
+    <button id="import-simbrief" class="w-100" autofocus="autofocus">Import flight plan from SimBrief</button>
   </section>
 
   <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
@@ -74,11 +76,17 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         });
 
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
+        this.shortcut = registerShortcut("b", () => {
+            this.elements.dialog.showModal();
+        });
     }
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
         this.removeEventListener("click", this.handleClick);
+        if (this.shortcut) {
+            this.shortcut();
+        }
     }
 
     private handleClick = async () => {

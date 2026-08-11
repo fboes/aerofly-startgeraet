@@ -4,6 +4,7 @@ export type ImportWebComponentPayload = {
 };
 export declare class ImportWebComponent extends HTMLElement {
     private isInitialized;
+    private shortcut;
     private elements;
     private initialize;
     connectedCallback(): void;

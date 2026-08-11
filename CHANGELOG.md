@@ -5,6 +5,7 @@
 - Improved GUI for wide screen
 - Added more compact GUI
 - Added abstract icon web component
+- Added accelerator keys to GUI
 
 ## [2.2.2] -2026-07-31
 

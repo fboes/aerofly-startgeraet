@@ -2,13 +2,15 @@ import { dispatchNotificationEvent } from "../../renderer/notificationEventHandl
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { registerShortcut } from "../../renderer/registerShortcut.js";
 export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
+    shortcut = undefined;
     elements;
     initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information">Fetch METAR</button>
+<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information, CTRL+I / OPT+I">Fetch <u>M</u>ETAR</button>
 
 <dialog id="dialog-metar">
   <h3>Fetch METAR</h3>
@@ -55,11 +57,17 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
         });
         this.elements.metarOrigin.addEventListener("click", this.handleClickOrigin);
         this.elements.metarDestination.addEventListener("click", this.handleClickDestination);
+        this.shortcut = registerShortcut("m", () => {
+            this.elements.dialog.showModal();
+        });
     }
     disconnectedCallback() {
         super.disconnectedCallback();
         this.elements.metarOrigin.removeEventListener("click", this.handleClickOrigin);
         this.elements.metarDestination.removeEventListener("click", this.handleClickDestination);
+        if (this.shortcut) {
+            this.shortcut();
+        }
     }
     isButtonDisabled(state) {
         const date = new Date(state.dateTime.utc.date + "T" + state.dateTime.utc.time + "Z");

@@ -2,13 +2,15 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { registerShortcut } from "../../renderer/registerShortcut.js";
 export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
+    shortcut = undefined;
     elements;
     initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-simbrief" command="show-modal">Fetch flight plan from SimBrief</button>
+<button commandfor="dialog-simbrief" command="show-modal" title="CTRL+B / OPT+B">Fetch flight plan from <u>S</u>imBrief</button>
 
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>
@@ -28,7 +30,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
             <option value="1">Use SimBrief destination weather</option>
         </select>
     </div>
-    <button id="import-simbrief" class="w-100">Import flight plan from SimBrief</button>
+    <button id="import-simbrief" class="w-100" autofocus="autofocus">Import flight plan from SimBrief</button>
   </section>
 
   <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
@@ -57,10 +59,16 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
             this.elements.useSimBriefWeather.selectedIndex = state.config.useSimBriefWeather + 1;
         });
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
+        this.shortcut = registerShortcut("b", () => {
+            this.elements.dialog.showModal();
+        });
     }
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeEventListener("click", this.handleClick);
+        if (this.shortcut) {
+            this.shortcut();
+        }
     }
     handleClick = async () => {
         const state = this.state;
