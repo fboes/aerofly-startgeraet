@@ -1,7 +1,7 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;

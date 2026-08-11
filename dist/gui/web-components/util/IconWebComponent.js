@@ -1,4 +1,4 @@
-import { registerElement } from "./registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 /**
  * Create icon, e.g. emoji character or inline SVG.
  *

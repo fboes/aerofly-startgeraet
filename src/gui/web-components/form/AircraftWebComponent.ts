@@ -1,7 +1,7 @@
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export type AircraftWebComponentState = {
     aircraftName: string;

@@ -5,7 +5,7 @@ import {
     type NotificationEventType,
 } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
-import { registerElement } from "./registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     private readonly hideDelay = 3_000;

@@ -1,7 +1,7 @@
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { FlightPlanChooserWebComponent } from "./FlightPlanChooserWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export type ImportWebComponentPayload = {
     flightplans: string[];

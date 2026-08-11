@@ -1,6 +1,6 @@
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export class ExportWebComponent extends HTMLElement {
     private isInitialized = false;

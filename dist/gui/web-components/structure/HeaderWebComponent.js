@@ -1,7 +1,7 @@
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { SettingsWebComponent } from "../form/SettingsWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 export class HeaderWebComponent extends HTMLElement {
     isInitialized = false;
     elements;

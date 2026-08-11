@@ -1,5 +1,5 @@
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;

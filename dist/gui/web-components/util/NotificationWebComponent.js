@@ -1,6 +1,6 @@
 import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
-import { registerElement } from "./registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
     hideDelay = 3_000;
     animiationDuration = 500;

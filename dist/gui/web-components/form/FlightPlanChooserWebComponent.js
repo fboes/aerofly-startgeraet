@@ -1,6 +1,6 @@
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 export class FlightPlanChooserWebComponent extends HTMLElement {
     isInitialized = false;
     elements;

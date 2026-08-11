@@ -1,7 +1,7 @@
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../../core/util/AeroflyFlightHelper.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export class WeatherStatusWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;

@@ -2,7 +2,7 @@ import { HeaderWebComponent } from "./HeaderWebComponent.js";
 import { MainWebComponent } from "./MainWebComponent.js";
 import { NotificationWebComponent } from "../util/NotificationWebComponent.js";
 import { FooterWebComponent } from "./FooterWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 export class AppWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {

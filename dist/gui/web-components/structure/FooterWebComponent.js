@@ -1,4 +1,4 @@
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 export class FooterWebComponent extends HTMLElement {
     isInitialized = false;
     initialize() {

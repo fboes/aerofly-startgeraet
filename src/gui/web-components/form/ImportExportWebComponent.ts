@@ -2,7 +2,7 @@ import { ExportWebComponent } from "./ExportWebComponent.js";
 import { ImportSimBriefWebComponent } from "./ImportSimBriefWebComponent.js";
 import { ImportWebComponent } from "./ImportWebComponent.js";
 import { MetarImportWebComponent } from "./MetarImportWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export class ImportExportWebComponent extends HTMLElement {
     private isInitialized = false;

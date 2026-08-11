@@ -1,7 +1,7 @@
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import type { ImportWebComponentPayload } from "./ImportWebComponent.js";
-import { registerElement } from "../util/registerElement.js";
+import { registerElement } from "../../renderer/registerElement.js";
 
 export type FlightPlanChooserWebComponentState = {
     flightPlanIndex: number;
