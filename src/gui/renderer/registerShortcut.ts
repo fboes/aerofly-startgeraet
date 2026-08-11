@@ -22,6 +22,14 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
  * @returns additional handler for unregistering
  */
 export function registerShortcut(key: string, handler: () => void): () => boolean {
+    if (registry.has(key)) {
+        throw new Error(`Shortcut for key "${key}" is already registered.`);
+    }
     registry.set(key, handler);
     return () => registry.delete(key);
+}
+
+export function shortcutString(key: string): string {
+    const modifier = window.process.platform === "darwin" ? "⌘" : "Ctrl";
+    return `${modifier}+${key.toUpperCase()}`;
 }

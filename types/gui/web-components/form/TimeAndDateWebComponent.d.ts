@@ -6,6 +6,7 @@ export type TimeAndDateWebComponentState = {
 export declare class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
     private shortcut;
+    private readonly shortcutKey;
     private elements;
     private initialize;
     get state(): TimeAndDateWebComponentState;

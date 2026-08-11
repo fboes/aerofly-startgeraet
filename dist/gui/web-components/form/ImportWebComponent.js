@@ -2,16 +2,17 @@ import { dispatchNotificationEvent } from "../../renderer/notificationEventHandl
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { FlightPlanChooserWebComponent } from "./FlightPlanChooserWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut } from "../../renderer/registerShortcut.js";
+import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 export class ImportWebComponent extends HTMLElement {
     isInitialized = false;
     shortcut = undefined;
+    shortcutKey = "o";
     elements;
     initialize() {
         FlightPlanChooserWebComponent.registerElement();
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button title="CTRL+O / OPT+O"><u>O</u>pen / Import flight plan</button>
+<button title="${shortcutString(this.shortcutKey)}"><u>O</u>pen / Import flight plan</button>
 <aerofly-flightplan-chooser></aerofly-flightplan-chooser>
         `;
         this.elements = {
@@ -26,7 +27,7 @@ export class ImportWebComponent extends HTMLElement {
             this.isInitialized = true;
         }
         this.elements.button.addEventListener("click", this.handleClick);
-        this.shortcut = registerShortcut("o", this.handleClick);
+        this.shortcut = registerShortcut(this.shortcutKey, this.handleClick);
     }
     disconnectedCallback() {
         this.elements.button.removeEventListener("click", this.handleClick);

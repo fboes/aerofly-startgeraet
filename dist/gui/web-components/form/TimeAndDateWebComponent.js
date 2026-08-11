@@ -1,15 +1,16 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut } from "../../renderer/registerShortcut.js";
+import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     shortcut = undefined;
+    shortcutKey = "n";
     elements;
     initialize() {
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
-<h3><startgeraet-icon icon="clock"></startgeraet-icon>&nbsp;Date &amp; time</h3>
+<h3><startgeraet-icon icon="clock"></startgeraet-icon>&nbsp;Time &amp; date</h3>
 
 <table>
   <thead>
@@ -26,7 +27,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
       <td><input id="date-utc" title="Date (UTC)" type="date" value="2026-01-01" /></td>
       <td><input id="time-utc" title="Time (UTC)" type="time" value="00:00" /></td>
       <td rowspan="2">
-        <button id="synchronize-time" class="w-100" title="Use current time &amp; date, CTRL+T / OPT+T">Now</button>
+        <button id="synchronize-time" class="w-100" title="Use current time &amp; date, ${shortcutString(this.shortcutKey)}"><u>N</u>ow</button>
       </td>
     </tr>
     <tr class="form-group">
@@ -72,7 +73,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.timeLocal.value = state.dateTime.local.time;
         });
         this.addEventListener("input", this.handleChange);
-        this.shortcut = registerShortcut("t", this.setNow);
+        this.shortcut = registerShortcut(this.shortcutKey, this.setNow);
     }
     disconnectedCallback() {
         super.disconnectedCallback();

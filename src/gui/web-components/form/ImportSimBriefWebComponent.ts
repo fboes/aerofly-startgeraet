@@ -2,7 +2,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut } from "../../renderer/registerShortcut.js";
+import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
@@ -12,6 +12,7 @@ export type ImportSimBriefWebComponentState = {
 export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
     private shortcut: (() => void) | undefined = undefined;
+    private readonly shortcutKey = "b";
 
     private elements!: {
         simBriefUserName: HTMLInputElement;
@@ -23,7 +24,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-simbrief" command="show-modal" title="CTRL+B / OPT+B">Fetch flight plan from <u>S</u>imBrief</button>
+<button commandfor="dialog-simbrief" command="show-modal" title="${shortcutString(this.shortcutKey)}">Fetch flight plan from Sim<u>B</u>rief</button>
 
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>
@@ -76,7 +77,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
         });
 
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
-        this.shortcut = registerShortcut("b", () => {
+        this.shortcut = registerShortcut(this.shortcutKey, () => {
             this.elements.dialog.showModal();
         });
     }

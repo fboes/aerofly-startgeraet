@@ -1,6 +1,7 @@
 export declare class ExportWebComponent extends HTMLElement {
     private isInitialized;
     private shortcut;
+    private readonly shortcutKey;
     private elements;
     private initialize;
     connectedCallback(): void;

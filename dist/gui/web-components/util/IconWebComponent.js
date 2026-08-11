@@ -41,7 +41,7 @@ export class IconWebComponent extends HTMLElement {
             "thermometer-half": "🌡️",
             "three-dots-vertical": "⋮",
             wind: "🧭",
-            "x-circle": "✗",
+            "x  ": "✗",
         };
         if (!iconMap[newValue]) {
             throw new Error(`Unknown icon "${newValue}"`);

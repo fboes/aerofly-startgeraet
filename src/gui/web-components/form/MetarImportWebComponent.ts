@@ -3,7 +3,7 @@ import { dispatchNotificationEvent, type NotificationEventPayload } from "../../
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut } from "../../renderer/registerShortcut.js";
+import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 
 export type MetarImportWebComponentState = {
     icao: string;
@@ -12,6 +12,7 @@ export type MetarImportWebComponentState = {
 export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
     private shortcut: (() => void) | undefined = undefined;
+    private readonly shortcutKey = "m";
 
     private elements!: {
         metarButton: HTMLButtonElement;
@@ -23,7 +24,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information, CTRL+I / OPT+I">Fetch <u>M</u>ETAR</button>
+<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information, ${shortcutString("m")}">Fetch <u>M</u>ETAR</button>
 
 <dialog id="dialog-metar">
   <h3>Fetch METAR</h3>
@@ -74,7 +75,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
 
         this.elements.metarOrigin.addEventListener("click", this.handleClickOrigin);
         this.elements.metarDestination.addEventListener("click", this.handleClickDestination);
-        this.shortcut = registerShortcut("m", () => {
+        this.shortcut = registerShortcut(this.shortcutKey, () => {
             this.elements.dialog.showModal();
         });
     }
