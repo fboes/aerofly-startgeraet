@@ -1,4 +1,5 @@
 const registry = new Map();
+const CLASS_BODY_ACTIVE = "has-pressed-modifier";
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {
     const modifier = window.process.platform === "darwin" ? e.metaKey : e.ctrlKey;
@@ -6,6 +7,7 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
         return;
     }
 
+    document.body?.classList.add(CLASS_BODY_ACTIVE);
     const handler = registry.get(e.key);
     if (!handler) {
         return;
@@ -13,6 +15,15 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
 
     e.preventDefault();
     handler();
+});
+
+window.addEventListener("keyup", (e: KeyboardEvent) => {
+    const modifier = window.process.platform === "darwin" ? e.metaKey : e.ctrlKey;
+    if (!modifier) {
+        return;
+    }
+
+    document.body?.classList.remove(CLASS_BODY_ACTIVE);
 });
 
 /**

@@ -473,3 +473,9 @@ startgeraet-icon {
         height: 1rem;
     }
 }
+
+.has-pressed-modifier {
+    u {
+        color: var(--color-warning);
+    }
+}
