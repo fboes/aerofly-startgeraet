@@ -8,6 +8,14 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
     }
 
     document.body?.classList.add(CLASS_BODY_ACTIVE);
+    window.addEventListener(
+        "keyup",
+        () => {
+            document.body?.classList.remove(CLASS_BODY_ACTIVE);
+        },
+        { once: true },
+    );
+
     const handler = registry.get(e.key);
     if (!handler) {
         return;
@@ -15,15 +23,6 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
 
     e.preventDefault();
     handler();
-});
-
-window.addEventListener("keyup", (e: KeyboardEvent) => {
-    const modifier = window.process.platform === "darwin" ? e.metaKey : e.ctrlKey;
-    if (!modifier) {
-        return;
-    }
-
-    document.body?.classList.remove(CLASS_BODY_ACTIVE);
 });
 
 /**

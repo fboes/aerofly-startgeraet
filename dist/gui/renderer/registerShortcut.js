@@ -1,9 +1,14 @@
 const registry = new Map();
+const CLASS_BODY_ACTIVE = "has-pressed-modifier";
 window.addEventListener("keydown", (e) => {
     const modifier = window.process.platform === "darwin" ? e.metaKey : e.ctrlKey;
     if (!modifier) {
         return;
     }
+    document.body?.classList.add(CLASS_BODY_ACTIVE);
+    window.addEventListener("keyup", () => {
+        document.body?.classList.remove(CLASS_BODY_ACTIVE);
+    }, { once: true });
     const handler = registry.get(e.key);
     if (!handler) {
         return;
