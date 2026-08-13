@@ -23,30 +23,31 @@ export class IconWebComponent extends HTMLElement {
             return;
         }
         const iconMap = {
+            //airplane: "✈️",
             alarm: "⏰",
-            airplane: "✈️",
-            check: "✓",
-            clipboard: "📋", // metar
-            "clipboard-check": "🛫", // flightplan
-            clock: "🕑",
-            "cloud-haze": "🌁",
-            "cloud-sun": "⛅",
-            clouds: "☁️",
+            //check: "✓",
+            //clipboard: "📋", // metar
+            //"clipboard-check": "🛫", // flightplan
+            //clock: "🕑",
+            //"cloud-haze": "🌁",
+            //"cloud-sun": "⛅",
+            //clouds: "☁️",
             compass: "🧭",
-            folder: "📁",
-            "fuel-pump": "⛽",
-            gear: `<svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><use href="./icons.svg"></svg>`,
-            "hourglass-split": "⏳",
-            info: "ℹ️",
-            "thermometer-half": "🌡️",
-            "three-dots-vertical": "⋮",
-            wind: "🧭",
-            "x  ": "✗",
+            //folder: "📁",
+            //"fuel-pump": "⛽",
+            //gear: "⚙️",
+            //"hourglass-split": "⏳",
+            //info: "ℹ️",
+            //"thermometer-half": "🌡️",
+            //"three-dots-vertical": "⋮",
+            //wind: "🧭",
+            //"x": "✗",
         };
-        if (!iconMap[newValue]) {
-            throw new Error(`Unknown icon "${newValue}"`);
-        }
-        this.innerHTML = iconMap[newValue];
+        this.innerHTML = iconMap[newValue] ?? this.getHtmlForSvg(newValue);
+    }
+    getHtmlForSvg(icon) {
+        const url = `./icons.svg#${icon}`;
+        return `<svg class="icon"><use href="${url}"></svg>`;
     }
     set icon(icon) {
         this.setAttribute("icon", icon);

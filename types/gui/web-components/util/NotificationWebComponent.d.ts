@@ -7,7 +7,7 @@ export declare class NotificationWebComponent extends AbstractStateSubscriberWeb
     disconnectedCallback(): void;
     private handleNotification;
     private handleNotificationDetails;
-    private getEmoji;
+    private getIcon;
     private log;
     static registerElement(): void;
 }

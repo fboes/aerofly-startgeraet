@@ -16,8 +16,6 @@ import { registerElement } from "../../renderer/registerElement.js";
 export class IconWebComponent extends HTMLElement {
     static observedAttributes = ["icon"];
 
-    readonly isTestMode = true;
-
     constructor() {
         super();
         this.ariaHidden = "true";
@@ -54,8 +52,8 @@ export class IconWebComponent extends HTMLElement {
     }
 
     private getHtmlForSvg(icon: string) {
-        const url = this.isTestMode ? `./icons/${icon}.svg` : `./icons.svg#${icon}`;
-        return `<svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><use href="${url}"></svg>`;
+        const url = `./icons.svg#${icon}`;
+        return `<svg class="icon"><use href="${url}"></svg>`;
     }
 
     set icon(icon: string) {

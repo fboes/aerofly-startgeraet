@@ -118,10 +118,6 @@ a {
     }
 }
 
-svg {
-    fill: currentColor;
-}
-
 abbr {
     text-decoration: none;
     border-bottom: 1px dotted var(--color-darken-more);
@@ -467,24 +463,17 @@ startgeraet-notification {
 
 startgeraet-icon {
     display: inline-flex;
+    vertical-align: middle;
 
     svg {
-        width: 1rem;
-        height: 1rem;
-    }
-
-    path,
-    circle {
+        stroke: currentColor;
         fill: none;
-        stroke: currentcolor;
-        stroke-width: 1;
-        stroke-linecap: round;
-        stroke-linejoin: round;
+        width: 1em;
+        height: 1em;
     }
 
     &.bold {
-        path,
-        circle {
+        svg {
             stroke-width: 2;
         }
     }

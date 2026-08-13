@@ -15,6 +15,7 @@ export declare class IconWebComponent extends HTMLElement {
     static observedAttributes: string[];
     constructor();
     attributeChangedCallback(attributeName: string, oldValue: string, newValue: string): void;
+    private getHtmlForSvg;
     set icon(icon: string);
     get icon(): string | null;
     static registerElement(): void;
