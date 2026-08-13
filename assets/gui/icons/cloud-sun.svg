@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16"
+   height="16"
+   version="1.1"
+   viewBox="0 0 16 16"
+   id="svg1"
+   sodipodi:docname="cloud-sun.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="52"
+     inkscape:cx="8"
+     inkscape:cy="7.9903846"
+     inkscape:window-width="1968"
+     inkscape:window-height="1186"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0.5"
+       originy="0.5"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="M 3.4999996,14.5 C 0.0878264,14.5 1.2119969,9.3083045 5.0576917,9.7884606 5.5149557,8.5010436 7.4999997,7.4999993 8.4999997,8.4999996 11.800046,7.4096232 12.750993,8.9042886 12.269231,11.5 c 2.826663,-0.667515 2.649158,3 1.230769,3 z"
+     id="path1"
+     sodipodi:nodetypes="scccss" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     id="path2"
+     sodipodi:type="arc"
+     sodipodi:cx="-11.412229"
+     sodipodi:cy="8.2094307"
+     sodipodi:rx="2.5"
+     sodipodi:ry="2.5"
+     sodipodi:start="2.8198421"
+     sodipodi:end="5.7676363"
+     sodipodi:open="true"
+     sodipodi:arc-type="arc"
+     d="m -13.783937,9.0000001 a 2.5,2.5 0 0 1 1.35539,-3.0746661 2.5,2.5 0 0 1 3.1913739,1.0515653"
+     transform="scale(-1,1)" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="M 7.7839368,6.5961534 6.3993214,6.4615381"
+     id="path3" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="M 9.437783,4.7499996 8.7070137,3.4807688"
+     id="path4" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="M 13.36086,5.0576919 14.399322,3.4807688"
+     id="path5" />
+</svg>

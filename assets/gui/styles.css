@@ -472,6 +472,22 @@ startgeraet-icon {
         width: 1rem;
         height: 1rem;
     }
+
+    path,
+    circle {
+        fill: none;
+        stroke: currentcolor;
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    &.bold {
+        path,
+        circle {
+            stroke-width: 2;
+        }
+    }
 }
 
 .has-pressed-modifier {

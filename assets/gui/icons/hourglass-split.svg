@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16"
+   height="16"
+   version="1.1"
+   viewBox="0 0 16 16"
+   id="svg1"
+   sodipodi:docname="hourglass-split.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="52"
+     inkscape:cx="8"
+     inkscape:cy="7.9903846"
+     inkscape:window-width="1968"
+     inkscape:window-height="1186"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0.5"
+       originy="0.5"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.20185;stroke-linecap:round;stroke-linejoin:round"
+     id="path1"
+     sodipodi:type="arc"
+     sodipodi:cx="8"
+     sodipodi:cy="-14.499566"
+     sodipodi:rx="4.5"
+     sodipodi:ry="6.5"
+     sodipodi:start="0"
+     sodipodi:end="3.1415927"
+     sodipodi:arc-type="slice"
+     d="m 12.5,-14.499566 a 4.5,6.5 0 0 1 -2.25,5.6291651 4.5,6.5 0 0 1 -4.5000001,-2e-7 A 4.5,6.5 0 0 1 3.5,-14.499566 H 8 Z"
+     transform="scale(1,-1)" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.20185;stroke-linecap:round;stroke-linejoin:round"
+     id="path2"
+     sodipodi:type="arc"
+     sodipodi:cx="-8"
+     sodipodi:cy="1.5"
+     sodipodi:rx="4.5"
+     sodipodi:ry="6.5"
+     sodipodi:start="0"
+     sodipodi:end="3.1415927"
+     sodipodi:arc-type="slice"
+     d="M -3.5,1.5 A 4.5,6.5 0 0 1 -5.7500001,7.1291652 4.5,6.5 0 0 1 -10.25,7.129165 4.5,6.5 0 0 1 -12.5,1.5 H -8 Z"
+     transform="scale(-1,1)" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="M 8,7.9995661 V 14.499566"
+     id="path3" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 3.5,13.5 h 9"
+     id="path4" />
+  <path
+     style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 5.5,6.5 c 1.5641026,0.6399094 3.2307692,0.5886246 5,0"
+     id="path5"
+     sodipodi:nodetypes="cc" />
+</svg>

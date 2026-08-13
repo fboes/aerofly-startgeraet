@@ -50,7 +50,9 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
         this.log(details);
 
         const output = document.createElement("output");
-        output.innerHTML = this.getEmoji(details.type) + "<span></span>";
+        const icon = this.getIcon(details.type);
+
+        output.innerHTML = `<startgeraet-icon icon="${icon}"></startgeraet-icon>&nbsp;<span></span>`;
         (output.querySelector("span") as HTMLSpanElement).innerText = details.message;
         this.appendChild(output);
 
@@ -67,16 +69,16 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
         }, this.hideDelay);
     }
 
-    private getEmoji(type: NotificationEventType) {
+    private getIcon(type: NotificationEventType): "check" | "x" | "hourglass-split" | "info" {
         switch (type) {
-            case "info":
-                return `<startgeraet-icon icon="info"></startgeraet-icon>&nbsp;`;
             case "success":
-                return `<startgeraet-icon icon="check"></startgeraet-icon>&nbsp;`;
+                return "check";
             case "error":
-                return `<startgeraet-icon icon="x"></startgeraet-icon>&nbsp;`;
+                return "x";
             case "waiting":
-                return `<startgeraet-icon icon="hourglass-split"></startgeraet-icon>&nbsp;`;
+                return "hourglass-split";
+            default:
+                return "info";
         }
     }
 
