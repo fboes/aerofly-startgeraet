@@ -6,6 +6,7 @@
 - Added more compact GUI
 - Added abstract icon web component
 - Added accelerator keys to GUI
+- Added selector for system / light / dark mode in GUI settings (hat tip to [Aerofoil2011](https://github.com/Aerofoil2011))
 
 ## [2.2.2] -2026-07-31
 

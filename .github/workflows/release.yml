@@ -16,9 +16,6 @@ jobs:
   build-mcpb:
     uses: ./.github/workflows/build-mcpb.yml
 
-  # build-gui:
-  #   uses: ./.github/workflows/build-gui.yml
-
   release:
     needs: [build-cli, build-gui, build-mcp, build-mcpb]
     runs-on: ubuntu-latest
@@ -36,3 +33,12 @@ jobs:
           name: Release ${{ github.ref_name }}
           files: ./artifacts/**/*
           generate_release_notes: true
+          body: |
+            Download the appropriate artifact for your platform below.
+
+            * `aerofly-startgeraet-gui-*` downloads the Aerofly Startgerät Graphical User Interface (GUI) app
+            * `aerofly-startgeraet-cli-*` downloads the Aerofly Startgerät Command Line Interface (CLI) Tool
+            * `aerofly-startgeraet-mcp-*` downloads the Aerofly Startgerät Model Context Protocol (MCP) Server
+            * `aerofly-startgeraet.mcpb` downloads the Aerofly Startgerät Model Context Protocol (MCP) Server Bundle
+
+            All artifacts should have been build for Microsoft Windows, Apple macOS and Linux.

@@ -4,7 +4,7 @@
 
 ![](./docs/gui-example.png)
 
-Introducing the Aerofly Startgerät as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/), adding multiple additional options to set-up your flight:
+Introducing the Aerofly Startgerät for Microsoft Windows, Apple macOS and Linux, as an extended main menu for [Aerofly Flight Simulator 4](https://www.aerofly.com/). This adds multiple additional options to set-up your flight:
 
 - Change aircraft, livery as well as set-up fuel and payload.
 - Time & date
@@ -56,6 +56,8 @@ The Aerofly Startgerät comes in multiple versions. Refer to the different instr
   A terminal application for automatisations, e.g. importing SimBrief flight plans or importing weather information.
 - [**The Aerofly Startgerät Model Context Protocol (MCP) Server**](./docs/instructions-mcp.md):  
   Allow an AI / LLM to create new flight plans & flight settings via this MCP server.
+
+All application versions support computers running Microsoft Windows, Apple macOS and Linux.
 
 ### Caveats and notes
 
