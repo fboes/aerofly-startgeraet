@@ -1,3 +1,5 @@
+declare const CONFIG_THEMES: readonly ["system", "light", "dark"];
+export type ConfigTheme = (typeof CONFIG_THEMES)[number];
 /**
  * Main application configuration. Includes configuration properties
  * as well as persistence handler.
@@ -44,6 +46,8 @@ export declare class Config {
     set syncTimeOnStartup(syncTimeOnStartup: boolean);
     get lastUpdateCheck(): Date;
     set lastUpdateCheck(d: Date);
+    get theme(): ConfigTheme;
+    set theme(theme: ConfigTheme);
     /**
      * @returns if a sufficient cool down has occured after last update check
      */
@@ -55,7 +59,9 @@ export declare class Config {
         importDirectory: string;
         exportDirectory: string;
         syncTimeOnStartup: boolean;
+        theme: "system" | "light" | "dark";
         lastUpdateCheck: Date;
     };
 }
+export {};
 //# sourceMappingURL=Config.d.ts.map

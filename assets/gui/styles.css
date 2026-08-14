@@ -15,6 +15,7 @@
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
     --color-darken-more: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4));
     --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
+    --color-shadow: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
     --color-warning: #e6007a;
     --color-black: light-dark(#363537, #000000);
     --fontweight-normal: 400;
@@ -205,6 +206,11 @@ textarea {
     + label {
         margin-top: 1rem;
     }
+
+    option {
+        color: inherit;
+        background-color: var(--color-background);
+    }
 }
 
 select,
@@ -256,7 +262,7 @@ button,
     }
 
     &:is(:hover, :focus):not(:disabled) {
-        box-shadow: var(--color-darken) 0.25rem 0.25rem 0.5rem;
+        box-shadow: var(--color-shadow) 0.25rem 0.25rem 0.5rem;
     }
 }
 
@@ -368,7 +374,7 @@ dialog {
     border: var(--border-standard);
     padding: 1rem;
     margin: auto !important;
-    box-shadow: var(--color-darken) 0.5rem 0.5rem 0.5rem;
+    box-shadow: var(--color-shadow) 0.5rem 0.5rem 0.5rem;
     border-radius: 0.25rem;
     max-width: 40rem;
 
@@ -430,7 +436,7 @@ startgeraet-notification {
         background: var(--color-background);
         border: var(--border-standard);
         padding: 0.25rem 1rem;
-        box-shadow: var(--color-darken) 0.25rem 0.25rem 0.5rem;
+        box-shadow: var(--color-shadow) 0.25rem 0.25rem 0.5rem;
         text-align: center;
         max-height: 0;
         transition: all 0.35s var(--transitionfunction-bounce);

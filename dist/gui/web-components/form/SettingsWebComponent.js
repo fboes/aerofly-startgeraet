@@ -7,6 +7,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
     get state() {
         return {
             mainMcfFilePath: this.elements.mainMcfFilePath.value,
+            theme: this.elements.theme.value,
             // syncTimeOnStartup: this.elements.syncTimeOnStartup.value,
         };
     }
@@ -19,11 +20,21 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
   <h2>Settings</h2>
 
   <section>
-    <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
-    <span class="d-flex">
-        <input id="settings-mainmcffilepath" type="text" required />
-        <button id="choose-mainmcffilepath">Choose</button>
-    </span>
+    <div class="form-group">
+        <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
+        <span class="d-flex">
+            <input id="settings-mainmcffilepath" type="text" required />
+            <button id="choose-mainmcffilepath">Choose</button>
+        </span>
+    </div>
+    <div class="form-group">
+        <label for="settings-theme">Theme</label>
+        <select id="settings-theme">
+            <option value="system">System settings</option>
+            <option value="light">Light mode</option>
+            <option value="dark">Dark mode</option>
+        </select>
+    </div>
   </section>
 
   <button commandfor="dialog-settings" command="close" title="Close">✕</button>
@@ -32,6 +43,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         this.elements = {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath"),
             mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath"),
+            theme: this.querySelector("#settings-theme"),
             // syncTimeOnStartup
         };
     }

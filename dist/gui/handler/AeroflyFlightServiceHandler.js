@@ -1,4 +1,4 @@
-import { dialog } from "electron";
+import { dialog, nativeTheme } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";
@@ -34,6 +34,7 @@ export class AeroflyFlightServiceHandler {
         this.metar = new AeroflyFlightToMetarConverter();
         this.loadMainMcf();
         this.registerHandlers();
+        nativeTheme.themeSource = config.theme;
     }
     loadMainMcf() {
         try {
@@ -66,6 +67,8 @@ export class AeroflyFlightServiceHandler {
     registerHandlers() {
         this.ipcMain.handle("config:set", (event, config) => {
             this.service.config.mainMcfFilePath = config.mainMcfFilePath;
+            this.service.config.theme = config.theme;
+            nativeTheme.themeSource = config.theme;
             this.sendStateUpdate();
         });
         this.ipcMain.handle("aircraft:set", (event, aircraft) => {

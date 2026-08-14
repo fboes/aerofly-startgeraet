@@ -3,6 +3,7 @@ import Store from "electron-store";
 import os from "node:os";
 import path from "node:path";
 import fs from "fs";
+const CONFIG_THEMES = ["system", "light", "dark"];
 /**
  * Main application configuration. Includes configuration properties
  * as well as persistence handler.
@@ -108,6 +109,13 @@ export class Config {
     set lastUpdateCheck(d) {
         this.setDate("lastUpdateCheck", d);
     }
+    get theme() {
+        const theme = this.get("theme", "system");
+        return CONFIG_THEMES.includes(theme) ? theme : "system";
+    }
+    set theme(theme) {
+        this.set("theme", theme.trim());
+    }
     /**
      * @returns if a sufficient cool down has occured after last update check
      */
@@ -124,6 +132,7 @@ export class Config {
             importDirectory: this.importDirectory,
             exportDirectory: this.exportDirectory,
             syncTimeOnStartup: this.syncTimeOnStartup,
+            theme: this.theme,
             lastUpdateCheck: this.lastUpdateCheck,
         };
     }
