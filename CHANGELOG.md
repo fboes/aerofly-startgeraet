@@ -1,5 +1,7 @@
 # Changelog
 
+## [Unreleased]
+
 ## [2.2.5] - 2026-08-15
 
 - Fixed update mechanism
@@ -16,7 +18,7 @@
 - Added accelerator keys to GUI
 - Added selector for system / light / dark mode in GUI settings (hat tip to [Aerofoil2011](https://github.com/Aerofoil2011))
 
-## [2.2.2] -2026-07-31
+## [2.2.2] - 2026-07-31
 
 - Improved import / export documentation
 - Improved X-Plane importer, making it more robust

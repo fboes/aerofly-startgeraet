@@ -34,11 +34,11 @@ jobs:
           files: ./artifacts/**/*
           generate_release_notes: true
           body: |
+            All artifacts have been build for Microsoft Windows, Apple macOS and Linux.
+
             Download the appropriate artifact for your platform below.
 
-            * `aerofly-startgeraet-gui-*` downloads the Aerofly Startgerät Graphical User Interface (GUI) app
+            * `aerofly-startgeraet-gui-*` downloads the Aerofly Startgerät Graphical User Interface (GUI) App
             * `aerofly-startgeraet-cli-*` downloads the Aerofly Startgerät Command Line Interface (CLI) Tool
             * `aerofly-startgeraet-mcp-*` downloads the Aerofly Startgerät Model Context Protocol (MCP) Server
             * `aerofly-startgeraet.mcpb` downloads the Aerofly Startgerät Model Context Protocol (MCP) Server Bundle
-
-            All artifacts should have been build for Microsoft Windows, Apple macOS and Linux.

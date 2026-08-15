@@ -50,7 +50,7 @@ Supported flight plan file formats:
 
 The Aerofly Startgerät comes in multiple versions. Refer to the different instruction on how to install and use these:
 
-- [**The Aerofly Startgerät Graphical User Interface (GUI) app**](./docs/instructions-gui.md):  
+- [**The Aerofly Startgerät Graphical User Interface (GUI) App**](./docs/instructions-gui.md):  
   A desktop app with a grahpical user interface (GUI).
 - [**The Aerofly Startgerät Command Line Interface (CLI) Tool**](./docs/instructions-cli.md):  
   A terminal application for automatisations, e.g. importing SimBrief flight plans or importing weather information.
