@@ -35,7 +35,7 @@ export class Config {
         this.conf.set(key, value);
     }
     getDate(key) {
-        return new Date(this.get(key));
+        return new Date(this.get(key, "1970-01-01T00:00:00.000Z"));
     }
     setDate(key, value) {
         this.conf.set(key, value.toISOString());
@@ -120,7 +120,7 @@ export class Config {
     isUpdateCheckNeeded(cooldownHours = 24) {
         const thresholdDate = new Date();
         thresholdDate.setHours(thresholdDate.getHours() - cooldownHours); // 24h have elapsed since last update check
-        return thresholdDate < this.lastUpdateCheck;
+        return thresholdDate > this.lastUpdateCheck;
     }
     toJSON() {
         return {
