@@ -4,8 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import fs from "fs";
 
-const CONFIG_THEMES = ["system", "light", "dark"] as const;
-export type ConfigTheme = (typeof CONFIG_THEMES)[number];
+export type ConfigTheme = "system" | "light" | "dark";
 
 /**
  * Main application configuration. Includes configuration properties
@@ -150,8 +149,7 @@ export class Config {
     }
 
     get theme(): ConfigTheme {
-        const theme = this.get("theme", "system") as ConfigTheme;
-        return CONFIG_THEMES.includes(theme) ? theme : "system";
+        return this.get("theme", "system") as ConfigTheme;
     }
 
     set theme(theme: ConfigTheme) {
