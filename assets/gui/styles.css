@@ -470,6 +470,7 @@ startgeraet-notification {
 startgeraet-icon {
     display: inline-flex;
     vertical-align: middle;
+    margin-bottom: 0.1em;
 
     svg {
         stroke: currentColor;

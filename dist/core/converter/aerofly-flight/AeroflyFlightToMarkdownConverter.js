@@ -27,12 +27,13 @@ ${this.getFlightSummary(flightplan)}
             return "";
         }
         const currentLivery = getAeroflyLivery(currentAircraft, flightplan.aircraft.paintscheme);
-        const fuel = flightplan.fuelLoadSetting.fuelMass || flightplan.fuelLoadSetting.payloadMass;
+        // TODO: Fuel and payload are not yet accessible via the AeroflyFlight API. For now, we just set them to false.
+        const fuel = false; // flightplan.fuelLoadSetting.fuelMass || flightplan.fuelLoadSetting.payloadMass;
         return `\
 ## Aircraft
 
 ${markdownTable([
-            ["Aircraft", "Livery", "Cruise speed", "Cruise altitude", "Fuel load", "Payload"],
+            ["Aircraft", "Livery", "Cruise speed", "Cruise altitude",],
             ["---", "---", "---:", "---:", "---:", "---:"],
             [
                 currentAircraft.nameFull,

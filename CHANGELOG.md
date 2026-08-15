@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased]
+## [2.2.5] - 2026-08-15
+
+- Fixed update mechanism
+
+## [2.2.4] - 2026-08-15
+
+- (Empty release for NPM clean-up)
+
+## [2.2.3] - 2026-08-15
 
 - Improved GUI for wide screen
 - Added more compact GUI
