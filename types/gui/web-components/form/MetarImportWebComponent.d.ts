@@ -6,10 +6,12 @@ export declare class MetarImportWebComponent extends AbstractStateSubscriberWebC
     private isInitialized;
     private shortcut;
     private readonly shortcutKey;
+    static readonly METAR_FETCH_LIMIT_DAYS = 28;
     private elements;
     private initialize;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private setTitle;
     private isButtonDisabled;
     private handleClickOrigin;
     private handleClickDestination;

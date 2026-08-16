@@ -56,8 +56,13 @@ startgeraet-main {
     display: block;
 }
 
-startgeraet-footer {
+startgeraet-footer,
+footer {
+    padding-top: 1rem;
     font-size: var(--fontsize-small);
+}
+
+startgeraet-footer {
     text-align: center;
     padding: 0.33rem 1rem;
     display: block;

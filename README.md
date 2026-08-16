@@ -82,11 +82,15 @@ Enter your SimBrief username and click **Fetch**. Startgerät automatically inje
 
 **Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the flightplan and then fetch the plan via Startgerät, which takes literally seconds to do.
 
+Be aware that weather data imported from SimBrief reflects the weather settings at the time the flight plan was generated, and not the the weather settings at the actual start of flight. You might want to use the "Fetch METAR" functionality to obtain current weather.
+
 > Instructions contributed by AeRodri from [RealFlightOps](https://www.youtube.com/@RealFlightOps)
 
 ### Other flight planning software workflow
 
 Create your route on any flight planning software, and crucially, manually select a AIRAC Cycle matching with Aerofly's native database.
+
+Be aware that most flight plan formats do not include aircraft and weather settings. They need to be setup using the Aerofly Startgerät.
 
 ## Technical stuff
 

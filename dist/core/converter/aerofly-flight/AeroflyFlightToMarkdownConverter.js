@@ -33,7 +33,7 @@ ${this.getFlightSummary(flightplan)}
 ## Aircraft
 
 ${markdownTable([
-            ["Aircraft", "Livery", "Cruise speed", "Cruise altitude",],
+            ["Aircraft", "Livery", "Cruise speed", "Cruise altitude"],
             ["---", "---", "---:", "---:", "---:", "---:"],
             [
                 currentAircraft.nameFull,

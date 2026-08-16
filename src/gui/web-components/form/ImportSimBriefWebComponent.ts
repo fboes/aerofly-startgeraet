@@ -30,7 +30,7 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
   <h3>Flight plan import</h3>
 
   <section class="d-flex">
-    <p>Remember to generate a flight plan using the <a href="https://dispatch.simbrief.com/" target="simbrief">SimBrief</a> Dispatch before importing.</p>
+    <p>Remember to generate a flight plan using the <a href="https://dispatch.simbrief.com/" target="simbrief">SimBrief Dispatch</a> before importing.</p>
 
     <div class="form-group w-100">
       <label for="settings-simbriefusername">SimBrief username</label>
@@ -48,6 +48,11 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
   </section>
 
   <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
+
+  <footer>
+        Please note importing aircraft / airline settings from SimBrief relies on choosing ICAO aircraft / airline codes known to Aerofly FS.<br />
+        Also be aware that weather data from SimBrief represents the time of flight plan generation and may not reflect current conditions.
+    </footer>
 </dialog>
         `;
         this.elements = {

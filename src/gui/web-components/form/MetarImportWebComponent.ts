@@ -13,6 +13,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     private isInitialized = false;
     private shortcut: (() => void) | undefined = undefined;
     private readonly shortcutKey = "m";
+    static readonly METAR_FETCH_LIMIT_DAYS = 28;
 
     private elements!: {
         metarButton: HTMLButtonElement;
@@ -24,7 +25,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-metar" command="show-modal" title="Fetch METAR weather information, ${shortcutString("m")}">Fetch <u>M</u>ETAR</button>
+<button commandfor="dialog-metar" command="show-modal">Fetch <u>M</u>ETAR</button>
 
 <dialog id="dialog-metar">
   <h3>Fetch METAR</h3>
@@ -41,6 +42,10 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
   </section>
 
   <button commandfor="dialog-metar" command="close" title="Close">✕</button>
+
+  <footer>
+    Please note that the METAR API does only provide METAR information for the last ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS} days. Also the METAR API does not provide data for all airports worldwide.
+  </footer>
 </dialog>
         `;
         this.elements = {
@@ -55,7 +60,9 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
         if (!this.isInitialized) {
             this.initialize();
             this.isInitialized = true;
+            this.setTitle();
         }
+
         this.subscribeToStateUpdates((state) => {
             this.elements.metarButton.disabled = this.isButtonDisabled(state);
             this.elements.metarOrigin.innerHTML = state.route.departureAirport || "Origin";
@@ -71,6 +78,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.metarDestination.innerHTML = state.route.destinationAirport || "Destination";
             this.elements.metarDestination.dataset.icao = state.route.destinationAirportCode || "";
             this.elements.metarOrigin.disabled = !state.route.destinationAirportCode;
+            this.setTitle();
         });
 
         this.elements.metarOrigin.addEventListener("click", this.handleClickOrigin);
@@ -89,10 +97,16 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
         }
     }
 
+    private setTitle() {
+        this.elements.metarButton.title = this.elements.metarButton.disabled
+            ? `Cannot fetch METAR weather information because the date is outside the allowed range of ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS} days`
+            : `Fetch METAR weather information, ${shortcutString("m")}`;
+    }
+
     private isButtonDisabled(state: AppState): boolean {
         const date = new Date(state.dateTime.utc.date + "T" + state.dateTime.utc.time + "Z");
         const fourWeeksAgo = new Date();
-        fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28);
+        fourWeeksAgo.setDate(fourWeeksAgo.getDate() - MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS);
         if (date < fourWeeksAgo || date > new Date()) {
             return true;
         }

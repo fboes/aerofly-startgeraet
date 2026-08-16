@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Improved GUI help texts
+
 ## [2.2.5] - 2026-08-15
 
 - Fixed update mechanism
