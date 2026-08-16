@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Improved GUI help texts
+- Fixed SimBrief cruise altitude import
 
 ## [2.2.5] - 2026-08-15
 
