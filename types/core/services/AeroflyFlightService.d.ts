@@ -115,6 +115,12 @@ export declare class AeroflyFlightService {
      */
     getDepartureTimeZoneUTCString(): string;
     setWeatherFromMETAR(metar: string): void;
+    /**
+     * Modify weather by calling METAR / TAF API.
+     * TAFs will be called if date is set in the future.
+     * @param airportCode ICAO code
+     * @returns modified weather settings
+     */
     setWeatherViaApi(airportCode: string): Promise<object>;
     setWeather(visibilityM: number, temperatureCelsius: number, directionDegrees: number, speedKts: number, gustsKts?: number): object;
     setWeatherViaFlightCategory(category: AeroflylightCategoryUs): void;

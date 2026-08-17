@@ -287,8 +287,20 @@ export class AeroflyFlightService {
         const converter = new MetarToAeroflyFlightConverter();
         converter.convert(metar, this.aeroflyFlight);
     }
+    /**
+     * Modify weather by calling METAR / TAF API.
+     * TAFs will be called if date is set in the future.
+     * @param airportCode ICAO code
+     * @returns modified weather settings
+     */
     async setWeatherViaApi(airportCode) {
-        await new AviationWeatherApiAerofly().fetchMetarToFlight(airportCode, this.aeroflyFlight);
+        const api = new AviationWeatherApiAerofly();
+        if (this.aeroflyFlight.timeUtc.time > new Date()) {
+            await api.fetchTafToFlight(airportCode, this.aeroflyFlight);
+        }
+        else {
+            await api.fetchMetarToFlight(airportCode, this.aeroflyFlight);
+        }
         return this.getWeather();
     }
     // ----------------------------------------------------------

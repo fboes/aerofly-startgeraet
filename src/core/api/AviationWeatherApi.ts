@@ -84,7 +84,7 @@ export type AviationWeatherNormalizedMetar = {
     clouds: AviationWeatherNormalizedCloud[];
 };
 
-/*export type AviationWeatherApiTaf = {
+export type AviationWeatherApiTaf = {
     icaoId: string;
     issueTime: string;
     lat: number;
@@ -94,7 +94,13 @@ export type AviationWeatherNormalizedMetar = {
 };
 
 export type AviationWeatherApiTafForecast = {
+    /**
+     * Timestamp
+     */
     timeFrom: number;
+    /**
+     * Timestamp
+     */
     timeTo: number;
     wdir: "VRB" | number | null;
     wspd: number | null;
@@ -103,7 +109,28 @@ export type AviationWeatherApiTafForecast = {
     altim: number | null;
     clouds: AviationWeatherApiCloud[];
     temp: number[];
-}*/
+};
+
+export type AviationWeatherApiNormalizedTaf = {
+    icaoId: string;
+    issueTime: string;
+    lat: number;
+    lon: number;
+    elev: number;
+    fcsts: AviationWeatherApiNormalizedTafForecast[];
+};
+
+export type AviationWeatherApiNormalizedTafForecast = {
+    timeFrom: Date;
+    timeTo: Date;
+    wdir: number | null;
+    wspd: number | null;
+    wgst: number | null;
+    visib: number | null;
+    altim: number | null;
+    clouds: AviationWeatherNormalizedCloud[];
+    temp: number[];
+};
 
 type AviationWeatherApiRunwaySurface = "A" | "C" | "G" | "W" | "T" | "H";
 
@@ -238,6 +265,20 @@ export class AviationWeatherApi {
                 format: "json",
                 // taf,
                 // hours,
+                // bbox: this.buildBbox(longitude, latitude, distance).join(","),
+                date: date ? date.toISOString().replace(/\.\d+(Z)/, "$1") : "",
+            }),
+        );
+    }
+
+    async fetchTaf(ids: string[], date: Date | null = null): Promise<AviationWeatherApiTaf[]> {
+        return this.doRequest<AviationWeatherApiTaf[]>(
+            "/api/data/taf",
+            new URLSearchParams({
+                ids: ids.join(","),
+                format: "json",
+                // metar,
+                // time,
                 // bbox: this.buildBbox(longitude, latitude, distance).join(","),
                 date: date ? date.toISOString().replace(/\.\d+(Z)/, "$1") : "",
             }),
@@ -456,6 +497,36 @@ export class AviationWeatherApi {
                         BKN: 4,
                         OVC: 8,
                     }[c.cover],
+                };
+            }),
+        };
+    }
+
+    normalizeTaf(taf: AviationWeatherApiTaf): AviationWeatherApiNormalizedTaf {
+        return {
+            ...taf,
+            fcsts: taf.fcsts.map((weather) => {
+                return {
+                    ...weather,
+                    timeFrom: new Date(weather.timeFrom * 1000),
+                    timeTo: new Date(weather.timeTo * 1000),
+                    wdir: weather.wdir !== "VRB" ? weather.wdir : null,
+                    visib: typeof weather.visib === "string" ? 10 : weather.visib,
+                    clouds: weather.clouds.map((c) => {
+                        return {
+                            ...c,
+                            cover: c.cover === "CAVOK" || c.cover === "SKC" ? "CLR" : c.cover,
+                            coverOctas: {
+                                CLR: 0,
+                                CAVOK: 0,
+                                SKC: 0,
+                                FEW: 1,
+                                SCT: 2,
+                                BKN: 4,
+                                OVC: 8,
+                            }[c.cover],
+                        };
+                    }),
                 };
             }),
         };

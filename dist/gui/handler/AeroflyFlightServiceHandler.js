@@ -276,7 +276,7 @@ export class AeroflyFlightServiceHandler {
         catch (error) {
             return createNotificationErrorPayload(error);
         }
-        return createNotificationPayload("Successfully fetched METAR", "success");
+        return createNotificationPayload("Successfully fetched METAR / TAF", "success");
     };
     getMetar() {
         return this.metar.convert(this.service.getAeroflyFlight());

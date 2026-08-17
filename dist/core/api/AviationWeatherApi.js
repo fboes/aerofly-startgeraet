@@ -10,6 +10,16 @@ export class AviationWeatherApi {
             date: date ? date.toISOString().replace(/\.\d+(Z)/, "$1") : "",
         }));
     }
+    async fetchTaf(ids, date = null) {
+        return this.doRequest("/api/data/taf", new URLSearchParams({
+            ids: ids.join(","),
+            format: "json",
+            // metar,
+            // time,
+            // bbox: this.buildBbox(longitude, latitude, distance).join(","),
+            date: date ? date.toISOString().replace(/\.\d+(Z)/, "$1") : "",
+        }));
+    }
     /**
      * @param {number} longitude center of search area
      * @param {number} latitude center of search area
@@ -167,6 +177,35 @@ export class AviationWeatherApi {
                         BKN: 4,
                         OVC: 8,
                     }[c.cover],
+                };
+            }),
+        };
+    }
+    normalizeTaf(taf) {
+        return {
+            ...taf,
+            fcsts: taf.fcsts.map((weather) => {
+                return {
+                    ...weather,
+                    timeFrom: new Date(weather.timeFrom * 1000),
+                    timeTo: new Date(weather.timeTo * 1000),
+                    wdir: weather.wdir !== "VRB" ? weather.wdir : null,
+                    visib: typeof weather.visib === "string" ? 10 : weather.visib,
+                    clouds: weather.clouds.map((c) => {
+                        return {
+                            ...c,
+                            cover: c.cover === "CAVOK" || c.cover === "SKC" ? "CLR" : c.cover,
+                            coverOctas: {
+                                CLR: 0,
+                                CAVOK: 0,
+                                SKC: 0,
+                                FEW: 1,
+                                SCT: 2,
+                                BKN: 4,
+                                OVC: 8,
+                            }[c.cover],
+                        };
+                    }),
                 };
             }),
         };

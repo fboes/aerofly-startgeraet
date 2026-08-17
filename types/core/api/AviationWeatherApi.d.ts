@@ -70,6 +70,50 @@ export type AviationWeatherNormalizedMetar = {
     elev: number;
     clouds: AviationWeatherNormalizedCloud[];
 };
+export type AviationWeatherApiTaf = {
+    icaoId: string;
+    issueTime: string;
+    lat: number;
+    lon: number;
+    elev: number;
+    fcsts: AviationWeatherApiTafForecast[];
+};
+export type AviationWeatherApiTafForecast = {
+    /**
+     * Timestamp
+     */
+    timeFrom: number;
+    /**
+     * Timestamp
+     */
+    timeTo: number;
+    wdir: "VRB" | number | null;
+    wspd: number | null;
+    wgst: number | null;
+    visib: string | number | null;
+    altim: number | null;
+    clouds: AviationWeatherApiCloud[];
+    temp: number[];
+};
+export type AviationWeatherApiNormalizedTaf = {
+    icaoId: string;
+    issueTime: string;
+    lat: number;
+    lon: number;
+    elev: number;
+    fcsts: AviationWeatherApiNormalizedTafForecast[];
+};
+export type AviationWeatherApiNormalizedTafForecast = {
+    timeFrom: Date;
+    timeTo: Date;
+    wdir: number | null;
+    wspd: number | null;
+    wgst: number | null;
+    visib: number | null;
+    altim: number | null;
+    clouds: AviationWeatherNormalizedCloud[];
+    temp: number[];
+};
 type AviationWeatherApiRunwaySurface = "A" | "C" | "G" | "W" | "T" | "H";
 /**
  * @see https://aviationweather.gov/data/api/#/Data/dataAirport
@@ -180,6 +224,7 @@ export type AviationWeatherApiFix = {
 };
 export declare class AviationWeatherApi {
     fetchMetar(ids: string[], date?: Date | null): Promise<AviationWeatherApiMetar[]>;
+    fetchTaf(ids: string[], date?: Date | null): Promise<AviationWeatherApiTaf[]>;
     /**
      * @param {number} longitude center of search area
      * @param {number} latitude center of search area
@@ -213,6 +258,7 @@ export declare class AviationWeatherApi {
     buildBbox(longitude: number, latitude: number, distance?: number): [number, number, number, number];
     normalizeAirport(airport: AviationWeatherApiAirport): AviationWeatherNormalizedAirport;
     normalizeWeather(weather: AviationWeatherApiMetar): AviationWeatherNormalizedMetar;
+    normalizeTaf(taf: AviationWeatherApiTaf): AviationWeatherApiNormalizedTaf;
     /**
      * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
      */
