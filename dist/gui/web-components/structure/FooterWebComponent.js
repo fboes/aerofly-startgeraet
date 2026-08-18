@@ -4,7 +4,7 @@ export class FooterWebComponent extends HTMLElement {
     initialize() {
         this.setAttribute("aria-role", "footer");
         this.innerHTML = `\
-This application cannot set fuel, payload, runway waypoints, and the starting position in the simulator correctly. You must set these values manually in the simulator before starting a flight.
+Fuel, payload, runway waypoints, and the starting position cannot be set in this application and must be set in the simulator.
         `;
     }
     async connectedCallback() {

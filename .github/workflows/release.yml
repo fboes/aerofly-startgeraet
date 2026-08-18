@@ -34,9 +34,7 @@ jobs:
           files: ./artifacts/**/*
           generate_release_notes: true
           body: |
-            All artifacts have been build for Microsoft Windows, Apple macOS and Linux.
-
-            Download the appropriate artifact for your platform below.
+            Downloads are available for Microsoft Windows, Apple macOS and Linux. Download the appropriate artifact for your platform below.
 
             * `aerofly-startgeraet-gui-*` downloads the Aerofly Startgerät Graphical User Interface (GUI) App
             * `aerofly-startgeraet-cli-*` downloads the Aerofly Startgerät Command Line Interface (CLI) Tool

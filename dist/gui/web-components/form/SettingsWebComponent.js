@@ -8,7 +8,6 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         return {
             mainMcfFilePath: this.elements.mainMcfFilePath.value,
             theme: this.elements.theme.value,
-            // syncTimeOnStartup: this.elements.syncTimeOnStartup.value,
         };
     }
     initialize() {
@@ -17,34 +16,33 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 </startgeraet-icon></button>
 
 <dialog id="dialog-settings" closedby="any">
-  <h2>Settings</h2>
+    <h2>Settings</h2>
 
-  <section>
-    <div class="form-group">
-        <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
-        <span class="d-flex">
-            <input id="settings-mainmcffilepath" type="text" required />
-            <button id="choose-mainmcffilepath">Choose</button>
-        </span>
-    </div>
-    <div class="form-group">
-        <label for="settings-theme">Theme</label>
-        <select id="settings-theme">
-            <option value="system">System settings</option>
-            <option value="light">Light mode</option>
-            <option value="dark">Dark mode</option>
-        </select>
-    </div>
-  </section>
+    <section>
+        <div class="form-group">
+            <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
+            <span class="d-flex">
+                <input id="settings-mainmcffilepath" type="text" required />
+                <button id="choose-mainmcffilepath">Choose</button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="settings-theme">Theme</label>
+            <select id="settings-theme">
+                <option value="system">System settings</option>
+                <option value="light">Light mode</option>
+                <option value="dark">Dark mode</option>
+            </select>
+        </div>
+    </section>
 
-  <button commandfor="dialog-settings" command="close" title="Close">✕</button>
+    <button commandfor="dialog-settings" command="close" title="Close">✕</button>
 </dialog>
         `;
         this.elements = {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath"),
             mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath"),
             theme: this.querySelector("#settings-theme"),
-            // syncTimeOnStartup
         };
     }
     connectedCallback() {
@@ -54,7 +52,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         }
         this.subscribeToStateUpdates((state) => {
             this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
-            // syncTimeOnStartup
+            this.elements.theme.value = state.config.theme ?? "system";
         });
         this.addEventListener("input", this.handleChange);
         this.elements.mainMcfFilePathChooser.addEventListener("click", this.handlePathChooserClick);

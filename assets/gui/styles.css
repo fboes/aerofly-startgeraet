@@ -1,6 +1,10 @@
 :root {
     color-scheme: light dark;
-    font-size: 15px;
+    font-size: 93.75%; /* 15px (87.5% -> 14px) */
+    --fontsize-small: 0.73rem; /* 11px - absolute minimum (0.79rem) */
+    --fontsize-input: 0.8rem; /* 12px (0.85rem) */
+    --fontweight-normal: 400;
+    --fontweight-bold: 600;
     --fontfamily-primary:
         -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
@@ -18,9 +22,6 @@
     --color-shadow: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
     --color-warning: #e6007a;
     --color-black: light-dark(#363537, #000000);
-    --fontweight-normal: 400;
-    --fontweight-bold: 600;
-    --fontsize-small: 0.66rem;
     --border-standard: 1px solid var(--color-darken);
     --transitionfunction-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -228,7 +229,7 @@ textarea {
     border: var(--border-standard);
     padding: 0.5rem;
     border-radius: 0.25rem;
-    font-size: 0.8rem;
+    font-size: var(--fontsize-input);
 }
 
 input {
@@ -246,7 +247,7 @@ input {
 
 button,
 ::file-selector-button {
-    font-size: 0.8rem;
+    font-size: var(--fontsize-input);
     color: var(--color-text);
     display: inline-block;
     background-color: var(--color-darken);

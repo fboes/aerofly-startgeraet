@@ -7,7 +7,7 @@ export declare class MetarImportWebComponent extends AbstractStateSubscriberWebC
     private shortcut;
     private readonly shortcutKey;
     static readonly METAR_FETCH_LIMIT_DAYS_PAST = 28;
-    static readonly TAF_FETCH_LIMIT_DAYS_FUTURE = 28;
+    static readonly TAF_FETCH_LIMIT_HOURS_FUTURE = 12;
     private elements;
     private initialize;
     connectedCallback(): void;

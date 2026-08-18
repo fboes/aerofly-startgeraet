@@ -8,7 +8,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     shortcut = undefined;
     shortcutKey = "m";
     static METAR_FETCH_LIMIT_DAYS_PAST = 28;
-    static TAF_FETCH_LIMIT_DAYS_FUTURE = 28;
+    static TAF_FETCH_LIMIT_HOURS_FUTURE = 12;
     elements;
     initialize() {
         this.classList.add("d-flex", "form-group");
@@ -32,7 +32,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
   <button commandfor="dialog-metar" command="close" title="Close">✕</button>
 
   <footer>
-    Please note that the METAR API does only provide METAR information for the last ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST} days. The TAF API does only provide TAF information for the next ${MetarImportWebComponent.TAF_FETCH_LIMIT_DAYS_FUTURE} days.<br />
+    Please note that the METAR API does only provide METAR information for the last ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST} days. The TAF API does only provide TAF information for the next ${MetarImportWebComponent.TAF_FETCH_LIMIT_HOURS_FUTURE} hours.<br />
     Also the METAR API does not provide data for all airports worldwide. <br />
   </footer>
 </dialog>
@@ -93,7 +93,7 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     }
     setTitle() {
         this.elements.metarButton.title = this.elements.metarButton.disabled
-            ? `Cannot fetch METAR weather information because the date is outside the allowed range of ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST} days in the past and ${MetarImportWebComponent.TAF_FETCH_LIMIT_DAYS_FUTURE} days in the future`
+            ? `Cannot fetch METAR weather information because the date is outside the allowed range of ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST} days in the past and ${MetarImportWebComponent.TAF_FETCH_LIMIT_HOURS_FUTURE} hours in the future`
             : `Fetch METAR / TAF weather information, ${shortcutString("m")}`;
     }
     /**
@@ -106,11 +106,11 @@ export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent
     }
     isButtonDisabled(state) {
         const date = this.getDate(state);
-        const fourWeeksAgo = new Date();
-        fourWeeksAgo.setDate(fourWeeksAgo.getDate() - MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST);
+        const pastDate = new Date();
+        pastDate.setDate(pastDate.getDate() - MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST);
         const futureDate = new Date();
-        futureDate.setDate(futureDate.getDate() + MetarImportWebComponent.TAF_FETCH_LIMIT_DAYS_FUTURE);
-        if (date < fourWeeksAgo || date > futureDate) {
+        futureDate.setHours(futureDate.getHours() + MetarImportWebComponent.TAF_FETCH_LIMIT_HOURS_FUTURE);
+        if (date < pastDate || date > futureDate) {
             return true;
         }
         return !state.route.departureAirportCode && !state.route.destinationAirportCode;

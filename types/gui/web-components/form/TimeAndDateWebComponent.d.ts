@@ -10,8 +10,10 @@ export declare class TimeAndDateWebComponent extends AbstractStateSubscriberWebC
     private elements;
     private initialize;
     get state(): TimeAndDateWebComponentState;
+    get utcDate(): Date;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private checkWarning;
     private handleChange;
     private setLocalFromUtc;
     private setUtcFromLocal;

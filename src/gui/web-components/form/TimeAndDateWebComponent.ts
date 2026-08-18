@@ -73,6 +73,10 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         };
     }
 
+    get utcDate() {
+        return new Date(this.elements.dateUtc.value + "T" + this.elements.timeUtc.value + "Z");
+    }
+
     connectedCallback() {
         if (!this.isInitialized) {
             this.initialize();
@@ -94,6 +98,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
                 (state.dateTime.local.timeZoneOffset_h >= 0 ? "+" : "") + state.dateTime.local.timeZoneOffset_h;
             this.elements.dateLocal.value = state.dateTime.local.date;
             this.elements.timeLocal.value = state.dateTime.local.time;
+            this.checkWarning();
         });
 
         this.addEventListener("input", this.handleChange);
@@ -115,12 +120,23 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         }
     }
 
+    private checkWarning() {
+        const now = new Date();
+        const hasWarning = this.utcDate > now;
+        const warningClass = "input-warning";
+        this.elements.dateUtc.classList.toggle(warningClass, hasWarning);
+        this.elements.timeUtc.classList.toggle(warningClass, hasWarning);
+        this.elements.dateLocal.classList.toggle(warningClass, hasWarning);
+        this.elements.timeLocal.classList.toggle(warningClass, hasWarning);
+    }
+
     private handleChange = () => {
+        this.checkWarning();
         sendToMain("date-time:set", this.state);
     };
 
     private setLocalFromUtc = () => {
-        const d = new Date(this.elements.dateUtc.value + "T" + this.elements.timeUtc.value + "Z");
+        const d = this.utcDate;
         d.setUTCHours(d.getUTCHours() + Number(this.elements.timeZoneLocal.dataset.value ?? "0"));
         this.elements.timeLocal.value = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
         this.elements.dateLocal.value =

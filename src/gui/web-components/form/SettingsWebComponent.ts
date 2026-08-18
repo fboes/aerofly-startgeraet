@@ -15,14 +15,12 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         mainMcfFilePath: HTMLInputElement;
         mainMcfFilePathChooser: HTMLButtonElement;
         theme: HTMLSelectElement;
-        // syncTimeOnStartup
     };
 
     get state(): SettingsWebComponentState {
         return {
             mainMcfFilePath: this.elements.mainMcfFilePath.value,
             theme: this.elements.theme.value as ConfigTheme,
-            // syncTimeOnStartup: this.elements.syncTimeOnStartup.value,
         };
     }
 
@@ -32,27 +30,27 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 </startgeraet-icon></button>
 
 <dialog id="dialog-settings" closedby="any">
-  <h2>Settings</h2>
+    <h2>Settings</h2>
 
-  <section>
-    <div class="form-group">
-        <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
-        <span class="d-flex">
-            <input id="settings-mainmcffilepath" type="text" required />
-            <button id="choose-mainmcffilepath">Choose</button>
-        </span>
-    </div>
-    <div class="form-group">
-        <label for="settings-theme">Theme</label>
-        <select id="settings-theme">
-            <option value="system">System settings</option>
-            <option value="light">Light mode</option>
-            <option value="dark">Dark mode</option>
-        </select>
-    </div>
-  </section>
+    <section>
+        <div class="form-group">
+            <label for="settings-mainmcffilepath"><code>main.mcf</code> file path</label>
+            <span class="d-flex">
+                <input id="settings-mainmcffilepath" type="text" required />
+                <button id="choose-mainmcffilepath">Choose</button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="settings-theme">Theme</label>
+            <select id="settings-theme">
+                <option value="system">System settings</option>
+                <option value="light">Light mode</option>
+                <option value="dark">Dark mode</option>
+            </select>
+        </div>
+    </section>
 
-  <button commandfor="dialog-settings" command="close" title="Close">✕</button>
+    <button commandfor="dialog-settings" command="close" title="Close">✕</button>
 </dialog>
         `;
 
@@ -60,7 +58,6 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath") as HTMLInputElement,
             mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath") as HTMLButtonElement,
             theme: this.querySelector("#settings-theme") as HTMLSelectElement,
-            // syncTimeOnStartup
         };
     }
 
@@ -72,7 +69,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
 
         this.subscribeToStateUpdates((state) => {
             this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
-            // syncTimeOnStartup
+            this.elements.theme.value = state.config.theme ?? "system";
         });
 
         this.addEventListener("input", this.handleChange);

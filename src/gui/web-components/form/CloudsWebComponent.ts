@@ -61,8 +61,8 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
     <thead>
         <tr>
             <th>#</th>
-            <th>Base</th>
-            <th>Cover</th>
+            <th>Base altitude</th>
+            <th>Cloud cover</th>
         </tr>
     </thead>
     <tbody>
