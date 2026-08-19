@@ -28,8 +28,8 @@ export class Config {
     setBoolean(key, value) {
         this.conf.set(key, value);
     }
-    getNumber(key) {
-        return Number(this.conf.get(key, 0));
+    getNumber(key, defaultValue = 0) {
+        return Number(this.conf.get(key, defaultValue));
     }
     setNumber(key, value) {
         this.conf.set(key, value);
@@ -114,6 +114,30 @@ export class Config {
     set theme(theme) {
         this.set("theme", theme.trim());
     }
+    get windowWidth() {
+        return this.getNumber("window.width", 960);
+    }
+    set windowWidth(windowWidth) {
+        this.setNumber("window.width", windowWidth);
+    }
+    get windowHeight() {
+        return this.getNumber("window.height", 755);
+    }
+    set windowHeight(windowHeight) {
+        this.setNumber("window.height", windowHeight);
+    }
+    get windowX() {
+        return this.getNumber("window.x");
+    }
+    set windowX(windowX) {
+        this.setNumber("window.x", windowX);
+    }
+    get windowY() {
+        return this.getNumber("window.y");
+    }
+    set windowY(windowY) {
+        this.setNumber("window.y", windowY);
+    }
     /**
      * @returns if a sufficient cool down has occured after last update check
      */
@@ -123,7 +147,8 @@ export class Config {
         return thresholdDate > this.lastUpdateCheck;
     }
     toJSON() {
-        return {
+        return this.conf.store;
+        /*return {
             mainMcfFilePath: this.mainMcfFilePath,
             simBriefUserName: this.simBriefUserName,
             useSimBriefWeather: this.useSimBriefWeather,
@@ -132,6 +157,12 @@ export class Config {
             syncTimeOnStartup: this.syncTimeOnStartup,
             theme: this.theme,
             lastUpdateCheck: this.lastUpdateCheck,
-        };
+            window: {
+                width: this.windowWidth,
+                height: this.windowHeight,
+                x: this.windowX,
+                y: this.windowY,
+            },
+        };*/
     }
 }

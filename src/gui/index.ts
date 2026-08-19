@@ -4,14 +4,14 @@ import { AeroflyFlightServiceHandler } from "./handler/AeroflyFlightServiceHandl
 import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircraftHandlers.js";
 import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
 import { IMPORT_FILE_TYPES } from "../core/io/importFlightplan.js";
+import { getWindowState, storeWindowState } from "./handler/windowState.js";
 
 let fileToOpen: string | null = null;
 
 const createWindow = () => {
     const rootDir = path.join(import.meta.dirname, "../..");
     const win = new BrowserWindow({
-        width: 960,
-        height: 755,
+        ...getWindowState(),
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),
@@ -53,6 +53,7 @@ const createWindow = () => {
 
     win.on("close", () => {
         aeroflyFlightServiceHandler.onClose();
+        storeWindowState(win);
     });
 };
 

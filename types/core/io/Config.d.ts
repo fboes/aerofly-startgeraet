@@ -1,4 +1,20 @@
 export type ConfigTheme = "system" | "light" | "dark";
+export type ConfigData = {
+    mainMcfFilePath: string | null;
+    simBriefUserName: string;
+    useSimBriefWeather: number;
+    importDirectory: string;
+    exportDirectory: string;
+    syncTimeOnStartup: boolean;
+    theme: ConfigTheme;
+    lastUpdateCheck: Date;
+    window: {
+        width: number;
+        height: number;
+        x: number;
+        y: number;
+    };
+};
 /**
  * Main application configuration. Includes configuration properties
  * as well as persistence handler.
@@ -14,7 +30,7 @@ export declare class Config {
     protected set(key: string, value: string | number): void;
     protected getBoolean(key: string): boolean;
     protected setBoolean(key: string, value: boolean): void;
-    protected getNumber(key: string): number;
+    protected getNumber(key: string, defaultValue?: number): number;
     protected setNumber(key: string, value: number): void;
     protected getDate(key: string): Date;
     protected setDate(key: string, value: Date): void;
@@ -47,19 +63,18 @@ export declare class Config {
     set lastUpdateCheck(d: Date);
     get theme(): ConfigTheme;
     set theme(theme: ConfigTheme);
+    get windowWidth(): number;
+    set windowWidth(windowWidth: number);
+    get windowHeight(): number;
+    set windowHeight(windowHeight: number);
+    get windowX(): number;
+    set windowX(windowX: number);
+    get windowY(): number;
+    set windowY(windowY: number);
     /**
      * @returns if a sufficient cool down has occured after last update check
      */
     isUpdateCheckNeeded(cooldownHours?: number): boolean;
-    toJSON(): {
-        mainMcfFilePath: string | null;
-        simBriefUserName: string;
-        useSimBriefWeather: number;
-        importDirectory: string;
-        exportDirectory: string;
-        syncTimeOnStartup: boolean;
-        theme: ConfigTheme;
-        lastUpdateCheck: Date;
-    };
+    toJSON(): ConfigData;
 }
 //# sourceMappingURL=Config.d.ts.map

@@ -6,6 +6,23 @@ import fs from "fs";
 
 export type ConfigTheme = "system" | "light" | "dark";
 
+export type ConfigData = {
+    mainMcfFilePath: string | null;
+    simBriefUserName: string;
+    useSimBriefWeather: number;
+    importDirectory: string;
+    exportDirectory: string;
+    syncTimeOnStartup: boolean;
+    theme: ConfigTheme;
+    lastUpdateCheck: Date;
+    window: {
+        width: number;
+        height: number;
+        x: number;
+        y: number;
+    };
+};
+
 /**
  * Main application configuration. Includes configuration properties
  * as well as persistence handler.
@@ -37,8 +54,8 @@ export class Config {
         this.conf.set(key, value);
     }
 
-    protected getNumber(key: string): number {
-        return Number(this.conf.get(key, 0));
+    protected getNumber(key: string, defaultValue: number = 0): number {
+        return Number(this.conf.get(key, defaultValue));
     }
 
     protected setNumber(key: string, value: number): void {
@@ -156,6 +173,38 @@ export class Config {
         this.set("theme", theme.trim());
     }
 
+    get windowWidth(): number {
+        return this.getNumber("window.width", 960);
+    }
+
+    set windowWidth(windowWidth) {
+        this.setNumber("window.width", windowWidth);
+    }
+
+    get windowHeight(): number {
+        return this.getNumber("window.height", 755);
+    }
+
+    set windowHeight(windowHeight) {
+        this.setNumber("window.height", windowHeight);
+    }
+
+    get windowX(): number {
+        return this.getNumber("window.x");
+    }
+
+    set windowX(windowX) {
+        this.setNumber("window.x", windowX);
+    }
+
+    get windowY(): number {
+        return this.getNumber("window.y");
+    }
+
+    set windowY(windowY) {
+        this.setNumber("window.y", windowY);
+    }
+
     /**
      * @returns if a sufficient cool down has occured after last update check
      */
@@ -165,8 +214,9 @@ export class Config {
         return thresholdDate > this.lastUpdateCheck;
     }
 
-    toJSON() {
-        return {
+    toJSON(): ConfigData {
+        return this.conf.store as ConfigData;
+        /*return {
             mainMcfFilePath: this.mainMcfFilePath,
             simBriefUserName: this.simBriefUserName,
             useSimBriefWeather: this.useSimBriefWeather,
@@ -175,6 +225,12 @@ export class Config {
             syncTimeOnStartup: this.syncTimeOnStartup,
             theme: this.theme,
             lastUpdateCheck: this.lastUpdateCheck,
-        };
+            window: {
+                width: this.windowWidth,
+                height: this.windowHeight,
+                x: this.windowX,
+                y: this.windowY,
+            },
+        };*/
     }
 }
