@@ -14,6 +14,7 @@ export type ConfigData = {
         x: number;
         y: number;
     };
+    fontSizePercent: number;
 };
 /**
  * Main application configuration. Includes configuration properties
@@ -71,6 +72,8 @@ export declare class Config {
     set windowX(windowX: number);
     get windowY(): number;
     set windowY(windowY: number);
+    get fontSizePercent(): number;
+    set fontSizePercent(fontSizePercent: number);
     /**
      * @returns if a sufficient cool down has occured after last update check
      */

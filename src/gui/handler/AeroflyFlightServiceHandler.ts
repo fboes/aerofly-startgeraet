@@ -87,6 +87,7 @@ export class AeroflyFlightServiceHandler {
             this.service.config.mainMcfFilePath = config.mainMcfFilePath;
             this.service.config.theme = config.theme;
             nativeTheme.themeSource = config.theme;
+            this.service.config.fontSizePercent = config.fontSizePercent;
             this.sendStateUpdate();
         });
 

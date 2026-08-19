@@ -21,6 +21,7 @@ export type ConfigData = {
         x: number;
         y: number;
     };
+    fontSizePercent: number;
 };
 
 /**
@@ -205,6 +206,14 @@ export class Config {
         this.setNumber("window.y", windowY);
     }
 
+    get fontSizePercent(): number {
+        return this.getNumber("fontSizePercent", 93.75);
+    }
+
+    set fontSizePercent(fontSizePercent) {
+        this.setNumber("fontSizePercent", fontSizePercent);
+    }
+
     /**
      * @returns if a sufficient cool down has occured after last update check
      */
@@ -216,21 +225,5 @@ export class Config {
 
     toJSON(): ConfigData {
         return this.conf.store as ConfigData;
-        /*return {
-            mainMcfFilePath: this.mainMcfFilePath,
-            simBriefUserName: this.simBriefUserName,
-            useSimBriefWeather: this.useSimBriefWeather,
-            importDirectory: this.importDirectory,
-            exportDirectory: this.exportDirectory,
-            syncTimeOnStartup: this.syncTimeOnStartup,
-            theme: this.theme,
-            lastUpdateCheck: this.lastUpdateCheck,
-            window: {
-                width: this.windowWidth,
-                height: this.windowHeight,
-                x: this.windowX,
-                y: this.windowY,
-            },
-        };*/
     }
 }

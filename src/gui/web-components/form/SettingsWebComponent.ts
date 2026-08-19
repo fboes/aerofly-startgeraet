@@ -6,6 +6,7 @@ import type { ConfigTheme } from "../../../core/io/Config.js";
 export type SettingsWebComponentState = {
     mainMcfFilePath: string;
     theme: ConfigTheme;
+    fontSizePercent: number;
 };
 
 export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
@@ -15,12 +16,14 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         mainMcfFilePath: HTMLInputElement;
         mainMcfFilePathChooser: HTMLButtonElement;
         theme: HTMLSelectElement;
+        fontSizePercent: HTMLSelectElement;
     };
 
     get state(): SettingsWebComponentState {
         return {
             mainMcfFilePath: this.elements.mainMcfFilePath.value,
             theme: this.elements.theme.value as ConfigTheme,
+            fontSizePercent: Number(this.elements.fontSizePercent.value),
         };
     }
 
@@ -48,6 +51,14 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
                 <option value="dark">Dark mode</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="settings-fontsizepercent">Font Size</label>
+            <select id="settings-fontsizepercent">
+                <option value="87.5">Small</option>
+                <option value="93.75">Medium</option>
+                <option value="100">Large</option>
+            </select>
+        </div>
     </section>
 
     <button commandfor="dialog-settings" command="close" title="Close">✕</button>
@@ -58,6 +69,7 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
             mainMcfFilePath: this.querySelector("#settings-mainmcffilepath") as HTMLInputElement,
             mainMcfFilePathChooser: this.querySelector("#choose-mainmcffilepath") as HTMLButtonElement,
             theme: this.querySelector("#settings-theme") as HTMLSelectElement,
+            fontSizePercent: this.querySelector("#settings-fontsizepercent") as HTMLSelectElement,
         };
     }
 
@@ -70,6 +82,10 @@ export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
         this.subscribeToStateUpdates((state) => {
             this.elements.mainMcfFilePath.value = state.config.mainMcfFilePath ?? "";
             this.elements.theme.value = state.config.theme ?? "system";
+
+            const fontSize = state.config.fontSizePercent ?? 93.75;
+            this.elements.fontSizePercent.value = fontSize.toString();
+            document.documentElement.style.fontSize = `${fontSize}%`;
         });
 
         this.addEventListener("input", this.handleChange);

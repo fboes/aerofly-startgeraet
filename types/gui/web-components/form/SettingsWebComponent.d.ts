@@ -3,6 +3,7 @@ import type { ConfigTheme } from "../../../core/io/Config.js";
 export type SettingsWebComponentState = {
     mainMcfFilePath: string;
     theme: ConfigTheme;
+    fontSizePercent: number;
 };
 export declare class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized;
