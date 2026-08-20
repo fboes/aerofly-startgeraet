@@ -1,17 +1,17 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import * as ApplicationService from "./getApplicationInformation.js";
+import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
 
 describe("ApplicationService", () => {
     it("should return static strings", () => {
-        assert.ok(ApplicationService.getApplicationName());
-        assert.ok(ApplicationService.getApplicationVersion());
-        assert.ok(ApplicationService.getApplicationNameVersion());
-        assert.ok(ApplicationService.getApplicationDescription());
+        assert.ok(APPLICATION_INFORMATION.name);
+        assert.ok(APPLICATION_INFORMATION.version);
+        assert.ok(APPLICATION_INFORMATION.nameVersion);
+        assert.ok(APPLICATION_INFORMATION.description);
     });
 
     it("should convert to JSON", () => {
-        const json = ApplicationService.getApplicationJSON();
+        const json = APPLICATION_INFORMATION;
 
         assert.ok(json.name);
         assert.ok(json.version);
@@ -19,7 +19,7 @@ describe("ApplicationService", () => {
     });
 
     it("should create a slug", () => {
-        const slug = ApplicationService.getApplicationSlug();
+        const slug = APPLICATION_INFORMATION.slug;
         assert.strictEqual("aerofly-startgeraet", slug);
     });
 });

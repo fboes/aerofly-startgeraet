@@ -6,6 +6,7 @@ import { RoutePlanService } from "../../services/RoutePlanService.js";
 import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
 import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
 import { SkyVectorUrl } from "../../data/SkyVectorUrl.js";
+import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
 export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConverter {
     static fileName = "Markdown Text File";
     static fileExtension = "md";
@@ -117,6 +118,9 @@ ${markdownTable([
 `;
     }
     numericOutput(value, unit = "", minimumFractionDigits = 0) {
-        return (Intl.NumberFormat("en-US", { minimumFractionDigits, maximumFractionDigits: minimumFractionDigits }).format(value) + unit);
+        return (Intl.NumberFormat(APPLICATION_INFORMATION.locale, {
+            minimumFractionDigits,
+            maximumFractionDigits: minimumFractionDigits,
+        }).format(value) + unit);
     }
 }

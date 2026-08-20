@@ -55,7 +55,7 @@ export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponen
         if (value === undefined) {
             return "---";
         }
-        return new Intl.NumberFormat("en-US", {
+        return new Intl.NumberFormat(document.documentElement.lang, {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
         }).format(value);

@@ -193,7 +193,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     };
 
     private numberFormat(value: number): string {
-        return new Intl.NumberFormat("en-US", {
+        return new Intl.NumberFormat(document.documentElement.lang, {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
         }).format(value);

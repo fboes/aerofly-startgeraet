@@ -1,5 +1,5 @@
 import { styleText } from "node:util";
-import { getApplicationNameVersion } from "../../core/services/getApplicationInformation.js";
+import { APPLICATION_INFORMATION } from "../../core/services/getApplicationInformation.js";
 
 /**
  * Helper class to write styled messages to the console.
@@ -21,5 +21,5 @@ export function writeCatch(error: unknown) {
 }
 
 export function writeMenuTitle(titles: string[] = []) {
-    process.stdout.write([getApplicationNameVersion(), ...titles].join(" → ") + "\n");
+    process.stdout.write([APPLICATION_INFORMATION.nameVersion, ...titles].join(" → ") + "\n");
 }

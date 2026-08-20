@@ -31,6 +31,7 @@ export class HeaderWebComponent extends HTMLElement {
         this.elements.title.textContent = appInfo.name;
         this.elements.version.textContent = appInfo.version;
         this.elements.version.href = appInfo.github.releaseUrl;
+        document.documentElement.lang = appInfo.locale;
     }
     async getUpdateInformation() {
         const response = await sendToMain("update:get-information");

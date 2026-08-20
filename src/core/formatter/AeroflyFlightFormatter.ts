@@ -13,6 +13,7 @@ import {
     getLocalTimeAndDate,
     getFlightCategory,
 } from "../util/AeroflyFlightHelper.js";
+import { APPLICATION_INFORMATION } from "../services/getApplicationInformation.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";
 
@@ -177,7 +178,7 @@ export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightF
 }
 
 export function numberToString(num: number): string {
-    return new Intl.NumberFormat("en-US").format(Math.round(num));
+    return new Intl.NumberFormat(APPLICATION_INFORMATION.locale).format(Math.round(num));
 }
 
 export function dateToString(date: Date): string {

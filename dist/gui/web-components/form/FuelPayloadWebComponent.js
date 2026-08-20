@@ -135,7 +135,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
         sendToMain("fuel-payload:set", this.state);
     };
     numberFormat(value) {
-        return new Intl.NumberFormat("en-US", {
+        return new Intl.NumberFormat(document.documentElement.lang, {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
         }).format(value);

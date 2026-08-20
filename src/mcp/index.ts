@@ -2,16 +2,16 @@
 
 import { StdioServerTransport } from "@modelcontextprotocol/server/stdio";
 import { McpServer } from "@modelcontextprotocol/server";
-import * as ApplicationService from "../core/services/getApplicationInformation.js";
 import { Config } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import { registerResourceHandlers } from "./registry/registerResourceHandlers.js";
 import { registerFlightHandlers, TOOL_GET_FLIGHT, TOOL_SAVE_FLIGHT } from "./registry/registerFlightHandlers.js";
 import { registerConfigurationHandlers, TOOL_SET_CONFIG } from "./registry/registerConfigurationHandlers.js";
+import { APPLICATION_INFORMATION } from "../core/services/getApplicationInformation.js";
 
 const server = new McpServer({
-    name: ApplicationService.getApplicationSlug(),
-    version: ApplicationService.getApplicationVersion(),
+    name: APPLICATION_INFORMATION.slug,
+    version: APPLICATION_INFORMATION.version,
     description: `\
 Flight plan and mission generator for Aerofly FS 4. This MCP server provides functionality to get the current state of the Aerofly FS 4 main configuration file \`main.mcf\`, adds tools to change these settings, and provides data sources for airports, aircraft and aircraft liveries.
 - Always call \`${TOOL_GET_FLIGHT}\` as the first step to read the initial state of \`main.mcf\` to the MCP server.
@@ -27,7 +27,7 @@ try {
     flightService.readMainMcf();
 } catch (e) {
     process.stderr.write(
-        `[${ApplicationService.getApplicationSlug()}] Configuration incomplete: ${e instanceof Error ? e.message : "Unknown error"} - please call \`${TOOL_SET_CONFIG}\`\n`,
+        `[${APPLICATION_INFORMATION.slug}] Configuration incomplete: ${e instanceof Error ? e.message : "Unknown error"} - please call \`${TOOL_SET_CONFIG}\`\n`,
     );
 }
 

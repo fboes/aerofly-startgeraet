@@ -1,4 +1,4 @@
-import type { ApplicationJSON } from "../../../core/services/getApplicationInformation.js";
+import type { ApplicationInformation } from "../../../core/services/getApplicationInformation.js";
 import type { GithubReleaseApiPayload } from "../../../core/services/UpdateCheckService.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
@@ -39,11 +39,12 @@ export class HeaderWebComponent extends HTMLElement {
             setTimeout(() => this.getUpdateInformation(), 2_000);
         }
 
-        const appInfo = await sendToMain<ApplicationJSON>("application:get-information");
+        const appInfo = await sendToMain<ApplicationInformation>("application:get-information");
 
         this.elements.title.textContent = appInfo.name;
         this.elements.version.textContent = appInfo.version;
         this.elements.version.href = appInfo.github.releaseUrl;
+        document.documentElement.lang = appInfo.locale;
     }
 
     async getUpdateInformation() {
