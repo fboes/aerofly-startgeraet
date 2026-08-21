@@ -1,8 +1,0 @@
-import { type AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
-export declare class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFlightToStringConverter {
-    static readonly fileName = "Aerofly Custom Missions";
-    static readonly fileExtension = "tmc";
-    convert(flightplan: AeroflyFlight): string;
-}
-//# sourceMappingURL=AeroflyFlightToAeroflyCustomMissionsTmcConverter.d.ts.map

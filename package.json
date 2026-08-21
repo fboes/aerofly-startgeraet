@@ -62,7 +62,6 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1"
   },
-  "types": "./types/index.d.ts",
   "dependencies": {
     "@fboes/aerofly-custom-missions": "^1.6.0",
     "@fboes/aerofly-data": "^1.5.0",

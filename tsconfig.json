@@ -11,9 +11,6 @@
     "newLine": "LF",
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "declarationMap": true,
-    "declaration": true,
-    "declarationDir": "./types",
     "resolveJsonModule": true,
     "types": ["node"],
     "verbatimModuleSyntax": true
