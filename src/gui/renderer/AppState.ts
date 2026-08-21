@@ -6,6 +6,7 @@ import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import type { Config } from "../../core/io/Config.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
+import { getSunPositionName } from "../../core/formatter/AeroflyFlightFormatter.js";
 
 export class AppState {
     readonly dateTime: {
@@ -18,6 +19,7 @@ export class AppState {
             date: string;
             time: string;
             timeZoneOffset_h: number;
+            sunPosition: string;
         };
     };
 
@@ -70,6 +72,7 @@ export class AppState {
     protected getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);
         const timeZoneOffset_h = AeroflyFlightHelper.getLocalTimeZoneOffset(this.aeroflyFlight);
+        const sunPosition = getSunPositionName(this.aeroflyFlight);
 
         return {
             utc: {
@@ -79,6 +82,7 @@ export class AppState {
             local: {
                 ...this.formatDateTime(localTime),
                 timeZoneOffset_h,
+                sunPosition,
             },
         };
     }

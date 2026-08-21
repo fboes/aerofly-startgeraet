@@ -1,5 +1,5 @@
 import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
-import { dateToString, getClouds, getFlightplanDestinationName, getFlightplanOriginCode, getFlightplanOriginName, getHourString, getMinuteString, getTemperature, getVisibility, getWind, } from "../../formatter/AeroflyFlightFormatter.js";
+import { dateToString, getClouds, getFlightplanDestinationName, getFlightplanOriginCode, getFlightplanOriginName, getHourString, getMinuteString, getSunPositionName, getTemperature, getVisibility, getWind, } from "../../formatter/AeroflyFlightFormatter.js";
 import { markdownTable } from "../../formatter/markdownTable.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
@@ -54,11 +54,17 @@ ${markdownTable([
 ## Departure time & date
 
 ${markdownTable([
-            ["Timezone", "Date", "Time"],
-            ["---", "--:", "---:"],
-            ["UTC", ...dateToString(flightplan.timeUtc.time).split(" ")],
-            [getFlightplanOriginCode(flightplan), ...dateToString(getLocalTimeAndDate(flightplan)).split(" ")],
+            ["Timezone", "Date", "Time", "Remark"],
+            ["---", "--:", "---:", "------"],
+            ["UTC", ...dateToString(flightplan.timeUtc.time).split(" "), ""],
+            [
+                getFlightplanOriginCode(flightplan) + "¹",
+                ...dateToString(getLocalTimeAndDate(flightplan)).split(" "),
+                getSunPositionName(flightplan),
+            ],
         ])}
+
+- ¹) Nautical time zone
 `;
     }
     getWeatherSummary(flightplan) {
@@ -91,7 +97,7 @@ ${markdownTable([
 ## Flight details
 
 ${markdownTable([
-            ["From", "To", "Freq¹", "Altitude¹", "Track", "HDG", "GS", "Dist", "ETE²", "ETO²"],
+            ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "GS", "Dist", "ETE³", "ETO³"],
             ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
             ...routeLegs.map((l) => [
                 l.from,
@@ -113,8 +119,8 @@ ${markdownTable([
 - [Skyvector: ${getFlightplanDestinationName(flightplan)}](${skyvector.getDestinationURL().toString()})
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 
-- ¹) Value for "To" waypoint
-- ²) Duration in ${timeFunction === getMinuteString ? "mm:ss" : "hh:mm"}
+- ²) Value for "To" waypoint
+- ³) Duration in ${timeFunction === getMinuteString ? "mm:ss" : "hh:mm"}
 `;
     }
     numericOutput(value, unit = "", minimumFractionDigits = 0) {

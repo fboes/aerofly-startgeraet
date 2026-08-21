@@ -2,6 +2,7 @@ import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { RoutePlanService } from "../../core/services/RoutePlanService.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
+import { getSunPositionName } from "../../core/formatter/AeroflyFlightFormatter.js";
 export class AppState {
     aeroflyFlight;
     aircraftData;
@@ -29,6 +30,7 @@ export class AppState {
     getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);
         const timeZoneOffset_h = AeroflyFlightHelper.getLocalTimeZoneOffset(this.aeroflyFlight);
+        const sunPosition = getSunPositionName(this.aeroflyFlight);
         return {
             utc: {
                 ...this.formatDateTime(this.aeroflyFlight.timeUtc.time),
@@ -37,6 +39,7 @@ export class AppState {
             local: {
                 ...this.formatDateTime(localTime),
                 timeZoneOffset_h,
+                sunPosition,
             },
         };
     }

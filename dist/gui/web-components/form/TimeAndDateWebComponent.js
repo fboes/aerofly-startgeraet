@@ -74,6 +74,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
                 (state.dateTime.local.timeZoneOffset_h >= 0 ? "+" : "") + state.dateTime.local.timeZoneOffset_h;
             this.elements.dateLocal.value = state.dateTime.local.date;
             this.elements.timeLocal.value = state.dateTime.local.time;
+            this.elements.timeLocal.title = state.dateTime.local.sunPosition;
             this.checkWarning();
         });
         this.addEventListener("input", this.handleChange);

@@ -7,15 +7,10 @@ import {
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAircraft.js";
 import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
-import {
-    getIcaoFlightCategory,
-    getSunPosition,
-    getLocalTimeAndDate,
-    getFlightCategory,
-} from "../util/AeroflyFlightHelper.js";
+import { getIcaoFlightCategory, getSunPosition, getFlightCategory } from "../util/AeroflyFlightHelper.js";
 import { APPLICATION_INFORMATION } from "../services/getApplicationInformation.js";
 
-export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Dusk" | "Dawn";
+export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Twilight";
 
 /**
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
@@ -164,17 +159,22 @@ export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
     );
 }
 
+/**
+ *
+ * @param aeroflyFlight
+ * @returns the civil sun position
+ */
 export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
     const solarElevationAngleDeg = getSunPosition(aeroflyFlight).elevation;
-    const localTime = getLocalTimeAndDate(aeroflyFlight);
 
     if (solarElevationAngleDeg >= 0) {
         return "Day";
-    } else if (solarElevationAngleDeg <= -6) {
-        return "Night";
+    }
+    if (solarElevationAngleDeg >= -6) {
+        return "Twilight";
     }
 
-    return localTime.getHours() < 12 ? "Dusk" : "Dawn";
+    return "Night";
 }
 
 export function numberToString(num: number): string {
