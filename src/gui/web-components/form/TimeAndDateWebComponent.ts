@@ -2,6 +2,8 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import type { IconWebComponent } from "../util/IconWebComponent.js";
+import type { AeroflyFlightFormatterSunPosition } from "../../../core/formatter/AeroflyFlightFormatter.js";
 
 export type TimeAndDateWebComponentState = {
     utcDate: string; // YYYY-MM-DD
@@ -20,6 +22,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         timeLocal: HTMLInputElement;
         timeZoneLocal: HTMLElement;
         nowButton: HTMLButtonElement;
+        sunPosition: IconWebComponent;
     };
 
     private initialize() {
@@ -50,7 +53,10 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         Local (<span id="timezone-local" data-value="0" title="Nautical time">0</span>)<sup></sup>
       </th>
       <td><input id="date-local" title="Date (Local)" type="date" value="2026-01-01" /></td>
-      <td><input id="time-local" title="Time (Local)" type="time" value="00:00" /></td>
+      <td>
+        <input id="time-local" title="Time (Local)" type="time" value="00:00" />
+        <startgeraet-icon icon="sun" title="Day" id="sun-position"></startgeraet-icon>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -63,6 +69,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
             timeLocal: this.querySelector("#time-local") as HTMLInputElement,
             timeZoneLocal: this.querySelector("#timezone-local") as HTMLElement,
             nowButton: this.querySelector("#synchronize-time") as HTMLButtonElement,
+            sunPosition: this.querySelector("#sun-position") as IconWebComponent,
         };
     }
 
@@ -98,12 +105,28 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
                 (state.dateTime.local.timeZoneOffset_h >= 0 ? "+" : "") + state.dateTime.local.timeZoneOffset_h;
             this.elements.dateLocal.value = state.dateTime.local.date;
             this.elements.timeLocal.value = state.dateTime.local.time;
-            this.elements.timeLocal.title = state.dateTime.local.sunPosition;
+
+            // Sun Position
+            this.elements.sunPosition.title = state.dateTime.local.sunPosition;
+            this.elements.sunPosition.icon = this.convertSunPositionToIcon(state.dateTime.local.sunPosition);
+            this.elements.sunPosition.classList.toggle("has-warning", state.dateTime.local.sunPosition === "Twilight");
+            this.elements.sunPosition.classList.toggle("has-info", state.dateTime.local.sunPosition === "Night");
+
             this.checkWarning();
         });
 
         this.addEventListener("input", this.handleChange);
         this.shortcut = registerShortcut(this.shortcutKey, this.setNow);
+    }
+    convertSunPositionToIcon(sunPosition: AeroflyFlightFormatterSunPosition): string {
+        switch (sunPosition) {
+            case "Day":
+                return "sun";
+            case "Twilight":
+                return "sunset";
+            case "Night":
+                return "moon";
+        }
     }
 
     disconnectedCallback(): void {

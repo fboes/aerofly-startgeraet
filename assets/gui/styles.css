@@ -136,6 +136,14 @@ abbr {
     padding-top: 1rem;
 }
 
+.has-warning {
+    color: var(--color-warning);
+}
+
+.has-info {
+    color: var(--color-highlight);
+}
+
 /* ----- Structure ---------------------------------------------------------- */
 
 [aria-role="region"] {

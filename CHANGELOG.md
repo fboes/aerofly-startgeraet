@@ -7,6 +7,7 @@
 - Startgerät will now fetch TAF instead of METAR if flight is happening in the future
 - Restoring windows size & position
 - Adding font size selector
+- Added sun position indicator to time selector
 
 ## [2.2.5] - 2026-08-15
 

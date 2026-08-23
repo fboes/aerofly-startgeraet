@@ -22,28 +22,7 @@ export class IconWebComponent extends HTMLElement {
         if (attributeName !== "icon" || oldValue === newValue) {
             return;
         }
-        const iconMap = {
-            //airplane: "✈️",
-            alarm: "⏰",
-            //check: "✓",
-            //clipboard: "📋", // metar
-            //"clipboard-check": "🛫", // flightplan
-            //clock: "🕑",
-            //"cloud-haze": "🌁",
-            //"cloud-sun": "⛅",
-            //clouds: "☁️",
-            compass: "🧭",
-            //folder: "📁",
-            //"fuel-pump": "⛽",
-            //gear: "⚙️",
-            //"hourglass-split": "⏳",
-            //info: "ℹ️",
-            //"thermometer-half": "🌡️",
-            //"three-dots-vertical": "⋮",
-            //wind: "🧭",
-            //"x": "✗",
-        };
-        this.innerHTML = iconMap[newValue] ?? this.getHtmlForSvg(newValue);
+        this.innerHTML = this.getHtmlForSvg(newValue);
     }
     getHtmlForSvg(icon) {
         const url = `./icons.svg#${icon}`;

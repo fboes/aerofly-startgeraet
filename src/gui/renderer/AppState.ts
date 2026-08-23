@@ -6,7 +6,10 @@ import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import type { Config } from "../../core/io/Config.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
-import { getSunPositionName } from "../../core/formatter/AeroflyFlightFormatter.js";
+import {
+    getSunPositionName,
+    type AeroflyFlightFormatterSunPosition,
+} from "../../core/formatter/AeroflyFlightFormatter.js";
 
 export class AppState {
     readonly dateTime: {
@@ -19,7 +22,7 @@ export class AppState {
             date: string;
             time: string;
             timeZoneOffset_h: number;
-            sunPosition: string;
+            sunPosition: AeroflyFlightFormatterSunPosition;
         };
     };
 
