@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-08-23
+
 - Improved GUI help texts
 - Fixed SimBrief cruise altitude import
 - Startgerät will now fetch TAF instead of METAR if flight is happening in the future

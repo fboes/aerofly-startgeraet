@@ -50,7 +50,7 @@ export function getCeiling(aeroflyFlight) {
     });
 }
 export function getSunPosition(aeroflyFlight) {
-    return SunPosition.calculateSunPosition(aeroflyFlight.timeUtc.timeHours, aeroflyFlight.timeUtc.time, aeroflyFlight.navigation.waypoints[0].latitude, aeroflyFlight.navigation.waypoints[0].longitude);
+    return SunPosition.calculateSunPosition(aeroflyFlight.timeUtc.timeHours, aeroflyFlight.timeUtc.time, aeroflyFlight.navigation.waypoints[0]?.latitude ?? aeroflyFlight.flightSetting.latitude, aeroflyFlight.navigation.waypoints[0]?.longitude ?? aeroflyFlight.flightSetting.longitude);
 }
 export function getLocalTimeAndDate(aeroflyFlight) {
     const departureTimeZoneOffset = getLocalTimeZoneOffset(aeroflyFlight) * 60;

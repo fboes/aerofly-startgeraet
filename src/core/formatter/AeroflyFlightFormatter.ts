@@ -81,6 +81,10 @@ export function getFlightplanSummary(aeroflyFlight: AeroflyFlight): string {
  * @returns
  */
 export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength = 0): string {
+    if (aeroflyFlight.navigation.waypoints.length === 0) {
+        return "No waypoints";
+    }
+
     const waypoints = (
         maxLength === 2
             ? [
