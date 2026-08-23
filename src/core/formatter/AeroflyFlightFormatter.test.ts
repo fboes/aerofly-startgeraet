@@ -12,7 +12,7 @@ describe("AeroflyFlightFormatter", () => {
             ["2026-06-21 12:00:00 UTC", "Day"],
             ["2026-06-21 18:00:00 UTC", "Day"],
             ["2026-06-21 23:00:00 UTC", "Day"],
-            ["2026-06-22 00:30:00 UTC", "Dawn"],
+            ["2026-06-22 00:30:00 UTC", "Twilight"],
             ["2026-06-22 06:00:00 UTC", "Night"],
         ]) {
             aeroflyFlight.timeUtc.time = new Date(testCase[0]);
