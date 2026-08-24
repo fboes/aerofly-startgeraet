@@ -85,16 +85,20 @@ export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength =
         return "No waypoints";
     }
 
-    const waypoints = (
-        maxLength === 2
-            ? [
-                  aeroflyFlight.navigation.waypoints[0],
-                  aeroflyFlight.navigation.waypoints[aeroflyFlight.navigation.waypoints.length - 1],
-              ]
-            : aeroflyFlight.navigation.waypoints
-    ).map((wp: AeroflyNavRouteBase): string => {
-        return wp.identifier;
-    });
+    const firstWaypoint = aeroflyFlight.navigation.waypoints[0];
+    if (!firstWaypoint) {
+        throw new Error("No first waypoint found");
+    }
+    const lastWaypoint = aeroflyFlight.navigation.waypoints[aeroflyFlight.navigation.waypoints.length - 1];
+    if (!lastWaypoint) {
+        throw new Error("No last waypoint found");
+    }
+
+    const waypoints = (maxLength === 2 ? [firstWaypoint, lastWaypoint] : aeroflyFlight.navigation.waypoints).map(
+        (wp: AeroflyNavRouteBase): string => {
+            return wp.identifier;
+        },
+    );
 
     if (maxLength > 2 && waypoints.length >= maxLength + 1) {
         waypoints.splice(1, waypoints.length - maxLength + 1, "…");

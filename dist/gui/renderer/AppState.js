@@ -44,10 +44,11 @@ export class AppState {
         };
     }
     formatDateTime(dateIn) {
-        const isoString = dateIn.toISOString().split("T");
-        const date = isoString[0];
-        const time = isoString[1].substring(0, 5);
-        return { date, time };
+        const [date, time] = dateIn.toISOString().split("T");
+        if (!date || !time) {
+            throw new Error(`Invalid date: ${dateIn}`);
+        }
+        return { date, time: time.substring(0, 5) };
     }
     getRoute() {
         const cruiseAltitude_ft = this.aeroflyFlight.navigation.cruiseAltitude_ft;

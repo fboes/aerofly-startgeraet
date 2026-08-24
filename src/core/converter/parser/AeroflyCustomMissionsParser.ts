@@ -119,11 +119,14 @@ export class AeroflyCustomMissionsParser {
     }
 
     private parseFlightSettings(mission: string): AeroflySettingsFlight {
-        const position = this.parser.getNumberArray(mission, "origin_lon_lat");
+        const [longitude, latitude] = this.parser.getNumberArray(mission, "origin_lon_lat");
+        if (longitude === undefined || latitude === undefined) {
+            throw new Error("Invalid origin coordinates");
+        }
 
         return new AeroflySettingsFlight(
-            position[0],
-            position[1],
+            longitude,
+            latitude,
             this.parser.getNumber(mission, "origin_alt"),
             this.parser.getNumber(mission, "origin_dir"),
         );

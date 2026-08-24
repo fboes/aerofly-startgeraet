@@ -14,8 +14,8 @@ export class AeroflyFileParser {
     }
 
     getValue(subject: string, propertyName: string, defaultValue: string = ""): string {
-        const match = subject.match(new RegExp("(?:\\]\\s*\\[" + propertyName + "\\]\\s*\\[)([^\\]]*)(?:\\])"));
-        return match ? match[1] : defaultValue;
+        const match = subject.match(new RegExp("(?:\\]\\s*\\[" + propertyName + "\\]\\s*\\[)([^\\]]*)(?:\\])"))?.[1];
+        return match ? match : defaultValue;
     }
 
     getBoolean(subject: string, propertyName: string): boolean {
@@ -29,7 +29,7 @@ export class AeroflyFileParser {
         );
         return match
             ? Array.from(match).map((m) => {
-                  return m[1];
+                  return m[1] ?? "";
               })
             : [];
     }

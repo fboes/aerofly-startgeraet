@@ -5,7 +5,7 @@ export class AviationWeatherApiAerofly extends AviationWeatherApi {
     async fetchMetarToFlight(airportCode: string, flight: AeroflyFlight): Promise<AeroflyFlight> {
         const weathers = await new AviationWeatherApi().fetchMetar([airportCode], flight.timeUtc.time);
 
-        if (!weathers.length) {
+        if (!weathers[0]) {
             throw new Error(`No METAR information found for "${airportCode}" on ${flight.timeUtc.time.toISOString()}`);
         }
         const weather = this.normalizeWeather(weathers[0]);
@@ -26,7 +26,7 @@ export class AviationWeatherApiAerofly extends AviationWeatherApi {
     async fetchTafToFlight(airportCode: string, flight: AeroflyFlight): Promise<AeroflyFlight> {
         const stations = await new AviationWeatherApi().fetchTaf([airportCode], flight.timeUtc.time);
 
-        if (!stations.length) {
+        if (!stations[0]) {
             throw new Error(`No TAF station found for "${airportCode}" on ${flight.timeUtc.time.toISOString()}`);
         }
 
@@ -38,6 +38,9 @@ export class AviationWeatherApiAerofly extends AviationWeatherApi {
         }
 
         const weather = weathers[0];
+        if (!weather) {
+            throw new Error(`No TAF forecast found for "${airportCode}" on ${flight.timeUtc.time.toISOString()}`);
+        }
 
         flight.clouds = weather.clouds.map((c) => {
             const cloud = AeroflySettingsCloud.createInFeet(0, c.base ?? 0);

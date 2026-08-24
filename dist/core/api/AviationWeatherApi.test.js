@@ -71,6 +71,9 @@ await describe("AviationWeatherApi", { skip: true }, async () => {
             assert.strictEqual(typeof tafStation.elev, "number", "tafStation.elev");
             assert.ok(Array.isArray(tafStation.fcsts), "tafStation.fcsts");
         });
+        if (!tafs[0]) {
+            throw new Error("No TAF station found for KEYW");
+        }
         const normalizedTafs = api.normalizeTaf(tafs[0]);
         assert.strictEqual(typeof normalizedTafs.lat, "number", "normalizedTafs.lat");
         assert.strictEqual(typeof normalizedTafs.lon, "number", "normalizedTafs.lon");

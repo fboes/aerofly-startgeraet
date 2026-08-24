@@ -53,8 +53,11 @@ export class AeroflyCustomMissionsParser {
         return AeroflyTimeUtc.createFromComponents(this.parser.getNumber(mission, "time_year"), this.parser.getNumber(mission, "time_month"), this.parser.getNumber(mission, "time_day"), this.parser.getNumber(mission, "time_hours"));
     }
     parseFlightSettings(mission) {
-        const position = this.parser.getNumberArray(mission, "origin_lon_lat");
-        return new AeroflySettingsFlight(position[0], position[1], this.parser.getNumber(mission, "origin_alt"), this.parser.getNumber(mission, "origin_dir"));
+        const [longitude, latitude] = this.parser.getNumberArray(mission, "origin_lon_lat");
+        if (longitude === undefined || latitude === undefined) {
+            throw new Error("Invalid origin coordinates");
+        }
+        return new AeroflySettingsFlight(longitude, latitude, this.parser.getNumber(mission, "origin_alt"), this.parser.getNumber(mission, "origin_dir"));
     }
     parseWaypoints(missionCheckpoints) {
         return missionCheckpoints

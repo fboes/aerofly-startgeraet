@@ -150,10 +150,10 @@ export class AviationWeatherApi {
             freqs: typeof airport.freqs !== "string"
                 ? airport.freqs
                 : airport.freqs.split(";").map((f) => {
-                    const parts = f.split(",");
+                    const [type, freq] = f.split(",");
                     return {
-                        type: parts[0],
-                        freq: parts[1] ? Number(parts[1]) : undefined,
+                        type: type ?? "",
+                        freq: freq ? Number(freq) : undefined,
                     };
                 }),
         };

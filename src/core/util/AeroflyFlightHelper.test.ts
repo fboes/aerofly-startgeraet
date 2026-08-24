@@ -15,9 +15,9 @@ describe("AeroflyFlightHelper", () => {
             AeroflySettingsCloud.createInFeet(0.9, 1500),
         ];
 
-        assert.strictEqual("SCT", aeroflyFlight.clouds[0].density_code);
-        assert.strictEqual("BKN", aeroflyFlight.clouds[1].density_code);
-        assert.strictEqual("OVC", aeroflyFlight.clouds[2].density_code);
+        assert.strictEqual("SCT", aeroflyFlight.clouds[0]?.density_code);
+        assert.strictEqual("BKN", aeroflyFlight.clouds[1]?.density_code);
+        assert.strictEqual("OVC", aeroflyFlight.clouds[2]?.density_code);
 
         assert.strictEqual(
             aeroflyFlight.clouds[2],

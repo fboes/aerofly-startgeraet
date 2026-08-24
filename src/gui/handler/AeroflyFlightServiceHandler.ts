@@ -209,7 +209,11 @@ export class AeroflyFlightServiceHandler {
         }
 
         try {
-            this.service.config.mainMcfFilePath = path.dirname(result.filePaths[0]);
+            const filepath = result.filePaths[0];
+            if (!filepath) {
+                return createNotificationPayload("No file selected", "error");
+            }
+            this.service.config.mainMcfFilePath = path.dirname(filepath);
             this.sendStateUpdate();
         } catch (error) {
             return createNotificationErrorPayload(error);
@@ -274,6 +278,9 @@ export class AeroflyFlightServiceHandler {
         }
 
         const filepath = result.filePaths[0];
+        if (!filepath) {
+            return createNotificationPayload("No file selected", "error");
+        }
 
         return this.importFlightplanFromFile(filepath);
     };

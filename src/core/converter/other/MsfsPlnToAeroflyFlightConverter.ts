@@ -127,19 +127,25 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
             );
         }
         const numbers = parts.map((p): number => {
-            const m = p.match(/([NSEW])(\d+)\D+(\d+)\D+([0-9.]+)/);
-            if (m) {
-                let b = this.parseNumberOrError(m[2], coordinate); // degree
-                b += this.parseNumberOrError(m[3], coordinate) / 60; // minutes
-                b += this.parseNumberOrError(m[4], coordinate) / 3600; // seconds
-                return m[1] === "S" || m[1] === "W" ? -b : b;
+            const [, direction, degrees, minutes, seconds] = p.match(/([NSEW])(\d+)\D+(\d+)\D+([0-9.]+)/) || [];
+            if (direction && degrees && minutes && seconds) {
+                let b = this.parseNumberOrError(degrees, coordinate); // degree
+                b += this.parseNumberOrError(minutes, coordinate) / 60; // minutes
+                b += this.parseNumberOrError(seconds, coordinate) / 3600; // seconds
+                return direction === "S" || direction === "W" ? -b : b;
             }
             return 0;
         });
 
+        const lon = numbers[1];
+        const lat = numbers[0];
+        if (!lon || !lat || lon < -180 || lon > 180 || lat < -90 || lat > 90) {
+            throw new Error(`Wrong coordinates format "${coordinate}", longitude or latitude out of range`);
+        }
+
         return {
-            lon: numbers[1],
-            lat: numbers[0],
+            lon,
+            lat,
             altitude_ft: this.parseNumberOrError(parts[2] || "0", coordinate),
         };
     }

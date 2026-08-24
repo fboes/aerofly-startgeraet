@@ -1,6 +1,6 @@
 export function parseXmlNode(xml, tag, defaultValue = "") {
-    const match = xml.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, "ms"));
-    return match ? unXml(match[1]) : defaultValue;
+    const match = xml.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, "ms"))?.[1];
+    return match ? unXml(match) : defaultValue;
 }
 export function parseXmlNodes(xml, tag, defaultValue = []) {
     const nodes = xml.match(new RegExp(`<${tag}.*?</${tag}>`, "gms"));
@@ -8,13 +8,13 @@ export function parseXmlNodes(xml, tag, defaultValue = []) {
 }
 export function parseXmlAttribute(xml, attribute, defaultValue = "") {
     const regex = new RegExp(` ${attribute}="(.*?)"`, "ms");
-    const match = xml.match(regex);
-    return match ? unXml(match[1]) : defaultValue;
+    const match = xml.match(regex)?.[1];
+    return match ? unXml(match) : defaultValue;
 }
 function unXml(text) {
-    const cdataMatch = text.match(/^<!\[CDATA\[(.+?)\]\]>$/);
+    const cdataMatch = text.match(/^<!\[CDATA\[(.+?)\]\]>$/)?.[1];
     return cdataMatch
-        ? cdataMatch[1]
+        ? cdataMatch
         : text.replace(/&([a-z]+);/g, (m, inner) => {
             switch (inner) {
                 case "lt":

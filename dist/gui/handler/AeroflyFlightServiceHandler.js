@@ -153,7 +153,11 @@ export class AeroflyFlightServiceHandler {
             return createNotificationPayload("");
         }
         try {
-            this.service.config.mainMcfFilePath = path.dirname(result.filePaths[0]);
+            const filepath = result.filePaths[0];
+            if (!filepath) {
+                return createNotificationPayload("No file selected", "error");
+            }
+            this.service.config.mainMcfFilePath = path.dirname(filepath);
             this.sendStateUpdate();
         }
         catch (error) {
@@ -209,6 +213,9 @@ export class AeroflyFlightServiceHandler {
             return createNotificationPayload("");
         }
         const filepath = result.filePaths[0];
+        if (!filepath) {
+            return createNotificationPayload("No file selected", "error");
+        }
         return this.importFlightplanFromFile(filepath);
     };
     async importFlightplanFromFile(filepath) {

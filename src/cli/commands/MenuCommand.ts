@@ -234,6 +234,9 @@ export class MenuCommand extends ControllerCommand {
                       })
                     : choice;
 
+            if (!filename) {
+                throw new Error("No filename selected for import");
+            }
             const flightplans = this.controller.getImportableFlightplans(filename);
             const index: string =
                 flightplans.length === 1

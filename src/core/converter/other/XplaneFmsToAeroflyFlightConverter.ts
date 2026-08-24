@@ -69,8 +69,8 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
     }
 
     private getRunway(content: string, type: "DEPRWY" | "DESRWY"): string | null {
-        const match = content.match(new RegExp(`\\s${type} RW(\\S+)`));
-        return match ? match[1] : null;
+        const match = content.match(new RegExp(`\\s${type} RW(\\S+)`))?.[1];
+        return match ?? null;
     }
 
     private getWaypoints(content: string): XplaneFmsWaypoint[] {
@@ -83,12 +83,23 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 if (m.length !== 6) {
                     throw new Error(`Broken waypoint, expected 6, got ${m.length.toString()} cells`);
                 }
+
+                const all = m[0];
+                const identifier = m[2];
+                const type = m[1];
+                const lat = m[4];
+                const lon = m[5];
+                const elevationFeet = m[3];
+                if (!identifier || !type || !lat || !lon || !elevationFeet) {
+                    throw new Error(`Broken waypoint, missing data in "${all}"`);
+                }
+
                 return {
-                    identifier: this.normalizeIdentifier(m[2]),
-                    type: this.parseNumberOrError(m[1], m[0].trim()) as XplaneFmsWaypointType,
-                    lat: this.parseNumberOrError(m[4], m[0].trim()),
-                    lon: this.parseNumberOrError(m[5], m[0].trim()),
-                    elevationFeet: this.parseNumber(m[3], 0),
+                    identifier: this.normalizeIdentifier(identifier),
+                    type: this.parseNumberOrError(type, all) as XplaneFmsWaypointType,
+                    lat: this.parseNumberOrError(lat, all),
+                    lon: this.parseNumberOrError(lon, all),
+                    elevationFeet: this.parseNumber(elevationFeet, 0),
                 };
             })
             .filter((wp) => wp.identifier !== "----");

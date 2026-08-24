@@ -68,9 +68,16 @@ export class RoutePlanService {
         if (legs.length < 1) {
             throw new Error("No flight plan legs found");
         }
+        const firstLeg = legs[0];
+        if (!firstLeg) {
+            throw new Error("No first leg found");
+        }
         const lastLeg = legs[legs.length - 1];
+        if (!lastLeg) {
+            throw new Error("No last leg found");
+        }
         return {
-            from: legs[0].from,
+            from: firstLeg.from,
             to: lastLeg.to,
             distanceTotal_nm: lastLeg.distanceTotal_nm,
             estimatedTimeEnrouteTotal_min: lastLeg.estimatedTimeEnrouteTotal_min,

@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+- Added more array safe guards, improved parser stability
+
+## [2.3.1] - 2026-08-23
+
+- Added safe guards for empty flight plans
+
 ## [2.3.0] - 2026-08-23
 
 - Improved GUI help texts
