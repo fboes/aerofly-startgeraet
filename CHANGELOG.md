@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Added more array safe guards, improved parser stability
+- Updated dependencies
 
 ## [2.3.1] - 2026-08-23
 
