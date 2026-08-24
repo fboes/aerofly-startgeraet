@@ -13,6 +13,14 @@ describe("XplaneFmsToAeroflyFlightConverter", () => {
         converter.convert(content, flight);
 
         assert.strictEqual(flight.navigation.waypoints.length, 6);
+
+        assert.strictEqual(flight.navigation.waypoints[0]?.latitude, 24.556119);
+        assert.strictEqual(flight.navigation.waypoints[0]?.longitude, -81.759956);
+        assert.strictEqual(flight.navigation.waypoints[0]?.identifier, "KEYW");
+
+        assert.strictEqual(flight.navigation.waypoints[5]?.latitude, 25.795361);
+        assert.strictEqual(flight.navigation.waypoints[5]?.longitude, -80.290117);
+        assert.strictEqual(flight.navigation.waypoints[5]?.identifier, "KMIA");
     });
 
     it("should do OTHHELLX01_Xplane11-12 import", () => {

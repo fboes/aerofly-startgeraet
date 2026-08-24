@@ -46,11 +46,11 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 throw new Error(`Broken waypoint, expected 6, got ${m.length.toString()} cells`);
             }
             const all = m[0];
-            const identifier = m[2];
             const type = m[1];
+            const identifier = m[2];
+            const elevationFeet = m[3];
             const lat = m[4];
             const lon = m[5];
-            const elevationFeet = m[3];
             if (!identifier || !type || !lat || !lon || !elevationFeet) {
                 throw new Error(`Broken waypoint, missing data in "${all}"`);
             }

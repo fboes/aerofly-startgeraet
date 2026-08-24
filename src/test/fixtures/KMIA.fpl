@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flight-plan xmlns="http://www8.garmin.com/xmlschemas/FlightPlan/v1">
+  <created>2026-08-24T13:11:19Z</created>
+  <waypoint-table>
+    <waypoint>
+      <identifier>KEYW</identifier>
+      <type>AIRPORT</type>
+      <country-code>K7</country-code>
+      <lat>24.556119</lat>
+      <lon>-81.759956</lon>
+      <comment />
+    </waypoint>
+    <waypoint>
+      <identifier>CARNU</identifier>
+      <type>INT</type>
+      <country-code>K7</country-code>
+      <lat>25.138369</lat>
+      <lon>-81.325589</lon>
+      <comment />
+    </waypoint>
+    <waypoint>
+      <identifier>KMIA</identifier>
+      <type>AIRPORT</type>
+      <country-code>K7</country-code>
+      <lat>25.795361</lat>
+      <lon>-80.290117</lon>
+      <comment />
+    </waypoint>
+  </waypoint-table>
+  <route>
+    <route-name>KEYW KMIA</route-name>
+    <flight-plan-index>1</flight-plan-index>
+    <route-point>
+      <waypoint-identifier>KEYW</waypoint-identifier>
+      <waypoint-type>AIRPORT</waypoint-type>
+      <waypoint-country-code>K7</waypoint-country-code>
+    </route-point>
+    <route-point>
+      <waypoint-identifier>CARNU</waypoint-identifier>
+      <waypoint-type>INT</waypoint-type>
+      <waypoint-country-code>K7</waypoint-country-code>
+    </route-point>
+    <route-point>
+      <waypoint-identifier>KMIA</waypoint-identifier>
+      <waypoint-type>AIRPORT</waypoint-type>
+      <waypoint-country-code>K7</waypoint-country-code>
+    </route-point>
+  </route>
+</flight-plan>

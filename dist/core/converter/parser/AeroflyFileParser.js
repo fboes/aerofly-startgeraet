@@ -12,7 +12,7 @@ export class AeroflyFileParser {
     }
     getValue(subject, propertyName, defaultValue = "") {
         const match = subject.match(new RegExp("(?:\\]\\s*\\[" + propertyName + "\\]\\s*\\[)([^\\]]*)(?:\\])"))?.[1];
-        return match ? match : defaultValue;
+        return match ?? defaultValue;
     }
     getBoolean(subject, propertyName) {
         const value = this.getValue(subject, propertyName);
