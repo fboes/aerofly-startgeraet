@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Added tests to Github workflow
+
+## [2.3.2] - 2026-08-25
+
 - Added more array safe guards, improved parser stability
 - Updated dependencies
 - Improved notification animation

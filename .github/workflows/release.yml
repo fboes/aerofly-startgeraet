@@ -4,6 +4,9 @@ on:
       - "v*"
 
 jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
   build-cli:
     uses: ./.github/workflows/build-cli.yml
 
