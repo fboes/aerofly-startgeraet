@@ -21,4 +21,18 @@ export class ConfigFixture extends Config {
     protected setBoolean(key: string, value: boolean): void {
         this.confFixture[key] = value;
     }
+
+    protected getNumber(key: string, defaultValue: number = 0): number {
+        return Number(this.confFixture[key] ?? defaultValue);
+    }
+
+    protected setNumber(key: string, value: number): void {
+        this.confFixture[key] = value;
+    }
+
+    // protected getDate(key: string): Date {
+
+    protected setDate(key: string, value: Date): void {
+        this.confFixture[key] = value.toISOString();
+    }
 }

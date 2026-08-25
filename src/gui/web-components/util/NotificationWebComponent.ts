@@ -8,8 +8,8 @@ import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWe
 import { registerElement } from "../../renderer/registerElement.js";
 
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
-    private readonly hideDelay = 3_000;
-    private readonly animiationDuration = 500;
+    private readonly hideDelay = 3_500;
+    private readonly multiHideDelay = 500;
 
     constructor() {
         super();
@@ -60,13 +60,13 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
             output.classList.add(details.type, "is-visible");
         }, 1);
 
-        setTimeout(() => {
-            output.classList.remove("is-visible");
-
-            setTimeout(() => {
-                output.remove();
-            }, this.animiationDuration);
-        }, this.hideDelay);
+        setTimeout(
+            () => {
+                output.addEventListener("transitionend", () => output.remove(), { once: true });
+                output.classList.remove("is-visible");
+            },
+            this.hideDelay + (this.childNodes.length - 1) * this.multiHideDelay, // Give user more time if more boxes are visible
+        );
     }
 
     private getIcon(type: NotificationEventType): "check" | "x" | "hourglass-split" | "info" {

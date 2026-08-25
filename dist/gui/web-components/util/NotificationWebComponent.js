@@ -2,8 +2,8 @@ import { NOTIFICATION_EVENT_IDENTIFIER, parseNotificationEvent, } from "../../re
 import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
 export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
-    hideDelay = 3_000;
-    animiationDuration = 500;
+    hideDelay = 3_500;
+    multiHideDelay = 500;
     constructor() {
         super();
         this.role = "alert";
@@ -43,11 +43,9 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
             output.classList.add(details.type, "is-visible");
         }, 1);
         setTimeout(() => {
+            output.addEventListener("transitionend", () => output.remove(), { once: true });
             output.classList.remove("is-visible");
-            setTimeout(() => {
-                output.remove();
-            }, this.animiationDuration);
-        }, this.hideDelay);
+        }, this.hideDelay + (this.childNodes.length - 1) * this.multiHideDelay);
     }
     getIcon(type) {
         switch (type) {

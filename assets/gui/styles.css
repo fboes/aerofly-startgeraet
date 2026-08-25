@@ -439,8 +439,7 @@ startgeraet-notification {
     bottom: 0;
     pointer-events: none;
     z-index: 2;
-    max-width: 20rem;
-    min-width: 10rem;
+    width: 20rem;
     margin: 0 auto;
     left: 50%;
     transform: translateX(-50%);

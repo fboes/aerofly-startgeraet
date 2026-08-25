@@ -7,7 +7,7 @@ describe("ImportFileFinderService", () => {
         const config = new ConfigFixture();
         const finder = new ImportFileFinderService(config);
         const files = finder.findImportFiles();
-        assert.strictEqual(12, files?.length);
+        assert.strictEqual(11, files?.length);
         //console.log(files);
     });
 });

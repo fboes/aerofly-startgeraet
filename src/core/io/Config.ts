@@ -63,8 +63,8 @@ export class Config {
         this.conf.set(key, value);
     }
 
-    protected getDate(key: string): Date {
-        return new Date(this.get(key, "1970-01-01T00:00:00.000Z"));
+    protected getDate(key: string, defaultValue = "1970-01-01T00:00:00.000Z"): Date {
+        return new Date(this.get(key, defaultValue));
     }
 
     protected setDate(key: string, value: Date): void {

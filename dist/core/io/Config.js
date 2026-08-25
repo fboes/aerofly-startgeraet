@@ -34,8 +34,8 @@ export class Config {
     setNumber(key, value) {
         this.conf.set(key, value);
     }
-    getDate(key) {
-        return new Date(this.get(key, "1970-01-01T00:00:00.000Z"));
+    getDate(key, defaultValue = "1970-01-01T00:00:00.000Z") {
+        return new Date(this.get(key, defaultValue));
     }
     setDate(key, value) {
         this.conf.set(key, value.toISOString());
