@@ -4,6 +4,8 @@
 
 - Added more array safe guards, improved parser stability
 - Updated dependencies
+- Improved notification animation
+- Fixed SimBrief cruise altitude import
 
 ## [2.3.1] - 2026-08-23
 

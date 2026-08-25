@@ -92,7 +92,7 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         flight.timeUtc = new AeroflyTimeUtc(new Date(simbriefPayload.times.sched_out));
 
         const waypoints = this.getWaypointsFromNavlog(simbriefPayload);
-        flight.navigation = new AeroflyNavigationConfig(
+        flight.navigation = AeroflyNavigationConfig.createInFeet(
             Number(simbriefPayload.general.initial_altitude),
             [
                 new AeroflyNavRouteOrigin(
