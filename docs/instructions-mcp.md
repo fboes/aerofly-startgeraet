@@ -17,7 +17,7 @@ There are multiple installation options:
 ### 1. Installation via MCPB file
 
 1. Be sure to have a local AI client installed which can import MCPB files.
-2. Download the latest MCPB file from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
+2. Download the latest MCPB file from the Github releases at [https://github.com/fboes/aerofly-startgeraet/releases/](https://github.com/fboes/aerofly-startgeraet/releases/latest).
 3. Install the MCPB file by double-clicking the it.
 
 ### 2. Installation via Node.js / NPM
@@ -43,7 +43,7 @@ This will automatically download the latest version of this application and show
 
 If you do not want to have Node.js installed, you can also download a pre-compiled version of this tool, which runs on our local machine.
 
-1. Download the latest Aerofly Startgerät CLI tool from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
+1. Download the latest Aerofly Startgerät CLI tool from the Github releases at [https://github.com/fboes/aerofly-startgeraet/releases/](https://github.com/fboes/aerofly-startgeraet/releases/latest).
 2. Move the Aerofly Startgerät CLI tool to a sensible location and mark it as executable (see below).
 3. Start the Aerofly Startgerät CLI tool (see below).
 

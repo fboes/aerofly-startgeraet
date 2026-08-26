@@ -11,13 +11,34 @@ import { AeroflyFlightToMarkdownConverter } from "../converter/aerofly-flight/Ae
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.
  */
-export const EXPORT_FILE_TYPES: string[] = [
-    AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
-    AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
-    AeroflyFlightToGeoJsonConverter.fileExtension,
-    AeroflyFlightToKmlConverter.fileExtension,
-    AeroflyFlightToMarkdownConverter.fileExtension,
-] as const;
+
+export const EXPORT_FILE_EXTENSIONS: {
+    name: string;
+    extension: string;
+}[] = [
+    {
+        name: AeroflyFlightToAeroflyMainMcfConverter.fileName,
+        extension: AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
+    },
+    {
+        name: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileName,
+        extension: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
+    },
+    {
+        name: AeroflyFlightToGeoJsonConverter.fileName,
+        extension: AeroflyFlightToGeoJsonConverter.fileExtension,
+    },
+    {
+        name: AeroflyFlightToKmlConverter.fileName,
+        extension: AeroflyFlightToKmlConverter.fileExtension,
+    },
+    {
+        name: AeroflyFlightToMarkdownConverter.fileName,
+        extension: AeroflyFlightToMarkdownConverter.fileExtension,
+    },
+];
+
+export const EXPORT_FILE_TYPES: string[] = EXPORT_FILE_EXTENSIONS.map(c => c.extension);
 
 const EXPORT_REGISTRY: Record<string, (new () => AeroflyFlightToStringConverter) | undefined> = {
     [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,

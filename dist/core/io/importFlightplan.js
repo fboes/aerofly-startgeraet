@@ -8,13 +8,29 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.
  */
-export const IMPORT_FILE_TYPES = [
-    AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,
-    AeroflyMcfToImportFileConverter.fileExtension,
-    MsfsPlnToAeroflyFlightConverter.fileExtension,
-    GarminFplToAeroflyFlightConverter.fileExtension,
-    XplaneFmsToAeroflyFlightConverter.fileExtension,
+export const IMPORT_FILE_EXTENSIONS = [
+    {
+        name: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileName,
+        extension: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: AeroflyMcfToImportFileConverter.fileName,
+        extension: AeroflyMcfToImportFileConverter.fileExtension,
+    },
+    {
+        name: MsfsPlnToAeroflyFlightConverter.fileName,
+        extension: MsfsPlnToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: GarminFplToAeroflyFlightConverter.fileName,
+        extension: GarminFplToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: XplaneFmsToAeroflyFlightConverter.fileName,
+        extension: XplaneFmsToAeroflyFlightConverter.fileExtension,
+    },
 ];
+export const IMPORT_FILE_TYPES = IMPORT_FILE_EXTENSIONS.map(c => c.extension);
 const IMPORT_REGISTRY = {
     [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,
     [AeroflyMcfToImportFileConverter.fileExtension]: AeroflyMcfToImportFileConverter,

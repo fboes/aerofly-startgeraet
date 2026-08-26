@@ -1,8 +1,12 @@
 import PackageJson from "../../../package.json" with { type: "json" };
+const [, username, reponame] = PackageJson.repository.url.match(/^https:\/\/github.com\/(.+?)\/(.+?)\.git$/) || [];
+if (!username || !reponame) {
+    throw new Error("Mission Github repository URL from package.json");
+}
 export const APPLICATION_INFORMATION = {
-    name: "Aerofly Startgerät",
+    name: PackageJson.displayName,
     nameVersion: `${PackageJson.name} ${PackageJson.version}`,
-    slug: PackageJson.name.replace(/^.*?\//, ""),
+    slug: reponame,
     version: PackageJson.version,
     description: PackageJson.description,
     locale: "en-US",
@@ -12,8 +16,8 @@ export const APPLICATION_INFORMATION = {
         url: PackageJson.author.url,
     },
     github: {
-        username: "fboes",
-        reponame: "aerofly-startgeraet",
-        releaseUrl: `https://github.com/fboes/aerofly-startgeraet/releases/latest`,
+        username,
+        reponame,
+        releaseUrl: PackageJson.releases,
     },
 };

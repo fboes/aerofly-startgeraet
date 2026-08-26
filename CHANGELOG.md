@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Changed organisation of default application constants
 - Added tests to Github workflow
 
 ## [2.3.2] - 2026-08-25

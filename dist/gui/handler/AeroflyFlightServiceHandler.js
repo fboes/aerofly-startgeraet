@@ -3,21 +3,14 @@ import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.j
 import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";
 import { createNotificationErrorPayload, createNotificationPayload, } from "../renderer/notificationEventHandler.js";
-import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../../core/converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
 import { AeroflyMcfToImportFileConverter } from "../../core/converter/other/AeroflyMcfToImportFileConverter.js";
-import { GarminFplToAeroflyFlightConverter } from "../../core/converter/other/GarminFplToAeroflyFlightConverter.js";
-import { MsfsPlnToAeroflyFlightConverter } from "../../core/converter/other/MsfsPlnToAeroflyFlightConverter.js";
-import { XplaneFmsToAeroflyFlightConverter } from "../../core/converter/other/XplaneFmsToAeroflyFlightConverter.js";
-import { IMPORT_FILE_TYPES } from "../../core/io/importFlightplan.js";
-import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
+import { IMPORT_FILE_EXTENSIONS, IMPORT_FILE_TYPES } from "../../core/io/importFlightplan.js";
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
-import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
-import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 import path from "node:path";
 import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
-import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 import { AeroflyMainConfigReaderError } from "../../core/io/AeroflyMainConfigReader.js";
 import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMetarConverter.js";
+import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 export class AeroflyFlightServiceHandler {
     ipcMain;
     win;
@@ -187,26 +180,10 @@ export class AeroflyFlightServiceHandler {
                     name: "All supported file types",
                     extensions: IMPORT_FILE_TYPES,
                 },
-                {
-                    name: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileName,
-                    extensions: [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension],
-                },
-                {
-                    name: AeroflyMcfToImportFileConverter.fileName,
-                    extensions: [AeroflyMcfToImportFileConverter.fileExtension],
-                },
-                {
-                    name: MsfsPlnToAeroflyFlightConverter.fileName,
-                    extensions: [MsfsPlnToAeroflyFlightConverter.fileExtension],
-                },
-                {
-                    name: GarminFplToAeroflyFlightConverter.fileName,
-                    extensions: [GarminFplToAeroflyFlightConverter.fileExtension],
-                },
-                {
-                    name: XplaneFmsToAeroflyFlightConverter.fileName,
-                    extensions: [XplaneFmsToAeroflyFlightConverter.fileExtension],
-                },
+                ...IMPORT_FILE_EXTENSIONS.map((c) => ({
+                    name: c.name,
+                    extensions: [c.extension],
+                })),
             ],
         });
         if (result.canceled) {
@@ -241,26 +218,10 @@ export class AeroflyFlightServiceHandler {
             title: "Select Flight Plan File",
             defaultPath: path.join(this.service.config.exportDirectory, `flight-${getFlightplanIdentifier(this.service.getAeroflyFlight())}.${AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension}`),
             filters: [
-                {
-                    name: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileName,
-                    extensions: [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension],
-                },
-                {
-                    name: AeroflyFlightToAeroflyMainMcfConverter.fileName,
-                    extensions: [AeroflyFlightToAeroflyMainMcfConverter.fileExtension],
-                },
-                {
-                    name: AeroflyFlightToGeoJsonConverter.fileName,
-                    extensions: [AeroflyFlightToGeoJsonConverter.fileExtension],
-                },
-                {
-                    name: AeroflyFlightToKmlConverter.fileName,
-                    extensions: [AeroflyFlightToKmlConverter.fileExtension],
-                },
-                {
-                    name: AeroflyFlightToMarkdownConverter.fileName,
-                    extensions: [AeroflyFlightToMarkdownConverter.fileExtension],
-                },
+                ...EXPORT_FILE_EXTENSIONS.map((c) => ({
+                    name: c.name,
+                    extensions: [c.extension],
+                })),
             ],
         });
         if (result.canceled) {

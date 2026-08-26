@@ -88,7 +88,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
         },
     );
 
-    server.registerTool(
+    /*server.registerTool(
         TOOL_SET_FUEL_PAYLOAD,
         {
             title: `Set aircraft fuel and payload for flight mission setup`,
@@ -119,7 +119,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
             }
             return returnMcpToolResult(result, warnings);
         },
-    );
+    );*/
 
     server.registerTool(
         TOOL_SET_DATE_TIME,

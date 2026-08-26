@@ -8,7 +8,7 @@ This application supports computers running Microsoft Windows, Apple macOS and L
 
 ## Installation
 
-1. Download the latest Aerofly Startgerät GUI app from the Github releases at https://github.com/fboes/aerofly-startgeraet/releases/latest.
+1. Download the latest Aerofly Startgerät GUI app from the Github releases at [https://github.com/fboes/aerofly-startgeraet/releases/](https://github.com/fboes/aerofly-startgeraet/releases/latest).
 2. Double-click the downloaded installer to set-up the application on your system (see below).
 3. Start the Aerofly Startgerät GUI app (see below).
 

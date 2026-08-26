@@ -4,13 +4,9 @@ import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
-import { AeroflyFlightToAeroflyMainMcfConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
-import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
-import { AeroflyFlightToGeoJsonConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
-import { AeroflyFlightToKmlConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
 import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
-import { AeroflyFlightToMarkdownConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
+import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 /**
  * Providing menu options to set up the flight in a more convenient way.
  * The menu will then generate a configuration file that can be loaded in
@@ -46,11 +42,11 @@ export class MenuCommand extends ControllerCommand {
                 value: "selectAircraft",
                 short: "Select aircraft",
             },
-            {
+            /*{
                 name: this.name("Fuel / Payload", AeroflyFlightFormatter.getFuelAndPayload(aeroflyFlight), true),
                 value: "setFuelAndPayload",
                 short: "Set fuel and payload",
-            },
+            },*/
             {
                 name: this.name("Flightplan", AeroflyFlightFormatter.getFlightplanSummary(aeroflyFlight)),
                 value: "importFlightplan",
@@ -224,28 +220,10 @@ export class MenuCommand extends ControllerCommand {
         writeMenuTitle(["Export Flightplan"]);
         const fileType = await select({
             message: "Export file type",
-            choices: [
-                {
-                    name: AeroflyFlightToAeroflyMainMcfConverter.fileName,
-                    value: AeroflyFlightToAeroflyMainMcfConverter.fileExtension,
-                },
-                {
-                    name: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileName,
-                    value: AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension,
-                },
-                {
-                    name: AeroflyFlightToGeoJsonConverter.fileName,
-                    value: AeroflyFlightToGeoJsonConverter.fileExtension,
-                },
-                {
-                    name: AeroflyFlightToKmlConverter.fileName,
-                    value: AeroflyFlightToKmlConverter.fileExtension,
-                },
-                {
-                    name: AeroflyFlightToMarkdownConverter.fileName,
-                    value: AeroflyFlightToMarkdownConverter.fileExtension,
-                },
-            ],
+            choices: EXPORT_FILE_EXTENSIONS.map(c => ({
+                name: c.name,
+                value: c.extension,
+            })),
         });
         const fileNameDefault = `flight-${AeroflyFlightFormatter.getFlightplanIdentifier(this.controller.getAeroflyFlight())}.${fileType}`;
         const fileName = await input({

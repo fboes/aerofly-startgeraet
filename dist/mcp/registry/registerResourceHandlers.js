@@ -66,7 +66,7 @@ function registerTools(server) {
     };
     server.registerTool(TOOL_SEARCH_AIRCRAFT, {
         title: `Search Aerofly FS 4 aircraft`,
-        description: `Search for aircraft by ICAO code, Aerofly code, tag, maximum range, maximum payload. All search properties are linked by \`AND\`. WIll return additional information like payload, cruise speed, existing liveries etc.`,
+        description: `Search for aircraft by ICAO code, Aerofly code, tag, maximum range, maximum payload. All search properties are linked by \`AND\`. Will return additional information like payload, cruise speed, existing liveries etc.`,
         inputSchema: z.object({
             query: z
                 .string()

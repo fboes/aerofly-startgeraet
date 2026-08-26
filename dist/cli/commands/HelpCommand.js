@@ -8,7 +8,7 @@ export class HelpCommand {
         return `\
 Welcome to the Aerofly Startgerät. It allows you to set up your flight in a more convenient way.
 
-You can select your aircraft, set fuel and payload, import flightplans and weather, and much more.
+You can select your aircraft, import flightplans and weather, and much more.
 
 The Startgerät will then generate a configuration file that can be loaded in Aerofly FS 4.
 `;

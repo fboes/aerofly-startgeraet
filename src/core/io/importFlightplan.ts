@@ -12,13 +12,33 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
  * appropriate converter class.
  */
 
-export const IMPORT_FILE_TYPES: string[] = [
-    AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,
-    AeroflyMcfToImportFileConverter.fileExtension,
-    MsfsPlnToAeroflyFlightConverter.fileExtension,
-    GarminFplToAeroflyFlightConverter.fileExtension,
-    XplaneFmsToAeroflyFlightConverter.fileExtension,
+export const IMPORT_FILE_EXTENSIONS: {
+    name: string;
+    extension: string;
+}[] = [
+    {
+        name: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileName,
+        extension: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: AeroflyMcfToImportFileConverter.fileName,
+        extension: AeroflyMcfToImportFileConverter.fileExtension,
+    },
+    {
+        name: MsfsPlnToAeroflyFlightConverter.fileName,
+        extension: MsfsPlnToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: GarminFplToAeroflyFlightConverter.fileName,
+        extension: GarminFplToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: XplaneFmsToAeroflyFlightConverter.fileName,
+        extension: XplaneFmsToAeroflyFlightConverter.fileExtension,
+    },
 ];
+
+export const IMPORT_FILE_TYPES: string[] = IMPORT_FILE_EXTENSIONS.map(c => c.extension);
 
 const IMPORT_REGISTRY: Record<string, (new () => StringToAeroflyFlightConverter) | undefined> = {
     [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,

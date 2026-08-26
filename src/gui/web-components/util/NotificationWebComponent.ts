@@ -56,16 +56,31 @@ export class NotificationWebComponent extends AbstractStateSubscriberWebComponen
         (output.querySelector("span") as HTMLSpanElement).innerText = details.message;
         this.appendChild(output);
 
+        // Create function to remove box
+        const remove = () => {
+            output.addEventListener("transitionend", () => output.remove(), { once: true });
+            output.classList.remove("is-visible");
+        };
+
+        // Wait for box to be attached, trigger the display animation afterwards
         setTimeout(() => {
             output.classList.add(details.type, "is-visible");
         }, 1);
 
-        setTimeout(
-            () => {
-                output.addEventListener("transitionend", () => output.remove(), { once: true });
-                output.classList.remove("is-visible");
-            },
+        // Remove the box automatically after some time
+        const removeTimeout = setTimeout(
+            remove,
             this.hideDelay + (this.childNodes.length - 1) * this.multiHideDelay, // Give user more time if more boxes are visible
+        );
+
+        // Clicking the box removes the box... and the timer for removal
+        output.addEventListener(
+            "click",
+            () => {
+                clearTimeout(removeTimeout);
+                remove();
+            },
+            { once: true },
         );
     }
 

@@ -58,29 +58,38 @@ function registerTools(server, flightService) {
             ];
         return returnMcpToolResult(result, warnings);
     });
-    server.registerTool(TOOL_SET_FUEL_PAYLOAD, {
-        title: `Set aircraft fuel and payload for flight mission setup`,
-        description: `Call \`${ResourceRegistry.TOOL_SEARCH_AIRCRAFT}\` to search for the available maximum fuel ad payload mass. If given too much fuel and payload this will be capped automatically. Returns the fuel and payload state afterwards.`,
-        inputSchema: z.object({
-            fuel: z.number().nonnegative().optional().describe(`Fuel mass in kg. Must not exceed max fuel mass.`),
-            payload: z
-                .number()
-                .nonnegative()
-                .optional()
-                .describe(`Payload mass in kg. Must not exceed max payload mass.`),
-        }),
-        annotations,
-    }, ({ fuel, payload }) => {
-        const result = flightService.setFuelAndPayload(fuel ?? 0, payload ?? 0);
-        const warnings = [];
-        if (fuel && fuel !== result.fuelMass) {
-            warnings.push(`The requested fuel mass (${fuel.toString()} kg) exceeds the maximum allowed (${result.fuelMass.toString()} kg). Fuel mass has been capped.`);
-        }
-        if (payload && payload !== result.payloadMass) {
-            warnings.push(`The requested payload mass (${payload.toString()} kg) exceeds the maximum remaining (${result.payloadMass.toString()} kg). Payload mass has been capped.`);
-        }
-        return returnMcpToolResult(result, warnings);
-    });
+    /*server.registerTool(
+        TOOL_SET_FUEL_PAYLOAD,
+        {
+            title: `Set aircraft fuel and payload for flight mission setup`,
+            description: `Call \`${ResourceRegistry.TOOL_SEARCH_AIRCRAFT}\` to search for the available maximum fuel ad payload mass. If given too much fuel and payload this will be capped automatically. Returns the fuel and payload state afterwards.`,
+            inputSchema: z.object({
+                fuel: z.number().nonnegative().optional().describe(`Fuel mass in kg. Must not exceed max fuel mass.`),
+                payload: z
+                    .number()
+                    .nonnegative()
+                    .optional()
+                    .describe(`Payload mass in kg. Must not exceed max payload mass.`),
+            }),
+            annotations,
+        },
+        ({ fuel, payload }: { fuel?: number; payload?: number }): CallToolResult => {
+            const result = flightService.setFuelAndPayload(fuel ?? 0, payload ?? 0);
+
+            const warnings = [];
+            if (fuel && fuel !== result.fuelMass) {
+                warnings.push(
+                    `The requested fuel mass (${fuel.toString()} kg) exceeds the maximum allowed (${result.fuelMass.toString()} kg). Fuel mass has been capped.`,
+                );
+            }
+            if (payload && payload !== result.payloadMass) {
+                warnings.push(
+                    `The requested payload mass (${payload.toString()} kg) exceeds the maximum remaining (${result.payloadMass.toString()} kg). Payload mass has been capped.`,
+                );
+            }
+            return returnMcpToolResult(result, warnings);
+        },
+    );*/
     server.registerTool(TOOL_SET_DATE_TIME, {
         title: `Set date & time for flight mission setup`,
         description: `Returns the set time afterwards.`,
