@@ -3,6 +3,7 @@ import { ImportSimBriefWebComponent } from "./ImportSimBriefWebComponent.js";
 import { ImportWebComponent } from "./ImportWebComponent.js";
 import { MetarImportWebComponent } from "./MetarImportWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { MissionGeneratorWebComponent } from "./MissionGeneratorWebComponent.js";
 
 export class ImportExportWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -12,6 +13,7 @@ export class ImportExportWebComponent extends HTMLElement {
         ImportSimBriefWebComponent.registerElement();
         ExportWebComponent.registerElement();
         MetarImportWebComponent.registerElement();
+        MissionGeneratorWebComponent.registerElement();
 
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
@@ -21,9 +23,7 @@ export class ImportExportWebComponent extends HTMLElement {
     <startgeraet-export></startgeraet-export>
     <startgeraet-import-simbrief></startgeraet-import-simbrief>
     <startgeraet-metar-import></startgeraet-metar-import>
-    <div class="d-flex form-group">
-        <button id="mission-generator" disabled="disabled">Mission generator</button>
-    </div>
+    <startgeraet-mission-generator></startgeraet-mission-generator>
 </div>
         `;
     }

@@ -8,6 +8,13 @@ import { AeroflyFlightToMarkdownConverter } from "../converter/aerofly-flight/Ae
  * Writes a file from an `AeroflyFlight` class instance to an
  * external flight plan file by selecting the appropriate converter.
  */
+const EXPORT_REGISTRY = {
+    [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
+    [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
+    [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
+    [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
+    [AeroflyFlightToMarkdownConverter.fileExtension]: AeroflyFlightToMarkdownConverter,
+};
 export const EXPORT_FILE_EXTENSIONS = [
     {
         name: AeroflyFlightToAeroflyMainMcfConverter.fileName,
@@ -30,14 +37,7 @@ export const EXPORT_FILE_EXTENSIONS = [
         extension: AeroflyFlightToMarkdownConverter.fileExtension,
     },
 ];
-export const EXPORT_FILE_TYPES = EXPORT_FILE_EXTENSIONS.map(c => c.extension);
-const EXPORT_REGISTRY = {
-    [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
-    [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
-    [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
-    [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
-    [AeroflyFlightToMarkdownConverter.fileExtension]: AeroflyFlightToMarkdownConverter,
-};
+export const EXPORT_FILE_TYPES = EXPORT_FILE_EXTENSIONS.map((c) => c.extension);
 export function exportFlightplanToString(filename, flightplan) {
     const converter = getExportConverter(filename);
     return new converter().convert(flightplan);

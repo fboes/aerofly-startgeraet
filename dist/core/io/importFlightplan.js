@@ -8,6 +8,13 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
  * Reads a file and converts it into `AeroflyFlight` by selecting the
  * appropriate converter class.
  */
+const IMPORT_REGISTRY = {
+    [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,
+    [AeroflyMcfToImportFileConverter.fileExtension]: AeroflyMcfToImportFileConverter,
+    [MsfsPlnToAeroflyFlightConverter.fileExtension]: MsfsPlnToAeroflyFlightConverter,
+    [GarminFplToAeroflyFlightConverter.fileExtension]: GarminFplToAeroflyFlightConverter,
+    [XplaneFmsToAeroflyFlightConverter.fileExtension]: XplaneFmsToAeroflyFlightConverter,
+};
 export const IMPORT_FILE_EXTENSIONS = [
     {
         name: AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileName,
@@ -30,14 +37,7 @@ export const IMPORT_FILE_EXTENSIONS = [
         extension: XplaneFmsToAeroflyFlightConverter.fileExtension,
     },
 ];
-export const IMPORT_FILE_TYPES = IMPORT_FILE_EXTENSIONS.map(c => c.extension);
-const IMPORT_REGISTRY = {
-    [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,
-    [AeroflyMcfToImportFileConverter.fileExtension]: AeroflyMcfToImportFileConverter,
-    [MsfsPlnToAeroflyFlightConverter.fileExtension]: MsfsPlnToAeroflyFlightConverter,
-    [GarminFplToAeroflyFlightConverter.fileExtension]: GarminFplToAeroflyFlightConverter,
-    [XplaneFmsToAeroflyFlightConverter.fileExtension]: XplaneFmsToAeroflyFlightConverter,
-};
+export const IMPORT_FILE_TYPES = IMPORT_FILE_EXTENSIONS.map((c) => c.extension);
 export function getFlightplansFromFile(filename) {
     const content = fs.readFileSync(filename, "utf8");
     return getFlightplansFromString(content, filename);

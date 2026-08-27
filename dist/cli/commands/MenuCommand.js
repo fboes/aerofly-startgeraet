@@ -220,7 +220,7 @@ export class MenuCommand extends ControllerCommand {
         writeMenuTitle(["Export Flightplan"]);
         const fileType = await select({
             message: "Export file type",
-            choices: EXPORT_FILE_EXTENSIONS.map(c => ({
+            choices: EXPORT_FILE_EXTENSIONS.map((c) => ({
                 name: c.name,
                 value: c.extension,
             })),

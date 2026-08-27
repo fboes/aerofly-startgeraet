@@ -4,11 +4,15 @@ import type { z } from "zod";
 /**
  * Describes the purpose of a Mission Generator to the user
  */
-export type GeneratorManifest = {
+export type MissionGeneratorManifest = {
+    /**
+     * Technical identifier, the name cannot contain any non-URL-safe characters.
+     */
+    name: string;
     /**
      * Plain text, brief name
      */
-    name: string;
+    displayName: string;
     /**
      * Multi-line description. If in doubt use Markdown
      */
@@ -25,12 +29,11 @@ export type GeneratorManifest = {
  * for a mission to be generated, and the actual process for generating a
  * mission using the configuration.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface GeneratorInterface<S extends z.ZodRawShape> {
+export interface MissionGeneratorInterface<S extends z.ZodRawShape> {
     /**
      * Describes the purpose of a Mission Generator to the user
      */
-    manifest(): GeneratorManifest;
+    manifest(): MissionGeneratorManifest;
 
     /**
      * Provides a configuration object the user may change settings for the

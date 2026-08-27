@@ -1,6 +1,7 @@
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
 export abstract class StringToAeroflyFlightConverter {
+    // static readonly fileName: string;
     // static readonly fileExtension: string;
 
     /**

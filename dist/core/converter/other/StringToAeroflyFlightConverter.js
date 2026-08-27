@@ -1,4 +1,5 @@
 export class StringToAeroflyFlightConverter {
+    // static readonly fileName: string;
     // static readonly fileExtension: string;
     /**
      * In a given file there may be multiple flight plans present.

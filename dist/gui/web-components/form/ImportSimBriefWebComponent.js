@@ -37,9 +37,9 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
   <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
 
   <footer>
-        Please note importing aircraft / airline settings from SimBrief relies on choosing ICAO aircraft / airline codes known to Aerofly FS.<br />
-        Also be aware that weather data from SimBrief represents the time of flight plan generation and may not reflect current conditions.
-    </footer>
+    Please note importing aircraft / airline settings from SimBrief relies on choosing ICAO aircraft / airline codes known to Aerofly FS.<br />
+    Also be aware that weather data from SimBrief represents the time of flight plan generation and may not reflect current conditions.
+  </footer>
 </dialog>
         `;
         this.elements = {
