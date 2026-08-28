@@ -1,5 +1,5 @@
-import type { MissionGeneratorInterface, MissionGeneratorManifest } from "../converter/generator/GeneratorInterface.js";
 import type { z } from "zod";
+import type { MissionGeneratorInterface, MissionGeneratorManifest } from "./MissionGeneratorInterface.js";
 
 export const MISSION_GENERATOR_REGISTRY: Record<
     string,

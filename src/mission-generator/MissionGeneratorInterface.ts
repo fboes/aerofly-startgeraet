@@ -1,5 +1,5 @@
-import type { AeroflyFlightService } from "../../services/AeroflyFlightService.js";
 import type { z } from "zod";
+import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 
 /**
  * Describes the purpose of a Mission Generator to the user
