@@ -6,8 +6,9 @@ import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
-import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
+import { writeln, writeSuccess, writeMenuTitle, writeCatch, writeError } from "../formatter/writeCli.js";
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
+import { MISSIONS_GENERATOR_MANIFESTS } from "../../mission-generator/generateFlightplan.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "writeMenuTitle" | "name" | "execute">;
 
@@ -176,6 +177,8 @@ export class MenuCommand extends ControllerCommand {
             `Current flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
         );
 
+        const isMissionGeneratorDisabled = MISSIONS_GENERATOR_MANIFESTS.length === 0;
+
         const simBriefUserName = this.controller.config.simBriefUserName;
         const importableFileChoices =
             this.controller.getImportFiles()?.map((file) => ({ name: `Import from file ${file}`, value: file })) ?? [];
@@ -200,7 +203,7 @@ export class MenuCommand extends ControllerCommand {
                 {
                     name: "Mission generator",
                     value: "missionGenerator",
-                    disabled: true,
+                    disabled: isMissionGeneratorDisabled,
                 },
                 {
                     name: "Export current flightplan to file",
@@ -211,7 +214,7 @@ export class MenuCommand extends ControllerCommand {
             ],
         });
 
-        if (choice === "mainMenu" || choice === "exportFlightplan") {
+        if (choice === "mainMenu" || choice === "exportFlightplan" || choice === "missionGenerator") {
             return choice;
         }
 
@@ -280,6 +283,31 @@ export class MenuCommand extends ControllerCommand {
 
         await this.controller.exportFlightplanToFile(filePath);
         writeSuccess(`Flightplan exported successfully to ${filePath}`);
+
+        return "mainMenu";
+    }
+
+    async missionGenerator(): Promise<MenuCommandMethod> {
+        writeMenuTitle(["Mission Generator"]);
+
+        const choice = await select({
+            message: "Mission Generator",
+            choices: [
+                ...MISSIONS_GENERATOR_MANIFESTS.map((manifest) => ({
+                    name: manifest.displayName,
+                    value: manifest.name,
+                })),
+
+                new Separator(),
+                this.getMainMenuChoice(),
+            ],
+        });
+
+        if (choice === "mainMenu") {
+            return choice;
+        }
+
+        writeError("Mission generator is not yet implemented. Please check back later.");
 
         return "mainMenu";
     }

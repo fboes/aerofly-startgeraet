@@ -1,4 +1,7 @@
-export const MISSION_GENERATOR_REGISTRY = {};
+//import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
+export const MISSION_GENERATOR_REGISTRY = {
+//"landing-pattern": LandingPatternMissionGenerator,
+};
 export const MISSIONS_GENERATOR_MANIFESTS = Object.entries(MISSION_GENERATOR_REGISTRY).map((c) => {
     if (!c[1]) {
         throw new Error("Missing class");

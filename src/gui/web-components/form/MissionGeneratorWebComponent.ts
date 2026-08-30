@@ -2,6 +2,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGeneratorInterface.js";
+import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 
 export class MissionGeneratorWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -27,7 +28,7 @@ export class MissionGeneratorWebComponent extends HTMLElement {
 
   <section class="d-flex">No mission generator found</section>
 
-  <button commandfor="dialog-simbrief" command="close" title="Close">✕</button>
+  <button commandfor="dialog-mission-generator" command="close" title="Close">✕</button>
 </dialog>
         `;
 
@@ -78,7 +79,11 @@ export class MissionGeneratorWebComponent extends HTMLElement {
             return;
         }
 
-        console.warn(`TODO: Open actual mission generator configuration dialog for "${e.target.dataset.name}"`); // TODO
+        dispatchNotificationEvent<undefined>(
+            document.body,
+            "Mission generator is not yet implemented. Please check back later.",
+            "error",
+        );
     };
 
     private createDialog() {
