@@ -1,8 +1,11 @@
 :root {
     color-scheme: light dark;
-    font-size: 93.75%; /* 15px (87.5% -> 14px) */
-    --fontsize-small: 0.73rem; /* 11px - absolute minimum (0.79rem) */
-    --fontsize-input: 0.8rem; /* 12px (0.85rem) */
+    font-size: 93.75%;
+    /* 15px (87.5% -> 14px) */
+    --fontsize-small: 0.73rem;
+    /* 11px - absolute minimum (0.79rem) */
+    --fontsize-input: 0.8rem;
+    /* 12px (0.85rem) */
     --fontweight-normal: 400;
     --fontweight-bold: 600;
     --fontfamily-primary:
@@ -251,6 +254,15 @@ input {
     &[type="radio"] {
         width: auto;
     }
+
+    &.icao {
+        width: 4.5em;
+    }
+
+    &:-webkit-autofill {
+        background: none;
+        appearance: unset;
+    }
 }
 
 button,
@@ -295,15 +307,15 @@ button,
     }
 }
 
-:invalid,
-.input-warning {
-    border-bottom: 1px solid var(--color-warning);
-    margin-bottom: -1px;
-}
-
 :focus {
     outline: none;
     border-bottom: 1px solid var(--color-highlight);
+    margin-bottom: -1px;
+}
+
+:invalid,
+.input-warning {
+    border-bottom: 1px solid var(--color-warning);
     margin-bottom: -1px;
 }
 

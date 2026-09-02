@@ -13,6 +13,7 @@ import { RoutePlanService } from "./RoutePlanService.js";
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 import { UpdateCheckService } from "./UpdateCheckService.js";
 import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
+import { getAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
 /**
  * AeroflyFlightService class that manages the state of the application and provides
  * methods to interact with the Aerofly DTO data.
@@ -196,6 +197,25 @@ export class AeroflyFlightService {
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
         this.updateCurrentAircraft();
+    }
+    setQuickFlightplan(origin, destination) {
+        const originData = getAeroflyAirportByIcaoCode(origin);
+        if (!originData) {
+            throw new Error(`Could not find origin airport with ICAO cdoe "${origin}"`);
+        }
+        const destinationData = getAeroflyAirportByIcaoCode(destination);
+        if (!destinationData) {
+            throw new Error(`Could not find destination airport with ICAO cdoe "${origin}"`);
+        }
+        this.setFlightplan({
+            identifier: originData.code,
+            longitude: originData.lon,
+            latitude: originData.lat,
+        }, {
+            identifier: destinationData.code,
+            longitude: destinationData.lon,
+            latitude: destinationData.lat,
+        });
     }
     setFlightplan(origin, destination, { departureRunway, destinationRunway, waypoints, cruiseAltitudeFt, } = {}) {
         this.aeroflyFlight.navigation.waypoints = [

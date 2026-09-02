@@ -29,6 +29,7 @@ import { AeroflyFlightToMetarConverter } from "../../core/converter/aerofly-flig
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
 import type { GithubReleaseApiPayload } from "../../core/services/UpdateCheckService.js";
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
+import type { FlightplanWebComponentState } from "../web-components/form/FlightplanWebComponent.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -137,6 +138,7 @@ export class AeroflyFlightServiceHandler {
         });
 
         this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
+        this.ipcMain.handle("flightplan:set", this.setFlightplan);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.openDialogAndImportFile);
         this.ipcMain.handle(
@@ -213,6 +215,20 @@ export class AeroflyFlightServiceHandler {
         }
 
         return createNotificationPayload("Successfully located main.mcf file", "success");
+    };
+
+    private setFlightplan = async (
+        event: IpcMainInvokeEvent,
+        flightplan: FlightplanWebComponentState,
+    ): Promise<NotificationEventPayload<undefined>> => {
+        try {
+            this.service.setQuickFlightplan(flightplan.origin, flightplan.destination);
+            this.sendStateUpdate();
+        } catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+
+        return createNotificationPayload("Flightplan set", "success");
     };
 
     private importSimbrief = async (

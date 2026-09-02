@@ -30,6 +30,7 @@ import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/A
 import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
 import { UpdateCheckService, type GithubReleaseApiPayload } from "./UpdateCheckService.js";
 import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
+import { getAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -307,6 +308,30 @@ export class AeroflyFlightService {
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
         this.updateCurrentAircraft();
+    }
+
+    setQuickFlightplan(origin: string, destination: string) {
+        const originData = getAeroflyAirportByIcaoCode(origin);
+        if (!originData) {
+            throw new Error(`Could not find origin airport with ICAO cdoe "${origin}"`);
+        }
+        const destinationData = getAeroflyAirportByIcaoCode(destination);
+        if (!destinationData) {
+            throw new Error(`Could not find destination airport with ICAO cdoe "${origin}"`);
+        }
+
+        this.setFlightplan(
+            {
+                identifier: originData.code,
+                longitude: originData.lon,
+                latitude: originData.lat,
+            },
+            {
+                identifier: destinationData.code,
+                longitude: destinationData.lon,
+                latitude: destinationData.lat,
+            },
+        );
     }
 
     setFlightplan(

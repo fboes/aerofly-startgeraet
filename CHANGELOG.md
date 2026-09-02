@@ -5,6 +5,7 @@
 - Changed organisation of default application constants
 - Added tests to Github workflow
 - Added mission generator button web component
+- Added quick flight plan generator
 
 ## [2.3.2] - 2026-08-25
 

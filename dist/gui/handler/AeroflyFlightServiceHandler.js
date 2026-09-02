@@ -102,6 +102,7 @@ export class AeroflyFlightServiceHandler {
             this.sendStateUpdate();
         });
         this.ipcMain.handle("config:choose-main-mcf-path", this.chooseMainMcfPath);
+        this.ipcMain.handle("flightplan:set", this.setFlightplan);
         this.ipcMain.handle("flightplan:import-simbrief", this.importSimbrief);
         this.ipcMain.handle("flightplan:import-file", this.openDialogAndImportFile);
         this.ipcMain.handle("flightplan:import-flightplan-index", (event, payload) => {
@@ -157,6 +158,16 @@ export class AeroflyFlightServiceHandler {
             return createNotificationErrorPayload(error);
         }
         return createNotificationPayload("Successfully located main.mcf file", "success");
+    };
+    setFlightplan = async (event, flightplan) => {
+        try {
+            this.service.setQuickFlightplan(flightplan.origin, flightplan.destination);
+            this.sendStateUpdate();
+        }
+        catch (error) {
+            return createNotificationErrorPayload(error);
+        }
+        return createNotificationPayload("Flightplan set", "success");
     };
     importSimbrief = async (event, simBrief) => {
         try {
