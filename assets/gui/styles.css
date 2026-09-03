@@ -115,7 +115,7 @@ h3 {
     margin-bottom: 0.25rem;
     font-weight: var(--fontweight-bold);
 
-    * + & {
+    *+& {
         margin-top: 1rem;
     }
 }
@@ -133,7 +133,7 @@ abbr {
     border-bottom: 1px dotted var(--color-darken-more);
 }
 
-.hr + .hr {
+.hr+.hr {
     margin-top: 1rem;
     border-top: var(--border-standard);
     padding-top: 1rem;
@@ -171,7 +171,7 @@ details {
         }
     }
 
-    + details {
+    +details {
         margin-top: 1rem;
     }
 
@@ -220,7 +220,7 @@ textarea {
     accent-color: var(--color-highlight);
     width: 100%;
 
-    + label {
+    +label {
         margin-top: 1rem;
     }
 
@@ -259,9 +259,9 @@ input {
         width: 4.5em;
     }
 
-    &:-webkit-autofill {
-        background: none;
-        appearance: unset;
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+        transition: background-color 0s 600000s, color 0s 600000s !important;
     }
 }
 
@@ -334,7 +334,8 @@ table {
         font-weight: var(--fontweight-normal);
     }
 
-    tr + tr {
+    tr+tr {
+
         td,
         th {
             border-top: var(--border-standard);
@@ -361,15 +362,15 @@ table {
     align-items: stretch;
     flex-grow: 1;
 
-    > * {
+    >* {
         flex-grow: 1;
     }
 
-    > .flex-grow-2 {
+    >.flex-grow-2 {
         flex-grow: 2;
     }
 
-    > .flex-grow-3 {
+    >.flex-grow-3 {
         flex-grow: 3;
     }
 }
@@ -383,7 +384,7 @@ span.d-flex {
 }
 
 @media screen and (max-width: 43rem) {
-    .d-flex > [aria-role="region"] {
+    .d-flex>[aria-role="region"] {
         width: 100%;
     }
 }
@@ -469,7 +470,7 @@ startgeraet-notification {
         border-radius: 0.25rem 0.25rem 0 0;
         overflow: hidden;
 
-        + output {
+        +output {
             border-radius: 0;
         }
 
@@ -515,3 +516,4 @@ startgeraet-icon {
         color: var(--color-warning);
     }
 }
+

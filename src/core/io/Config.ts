@@ -214,6 +214,14 @@ export class Config {
         this.setNumber("fontSizePercent", fontSizePercent);
     }
 
+    get autoSaveDelaySeconds(): number {
+        return this.getNumber("autoSaveDelaySeconds", 2);
+    }
+
+    set autoSaveDelaySeconds(autoSaveDelaySeconds) {
+        this.setNumber("autoSaveDelaySeconds", Math.max(-1, autoSaveDelaySeconds));
+    }
+
     /**
      * @returns if a sufficient cool down has occured after last update check
      */

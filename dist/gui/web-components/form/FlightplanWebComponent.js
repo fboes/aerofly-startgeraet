@@ -92,7 +92,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         const isOrigin = e.target === this.elements.flightplanOrigin;
         const { input, dataList } = this.getElements(isOrigin);
         const filtered = this.handleDataList(input, dataList);
-        const hasExactMatch = filtered.length === 1 && input.value.length >= 4;
+        const hasExactMatch = filtered.length === 1 && input.value.length >= 4 && filtered[0]?.code === input.value.trim().toUpperCase();
         input.classList.toggle("input-warning", !hasExactMatch);
         if (hasExactMatch) {
             const response = await sendToMain("flightplan:set", this.state);

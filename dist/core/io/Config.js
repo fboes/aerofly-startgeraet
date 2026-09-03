@@ -144,6 +144,12 @@ export class Config {
     set fontSizePercent(fontSizePercent) {
         this.setNumber("fontSizePercent", fontSizePercent);
     }
+    get autoSaveDelaySeconds() {
+        return this.getNumber("autoSaveDelaySeconds", 2);
+    }
+    set autoSaveDelaySeconds(autoSaveDelaySeconds) {
+        this.setNumber("autoSaveDelaySeconds", Math.max(-1, autoSaveDelaySeconds));
+    }
     /**
      * @returns if a sufficient cool down has occured after last update check
      */

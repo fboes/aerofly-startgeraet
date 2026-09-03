@@ -17,12 +17,16 @@ export class AeroflyFlightServiceHandler {
     service;
     metar;
     writeTimer = null;
-    writeDelay = 1_000;
+    /**
+     * The delay in milliseconds before writing the main.mcf file after a state update. Set to -1 to disable auto-writing.
+     */
+    writeDelay = 2_000;
     isMissingMainMcf = false;
     constructor(ipcMain, win) {
         this.ipcMain = ipcMain;
         this.win = win;
         const config = new Config("electron");
+        this.writeDelay = config.autoSaveDelaySeconds * 1000;
         this.service = new AeroflyFlightService(config);
         this.metar = new AeroflyFlightToMetarConverter();
         this.loadMainMcf();
@@ -267,11 +271,14 @@ export class AeroflyFlightServiceHandler {
     sendStateUpdate(intial = false) {
         const state = new AppState(this.service.getAeroflyFlight(), this.service.getAircraftData(), this.service.getMaxRemainingPayload(), this.getMetar(), this.isMissingMainMcf, this.service.config);
         this.win.webContents.send("state:update", state);
-        if (intial) {
+        if (!intial) {
             this.startDebouncedWriteFile();
         }
     }
     startDebouncedWriteFile() {
+        if (this.writeDelay < 0) {
+            return;
+        }
         if (this.writeTimer !== null) {
             clearTimeout(this.writeTimer);
         }

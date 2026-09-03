@@ -9,6 +9,8 @@ export type FlightplanWebComponentState = {
     destination: string;
 };
 
+type FlightplanWebComponentAirport = AeroflyAirportCoordinatesObject & { nameUppercase: string };
+
 export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
 
@@ -21,7 +23,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         flightplanTime: HTMLOutputElement;
     };
 
-    private airportList: (AeroflyAirportCoordinatesObject & { nameUppercase: string })[] = [];
+    private airportList: FlightplanWebComponentAirport[] = [];
 
     get state(): FlightplanWebComponentState {
         return {
@@ -119,7 +121,8 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         const { input, dataList } = this.getElements(isOrigin);
         const filtered = this.handleDataList(input, dataList);
 
-        const hasExactMatch = filtered.length === 1 && input.value.length >= 4;
+        const hasExactMatch =
+            filtered.length === 1 && input.value.length >= 4 && filtered[0]?.code === input.value.trim().toUpperCase();
         input.classList.toggle("input-warning", !hasExactMatch);
 
         if (hasExactMatch) {
@@ -133,7 +136,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
      *
      * @returns the list of matching airports
      */
-    private handleDataList(input: HTMLInputElement, dataList: HTMLDataListElement) {
+    private handleDataList(input: HTMLInputElement, dataList: HTMLDataListElement): FlightplanWebComponentAirport[] {
         const inputValue = input.value.trim().toUpperCase();
 
         // Autocomplete: Populate datalist if input has 2+ chars
