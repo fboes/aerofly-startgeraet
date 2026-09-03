@@ -23,4 +23,14 @@ describe("MsfsPlnToAeroflyFlightConverter", () => {
         assertRoundedEqual(flight.navigation.waypoints[5]?.longitude, -80.290117);
         assert.strictEqual(flight.navigation.waypoints[5]?.identifier, "KMIA");
     });
+
+    it("should fail on trying to import EFB", () => {
+        const flight = new AeroflyFlightFallback();
+        const content = loadFixture("KEYWKMIA_M24.pln");
+
+        const converter = new MsfsPlnToAeroflyFlightConverter();
+        assert.throws(() => {
+            converter.convert(content, flight);
+        });
+    });
 });

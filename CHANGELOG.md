@@ -7,6 +7,7 @@
 - Added mission generator button web component
 - Added quick flight plan generator
 - Fixed auto-save feature
+- Improved handling of MSFS 2024 mission files
 
 ## [2.3.2] - 2026-08-25
 

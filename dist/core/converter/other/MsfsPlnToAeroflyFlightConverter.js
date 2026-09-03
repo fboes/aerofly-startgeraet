@@ -76,10 +76,13 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         return runwayNumberFP + (runwayDesignatorFP === "NONE" ? "" : runwayDesignatorFP.substring(0, 1));
     }
     convertCoordinate(coordinate) {
+        if (coordinate === "") {
+            throw new Error(`Missing coordinates in file. Possibly you are trying to import an Microsoft Flight Simulator 2024 EFB file instead of a mission file.`);
+        }
         // N52° 45' 7.51",W3° 53' 2.16",+002500.00
         const parts = coordinate.split(/,\s*/);
         if (parts.length < 2) {
-            throw new Error(`Wrong coordinates format "${coordinate}", expexted something like N52° 45' 7.51",W3° 53' 2.16",+002500.00`);
+            throw new Error(`Wrong coordinates format "${coordinate}", expected format like "N52° 45' 7.51",W3° 53' 2.16",+002500.00"`);
         }
         const numbers = parts.map((p) => {
             const [, direction, degrees, minutes, seconds] = p.match(/([NSEW])(\d+)\D+(\d+)\D+([0-9.]+)/) || [];

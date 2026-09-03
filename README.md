@@ -33,7 +33,7 @@ Supported flight plan file formats:
 | Aerofly FS `main.mcf`                                                                                                                   | ✅ <sup>1)</sup> | ✅ <sup>1)</sup> |
 | Aerofly FS 4 `tmc` custom missions                                                                                                      | ✅ <sup>1)</sup> | ✅ <sup>1)</sup> |
 | [Microsoft FS 2020 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) | ✅               |                  |
-| [Microsoft FS 2024 `pln`](https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm) | ✅ <sup>2)</sup> |                  |
+| [Microsoft FS 2024 `pln`](https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/Flight_Plan_XML_Properties.htm) | ✅ <sup>2)</sup> |                  |
 | [X-Plane 11 / 12 `fms`](https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/)                                    | ✅               |                  |
 | [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                   | ✅               |                  |
 | [SimBrief API](./docs/importing-flightplans.md)                                                                                         | ✅ <sup>1)</sup> |                  |
@@ -43,7 +43,7 @@ Supported flight plan file formats:
 | Markdown Text File (for mission briefing)                                                                                               |                  | ✅ <sup>1)</sup> |
 
 - <sup>1)</sup> Marked file format import / export also includes aircraft and weather settings
-- <sup>2)</sup> Marked file format import may fail depending on exporting application due to missing information required by Aerofly FS
+- <sup>2)</sup> Only imports MFSF 2024 _mission_ files. Will not import MSFS 2024 _EFB_ files.
 - <sup>3)</sup> Marked file format import / export only contains weather data
 
 ## Installation & Instructions

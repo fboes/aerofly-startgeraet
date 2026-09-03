@@ -5,7 +5,6 @@ export function parseXmlNode(xml: string, tag: string, defaultValue = ""): strin
 
 export function parseXmlNodes(xml: string, tag: string, defaultValue: string[] = []): string[] {
     const nodes = xml.match(new RegExp(`<${tag}.*?</${tag}>`, "gms"));
-
     return nodes ? nodes : defaultValue;
 }
 
