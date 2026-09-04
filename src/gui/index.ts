@@ -5,13 +5,14 @@ import { registerAeroflyAircraftHandlers } from "./handler/registerAeroflyAircra
 import { registerApplicationHandlers } from "./handler/registerApplicationHandlers.js";
 import { IMPORT_FILE_TYPES } from "../core/io/importFlightplan.js";
 import { getWindowState, storeWindowState } from "./handler/windowState.js";
+import { APPLICATION_INFORMATION } from "../core/services/getApplicationInformation.js";
 
 let fileToOpen: string | null = null;
 
 const createWindow = () => {
     const rootDir = path.join(import.meta.dirname, "../..");
     const win = new BrowserWindow({
-        ...getWindowState(),
+        ...getWindowState(APPLICATION_INFORMATION.isDev),
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),
@@ -21,7 +22,10 @@ const createWindow = () => {
         },
     });
     win.loadFile(path.join(rootDir, "assets/gui/index.html"));
-    //win.webContents.openDevTools();
+
+    if (APPLICATION_INFORMATION.isDev) {
+        win.webContents.openDevTools();
+    }
     win.webContents.setWindowOpenHandler(({ url }) => {
         if (url.startsWith("aerofly-startgeraet")) {
             return { action: "allow" };

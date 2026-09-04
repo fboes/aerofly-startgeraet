@@ -4,8 +4,8 @@ import { Config } from "../../core/io/Config.js";
 const config = new Config("electron");
 
 type WindowSize = {
-    height: number;
     width: number;
+    height: number;
 };
 
 type WindowPosition = {
@@ -16,7 +16,14 @@ type WindowPosition = {
 /**
  * @returns intitial width and height of main window; possibly also position of window, if this is not ouf of bounds
  */
-export function getWindowState() {
+export function getWindowState(isDev = false) {
+    if (isDev) {
+        return {
+            width: 960,
+            height: 755,
+        };
+    }
+
     const windowSize = getWindowSize();
     return {
         ...windowSize,

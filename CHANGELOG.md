@@ -9,6 +9,7 @@
 - Fixed auto-save feature
 - Improved handling of MSFS 2024 mission files
 - Added fuel warning to flight plan summary
+- Added `--dev` mode
 
 ## [2.3.2] - 2026-08-25
 

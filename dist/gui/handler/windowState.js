@@ -4,7 +4,13 @@ const config = new Config("electron");
 /**
  * @returns intitial width and height of main window; possibly also position of window, if this is not ouf of bounds
  */
-export function getWindowState() {
+export function getWindowState(isDev = false) {
+    if (isDev) {
+        return {
+            width: 960,
+            height: 755,
+        };
+    }
     const windowSize = getWindowSize();
     return {
         ...windowSize,

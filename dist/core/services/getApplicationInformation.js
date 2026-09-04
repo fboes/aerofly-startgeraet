@@ -3,11 +3,13 @@ const [, username, reponame] = PackageJson.repository.url.match(/^https:\/\/gith
 if (!username || !reponame) {
     throw new Error("Mission Github repository URL from package.json");
 }
+const isDev = process.argv.includes("--dev");
+const version = PackageJson.version + (isDev ? "-dev" : "");
 export const APPLICATION_INFORMATION = {
     name: PackageJson.displayName,
-    nameVersion: `${PackageJson.name} ${PackageJson.version}`,
+    nameVersion: `${PackageJson.name} ${version}`,
     slug: reponame,
-    version: PackageJson.version,
+    version,
     description: PackageJson.description,
     locale: "en-US",
     author: {
@@ -20,4 +22,5 @@ export const APPLICATION_INFORMATION = {
         reponame,
         releaseUrl: PackageJson.releases,
     },
+    isDev,
 };

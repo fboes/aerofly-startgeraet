@@ -20,6 +20,7 @@ export type ApplicationInformation = {
         reponame: string;
         releaseUrl: string;
     };
+    isDev: boolean;
 };
 
 const [, username, reponame] = PackageJson.repository.url.match(/^https:\/\/github.com\/(.+?)\/(.+?)\.git$/) || [];
@@ -27,11 +28,14 @@ if (!username || !reponame) {
     throw new Error("Mission Github repository URL from package.json");
 }
 
+const isDev = process.argv.includes("--dev");
+const version = PackageJson.version + (isDev ? "-dev" : "");
+
 export const APPLICATION_INFORMATION: ApplicationInformation = {
     name: PackageJson.displayName,
-    nameVersion: `${PackageJson.name} ${PackageJson.version}`,
+    nameVersion: `${PackageJson.name} ${version}`,
     slug: reponame,
-    version: PackageJson.version,
+    version,
     description: PackageJson.description,
     locale: "en-US",
     author: {
@@ -44,4 +48,5 @@ export const APPLICATION_INFORMATION: ApplicationInformation = {
         reponame,
         releaseUrl: PackageJson.releases,
     },
+    isDev,
 };
