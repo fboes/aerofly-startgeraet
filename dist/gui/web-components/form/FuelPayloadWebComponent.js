@@ -1,6 +1,7 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { numberFormat } from "../util/numberFormat.js";
 export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     maximumTakeoffMassKg = 0;
@@ -84,7 +85,7 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.elements.fuelMass.valueAsNumber = Math.floor(state.aeroflyFlight.fuelLoadSetting.fuelMass);
             this.elements.fuelMass.max = fuelMassMax.toFixed();
             this.elements.fuelMass.disabled = this.elements.fuelMass.max === "0";
-            this.elements.fuelMassMax.textContent = fuelMassMax ? `(max. ${this.numberFormat(fuelMassMax)} kg)` : "";
+            this.elements.fuelMassMax.textContent = fuelMassMax ? `(max. ${numberFormat(fuelMassMax)} kg)` : "";
             // TODO: Only change range slider if slider value could not have been created from the given fuel mass
             if (lowerBound > this.elements.range.valueAsNumber || upperBound < this.elements.range.valueAsNumber) {
                 this.elements.range.valueAsNumber = Math.floor(calculatedRange);
@@ -93,19 +94,19 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
             this.title = `Recommended minimal range: ${state.route.distance_nm.toFixed()} NM`;
             this.elements.range.max = maxRange.toFixed();
             this.elements.range.disabled = this.elements.range.max === "0" || this.elements.fuelMass.max === "0";
-            this.elements.rangeMax.textContent = maxRange ? `(max. ${this.numberFormat(maxRange)} NM)` : "";
+            this.elements.rangeMax.textContent = maxRange ? `(max. ${numberFormat(maxRange)} NM)` : "";
             this.elements.payloadMass.valueAsNumber = payloadMass;
             this.elements.payloadMass.max = maxPayload.toFixed();
             this.elements.payloadMass.disabled = this.elements.payloadMass.max === "0";
             this.elements.payloadMassMax.textContent = state.getMaxRemainingPayload_kg
-                ? `(max. ${this.numberFormat(maxPayload)} kg)`
+                ? `(max. ${numberFormat(maxPayload)} kg)`
                 : "";
             this.elements.persons.classList.toggle("input-warning", this.elements.persons.valueAsNumber < 1 &&
                 this.elements.payloadMass.valueAsNumber < this.weightProPerson_kg);
             this.elements.persons.max = maxPersons.toFixed();
             this.elements.persons.disabled = this.elements.persons.max === "0";
             this.elements.personsMax.textContent = state.getMaxRemainingPayload_kg
-                ? `(max. ${this.numberFormat(maxPersons)})`
+                ? `(max. ${numberFormat(maxPersons)})`
                 : "";
         });
         this.addEventListener("input", this.handleChange);
@@ -134,12 +135,6 @@ export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent
     handleChange = () => {
         sendToMain("fuel-payload:set", this.state);
     };
-    numberFormat(value) {
-        return new Intl.NumberFormat(document.documentElement.lang, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(value);
-    }
     static registerElement() {
         registerElement("startgeraet-fuel-payload", FuelPayloadWebComponent);
     }

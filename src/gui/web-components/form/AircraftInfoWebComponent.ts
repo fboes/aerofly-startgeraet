@@ -1,5 +1,6 @@
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { numberFormat } from "../util/numberFormat.js";
 
 export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponent {
     private isInitialized = false;
@@ -54,22 +55,12 @@ export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponen
         this.subscribeToStateUpdates((state) => {
             this.elements.aircraftName.innerText = state.aircraftData?.nameFull ?? "Aircraft data";
             this.elements.aircraftIcaoCode.value = state.aircraftData?.icaoCode ?? "---";
-            this.elements.aircraftCruiseSpeed.value = this.numberFormat(state.aircraftData?.cruiseSpeedKts);
-            this.elements.aircraftCruiseAltitude.value = this.numberFormat(state.aircraftData?.cruiseAltitudeFt);
+            this.elements.aircraftCruiseSpeed.value = numberFormat(state.aircraftData?.cruiseSpeedKts);
+            this.elements.aircraftCruiseAltitude.value = numberFormat(state.aircraftData?.cruiseAltitudeFt);
         });
     }
 
     static registerElement() {
         registerElement("startgeraet-aircraft-info", AircraftInfoWebComponent);
-    }
-
-    private numberFormat(value: number | undefined): string {
-        if (value === undefined) {
-            return "---";
-        }
-        return new Intl.NumberFormat(document.documentElement.lang, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(value);
     }
 }

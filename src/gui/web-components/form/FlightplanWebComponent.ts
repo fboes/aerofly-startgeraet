@@ -3,6 +3,9 @@ import { registerElement } from "../../renderer/registerElement.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/airport-coordinates-object.json";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
+import type { IconWebComponent } from "../util/IconWebComponent.js";
+import type { AppState } from "../../renderer/AppState.js";
+import { numberFormat } from "../util/numberFormat.js";
 
 export type FlightplanWebComponentState = {
     origin: string;
@@ -21,6 +24,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         flightplanDestinationList: HTMLDataListElement;
         flightplanDistance: HTMLAnchorElement;
         flightplanTime: HTMLOutputElement;
+        fuelWarning: IconWebComponent;
     };
 
     private airportList: FlightplanWebComponentAirport[] = [];
@@ -52,8 +56,12 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         <input id="flightplan-origin" class="icao" list="flightplan-origin-list" pattern="[A-Za-z0-9]+" autocapitalize="characters" />
         <datalist id="flightplan-origin-list"></datalist>
       </td>
-      <td rowspan="2"><a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a></td>
-      <td rowspan="2"><output id="flightplan-time">Unknown</output></td>
+      <td rowspan="2">
+        <a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a>&nbsp;<startgeraet-icon icon="fuel-pump" title="Not enough range for non-stop flight" id="fuel-warning"></startgeraet-icon>
+      </td>
+      <td rowspan="2">
+        <output id="flightplan-time">Unknown</output>
+      </td>
     </tr>
     <tr class="form-group">
       <th scope="row">To</th>
@@ -72,6 +80,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             flightplanDestinationList: this.querySelector("#flightplan-destination-list") as HTMLDataListElement,
             flightplanDistance: this.querySelector("#flightplan-distance") as HTMLAnchorElement,
             flightplanTime: this.querySelector("#flightplan-time") as HTMLOutputElement,
+            fuelWarning: this.querySelector("#fuel-warning") as IconWebComponent,
         };
     }
 
@@ -87,9 +96,11 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanDestination.value = state.route.destinationAirportCode;
             this.elements.flightplanDestination.classList.remove("input-warning");
 
-            this.elements.flightplanDistance.textContent = `${state.route.distance_nm.toFixed(0)} NM`;
+            this.elements.flightplanDistance.textContent = `${numberFormat(state.route.distance_nm)} NM`;
             this.elements.flightplanDistance.href = state.route.routeUrl;
             this.elements.flightplanDistance.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
+
+            this.checkRangeWarning(state);
 
             this.elements.flightplanTime.textContent =
                 state.route.flightTime.hours > 0
@@ -164,6 +175,17 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
     <option value="RJTT">RJTT - Tokyo Haneda Airport</option>
 `;
         return [];
+    }
+
+    private checkRangeWarning(state: AppState) {
+        const hasEnoughRange = state.route.distance_nm <= (state.aircraftData?.maximumRangeNm ?? 0);
+
+        const maxRangeTitle = `${numberFormat(state.aircraftData?.maximumRangeNm ?? 0)} NM)`;
+        this.elements.fuelWarning.title = hasEnoughRange
+            ? `Enough range for non-stop flight (${maxRangeTitle})`
+            : `Not enough range for non-stop flight (${maxRangeTitle})`;
+        this.elements.fuelWarning.icon = hasEnoughRange ? "" : "fuel-pump";
+        this.elements.fuelWarning.classList.toggle("has-warning", !hasEnoughRange);
     }
 
     private getElements(isOrigin = false) {

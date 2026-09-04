@@ -8,6 +8,7 @@
 - Added quick flight plan generator
 - Fixed auto-save feature
 - Improved handling of MSFS 2024 mission files
+- Added fuel warning to flight plan summary
 
 ## [2.3.2] - 2026-08-25
 

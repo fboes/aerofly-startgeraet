@@ -2,6 +2,7 @@ import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscr
 import { registerElement } from "../../renderer/registerElement.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
+import { numberFormat } from "../util/numberFormat.js";
 export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
     isInitialized = false;
     elements;
@@ -32,8 +33,12 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         <input id="flightplan-origin" class="icao" list="flightplan-origin-list" pattern="[A-Za-z0-9]+" autocapitalize="characters" />
         <datalist id="flightplan-origin-list"></datalist>
       </td>
-      <td rowspan="2"><a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a></td>
-      <td rowspan="2"><output id="flightplan-time">Unknown</output></td>
+      <td rowspan="2">
+        <a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a>&nbsp;<startgeraet-icon icon="fuel-pump" title="Not enough range for non-stop flight" id="fuel-warning"></startgeraet-icon>
+      </td>
+      <td rowspan="2">
+        <output id="flightplan-time">Unknown</output>
+      </td>
     </tr>
     <tr class="form-group">
       <th scope="row">To</th>
@@ -52,6 +57,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             flightplanDestinationList: this.querySelector("#flightplan-destination-list"),
             flightplanDistance: this.querySelector("#flightplan-distance"),
             flightplanTime: this.querySelector("#flightplan-time"),
+            fuelWarning: this.querySelector("#fuel-warning"),
         };
     }
     async connectedCallback() {
@@ -64,9 +70,10 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanOrigin.classList.remove("input-warning");
             this.elements.flightplanDestination.value = state.route.destinationAirportCode;
             this.elements.flightplanDestination.classList.remove("input-warning");
-            this.elements.flightplanDistance.textContent = `${state.route.distance_nm.toFixed(0)} NM`;
+            this.elements.flightplanDistance.textContent = `${numberFormat(state.route.distance_nm)} NM`;
             this.elements.flightplanDistance.href = state.route.routeUrl;
             this.elements.flightplanDistance.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
+            this.checkRangeWarning(state);
             this.elements.flightplanTime.textContent =
                 state.route.flightTime.hours > 0
                     ? `${state.route.flightTime.hours} h ${state.route.flightTime.minutes.toString().padStart(2, "0")} min`
@@ -128,6 +135,15 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
     <option value="RJTT">RJTT - Tokyo Haneda Airport</option>
 `;
         return [];
+    }
+    checkRangeWarning(state) {
+        const hasEnoughRange = state.route.distance_nm <= (state.aircraftData?.maximumRangeNm ?? 0);
+        const maxRangeTitle = `${numberFormat(state.aircraftData?.maximumRangeNm ?? 0)} NM)`;
+        this.elements.fuelWarning.title = hasEnoughRange
+            ? `Enough range for non-stop flight (${maxRangeTitle})`
+            : `Not enough range for non-stop flight (${maxRangeTitle})`;
+        this.elements.fuelWarning.icon = hasEnoughRange ? "" : "fuel-pump";
+        this.elements.fuelWarning.classList.toggle("has-warning", !hasEnoughRange);
     }
     getElements(isOrigin = false) {
         return {
