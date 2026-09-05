@@ -2,7 +2,7 @@
   "name": "@fboes/aerofly-startgeraet",
   "desktopName": "aerofly-startgeraet",
   "displayName": "Aerofly Startgerät",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "description": "The Auxiliary Power Unit for Aerofly Flight Simulator 4: Improving the main menu with meaningful units and import functionality for weather and flight plans.",
   "homepage": "https://fboes.github.io/aerofly-startgeraet/",
   "releases": "https://github.com/fboes/aerofly-startgeraet/releases/latest",
