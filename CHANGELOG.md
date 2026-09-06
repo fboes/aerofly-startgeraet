@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.4.0] 2026-09-05
+
 - Changed organisation of default application constants
 - Added tests to Github workflow
 - Added mission generator button web component

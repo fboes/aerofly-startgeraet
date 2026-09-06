@@ -3,7 +3,7 @@ import type { AeroflyFlightService } from "../../core/services/AeroflyFlightServ
 import type { MissionGeneratorInterface, MissionGeneratorManifest } from "../MissionGeneratorInterface.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
-    airportIcao: z.ZodString;
+    distance_nm: z.ZodDefault<z.ZodNumber>;
 };
 
 export class LandingPatternMissionGenerator implements MissionGeneratorInterface<LandingPatternMissionGeneratorConfiguration> {
@@ -11,15 +11,18 @@ export class LandingPatternMissionGenerator implements MissionGeneratorInterface
         return {
             name: "landing-pattern",
             displayName: "Landing Pattern",
-            description:
-                "Generates a landing pattern for a given airport, using the current time, date and live weather data.",
+            description: "Generates a landing pattern, using the current destination, time, date and weather settings.",
             version: "1.0.0",
         };
     }
 
     configuration(): z.ZodObject<LandingPatternMissionGeneratorConfiguration> {
         return z.object({
-            airportIcao: z.string().min(4).max(4),
+            distance_nm: z
+                .number()
+                .positive()
+                .default(5)
+                .describe("Distance from the airport in nautical miles for the landing pattern."),
         });
     }
 
@@ -28,8 +31,8 @@ export class LandingPatternMissionGenerator implements MissionGeneratorInterface
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         flightPlanService: AeroflyFlightService,
     ): void {
-        if (!configuration.airportIcao) {
-            throw new Error("Airport ICAO code is required.");
+        if (configuration.distance_nm <= 0) {
+            throw new Error("Distance in nautical miles must be a positive number.");
         }
     }
 }

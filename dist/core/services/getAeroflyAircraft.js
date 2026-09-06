@@ -18,3 +18,9 @@ export function getAeroflyLivery(aircraft, aeroflyCodeLivery) {
 export function getAeroflyLiveryByIcaoCode(aircraft, icaoCodeLivery) {
     return aircraft?.liveries.find((livery) => livery.icaoCode?.toLowerCase() === icaoCodeLivery.toLowerCase());
 }
+/**
+ * Find Aerofly FS aircraft by a tag. Examples for tag search are "historical", "airliner", "helicopter", "military", "glider", "aerobatic", "general_aviation".
+ */
+export function getAeroflyAircraftByTag(tag) {
+    return AeroflyAircraftLiveries.filter((aircraft) => aircraft.tags?.includes(tag));
+}
