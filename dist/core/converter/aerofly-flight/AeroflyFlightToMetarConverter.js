@@ -3,7 +3,7 @@ export class AeroflyFlightToMetarConverter {
     // static readonly fileName: string;
     // static readonly fileExtension: string;
     convert(flightplan) {
-        return `METAR ${getFlightplanOriginCode(flightplan)} ${this.getTimeAndDate(flightplan)} ${this.getWind(flightplan)} ${this.getVisibility(flightplan)} ${this.getClouds(flightplan)} ${this.getTemperature(flightplan)} Q1013`;
+        return `METAR ${getFlightplanOriginCode(flightplan)} ${this.getTimeAndDate(flightplan)} ${this.getWind(flightplan)} ${this.getVisibility(flightplan)} ${this.getClouds(flightplan)} ${this.getTemperature(flightplan)} Q${Math.round(1013.25)}`;
     }
     getTimeAndDate(flightplan) {
         return (flightplan.timeUtc.time.getUTCDate().toFixed().padStart(2, "0") +
@@ -18,10 +18,17 @@ export class AeroflyFlightToMetarConverter {
             "KT");
     }
     getVisibility(flightplan) {
-        const asMeters = flightplan.visibility_meter < 10000 && flightplan.visibility_sm % 1 !== 0;
+        const asMeters = flightplan.visibility_meter < 10000 && (flightplan.visibility_sm * 4) % 1 !== 0;
         return asMeters
             ? this.roundVisibilityMeters(flightplan.visibility_meter).toFixed().padStart(4, "0")
-            : Math.round(flightplan.visibility_sm).toFixed() + "SM";
+            : this.getVisibilitySm(flightplan.visibility_sm);
+    }
+    getVisibilitySm(value) {
+        const quarter = Math.floor((value % 1) * 4);
+        const quarterString = quarter > 0 ? (quarter === 2 ? " 1/2" : ` ${quarter.toFixed()}/4`) : "";
+        const full = quarterString ? Math.floor(value) : Math.round(value);
+        const fullString = full > 0 || quarterString === "" ? full.toFixed() : "";
+        return `${fullString}${quarterString}SM`.trim();
     }
     roundVisibilityMeters(value) {
         if (value < 800) {
