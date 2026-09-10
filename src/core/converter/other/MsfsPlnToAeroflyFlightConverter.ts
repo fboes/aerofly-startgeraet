@@ -56,7 +56,7 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         const coords = this.convertCoordinate(parseXmlNode(xml, "WorldPosition"));
         const identifier = parseXmlNode(xml, "ICAOIdent") || parseXmlAttribute(xml, "id");
         const runway = isFirst || isLast ? this.getRunway(xml) : null;
-        const runwayDirection = runway ? Number(runway.replace(/\D+/, "")) * 10 : undefined;
+        const runwayDirection = runway ? this.parseRunwayDirection(runway) : undefined;
 
         if (isFirst) {
             const route = [
@@ -65,7 +65,7 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
                 }),
             ];
 
-            if (runway && runwayDirection && !isNaN(runwayDirection)) {
+            if (runway && runwayDirection) {
                 route.push(
                     positionRunwayWaypoint(
                         new AeroflyNavRouteDepartureRunway(runway, coords.lon, coords.lat, {
@@ -79,7 +79,7 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
         }
         if (isLast) {
             const route = [];
-            if (runway && runwayDirection && !isNaN(runwayDirection)) {
+            if (runway && runwayDirection) {
                 route.push(
                     positionRunwayWaypoint(
                         new AeroflyNavRouteDestinationRunway(runway, coords.lon, coords.lat, {

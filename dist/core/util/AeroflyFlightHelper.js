@@ -11,16 +11,26 @@ export function getLocalTimeZoneOffset(aeroflyFlight) {
     return Math.round((aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.longitude ?? 0) / 15);
 }
 /**
- * @returns the given runway position moved by its length along its direction to the possible runway threshold (instead of its center). Also normalizes the runway identifier to match Aerofly FS4 standards.
+ * @returns the given runway position moved by its length along its direction to the possible runway threshold
+ *   (instead of its center). Also normalizes the runway identifier to match Aerofly FS4 standards.
+ *   For "L" / "R" runways, this position will be slightly altered from the general formular.
+ *   **WARNING:** The position returned will never be exact.
  */
 export function positionRunwayWaypoint(waypoint) {
     const direction_degree = waypoint.direction_degree ?? Number(waypoint.identifier.replace(/\D+/g, "")) * 10;
-    const runwayLength = waypoint.runwayLength ?? 1500;
+    const runwayLength = Math.max(100, waypoint.runwayLength ?? 1500);
     const coordinates = new Point(waypoint.longitude, waypoint.latitude);
-    const coordinatesNew = coordinates.getPointBy(new Vector(runwayLength / 2, direction_degree + 180));
+    let coordinatesNew = coordinates.getPointBy(new Vector(runwayLength / 2, direction_degree + 180));
+    if (waypoint.identifier.endsWith("L")) {
+        coordinatesNew = coordinatesNew.getPointBy(new Vector(200, direction_degree + 90));
+    }
+    if (waypoint.identifier.endsWith("R")) {
+        coordinatesNew = coordinatesNew.getPointBy(new Vector(200, direction_degree - 90));
+    }
     waypoint.latitude = coordinatesNew.latitude;
     waypoint.longitude = coordinatesNew.longitude;
     waypoint.direction_degree = direction_degree;
+    waypoint.runwayLength = runwayLength;
     waypoint.identifier = waypoint.identifier.replace(/^\D+/, "").toUpperCase();
     return waypoint;
 }

@@ -96,7 +96,7 @@ ${markdownTable([
 > ${m.convert(flightplan)}
 
 ${markdownTable([
-    ["Wind", "Clouds", "Visibility", "Temperature", "Flight Categegory"],
+    ["Wind", "Clouds", "Visibility", "Temperature", "Flight Category"],
     ["---", "--:", "--:", "--:", "---"],
     [
         getWind(flightplan),

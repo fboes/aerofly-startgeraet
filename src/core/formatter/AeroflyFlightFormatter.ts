@@ -125,11 +125,9 @@ export function getHourString(minutes: number): string {
 }
 
 export function getMinuteString(minutes: number): string {
-    return minutes
-        ? `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
-              .toString()
-              .padStart(2, "0")}`
-        : "";
+    return `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
+        .toString()
+        .padStart(2, "0")}`;
 }
 
 export function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string {

@@ -86,11 +86,9 @@ export function getHourString(minutes) {
     return getMinuteString(minutes / 60);
 }
 export function getMinuteString(minutes) {
-    return minutes
-        ? `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
-            .toString()
-            .padStart(2, "0")}`
-        : "";
+    return `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
+        .toString()
+        .padStart(2, "0")}`;
 }
 export function getCombinedFlightCategory(aeroflyFlight) {
     return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getFlightCategory(aeroflyFlight)}`;

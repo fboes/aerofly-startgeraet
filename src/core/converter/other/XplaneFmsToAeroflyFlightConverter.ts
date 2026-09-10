@@ -163,8 +163,4 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
             }),
         ];
     }
-
-    private parseRunwayDirection(runway: string): number {
-        return this.parseNumber(runway.replace(/^\D+/, ""), 0) * 10;
-    }
 }

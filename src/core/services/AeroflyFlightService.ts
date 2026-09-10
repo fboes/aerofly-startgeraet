@@ -358,7 +358,7 @@ export class AeroflyFlightService {
                       AeroflyFlightHelper.positionRunwayWaypoint(
                           new AeroflyNavRouteDepartureRunway(r.identifier, origin.longitude, origin.latitude, {
                               elevation_ft: r.elevation_ft ?? origin.elevation_ft,
-                              runwayLength: r.length ?? 1500,
+                              runwayLength: r.length,
                               direction_degree: r.direction_degree,
                           }),
                       ),
@@ -380,7 +380,7 @@ export class AeroflyFlightService {
                               destination.latitude,
                               {
                                   elevation_ft: r.elevation_ft ?? destination.elevation_ft,
-                                  runwayLength: r.length ?? 1500,
+                                  runwayLength: r.length,
                                   direction_degree: r.direction_degree,
                               },
                           ),

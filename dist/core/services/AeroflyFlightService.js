@@ -225,7 +225,7 @@ export class AeroflyFlightService {
             ...(departureRunway
                 ? [departureRunway].map((r) => AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(r.identifier, origin.longitude, origin.latitude, {
                     elevation_ft: r.elevation_ft ?? origin.elevation_ft,
-                    runwayLength: r.length ?? 1500,
+                    runwayLength: r.length,
                     direction_degree: r.direction_degree,
                 })))
                 : []),
@@ -236,7 +236,7 @@ export class AeroflyFlightService {
             ...(destinationRunway
                 ? [destinationRunway].map((r) => AeroflyFlightHelper.positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(r.identifier, destination.longitude, destination.latitude, {
                     elevation_ft: r.elevation_ft ?? destination.elevation_ft,
-                    runwayLength: r.length ?? 1500,
+                    runwayLength: r.length,
                     direction_degree: r.direction_degree,
                 })))
                 : []),

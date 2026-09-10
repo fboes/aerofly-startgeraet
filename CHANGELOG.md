@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 - Improved METAR output
+- Improved runway positioning for SimBrief import
+- Improved handling of runway orientation
 
 ## [2.4.0] 2026-09-05
 

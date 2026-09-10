@@ -2,6 +2,7 @@ import { AeroflySettingsAircraft, AeroflySettingsFlight, AeroflySettingsFuelLoad
 import { SimBriefApi } from "./SimBriefApi.js";
 import { metarParser } from "aewx-metar-parser";
 import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
+import { positionRunwayWaypoint } from "../util/AeroflyFlightHelper.js";
 export class SimBriefAeroflyApi extends SimBriefApi {
     /**
      *
@@ -23,8 +24,8 @@ export class SimBriefAeroflyApi extends SimBriefApi {
         if (useDestinationWeather >= 0) {
             this.convertWeather(flight, useDestinationWeather === 0 ? simbriefPayload.origin : simbriefPayload.destination);
         }
-        const originRunwayOrientation = Number(simbriefPayload.origin.plan_rwy.replace(/\D+/, "")) * 10;
-        const destinationRunwayOrientation = Number(simbriefPayload.destination.plan_rwy.replace(/\D+/, "")) * 10;
+        const originRunwayOrientation = this.parseRunwayDirection(simbriefPayload.origin.plan_rwy);
+        const destinationRunwayOrientation = this.parseRunwayDirection(simbriefPayload.destination.plan_rwy);
         flight.flightSetting = AeroflySettingsFlight.createInFeet(Number(simbriefPayload.origin.pos_long), Number(simbriefPayload.origin.pos_lat), Number(simbriefPayload.origin.elevation), originRunwayOrientation, 0, {
             gear: 1,
             throttle: 0,
@@ -50,15 +51,15 @@ export class SimBriefAeroflyApi extends SimBriefApi {
             new AeroflyNavRouteOrigin(simbriefPayload.origin.icao_code, Number(simbriefPayload.origin.pos_long), Number(simbriefPayload.origin.pos_lat), {
                 elevation_ft: Number(simbriefPayload.origin.elevation),
             }),
-            new AeroflyNavRouteDepartureRunway(simbriefPayload.origin.plan_rwy, Number(simbriefPayload.origin.pos_long), Number(simbriefPayload.origin.pos_lat), {
+            positionRunwayWaypoint(new AeroflyNavRouteDepartureRunway(simbriefPayload.origin.plan_rwy, Number(simbriefPayload.origin.pos_long), Number(simbriefPayload.origin.pos_lat), {
                 elevation_ft: Number(simbriefPayload.origin.elevation),
                 direction_degree: originRunwayOrientation,
-            }),
+            })),
             ...waypoints,
-            new AeroflyNavRouteDestinationRunway(simbriefPayload.destination.plan_rwy, Number(simbriefPayload.destination.pos_long), Number(simbriefPayload.destination.pos_lat), {
+            positionRunwayWaypoint(new AeroflyNavRouteDestinationRunway(simbriefPayload.destination.plan_rwy, Number(simbriefPayload.destination.pos_long), Number(simbriefPayload.destination.pos_lat), {
                 elevation_ft: Number(simbriefPayload.destination.elevation),
                 direction_degree: destinationRunwayOrientation,
-            }),
+            })),
             new AeroflyNavRouteDestination(simbriefPayload.destination.icao_code, Number(simbriefPayload.destination.pos_long), Number(simbriefPayload.destination.pos_lat), {
                 elevation_ft: Number(simbriefPayload.destination.elevation),
             }),
@@ -96,5 +97,8 @@ export class SimBriefAeroflyApi extends SimBriefApi {
             aeroflyAircraftCode: aeroflyAircraft.aeroflyCode,
             aeroflyAircraftLivery: aeroflyAircraftLivery?.aeroflyCode ?? "",
         };
+    }
+    parseRunwayDirection(runway) {
+        return Number(runway.replace(/\D+/g, "")) * 10;
     }
 }

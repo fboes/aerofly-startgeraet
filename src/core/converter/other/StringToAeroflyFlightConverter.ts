@@ -29,5 +29,15 @@ export abstract class StringToAeroflyFlightConverter {
         return isNaN(v) ? fallback : v;
     }
 
+    /**
+     * @returns runway orientation by looking at the runway name. Obviously the runway direction will not
+     *   be precise, but rounded to the next 10 degrees.
+     */
+    parseRunwayDirection(runway: string): number | undefined {
+        const rwy = Number(runway.replace(/\D+/g, ""));
+
+        return isNaN(rwy) ? undefined : rwy * 10;
+    }
+
     abstract convert(content: string, flightplan: AeroflyFlight, index: number): void;
 }
