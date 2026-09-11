@@ -1,8 +1,14 @@
+# OS
 .DS_Store
-.vscode
 @eaDir
+
+# IDE
+.vscode
 *.code-workspace
+*.tsbuildinfo
+
+# Project
+/artifacts
+/src
 /node_modules
 /tmp
-*.tsbuildinfo
-/artifacts

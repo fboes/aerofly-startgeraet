@@ -25,7 +25,7 @@
     "start:mcp": "node ./dist/mcp/index.js",
     "prettier": "npx prettier --cache --write .",
     "eslint": "npx eslint --fix",
-    "tsc": "npx tsc --build",
+    "tsc": "npx tsc",
     "tsc-watch": "npx tsc --watch",
     "fix-access-rights": "find src -type d -name \"@eaDir\" -prune -o -exec chmod 0755 {} \\; && find src -type f -exec chmod 0644 {} \\; && find docs -type f -exec chmod 0644 {} \\; && find assets -type f -exec chmod 0644 {} \\; && find src -type f -name \"index.ts\" -exec chmod 0755 {} \\;",
     "build": "npm run tsc && npm run eslint && npm run prettier",
