@@ -3,6 +3,7 @@ on:
     branches:
       - main
       - develop
+      - feature/tsc
   pull_request:
     branches:
       - main

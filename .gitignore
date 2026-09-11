@@ -9,6 +9,6 @@
 
 # Project
 /artifacts
-/src
+/dist
 /node_modules
 /tmp
