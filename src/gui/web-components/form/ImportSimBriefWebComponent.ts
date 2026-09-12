@@ -38,10 +38,11 @@ export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebCompon
     </div>
     <div class="form-group w-100">
         <label for="setting-simbrief-weather">Use SimBrief weather on import</label>
-        <select id="setting-simbrief-weather">
-            <option value="-1">Do not use SimBrief weather</option>
+        <select id="setting-simbrief-weather" required="required">
             <option value="0">Use SimBrief origin weather</option>
             <option value="1">Use SimBrief destination weather</option>
+            <hr />
+            <option value="-1">Do not use SimBrief weather</option>
         </select>
     </div>
     <button id="import-simbrief" class="w-100" autofocus="autofocus">Import flight plan from SimBrief</button>

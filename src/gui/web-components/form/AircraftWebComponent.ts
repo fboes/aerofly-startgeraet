@@ -82,16 +82,28 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         }
 
         sendToMain<AeroflyAircraft[]>("aircraft:update").then((aircraft) => {
-            this.elements.aircraftName.innerHTML = aircraft
+            let hasOptGroup = false;
+            return (this.elements.aircraftName.innerHTML = aircraft
                 .sort((a, b) => a.nameFull.localeCompare(b.nameFull))
                 .map((aircraft) => {
+                    const manufacturerName = aircraft.nameFull.split(" ")[0];
+                    const needsOptGroup = manufacturerName === "Boeing" || manufacturerName === "Airbus";
                     let optionLabel = aircraft.nameFull;
                     if (this.showIcaoCode && aircraft.icaoCode) {
                         optionLabel += ` [${aircraft.icaoCode}]`;
                     }
-                    return `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
+
+                    let optionHtml = `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
+                    if (needsOptGroup && !hasOptGroup) {
+                        hasOptGroup = true;
+                        optionHtml = `<optgroup label="${manufacturerName}">${optionHtml}`;
+                    } else if (!needsOptGroup && hasOptGroup) {
+                        hasOptGroup = false;
+                        optionHtml = `</optgroup>${optionHtml}`;
+                    }
+                    return optionHtml;
                 })
-                .join("");
+                .join(""));
         });
 
         this.subscribeToStateUpdates((state) => {
