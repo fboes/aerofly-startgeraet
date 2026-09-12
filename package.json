@@ -11,6 +11,16 @@
     "url": "https://github.com/fboes/aerofly-startgeraet.git"
   },
   "main": "./dist/gui/index.js",
+  "files": [
+    "assets",
+    "dist",
+    "docs",
+    "src/test/fixtures",
+    "CHANGELOG.md",
+    "LICENSE.txt",
+    "manifest.json",
+    "README.md"
+  ],
   "engines": {
     "node": ">= 22.0.0"
   },
@@ -25,17 +35,18 @@
     "start:mcp": "node ./dist/mcp/index.js",
     "prettier": "npx prettier --cache --write .",
     "eslint": "npx eslint --fix",
-    "tsc": "npx tsc",
     "tsc-watch": "npx tsc --watch",
     "fix-access-rights": "find src -type d -name \"@eaDir\" -prune -o -exec chmod 0755 {} \\; && find src -type f -exec chmod 0644 {} \\; && find docs -type f -exec chmod 0644 {} \\; && find assets -type f -exec chmod 0644 {} \\; && find src -type f -name \"index.ts\" -exec chmod 0755 {} \\;",
-    "build": "npm run tsc && npm run eslint && npm run prettier",
-    "build:cli:linux": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-linux-x64 --outfile artifacts/cli/aerofly-startgeraet-linux",
-    "build:cli:macos": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-x64 --outfile artifacts/cli/aerofly-startgeraet-macos-x64",
-    "build:cli:macos-arm64": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-arm64 --outfile artifacts/cli/aerofly-startgeraet-macos-arm64",
-    "build:cli:windows": "mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-windows-x64 --outfile artifacts/cli/aerofly-startgeraet-windows.exe",
+    "build": "npx tsc",
+    "build:extended": "npm run build && npm run eslint && npm run prettier",
+    "build:cli:linux": "npm run build && mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-linux-x64 --outfile artifacts/cli/aerofly-startgeraet-linux",
+    "build:cli:macos": "npm run build && mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-x64 --outfile artifacts/cli/aerofly-startgeraet-macos-x64",
+    "build:cli:macos-arm64": "npm run build && mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-macos-arm64 --outfile artifacts/cli/aerofly-startgeraet-macos-arm64",
+    "build:cli:windows": "npm run build && mkdir -p artifacts/cli && bun build src/cli/index.ts --compile --target=bun-windows-x64 --outfile artifacts/cli/aerofly-startgeraet-windows.exe",
     "build:gui": "npx electron-builder --publish never",
     "build:mcpb": "mkdir -p artifacts/mcpb && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcpb/",
-    "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md"
+    "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md",
+    "prepack": "npm run build"
   },
   "keywords": [
     "aerofly",

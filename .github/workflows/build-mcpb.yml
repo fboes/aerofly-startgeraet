@@ -18,7 +18,7 @@ jobs:
         run: npm ci --omit=dev
 
       - name: Compile TypeScript
-        run: npm run tsc
+        run: npm run build
 
       - name: Build MCP server as MCPB file
         run: |
