@@ -56,7 +56,8 @@ export class Config {
     }
 
     protected getNumber(key: string, defaultValue: number = 0): number {
-        return Number(this.conf.get(key, defaultValue));
+        const value = Number(this.conf.get(key, defaultValue));
+        return isNaN(value) ? defaultValue : value;
     }
 
     protected setNumber(key: string, value: number): void {
