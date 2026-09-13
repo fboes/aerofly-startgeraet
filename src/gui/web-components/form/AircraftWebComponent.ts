@@ -82,25 +82,38 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
         }
 
         sendToMain<AeroflyAircraft[]>("aircraft:update").then((aircraft) => {
-            let hasOptGroup = false;
+            let currentOptGroup = "";
+            const aircraftLenght = aircraft.length;
             return (this.elements.aircraftName.innerHTML = aircraft
                 .sort((a, b) => a.nameFull.localeCompare(b.nameFull))
-                .map((aircraft) => {
+                .map((aircraft, index) => {
+                    const isLast = index === aircraftLenght - 1;
                     const manufacturerName = aircraft.nameFull.split(" ")[0];
-                    const needsOptGroup = manufacturerName === "Boeing" || manufacturerName === "Airbus";
+                    const needsOptGroup =
+                        manufacturerName === "Boeing" ||
+                        manufacturerName === "Airbus" ||
+                        manufacturerName === "Bombardier" ||
+                        manufacturerName === "Embraer";
                     let optionLabel = aircraft.nameFull;
+
                     if (this.showIcaoCode && aircraft.icaoCode) {
                         optionLabel += ` [${aircraft.icaoCode}]`;
                     }
 
-                    let optionHtml = `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
-                    if (needsOptGroup && !hasOptGroup) {
-                        hasOptGroup = true;
-                        optionHtml = `<optgroup label="${manufacturerName}">${optionHtml}`;
-                    } else if (!needsOptGroup && hasOptGroup) {
-                        hasOptGroup = false;
-                        optionHtml = `</optgroup>${optionHtml}`;
+                    let optionHtml = ``;
+
+                    if ((currentOptGroup && currentOptGroup !== manufacturerName) || isLast) {
+                        currentOptGroup = "";
+                        optionHtml += `</optgroup>`;
                     }
+
+                    if (needsOptGroup && currentOptGroup !== manufacturerName) {
+                        currentOptGroup = manufacturerName;
+                        optionHtml += `<optgroup label="${manufacturerName}">`;
+                    }
+
+                    optionHtml += `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
+
                     return optionHtml;
                 })
                 .join(""));
