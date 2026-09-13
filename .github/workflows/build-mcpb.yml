@@ -20,6 +20,9 @@ jobs:
       - name: Compile TypeScript
         run: npm run build
 
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
+
       - name: Build MCP server as MCPB file
         run: |
           npm run build:mcpb
