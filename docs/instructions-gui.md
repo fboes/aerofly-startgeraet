@@ -22,6 +22,10 @@ xattr -dr com.apple.quarantine aerofly-startgeraet-gui-macos
 
 Or via **System Settings → Privacy & Security → Allow anyway**.
 
+### Windows
+
+Windows may block the file as it is from an unidentified developer. To allow it, ignore the warning about the application being not certified by using the "More info" button.
+
 ## Usage
 
 Call this tool by double-clicking the GUI app. On a successful start-up, you will see the main app window.

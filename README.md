@@ -51,9 +51,9 @@ Supported flight plan file formats:
 The Aerofly Startgerät comes in multiple versions. Refer to the different instruction on how to install and use these:
 
 - [**The Aerofly Startgerät Graphical User Interface (GUI) App**](./docs/instructions-gui.md):  
-  A desktop app with a grahpical user interface (GUI).
+  A desktop app with a graphical user interface (GUI).
 - [**The Aerofly Startgerät Command Line Interface (CLI) Tool**](./docs/instructions-cli.md):  
-  A terminal application for automatisations, e.g. importing SimBrief flight plans or importing weather information.
+  A terminal application for automatizations, e.g. importing SimBrief flight plans or importing weather information.
 - [**The Aerofly Startgerät Model Context Protocol (MCP) Server**](./docs/instructions-mcp.md):  
   Allow an AI / LLM to create new flight plans & flight settings via this MCP server.
 
@@ -80,7 +80,7 @@ Enter your SimBrief username and click **Fetch**. Startgerät automatically inje
 
 **Important Navigation Data Note:** SimBrief utilizes the modern AIRAC database 2503 for free users, whereas Aerofly FS 4 relies on a legacy internal database. This may cause a data gap. This is completely normal and rarely impacts standard routes. You may simply need to adjust your terminal procedures (SID/STAR) inside the native Aerofly menu before clicking "Fly".
 
-**Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the flightplan and then fetch the plan via Startgerät, which takes literally seconds to do.
+**Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the flight plan and then fetch the plan via Startgerät, which takes literally seconds to do.
 
 Be aware that weather data imported from SimBrief reflects the weather settings at the time the flight plan was generated, and not the the weather settings at the actual start of flight. You might want to use the "Fetch METAR" functionality to obtain current weather.
 
@@ -117,4 +117,4 @@ This software complies with the General Data Protection Regulation (GDPR) as it 
 
 - [Aviation Weather Center API](https://aviationweather.gov/): Used for fetching METAR data on demand in the CLI / GUI, or for METAR / NAVAID data in the MCP
 - [SimBrief API](https://www.simbrief.com/): Used for fetching flight plans on demand in all application
-- GitHub API: Used for cechking update status in the GUI
+- GitHub API: Used for checking update status in the GUI

@@ -5,7 +5,7 @@
 - **Cloud coverage** is a value from 0.0 (clear) to 1.0 (overcast).
   Maximum 3 layers.
 - **Waypoint identifiers** must be uppercase, 2–8 alphanumeric characters.
-  Use ICAO airport codes or offical VOR / NDB codes where possible, otherwise
+  Use ICAO airport codes or official VOR / NDB codes where possible, otherwise
   descriptive IDs like "COAST1", "WPT1".
 - **`set-flightplan-waypoints` moves the aircraft to the origin airport.**
   Only call `set-aircraft-position-and-state` afterwards if the start is

@@ -86,7 +86,7 @@ Simply double-click `aerofly-startgeraet-cli-windows.exe` or run it in PowerShel
 
 For convenience you may want to add a desktop shortcut:
 
-1. Right click on th the application
+1. Right click on the the application
 2. Select "Create Shortcut"
 3. Drag the shortcut to your desktop
 
