@@ -98,8 +98,9 @@ This projects uses the public APIs of the [Aviation Weather Center](https://avia
 
 ## Status
 
-[![GitHub Tag](https://img.shields.io/github/v/tag/fboes/aerofly-startgeraet)](https://github.com/fboes/aerofly-startgeraet)
+[![GitHub Release](https://img.shields.io/github/v/release/fboes/aerofly-startgeraet)](https://github.com/fboes/aerofly-startgeraet/releases/latest)
 [![NPM Version](https://img.shields.io/npm/v/%40fboes%2Faerofly-startgeraet.svg)](https://www.npmjs.com/package/@fboes/aerofly-startgeraet)
+![GitHub Release Date](https://img.shields.io/github/release-date/fboes/aerofly-startgeraet)
 ![GitHub License](https://img.shields.io/github/license/fboes/aerofly-startgeraet)
 
 For a detailed history of changes, see [CHANGELOG.md](CHANGELOG.md).
