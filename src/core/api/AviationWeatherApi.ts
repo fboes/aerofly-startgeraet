@@ -244,7 +244,7 @@ export type AviationWeatherApiNavaid = {
     freq_unit: "kHz" | "MHz";
 
     /**
-     * with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
+     * with "+" to the east and "-" to the west. Subtracted from a true heading this will give the magnetic heading.
      */
     mag_dec: number;
 };
@@ -533,7 +533,7 @@ export class AviationWeatherApi {
     }
 
     /**
-     * @returns {number} with "+" to the east and "-" to the west. Substracted from a true heading this will give the magnetic heading.
+     * @returns {number} with "+" to the east and "-" to the west. Subtracted from a true heading this will give the magnetic heading.
      */
     magDecConverter(magdec: string): number {
         let magDec = 0;
