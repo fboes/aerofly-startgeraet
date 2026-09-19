@@ -6,6 +6,7 @@
 - Improved runway positioning for SimBrief import
 - Improved handling of runway orientation
 - Flight plan import sets cruise altitude
+- Added minimum fuel indicator
 
 ## [2.4.0] 2026-09-05
 

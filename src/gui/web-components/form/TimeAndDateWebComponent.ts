@@ -30,7 +30,7 @@ export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent
         this.innerHTML = `\
 <h3><startgeraet-icon icon="clock"></startgeraet-icon>&nbsp;Time &amp; date</h3>
 
-<table>
+<table class="w-100">
   <thead>
     <tr>
       <th>#</th>

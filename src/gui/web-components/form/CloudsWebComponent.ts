@@ -57,7 +57,7 @@ export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
 
         this.innerHTML = `\
 <h3><startgeraet-icon icon="clouds"></startgeraet-icon>&nbsp;Clouds</h3>
-<table>
+<table class="w-100">
     <thead>
         <tr>
             <th>#</th>

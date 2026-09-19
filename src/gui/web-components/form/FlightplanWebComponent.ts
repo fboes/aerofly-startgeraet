@@ -3,7 +3,6 @@ import { registerElement } from "../../renderer/registerElement.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/airport-coordinates-object.json";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
-import type { IconWebComponent } from "../util/IconWebComponent.js";
 import type { AppState } from "../../renderer/AppState.js";
 import { numberFormat } from "../util/numberFormat.js";
 
@@ -24,7 +23,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         flightplanDestinationList: HTMLDataListElement;
         flightplanDistance: HTMLAnchorElement;
         flightplanTime: HTMLOutputElement;
-        fuelWarning: IconWebComponent;
+        flightplanFuel: HTMLOutputElement;
     };
 
     private airportList: FlightplanWebComponentAirport[] = [];
@@ -40,13 +39,13 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         this.setAttribute("aria-role", "region");
         this.innerHTML = `\
 <h3><startgeraet-icon icon="clipboard-check"></startgeraet-icon>&nbsp;Flight plan</h3>
+<section class="d-flex">
+
 <table>
   <thead>
     <tr>
       <th>#</th>
       <th>Waypoint</th>
-      <th>Distance</th>
-      <th>Flight time</th>
     </tr>
   </thead>
   <tbody>
@@ -55,12 +54,6 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
       <td>
         <input id="flightplan-origin" class="icao" list="flightplan-origin-list" pattern="[A-Za-z0-9]+" autocapitalize="characters" />
         <datalist id="flightplan-origin-list"></datalist>
-      </td>
-      <td rowspan="2">
-        <a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a>&nbsp;<startgeraet-icon icon="fuel-pump" title="Not enough range for non-stop flight" id="fuel-warning"></startgeraet-icon>
-      </td>
-      <td rowspan="2">
-        <output id="flightplan-time">Unknown</output>
       </td>
     </tr>
     <tr class="form-group">
@@ -72,6 +65,32 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
     </tr>
   </tbody>
 </table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distance</th>
+      <th>Min fuel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="form-group">
+      <td>
+        <a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a>
+      </td>
+      <td rowspan="2">
+        <output id="flightplan-fuel">N/A</output>
+      </td>
+    </tr>
+    <tr class="form-group">
+      <td>
+        <output id="flightplan-time">Unknown</output>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
 `;
         this.elements = {
             flightplanOrigin: this.querySelector("#flightplan-origin") as HTMLInputElement,
@@ -80,7 +99,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             flightplanDestinationList: this.querySelector("#flightplan-destination-list") as HTMLDataListElement,
             flightplanDistance: this.querySelector("#flightplan-distance") as HTMLAnchorElement,
             flightplanTime: this.querySelector("#flightplan-time") as HTMLOutputElement,
-            fuelWarning: this.querySelector("#fuel-warning") as IconWebComponent,
+            flightplanFuel: this.querySelector("#flightplan-fuel") as HTMLOutputElement,
         };
     }
 
@@ -100,12 +119,20 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanDistance.href = state.route.routeUrl;
             this.elements.flightplanDistance.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
 
-            this.checkRangeWarning(state);
-
             this.elements.flightplanTime.textContent =
                 state.route.flightTime.hours > 0
                     ? `${state.route.flightTime.hours} h ${state.route.flightTime.minutes.toString().padStart(2, "0")} min`
                     : `${state.route.flightTime.minutes.toString()} min`;
+
+            const minFuelKg = this.getMinFuelKg(state);
+            this.elements.flightplanFuel.textContent =
+                minFuelKg !== null
+                    ? minFuelKg > 9000
+                        ? `${numberFormat(minFuelKg / 1000)} t`
+                        : `${numberFormat(minFuelKg)} kg`
+                    : "N/A";
+
+            this.checkRangeWarning(state, minFuelKg);
         });
 
         const airportList = await sendToMain<AeroflyAirportCoordinatesObject[]>("airports:get-list");
@@ -177,15 +204,36 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         return [];
     }
 
-    private checkRangeWarning(state: AppState) {
+    private getMinFuelKg(state: AppState): number | null {
+        const aircraft = state.aircraftData;
+        if (!aircraft?.maximumFuelMassKg) {
+            return null;
+        }
+
+        const minFuelKg = (state.route.distance_nm / aircraft.maximumRangeNm) * aircraft.maximumFuelMassKg;
+        if (minFuelKg <= 0) {
+            return null;
+        }
+        return minFuelKg;
+    }
+
+    private checkRangeWarning(state: AppState, minFuelKg: number | null) {
         const hasEnoughRange = state.route.distance_nm <= (state.aircraftData?.maximumRangeNm ?? 0);
 
-        const maxRangeTitle = `${numberFormat(state.aircraftData?.maximumRangeNm ?? 0)} NM)`;
-        this.elements.fuelWarning.title = hasEnoughRange
+        const maxRangeTitle = `max ${numberFormat(state.aircraftData?.maximumRangeNm ?? 0)} NM)`;
+        this.elements.flightplanDistance.title = hasEnoughRange
             ? `Enough range for non-stop flight (${maxRangeTitle})`
             : `Not enough range for non-stop flight (${maxRangeTitle})`;
-        this.elements.fuelWarning.icon = hasEnoughRange ? "" : "fuel-pump";
-        this.elements.fuelWarning.classList.toggle("has-warning", !hasEnoughRange);
+        this.elements.flightplanDistance.classList.toggle("input-warning", !hasEnoughRange);
+
+        const hasEnoughFuel = minFuelKg !== null && minFuelKg <= (state.aircraftData?.maximumFuelMassKg ?? 0);
+
+        const maxFuelTitle = `max ${numberFormat(state.aircraftData?.maximumFuelMassKg ?? 0)} kg`;
+
+        this.elements.flightplanFuel.title = hasEnoughFuel
+            ? `Enough fuel capacity for non-stop flight (${maxFuelTitle})`
+            : `Not enough fuel capacity for non-stop flight (${maxFuelTitle})`;
+        this.elements.flightplanFuel.classList.toggle("input-warning", !hasEnoughFuel);
     }
 
     private getElements(isOrigin = false) {

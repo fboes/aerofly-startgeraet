@@ -102,7 +102,7 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         );
 
         this.elements.dialogInner.innerHTML = `\
-<table>
+<table class="w-100">
   <thead>
     <tr>
       <th>Name</th>
