@@ -1,5 +1,6 @@
 import {
     type AeroflyFlight,
+    AeroflyNavigationConfig,
     type AeroflyNavRouteBase,
     AeroflyNavRouteDestination,
     AeroflyNavRouteOrigin,
@@ -37,9 +38,13 @@ export class GarminFplToAeroflyFlightConverter extends StringToAeroflyFlightConv
             throw new Error("Route index does not exist");
         }
         const waypoints = this.getWaypoints(content, route);
-
-        flightplan.navigation.waypoints = waypoints.map((waypoint, index) =>
+        const aeroflyWaypoints = waypoints.map((waypoint, index) =>
             this.convertWaypointToAerofly(waypoint, index === 0, index === waypoints.length - 1),
+        );
+
+        flightplan.navigation = AeroflyNavigationConfig.createInFeet(
+            this.getCruiseAltitudeFt(aeroflyWaypoints) || flightplan.navigation.cruiseAltitude_ft,
+            aeroflyWaypoints,
         );
         flightplan._missionTitle = parseXmlNode(route, "route-name");
         flightplan._missionBriefing = parseXmlNode(route, "route-description");

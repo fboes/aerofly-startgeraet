@@ -1,4 +1,4 @@
-import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
+import { AeroflyNavRouteWaypoint, type AeroflyFlight, type AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 
 export abstract class StringToAeroflyFlightConverter {
     // static readonly fileName: string;
@@ -37,6 +37,14 @@ export abstract class StringToAeroflyFlightConverter {
         const rwy = Number(runway.replace(/\D+/g, ""));
 
         return isNaN(rwy) ? undefined : rwy * 10;
+    }
+
+    getCruiseAltitudeFt(waypoints: AeroflyNavRouteBase[]): number {
+        return waypoints
+            .filter((wp) => wp instanceof AeroflyNavRouteWaypoint)
+            .filter((wp) => wp.altitude_ft !== null)
+            .map((wp) => wp.altitude_ft as number)
+            .reduce((prev, curr) => (curr > prev ? curr : prev), 0);
     }
 
     abstract convert(content: string, flightplan: AeroflyFlight, index: number): void;

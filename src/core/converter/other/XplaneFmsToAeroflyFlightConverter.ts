@@ -1,5 +1,6 @@
 import {
     type AeroflyFlight,
+    AeroflyNavigationConfig,
     type AeroflyNavRouteBase,
     AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
@@ -41,11 +42,10 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
         }
 
         const waypoints = this.getWaypoints(content);
-
         const departureRunway = this.getRunway(content, "DEPRWY");
         const destinationRunway = this.getRunway(content, "DESRWY");
 
-        flightplan.navigation.waypoints = waypoints.flatMap((waypoint, index) =>
+        const aeroflyWaypoints = waypoints.flatMap((waypoint, index) =>
             this.convertWaypointToAerofly(
                 waypoint,
                 index === 0,
@@ -53,6 +53,11 @@ export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConv
                 departureRunway,
                 destinationRunway,
             ),
+        );
+
+        flightplan.navigation = AeroflyNavigationConfig.createInFeet(
+            this.getCruiseAltitudeFt(aeroflyWaypoints) || flightplan.navigation.cruiseAltitude_ft,
+            aeroflyWaypoints,
         );
 
         flightplan._missionTitle = "";

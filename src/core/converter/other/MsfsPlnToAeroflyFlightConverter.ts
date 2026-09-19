@@ -36,7 +36,7 @@ export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConver
             throw new Error("Unknown flight plan version ID");
         }
 
-        flightplan.navigation = new AeroflyNavigationConfig(
+        flightplan.navigation = AeroflyNavigationConfig.createInFeet(
             this.parseNumber(parseXmlNode(waypointTableXml, "CruisingAlt"), 0),
             this.getWaypoints(waypointTableXml),
         );
