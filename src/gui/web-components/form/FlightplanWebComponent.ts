@@ -75,16 +75,16 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
     </tr>
   </thead>
   <tbody>
-    <tr class="form-group">
+    <tr>
       <td>
         <output id="flightplan-distance">0NM</output>
         <a href="#" target="skyvector" id="flightplan-skyvector" title="See SkyVector flight plan"><startgeraet-icon icon="globe"></startgeraet-icon></a>
       </td>
-      <td rowspan="2">
+      <td rowspan="2" class="form-group">
         <output id="flightplan-fuel">N/A</output>
       </td>
     </tr>
-    <tr class="form-group">
+    <tr>
       <td>
         <output id="flightplan-time">Unknown</output>
       </td>
@@ -224,20 +224,24 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
     private checkRangeWarning(state: AppState, minFuelKg: number | null) {
         const hasEnoughRange = state.route.distance_nm <= (state.aircraftData?.maximumRangeNm ?? 0);
 
-        const maxRangeTitle = `max ${numberFormat(state.aircraftData?.maximumRangeNm ?? 0)} NM)`;
+        const maxRangeTitle = `max ${numberFormat(state.aircraftData?.maximumRangeNm ?? 0)} NM`;
         this.elements.flightplanDistance.title = hasEnoughRange
             ? `Enough range for non-stop flight (${maxRangeTitle})`
             : `Not enough range for non-stop flight (${maxRangeTitle})`;
         this.elements.flightplanDistance.classList.toggle("input-warning", !hasEnoughRange);
 
-        const hasEnoughFuel = minFuelKg !== null && minFuelKg <= (state.aircraftData?.maximumFuelMassKg ?? 0);
+        const hasEnoughFuel = minFuelKg === null || minFuelKg <= (state.aircraftData?.maximumFuelMassKg ?? 0);
 
         const maxFuelTitle = `max ${numberFormat(state.aircraftData?.maximumFuelMassKg ?? 0)} kg`;
 
-        this.elements.flightplanFuel.title = hasEnoughFuel
-            ? `Enough fuel capacity for non-stop flight (${maxFuelTitle})`
-            : `Not enough fuel capacity for non-stop flight (${maxFuelTitle})`;
+        this.elements.flightplanFuel.title =
+            minFuelKg === null
+                ? `Fuel data not available for this aircraft`
+                : hasEnoughFuel
+                  ? `Enough fuel capacity for non-stop flight (${maxFuelTitle})`
+                  : `Not enough fuel capacity for non-stop flight (${maxFuelTitle})`;
         this.elements.flightplanFuel.classList.toggle("input-warning", !hasEnoughFuel);
+        this.elements.flightplanFuel.classList.toggle("inactive", minFuelKg === null);
     }
 
     private getElements(isOrigin = false) {

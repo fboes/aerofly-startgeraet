@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Improved handling of min fuel indicator for aircraft without fuel settings
+
 ## [2.5.0] - 2026-09-20
 
 - Flight plan import sets cruise altitude
