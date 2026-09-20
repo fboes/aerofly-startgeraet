@@ -2,11 +2,16 @@
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-09-20
+
+- Flight plan import sets cruise altitude
+- Added minimum fuel indicator
+
+## [2.4.2] - 2026-09-13
+
 - Improved METAR output
 - Improved runway positioning for SimBrief import
 - Improved handling of runway orientation
-- Flight plan import sets cruise altitude
-- Added minimum fuel indicator
 
 ## [2.4.0] 2026-09-05
 
