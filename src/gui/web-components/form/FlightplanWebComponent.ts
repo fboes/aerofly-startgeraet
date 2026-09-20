@@ -21,9 +21,10 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
         flightplanOriginList: HTMLDataListElement;
         flightplanDestination: HTMLInputElement;
         flightplanDestinationList: HTMLDataListElement;
-        flightplanDistance: HTMLAnchorElement;
+        flightplanDistance: HTMLOutputElement;
         flightplanTime: HTMLOutputElement;
         flightplanFuel: HTMLOutputElement;
+        skyvectorAnchor: HTMLAnchorElement;
     };
 
     private airportList: FlightplanWebComponentAirport[] = [];
@@ -76,7 +77,8 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
   <tbody>
     <tr class="form-group">
       <td>
-        <a href="#" target="skyvector" id="flightplan-distance" title="See SkyVector flight plan">0NM</a>
+        <output id="flightplan-distance">0NM</output>
+        <a href="#" target="skyvector" id="flightplan-skyvector" title="See SkyVector flight plan"><startgeraet-icon icon="globe"></startgeraet-icon></a>
       </td>
       <td rowspan="2">
         <output id="flightplan-fuel">N/A</output>
@@ -97,9 +99,10 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             flightplanOriginList: this.querySelector("#flightplan-origin-list") as HTMLDataListElement,
             flightplanDestination: this.querySelector("#flightplan-destination") as HTMLInputElement,
             flightplanDestinationList: this.querySelector("#flightplan-destination-list") as HTMLDataListElement,
-            flightplanDistance: this.querySelector("#flightplan-distance") as HTMLAnchorElement,
+            flightplanDistance: this.querySelector("#flightplan-distance") as HTMLOutputElement,
             flightplanTime: this.querySelector("#flightplan-time") as HTMLOutputElement,
             flightplanFuel: this.querySelector("#flightplan-fuel") as HTMLOutputElement,
+            skyvectorAnchor: this.querySelector("#flightplan-skyvector") as HTMLAnchorElement,
         };
     }
 
@@ -116,8 +119,9 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanDestination.classList.remove("input-warning");
 
             this.elements.flightplanDistance.textContent = `${numberFormat(state.route.distance_nm)} NM`;
-            this.elements.flightplanDistance.href = state.route.routeUrl;
-            this.elements.flightplanDistance.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
+
+            this.elements.skyvectorAnchor.href = state.route.routeUrl;
+            this.elements.skyvectorAnchor.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
 
             this.elements.flightplanTime.textContent =
                 state.route.flightTime.hours > 0
@@ -128,7 +132,7 @@ export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent 
             this.elements.flightplanFuel.textContent =
                 minFuelKg !== null
                     ? minFuelKg > 9000
-                        ? `${numberFormat(minFuelKg / 1000)} t`
+                        ? `${numberFormat(minFuelKg / 1000, 1)} t`
                         : `${numberFormat(minFuelKg)} kg`
                     : "N/A";
 

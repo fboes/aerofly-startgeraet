@@ -1,9 +1,9 @@
-export function numberFormat(value: number | undefined): string {
+export function numberFormat(value: number | undefined, fractionDigits: number = 0): string {
     if (value === undefined) {
         return "---";
     }
     return new Intl.NumberFormat(document.documentElement.lang, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits,
     }).format(value);
 }
