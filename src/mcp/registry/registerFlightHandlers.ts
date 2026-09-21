@@ -350,7 +350,7 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
         TOOL_SET_WAYPOINTS,
         {
             title: `Set flight plan waypoints for flight mission setup`,
-            description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but no other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport using \`set-position\` internally. If you intend to have a different starting pisiton, call \`set-position\` after this tool.`,
+            description: `Returns the set waypoints afterwards. Please note that currently only the position and altitude of waypoints can be set, but no other settings like flyover or approach. After setting the flight plan, the aircraft is also moved to the origin airport using \`set-position\` internally. If you intend to have a different starting position, call \`set-position\` after this tool.`,
             inputSchema: z.object({
                 origin: ZodExtra.airport().describe(`Origin airport with ICAO code`),
                 departureRunway: ZodExtra.runway()
@@ -398,8 +398,8 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
                 waypoints,
                 cruiseAltitudeFt,
             });
-            flightService.setFlightPositionToDeparture();
-            return returnMcpToolResult(result, ["Aircraft has been re-positioned to origin airport"]);
+            flightService.setFlightPositionToDeparture(true);
+            return returnMcpToolResult(result, ["Aircraft has been re-positioned to origin airport / runway"]);
         },
     );
 

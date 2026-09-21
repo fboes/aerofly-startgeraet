@@ -2,6 +2,7 @@ import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { numberFormat } from "../util/numberFormat.js";
 
 export type AircraftWebComponentState = {
     aircraftName: string;
@@ -135,7 +136,22 @@ export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
             this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
 
             this.elements.aircraftCruiseSpeed.valueAsNumber = Math.round(state.route.cruiseSpeed_kts);
+            this.elements.aircraftCruiseSpeed.setAttribute(
+                "placeholder",
+                (state.aircraftData?.cruiseSpeedKts ?? 0).toFixed(),
+            );
+            this.elements.aircraftCruiseSpeed.title = state.aircraftData?.cruiseSpeedKts
+                ? `Default: ${numberFormat(state.aircraftData.cruiseSpeedKts)} kts`
+                : "";
+
             this.elements.aircraftCruiseAltitude.valueAsNumber = Math.round(state.route.cruiseAltitude_ft);
+            this.elements.aircraftCruiseAltitude.setAttribute(
+                "placeholder",
+                (state.aircraftData?.cruiseAltitudeFt ?? 0).toFixed(),
+            );
+            this.elements.aircraftCruiseAltitude.title = state.aircraftData?.cruiseAltitudeFt
+                ? `Default: ${numberFormat(state.aircraftData.cruiseAltitudeFt)} ft`
+                : "";
         });
 
         this.addEventListener("change", this.handleChange);

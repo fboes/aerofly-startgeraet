@@ -31,6 +31,7 @@ import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-m
 import { UpdateCheckService, type GithubReleaseApiPayload } from "./UpdateCheckService.js";
 import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
 import { getAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
+import { Point } from "@fboes/geojson";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -111,7 +112,9 @@ export class AeroflyFlightService {
             return;
         }
 
-        this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
+        if (this.aeroflyFlight.navigation.cruiseAltitude_ft <= 0) {
+            this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
+        }
         this.aeroflyFlight.navigation._cruiseSpeed_kts = this.currentAircraft.cruiseSpeedKts;
     }
 
@@ -260,19 +263,40 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.flightSetting;
     }
 
-    setFlightPositionToDeparture() {
+    /**
+     * Will set the current aircraft position to match the current origin
+     * airport or runway. If the current aircraft position is already close
+     * to either of those, no resetting will occur, but if `force` is set.
+     *
+     * @param force Do not check proximity
+     * @returns if aircraft has been repositioned
+     */
+    setFlightPositionToDeparture(force = false) {
         const departureAirport = this.getFlightplanDepartureAirport();
         if (!departureAirport) {
-            return;
+            return false;
         }
 
         const departureRunway = this.getFlightplanDepartureRunway();
         const runwayDirection = departureRunway?.direction_degree ?? 0;
+        const initialPosition = departureRunway ?? departureAirport;
+
+        // Check if current position is possibly near the planned position
+        if (!force) {
+            const initialPoint = new Point(departureAirport.longitude, departureAirport.latitude);
+            const currentPoint = new Point(
+                this.aeroflyFlight.flightSetting.longitude,
+                this.aeroflyFlight.flightSetting.latitude,
+            );
+            if (initialPoint.getVectorTo(currentPoint).meters < 5000) {
+                return false;
+            }
+        }
 
         this.aeroflyFlight.flightSetting = new AeroflySettingsFlight(
-            departureAirport.longitude,
-            departureAirport.latitude,
-            departureAirport.elevation ?? 0,
+            initialPosition.longitude,
+            initialPosition.latitude,
+            initialPosition.elevation ?? 0,
             runwayDirection,
             0,
             {
@@ -282,6 +306,8 @@ export class AeroflyFlightService {
                 onGround: true,
             },
         );
+
+        return true;
     }
 
     setCruise(cruiseAltitudeFt: number, cruiseSpeedKts: number): AeroflyNavigationConfig {
