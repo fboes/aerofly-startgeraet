@@ -112,9 +112,7 @@ export class AeroflyFlightService {
             return;
         }
 
-        if (this.aeroflyFlight.navigation.cruiseAltitude_ft <= 0) {
-            this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
-        }
+        this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
         this.aeroflyFlight.navigation._cruiseSpeed_kts = this.currentAircraft.cruiseSpeedKts;
     }
 

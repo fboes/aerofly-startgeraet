@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Improved handling of min fuel indicator for aircraft without fuel settings
+- Improved initial position of aircraft after flight plan import
 
 ## [2.5.0] - 2026-09-20
 
