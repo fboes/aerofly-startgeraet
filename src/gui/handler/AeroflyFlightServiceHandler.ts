@@ -1,6 +1,5 @@
 import { type BrowserWindow, dialog, type IpcMain, type IpcMainInvokeEvent, nativeTheme } from "electron";
 import { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import { Config } from "../../core/io/Config.js";
 import { AppState } from "../renderer/AppState.js";
 import type { AircraftWebComponentState } from "../web-components/form/AircraftWebComponent.js";
 import type { FuelPayloadWebComponentState } from "../web-components/form/FuelPayloadWebComponent.js";
@@ -30,6 +29,7 @@ import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../cor
 import type { GithubReleaseApiPayload } from "../../core/services/UpdateCheckService.js";
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 import type { FlightplanWebComponentState } from "../web-components/form/FlightplanWebComponent.js";
+import { CONFIG_ELECTRON } from "../io/ConfigElectron.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -46,13 +46,12 @@ export class AeroflyFlightServiceHandler {
         protected ipcMain: IpcMain,
         protected win: BrowserWindow,
     ) {
-        const config = new Config("electron");
-        this.writeDelay = config.autoSaveDelaySeconds * 1000;
-        this.service = new AeroflyFlightService(config);
+        this.writeDelay = CONFIG_ELECTRON.autoSaveDelaySeconds * 1000;
+        this.service = new AeroflyFlightService(CONFIG_ELECTRON);
         this.metar = new AeroflyFlightToMetarConverter();
         this.loadMainMcf();
         this.registerHandlers();
-        nativeTheme.themeSource = config.theme;
+        nativeTheme.themeSource = CONFIG_ELECTRON.theme;
     }
 
     loadMainMcf() {

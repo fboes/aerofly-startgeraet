@@ -1,38 +1,23 @@
-import { Config } from "../../core/io/Config.js";
-import path from "node:path";
+import Conf from "conf";
+import { Config, CONFIG_DEFAULTS, type ConfigStore } from "../../core/io/Config.js";
+import { getFixturePath } from "../loadFixture.js";
 
+/**
+ * Use this `Config` for tests. Will be automatically cleared on invocation.
+ *
+ * `mainMcfFilePath` will be set to the fixture path to avoid damaging
+ * production files or searching for non-existing files.
+ */
 export class ConfigFixture extends Config {
-    private confFixture: { [key: string]: number | string | boolean } = {
-        importDirectory: path.join(import.meta.dirname, "../../..", "src/test/fixtures"),
-    };
+    protected readonly conf: ConfigStore = new Conf({
+        projectName: "startgeraet-fixture",
+        defaults: CONFIG_DEFAULTS,
+    });
 
-    protected get(key: string, defaultValue: string = ""): string {
-        return String(this.confFixture[key] ?? defaultValue);
-    }
-
-    protected set(key: string, value: string | number): void {
-        this.confFixture[key] = value;
-    }
-
-    protected getBoolean(key: string): boolean {
-        return Boolean(this.confFixture[key] ?? false);
-    }
-
-    protected setBoolean(key: string, value: boolean): void {
-        this.confFixture[key] = value;
-    }
-
-    protected getNumber(key: string, defaultValue: number = 0): number {
-        return Number(this.confFixture[key] ?? defaultValue);
-    }
-
-    protected setNumber(key: string, value: number): void {
-        this.confFixture[key] = value;
-    }
-
-    // protected getDate(key: string): Date {
-
-    protected setDate(key: string, value: Date): void {
-        this.confFixture[key] = value.toISOString();
+    constructor() {
+        super();
+        this.conf.clear();
+        this.mainMcfFilePath = getFixturePath();
+        this.importDirectory = getFixturePath();
     }
 }

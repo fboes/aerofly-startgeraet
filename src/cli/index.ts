@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Config } from "../core/io/Config.js";
+import { CONFIG } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import type { ControllerCommand } from "./commands/Command.js";
 import { MenuCommand } from "./commands/MenuCommand.js";
@@ -19,9 +19,8 @@ if (arg === "help" || arg === "--help" || arg === "-h") {
     process.exit(0);
 }
 
-const config = new Config();
 if (arg === "setup") {
-    await new SetupCommand(config).execute();
+    await new SetupCommand(CONFIG).execute();
     process.exit(0);
 }
 
@@ -40,14 +39,14 @@ const getControllerCommand = (arg: string): new (controller: AeroflyFlightServic
     return registry[arg] || MenuCommand;
 };
 
-const controller = new AeroflyFlightService(config);
+const controller = new AeroflyFlightService(CONFIG);
 
 try {
     controller.readMainMcf();
 } catch (error) {
     writeCatch(error);
 
-    const setup = new SetupCommand(config);
+    const setup = new SetupCommand(CONFIG);
     await setup.execute();
     process.stdout.write(`\
 

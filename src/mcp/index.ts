@@ -2,7 +2,7 @@
 
 import { StdioServerTransport } from "@modelcontextprotocol/server/stdio";
 import { McpServer } from "@modelcontextprotocol/server";
-import { Config } from "../core/io/Config.js";
+import { CONFIG } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import { registerResourceHandlers } from "./registry/registerResourceHandlers.js";
 import { registerFlightHandlers, TOOL_GET_FLIGHT, TOOL_SAVE_FLIGHT } from "./registry/registerFlightHandlers.js";
@@ -21,8 +21,7 @@ Flight plan and mission generator for Aerofly FS 4. This MCP server provides fun
 `,
 });
 
-const config = new Config();
-const flightService = new AeroflyFlightService(config);
+const flightService = new AeroflyFlightService(CONFIG);
 try {
     flightService.readMainMcf();
 } catch (e) {
@@ -31,7 +30,7 @@ try {
     );
 }
 
-registerConfigurationHandlers(server, config);
+registerConfigurationHandlers(server, CONFIG);
 registerFlightHandlers(server, flightService);
 registerResourceHandlers(server);
 

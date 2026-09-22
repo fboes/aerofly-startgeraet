@@ -1,7 +1,5 @@
 import { type BrowserWindow, screen } from "electron";
-import { Config } from "../../core/io/Config.js";
-
-const config = new Config("electron");
+import { CONFIG_ELECTRON } from "../io/ConfigElectron.js";
 
 type WindowSize = {
     width: number;
@@ -33,13 +31,13 @@ export function getWindowState(isDev = false) {
 
 function getWindowSize(): WindowSize {
     return {
-        width: Math.max(100, config.windowWidth),
-        height: Math.max(100, config.windowHeight),
+        width: Math.max(100, CONFIG_ELECTRON.windowWidth),
+        height: Math.max(100, CONFIG_ELECTRON.windowHeight),
     };
 }
 
 function getWindowPosition(windowSize: WindowSize): { x?: number; y?: number } {
-    const position = { x: config.windowX, y: config.windowY };
+    const position = { x: CONFIG_ELECTRON.windowX, y: CONFIG_ELECTRON.windowY };
     if (position.x === 0 && position.y === 0) {
         return {};
     }
@@ -68,8 +66,8 @@ function isVisible(windowSize: WindowSize, position: WindowPosition): boolean {
  */
 export function storeWindowState(win: BrowserWindow) {
     const rectangle = win.getBounds();
-    config.windowWidth = rectangle.width;
-    config.windowHeight = rectangle.height;
-    config.windowX = rectangle.x;
-    config.windowY = rectangle.y;
+    CONFIG_ELECTRON.windowWidth = rectangle.width;
+    CONFIG_ELECTRON.windowHeight = rectangle.height;
+    CONFIG_ELECTRON.windowX = rectangle.x;
+    CONFIG_ELECTRON.windowY = rectangle.y;
 }
