@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 
 /**
  * Asserts that two numbers are equal when rounded to a specified precision.

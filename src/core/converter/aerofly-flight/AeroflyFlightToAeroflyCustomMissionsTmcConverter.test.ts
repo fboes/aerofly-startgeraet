@@ -1,12 +1,12 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { AeroflyFlightToMarkdownConverter } from "./AeroflyFlightToMarkdownConverter.js";
+import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "./AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightFixture } from "../../../test/fixtures/AeroflyFlightFixture.js";
 
-describe("AeroflyFlightToMarkdownConverter", () => {
+describe("AeroflyFlightToAeroflyCustomMissionsTmcConverter", () => {
     it("should do a conversion", () => {
         const flight = new AeroflyFlightFixture();
-        const exporter = new AeroflyFlightToMarkdownConverter();
+        const exporter = new AeroflyFlightToAeroflyCustomMissionsTmcConverter();
         const exportString = exporter.convert(flight);
 
         assert.ok(exportString);

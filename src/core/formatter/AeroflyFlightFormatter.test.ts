@@ -1,8 +1,9 @@
 import { describe, it } from "node:test";
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
 import { getSunPositionName, getClouds, getFlightplanWaypoints } from "./AeroflyFlightFormatter.js";
+import { AeroflyFlightFixture } from "../../test/fixtures/AeroflyFlightFixture.js";
 
 describe("AeroflyFlightFormatter", () => {
     it("should calculate the sun position", () => {
@@ -34,8 +35,9 @@ describe("AeroflyFlightFormatter", () => {
     });
 
     it("should shorten flightplans correctly", () => {
-        const aeroflyFlight = new AeroflyFlightFallback(true);
-        assert.strictEqual(aeroflyFlight.navigation.waypoints.length, 5);
+        const aeroflyFlight = new AeroflyFlightFixture();
+
+        assert.strictEqual(aeroflyFlight.navigation.waypoints.length, 7);
 
         for (const testCase of <[number, string][]>[
             [0, "KEYW → KMTH → MNATE → HST → KMIA"],

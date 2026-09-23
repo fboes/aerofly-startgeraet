@@ -1,4 +1,4 @@
-import { strict as assert } from "node:assert";
+import { strict as assert } from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { AviationWeatherApi } from "./AviationWeatherApi.js";

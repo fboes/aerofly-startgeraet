@@ -1,7 +1,9 @@
 import {
     type AeroflyFlight,
     type AeroflyNavRouteBase,
+    AeroflyNavRouteDepartureRunway,
     AeroflyNavRouteDestination,
+    AeroflyNavRouteDestinationRunway,
     AeroflyNavRouteOrigin,
 } from "@fboes/aerofly-custom-missions";
 import { RoutePlanService } from "../services/RoutePlanService.js";
@@ -75,7 +77,7 @@ export function getFlightplanSummary(aeroflyFlight: AeroflyFlight): string {
 }
 
 /**
- *
+ * Show waypoints (excluding runways) in a human-readable string.
  * @param aeroflyFlight
  * @param maxLength if >= 2 this will limit the amount of waypoints returned in the string
  * @returns
@@ -94,11 +96,13 @@ export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength =
         throw new Error("No last waypoint found");
     }
 
-    const waypoints = (maxLength === 2 ? [firstWaypoint, lastWaypoint] : aeroflyFlight.navigation.waypoints).map(
-        (wp: AeroflyNavRouteBase): string => {
+    const waypoints = (maxLength === 2 ? [firstWaypoint, lastWaypoint] : aeroflyFlight.navigation.waypoints)
+        .filter(
+            (wp) => !(wp instanceof AeroflyNavRouteDepartureRunway || wp instanceof AeroflyNavRouteDestinationRunway),
+        )
+        .map((wp: AeroflyNavRouteBase): string => {
             return wp.identifier;
-        },
-    );
+        });
 
     if (maxLength > 2 && waypoints.length >= maxLength + 1) {
         waypoints.splice(1, waypoints.length - maxLength + 1, "…");

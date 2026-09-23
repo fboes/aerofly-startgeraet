@@ -1,5 +1,5 @@
 import { describe, it } from "node:test";
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
 import { MetarToAeroflyFlightConverter } from "./MetarToAeroflyFlightConverter.js";
 

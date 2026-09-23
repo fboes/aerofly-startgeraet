@@ -1,7 +1,7 @@
 import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 
 export interface Command {
-    execute: () => Promise<number>;
+    execute(): Promise<number>;
 }
 
 export abstract class ControllerCommand implements Command {

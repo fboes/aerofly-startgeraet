@@ -1,5 +1,5 @@
 import { describe, it } from "node:test";
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { MsfsPlnToAeroflyFlightConverter } from "./MsfsPlnToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
 import { loadFixture } from "../../../test/loadFixture.js";

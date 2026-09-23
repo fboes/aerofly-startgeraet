@@ -1,11 +1,11 @@
 import { describe, it } from "node:test";
-import assert from "node:assert";
-import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
+import assert from "node:assert/strict";
 import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
 import { AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
+import { AeroflyFlightFallback } from "../../data/AeroflyFlightFallback.js";
 
 function basicFlight() {
-    const flight = new AeroflyFlightFallback(true);
+    const flight = new AeroflyFlightFallback();
     flight.timeUtc.timeDay = 4;
     flight.timeUtc.timeHours = 7.5;
     return flight;

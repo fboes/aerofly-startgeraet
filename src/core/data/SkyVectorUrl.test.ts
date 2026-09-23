@@ -1,11 +1,11 @@
 import { describe, it } from "node:test";
-import assert from "node:assert";
-import { AeroflyFlightFallback } from "./AeroflyFlightFallback.js";
+import assert from "node:assert/strict";
 import { SkyVectorUrl } from "./SkyVectorUrl.js";
+import { AeroflyFlightFixture } from "../../test/fixtures/AeroflyFlightFixture.js";
 
 describe("SkyVectorUrl", () => {
     it("should convert a flight plan into a SkyVector URL", () => {
-        const flight = new AeroflyFlightFallback(true);
+        const flight = new AeroflyFlightFixture();
         flight.navigation.cruiseAltitude_ft = 15_000;
 
         const url = new SkyVectorUrl(flight);

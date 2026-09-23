@@ -1,4 +1,4 @@
-import { strict as assert } from "node:assert";
+import { strict as assert } from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { OpenTopoDataApi, type OpenTopoDataApiCoordinates } from "./OpenTopoDataApi.js";
