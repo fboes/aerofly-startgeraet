@@ -1,10 +1,10 @@
 import { input, confirm, select } from "@inquirer/prompts";
 import type { Config } from "../../core/io/Config.js";
-import type { Command } from "./Command.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { writeSuccess } from "../formatter/writeCli.js";
+import type { ControllerCommand } from "./ControllerCommand.interface.js";
 
-export class SetupCommand implements Command {
+export class SetupCommand implements ControllerCommand {
     constructor(private config: Config) {}
 
     async execute(): Promise<number> {

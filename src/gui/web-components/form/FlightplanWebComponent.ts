@@ -1,4 +1,4 @@
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/airport-coordinates-object.json";
@@ -13,7 +13,7 @@ export type FlightplanWebComponentState = {
 
 type FlightplanWebComponentAirport = AeroflyAirportCoordinatesObject & { nameUppercase: string };
 
-export class FlightplanWebComponent extends AbstractStateSubscriberWebComponent {
+export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

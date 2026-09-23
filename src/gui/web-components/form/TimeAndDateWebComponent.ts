@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 import type { IconWebComponent } from "../util/IconWebComponent.js";
@@ -10,7 +10,7 @@ export type TimeAndDateWebComponentState = {
     utcTime: string; // HH:mm
 };
 
-export class TimeAndDateWebComponent extends AbstractStateSubscriberWebComponent {
+export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
     private shortcut: (() => void) | undefined = undefined;
     private readonly shortcutKey = "n";

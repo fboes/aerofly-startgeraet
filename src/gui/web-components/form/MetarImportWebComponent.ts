@@ -1,7 +1,7 @@
 import type { AppState } from "../../renderer/AppState.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 
@@ -9,7 +9,7 @@ export type MetarImportWebComponentState = {
     icao: string;
 };
 
-export class MetarImportWebComponent extends AbstractStateSubscriberWebComponent {
+export class MetarImportWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
     private shortcut: (() => void) | undefined = undefined;
     private readonly shortcutKey = "m";

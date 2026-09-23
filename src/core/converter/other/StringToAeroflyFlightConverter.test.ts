@@ -1,9 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
-class Test extends StringToAeroflyFlightConverter {
+class Test extends BaseStringToAeroflyFlightConverter {
     convert(content: string, flightplan: AeroflyFlight, index: number = 0) {
         if (!content || !flightplan || index < 0) {
             throw new Error("Missing input");

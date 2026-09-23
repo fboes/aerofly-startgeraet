@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import type { ConfigTheme } from "../../../core/io/Config.js";
 
@@ -9,7 +9,7 @@ export type SettingsWebComponentState = {
     fontSizePercent: number;
 };
 
-export class SettingsWebComponent extends AbstractStateSubscriberWebComponent {
+export class SettingsWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

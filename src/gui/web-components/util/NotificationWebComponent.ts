@@ -4,10 +4,10 @@ import {
     type NotificationEventPayload,
     type NotificationEventType,
 } from "../../renderer/notificationEventHandler.js";
-import { AbstractStateSubscriberWebComponent } from "./AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "./StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 
-export class NotificationWebComponent extends AbstractStateSubscriberWebComponent {
+export class NotificationWebComponent extends BaseStateSubscriberWebComponent {
     private readonly hideDelay = 3_500;
     private readonly multiHideDelay = 500;
 

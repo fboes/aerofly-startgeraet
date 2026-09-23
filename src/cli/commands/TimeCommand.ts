@@ -1,7 +1,7 @@
 import { writeln } from "../formatter/writeCli.js";
-import { ControllerCommand } from "./Command.js";
+import { BaseControllerCommand } from "./ControllerCommand.base.js";
 
-export class TimeCommand extends ControllerCommand {
+export class TimeCommand extends BaseControllerCommand {
     async execute(): Promise<number> {
         const timeAndDate = new Date().toISOString();
 

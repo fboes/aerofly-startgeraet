@@ -1,10 +1,10 @@
 import type { z } from "zod";
-import type { MissionGeneratorInterface, MissionGeneratorManifest } from "./MissionGeneratorInterface.js";
+import type { MissionGenerator, MissionGeneratorManifest } from "./MissionGenerator.interface.js";
 //import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 
 export const MISSION_GENERATOR_REGISTRY: Record<
     string,
-    (new () => MissionGeneratorInterface<z.ZodRawShape>) | undefined
+    (new () => MissionGenerator<z.ZodRawShape>) | undefined
 > = {
     //"landing-pattern": LandingPatternMissionGenerator,
 };
@@ -18,7 +18,7 @@ export const MISSIONS_GENERATOR_MANIFESTS: MissionGeneratorManifest[] = Object.e
     },
 );
 
-export function getMissionGenerator(missionGeneratorSlug: string): new () => MissionGeneratorInterface<z.ZodRawShape> {
+export function getMissionGenerator(missionGeneratorSlug: string): new () => MissionGenerator<z.ZodRawShape> {
     const missionGenerator = MISSION_GENERATOR_REGISTRY[missionGeneratorSlug];
     if (!missionGenerator) {
         throw new Error(`Unknown mission generator slug: ${missionGeneratorSlug}`);

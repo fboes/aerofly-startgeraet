@@ -29,7 +29,7 @@ export type MissionGeneratorManifest = {
  * for a mission to be generated, and the actual process for generating a
  * mission using the configuration.
  */
-export interface MissionGeneratorInterface<S extends z.ZodRawShape> {
+export interface MissionGenerator<S extends z.ZodRawShape> {
     /**
      * Describes the purpose of a Mission Generator to the user
      */

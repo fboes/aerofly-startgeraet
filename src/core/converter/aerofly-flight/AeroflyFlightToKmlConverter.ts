@@ -1,15 +1,15 @@
 import type { AeroflyFlight, AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 import {
-    AeroflyFlightToStringConverter,
+    BaseAeroflyFlightToStringConverter,
     type ExportFileConverterWaypointType,
-} from "./AeroflyFlightToStringConverter.js";
+} from "./AeroflyFlightToStringConverter.base.js";
 
 type KeyholeMarkupLanguageRouteStyle = {
     id: ExportFileConverterWaypointType | "aircraft";
     iconHref: string;
 };
 
-export class AeroflyFlightToKmlConverter extends AeroflyFlightToStringConverter {
+export class AeroflyFlightToKmlConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "Keyhole Markup Language";
     static readonly fileExtension = "kml";
 

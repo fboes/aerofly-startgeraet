@@ -1,12 +1,12 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 
 export type MetarInputWebComponentState = {
     metar: string;
 };
 
-export class MetarInputWebComponent extends AbstractStateSubscriberWebComponent {
+export class MetarInputWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

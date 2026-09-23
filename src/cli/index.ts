@@ -2,7 +2,7 @@
 
 import { CONFIG } from "../core/io/Config.js";
 import { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
-import type { ControllerCommand } from "./commands/Command.js";
+import type { BaseControllerCommand } from "./commands/ControllerCommand.base.js";
 import { MenuCommand } from "./commands/MenuCommand.js";
 import { MetarCommand } from "./commands/MetarCommand.js";
 import { HelpCommand } from "./commands/HelpCommand.js";
@@ -25,12 +25,12 @@ if (arg === "setup") {
 }
 
 // Main application logic
-const getControllerCommand = (arg: string): new (controller: AeroflyFlightService) => ControllerCommand => {
+const getControllerCommand = (arg: string): new (controller: AeroflyFlightService) => BaseControllerCommand => {
     if (!arg) {
         return MenuCommand;
     }
 
-    const registry: Record<string, (new (controller: AeroflyFlightService) => ControllerCommand) | undefined> = {
+    const registry: Record<string, (new (controller: AeroflyFlightService) => BaseControllerCommand) | undefined> = {
         metar: MetarCommand,
         simbrief: SimbriefCommand,
         time: TimeCommand,

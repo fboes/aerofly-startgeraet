@@ -1,6 +1,6 @@
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { numberFormat } from "../util/numberFormat.js";
 
@@ -11,7 +11,7 @@ export type AircraftWebComponentState = {
     cruiseAltitude_ft: number;
 };
 
-export class AircraftWebComponent extends AbstractStateSubscriberWebComponent {
+export class AircraftWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
     private showIcaoCode = true;
 

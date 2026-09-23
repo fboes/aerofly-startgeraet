@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { numberFormat } from "../util/numberFormat.js";
 
@@ -8,7 +8,7 @@ export type FuelPayloadWebComponentState = {
     payloadMass: number;
 };
 
-export class FuelPayloadWebComponent extends AbstractStateSubscriberWebComponent {
+export class FuelPayloadWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private maximumTakeoffMassKg = 0;

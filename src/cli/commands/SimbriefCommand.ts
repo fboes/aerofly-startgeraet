@@ -1,9 +1,9 @@
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { writeln, writeSuccess, writeCatch } from "../formatter/writeCli.js";
-import { ControllerCommand } from "./Command.js";
+import { BaseControllerCommand } from "./ControllerCommand.base.js";
 import { input } from "@inquirer/prompts";
 
-export class SimbriefCommand extends ControllerCommand {
+export class SimbriefCommand extends BaseControllerCommand {
     async execute(): Promise<number> {
         let returnState = 0;
         let simBriefUserName = this.controller.config.simBriefUserName;

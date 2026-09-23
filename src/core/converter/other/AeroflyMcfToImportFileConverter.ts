@@ -1,8 +1,8 @@
 import { AeroflyMainConfigParser } from "../parser/AeroflyMainConfigParser.js";
-import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 
-export class AeroflyMcfToImportFileConverter extends StringToAeroflyFlightConverter {
+export class AeroflyMcfToImportFileConverter extends BaseStringToAeroflyFlightConverter {
     static readonly fileName = "Aerofly Main Configuration File";
     static readonly fileExtension = "mcf";
 

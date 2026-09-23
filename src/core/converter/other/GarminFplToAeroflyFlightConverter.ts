@@ -6,7 +6,7 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import { parseXmlNode, parseXmlNodes } from "../parser/parseXml.js";
 
 type GarminFplWaypointType = "AIRPORT" | "USER WAYPOINT" | "NDB" | "VOR" | "INT" | "INT-VRP";
@@ -23,7 +23,7 @@ type GarminFplWaypoint = {
  * Import `fpl` Gamin FPL files
  * @see https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd
  */
-export class GarminFplToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+export class GarminFplToAeroflyFlightConverter extends BaseStringToAeroflyFlightConverter {
     static readonly fileName = "Garmin Flight Plan File";
     static readonly fileExtension = "fpl";
 

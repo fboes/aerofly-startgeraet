@@ -1,12 +1,12 @@
 import z from "zod";
 import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import type { MissionGeneratorInterface, MissionGeneratorManifest } from "../MissionGeneratorInterface.js";
+import type { MissionGenerator, MissionGeneratorManifest } from "../MissionGenerator.interface.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
 };
 
-export class LandingPatternMissionGenerator implements MissionGeneratorInterface<LandingPatternMissionGeneratorConfiguration> {
+export class LandingPatternMissionGenerator implements MissionGenerator<LandingPatternMissionGeneratorConfiguration> {
     manifest(): MissionGeneratorManifest {
         return {
             name: "landing-pattern",

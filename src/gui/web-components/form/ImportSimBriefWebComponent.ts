@@ -1,6 +1,6 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
 
@@ -9,7 +9,7 @@ export type ImportSimBriefWebComponentState = {
     useSimBriefWeather: number;
 };
 
-export class ImportSimBriefWebComponent extends AbstractStateSubscriberWebComponent {
+export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
     private shortcut: (() => void) | undefined = undefined;
     private readonly shortcutKey = "b";

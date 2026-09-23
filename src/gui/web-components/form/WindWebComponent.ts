@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 
 export type WindWebComponentState = {
@@ -8,7 +8,7 @@ export type WindWebComponentState = {
     directionInDegree: number;
 };
 
-export class WindWebComponent extends AbstractStateSubscriberWebComponent {
+export class WindWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

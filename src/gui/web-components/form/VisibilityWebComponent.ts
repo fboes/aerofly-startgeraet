@@ -1,12 +1,12 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 
 export type VisibilityWebComponentState = {
     visibilityMeters: number;
 };
 
-export class VisibilityWebComponent extends AbstractStateSubscriberWebComponent {
+export class VisibilityWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

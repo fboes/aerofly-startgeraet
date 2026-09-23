@@ -6,10 +6,10 @@ import {
     AeroflyMissionConditionsCloud,
     AeroflyMissionsList,
 } from "@fboes/aerofly-custom-missions";
-import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
+import { BaseAeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.base.js";
 import { getAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
 
-export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends AeroflyFlightToStringConverter {
+export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "Aerofly Custom Missions";
     static readonly fileExtension = "tmc";
 

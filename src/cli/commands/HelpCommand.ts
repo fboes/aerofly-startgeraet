@@ -1,7 +1,7 @@
-import type { Command } from "./Command.js";
 import { styleText } from "node:util";
+import type { ControllerCommand } from "./ControllerCommand.interface.js";
 
-export class HelpCommand implements Command {
+export class HelpCommand implements ControllerCommand {
     async execute(): Promise<number> {
         process.stdout.write(HelpCommand.getExtendedHelpText());
         return 0;

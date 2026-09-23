@@ -1,7 +1,7 @@
 import { writeln, writeSuccess } from "../formatter/writeCli.js";
-import { ControllerCommand } from "./Command.js";
+import { BaseControllerCommand } from "./ControllerCommand.base.js";
 
-export class MetarCommand extends ControllerCommand {
+export class MetarCommand extends BaseControllerCommand {
     async execute(): Promise<number> {
         const choice = this.controller.getFlightplanDepartureAirportString();
 

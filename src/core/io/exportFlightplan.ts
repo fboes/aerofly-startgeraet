@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToAeroflyMainMcfConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
-import type { AeroflyFlightToStringConverter } from "../converter/aerofly-flight/AeroflyFlightToStringConverter.js";
+import type { BaseAeroflyFlightToStringConverter } from "../converter/aerofly-flight/AeroflyFlightToStringConverter.base.js";
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import { AeroflyFlightToGeoJsonConverter } from "../converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
@@ -12,7 +12,7 @@ import { AeroflyFlightToMarkdownConverter } from "../converter/aerofly-flight/Ae
  * external flight plan file by selecting the appropriate converter.
  */
 
-const EXPORT_REGISTRY: Record<string, (new () => AeroflyFlightToStringConverter) | undefined> = {
+const EXPORT_REGISTRY: Record<string, (new () => BaseAeroflyFlightToStringConverter) | undefined> = {
     [AeroflyFlightToAeroflyMainMcfConverter.fileExtension]: AeroflyFlightToAeroflyMainMcfConverter,
     [AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension]: AeroflyFlightToAeroflyCustomMissionsTmcConverter,
     [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
@@ -58,7 +58,7 @@ export function exportFlightplanToFile(filename: string, flightplan: AeroflyFlig
     fs.writeFileSync(filename, content, "utf8");
 }
 
-export function getExportConverter(filename: string): new () => AeroflyFlightToStringConverter {
+export function getExportConverter(filename: string): new () => BaseAeroflyFlightToStringConverter {
     const fileSuffix = filename.split(".").pop()?.toLowerCase();
     if (!fileSuffix) {
         throw new Error(`Could not determine file type for "${filename}"`);

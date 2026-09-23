@@ -1,6 +1,6 @@
 import type { AppState } from "../../renderer/AppState.js";
 
-export abstract class AbstractStateSubscriberWebComponent extends HTMLElement {
+export abstract class BaseStateSubscriberWebComponent extends HTMLElement {
     protected offStateUpdate: (() => void) | null = null;
 
     protected subscribeToStateUpdates(callback: (state: AppState) => void) {

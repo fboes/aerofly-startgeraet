@@ -1,5 +1,5 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 
 export type CloudsWebComponentState = {
@@ -9,7 +9,7 @@ export type CloudsWebComponentState = {
     }[];
 };
 
-export class CloudsWebComponent extends AbstractStateSubscriberWebComponent {
+export class CloudsWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

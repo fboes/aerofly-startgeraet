@@ -1,5 +1,5 @@
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { AeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.js";
+import { BaseAeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.base.js";
 import {
     dateToString,
     getClouds,
@@ -21,7 +21,7 @@ import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.j
 import { SkyVectorUrl } from "../../data/SkyVectorUrl.js";
 import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
 
-export class AeroflyFlightToMarkdownConverter extends AeroflyFlightToStringConverter {
+export class AeroflyFlightToMarkdownConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "Markdown Text File";
     static readonly fileExtension = "md";
 

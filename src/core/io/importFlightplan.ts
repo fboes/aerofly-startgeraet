@@ -2,7 +2,7 @@ import fs from "node:fs";
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { MsfsPlnToAeroflyFlightConverter } from "../converter/other/MsfsPlnToAeroflyFlightConverter.js";
 import { GarminFplToAeroflyFlightConverter } from "../converter/other/GarminFplToAeroflyFlightConverter.js";
-import type { StringToAeroflyFlightConverter } from "../converter/other/StringToAeroflyFlightConverter.js";
+import type { BaseStringToAeroflyFlightConverter } from "../converter/other/StringToAeroflyFlightConverter.base.js";
 import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsToAeroflyFlightConverter.js";
 import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
 import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
@@ -12,7 +12,7 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
  * appropriate converter class.
  */
 
-const IMPORT_REGISTRY: Record<string, (new () => StringToAeroflyFlightConverter) | undefined> = {
+const IMPORT_REGISTRY: Record<string, (new () => BaseStringToAeroflyFlightConverter) | undefined> = {
     [AeroflyCustomMissionsTmcToAeroflyFlightConverter.fileExtension]: AeroflyCustomMissionsTmcToAeroflyFlightConverter,
     [AeroflyMcfToImportFileConverter.fileExtension]: AeroflyMcfToImportFileConverter,
     [MsfsPlnToAeroflyFlightConverter.fileExtension]: MsfsPlnToAeroflyFlightConverter,
@@ -66,7 +66,7 @@ export function getFlightplansFromString(content: string, filename: string): str
  * @param flightplan The AeroflyFlight object to populate with the imported data.
  * @param index If multiple flight plans are present in a given file, select which index to import
  * @throws Will throw an error if the file type is unsupported or if the conversion fails.
- * @see StringToAeroflyFlightConverter for the interface that specific file handlers must implement.
+ * @see BaseStringToAeroflyFlightConverter for the interface that specific file handlers must implement.
  * @see MsfsPlnToAeroflyFlightConverter for handling Microsoft Flight Simulator .pln files.
  * @see GarminFplToAeroflyFlightConverter for handling Garmin .fpl files.
  */
@@ -83,7 +83,7 @@ export function importString(content: string, filename: string, flightplan: Aero
     new converter().convert(content, flightplan, index);
 }
 
-export function getImportConverter(filename: string): new () => StringToAeroflyFlightConverter {
+export function getImportConverter(filename: string): new () => BaseStringToAeroflyFlightConverter {
     const fileSuffix = filename.replace(/^[^.]+\./, "");
     if (!fileSuffix) {
         throw new Error(`Could not determine file type for "${filename}"`);

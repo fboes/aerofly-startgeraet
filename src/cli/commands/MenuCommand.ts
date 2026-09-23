@@ -1,6 +1,6 @@
 import { input, number, select, Separator } from "@inquirer/prompts";
 import type { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
-import { ControllerCommand } from "./Command.js";
+import { BaseControllerCommand } from "./ControllerCommand.base.js";
 import { HelpCommand } from "./HelpCommand.js";
 import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
@@ -17,7 +17,7 @@ export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "write
  * The menu will then generate a configuration file that can be loaded in
  * Aerofly FS 4.
  */
-export class MenuCommand extends ControllerCommand {
+export class MenuCommand extends BaseControllerCommand {
     async execute(): Promise<number> {
         process.stdout.write("\x1Bc");
 

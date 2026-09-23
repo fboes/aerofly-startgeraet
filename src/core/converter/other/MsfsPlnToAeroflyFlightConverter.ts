@@ -8,7 +8,7 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 import { parseXmlAttribute, parseXmlNode, parseXmlNodes } from "../parser/parseXml.js";
 
@@ -20,7 +20,7 @@ type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | 
  * @see https://docs.flightsimulator.com/html/Content_Configuration/Flights_And_Missions/Flight_Plan_Definitions.htm
  * @see https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Mission_XML_Files/EFB_Flight_Plan_XML_Properties.htm
  */
-export class MsfsPlnToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+export class MsfsPlnToAeroflyFlightConverter extends BaseStringToAeroflyFlightConverter {
     static readonly fileName = "Microsoft Flight Simulator Flight Plan File";
     static readonly fileExtension = "pln";
 

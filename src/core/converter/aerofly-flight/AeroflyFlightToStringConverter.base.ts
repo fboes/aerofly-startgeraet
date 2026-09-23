@@ -16,7 +16,7 @@ import {
 
 export type ExportFileConverterWaypointType = "airport" | "runway" | "navaid" | "waypoint";
 
-export abstract class AeroflyFlightToStringConverter {
+export abstract class BaseAeroflyFlightToStringConverter {
     // static readonly fileExtension: string;
 
     abstract convert(flightplan: AeroflyFlight): string;

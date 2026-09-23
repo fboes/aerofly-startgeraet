@@ -1,8 +1,8 @@
-import { AbstractStateSubscriberWebComponent } from "../util/AbstractStateSubscriberWebComponent.js";
+import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { numberFormat } from "../util/numberFormat.js";
 
-export class AircraftInfoWebComponent extends AbstractStateSubscriberWebComponent {
+export class AircraftInfoWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
 
     private elements!: {

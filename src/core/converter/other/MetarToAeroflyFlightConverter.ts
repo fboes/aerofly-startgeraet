@@ -1,8 +1,8 @@
 import { type AeroflyFlight, AeroflySettingsWind, AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
-import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import { metarParser } from "aewx-metar-parser";
 
-export class MetarToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+export class MetarToAeroflyFlightConverter extends BaseStringToAeroflyFlightConverter {
     getIndices(content: string): string[] {
         return this.getLines(content);
     }

@@ -6,6 +6,6 @@ To create a new mission generator:
 2. Put a `XXXXMissionGenerator.ts` in it.
 3. Start implementing with this scaffold:
    ```typescript
-   export class XXXXMissionGenerator extends MissionGeneratorInterface {}
+   export class XXXXMissionGenerator implements MissionGenerator {}
    ```
-4. You must _not_ use any export provided by the actual Startgerät project, but for type definitions. (CHECK)
+4. You should _not_ use any export provided by the actual Startgerät project, but for type definitions. Instead rely on services passed to your mission generator.

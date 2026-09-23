@@ -1,7 +1,7 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
-import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGeneratorInterface.js";
+import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGenerator.interface.js";
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
 
 export class MissionGeneratorWebComponent extends HTMLElement {

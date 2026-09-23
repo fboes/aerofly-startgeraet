@@ -8,7 +8,7 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { StringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.js";
+import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 
 // It is 1 for airport, 2 for NDB, 3 for VOR, 11 for named fix and 28 for unnamed lat/lon waypoints.
@@ -27,7 +27,7 @@ type XplaneFmsWaypoint = {
  * @see https://developer.x-plane.com/article/flightplan-files-v11-fms-file-format/
  * @see https://xp-soaring.github.io/tasks/x-plane_fms_format.html
  */
-export class XplaneFmsToAeroflyFlightConverter extends StringToAeroflyFlightConverter {
+export class XplaneFmsToAeroflyFlightConverter extends BaseStringToAeroflyFlightConverter {
     static readonly fileName = "X-Plane Flight Plan File";
     static readonly fileExtension = "fms";
 

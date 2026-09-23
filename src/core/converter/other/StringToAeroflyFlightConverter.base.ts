@@ -1,6 +1,6 @@
 import { AeroflyNavRouteWaypoint, type AeroflyFlight, type AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 
-export abstract class StringToAeroflyFlightConverter {
+export abstract class BaseStringToAeroflyFlightConverter {
     // static readonly fileName: string;
     // static readonly fileExtension: string;
 
