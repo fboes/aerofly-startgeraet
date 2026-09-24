@@ -520,3 +520,33 @@ startgeraet-icon {
         color: var(--color-warning);
     }
 }
+
+startgeraet-aside {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20rem;
+    height: 100%;
+    background-color: var(--color-background);
+    border-left: var(--border-standard);
+    box-shadow: var(--color-shadow) -0.25rem 0.25rem 0.5rem;
+    transition: transform 0.35s var(--transitionfunction-bounce);
+    transform: translateX(100%);
+    z-index: 1;
+    padding: 2rem 1rem 1rem;
+    filter: brightness(95%);
+
+    .opener {
+        position: absolute;
+        top: 3rem;
+        left: -1.5rem;
+        width: 1.5rem;
+        border-radius: 0.25rem 0 0 0.25rem;
+        text-align: center;
+        line-height: 1.5rem;
+    }
+
+    &.is-open {
+        transform: translateX(0);
+    }
+}

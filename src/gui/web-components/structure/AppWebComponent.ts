@@ -3,6 +3,7 @@ import { MainWebComponent } from "./MainWebComponent.js";
 import { NotificationWebComponent } from "../util/NotificationWebComponent.js";
 import { FooterWebComponent } from "./FooterWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { AsideWebComponent } from "./AsideWebComponent.js";
 
 export class AppWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -11,6 +12,7 @@ export class AppWebComponent extends HTMLElement {
         NotificationWebComponent.registerElement();
         HeaderWebComponent.registerElement();
         MainWebComponent.registerElement();
+        AsideWebComponent.registerElement();
         FooterWebComponent.registerElement();
 
         this.classList.add("platform-" + window.process.platform);
@@ -18,6 +20,7 @@ export class AppWebComponent extends HTMLElement {
 <startgeraet-notification></startgeraet-notification>
 <startgeraet-header></startgeraet-header>
 <startgeraet-main></startgeraet-main>
+<startgeraet-aside></startgeraet-aside>
 <startgeraet-footer></startgeraet-footer>
         `;
     }
