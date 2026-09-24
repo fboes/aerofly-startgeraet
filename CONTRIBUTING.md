@@ -1,6 +1,13 @@
 # Contribution guides
 
-## File naming
+## I Want To Contribute
+
+> [!WARNING]
+> When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project licence.
+
+## Styleguide
+
+### File naming
 
 The file name matches its primary export exactly, followed by an optional suffix.
 
@@ -24,7 +31,7 @@ The file name matches its primary export exactly, followed by an optional suffix
   marks them: `abstract class ControllerCommand` in `ControllerCommand.base.ts`.
 - Import interfaces and types with `import type`. This will be enforced by ESLint.
 
-## Testing
+### Testing
 
 Tests use the built-in Node.js test runner. Do not add Jest, Vitest, Mocha or
 any other test framework or assertion library.
