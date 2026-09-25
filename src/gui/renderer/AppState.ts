@@ -1,7 +1,7 @@
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import * as AeroflyFlightHelper from "../../core/util/AeroflyFlightHelper.js";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
-import { RoutePlanService } from "../../core/services/RoutePlanService.js";
+import { RoutePlanService, type RoutePlanServiceLeg } from "../../core/services/RoutePlanService.js";
 import type { AeroflyAircraft } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import type { Config } from "../../core/io/Config.js";
@@ -28,6 +28,7 @@ export class AppState {
 
     readonly route: {
         routeString: string;
+        routeLegs: RoutePlanServiceLeg[];
         routeUrl: string;
         departureAirport: string;
         departureAirportCode: string;
@@ -103,7 +104,8 @@ export class AppState {
         const cruiseSpeed_kts = this.aeroflyFlight.navigation._cruiseSpeed_kts ?? 0;
         const routeString = AeroflyFlightFormatter.getFlightplanWaypoints(this.aeroflyFlight, 3);
 
-        const lastLeg = new RoutePlanService(this.aeroflyFlight).getRouteLegs(cruiseSpeed_kts).at(-1);
+        const routeLegs = new RoutePlanService(this.aeroflyFlight).getRouteLegs(cruiseSpeed_kts);
+        const lastLeg = routeLegs.at(-1);
         const distance_nm = lastLeg?.distanceTotal_nm ?? 0;
         const flightTime_min = lastLeg?.estimatedTimeEnrouteTotal_min ?? 0;
         const flightTime = {
@@ -118,6 +120,7 @@ export class AppState {
 
         return {
             routeString,
+            routeLegs,
             routeUrl: skyVector.getRouteURL().toString(),
             distance_nm,
             flightTime,

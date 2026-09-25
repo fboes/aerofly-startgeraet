@@ -11,6 +11,7 @@ import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAirc
 import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
 import { getIcaoFlightCategory, getSunPosition, getFlightCategory } from "../util/AeroflyFlightHelper.js";
 import { APPLICATION_INFORMATION } from "../services/getApplicationInformation.js";
+import { getHourString } from "./getTimeString.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Twilight";
 
@@ -122,16 +123,6 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
     const hourString = getHourString(route.estimatedTimeEnrouteTotal_min);
 
     return distanceNm ? `${numberToString(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}` : "Unknown";
-}
-
-export function getHourString(minutes: number): string {
-    return getMinuteString(minutes / 60);
-}
-
-export function getMinuteString(minutes: number): string {
-    return `${Math.floor(minutes).toFixed()}:${Math.floor((minutes * 60) % 60)
-        .toString()
-        .padStart(2, "0")}`;
 }
 
 export function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string {

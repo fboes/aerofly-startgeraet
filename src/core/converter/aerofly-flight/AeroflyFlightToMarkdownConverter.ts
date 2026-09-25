@@ -6,8 +6,6 @@ import {
     getFlightplanDestinationName,
     getFlightplanOriginCode,
     getFlightplanOriginName,
-    getHourString,
-    getMinuteString,
     getSunPositionName,
     getTemperature,
     getVisibility,
@@ -20,6 +18,7 @@ import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from ".
 import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
 import { SkyVectorUrl } from "../../data/SkyVectorUrl.js";
 import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
+import { getTimeFormat, getTimeFunction } from "../../formatter/getTimeString.js";
 
 export class AeroflyFlightToMarkdownConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "Markdown Text File";
@@ -114,7 +113,7 @@ ${markdownTable([
         const route = new RoutePlanService(flightplan);
         const routeLegs = route.getRouteLegs();
         const routeTotalTime = routeLegs.at(-1)?.estimatedTimeEnrouteTotal_min ?? 0;
-        const timeFunction: (minutes: number) => string = routeTotalTime < 60 ? getMinuteString : getHourString;
+        const timeFunction = getTimeFunction(routeTotalTime);
 
         return `\
 ## Flight details
@@ -147,7 +146,7 @@ ${markdownTable([
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 
 - ²) Value for "To" waypoint
-- ³) Duration in ${timeFunction === getMinuteString ? "mm:ss" : "hh:mm"}
+- ³) Duration in ${getTimeFormat(routeTotalTime)}
 `;
     }
 
