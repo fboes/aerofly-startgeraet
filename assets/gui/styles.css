@@ -559,9 +559,10 @@ startgeraet-aside {
 }
 
 startgeraet-flight-briefing {
+    font-size: 0.9rem;
+
     table {
         margin-bottom: 1rem;
-        font-size: 0.9rem;
 
         td,
         th {

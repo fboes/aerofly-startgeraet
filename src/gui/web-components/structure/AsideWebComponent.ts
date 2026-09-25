@@ -17,8 +17,6 @@ export class AsideWebComponent extends HTMLElement {
 
 <div class="content">
     <startgeraet-flight-briefing></startgeraet-flight-briefing>
-
-    <p>Fuel, payload, runway waypoints, and the starting position cannot be set in this application and must be set in the simulator.</p>
 </div>
         `;
 
