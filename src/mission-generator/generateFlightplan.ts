@@ -2,10 +2,7 @@ import type { z } from "zod";
 import type { MissionGenerator, MissionGeneratorManifest } from "./MissionGenerator.interface.js";
 //import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 
-export const MISSION_GENERATOR_REGISTRY: Record<
-    string,
-    (new () => MissionGenerator<z.ZodRawShape>) | undefined
-> = {
+export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     //"landing-pattern": LandingPatternMissionGenerator,
 };
 

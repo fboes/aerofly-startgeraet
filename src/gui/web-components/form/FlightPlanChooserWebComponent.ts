@@ -2,6 +2,7 @@ import { dispatchNotificationEvent, type NotificationEventPayload } from "../../
 import { sendToMain } from "../../renderer/sendToMain.js";
 import type { ImportWebComponentPayload } from "./ImportWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { htmlOptions } from "../../../core/formatter/html.js";
 
 export type FlightPlanChooserWebComponentState = {
     flightPlanIndex: number;
@@ -26,11 +27,13 @@ export class FlightPlanChooserWebComponent extends HTMLElement {
 
     set values(values: ImportWebComponentPayload) {
         this.elements.filePath.innerText = values.filepath;
-        this.elements.flightplanSelect.innerHTML =
-            `<option selected disabled value="">Select flightplan</option><hr />` +
-            values.flightplans
-                .map((flightplan: string, index: number) => `<option value="${index}">${flightplan}</option>`)
-                .join("");
+
+        const options = values.flightplans.map((flightplan: string, index: number) => ({
+            value: index.toString(),
+            label: flightplan,
+        }));
+
+        this.elements.flightplanSelect.innerHTML = `<option selected disabled value="">Select flightplan</option><hr />${htmlOptions(options)}`;
     }
 
     private initialize() {

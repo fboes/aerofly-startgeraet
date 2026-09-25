@@ -3,6 +3,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { numberFormat } from "../util/numberFormat.js";
+import { html, htmlOptions } from "../../../core/formatter/html.js";
 
 export type AircraftWebComponentState = {
     aircraftName: string;
@@ -110,10 +111,10 @@ export class AircraftWebComponent extends BaseStateSubscriberWebComponent {
 
                     if (needsOptGroup && currentOptGroup !== manufacturerName) {
                         currentOptGroup = manufacturerName;
-                        optionHtml += `<optgroup label="${manufacturerName}">`;
+                        optionHtml += `<optgroup label="${html(manufacturerName)}">`;
                     }
 
-                    optionHtml += `<option value="${aircraft.aeroflyCode}">${optionLabel}</option>`;
+                    optionHtml += `<option value="${html(aircraft.aeroflyCode)}">${html(optionLabel)}</option>`;
 
                     return optionHtml;
                 })
@@ -122,17 +123,20 @@ export class AircraftWebComponent extends BaseStateSubscriberWebComponent {
 
         this.subscribeToStateUpdates((state) => {
             this.elements.aircraftName.value = state.aeroflyFlight.aircraft.name;
-            this.elements.aircraftPaintscheme.innerHTML =
-                state.aircraftData?.liveries
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((livery) => {
-                        let optionLabel = livery.name;
-                        if (this.showIcaoCode && livery.icaoCode) {
-                            optionLabel += ` [${livery.icaoCode}]`;
-                        }
-                        return `<option value="${livery.aeroflyCode === "default" ? "" : livery.aeroflyCode}">${optionLabel}</option>`;
-                    })
-                    .join("") ?? `<option value="">default</option>`;
+
+            const optionsPaintschmes = state.aircraftData?.liveries
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((livery) => {
+                    let optionLabel = livery.name;
+                    if (this.showIcaoCode && livery.icaoCode) {
+                        optionLabel += ` [${livery.icaoCode}]`;
+                    }
+                    return {
+                        value: livery.aeroflyCode === "default" ? "" : livery.aeroflyCode,
+                        label: optionLabel,
+                    };
+                }) ?? [{ value: "", label: "default" }];
+            this.elements.aircraftPaintscheme.innerHTML = htmlOptions(optionsPaintschmes);
             this.elements.aircraftPaintscheme.value = state.aeroflyFlight.aircraft.paintscheme || "";
 
             this.elements.aircraftCruiseSpeed.valueAsNumber = Math.round(state.route.cruiseSpeed_kts);

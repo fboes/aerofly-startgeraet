@@ -6,6 +6,7 @@ import {
 } from "../../renderer/notificationEventHandler.js";
 import { BaseStateSubscriberWebComponent } from "./StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { html } from "../../../core/formatter/html.js";
 
 export class NotificationWebComponent extends BaseStateSubscriberWebComponent {
     private readonly hideDelay = 3_500;
@@ -52,7 +53,7 @@ export class NotificationWebComponent extends BaseStateSubscriberWebComponent {
         const output = document.createElement("output");
         const icon = this.getIcon(details.type);
 
-        output.innerHTML = `<startgeraet-icon icon="${icon}"></startgeraet-icon>&nbsp;<span></span>`;
+        output.innerHTML = `<startgeraet-icon icon="${html(icon)}"></startgeraet-icon>&nbsp;<span></span>`;
         (output.querySelector("span") as HTMLSpanElement).innerText = details.message;
         this.appendChild(output);
 

@@ -2,7 +2,7 @@ import { dispatchNotificationEvent, type NotificationEventPayload } from "../../
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { FlightPlanChooserWebComponent } from "./FlightPlanChooserWebComponent.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 
 export type ImportWebComponentPayload = {
     flightplans: string[];
@@ -24,7 +24,7 @@ export class ImportWebComponent extends HTMLElement {
 
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button title="${shortcutString(this.shortcutKey)}"><u>O</u>pen / Import flight plan</button>
+<button title="${htmlShortcutString(this.shortcutKey)}"><u>O</u>pen / Import flight plan</button>
 <aerofly-flightplan-chooser></aerofly-flightplan-chooser>
         `;
 

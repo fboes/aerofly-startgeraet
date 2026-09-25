@@ -1,3 +1,5 @@
+import { html } from "../../core/formatter/html.js";
+
 const registry = new Map();
 const CLASS_BODY_ACTIVE = "has-pressed-modifier";
 
@@ -42,4 +44,8 @@ export function registerShortcut(key: string, handler: () => void): () => boolea
 export function shortcutString(key: string): string {
     const modifier = window.process.platform === "darwin" ? "⌘" : "Ctrl";
     return `${modifier}+${key.toUpperCase()}`;
+}
+
+export function htmlShortcutString(key: string): string {
+    return html(shortcutString(key));
 }

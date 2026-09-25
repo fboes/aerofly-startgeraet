@@ -1,7 +1,7 @@
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 
 export class ExportWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -15,7 +15,7 @@ export class ExportWebComponent extends HTMLElement {
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button id="flightplan-export" title="${shortcutString(this.shortcutKey)}"><u>S</u>ave / export flight plan</button>
+<button id="flightplan-export" title="${htmlShortcutString(this.shortcutKey)}"><u>S</u>ave / export flight plan</button>
         `;
 
         this.elements = {

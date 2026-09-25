@@ -3,7 +3,8 @@ import { dispatchNotificationEvent, type NotificationEventPayload } from "../../
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
+import { html } from "../../../core/formatter/html.js";
 
 export type MetarImportWebComponentState = {
     icao: string;
@@ -48,7 +49,7 @@ export class MetarImportWebComponent extends BaseStateSubscriberWebComponent {
   <button commandfor="dialog-metar" command="close" title="Close">✕</button>
 
   <footer>
-    Please note that the METAR API does only provide METAR information for the last ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST} days. The TAF API does only provide TAF information for the next ${MetarImportWebComponent.TAF_FETCH_LIMIT_HOURS_FUTURE} hours.<br />
+    Please note that the METAR API does only provide METAR information for the last ${html(MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST.toString())} days. The TAF API does only provide TAF information for the next ${html(MetarImportWebComponent.TAF_FETCH_LIMIT_HOURS_FUTURE.toString())} hours.<br />
     Also the METAR API does not provide data for all airports worldwide. <br />
   </footer>
 </dialog>
@@ -120,7 +121,7 @@ export class MetarImportWebComponent extends BaseStateSubscriberWebComponent {
     private setTitle() {
         this.elements.metarButton.title = this.elements.metarButton.disabled
             ? `Cannot fetch METAR weather information because the date is outside the allowed range of ${MetarImportWebComponent.METAR_FETCH_LIMIT_DAYS_PAST} days in the past and ${MetarImportWebComponent.TAF_FETCH_LIMIT_HOURS_FUTURE} hours in the future`
-            : `Fetch METAR / TAF weather information, ${shortcutString("m")}`;
+            : `Fetch METAR / TAF weather information, ${htmlShortcutString("m")}`;
     }
 
     /**

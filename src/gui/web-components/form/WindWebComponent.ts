@@ -74,7 +74,7 @@ export class WindWebComponent extends BaseStateSubscriberWebComponent {
             this.elements.windGust.classList.toggle(
                 "input-warning",
                 state.aeroflyFlight.wind.gust_kts !== 0 &&
-                    state.aeroflyFlight.wind.gust_kts <= state.aeroflyFlight.wind.speed_kts,
+                    state.aeroflyFlight.wind.gust_kts < state.aeroflyFlight.wind.speed_kts,
             );
         });
 

@@ -1,7 +1,7 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 import type { IconWebComponent } from "../util/IconWebComponent.js";
 import type { AeroflyFlightFormatterSunPosition } from "../../../core/formatter/AeroflyFlightFormatter.js";
 
@@ -45,7 +45,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
       <td><input id="date-utc" title="Date (UTC)" type="date" value="2026-01-01" /></td>
       <td><input id="time-utc" title="Time (UTC)" type="time" value="00:00" /></td>
       <td rowspan="2">
-        <button id="synchronize-time" class="w-100" title="Use current time &amp; date, ${shortcutString(this.shortcutKey)}"><u>N</u>ow</button>
+        <button id="synchronize-time" class="w-100" title="Use current time &amp; date, ${htmlShortcutString(this.shortcutKey)}"><u>N</u>ow</button>
       </td>
     </tr>
     <tr class="form-group">

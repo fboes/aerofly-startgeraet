@@ -1,8 +1,9 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGenerator.interface.js";
 import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
+import { html } from "../../../core/formatter/html.js";
 
 export class MissionGeneratorWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -21,7 +22,7 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
 
-<button commandfor="dialog-mission-generator" command="show-modal" title="${shortcutString(this.shortcutKey)}">Mission <u>g</u>enerator</button>
+<button commandfor="dialog-mission-generator" command="show-modal" title="${htmlShortcutString(this.shortcutKey)}">Mission <u>g</u>enerator</button>
 
 <dialog id="dialog-mission-generator" closedby="any">
   <h3>Mission generator</h3>
@@ -88,15 +89,15 @@ export class MissionGeneratorWebComponent extends HTMLElement {
 
     private createDialog() {
         if (this.missionGeneratorManifests.length === 0) {
-            this.elements.dialogInner.innerHTML = "No mission generators found";
+            this.elements.dialogInner.innerText = "No mission generators found";
             return;
         }
 
         const tableCells = this.missionGeneratorManifests.map(
             (m) => `\
 <tr>
-  <td><button data-name="${m.name}">${m.displayName}</button></td>
-  <td>${m.description}</td>
+  <td><button data-name="${html(m.name)}">${html(m.displayName)}</button></td>
+  <td>${html(m.description)}</td>
 </tr>
 `,
         );

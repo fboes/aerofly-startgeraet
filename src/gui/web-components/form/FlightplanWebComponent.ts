@@ -5,6 +5,7 @@ import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/a
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import type { AppState } from "../../renderer/AppState.js";
 import { numberFormat } from "../util/numberFormat.js";
+import { htmlOptions } from "../../../core/formatter/html.js";
 
 export type FlightplanWebComponentState = {
     origin: string;
@@ -187,24 +188,24 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
             const filtered = this.airportList.filter(
                 (entry) => entry.code.startsWith(inputValue) || entry.nameUppercase.startsWith(inputValue),
             );
-            dataList.innerHTML = "";
-            filtered.forEach((entry) => {
-                const option = document.createElement("option");
-                option.value = entry.code; // ICAO code
-                option.textContent = `${entry.code} - ${entry.name}`;
-                dataList.appendChild(option);
-            });
+
+            const options = filtered.map((entry) => ({
+                value: entry.code, // ICAO code
+                label: `${entry.code} - ${entry.name}`,
+            }));
+
+            dataList.innerHTML = htmlOptions(options);
             return filtered;
         }
 
         // Restore default options if input < 2 chars
-        dataList.innerHTML = `\
-    <option value="KATL">KATL - Atlanta Airport</option>
-    <option value="KLAX">KLAX - Los Angeles International Airport</option>
-    <option value="EGLL">EGLL - London Heathrow Airport</option>
-    <option value="OMDB">OMDB - Dubai International Airport</option>
-    <option value="RJTT">RJTT - Tokyo Haneda Airport</option>
-`;
+        dataList.innerHTML = htmlOptions([
+            { value: "KATL", label: "KATL - Atlanta Airport" },
+            { value: "KLAX", label: "KLAX - Los Angeles International Airport" },
+            { value: "EGLL", label: "EGLL - London Heathrow Airport" },
+            { value: "OMDB", label: "OMDB - Dubai International Airport" },
+            { value: "RJTT", label: "RJTT - Tokyo Haneda Airport" },
+        ]);
         return [];
     }
 

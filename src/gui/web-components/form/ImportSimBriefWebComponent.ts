@@ -2,7 +2,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
-import { registerShortcut, shortcutString } from "../../renderer/registerShortcut.js";
+import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
@@ -24,7 +24,7 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
     private initialize() {
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-simbrief" command="show-modal" title="${shortcutString(this.shortcutKey)}">Fetch flight plan from Sim<u>B</u>rief</button>
+<button commandfor="dialog-simbrief" command="show-modal" title="${htmlShortcutString(this.shortcutKey)}">Fetch flight plan from Sim<u>B</u>rief</button>
 
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>

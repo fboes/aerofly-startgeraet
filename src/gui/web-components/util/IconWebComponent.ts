@@ -1,3 +1,4 @@
+import { html } from "../../../core/formatter/html.js";
 import { registerElement } from "../../renderer/registerElement.js";
 
 /**
@@ -31,7 +32,7 @@ export class IconWebComponent extends HTMLElement {
 
     private getHtmlForSvg(icon: string) {
         const url = `./icons.svg#${icon}`;
-        return `<svg class="icon"><use href="${url}"></svg>`;
+        return `<svg class="icon"><use href="${html(url)}"></svg>`;
     }
 
     set icon(icon: string) {
