@@ -14,13 +14,11 @@
     --fontfamily-secondary:
         Cambria, ui-serif, Georgia, "Times New Roman", Times, serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol";
-    --fontfamily-monospace: "Courier New", Courier, monospace;
     --color-text: light-dark(black, white);
     --color-background: light-dark(#f7f5f0, #0f1523);
     --color-highlight: light-dark(#1f6ed6, #3681e4);
     --color-highlight-contra: #ffffff;
     --color-success: light-dark(#00a000, #00ff00);
-    --color-darken-light: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1));
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
     --color-darken-more: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4));
     --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
@@ -613,7 +611,7 @@ startgeraet-flight-briefing {
 
             tr:nth-child(4n - 2),
             tr:nth-child(4n - 3) {
-                background: var(--color-darken-light);
+                background: var(--color-lighten);
             }
         }
     }
