@@ -26,22 +26,25 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
         <tr>
             <th>Waypoint</th>
             <th rowspan="2">Altitude</th>
-            <th>Track</th>
+            <th>Track<sup>1</sup></th>
             <th rowspan="2">Ground<br />speed</th>
             <th rowspan="2">Distance</th>
-            <th>ETE<sup>1</sup></th>
+            <th>ETE<sup>2</sup></th>
         </tr>
         <tr>
             <th>Frequency</th>
-            <th>Heading</th>
-            <th>ETO<sup>1</sup></th>
+            <th>Heading<sup>1</sup></th>
+            <th>ETO<sup>2</sup></th>
         </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
 
-<p><sup>1</sup>) Duration in <span id="briefing-duration"></span></p>
+<p class="legend">
+    <sup>1</sup>) True track / true heading
+    <sup>2</sup>) Duration in <span id="briefing-duration"></span>
+</p>
 
 <ul>
     <li><a href="#" id="briefing-skyvector-origin">Information for ORIGIN</a></li>

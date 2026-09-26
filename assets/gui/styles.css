@@ -135,7 +135,7 @@ abbr {
 
 ul,
 ol {
-    margin-left: 1rem;
+    margin-inline-start: 1rem;
 }
 
 ul,
@@ -590,6 +590,11 @@ startgeraet-aside {
 startgeraet-flight-briefing {
     padding-bottom: 1rem;
     display: block;
+
+    .legend {
+        font-size: var(--fontsize-small);
+        text-align: end;
+    }
 
     table {
         font-size: 0.9rem;
