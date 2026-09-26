@@ -175,10 +175,6 @@ startgeraet-main {
         padding: 0.5rem;
         border-radius: 0.25rem;
         width: calc(50% - 0.5rem);
-
-        @media screen and (min-width: 1100px) {
-            width: calc(33% - 0.5rem);
-        }
     }
 
     details {
@@ -555,7 +551,7 @@ startgeraet-aside {
     transition: transform 0.35s var(--transitionfunction-bounce);
     transform: translateX(100%);
     z-index: 1;
-    padding: 2rem 0 1rem;
+    padding: 2rem 0 0;
     filter: brightness(95%);
 
     .content {
@@ -579,7 +575,24 @@ startgeraet-aside {
     }
 }
 
+@media screen and (min-width: 1200px) {
+    body {
+        padding-right: 28.5rem;
+    }
+
+    startgeraet-aside {
+        transform: translateX(0);
+
+        .opener {
+            display: none;
+        }
+    }
+}
+
 startgeraet-flight-briefing {
+    padding-bottom: 1rem;
+    display: block;
+
     table {
         font-size: 0.9rem;
         margin-bottom: 1rem;

@@ -24,7 +24,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 <table class="w-100">
     <thead>
         <tr>
-            <th rowspan="2">Waypoint<br />Frequency</th>
+            <th>Waypoint</th>
             <th rowspan="2">Altitude</th>
             <th>Track</th>
             <th rowspan="2">Ground<br />speed</th>
@@ -32,6 +32,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             <th>ETE<sup>1</sup></th>
         </tr>
         <tr>
+            <th>Frequency</th>
             <th>Heading</th>
             <th>ETO<sup>1</sup></th>
         </tr>
