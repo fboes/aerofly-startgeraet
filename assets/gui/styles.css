@@ -20,6 +20,7 @@
     --color-highlight: light-dark(#1f6ed6, #3681e4);
     --color-highlight-contra: #ffffff;
     --color-success: light-dark(#00a000, #00ff00);
+    --color-darken-light: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1));
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
     --color-darken-more: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4));
     --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
@@ -134,6 +135,23 @@ abbr {
     border-bottom: 1px dotted var(--color-darken-more);
 }
 
+ul,
+ol {
+    margin-left: 1rem;
+}
+
+ul,
+ol,
+p {
+    + * {
+        margin-top: 0.5rem;
+    }
+}
+
+sup {
+    font-size: 0.65em;
+}
+
 .hr + .hr {
     margin-top: 1rem;
     border-top: var(--border-standard);
@@ -150,34 +168,36 @@ abbr {
 
 /* ----- Structure ---------------------------------------------------------- */
 
-[aria-role="region"] {
-    background-color: var(--color-lighten);
-    border: var(--border-standard);
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    width: calc(50% - 0.5rem);
+startgeraet-main {
+    [aria-role="region"] {
+        background-color: var(--color-lighten);
+        border: var(--border-standard);
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        width: calc(50% - 0.5rem);
 
-    @media screen and (min-width: 1100px) {
-        width: calc(33% - 0.5rem);
-    }
-}
-
-details {
-    summary {
-        font-family: var(--fontfamily-secondary);
-
-        h2 {
-            font-size: 1rem;
-            font-weight: var(--fontweight-normal);
+        @media screen and (min-width: 1100px) {
+            width: calc(33% - 0.5rem);
         }
     }
 
-    + details {
-        margin-top: 1rem;
-    }
+    details {
+        summary {
+            font-family: var(--fontfamily-secondary);
 
-    summary h2 {
-        display: inline-block;
+            h2 {
+                font-size: 1rem;
+                font-weight: var(--fontweight-normal);
+            }
+        }
+
+        + details {
+            margin-top: 1rem;
+        }
+
+        summary h2 {
+            display: inline-block;
+        }
     }
 }
 
@@ -326,6 +346,7 @@ button,
 
 table {
     border-spacing: 0.25rem 0.1rem;
+    border-collapse: collapse;
 
     th {
         text-align: left;
@@ -526,7 +547,7 @@ startgeraet-aside {
     position: fixed;
     top: 0;
     right: 0;
-    width: 40rem;
+    width: 28rem;
     height: 100%;
     background-color: var(--color-background);
     border-left: var(--border-standard);
@@ -559,27 +580,27 @@ startgeraet-aside {
 }
 
 startgeraet-flight-briefing {
-    font-size: 0.9rem;
-
     table {
+        font-size: 0.9rem;
         margin-bottom: 1rem;
 
         td,
         th {
-            text-align: right;
-            padding-left: 0.15rem;
-            padding-right: 0.15rem;
-
-            &:first-child,
-            &:nth-child(2) {
-                text-align: left;
-            }
+            padding: 0.2rem 0.25rem 0.05rem;
         }
 
-        td {
-            &:first-child,
-            &:nth-child(2) {
-                font-family: var(--fontfamily-monospace);
+        small {
+            font-weight: var(--fontweight-normal);
+        }
+
+        tbody {
+            td {
+                text-align: right;
+            }
+
+            tr:nth-child(4n - 2),
+            tr:nth-child(4n - 3) {
+                background: var(--color-darken-light);
             }
         }
     }

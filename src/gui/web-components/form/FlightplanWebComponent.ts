@@ -25,7 +25,6 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
         flightplanDistance: HTMLOutputElement;
         flightplanTime: HTMLOutputElement;
         flightplanFuel: HTMLOutputElement;
-        skyvectorAnchor: HTMLAnchorElement;
     };
 
     private airportList: FlightplanWebComponentAirport[] = [];
@@ -79,7 +78,6 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
     <tr>
       <td>
         <output id="flightplan-distance">0NM</output>
-        <a href="#" target="skyvector" id="flightplan-skyvector" title="See SkyVector flight plan"><startgeraet-icon icon="globe"></startgeraet-icon></a>
       </td>
       <td rowspan="2" class="form-group">
         <output id="flightplan-fuel">N/A</output>
@@ -103,7 +101,6 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
             flightplanDistance: this.querySelector("#flightplan-distance") as HTMLOutputElement,
             flightplanTime: this.querySelector("#flightplan-time") as HTMLOutputElement,
             flightplanFuel: this.querySelector("#flightplan-fuel") as HTMLOutputElement,
-            skyvectorAnchor: this.querySelector("#flightplan-skyvector") as HTMLAnchorElement,
         };
     }
 
@@ -120,9 +117,6 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
             this.elements.flightplanDestination.classList.remove("input-warning");
 
             this.elements.flightplanDistance.textContent = `${numberFormat(state.route.distance_nm)} NM`;
-
-            this.elements.skyvectorAnchor.href = state.route.routeUrl;
-            this.elements.skyvectorAnchor.title = `See SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
 
             this.elements.flightplanTime.textContent =
                 state.route.flightTime.hours > 0
