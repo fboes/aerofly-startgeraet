@@ -71,21 +71,20 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
   <thead>
     <tr>
       <th>Distance</th>
-      <th>Min fuel</th>
+      <th>Block time</th>
+      <th>Min. fuel</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>
+      <td rowspan="2">
         <output id="flightplan-distance">0NM</output>
+      </td>
+      <td rowspan="2">
+        <output id="flightplan-time">Unknown</output>
       </td>
       <td rowspan="2" class="form-group">
         <output id="flightplan-fuel">N/A</output>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <output id="flightplan-time">Unknown</output>
       </td>
     </tr>
   </tbody>

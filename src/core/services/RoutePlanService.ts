@@ -46,10 +46,15 @@ export type RoutePlanServiceRoute = {
     altitude_ft: number | null;
 };
 
+export type RoutePlanServiceAircraftType = "airliner" | "military" | "helicopter" | "general_aviation";
+
 export class RoutePlanService {
     constructor(private aeroflyFlight: AeroflyFlight) {}
 
-    getRouteLegs(cruiseSpeed_kts: null | number = null): RoutePlanServiceLeg[] {
+    getRouteLegs(
+        cruiseSpeed_kts: null | number = null,
+        aircfaftType: RoutePlanServiceAircraftType | null = null,
+    ): RoutePlanServiceLeg[] {
         if (!cruiseSpeed_kts) {
             cruiseSpeed_kts = this.getCruiseSpeedKts();
         }
@@ -60,6 +65,10 @@ export class RoutePlanService {
         if (cruiseSpeed_kts <= 0) {
             throw new Error("Cruise speed must be a positive number");
         }
+
+        const { taxiOutBufferMin, taxiInBufferMin, taxiSpeedkts } = this.getTaxiStats(
+            aircfaftType ?? this.getAircraftType(),
+        );
 
         let lastWaypoint: AeroflyNavRouteBase | null = null;
         let lastCoordinates: Point | null = null;
@@ -79,7 +88,8 @@ export class RoutePlanService {
                 const onGround =
                     wp instanceof AeroflyNavRouteDepartureRunway ||
                     lastWaypoint instanceof AeroflyNavRouteDestinationRunway;
-                const trueAirspeed_kts = onGround ? 20 : cruiseSpeed_kts;
+                const isTaxiOut = wp instanceof AeroflyNavRouteDepartureRunway;
+                const trueAirspeed_kts = onGround ? taxiSpeedkts : cruiseSpeed_kts;
                 const windSpeed_kts = this.aeroflyFlight.wind.speed_kts;
                 const wind_deg = this.aeroflyFlight.wind.directionInDegree;
                 const windCorrection = this.getWindCorrection(track_deg, wind_deg, trueAirspeed_kts, windSpeed_kts);
@@ -87,7 +97,9 @@ export class RoutePlanService {
                 const groundSpeed_kts = onGround ? trueAirspeed_kts : windCorrection.ground_speed;
                 const heading_deg = onGround ? track_deg : windCorrection.heading;
 
-                const estimatedTimeEnroute_min = Math.max(onGround ? 5 : 0, (distance_nm / groundSpeed_kts) * 60);
+                const estimatedTimeEnroute_min =
+                    (distance_nm / groundSpeed_kts) * 60 +
+                    (onGround ? (isTaxiOut ? taxiOutBufferMin : taxiInBufferMin) : 0);
                 estimatedTimeEnrouteTotal_min += estimatedTimeEnroute_min;
                 distanceTotal_nm += distance_nm;
 
@@ -122,8 +134,11 @@ export class RoutePlanService {
         return legs;
     }
 
-    getRoute(cruiseSpeed_kts: null | number = null): RoutePlanServiceRoute {
-        const legs = this.getRouteLegs(cruiseSpeed_kts);
+    getRoute(
+        cruiseSpeed_kts: null | number = null,
+        aircraftType: RoutePlanServiceAircraftType | null = null,
+    ): RoutePlanServiceRoute {
+        const legs = this.getRouteLegs(cruiseSpeed_kts, aircraftType);
         if (legs.length < 1) {
             throw new Error("No flight plan legs found");
         }
@@ -195,6 +210,38 @@ export class RoutePlanService {
             throw new Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
         }
         return aircraft.cruiseSpeedKts;
+    }
+
+    private getAircraftType(): RoutePlanServiceAircraftType {
+        const aircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
+        if (!aircraft) {
+            throw new Error(`No matching aircraft found for ${this.aeroflyFlight.aircraft}`);
+        }
+
+        const tags: RoutePlanServiceAircraftType[] = ["military", "airliner", "helicopter"];
+        for (const tag of tags) {
+            if (aircraft.tags.includes(tag)) {
+                return tag;
+            }
+        }
+
+        return "general_aviation";
+    }
+
+    private getTaxiStats(aircfaftType: RoutePlanServiceAircraftType): {
+        taxiOutBufferMin: number;
+        taxiInBufferMin: number;
+        taxiSpeedkts: number;
+    } {
+        switch (aircfaftType) {
+            case "general_aviation":
+                return { taxiOutBufferMin: 4, taxiInBufferMin: 3, taxiSpeedkts: 9 };
+            case "military":
+                return { taxiOutBufferMin: 6, taxiInBufferMin: 5, taxiSpeedkts: 20 };
+            case "helicopter":
+                return { taxiOutBufferMin: 2, taxiInBufferMin: 2, taxiSpeedkts: 8 };
+        }
+        return { taxiOutBufferMin: 12, taxiInBufferMin: 7, taxiSpeedkts: 18 };
     }
 
     /**

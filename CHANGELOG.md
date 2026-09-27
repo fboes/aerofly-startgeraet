@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Improved block time calculation
+
 ## [2.6.0] - 2026-09-26
 
 - Improved handling of min fuel indicator for aircraft without fuel settings
