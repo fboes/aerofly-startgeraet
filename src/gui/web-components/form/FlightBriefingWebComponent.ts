@@ -129,6 +129,10 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
             this.elements.skyvectorDestination.href = state.route.destinationAirportUrl;
             this.elements.skyvectorDestination.innerText = `SkyVector airport information for ${state.route.destinationAirport}`;
+            this.elements.skyvectorDestination.parentElement?.classList.toggle(
+                "d-none",
+                state.route.departureAirportCode === state.route.destinationAirportCode,
+            );
 
             this.elements.skyvectorRoute.href = state.route.routeUrl;
             this.elements.skyvectorRoute.innerText = `SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;

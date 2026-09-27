@@ -10,6 +10,7 @@ import {
 import { Point } from "@fboes/geojson";
 import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
 
+type RoutePlanServiceLegType = "airport" | "runway" | "waypoint";
 export type RoutePlanServiceLeg = {
     from: string;
     to: string;
@@ -34,6 +35,7 @@ export type RoutePlanServiceLeg = {
      */
     frequency_mhz: number | null;
     onGround: boolean;
+    type: RoutePlanServiceLegType;
 };
 
 export type RoutePlanServiceRoute = {
@@ -85,11 +87,12 @@ export class RoutePlanService {
                 const groundSpeed_kts = onGround ? trueAirspeed_kts : windCorrection.ground_speed;
                 const heading_deg = onGround ? track_deg : windCorrection.heading;
 
-                const estimatedTimeEnroute_min = (distance_nm / groundSpeed_kts) * 60;
+                const estimatedTimeEnroute_min = Math.max(onGround ? 5 : 0, (distance_nm / groundSpeed_kts) * 60);
                 estimatedTimeEnrouteTotal_min += estimatedTimeEnroute_min;
                 distanceTotal_nm += distance_nm;
 
                 const frequency_mhz = this.getFrequencyMhz(wp);
+                const type = this.getType(wp);
 
                 const leg = {
                     from: lastWaypoint.identifier,
@@ -107,6 +110,7 @@ export class RoutePlanService {
                     altitude_ft: coords.elevation ? coords.elevation * 3.28084 : null,
                     frequency_mhz,
                     onGround,
+                    type,
                 };
                 legs.push(leg);
             }
@@ -170,6 +174,15 @@ export class RoutePlanService {
             return wp.navaidFrequency_mhz;
         }
         return null;
+    }
+
+    private getType(wp: AeroflyNavRouteBase): RoutePlanServiceLegType {
+        if (wp instanceof AeroflyNavRouteOrigin || wp instanceof AeroflyNavRouteDestination) {
+            return "airport";
+        } else if (wp instanceof AeroflyNavRouteDestinationRunway || wp instanceof AeroflyNavRouteDepartureRunway) {
+            return "runway";
+        }
+        return "waypoint";
     }
 
     private getCruiseSpeedKts(): number {

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-09-26
+
 - Improved handling of min fuel indicator for aircraft without fuel settings
 - Improved initial position of aircraft after flight plan import
 - Refactored handling of configuration

@@ -305,7 +305,7 @@ button,
     }
 
     &:is(:hover, :focus):not(:disabled) {
-        box-shadow: var(--color-shadow) 0.25rem 0.25rem 0.5rem;
+        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow);
     }
 }
 
@@ -421,7 +421,7 @@ dialog {
     border: var(--border-standard);
     padding: 1rem;
     margin: auto !important;
-    box-shadow: var(--color-shadow) 0.5rem 0.5rem 0.5rem;
+    box-shadow: 0.5rem 0.5rem 0.5rem var(--color-shadow);
     border-radius: 0.25rem;
     max-width: 40rem;
 
@@ -458,7 +458,7 @@ dialog {
     position: absolute;
     top: 0.5rem;
     left: 1rem;
-    z-index: 1;
+    z-index: 2;
     -webkit-app-region: no-drag;
 
     .platform-darwin & {
@@ -481,7 +481,7 @@ startgeraet-notification {
         background: var(--color-background);
         border: var(--border-standard);
         padding: 0.25rem 1rem;
-        box-shadow: var(--color-shadow) 0.25rem 0.25rem 0.5rem;
+        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow);
         text-align: center;
         max-height: 0;
         transition: all 0.35s var(--transitionfunction-bounce);
@@ -545,7 +545,7 @@ startgeraet-aside {
     height: 100%;
     background-color: var(--color-background);
     border-left: var(--border-standard);
-    box-shadow: var(--color-shadow) -0.25rem 0.25rem 0.5rem;
+    box-shadow: -0.25rem 0.25rem 0.5rem var(--color-shadow);
     transition: transform 0.35s var(--transitionfunction-bounce);
     transform: translateX(100%);
     z-index: 1;
@@ -607,6 +607,13 @@ startgeraet-flight-briefing {
 
         small {
             font-weight: var(--fontweight-normal);
+        }
+
+        thead {
+            background-color: var(--color-background);
+            position: sticky;
+            top: 0;
+            box-shadow: 0 0.25rem 0.5rem var(--color-shadow);
         }
 
         tbody {
