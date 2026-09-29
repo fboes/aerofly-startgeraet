@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Improved block time calculation
+- Switched flight duration output from block time to flight time
 
 ## [2.6.0] - 2026-09-26
 

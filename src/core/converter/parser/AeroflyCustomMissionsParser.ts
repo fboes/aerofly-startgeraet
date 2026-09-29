@@ -18,6 +18,7 @@ import {
     AeroflyNavRouteArrival,
 } from "@fboes/aerofly-custom-missions";
 import { AeroflyFileParser } from "./AeroflyFileParser.js";
+import { UNIT_METER_PER_FEET } from "../../util/units.js";
 
 export class AeroflyCustomMissionsParser {
     private readonly parser = new AeroflyFileParser();
@@ -74,19 +75,18 @@ export class AeroflyCustomMissionsParser {
     }
 
     private parseCloudSettings(missionConditions: string): AeroflySettingsCloud[] {
-        const multiplier = 10_000 / 3.28084;
         return [
-            new AeroflySettingsCloud(
+            AeroflySettingsCloud.createInFeet(
                 this.parser.getNumber(missionConditions, "cloud_cover"),
-                this.parser.getNumber(missionConditions, "cloud_base") / multiplier,
+                this.parser.getNumber(missionConditions, "cloud_base") / UNIT_METER_PER_FEET,
             ),
-            new AeroflySettingsCloud(
+            AeroflySettingsCloud.createInFeet(
                 this.parser.getNumber(missionConditions, "cirrus_cover"),
-                this.parser.getNumber(missionConditions, "cirrus_base") / multiplier,
+                this.parser.getNumber(missionConditions, "cirrus_base") / UNIT_METER_PER_FEET,
             ),
-            new AeroflySettingsCloud(
+            AeroflySettingsCloud.createInFeet(
                 this.parser.getNumber(missionConditions, "cumulus_mediocris_cover"),
-                this.parser.getNumber(missionConditions, "cumulus_mediocris_base") / multiplier,
+                this.parser.getNumber(missionConditions, "cumulus_mediocris_base") / UNIT_METER_PER_FEET,
             ),
         ];
     }

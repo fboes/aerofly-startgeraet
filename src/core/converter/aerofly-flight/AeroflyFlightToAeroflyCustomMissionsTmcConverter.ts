@@ -8,6 +8,8 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { BaseAeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.base.js";
 import { getAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
+import { RoutePlanService } from "../../services/RoutePlanService.js";
+import { UNIT_METER_PER_FEET } from "../../util/units.js";
 
 export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "Aerofly Custom Missions";
@@ -33,6 +35,13 @@ export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends BaseAerofl
             return new AeroflyMissionCheckpoint(w.identifier, w.type, w.longitude, w.latitude);
         });
 
+        let route = undefined;
+        try {
+            route = new RoutePlanService(flightplan).getRoute();
+        } catch {
+            // fail silently
+        }
+
         const mission = new AeroflyMission(this.getFlightplanTitle(flightplan), {
             description: this.getMissionBriefing(flightplan),
             aircraft: {
@@ -44,6 +53,8 @@ export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends BaseAerofl
             payloadMass: flightplan.fuelLoadSetting.payloadMass,
             checkpoints,
             conditions,
+            distance: route?.distanceTotal_nm ? route.distanceTotal_nm * UNIT_METER_PER_FEET : undefined,
+            duration: route?.estimatedTimeEnrouteTotal_min,
         });
 
         const customMissions = new AeroflyMissionsList([mission]);

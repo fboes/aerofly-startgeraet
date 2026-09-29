@@ -5,7 +5,7 @@ import { markdownTable } from "./markdownTable.js";
 describe("markdownTable", () => {
     it("should build a well formatted table", () => {
         const markdownTableOuput = markdownTable([
-            ["Departure", "Duration", "Flight distance"],
+            ["Departure", "Flight time", "Flight distance"],
             ["---", "--:", "--:"],
             ["EHAM", `${24} min`, `${56} km`],
         ]);

@@ -1,6 +1,7 @@
 import { sendToMain } from "../../renderer/sendToMain.js";
 import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { UNIT_METER_PER_SM } from "../../../core/util/units.js";
 
 export type VisibilityWebComponentState = {
     visibilityMeters: number;
@@ -79,14 +80,14 @@ export class VisibilityWebComponent extends BaseStateSubscriberWebComponent {
         this.elements.visibilityMeters.valueAsNumber =
             this.elements.visibilitySm.valueAsNumber === 10
                 ? 9999
-                : Math.round((this.elements.visibilitySm.valueAsNumber * 1609.344) / 100) * 100;
+                : Math.round((this.elements.visibilitySm.valueAsNumber * UNIT_METER_PER_SM) / 100) * 100;
     };
 
     private setSmFromMeters = () => {
         this.elements.visibilitySm.valueAsNumber =
             this.elements.visibilityMeters.valueAsNumber === 9999
                 ? 10
-                : Math.round(this.elements.visibilityMeters.valueAsNumber / 1609.344 / 0.25) * 0.25;
+                : Math.round(this.elements.visibilityMeters.valueAsNumber / UNIT_METER_PER_SM / 0.25) * 0.25;
     };
 
     static registerElement() {

@@ -146,7 +146,7 @@ ${markdownTable([
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 
 - ²) Value for "To" waypoint
-- ³) Duration in ${getTimeFormat(routeTotalTime)}
+- ³) Flight time in ${getTimeFormat(routeTotalTime)}
 `;
     }
 

@@ -9,7 +9,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
     private elements!: {
         tbody: HTMLTableSectionElement;
-        duration: HTMLSpanElement;
+        flightTimeUnit: HTMLSpanElement;
         skyvectorOrigin: HTMLAnchorElement;
         skyvectorDestination: HTMLAnchorElement;
         skyvectorRoute: HTMLAnchorElement;
@@ -43,7 +43,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
 <p class="legend">
     <sup>1</sup>) True track / true heading
-    <sup>2</sup>) Duration in <span id="briefing-duration"></span>
+    <sup>2</sup>) Flight time in <span id="briefing-flight-time-unit"></span>
 </p>
 
 <ul>
@@ -55,7 +55,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
         `;
         this.elements = {
             tbody: this.querySelector("tbody") as HTMLTableSectionElement,
-            duration: this.querySelector("#briefing-duration") as HTMLSpanElement,
+            flightTimeUnit: this.querySelector("#briefing-flight-time-unit") as HTMLSpanElement,
             skyvectorOrigin: this.querySelector("#briefing-skyvector-origin") as HTMLAnchorElement,
             skyvectorDestination: this.querySelector("#briefing-skyvector-destination") as HTMLAnchorElement,
             skyvectorRoute: this.querySelector("#briefing-skyvector-route") as HTMLAnchorElement,
@@ -122,7 +122,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 `;
 
             this.elements.tbody.innerHTML = firstlegTr + trs.join("\n");
-            this.elements.duration.innerText = getTimeFormat(routeTotalTime);
+            this.elements.flightTimeUnit.innerText = getTimeFormat(routeTotalTime);
 
             this.elements.skyvectorOrigin.href = state.route.departureAirportUrl;
             this.elements.skyvectorOrigin.innerText = `SkyVector airport information for ${state.route.departureAirport}`;

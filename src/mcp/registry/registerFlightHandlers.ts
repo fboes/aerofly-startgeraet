@@ -530,7 +530,8 @@ Calculates wind-corrected flight plan legs for a given route and wind
 conditions for current mission setup. Returns an array of legs with per-leg and
 cumulative distance (nm), estimated time enroute (min), true heading (deg),
 ground speed (kts), and wind correction angle (deg), as well a total
-distance (nm) and time (min). There is only an option to get the consolidated values instead of single legs.`,
+distance (nm) and flight time (min) excluding ground and taxi times.
+There is only an option to get the consolidated values instead of single legs.`,
             inputSchema: z.object({
                 cruiseSpeed_kts: z.number().min(1).optional().describe(`\
 Cruise speed setting in knots. If not supplied will be inferred from currently selected aircraft type.

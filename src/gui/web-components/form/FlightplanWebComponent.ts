@@ -71,7 +71,7 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
   <thead>
     <tr>
       <th>Distance</th>
-      <th>Block time</th>
+      <th>Flight time</th>
       <th>Min. fuel</th>
     </tr>
   </thead>
