@@ -1,4 +1,5 @@
 import { AeroflyNavRouteWaypoint, type AeroflyFlight, type AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
+import { ErrorFormatted } from "../../util/ErrorFormatted.js";
 
 export abstract class BaseStringToAeroflyFlightConverter {
     // static readonly fileName: string;
@@ -19,7 +20,10 @@ export abstract class BaseStringToAeroflyFlightConverter {
     parseNumberOrError(content: string, reference: string = ""): number {
         const v = Number(content);
         if (isNaN(v)) {
-            throw new Error(`Could not parse "${content}" as number` + (reference ? `, reference "${reference}"` : ""));
+            throw new ErrorFormatted(`Could not parse "{{ content }}" as number, reference "{{ reference }}"`, {
+                content,
+                reference,
+            });
         }
         return v;
     }

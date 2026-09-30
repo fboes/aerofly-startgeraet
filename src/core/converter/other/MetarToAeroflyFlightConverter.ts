@@ -11,7 +11,7 @@ export class MetarToAeroflyFlightConverter extends BaseStringToAeroflyFlightConv
         const lines = this.getLines(content);
         const metarString = lines.at(index);
         if (metarString === undefined) {
-            throw new Error("Metar index does nnot exist");
+            throw new Error("Metar index does not exist");
         }
 
         const metar = metarParser(metarString);

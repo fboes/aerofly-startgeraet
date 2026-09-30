@@ -1,5 +1,6 @@
 import type { z } from "zod";
 import type { MissionGenerator, MissionGeneratorManifest } from "./MissionGenerator.interface.js";
+import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
 //import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
@@ -18,7 +19,9 @@ export const MISSIONS_GENERATOR_MANIFESTS: MissionGeneratorManifest[] = Object.e
 export function getMissionGenerator(missionGeneratorSlug: string): new () => MissionGenerator<z.ZodRawShape> {
     const missionGenerator = MISSION_GENERATOR_REGISTRY[missionGeneratorSlug];
     if (!missionGenerator) {
-        throw new Error(`Unknown mission generator slug: ${missionGeneratorSlug}`);
+        throw new ErrorFormatted(`Unknown mission generator slug: {{ missionGeneratorSlug }}`, {
+            missionGeneratorSlug,
+        });
     }
     return missionGenerator;
 }

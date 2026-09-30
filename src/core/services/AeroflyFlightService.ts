@@ -32,6 +32,7 @@ import { UpdateCheckService, type GithubReleaseApiPayload } from "./UpdateCheckS
 import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
 import { getAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
 import { Point } from "@fboes/geojson";
+import { ErrorFormatted } from "../util/ErrorFormatted.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -337,11 +338,11 @@ export class AeroflyFlightService {
     setQuickFlightplan(origin: string, destination: string) {
         const originData = getAeroflyAirportByIcaoCode(origin);
         if (!originData) {
-            throw new Error(`Could not find origin airport with ICAO cdoe "${origin}"`);
+            throw new ErrorFormatted(`Could not find origin airport with ICAO cdoe "{{ origin }}"`, { origin });
         }
         const destinationData = getAeroflyAirportByIcaoCode(destination);
         if (!destinationData) {
-            throw new Error(`Could not find destination airport with ICAO cdoe "${origin}"`);
+            throw new ErrorFormatted(`Could not find destination airport with ICAO cdoe "{{ origin }}"`, { origin });
         }
 
         this.setFlightplan(

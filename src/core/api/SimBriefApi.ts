@@ -1,3 +1,5 @@
+import { ErrorFormatted } from "../util/ErrorFormatted.js";
+
 export type SimBriefApiPayloadAirport = {
     icao_code: string;
     icao_region: string;
@@ -99,7 +101,9 @@ export class SimBriefApi {
 
         if (!response.ok) {
             const errorResponse = (await response.json()) as SimBriefApiError;
-            throw new Error(errorResponse.fetch?.status ?? `Response status: ${response.status.toString()}`);
+            throw new ErrorFormatted(errorResponse.fetch?.status ?? `Response status: {{ status }}`, {
+                status: response.status.toString(),
+            });
         }
 
         return (await response.json()) as SimBriefApiPayload;

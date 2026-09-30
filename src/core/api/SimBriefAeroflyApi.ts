@@ -17,6 +17,7 @@ import { SimBriefApi, type SimBriefApiPayload, type SimBriefApiPayloadAirport } 
 import { metarParser } from "aewx-metar-parser";
 import { getAeroflyAircraftByIcaoCode, getAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 import { positionRunwayWaypoint } from "../util/AeroflyFlightHelper.js";
+import { ErrorFormatted } from "../util/ErrorFormatted.js";
 
 export class SimBriefAeroflyApi extends SimBriefApi {
     /**
@@ -191,7 +192,12 @@ export class SimBriefAeroflyApi extends SimBriefApi {
     } {
         const aeroflyAircraft = getAeroflyAircraftByIcaoCode(simbriefIcaoCode);
         if (!aeroflyAircraft) {
-            throw new Error(`Could not find matching Aerofly aircraft for SimBrief ICAO code ${simbriefIcaoCode}`);
+            throw new ErrorFormatted(
+                `Could not find matching Aerofly aircraft for SimBrief ICAO code {{ simbriefIcaoCode }}`,
+                {
+                    simbriefIcaoCode,
+                },
+            );
         }
 
         const aeroflyAircraftLivery = getAeroflyLiveryByIcaoCode(aeroflyAircraft, simbriefAirlineCode);

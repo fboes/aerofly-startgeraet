@@ -6,6 +6,7 @@ import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../converter/a
 import { AeroflyFlightToGeoJsonConverter } from "../converter/aerofly-flight/AeroflyFlightToGeoJsonConverter.js";
 import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 import { AeroflyFlightToMarkdownConverter } from "../converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
+import { ErrorFormatted } from "../util/ErrorFormatted.js";
 
 /**
  * Writes a file from an `AeroflyFlight` class instance to an
@@ -61,12 +62,12 @@ export function exportFlightplanToFile(filename: string, flightplan: AeroflyFlig
 export function getExportConverter(filename: string): new () => BaseAeroflyFlightToStringConverter {
     const fileSuffix = filename.split(".").pop()?.toLowerCase();
     if (!fileSuffix) {
-        throw new Error(`Could not determine file type for "${filename}"`);
+        throw new ErrorFormatted(`Could not determine file type for "{{ filename }}"`, { filename });
     }
 
     const converter = EXPORT_REGISTRY[fileSuffix];
     if (!converter) {
-        throw new Error(`Unsupported file type: ${fileSuffix}`);
+        throw new ErrorFormatted(`Unsupported file type: {{ fileSuffix }}`, { fileSuffix });
     }
     return converter;
 }

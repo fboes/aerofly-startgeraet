@@ -11,6 +11,7 @@ import {
 import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
 import { parseXmlAttribute, parseXmlNode, parseXmlNodes } from "../parser/parseXml.js";
+import { ErrorFormatted } from "../../util/ErrorFormatted.js";
 
 //type MsfsPlnWaypointType = "none" | "Airport" | "Intersection" | "VOR" | "NDB" | "User" | "ATC";
 type MsfsPlnRunwayDesignator = "NONE" | "CENTER" | "LEFT" | "RIGHT" | "WATER" | "A" | "B";
@@ -119,16 +120,15 @@ export class MsfsPlnToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
         altitude_ft: number;
     } {
         if (coordinate === "") {
-            throw new Error(
-                `Missing coordinates in file. Possibly you are trying to import an Microsoft Flight Simulator 2024 EFB file instead of a mission file.`,
-            );
+            throw new Error(`Missing coordinates in file. Possibly this is an EFB file instead of a mission file.`);
         }
         // N52° 45' 7.51",W3° 53' 2.16",+002500.00
 
         const parts = coordinate.split(/,\s*/);
         if (parts.length < 2) {
-            throw new Error(
-                `Wrong coordinates format "${coordinate}", expected format like "N52° 45' 7.51",W3° 53' 2.16",+002500.00"`,
+            throw new ErrorFormatted(
+                `Wrong coordinates format "{{ coordinate }}", expected format like "N52° 45' 7.51",W3° 53' 2.16",+002500.00"`,
+                { coordinate },
             );
         }
         const numbers = parts.map((p): number => {
@@ -145,7 +145,12 @@ export class MsfsPlnToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
         const lon = numbers[1];
         const lat = numbers[0];
         if (!lon || !lat || lon < -180 || lon > 180 || lat < -90 || lat > 90) {
-            throw new Error(`Wrong coordinates format "${coordinate}", longitude or latitude out of range`);
+            throw new ErrorFormatted(
+                `Wrong coordinates format "{{ coordinate }}", longitude or latitude out of range`,
+                {
+                    coordinate,
+                },
+            );
         }
 
         return {

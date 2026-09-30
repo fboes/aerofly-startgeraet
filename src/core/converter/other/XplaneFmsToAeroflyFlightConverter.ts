@@ -10,6 +10,7 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
 import { positionRunwayWaypoint } from "../../util/AeroflyFlightHelper.js";
+import { ErrorFormatted } from "../../util/ErrorFormatted.js";
 
 // It is 1 for airport, 2 for NDB, 3 for VOR, 11 for named fix and 28 for unnamed lat/lon waypoints.
 type XplaneFmsWaypointType = 1 | 2 | 3 | 11 | 28;
@@ -86,7 +87,9 @@ export class XplaneFmsToAeroflyFlightConverter extends BaseStringToAeroflyFlight
         return Array.from(waypointLines)
             .map((m): XplaneFmsWaypoint => {
                 if (m.length !== 6) {
-                    throw new Error(`Broken waypoint, expected 6, got ${m.length.toString()} cells`);
+                    throw new ErrorFormatted(`Broken waypoint, expected 6, got {{ length }} cells`, {
+                        length: m.length.toString(),
+                    });
                 }
 
                 const all = m[0];
@@ -96,7 +99,9 @@ export class XplaneFmsToAeroflyFlightConverter extends BaseStringToAeroflyFlight
                 const lat = m[4];
                 const lon = m[5];
                 if (!identifier || !type || !lat || !lon || !elevationFeet) {
-                    throw new Error(`Broken waypoint, missing data in "${all}"`);
+                    throw new ErrorFormatted(`Broken waypoint, missing data in "{{ all }}"`, {
+                        all,
+                    });
                 }
 
                 return {

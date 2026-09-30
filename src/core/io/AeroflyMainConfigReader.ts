@@ -4,14 +4,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { AeroflyFileParser } from "../converter/parser/AeroflyFileParser.js";
 import { AeroflyMainConfigParser } from "../converter/parser/AeroflyMainConfigParser.js";
+import { ErrorFormatted } from "../util/ErrorFormatted.js";
 
-export class AeroflyMainConfigReaderError extends Error {
-    constructor(
-        message: string,
-        public readonly code: "MISSING_SETUP" = "MISSING_SETUP",
-    ) {
-        super(message);
-        this.name = this.constructor.name;
+export class AeroflyMainConfigReaderError extends ErrorFormatted {
+    constructor(message: string, args: Record<string, string | number> = {}) {
+        super(message, args, "MISSING_SETUP");
     }
 }
 
@@ -28,14 +25,17 @@ export class AeroflyMainConfigReader {
 
         if (!fs.existsSync(this.config.mainMcfFilePath)) {
             throw new AeroflyMainConfigReaderError(
-                `The specified mainMcfFilePath does not exist: ${this.config.mainMcfFilePath}`,
+                `The specified mainMcfFilePath does not exist: {{ this.config.mainMcfFilePath }}`,
+                { mainMcfFilePath: this.config.mainMcfFilePath },
             );
         }
 
         const filename = path.join(this.config.mainMcfFilePath, "main.mcf");
 
         if (!fs.existsSync(filename)) {
-            throw new AeroflyMainConfigReaderError(`The main.cfg does not exists at ${filename}`);
+            throw new AeroflyMainConfigReaderError(`The main.cfg does not exists at {{ filename }}`, {
+                filename,
+            });
         }
         return filename;
     }

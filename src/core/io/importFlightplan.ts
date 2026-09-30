@@ -6,6 +6,7 @@ import type { BaseStringToAeroflyFlightConverter } from "../converter/other/Stri
 import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsToAeroflyFlightConverter.js";
 import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
 import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
+import { ErrorFormatted } from "../util/ErrorFormatted.js";
 
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
@@ -86,12 +87,12 @@ export function importString(content: string, filename: string, flightplan: Aero
 export function getImportConverter(filename: string): new () => BaseStringToAeroflyFlightConverter {
     const fileSuffix = filename.replace(/^[^.]+\./, "");
     if (!fileSuffix) {
-        throw new Error(`Could not determine file type for "${filename}"`);
+        throw new ErrorFormatted(`Could not determine file type for "{{ filename }}"`, { filename });
     }
 
     const converter = IMPORT_REGISTRY[fileSuffix];
     if (!converter) {
-        throw new Error(`Unsupported file type: ${fileSuffix}`);
+        throw new ErrorFormatted(`Unsupported file type: {{ fileSuffix }}`, { fileSuffix });
     }
     return converter;
 }
