@@ -3,6 +3,7 @@ import { dispatchNotificationEvent, type NotificationEventPayload } from "../../
 import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebComponent.base.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
+import { fmt } from "../../../core/formatter/format.js";
 
 export type ImportSimBriefWebComponentState = {
     simBriefUserName: string;
@@ -106,7 +107,9 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
         this.elements.dialog.close();
         dispatchNotificationEvent(
             document.body,
-            `Fetching SimBrief settings for user ${state.simBriefUserName}`,
+            fmt(`Fetching SimBrief settings for user {{ simBriefUserName }}`, {
+                simBriefUserName: state.simBriefUserName,
+            }),
             "waiting",
         );
 

@@ -5,6 +5,7 @@ import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebCompo
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 import { html } from "../../../core/formatter/html.js";
+import { fmt } from "../../../core/formatter/format.js";
 
 export type MetarImportWebComponentState = {
     icao: string;
@@ -160,7 +161,11 @@ export class MetarImportWebComponent extends BaseStateSubscriberWebComponent {
 
     private async sendMetar(icao: string) {
         this.elements.dialog.close();
-        dispatchNotificationEvent(document.body, `Fetching METAR / TAF information for ${icao}`, "waiting");
+        dispatchNotificationEvent(
+            document.body,
+            fmt(`Fetching METAR / TAF information for {{ icao }}`, { icao }),
+            "waiting",
+        );
 
         const response = await sendToMain<NotificationEventPayload<undefined>>("metar:fetch", {
             icao,

@@ -56,6 +56,12 @@
       }
     }
   },
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=22.0.0"
+    }
+  },
   "keywords": ["aerofly", "aerofly-fs4", "flightplan", "mission", "flight simulator"],
   "license": "MIT"
 }

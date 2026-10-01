@@ -3,6 +3,7 @@ import { registerElement } from "../../renderer/registerElement.js";
 import { numberFormat } from "../util/numberFormat.js";
 import { getTimeFormat, getTimeFunction } from "../../../core/formatter/getTimeString.js";
 import { html } from "../../../core/formatter/html.js";
+import { fmt } from "../../../core/formatter/format.js";
 
 export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
@@ -79,7 +80,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
         ${
             l.frequency_mhz
                 ? `<br /><small>${this.htmlNumericOutput(
-                      l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz / 1000,
+                      l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz * 1000,
                       l.frequency_mhz > 1 ? " MHz" : " kHZ",
                       l.frequency_mhz > 1 ? 1 : 0,
                   )}</small>`
@@ -90,7 +91,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     <td>${this.htmlNumericOutput(l.track_deg, "°")}</td>
     <td rowspan="2">${this.htmlNumericOutput(l.groundSpeed_kts, " kts")}</td>
     <td rowspan="2">${this.htmlNumericOutput(l.distance_nm, " NM", 1)}</td>
-    <td>${html(timeFunction(l.estimatedTimeEnroute_min))}</td>
+    <td>${html(l.estimatedTimeEnroute_min === 0 && (l.type === "departure_runway" || l.type === "destination") ? "--:--" : timeFunction(l.estimatedTimeEnroute_min))}</td>
 </tr>
 <tr>
     <td>${this.htmlNumericOutput(l.heading_deg, "°")}</td>
@@ -125,17 +126,28 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             this.elements.flightTimeUnit.innerText = getTimeFormat(routeTotalTime);
 
             this.elements.skyvectorOrigin.href = state.route.departureAirportUrl;
-            this.elements.skyvectorOrigin.innerText = `SkyVector airport information for ${state.route.departureAirport}`;
+            this.elements.skyvectorOrigin.innerText = fmt(`SkyVector airport information for {{ departureAirport }}`, {
+                departureAirport: state.route.departureAirport,
+            });
 
             this.elements.skyvectorDestination.href = state.route.destinationAirportUrl;
-            this.elements.skyvectorDestination.innerText = `SkyVector airport information for ${state.route.destinationAirport}`;
+            this.elements.skyvectorDestination.innerText = fmt(
+                `SkyVector airport information for {{ destinationAirport }}`,
+                { destinationAirport: state.route.destinationAirport },
+            );
             this.elements.skyvectorDestination.parentElement?.classList.toggle(
                 "d-none",
                 state.route.departureAirportCode === state.route.destinationAirportCode,
             );
 
             this.elements.skyvectorRoute.href = state.route.routeUrl;
-            this.elements.skyvectorRoute.innerText = `SkyVector flight plan for route ${state.route.departureAirportCode} to ${state.route.destinationAirportCode}`;
+            this.elements.skyvectorRoute.innerText = fmt(
+                `SkyVector flight plan for route {{ departureAirportCode }} to {{ destinationAirportCode }}`,
+                {
+                    departureAirportCode: state.route.departureAirportCode,
+                    destinationAirportCode: state.route.destinationAirportCode,
+                },
+            );
         });
     }
 

@@ -30,6 +30,7 @@ import type { GithubReleaseApiPayload } from "../../core/services/UpdateCheckSer
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 import type { FlightplanWebComponentState } from "../web-components/form/FlightplanWebComponent.js";
 import { CONFIG_ELECTRON } from "../io/ConfigElectron.js";
+import { fmt } from "../../core/formatter/format.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -178,7 +179,7 @@ export class AeroflyFlightServiceHandler {
             async (): Promise<NotificationEventPayload<GithubReleaseApiPayload | null>> => {
                 const update = await this.service.getUpdateInformation();
                 return createNotificationPayload<GithubReleaseApiPayload | null>(
-                    update !== null ? `Update ${update.tag_name} available` : "",
+                    update !== null ? fmt(`Update {{ tag_name }} available`, { tag_name: update.tag_name }) : "",
                     "info",
                     update,
                 );

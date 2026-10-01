@@ -48,27 +48,25 @@ body {
 }
 
 startgeraet-header {
-    padding: 0.5rem 1rem 0;
+    padding-block: 0.5rem 0;
+    padding-inline: 1rem;
+    /*padding: 0.5rem 1rem 0;*/
     text-align: center;
     -webkit-app-region: drag;
     cursor: grab;
     display: block;
 }
 
-startgeraet-main {
-    padding: 0 1rem;
-    display: block;
-}
-
 startgeraet-footer,
 footer {
-    padding-top: 1rem;
+    padding-block-start: 1rem;
     font-size: var(--fontsize-small);
 }
 
 startgeraet-footer {
     text-align: center;
-    padding: 0.33rem 1rem;
+    padding-block: 0.335rem;
+    padding-inline: 1rem;
     display: block;
 }
 
@@ -80,31 +78,31 @@ h1 {
     font-family: var(--fontfamily-secondary);
 
     img {
-        margin-bottom: -0.2rem;
-        margin-right: 0.25rem;
+        margin-block-end: -0.2rem;
+        margin-inline-end: 0.25rem;
         width: 1.5rem;
         height: 1.5rem;
     }
 
     .version {
+        position: relative;
         font-size: var(--fontsize-small);
         -webkit-app-region: no-drag;
         text-decoration: none;
-        position: relative;
         display: inline-block;
-        padding-right: 0.6rem;
-        padding-top: 0.25rem;
+        padding-inline-end: 0.6rem;
+        padding-block-start: 0.25rem;
 
         &.has-update-available::after {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-end: 0;
             display: inline-block;
-            top: 0;
-            right: 0;
             content: " ";
             width: 0.5rem;
             height: 0.5rem;
             border-radius: 50%;
             background-color: var(--color-warning);
-            position: absolute;
         }
     }
 }
@@ -112,11 +110,11 @@ h1 {
 h2,
 h3 {
     font-size: 1.1rem;
-    margin-bottom: 0.25rem;
+    margin-block-end: 0.25rem;
     font-weight: var(--fontweight-bold);
 
     * + & {
-        margin-top: 1rem;
+        margin-block-start: 1rem;
     }
 }
 
@@ -130,7 +128,7 @@ a {
 
 abbr {
     text-decoration: none;
-    border-bottom: 1px dotted var(--color-darken-more);
+    border-block-end: 1px dotted var(--color-darken-more);
 }
 
 ul,
@@ -142,7 +140,7 @@ ul,
 ol,
 p {
     + * {
-        margin-top: 0.5rem;
+        margin-block-start: 0.5rem;
     }
 }
 
@@ -151,9 +149,9 @@ sup {
 }
 
 .hr + .hr {
-    margin-top: 1rem;
-    border-top: var(--border-standard);
-    padding-top: 1rem;
+    margin-block-start: 1rem;
+    border-block-start: var(--border-standard);
+    padding-block-start: 1rem;
 }
 
 .has-warning {
@@ -167,6 +165,10 @@ sup {
 /* ----- Structure ---------------------------------------------------------- */
 
 startgeraet-main {
+    padding-block: 0;
+    padding-inline: 1rem;
+    display: block;
+
     [aria-role="region"] {
         background-color: var(--color-lighten);
         border: var(--border-standard);
@@ -186,7 +188,7 @@ startgeraet-main {
         }
 
         + details {
-            margin-top: 1rem;
+            margin-block-start: 1rem;
         }
 
         summary h2 {
@@ -217,7 +219,7 @@ label {
     &.header {
         font-size: 1.1rem;
         font-weight: var(--fontweight-bold);
-        padding-bottom: 0.25rem;
+        padding-block-end: 0.25rem;
     }
 }
 
@@ -236,7 +238,7 @@ textarea {
     width: 100%;
 
     + label {
-        margin-top: 1rem;
+        margin-block-start: 1rem;
     }
 
     option {
@@ -305,12 +307,12 @@ button,
     }
 
     &:is(:hover, :focus):not(:disabled) {
-        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow);
+        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow); /* RTL approved */
     }
 }
 
 ::file-selector-button {
-    margin-bottom: 0.1rem;
+    margin-block-end: 0.1rem;
 }
 
 .form-group {
@@ -326,24 +328,24 @@ button,
 
 :focus {
     outline: none;
-    border-bottom: 1px solid var(--color-highlight);
-    margin-bottom: -1px;
+    border-block-end: 1px solid var(--color-highlight);
+    margin-block-end: -1px;
 }
 
 :invalid,
 .input-warning {
-    border-bottom: 1px solid var(--color-warning);
-    margin-bottom: -1px;
+    border-block-end: 1px solid var(--color-warning);
+    margin-block-end: -1px;
 }
 
 /* ----- Table -------------------------------------------------------------- */
 
 table {
-    border-spacing: 0.25rem 0.1rem;
+    border-spacing: 0.25rem 0.1rem; /* RTL approved */
     border-collapse: collapse;
 
     th {
-        text-align: left;
+        text-align: start;
     }
 
     thead th {
@@ -354,7 +356,7 @@ table {
     tr + tr {
         td,
         th {
-            border-top: var(--border-standard);
+            border-block-start: var(--border-standard);
         }
     }
 
@@ -421,7 +423,7 @@ dialog {
     border: var(--border-standard);
     padding: 1rem;
     margin: auto !important;
-    box-shadow: 0.5rem 0.5rem 0.5rem var(--color-shadow);
+    box-shadow: 0.5rem 0.5rem 0.5rem var(--color-shadow); /* RTL approved */
     border-radius: 0.25rem;
     max-width: 40rem;
 
@@ -431,8 +433,8 @@ dialog {
 
     button[command="close"] {
         position: absolute;
-        top: 0.25rem;
-        right: 0.25rem;
+        inset-block-start: 0.25rem;
+        inset-inline-end: 0.25rem;
         font-size: 0.5rem;
         width: 1.2rem;
         height: 1.2rem;
@@ -447,8 +449,8 @@ dialog {
     }
 
     input {
-        border-bottom: var(--border-standard);
-        margin-bottom: -1px;
+        border-block-end: var(--border-standard);
+        margin-block-end: -1px;
     }
 }
 
@@ -456,38 +458,40 @@ dialog {
 
 #open-dialog-settings {
     position: absolute;
-    top: 0.5rem;
-    left: 1rem;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 1rem;
     z-index: 2;
     -webkit-app-region: no-drag;
 
     .platform-darwin & {
-        right: 1rem;
-        left: auto;
+        inset-inline-end: 1rem;
+        inset-inline-start: auto;
     }
 }
 
 startgeraet-notification {
     position: fixed;
-    bottom: 0;
+    inset-block-end: 0;
+    inset-inline-start: 50%;
     z-index: 2;
     width: 20rem;
-    margin: 0 auto;
-    left: 50%;
+    margin-block: 0;
+    margin-inline: auto;
     transform: translateX(-50%);
 
     output {
         display: block;
         background: var(--color-background);
         border: var(--border-standard);
-        padding: 0.25rem 1rem;
-        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow);
+        padding-block: 0.25rem;
+        padding-inline: 1rem;
+        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow); /* RTL approved */
         text-align: center;
         max-height: 0;
         transition: all 0.35s var(--transitionfunction-bounce);
         background-color: var(--color-highlight);
         color: var(--color-highlight-contra);
-        border-radius: 0.25rem 0.25rem 0 0;
+        border-radius: 0.25rem 0.25rem 0 0; /* RTL approved */
         overflow: hidden;
 
         + output {
@@ -515,7 +519,7 @@ startgeraet-notification {
 startgeraet-icon {
     display: inline-flex;
     vertical-align: middle;
-    margin-bottom: 0.1em;
+    margin-block-end: 0.1em;
 
     svg {
         stroke: currentColor;
@@ -539,29 +543,31 @@ startgeraet-icon {
 
 startgeraet-aside {
     position: fixed;
-    top: 0;
-    right: 0;
+    inset-block-start: 0;
+    inset-inline-end: 0;
     width: 28rem;
     height: 100%;
     background-color: var(--color-background);
-    border-left: var(--border-standard);
+    border-inline-start: var(--border-standard);
     box-shadow: -0.25rem 0.25rem 0.5rem var(--color-shadow);
     transition: transform 0.35s var(--transitionfunction-bounce);
     transform: translateX(100%);
     z-index: 1;
-    padding: 2rem 0 0;
+    padding-block: 2rem 0;
+    padding-inline: 0;
     filter: brightness(95%);
 
     .content {
         overflow-y: auto;
         height: 100%;
-        padding: 0 1rem;
+        padding-block: 0;
+        padding-inline: 1rem;
     }
 
     .opener {
         position: absolute;
-        top: 3rem;
-        left: -1.5rem;
+        inset-block-start: 3rem;
+        inset-inline-start: -1.5rem;
         width: 1.5rem;
         border-radius: 0.25rem 0 0 0.25rem;
         text-align: center;
@@ -575,7 +581,7 @@ startgeraet-aside {
 
 @media screen and (min-width: 1200px) {
     body {
-        padding-right: 28.5rem;
+        padding-inline-end: 28.5rem;
     }
 
     startgeraet-aside {
@@ -588,7 +594,7 @@ startgeraet-aside {
 }
 
 startgeraet-flight-briefing {
-    padding-bottom: 1rem;
+    padding-block-end: 1rem;
     display: block;
 
     .legend {
@@ -598,11 +604,12 @@ startgeraet-flight-briefing {
 
     table {
         font-size: 0.9rem;
-        margin-bottom: 1rem;
+        margin-block-end: 1rem;
 
         td,
         th {
-            padding: 0.2rem 0.25rem 0.05rem;
+            padding-block: 0.25rem 0.05rem;
+            padding-inline: 0.25rem;
         }
 
         small {
@@ -610,15 +617,15 @@ startgeraet-flight-briefing {
         }
 
         thead {
-            background-color: var(--color-background);
             position: sticky;
-            top: 0;
-            box-shadow: 0 0.25rem 0.5rem var(--color-shadow);
+            inset-block-start: 0;
+            background-color: var(--color-background);
+            box-shadow: 0 0.25rem 0.5rem var(--color-shadow); /* RTL approved */
         }
 
         tbody {
             td {
-                text-align: right;
+                text-align: end;
             }
 
             tr:nth-child(4n - 2),
