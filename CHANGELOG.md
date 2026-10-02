@@ -4,6 +4,7 @@
 
 - Improved block time calculation
 - Switched flight duration output from block time to flight time
+- Improved flight briefing output
 
 ## [2.6.0] - 2026-09-26
 

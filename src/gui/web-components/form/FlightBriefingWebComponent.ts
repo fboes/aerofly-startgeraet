@@ -28,13 +28,14 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             <th>Waypoint</th>
             <th rowspan="2">Altitude</th>
             <th>Track<sup>1</sup></th>
-            <th rowspan="2">Ground<br />speed</th>
+            <th><abbr title="True Airspeed">TAS</abbr></th>
             <th rowspan="2">Distance</th>
             <th>ETE<sup>2</sup></th>
         </tr>
         <tr>
             <th>Frequency</th>
             <th>Heading<sup>1</sup></th>
+            <th><abbr title="Ground Speed">GS</abbr></th>
             <th>ETO<sup>2</sup></th>
         </tr>
     </thead>
@@ -48,9 +49,9 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 </p>
 
 <ul>
-    <li><a href="#" id="briefing-skyvector-origin">Information for ORIGIN</a></li>
-    <li><a href="#" id="briefing-skyvector-destination">Information for DESTINATION</a></li>
-    <li><a href="#" id="briefing-skyvector-route">Flightplan ORIGIN - DESTINATION</a></li>
+    <li><a target="skyvector" href="#" id="briefing-skyvector-origin">Information for ORIGIN</a></li>
+    <li><a target="skyvector" href="#" id="briefing-skyvector-destination">Information for DESTINATION</a></li>
+    <li><a target="skyvector" href="#" id="briefing-skyvector-route">Flightplan ORIGIN - DESTINATION</a></li>
 </ul>
 
         `;
@@ -89,12 +90,18 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     </th>
     <td rowspan="2">${l.altitude_ft ? this.htmlNumericOutput(l.altitude_ft, " ft") : ""}</td>
     <td>${this.htmlNumericOutput(l.track_deg, "°")}</td>
-    <td rowspan="2">${this.htmlNumericOutput(l.groundSpeed_kts, " kts")}</td>
+    <td>${this.htmlNumericOutput(l.trueAirspeed_kts, " kts")}</td>
     <td rowspan="2">${this.htmlNumericOutput(l.distance_nm, " NM", 1)}</td>
-    <td>${html(l.estimatedTimeEnroute_min === 0 && (l.type === "departure_runway" || l.type === "destination") ? "--:--" : timeFunction(l.estimatedTimeEnroute_min))}</td>
+    <td>
+        <span class="prefix">+</span>${html(
+            l.estimatedTimeEnroute_min === 0 && (l.type === "departure_runway" || l.type === "destination")
+                ? "TAXI"
+                : timeFunction(l.estimatedTimeEnroute_min),
+        )}</td>
 </tr>
 <tr>
-    <td>${this.htmlNumericOutput(l.heading_deg, "°")}</td>
+    <td><span class="prefix">~</span>${this.htmlNumericOutput(l.heading_deg, "°")}</td>
+    <td><span class="prefix">~</span>${this.htmlNumericOutput(l.groundSpeed_kts, " kts")}</td>
     <td>${html(timeFunction(l.estimatedTimeEnrouteTotal_min))}</td>
 </tr>
 `,
@@ -112,11 +119,12 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     </th>
     <td rowspan="2">${l.altitude_ft ? this.htmlNumericOutput(l.altitude_ft, " ft") : ""}</td>
     <td></td>
-    <td rowspan="2"></td>
+    <td></td>
     <td rowspan="2"></td>
     <td>${html(timeFunction(0))}</td>
 </tr>
 <tr>
+    <td></td>
     <td></td>
     <td>${html(timeFunction(0))}</td>
 </tr>

@@ -20,7 +20,8 @@
     --color-highlight-contra: #ffffff;
     --color-success: light-dark(#00a000, #00ff00);
     --color-darken: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
-    --color-darken-more: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4));
+    --color-darken-2: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4));
+    --color-darken-3: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.5));
     --color-lighten: light-dark(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
     --color-shadow: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
     --color-warning: #e6007a;
@@ -128,7 +129,7 @@ a {
 
 abbr {
     text-decoration: none;
-    border-block-end: 1px dotted var(--color-darken-more);
+    border-block-end: 1px dotted var(--color-darken-2);
 }
 
 ul,
@@ -307,7 +308,8 @@ button,
     }
 
     &:is(:hover, :focus):not(:disabled) {
-        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow); /* RTL approved */
+        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow);
+        /* RTL approved */
     }
 }
 
@@ -341,7 +343,8 @@ button,
 /* ----- Table -------------------------------------------------------------- */
 
 table {
-    border-spacing: 0.25rem 0.1rem; /* RTL approved */
+    border-spacing: 0.25rem 0.1rem;
+    /* RTL approved */
     border-collapse: collapse;
 
     th {
@@ -423,7 +426,8 @@ dialog {
     border: var(--border-standard);
     padding: 1rem;
     margin: auto !important;
-    box-shadow: 0.5rem 0.5rem 0.5rem var(--color-shadow); /* RTL approved */
+    box-shadow: 0.5rem 0.5rem 0.5rem var(--color-shadow);
+    /* RTL approved */
     border-radius: 0.25rem;
     max-width: 40rem;
 
@@ -485,13 +489,15 @@ startgeraet-notification {
         border: var(--border-standard);
         padding-block: 0.25rem;
         padding-inline: 1rem;
-        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow); /* RTL approved */
+        box-shadow: 0.25rem 0.25rem 0.5rem var(--color-shadow);
+        /* RTL approved */
         text-align: center;
         max-height: 0;
         transition: all 0.35s var(--transitionfunction-bounce);
         background-color: var(--color-highlight);
         color: var(--color-highlight-contra);
-        border-radius: 0.25rem 0.25rem 0 0; /* RTL approved */
+        border-radius: 0.25rem 0.25rem 0 0;
+        /* RTL approved */
         overflow: hidden;
 
         + output {
@@ -602,6 +608,10 @@ startgeraet-flight-briefing {
         text-align: end;
     }
 
+    .prefix {
+        color: var(--color-darken-3);
+    }
+
     table {
         font-size: 0.9rem;
         margin-block-end: 1rem;
@@ -620,7 +630,8 @@ startgeraet-flight-briefing {
             position: sticky;
             inset-block-start: 0;
             background-color: var(--color-background);
-            box-shadow: 0 0.25rem 0.5rem var(--color-shadow); /* RTL approved */
+            box-shadow: 0 0.25rem 0.5rem var(--color-shadow);
+            /* RTL approved */
         }
 
         tbody {
