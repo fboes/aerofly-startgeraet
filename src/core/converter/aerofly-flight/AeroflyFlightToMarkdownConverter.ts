@@ -119,7 +119,7 @@ ${markdownTable([
 ## Flight details
 
 ${markdownTable([
-    ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "GS", "Dist", "ETE³", "ETO³"],
+    ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "GS", "Dist", "ETE³", "ΣETE³"],
     ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
     ...routeLegs.map((l) => [
         l.from,

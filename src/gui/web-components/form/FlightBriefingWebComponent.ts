@@ -29,14 +29,15 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             <th rowspan="2">Altitude</th>
             <th>Track<sup>1</sup></th>
             <th><abbr title="True Airspeed">TAS</abbr></th>
-            <th rowspan="2">Distance</th>
-            <th>ETE<sup>2</sup></th>
+            <th>Distance</th>
+            <th><abbr title="Estimated Time Enroute">ETE</abbr><sup>2</sup></th>
         </tr>
         <tr>
             <th>Frequency</th>
             <th>Heading<sup>1</sup></th>
             <th><abbr title="Ground Speed">GS</abbr></th>
-            <th>ETO<sup>2</sup></th>
+            <th><abbr title="Cumulative distancce">Σ Distance</abbr></th>
+            <th><abbr title="Cumulative Estimated Time Enroute">Σ ETE</abbr><sup>2</sup></th>
         </tr>
     </thead>
     <tbody>
@@ -77,6 +78,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
                 (l) => `\
 <tr>
     <th rowspan="2">
+        ${l.type === "departure_runway" || l.type === "destination_runway" ? `<span title="Runway">▸</span>` : ""}
         ${html(l.to)}
         ${
             l.frequency_mhz
@@ -91,7 +93,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     <td rowspan="2">${l.altitude_ft ? this.htmlNumericOutput(l.altitude_ft, " ft") : ""}</td>
     <td>${this.htmlNumericOutput(l.track_deg, "°")}</td>
     <td>${this.htmlNumericOutput(l.trueAirspeed_kts, " kts")}</td>
-    <td rowspan="2">${this.htmlNumericOutput(l.distance_nm, " NM", 1)}</td>
+    <td><span class="prefix">+</span>${this.htmlNumericOutput(l.distance_nm, " NM", 1)}</td>
     <td>
         <span class="prefix">+</span>${html(
             l.estimatedTimeEnroute_min === 0 && (l.type === "departure_runway" || l.type === "destination")
@@ -102,6 +104,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 <tr>
     <td><span class="prefix">~</span>${this.htmlNumericOutput(l.heading_deg, "°")}</td>
     <td><span class="prefix">~</span>${this.htmlNumericOutput(l.groundSpeed_kts, " kts")}</td>
+    <td>${this.htmlNumericOutput(l.distanceTotal_nm, " NM", 1)}</td>
     <td>${html(timeFunction(l.estimatedTimeEnrouteTotal_min))}</td>
 </tr>
 `,
