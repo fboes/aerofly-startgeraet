@@ -36,7 +36,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             <th>Frequency</th>
             <th>Heading<sup>1</sup></th>
             <th><abbr title="Ground Speed">GS</abbr></th>
-            <th><abbr title="Cumulative distancce">Σ Distance</abbr></th>
+            <th><abbr title="Cumulative distance">Σ Distance</abbr></th>
             <th><abbr title="Cumulative Estimated Time Enroute">Σ ETE</abbr><sup>2</sup></th>
         </tr>
     </thead>
@@ -77,35 +77,34 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             const trs = state.route.routeLegs.map(
                 (l) => `\
 <tr>
-    <th rowspan="2">
+    <th${l.frequency_mhz ? "" : ` rowspan="2"`}>
         ${l.type === "departure_runway" || l.type === "destination_runway" ? `<span title="Runway">▸</span>` : ""}
         ${html(l.to)}
-        ${
-            l.frequency_mhz
-                ? `<br /><small>${this.htmlNumericOutput(
-                      l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz * 1000,
-                      l.frequency_mhz > 1 ? " MHz" : " kHZ",
-                      l.frequency_mhz > 1 ? 1 : 0,
-                  )}</small>`
-                : ""
-        }
     </th>
     <td rowspan="2">${l.altitude_ft ? this.htmlNumericOutput(l.altitude_ft, " ft") : ""}</td>
     <td>${this.htmlNumericOutput(l.track_deg, "°")}</td>
     <td>${this.htmlNumericOutput(l.trueAirspeed_kts, " kts")}</td>
-    <td><span class="prefix">+</span>${this.htmlNumericOutput(l.distance_nm, " NM", 1)}</td>
-    <td>
-        <span class="prefix">+</span>${html(
-            l.estimatedTimeEnroute_min === 0 && (l.type === "departure_runway" || l.type === "destination")
-                ? "TAXI"
-                : timeFunction(l.estimatedTimeEnroute_min),
-        )}</td>
+    <td>${this.htmlNumericOutput(l.distance_nm, " NM", 1)}</td>
+    <td>${html(
+        l.estimatedTimeEnroute_min === 0 && (l.type === "departure_runway" || l.type === "destination")
+            ? "TAXI"
+            : timeFunction(l.estimatedTimeEnroute_min),
+    )}</td>
 </tr>
 <tr>
+    ${
+        l.frequency_mhz
+            ? `<td><small>${this.htmlNumericOutput(
+                  l.frequency_mhz > 1 ? l.frequency_mhz : l.frequency_mhz * 1000,
+                  l.frequency_mhz > 1 ? " MHz" : " kHZ",
+                  l.frequency_mhz > 1 ? 1 : 0,
+              )}</small></td>`
+            : ""
+    }
     <td><span class="prefix">~</span>${this.htmlNumericOutput(l.heading_deg, "°")}</td>
     <td><span class="prefix">~</span>${this.htmlNumericOutput(l.groundSpeed_kts, " kts")}</td>
-    <td>${this.htmlNumericOutput(l.distanceTotal_nm, " NM", 1)}</td>
-    <td>${html(timeFunction(l.estimatedTimeEnrouteTotal_min))}</td>
+    <td><span class="prefix">Σ</span>${this.htmlNumericOutput(l.distanceCumulative_nm, " NM", 1)}</td>
+    <td><span class="prefix">Σ</span>${html(timeFunction(l.estimatedTimeEnrouteCumulative_min))}</td>
 </tr>
 `,
             );

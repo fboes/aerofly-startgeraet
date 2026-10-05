@@ -32,9 +32,9 @@ export type RoutePlanServiceLeg = {
     windSpeed_kts: number;
     groundSpeed_kts: number;
     distance_nm: number;
-    distanceTotal_nm: number;
+    distanceCumulative_nm: number;
     estimatedTimeEnroute_min: number;
-    estimatedTimeEnrouteTotal_min: number;
+    estimatedTimeEnrouteCumulative_min: number;
 
     /**
      * Altitude for TO
@@ -54,7 +54,6 @@ export type RoutePlanServiceRoute = {
     to: string;
     distanceTotal_nm: number;
     estimatedTimeEnrouteTotal_min: number;
-    altitude_ft: number | null;
 };
 
 export class RoutePlanService {
@@ -79,8 +78,8 @@ export class RoutePlanService {
         let lastWaypoint: AeroflyNavRouteBase | null = null;
         let lastCoordinates: Point | null = null;
 
-        let distanceTotal_nm = 0;
-        let estimatedTimeEnrouteTotal_min = 0;
+        let distanceCumulative_nm = 0;
+        let estimatedTimeEnrouteCumulative_min = 0;
         const legs: RoutePlanServiceLeg[] = [];
 
         for (const wp of this.aeroflyFlight.navigation.waypoints) {
@@ -103,8 +102,8 @@ export class RoutePlanService {
                 const heading_deg = onGround ? track_deg : windCorrection.heading;
 
                 const estimatedTimeEnroute_min = onGround ? 0 : (distance_nm / groundSpeed_kts) * 60;
-                estimatedTimeEnrouteTotal_min += estimatedTimeEnroute_min;
-                distanceTotal_nm += distance_nm;
+                estimatedTimeEnrouteCumulative_min += estimatedTimeEnroute_min;
+                distanceCumulative_nm += distance_nm;
 
                 const frequency_mhz = this.getFrequencyMhz(wp);
                 const type = wp.type;
@@ -119,9 +118,9 @@ export class RoutePlanService {
                     windSpeed_kts,
                     groundSpeed_kts,
                     distance_nm,
-                    distanceTotal_nm,
+                    distanceCumulative_nm,
                     estimatedTimeEnroute_min,
-                    estimatedTimeEnrouteTotal_min,
+                    estimatedTimeEnrouteCumulative_min,
                     altitude_ft: coords.elevation ? coords.elevation / UNIT_METER_PER_FEET : null,
                     frequency_mhz,
                     onGround,
@@ -147,11 +146,15 @@ export class RoutePlanService {
             throw new Error("No flight plan legs found");
         }
 
-        const firstLeg = legs[0];
+        return this.getRouteFromLegs(legs);
+    }
+
+    getRouteFromLegs(legs: RoutePlanServiceLeg[]): RoutePlanServiceRoute {
+        const firstLeg = legs.at(0);
         if (!firstLeg) {
             throw new Error("No first leg found");
         }
-        const lastLeg = legs[legs.length - 1];
+        const lastLeg = legs.at(-1);
         if (!lastLeg) {
             throw new Error("No last leg found");
         }
@@ -159,9 +162,8 @@ export class RoutePlanService {
         return {
             from: firstLeg.from,
             to: lastLeg.to,
-            distanceTotal_nm: lastLeg.distanceTotal_nm,
-            estimatedTimeEnrouteTotal_min: lastLeg.estimatedTimeEnrouteTotal_min,
-            altitude_ft: lastLeg.altitude_ft,
+            distanceTotal_nm: lastLeg.distanceCumulative_nm,
+            estimatedTimeEnrouteTotal_min: lastLeg.estimatedTimeEnrouteCumulative_min,
         };
     }
 

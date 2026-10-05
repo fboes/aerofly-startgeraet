@@ -112,15 +112,15 @@ ${markdownTable([
         const skyvector = new SkyVectorUrl(flightplan);
         const route = new RoutePlanService(flightplan);
         const routeLegs = route.getRouteLegs();
-        const routeTotalTime = routeLegs.at(-1)?.estimatedTimeEnrouteTotal_min ?? 0;
-        const timeFunction = getTimeFunction(routeTotalTime);
+        const routeTotal = route.getRouteFromLegs(routeLegs);
+        const timeFunction = getTimeFunction(routeTotal.estimatedTimeEnrouteTotal_min);
 
         return `\
 ## Flight details
 
 ${markdownTable([
-    ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "GS", "Dist", "ETE³", "ΣETE³"],
-    ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
+    ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "GS", "Dist", "ΣDist", "ETE³", "ΣETE³"],
+    ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
     ...routeLegs.map((l) => [
         l.from,
         l.to,
@@ -136,8 +136,9 @@ ${markdownTable([
         this.numericOutput(l.heading_deg, "°"),
         this.numericOutput(l.groundSpeed_kts, " kts"),
         this.numericOutput(l.distance_nm, " NM", 1),
+        this.numericOutput(l.distanceCumulative_nm, " NM", 1),
         timeFunction(l.estimatedTimeEnroute_min),
-        timeFunction(l.estimatedTimeEnrouteTotal_min),
+        timeFunction(l.estimatedTimeEnrouteCumulative_min),
     ]),
 ])}
 
@@ -146,7 +147,7 @@ ${markdownTable([
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 
 - ²) Value for "To" waypoint
-- ³) Flight time in ${getTimeFormat(routeTotalTime)}
+- ³) Flight time in ${getTimeFormat(routeTotal.estimatedTimeEnrouteTotal_min)}
 `;
     }
 
