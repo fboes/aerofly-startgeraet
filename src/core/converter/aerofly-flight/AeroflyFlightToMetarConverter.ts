@@ -22,7 +22,9 @@ export class AeroflyFlightToMetarConverter {
         return (
             flightplan.wind.directionInDegree.toFixed().padStart(3, "0") +
             flightplan.wind.speed_kts.toFixed().padStart(2, "0") +
-            (flightplan.wind.gust_kts ? "G" + flightplan.wind.gust_kts.toFixed().padStart(2, "0") : "") +
+            (flightplan.wind.gust_kts > flightplan.wind.speed_kts
+                ? "G" + flightplan.wind.gust_kts.toFixed().padStart(2, "0")
+                : "") +
             "KT"
         );
     }

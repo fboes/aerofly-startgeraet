@@ -146,7 +146,7 @@ export function getVisibility(aeroflyFlight: AeroflyFlight, separator = "/"): st
         return `10SM ${separator} ${numberToString(9999)}m`;
     }
 
-    return `${numberToString(aeroflyFlight.visibility_sm)}SM ${separator} ${numberToString(aeroflyFlight.visibility_meter)}m`;
+    return `${numberToString(aeroflyFlight.visibility_sm) + quarter(aeroflyFlight.visibility_sm)}SM ${separator} ${numberToString(aeroflyFlight.visibility_meter)}m`;
 }
 
 export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
@@ -184,4 +184,18 @@ export function numberToString(num: number): string {
 
 export function dateToString(date: Date): string {
     return date.toISOString().substring(0, 16).replace("T", " ");
+}
+
+function quarter(value: number): string {
+    value = Math.round(value * 4) / 4;
+    const quarter = Math.floor((value % 1) * 4);
+    switch (quarter) {
+        case 1:
+            return "¼";
+        case 2:
+            return "½";
+        case 3:
+            return "¾";
+    }
+    return "";
 }

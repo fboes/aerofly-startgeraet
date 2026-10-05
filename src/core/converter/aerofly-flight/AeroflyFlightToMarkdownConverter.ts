@@ -50,20 +50,22 @@ ${this.getFlightSummary(flightplan)}
         return `\
 ## Aircraft
 
-${markdownTable([
-    ["Aircraft", "Livery", "Cruise speed", "Cruise altitude"],
-    ["---", "---", "---:", "---:", "---:", "---:"],
+${markdownTable(
     [
-        currentAircraft.nameFull,
-        currentLivery?.name ?? "Default",
-        currentAircraft.cruiseSpeedKts ? this.numericOutput(currentAircraft.cruiseSpeedKts, " kts") : "not set",
-        flightplan.navigation.cruiseAltitude_ft
-            ? this.numericOutput(flightplan.navigation.cruiseAltitude_ft, " ft")
-            : "not set",
-        fuel ? this.numericOutput(flightplan.fuelLoadSetting.fuelMass, " kg") : "",
-        fuel ? this.numericOutput(flightplan.fuelLoadSetting.payloadMass, " kg") : "",
-    ],
-])}
+        ["Aircraft", "Livery", "Cruise speed", "Cruise altitude", "Fuel load", "Payload"],
+        ["---", "---", "---:", "---:", "---:", "---:"],
+        [
+            currentAircraft.nameFull,
+            currentLivery?.name ?? "Default",
+            currentAircraft.cruiseSpeedKts ? this.numericOutput(currentAircraft.cruiseSpeedKts, " kts") : "not set",
+            flightplan.navigation.cruiseAltitude_ft
+                ? this.numericOutput(flightplan.navigation.cruiseAltitude_ft, " ft")
+                : "not set",
+            this.numericOutput(flightplan.fuelLoadSetting.fuelMass, " kg"),
+            this.numericOutput(flightplan.fuelLoadSetting.payloadMass, " kg"),
+        ],
+    ].map((row) => (fuel ? row : row.slice(0, 4))),
+)}
 `;
     }
 
