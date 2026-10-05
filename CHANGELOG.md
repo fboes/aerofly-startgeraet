@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Fixed SimBrief weather import status
+
+## [2.6.1] - 2026-10-03
+
 - Improved block time calculation
 - Switched flight duration output from block time to flight time
 - Improved flight briefing output

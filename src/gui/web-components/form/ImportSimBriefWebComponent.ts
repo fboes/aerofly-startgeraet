@@ -68,7 +68,7 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
     get state(): ImportSimBriefWebComponentState {
         return {
             simBriefUserName: this.elements.simBriefUserName.value,
-            useSimBriefWeather: this.elements.useSimBriefWeather.selectedIndex - 1,
+            useSimBriefWeather: Number(this.elements.useSimBriefWeather.value),
         };
     }
 
