@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.6.3] - 2026-10-05
+
 - Fixed SimBrief weather import status
 
 ## [2.6.1] - 2026-10-03
