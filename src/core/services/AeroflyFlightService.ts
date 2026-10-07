@@ -335,14 +335,26 @@ export class AeroflyFlightService {
         this.updateCurrentAircraft();
     }
 
-    setQuickFlightplan(origin: string, destination: string) {
-        const originData = getAeroflyAirportByIcaoCode(origin);
-        if (!originData) {
-            throw new ErrorFormatted(`Could not find origin airport with ICAO cdoe "{{ origin }}"`, { origin });
+    setQuickFlightplan(originAirportIcao: string, destinationAirportIcao: string) {
+        if (
+            originAirportIcao === this.aeroflyFlight.navigation.waypoints.at(0)?.identifier &&
+            destinationAirportIcao === this.aeroflyFlight.navigation.waypoints.at(-1)?.identifier
+        ) {
+            return;
         }
-        const destinationData = getAeroflyAirportByIcaoCode(destination);
+
+        const originData = getAeroflyAirportByIcaoCode(originAirportIcao);
+        if (!originData) {
+            throw new ErrorFormatted(`Could not find origin airport with ICAO code "{{ originAirportIcao }}"`, {
+                originAirportIcao,
+            });
+        }
+        const destinationData = getAeroflyAirportByIcaoCode(destinationAirportIcao);
         if (!destinationData) {
-            throw new ErrorFormatted(`Could not find destination airport with ICAO cdoe "{{ origin }}"`, { origin });
+            throw new ErrorFormatted(
+                `Could not find destination airport with ICAO code "{{ destinationAirportIcao }}"`,
+                { destinationAirportIcao },
+            );
         }
 
         this.setFlightplan(

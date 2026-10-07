@@ -94,7 +94,7 @@ ${markdownTable([
         return `\
 ## Weather
 
-> ${m.convert(flightplan)}
+    ${m.convert(flightplan)}
 
 ${markdownTable([
     ["Wind", "Clouds", "Visibility", "Temperature", "Flight Category"],
@@ -121,8 +121,8 @@ ${markdownTable([
 ## Flight details
 
 ${markdownTable([
-    ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "GS", "Dist", "ΣDist", "ETE³", "ΣETE³"],
-    ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
+    ["From", "To", "Freq²", "Altitude²", "Track", "HDG", "TAS", "GS", "Dist", "ΣDist", "ETE³", "ΣETE³"],
+    ["---", "---", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:", "---:"],
     ...routeLegs.map((l) => [
         l.from,
         l.to,
@@ -136,6 +136,7 @@ ${markdownTable([
         l.altitude_ft ? this.numericOutput(l.altitude_ft, " ft") : "",
         this.numericOutput(l.track_deg, "°"),
         this.numericOutput(l.heading_deg, "°"),
+        this.numericOutput(l.trueAirspeed_kts, " kts"),
         this.numericOutput(l.groundSpeed_kts, " kts"),
         this.numericOutput(l.distance_nm, " NM", 1),
         this.numericOutput(l.distanceCumulative_nm, " NM", 1),
@@ -150,6 +151,10 @@ ${markdownTable([
 
 - ²) Value for "To" waypoint
 - ³) Flight time in ${getTimeFormat(routeTotal.estimatedTimeEnrouteTotal_min)}
+
+---
+
+Created by [${APPLICATION_INFORMATION.name}  ${APPLICATION_INFORMATION.version}](${APPLICATION_INFORMATION.github.releaseUrl})
 `;
     }
 

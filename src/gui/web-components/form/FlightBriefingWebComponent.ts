@@ -9,6 +9,8 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     private isInitialized = false;
 
     private elements!: {
+        title: HTMLSpanElement;
+        description: HTMLParagraphElement;
         tbody: HTMLTableSectionElement;
         flightTimeUnit: HTMLSpanElement;
         skyvectorOrigin: HTMLAnchorElement;
@@ -18,9 +20,12 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
     private initialize() {
         this.setAttribute("aria-role", "region");
+        this.setAttribute("aria-live", "off"); // changes to the element's content are only supposed to be announced when focus is on, or inside, the element.
 
         this.innerHTML = `\
-<h3><startgeraet-icon icon="airplane"></startgeraet-icon>&nbsp;<span>Flight briefing</span></h3>
+<h3><startgeraet-icon icon="airplane"></startgeraet-icon>&nbsp;<span id="briefing-title">Flight briefing</span></h3>
+
+<p id="briefing-description"></p>
 
 <table class="w-100">
     <thead>
@@ -57,6 +62,8 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
         `;
         this.elements = {
+            title: this.querySelector("#briefing-title") as HTMLSpanElement,
+            description: this.querySelector("#briefing-description") as HTMLParagraphElement,
             tbody: this.querySelector("tbody") as HTMLTableSectionElement,
             flightTimeUnit: this.querySelector("#briefing-flight-time-unit") as HTMLSpanElement,
             skyvectorOrigin: this.querySelector("#briefing-skyvector-origin") as HTMLAnchorElement,
@@ -158,6 +165,11 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
                     destinationAirportCode: state.route.destinationAirportCode,
                 },
             );
+
+            this.elements.title.innerText = state.aeroflyFlight._missionTitle || "Flight briefing";
+            this.elements.description.classList.toggle("d-none", state.aeroflyFlight._missionBriefing.trim() === "");
+            this.elements.description.innerText = state.aeroflyFlight._missionBriefing.trim();
+            this.elements.description.innerHTML = this.elements.description.innerHTML.replace(/\n/g, "<br />");
         });
     }
 

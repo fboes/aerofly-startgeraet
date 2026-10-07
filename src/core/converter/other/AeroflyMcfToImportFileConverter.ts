@@ -17,5 +17,7 @@ export class AeroflyMcfToImportFileConverter extends BaseStringToAeroflyFlightCo
         flightplan.timeUtc = newFlightplan.timeUtc;
         flightplan.wind = newFlightplan.wind;
         flightplan.navigation = newFlightplan.navigation;
+        flightplan._missionTitle = "";
+        flightplan._missionBriefing = "";
     }
 }

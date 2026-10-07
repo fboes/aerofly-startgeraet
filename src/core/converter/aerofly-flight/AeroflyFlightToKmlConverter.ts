@@ -3,6 +3,7 @@ import {
     BaseAeroflyFlightToStringConverter,
     type ExportFileConverterWaypointType,
 } from "./AeroflyFlightToStringConverter.base.js";
+import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
 
 type KeyholeMarkupLanguageRouteStyle = {
     id: ExportFileConverterWaypointType | "aircraft";
@@ -26,8 +27,9 @@ export class AeroflyFlightToKmlConverter extends BaseAeroflyFlightToStringConver
 
         return `\
 <?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2">
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
   <Document>
+    <atom:generator version="${this.xml(APPLICATION_INFORMATION.version)}">${this.xml(APPLICATION_INFORMATION.name)}</atom:generator>
     <name>${this.xml(this.getFlightplanTitle(flightplan))}</name>
     <description>${this.xml(this.getMissionBriefing(flightplan))}</description>
     <Style id="flightplan">

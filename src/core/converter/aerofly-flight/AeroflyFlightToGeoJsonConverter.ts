@@ -9,13 +9,27 @@ import {
 } from "@fboes/aerofly-custom-missions";
 import { BaseAeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.base.js";
 import { Feature, FeatureCollection, LineString, Point } from "@fboes/geojson";
+import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
+
+class FeatureCollectionGenerator extends FeatureCollection {
+    public generator: string | undefined = undefined;
+
+    toJSON() {
+        return {
+            generator: this.generator,
+            ...super.toJSON(),
+            type: "FeatureCollection",
+        };
+    }
+}
 
 export class AeroflyFlightToGeoJsonConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "GeoJSON";
     static readonly fileExtension = "geojson";
 
     convert(flightplan: AeroflyFlight): string {
-        const geoJson = new FeatureCollection();
+        const geoJson = new FeatureCollectionGenerator();
+        geoJson.generator = `${APPLICATION_INFORMATION.name}/${APPLICATION_INFORMATION.version}`;
 
         let id = 0;
 
