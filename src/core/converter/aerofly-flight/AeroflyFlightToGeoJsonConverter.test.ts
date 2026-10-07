@@ -10,6 +10,17 @@ describe("AeroflyFlightToGeoJsonConverter", () => {
         const exportString = exporter.convert(flight);
 
         assert.ok(exportString);
+
+        const json = JSON.parse(exportString);
+        assert.ok(json);
+        assert.equal(json.type, "FeatureCollection");
+        assert.equal(
+            json.features.length,
+            flight.navigation.waypoints.length + 2,
+            "There should be one feature for each waypoint, plus one for the flightplan line and one for the aircraft position",
+        );
+        assert.equal(json.features[0].geometry.type, "Point");
+        assert.equal(json.features[json.features.length - 2].geometry.type, "LineString");
         //console.log(exportString);
     });
 });
