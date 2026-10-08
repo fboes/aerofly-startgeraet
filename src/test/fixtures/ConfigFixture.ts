@@ -1,6 +1,6 @@
 import Conf from "conf";
 import { Config, CONFIG_DEFAULTS, type ConfigStore } from "../../core/io/Config.js";
-import { getFixturePath } from "../loadFixture.js";
+import { DIR_FIXTURE } from "../loadFixture.js";
 
 /**
  * Use this `Config` for tests. Will be automatically cleared on invocation.
@@ -17,7 +17,7 @@ export class ConfigFixture extends Config {
     constructor() {
         super();
         this.conf.clear();
-        this.mainMcfFilePath = getFixturePath();
-        this.importDirectory = getFixturePath();
+        this.mainMcfFilePath = DIR_FIXTURE;
+        this.importDirectory = DIR_FIXTURE;
     }
 }

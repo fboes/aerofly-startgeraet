@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Adding test artifact writing
+
+## [2.6.4] - 2026-10-08
+
 - Fixed empty route import error
 
 ## [2.6.3] - 2026-10-05

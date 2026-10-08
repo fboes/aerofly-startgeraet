@@ -2,6 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { AeroflyFlightToAeroflyMainMcfConverter } from "./AeroflyFlightToAeroflyMainMcfConverter.js";
 import { AeroflyFlightFixture } from "../../../test/fixtures/AeroflyFlightFixture.js";
+import { writeArtifact } from "../../../test/loadFixture.js";
 
 describe("AeroflyFlightToAeroflyMainMcfConverter", () => {
     it("should do a conversion", () => {
@@ -10,6 +11,6 @@ describe("AeroflyFlightToAeroflyMainMcfConverter", () => {
         const exportString = exporter.convert(flight);
 
         assert.ok(exportString);
-        //console.log(exportString);
+        writeArtifact("test.mcf", exportString);
     });
 });

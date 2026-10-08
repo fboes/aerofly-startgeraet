@@ -2,6 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { AeroflyFlightToMarkdownConverter } from "./AeroflyFlightToMarkdownConverter.js";
 import { AeroflyFlightFixture } from "../../../test/fixtures/AeroflyFlightFixture.js";
+import { writeArtifact } from "../../../test/loadFixture.js";
 
 describe("AeroflyFlightToMarkdownConverter", () => {
     it("should do a conversion", () => {
@@ -10,6 +11,6 @@ describe("AeroflyFlightToMarkdownConverter", () => {
         const exportString = exporter.convert(flight);
 
         assert.ok(exportString);
-        //console.log(exportString);
+        writeArtifact("test.md", exportString);
     });
 });
