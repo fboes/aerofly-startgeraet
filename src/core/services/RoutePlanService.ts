@@ -142,28 +142,18 @@ export class RoutePlanService {
      */
     getRoute(cruiseSpeed_kts: null | number = null): RoutePlanServiceRoute {
         const legs = this.getRouteLegs(cruiseSpeed_kts);
-        if (legs.length < 1) {
-            throw new Error("No flight plan legs found");
-        }
-
         return this.getRouteFromLegs(legs);
     }
 
     getRouteFromLegs(legs: RoutePlanServiceLeg[]): RoutePlanServiceRoute {
         const firstLeg = legs.at(0);
-        if (!firstLeg) {
-            throw new Error("No first leg found");
-        }
         const lastLeg = legs.at(-1);
-        if (!lastLeg) {
-            throw new Error("No last leg found");
-        }
 
         return {
-            from: firstLeg.from,
-            to: lastLeg.to,
-            distanceTotal_nm: lastLeg.distanceCumulative_nm,
-            estimatedTimeEnrouteTotal_min: lastLeg.estimatedTimeEnrouteCumulative_min,
+            from: firstLeg?.from || "",
+            to: lastLeg?.to || "",
+            distanceTotal_nm: lastLeg?.distanceCumulative_nm || 0,
+            estimatedTimeEnrouteTotal_min: lastLeg?.estimatedTimeEnrouteCumulative_min || 0,
         };
     }
 

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Fixed empty route import error
+
 ## [2.6.3] - 2026-10-05
 
 - Fixed SimBrief weather import status

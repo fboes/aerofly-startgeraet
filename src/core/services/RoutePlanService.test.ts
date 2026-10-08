@@ -71,4 +71,16 @@ describe("RoutePlanService", () => {
             "Wind from the front, correction to the right",
         );
     });
+
+    it("should also handle empty flight plans", () => {
+        const flight = new AeroflyFlightFixture();
+        flight.navigation.waypoints = [];
+        const routePlan = new RoutePlanService(flight);
+        const legs = routePlan.getRouteLegs();
+
+        assert.strictEqual(legs.length, 0);
+
+        const totalRoute = routePlan.getRouteFromLegs(legs);
+        assert.strictEqual(totalRoute.estimatedTimeEnrouteTotal_min, 0);
+    });
 });
