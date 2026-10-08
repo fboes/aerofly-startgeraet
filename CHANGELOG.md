@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Adding test artifact writing
+- Updated aircraft / airport database to current Aerofly FS 4 state
 
 ## [2.6.4] - 2026-10-08
 
