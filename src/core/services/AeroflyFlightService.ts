@@ -14,7 +14,7 @@ import {
     type AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
 import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
-import { AviationWeatherApiAerofly } from "../api/AviationWeatherAeroflyApi.js";
+import * as AviationWeatherApiAerofly from "../api/AviationWeatherAeroflyApi.js";
 import type { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
 import { ImportFileFinderService } from "./ImportFileFinderService.js";
@@ -518,12 +518,10 @@ export class AeroflyFlightService {
      * @returns modified weather settings
      */
     async setWeatherViaApi(airportCode: string): Promise<object> {
-        const api = new AviationWeatherApiAerofly();
-
         if (this.aeroflyFlight.timeUtc.time > new Date()) {
-            await api.fetchTafToFlight(airportCode, this.aeroflyFlight);
+            await AviationWeatherApiAerofly.fetchTafToFlight(airportCode, this.aeroflyFlight);
         } else {
-            await api.fetchMetarToFlight(airportCode, this.aeroflyFlight);
+            await AviationWeatherApiAerofly.fetchMetarToFlight(airportCode, this.aeroflyFlight);
         }
 
         return this.getWeather();
@@ -592,10 +590,16 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.wind.directionInDegree;
     }
 
+    /**
+     * @returns in kts
+     */
     getWindSpeed(): number {
         return this.aeroflyFlight.wind.speed_kts;
     }
 
+    /**
+     * @returns in kts
+     */
     getWindGusts(): number {
         return this.aeroflyFlight.wind.gust_kts;
     }

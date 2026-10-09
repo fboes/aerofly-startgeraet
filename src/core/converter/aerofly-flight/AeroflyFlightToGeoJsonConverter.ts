@@ -29,7 +29,7 @@ export class AeroflyFlightToGeoJsonConverter extends BaseAeroflyFlightToStringCo
 
     convert(flightplan: AeroflyFlight): string {
         const geoJson = new FeatureCollectionGenerator();
-        geoJson.generator = `${APPLICATION_INFORMATION.name}/${APPLICATION_INFORMATION.version}`;
+        geoJson.generator = APPLICATION_INFORMATION.userAgent;
 
         let id = 0;
 

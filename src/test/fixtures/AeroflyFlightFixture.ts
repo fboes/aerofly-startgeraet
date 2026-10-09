@@ -64,4 +64,8 @@ export class AeroflyFlightFixture extends AeroflyFlight {
             },
         );
     }
+
+    clearWaypoints() {
+        this.navigation.waypoints = [];
+    }
 }

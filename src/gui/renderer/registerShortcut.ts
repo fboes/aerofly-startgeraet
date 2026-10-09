@@ -1,7 +1,7 @@
 import { html } from "../../core/formatter/html.js";
 import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
 
-const registry = new Map();
+const registry = new Map<string, () => void>();
 const CLASS_BODY_ACTIVE = "has-pressed-modifier";
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {

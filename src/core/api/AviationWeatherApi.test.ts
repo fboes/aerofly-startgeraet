@@ -3,7 +3,9 @@ import { describe, it } from "node:test";
 
 import { AviationWeatherApi } from "./AviationWeatherApi.js";
 
-await describe("AviationWeatherApi", { skip: true }, async (): Promise<void> => {
+const includeApiTests = process.env.INCLUDE_API_TESTS === '1';
+
+await describe("AviationWeatherApi", { skip: !includeApiTests }, async (): Promise<void> => {
     await it("should fetch airports by ICAO code", async () => {
         const icaoCodes = ["KEYW", "KMCI", "KMVY", "KCCR"];
         const airports = await new AviationWeatherApi().fetchAirports(icaoCodes);

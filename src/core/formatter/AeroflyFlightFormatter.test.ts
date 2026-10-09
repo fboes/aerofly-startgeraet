@@ -51,4 +51,13 @@ describe("AeroflyFlightFormatter", () => {
             assert.strictEqual(string, testCase[1]);
         }
     });
+
+    it("should output flightplans without waypoints correctly", () => {
+        const aeroflyFlight = new AeroflyFlightFixture();
+        aeroflyFlight.clearWaypoints();
+
+        assert.strictEqual(aeroflyFlight.navigation.waypoints.length, 0);
+
+        assert.ok(getFlightplanWaypoints(aeroflyFlight));
+    });
 });

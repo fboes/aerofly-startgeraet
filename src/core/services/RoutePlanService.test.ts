@@ -74,7 +74,9 @@ describe("RoutePlanService", () => {
 
     it("should also handle empty flight plans", () => {
         const flight = new AeroflyFlightFixture();
-        flight.navigation.waypoints = [];
+        flight.clearWaypoints();
+        assert.strictEqual(flight.navigation.waypoints.length, 0);
+
         const routePlan = new RoutePlanService(flight);
         const legs = routePlan.getRouteLegs();
 

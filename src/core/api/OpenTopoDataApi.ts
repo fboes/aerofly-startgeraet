@@ -1,25 +1,5 @@
-export type OpenTopoDataApiResult = {
-    results: OpenTopoDataApiResultItem[];
-    status: "OK" | "INVALID_REQUEST" | "SERVER_ERROR";
-    error?: string;
-};
-
-export type OpenTopoDataApiResultItem = {
-    /**
-     * in meters
-     */
-    elevation: number;
-    location: {
-        lat: number;
-        lng: number;
-    };
-    dataset: string;
-};
-
-export type OpenTopoDataApiCoordinates = {
-    lat: number;
-    lng: number;
-};
+import { APPLICATION_INFORMATION } from "../services/getApplicationInformation.js";
+import type { OpenTopoDataApiCoordinates, OpenTopoDataApiResult } from "./OpenTopoDataApi.type.js";
 
 export class OpenTopoDataApi {
     public async fetch(
@@ -36,6 +16,7 @@ export class OpenTopoDataApi {
         const response = await fetch(url, {
             headers: {
                 Accept: "application/json",
+                "User-Agent": APPLICATION_INFORMATION.userAgent,
             },
             signal: AbortSignal.timeout(timeoutMs),
         });

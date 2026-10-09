@@ -2,7 +2,9 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { UpdateCheckService } from "./UpdateCheckService.js";
 
-await describe("UpdateCheckService", { skip: true }, async () => {
+const includeApiTests = process.env.INCLUDE_API_TESTS === '1';
+
+await describe("UpdateCheckService", { skip: !includeApiTests }, async () => {
     await it("should fetch the the latest release payload from GitHub", async () => {
         const service = new UpdateCheckService("fboes", "aerofly-startgeraet");
         const payload = await service.makeGithubReleaseRequest();

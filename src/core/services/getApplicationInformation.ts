@@ -4,6 +4,7 @@ export type ApplicationInformation = {
     slug: string;
     name: string;
     nameVersion: string;
+    userAgent: string
     version: string;
     description: string;
     /**
@@ -33,7 +34,8 @@ const version = PackageJson.version + (isDev ? "-dev" : "");
 
 export const APPLICATION_INFORMATION: ApplicationInformation = {
     name: PackageJson.displayName,
-    nameVersion: `${PackageJson.name} ${version}`,
+    nameVersion: `${PackageJson.displayName} ${version}`,
+    userAgent: `${PackageJson.displayName}/${version}`,
     slug: reponame,
     version,
     description: PackageJson.description,

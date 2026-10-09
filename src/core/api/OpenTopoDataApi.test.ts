@@ -1,7 +1,8 @@
 import { strict as assert } from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { OpenTopoDataApi, type OpenTopoDataApiCoordinates } from "./OpenTopoDataApi.js";
+import { OpenTopoDataApi } from "./OpenTopoDataApi.js";
+import type { OpenTopoDataApiCoordinates } from "./OpenTopoDataApi.type.js";
 
 await describe("OpenTopoDataApi", async (): Promise<void> => {
     await it("should fetch elevation data", async () => {
