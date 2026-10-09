@@ -51,5 +51,5 @@ export interface MissionGenerator<S extends z.ZodRawShape> {
      * Changes to the mission setup are done via the pass-by-reference
      * `flightPlanService`.
      */
-    convert(configuration: z.infer<z.ZodObject<S>>, flightPlanService: AeroflyFlightService): void;
+    convert(configuration: z.infer<z.ZodObject<S>>, flightPlanService: AeroflyFlightService): Promise<void>;
 }
