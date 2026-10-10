@@ -2,7 +2,7 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGenerator.interface.js";
-import { dispatchNotificationEvent } from "../../renderer/notificationEventHandler.js";
+import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { html } from "../../../core/formatter/html.js";
 
 export class MissionGeneratorWebComponent extends HTMLElement {
@@ -80,11 +80,12 @@ export class MissionGeneratorWebComponent extends HTMLElement {
             return;
         }
 
-        dispatchNotificationEvent<undefined>(
-            document.body,
-            "Mission generator is not yet implemented. Please check back later.",
-            "error",
-        );
+        this.elements.dialog.close();
+        const response = await sendToMain<NotificationEventPayload<undefined>>("mission-generator:execute", {
+            generatorName: e.target.dataset.name,
+            generatorPayload: {},
+        });
+        dispatchNotificationEvent(document.body, response.message, response.type);
     };
 
     private createDialog() {

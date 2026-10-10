@@ -4,7 +4,7 @@ export type ApplicationInformation = {
     slug: string;
     name: string;
     nameVersion: string;
-    userAgent: string
+    userAgent: string;
     version: string;
     description: string;
     /**

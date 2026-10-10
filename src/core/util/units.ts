@@ -23,4 +23,3 @@ export const UNIT_METER_PER_YARD = 0.9144;
  * 3 feet are excatly 1 yard
  */
 export const UNIT_METER_PER_FEET = 0.3048;
-

@@ -22,12 +22,16 @@ await describe("AviationWeatherAeroflyApi", { skip: !includeApiTests }, async ()
         const testcases: [number, string][] = [
             [90, "09"],
             [30, "09"],
-            [215, "27"]
+            [215, "27"],
         ];
         testcases.forEach(async (r) => {
             const runway = await getBestRunway("KEYW", r[0], 10);
             assert.ok(runway, "The best runway should be found");
-            assert.strictEqual(runway.id, r[1], "The best runway should be " + r[1] + " for wind direction " + r[0].toFixed(0));
+            assert.strictEqual(
+                runway.id,
+                r[1],
+                "The best runway should be " + r[1] + " for wind direction " + r[0].toFixed(0),
+            );
         });
     });
 });

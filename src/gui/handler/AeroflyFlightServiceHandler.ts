@@ -31,6 +31,7 @@ import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 import type { FlightplanWebComponentState } from "../web-components/form/FlightplanWebComponent.js";
 import { CONFIG_ELECTRON } from "../io/ConfigElectron.js";
 import { fmt } from "../../core/formatter/format.js";
+import { executeMissionGenerator } from "../../mission-generator/generateFlightplan.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -185,6 +186,8 @@ export class AeroflyFlightServiceHandler {
                 );
             },
         );
+
+        this.ipcMain.handle("mission-generator:execute", this.executeMissionGenerator);
     }
 
     private chooseMainMcfPath = async (
@@ -358,6 +361,31 @@ export class AeroflyFlightServiceHandler {
     private getMetar(): string {
         return this.metar.convert(this.service.getAeroflyFlight());
     }
+
+    /**
+     * Invoke mission generator and return a notification payload indicating success or failure.
+     */
+    private executeMissionGenerator = async (
+        event: IpcMainInvokeEvent,
+        args: {
+            generatorName: string;
+            generatorPayload: Record<string, unknown>;
+        },
+    ) => {
+        try {
+            await executeMissionGenerator(this.service, args.generatorName, args.generatorPayload);
+            this.sendStateUpdate();
+            return createNotificationPayload(
+                `Mission generator ${args.generatorName} executed successfully`,
+                "success",
+            );
+        } catch (error) {
+            return createNotificationPayload(
+                `Mission generator ${args.generatorName} failed: ${error instanceof Error ? error.message : String(error)}`,
+                "error",
+            );
+        }
+    };
 
     onClose() {
         this.writeMainMcf();

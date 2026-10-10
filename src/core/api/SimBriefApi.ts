@@ -15,7 +15,7 @@ export class SimBriefApi {
         const response = await fetch(url, {
             headers: {
                 Accept: "application/json",
-                "User-Agent": APPLICATION_INFORMATION.userAgent
+                "User-Agent": APPLICATION_INFORMATION.userAgent,
             },
             signal: AbortSignal.timeout(timeoutMs),
         });

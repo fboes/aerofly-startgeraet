@@ -2,7 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { UpdateCheckService } from "./UpdateCheckService.js";
 
-const includeApiTests = process.env.INCLUDE_API_TESTS === '1';
+const includeApiTests = process.env.INCLUDE_API_TESTS === "1";
 
 await describe("UpdateCheckService", { skip: !includeApiTests }, async () => {
     await it("should fetch the the latest release payload from GitHub", async () => {

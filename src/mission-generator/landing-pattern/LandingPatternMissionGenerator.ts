@@ -141,7 +141,7 @@ Your aircraft is ${configuration.distance_nm.toString()} NM away from ${airportD
         /**
          * in meters MSL
          */
-        const patternAltitude = (runwayPoint.elevation ?? 0) + this.patternAltitudeAgl_ft / UNIT_METER_PER_FEET;
+        const patternAltitude = (runwayPoint.elevation ?? 0) + this.patternAltitudeAgl_ft * UNIT_METER_PER_FEET;
 
         /**
          * meters to sink per meter distance to have 3° glide slope
@@ -177,31 +177,41 @@ Your aircraft is ${configuration.distance_nm.toString()} NM away from ${airportD
                 runwayData.id + "-CROSS",
                 activeRunwayCrosswind.longitude,
                 activeRunwayCrosswind.latitude,
-                activeRunwayCrosswind.elevation,
+                {
+                    altitude: activeRunwayCrosswind.elevation,
+                },
             ),
             new AeroflyNavRouteWaypoint(
                 runwayData.id + "-DOWN",
                 activeRunwayDownwind.longitude,
                 activeRunwayDownwind.latitude,
-                activeRunwayDownwind.elevation,
+                {
+                    altitude: activeRunwayDownwind.elevation,
+                },
             ),
             new AeroflyNavRouteWaypoint(
                 runwayData.id + "-ENTRY",
                 activeRunwayEntry.longitude,
                 activeRunwayEntry.latitude,
-                activeRunwayEntry.elevation,
+                {
+                    altitude: activeRunwayEntry.elevation,
+                },
             ),
             new AeroflyNavRouteWaypoint(
                 runwayData.id + "-BASE",
                 activeRunwayBase.longitude,
                 activeRunwayBase.latitude,
-                activeRunwayBase.elevation,
+                {
+                    altitude: activeRunwayBase.elevation,
+                },
             ),
             new AeroflyNavRouteWaypoint(
                 runwayData.id + "-FINAL",
                 activeRunwayFinal.longitude,
                 activeRunwayFinal.latitude,
-                activeRunwayFinal.elevation,
+                {
+                    altitude: activeRunwayFinal.elevation,
+                },
             ),
         ];
     }
