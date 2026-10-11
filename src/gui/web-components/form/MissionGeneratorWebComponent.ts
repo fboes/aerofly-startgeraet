@@ -81,6 +81,8 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         }
 
         this.elements.dialog.close();
+        dispatchNotificationEvent(document.body, `Generating mission`, "waiting");
+
         const response = await sendToMain<NotificationEventPayload<undefined>>("mission-generator:execute", {
             generatorName: e.target.dataset.name,
             generatorPayload: {},
@@ -97,8 +99,8 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         const tableCells = this.missionGeneratorManifests.map(
             (m) => `\
 <tr>
-  <td><button data-name="${html(m.name)}">${html(m.displayName)}</button></td>
-  <td>${html(m.description)}</td>
+  <td class="name"><button data-name="${html(m.name)}">${html(m.displayName)}</button></td>
+  <td class="description">${html(m.description)}</td>
 </tr>
 `,
         );
@@ -107,8 +109,8 @@ export class MissionGeneratorWebComponent extends HTMLElement {
 <table class="w-100">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Description</th>
+      <th class="name">Name</th>
+      <th class="description">Description</th>
     </tr>
   </thead>
   <tbody>

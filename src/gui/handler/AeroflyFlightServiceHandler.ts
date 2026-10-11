@@ -163,6 +163,7 @@ export class AeroflyFlightServiceHandler {
             },
         );
         this.ipcMain.handle("flightplan:export-file", this.exportFile);
+        this.ipcMain.handle("geojson:get", this.getGeoJson);
         this.ipcMain.handle("metar:fetch", this.fetchMetar);
         this.ipcMain.handle("flight-category:us:set", (event: IpcMainInvokeEvent, category: AeroflylightCategoryUs) => {
             this.service.setWeatherViaFlightCategory(category);
@@ -342,6 +343,14 @@ export class AeroflyFlightServiceHandler {
         this.service.config.exportDirectory = path.dirname(result.filePath);
 
         return createNotificationPayload("Successfully exported file", "success");
+    };
+
+    private getGeoJson = async (): Promise<NotificationEventPayload<string>> => {
+        return createNotificationPayload(
+            "Successfully generated GeoJSON",
+            "success",
+            await this.service.exportFlightplanToString("geojson"),
+        );
     };
 
     private fetchMetar = async (

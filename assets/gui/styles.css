@@ -600,6 +600,12 @@ startgeraet-aside {
     }
 }
 
+startgeraet-mission-generator {
+    .description {
+        padding-inline-start: 1rem;
+    }
+}
+
 startgeraet-flight-briefing {
     padding-block-end: 1rem;
     display: block;

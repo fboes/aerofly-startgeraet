@@ -48,16 +48,11 @@ export class AeroflyFlightToGeoJsonConverter extends BaseAeroflyFlightToStringCo
 
         geoJson.addFeature(
             new Feature(
-                new LineString([
-                    new Point(
-                        flightplan.flightSetting.longitude,
-                        flightplan.flightSetting.latitude,
-                        flightplan.flightSetting.altitude_meter,
-                    ),
-                    ...flightplan.navigation.waypoints.map((wp): Point => {
+                new LineString(
+                    flightplan.navigation.waypoints.map((wp): Point => {
                         return this.getPointForWaypoint(wp);
                     }),
-                ]),
+                ),
                 {
                     id: id++,
                     title: this.getFlightplanTitle(flightplan),
@@ -81,6 +76,7 @@ export class AeroflyFlightToGeoJsonConverter extends BaseAeroflyFlightToStringCo
                     id: id++,
                     type: "aircraft_position",
                     altitude_ft: flightplan.flightSetting.altitude_ft,
+                    heading_degree: flightplan.flightSetting.heading_degree,
                     "marker-symbol": "airfield",
                 },
             ),

@@ -440,6 +440,10 @@ export class AeroflyFlightService {
         ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
     }
 
+    async exportFlightplanToString(fileEnding: string): Promise<string> {
+        return ExportFileWriter.exportFlightplanToString(`flightplan.${fileEnding}`, this.aeroflyFlight);
+    }
+
     getImportFiles(): string[] | null {
         const importFileFinder = new ImportFileFinderService(this.config);
         return importFileFinder.findImportFiles();

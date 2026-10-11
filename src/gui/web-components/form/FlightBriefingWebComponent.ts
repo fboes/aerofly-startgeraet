@@ -4,6 +4,8 @@ import { numberFormat } from "../util/numberFormat.js";
 import { getTimeFormat, getTimeFunction } from "../../../core/formatter/getTimeString.js";
 import { html } from "../../../core/formatter/html.js";
 import { fmt } from "../../../core/formatter/format.js";
+import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
+import { sendToMain } from "../../renderer/sendToMain.js";
 
 export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent {
     private isInitialized = false;
@@ -16,6 +18,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
         skyvectorOrigin: HTMLAnchorElement;
         skyvectorDestination: HTMLAnchorElement;
         skyvectorRoute: HTMLAnchorElement;
+        geojsonButton: HTMLButtonElement;
     };
 
     private initialize() {
@@ -60,6 +63,8 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     <li><a target="skyvector" href="#" id="briefing-skyvector-route">Flightplan ORIGIN - DESTINATION</a></li>
 </ul>
 
+<button id="briefing-copy-geojson">Copy GeoJSON</button>
+
         `;
         this.elements = {
             title: this.querySelector("#briefing-title") as HTMLSpanElement,
@@ -69,6 +74,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             skyvectorOrigin: this.querySelector("#briefing-skyvector-origin") as HTMLAnchorElement,
             skyvectorDestination: this.querySelector("#briefing-skyvector-destination") as HTMLAnchorElement,
             skyvectorRoute: this.querySelector("#briefing-skyvector-route") as HTMLAnchorElement,
+            geojsonButton: this.querySelector("#briefing-copy-geojson") as HTMLButtonElement,
         };
     }
 
@@ -171,7 +177,25 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             this.elements.description.innerText = state.aeroflyFlight._missionBriefing.trim();
             this.elements.description.innerHTML = this.elements.description.innerHTML.replace(/\n/g, "<br />");
         });
+
+        this.elements.geojsonButton.addEventListener("click", this.handleCopyGeoJson);
     }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.elements.geojsonButton.removeEventListener("click", this.handleCopyGeoJson);
+    }
+
+    private handleCopyGeoJson = async () => {
+        const response = await sendToMain<NotificationEventPayload<string>>("geojson:get");
+
+        dispatchNotificationEvent(document.body, response.message, response.type, response.payload);
+
+        if (!response.payload) {
+            return;
+        }
+        navigator.clipboard.writeText(response.payload);
+    };
 
     private htmlNumericOutput(value: number, unit: string = "", minimumFractionDigits = 0): string {
         return html(numberFormat(value, minimumFractionDigits) + unit);

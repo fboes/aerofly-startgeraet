@@ -69,7 +69,7 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
         const aircraftPoint = airportPoint.getPointBy(
             new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360),
         );
-        aircraftPoint.elevation = airportData.elev + configuration.initialAltAgl_ft / UNIT_METER_PER_FEET;
+        aircraftPoint.elevation = airportData.elev + configuration.initialAltAgl_ft * UNIT_METER_PER_FEET;
 
         // Establish runway
         const runwayData = await getBestRunway(
@@ -81,7 +81,7 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
             runwayData.isRight = rightPatternRunways.includes(runwayData.id);
         }
         const runwayPoint = airportPoint.getPointBy(
-            new Vector(runwayData.dimension.length * UNIT_METER_PER_FEET, runwayData.alignment),
+            new Vector((runwayData.dimension.length / 2) * UNIT_METER_PER_FEET, (runwayData.alignment + 180) % 360),
         );
 
         // Add flight plan
@@ -169,7 +169,9 @@ Your aircraft is ${configuration.distance_nm.toString()} NM away from ${airportD
         activeRunwayDownwind.elevation = patternAltitude;
 
         // Entry
-        const activeRunwayEntry = runwayPoint.getPointBy(new Vector(downwindDistance, patternOrientation));
+        const activeRunwayEntry = activeRunwayDownwind.getPointBy(
+            new Vector(finalDistance, runwayData.alignment + 180),
+        );
         activeRunwayEntry.elevation = patternAltitude;
 
         return [
