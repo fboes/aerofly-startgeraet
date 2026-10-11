@@ -6,9 +6,10 @@ import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
-import { writeln, writeSuccess, writeMenuTitle, writeCatch, writeError } from "../formatter/writeCli.js";
+import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
-import { MISSIONS_GENERATOR_MANIFESTS } from "../../mission-generator/generateFlightplan.js";
+import { executeMissionGenerator, MISSIONS_GENERATOR_MANIFESTS } from "../../mission-generator/generateFlightplan.js";
+import { fmt } from "../../core/formatter/format.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "writeMenuTitle" | "name" | "execute">;
 
@@ -142,7 +143,9 @@ export class MenuCommand extends BaseControllerCommand {
         writeMenuTitle(["Fuel & Payload"]);
         const fuel = this.controller.getMaxFuel()
             ? await number({
-                  message: `Fuel (kg) - max ${this.controller.getMaxFuel().toFixed()} kg`,
+                  message: fmt(`Fuel (kg) - max {{ maxFuel }} kg`, {
+                      maxFuel: this.controller.getMaxFuel().toFixed(),
+                  }),
                   default: this.controller.getFuel(),
                   min: 0,
                   max: this.controller.getMaxFuel(),
@@ -157,7 +160,9 @@ export class MenuCommand extends BaseControllerCommand {
         const payload =
             maxPayload > 0
                 ? await number({
-                      message: `Payload (kg) - max ${maxPayload.toFixed()} kg`,
+                      message: fmt(`Payload (kg) - max {{ maxPayload }} kg`, {
+                          maxPayload: maxPayload.toFixed(),
+                      }),
                       default: this.controller.getPayload(),
                       min: 0,
                       max: maxPayload,
@@ -174,21 +179,25 @@ export class MenuCommand extends BaseControllerCommand {
         writeMenuTitle(["Import Flightplan"]);
 
         writeln(
-            `Current flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
+            fmt(`Current flightplan: {{ waypoints }}`, {
+                waypoints: AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight()),
+            }),
         );
 
         const isMissionGeneratorDisabled = MISSIONS_GENERATOR_MANIFESTS.length === 0;
 
         const simBriefUserName = this.controller.config.simBriefUserName;
         const importableFileChoices =
-            this.controller.getImportFiles()?.map((file) => ({ name: `Import from file ${file}`, value: file })) ?? [];
+            this.controller
+                .getImportFiles()
+                ?.map((file) => ({ name: fmt(`Import from file {{ file }}`, { file }), value: file })) ?? [];
 
         const choice = await select({
             message: "Import",
             choices: [
                 {
                     name: simBriefUserName
-                        ? `Import via SimBrief username ${simBriefUserName}`
+                        ? fmt(`Import via SimBrief username {{ simBriefUserName }}`, { simBriefUserName })
                         : "Import via SimBrief - please set SimBrief username in configuration",
                     value: "simbrief",
                     disabled: !simBriefUserName,
@@ -219,7 +228,7 @@ export class MenuCommand extends BaseControllerCommand {
         }
 
         if (choice === "simbrief") {
-            writeln(`Importing flightplan from SimBrief for user ${simBriefUserName}...`);
+            writeln(fmt(`Importing flightplan from SimBrief for user {{ simBriefUserName }}...`, { simBriefUserName }));
             await this.controller.importFlightplanFromSimBrief(
                 simBriefUserName,
                 this.controller.config.useSimBriefWeather,
@@ -249,12 +258,14 @@ export class MenuCommand extends BaseControllerCommand {
                               };
                           }),
                       });
-            writeln(`Importing flightplan from file ${filename}...`);
+            writeln(fmt(`Importing flightplan from file {{ filename }}...`, { filename }));
             this.controller.importFlightplanFromFile(filename, Number(index));
         }
         writeSuccess("Flightplan imported successfully");
         writeln(
-            `Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
+            fmt(`Imported flightplan: {{ waypoints }}`, {
+                waypoints: AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight()),
+            }),
         );
 
         return "mainMenu";
@@ -282,7 +293,7 @@ export class MenuCommand extends BaseControllerCommand {
         const filePath = path.join(this.controller.config.exportDirectory, fileName);
 
         await this.controller.exportFlightplanToFile(filePath);
-        writeSuccess(`Flightplan exported successfully to ${filePath}`);
+        writeSuccess(fmt(`Flightplan exported successfully to {{ filePath }}`, { filePath }));
 
         return "mainMenu";
     }
@@ -307,7 +318,10 @@ export class MenuCommand extends BaseControllerCommand {
             return choice;
         }
 
-        writeError("Mission generator is not yet implemented. Please check back later.");
+        executeMissionGenerator(this.controller, choice, {});
+        writeSuccess(
+            fmt(`Mission generator {{ choice }} executed successfully, flight plan has been updated`, { choice }),
+        );
 
         return "mainMenu";
     }
@@ -328,7 +342,7 @@ export class MenuCommand extends BaseControllerCommand {
                     value: "UTC",
                 },
                 {
-                    name: `Set manually (${departureTimeZoneUTCString})`,
+                    name: fmt(`Set manually ({{ departureTimeZoneUTCString }})`, { departureTimeZoneUTCString }),
                     value: departureTimeZoneUTCString,
                     disabled: departureTimeZoneUTCString === "UTC",
                 },
@@ -361,7 +375,7 @@ export class MenuCommand extends BaseControllerCommand {
         timeValue: Date,
     ): Promise<string> {
         const time = await input({
-            message: `Date (${timeZoneUTCName})`,
+            message: fmt(`Date ({{timeZoneUTCName}})`, { timeZoneUTCName }),
             default: timeValue.toISOString().slice(0, 10),
             required: true,
             validate(value) {
@@ -374,7 +388,7 @@ export class MenuCommand extends BaseControllerCommand {
         });
 
         const date = await input({
-            message: `Time (${timeZoneUTCName})`,
+            message: fmt(`Time ({{timeZoneUTCName}})`, { timeZoneUTCName }),
             default: timeValue.toISOString().slice(11, 16),
             required: true,
             validate(value) {
@@ -396,15 +410,21 @@ export class MenuCommand extends BaseControllerCommand {
             message: "Import weather",
             choices: [
                 {
-                    name: `Import weather via API for ${this.controller.getFlightplanDepartureAirportString()}`,
+                    name: fmt(`Import weather via API for {{ airport }}`, {
+                        airport: this.controller.getFlightplanDepartureAirportString(),
+                    }),
                     value: this.controller.getFlightplanDepartureAirportString(),
                 },
                 {
-                    name: `Import weather via API for ${this.controller.getFlightplanArrivalAirportString()}`,
+                    name: fmt(`Import weather via API for {{ airport }}`, {
+                        airport: this.controller.getFlightplanArrivalAirportString(),
+                    }),
                     value: this.controller.getFlightplanArrivalAirportString(),
                 },
                 {
-                    name: `Import weather by METAR code`,
+                    name: fmt(`Import weather by METAR code for {{ airport }}`, {
+                        airport: this.controller.getFlightplanArrivalAirportString(),
+                    }),
                     value: `metar`,
                 },
                 new Separator(),
@@ -422,10 +442,10 @@ export class MenuCommand extends BaseControllerCommand {
             });
             this.controller.setWeatherFromMETAR(metar);
         } else {
-            writeln(`Importing METAR for ${choice}...`);
+            writeln(fmt(`Importing METAR for {{ airport }}...`, { airport: choice }));
             await this.controller.setWeatherViaApi(choice);
         }
-        writeSuccess("Weather imported successfully");
+        writeSuccess(fmt(`Weather imported successfully for {{ airport }}`, { airport: choice }));
 
         return "mainMenu";
     }
@@ -523,7 +543,7 @@ export class MenuCommand extends BaseControllerCommand {
         }
 
         const base_feet_agl = await number({
-            message: `${cloudLayer} base (ft)`,
+            message: fmt(`{{ cloudLayer }} base (ft)`, { cloudLayer }),
             default: cloud ? Math.round(cloud.base_feet_agl) : 0,
             min: 0,
             max: 50000,
@@ -545,7 +565,7 @@ export class MenuCommand extends BaseControllerCommand {
             (base_feet_agl > 0
                 ? Number(
                       await select({
-                          message: `${cloudLayer} coverage`,
+                          message: fmt(`{{ cloudLayer }} coverage`, { cloudLayer }),
                           default: cloud ? String(Math.round(cloud.cloud_coverage * 8)) : "0",
                           choices,
                           pageSize: choices.length,
