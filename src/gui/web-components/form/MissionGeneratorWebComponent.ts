@@ -16,6 +16,7 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         button: HTMLButtonElement;
         dialog: HTMLDialogElement;
         dialogInner: HTMLElement;
+        // missionGeneratorSettings
     };
 
     private initialize() {
@@ -26,17 +27,18 @@ export class MissionGeneratorWebComponent extends HTMLElement {
 
 <dialog id="dialog-mission-generator" closedby="any">
   <h3>Mission generator</h3>
-
   <section class="d-flex">No mission generator found</section>
-
   <button commandfor="dialog-mission-generator" command="close" title="Close">✕</button>
 </dialog>
+
+<!-- aerofly-mission-generator-settings></aerofly-mission-generator-settings -->
         `;
 
         this.elements = {
             button: this.querySelector("button") as HTMLButtonElement,
             dialog: this.querySelector("dialog") as HTMLDialogElement,
             dialogInner: this.querySelector("dialog section") as HTMLElement,
+            // missionGeneratorSettings: this.querySelector("aerofly-mission-generator-settings")
         };
     }
 
@@ -81,6 +83,15 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         }
 
         this.elements.dialog.close();
+
+        /*
+        const response = await sendToMain<NotificationEventPayload<MissionGeneratorZodSchema>("mission-generator:get", e.target.dataset.name,
+        );
+        if (response.payload) {
+            this.elements.missionGeneratorSettings.schema = response.payload;
+            this.elements.missionGeneratorSettings.open();
+        } */
+
         dispatchNotificationEvent(document.body, `Generating mission`, "waiting");
 
         const response = await sendToMain<NotificationEventPayload<undefined>>("mission-generator:execute", {

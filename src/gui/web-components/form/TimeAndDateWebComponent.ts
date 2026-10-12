@@ -20,7 +20,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
         timeUtc: HTMLInputElement;
         dateLocal: HTMLInputElement;
         timeLocal: HTMLInputElement;
-        timeZoneLocal: HTMLElement;
+        timeZoneLocal: HTMLDataElement;
         nowButton: HTMLButtonElement;
         sunPosition: IconWebComponent;
     };
@@ -50,7 +50,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
     </tr>
     <tr class="form-group">
       <th scope="row">
-        Local (<span id="timezone-local" data-value="0" title="Nautical time">0</span>)<sup></sup>
+        Local (<data id="timezone-local" value="0" title="Nautical time">0</data>)<sup></sup>
       </th>
       <td><input id="date-local" title="Date (Local)" type="date" value="2026-01-01" /></td>
       <td>
@@ -67,7 +67,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
             timeUtc: this.querySelector("#time-utc") as HTMLInputElement,
             dateLocal: this.querySelector("#date-local") as HTMLInputElement,
             timeLocal: this.querySelector("#time-local") as HTMLInputElement,
-            timeZoneLocal: this.querySelector("#timezone-local") as HTMLElement,
+            timeZoneLocal: this.querySelector("#timezone-local") as HTMLDataElement,
             nowButton: this.querySelector("#synchronize-time") as HTMLButtonElement,
             sunPosition: this.querySelector("#sun-position") as IconWebComponent,
         };
@@ -100,7 +100,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
         this.subscribeToStateUpdates((state) => {
             this.elements.dateUtc.value = state.dateTime.utc.date;
             this.elements.timeUtc.value = state.dateTime.utc.time;
-            this.elements.timeZoneLocal.dataset.value = state.dateTime.local.timeZoneOffset_h.toString();
+            this.elements.timeZoneLocal.value = state.dateTime.local.timeZoneOffset_h.toString();
             this.elements.timeZoneLocal.textContent =
                 (state.dateTime.local.timeZoneOffset_h >= 0 ? "+" : "") + state.dateTime.local.timeZoneOffset_h;
             this.elements.dateLocal.value = state.dateTime.local.date;
@@ -161,7 +161,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
 
     private setLocalFromUtc = () => {
         const d = this.utcDate;
-        d.setUTCHours(d.getUTCHours() + Number(this.elements.timeZoneLocal.dataset.value ?? "0"));
+        d.setUTCHours(d.getUTCHours() + Number(this.elements.timeZoneLocal.value ?? "0"));
         this.elements.timeLocal.value = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
         this.elements.dateLocal.value =
             d.getFullYear().toString() + "-" + this.pad(d.getUTCMonth() + 1) + "-" + this.pad(d.getUTCDate());
@@ -169,7 +169,7 @@ export class TimeAndDateWebComponent extends BaseStateSubscriberWebComponent {
 
     private setUtcFromLocal = () => {
         const d = new Date(this.elements.dateLocal.value + "T" + this.elements.timeLocal.value + "Z");
-        d.setUTCHours(d.getUTCHours() - Number(this.elements.timeZoneLocal.dataset.value ?? "0"));
+        d.setUTCHours(d.getUTCHours() - Number(this.elements.timeZoneLocal.value ?? "0"));
         this.elements.timeUtc.value = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
         this.elements.dateUtc.value =
             d.getFullYear().toString() + "-" + this.pad(d.getUTCMonth() + 1) + "-" + this.pad(d.getUTCDate());

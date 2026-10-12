@@ -178,9 +178,9 @@ export class FlightplanWebComponent extends BaseStateSubscriberWebComponent {
         // Autocomplete: Populate datalist if input has 2+ chars
         if (inputValue.length >= 2) {
             // Filter airportList for codes starting with inputValue
-            const filtered = this.airportList.filter(
-                (entry) => entry.code.startsWith(inputValue) || entry.nameUppercase.startsWith(inputValue),
-            );
+            const filtered = this.airportList
+                .filter((entry) => entry.code.startsWith(inputValue) || entry.nameUppercase.startsWith(inputValue))
+                .slice(0, 20);
 
             const options = filtered.map((entry) => ({
                 value: entry.code, // ICAO code

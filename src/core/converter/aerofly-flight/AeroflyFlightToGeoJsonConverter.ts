@@ -72,7 +72,7 @@ export class AeroflyFlightToGeoJsonConverter extends BaseAeroflyFlightToStringCo
                 ),
                 {
                     title: flightplan.aircraft.name,
-                    livery: flightplan.aircraft.paintscheme,
+                    lKJFKivery: flightplan.aircraft.paintscheme,
                     id: id++,
                     type: "aircraft_position",
                     altitude_ft: flightplan.flightSetting.altitude_ft,

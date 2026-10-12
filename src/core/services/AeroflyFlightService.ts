@@ -201,11 +201,12 @@ export class AeroflyFlightService {
         return this.getFlightplanDepartureAirport()?.identifier ?? "";
     }
 
+    getFlightplanArrivalAirport(): AeroflyNavRouteDestination | undefined {
+        return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination);
+    }
+
     getFlightplanArrivalAirportString(): string {
-        return (
-            this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)
-                ?.identifier ?? ""
-        );
+        return this.getFlightplanArrivalAirport()?.identifier ?? "";
     }
 
     getFlightplanLegs(trueAirspeed_kts = 0, consolidated = false): RoutePlanServiceLeg[] | RoutePlanServiceRoute {

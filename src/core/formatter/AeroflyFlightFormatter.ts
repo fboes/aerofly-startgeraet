@@ -10,8 +10,8 @@ import { RoutePlanService } from "../services/RoutePlanService.js";
 import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAircraft.js";
 import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
 import { getIcaoFlightCategory, getSunPosition, getFlightCategory } from "../util/AeroflyFlightHelper.js";
-import { APPLICATION_INFORMATION } from "../services/getApplicationInformation.js";
 import { getHourString } from "./getTimeString.js";
+import { numberFormat } from "./numberFormat.js";
 
 export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Twilight";
 
@@ -179,7 +179,7 @@ export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightF
 }
 
 export function numberToString(num: number): string {
-    return new Intl.NumberFormat(APPLICATION_INFORMATION.locale).format(Math.round(num));
+    return numberFormat(Math.round(num));
 }
 
 export function dateToString(date: Date): string {

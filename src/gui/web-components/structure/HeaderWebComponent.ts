@@ -54,7 +54,7 @@ export class HeaderWebComponent extends HTMLElement {
         if (!response.payload) {
             return;
         }
-        
+
         dispatchNotificationEvent(document.body, response.message, response.type, response.payload);
         this.elements.version.title = response.message;
         this.elements.version.classList.add("has-update-available");

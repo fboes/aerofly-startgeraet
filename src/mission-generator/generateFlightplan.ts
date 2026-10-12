@@ -4,6 +4,8 @@ import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
 import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 
+export type MissionGeneratorZodSchema = z.core.ZodStandardJSONSchemaPayload<z.ZodObject>;
+
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     "landing-pattern": LandingPatternMissionGenerator,
 };
@@ -27,9 +29,9 @@ export function getMissionGenerator(missionGeneratorSlug: string): new () => Mis
     return missionGenerator;
 }
 
-export function getMissionGeneratorZodSchema(missionGeneratorSlug: string) {
+export function getMissionGeneratorZodSchema(missionGeneratorSlug: string): MissionGeneratorZodSchema {
     const missionGenerator = getMissionGenerator(missionGeneratorSlug);
-    new missionGenerator().configuration().toJSONSchema();
+    return new missionGenerator().configuration().toJSONSchema();
 }
 
 export function executeMissionGenerator(

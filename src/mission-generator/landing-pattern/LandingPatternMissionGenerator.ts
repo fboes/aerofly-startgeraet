@@ -4,7 +4,7 @@ import type { MissionGenerator, MissionGeneratorManifest } from "../MissionGener
 import { Point, Vector } from "@fboes/geojson";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../core/util/units.js";
 import { randomArbitrary } from "../../core/util/random.js";
-import { getAirportCached, getBestRunway, type BestRunway } from "../../core/api/AviationWeatherAeroflyApi.js";
+import type { BestRunway } from "../../core/api/AviationWeatherAeroflyApi.js";
 import {
     AeroflyNavigationConfig,
     AeroflyNavRouteDepartureRunway,
@@ -13,6 +13,8 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
+import { getVectorString } from "../../core/formatter/getVectorString.js";
+import { getAirportDataViaOrigin, getBestRunwayViaFlightService, getRunwayPoint } from "../missionGeneratorUtils.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
@@ -55,34 +57,22 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
     ): Promise<void> {
         const rightPatternRunways = (configuration.rightPatternRunways ?? "").toUpperCase().split(/\s*,\s/);
 
-        const origin = flightPlanService.getFlightplanDepartureAirport();
-        if (!origin) {
-            throw new Error("Please provide an initial airport");
-        }
-
         // Establish airport
-        const airportData = await getAirportCached(origin.identifier);
+        const airportData = await getAirportDataViaOrigin(flightPlanService);
         const airportPoint = new Point(airportData.lon, airportData.lat, airportData.elev);
 
         // Establish aircraft position
         const aircraftHeading = randomArbitrary(0, 356);
-        const aircraftPoint = airportPoint.getPointBy(
-            new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360),
-        );
+        const aircraftVector = new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360);
+        const aircraftPoint = airportPoint.getPointBy(aircraftVector);
         aircraftPoint.elevation = airportData.elev + configuration.initialAltAgl_ft * UNIT_METER_PER_FEET;
 
         // Establish runway
-        const runwayData = await getBestRunway(
-            origin.identifier,
-            flightPlanService.getWindDirection(),
-            flightPlanService.getWindSpeed(),
-        );
+        const runwayData = await getBestRunwayViaFlightService(airportData, flightPlanService);
         if (rightPatternRunways) {
             runwayData.isRight = rightPatternRunways.includes(runwayData.id);
         }
-        const runwayPoint = airportPoint.getPointBy(
-            new Vector((runwayData.dimension.length / 2) * UNIT_METER_PER_FEET, (runwayData.alignment + 180) % 360),
-        );
+        const runwayPoint = getRunwayPoint(runwayData, airportPoint);
 
         // Add flight plan
         flightPlanService.setFlightPosition(
@@ -95,7 +85,7 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
         );
         const flight = flightPlanService.getAeroflyFlight();
         flight.navigation = new AeroflyNavigationConfig(aircraftPoint.elevation, [
-            new AeroflyNavRouteOrigin(origin.identifier, airportData.lon, airportData.lat, {
+            new AeroflyNavRouteOrigin(airportData.icaoId, airportData.lon, airportData.lat, {
                 elevation: airportData.elev,
             }),
             new AeroflyNavRouteDepartureRunway(runwayData.id, runwayPoint.longitude, runwayPoint.latitude, {
@@ -107,13 +97,13 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
                 elevation: runwayPoint.elevation,
                 direction_degree: runwayData.alignment,
             }),
-            new AeroflyNavRouteDestination(origin.identifier, airportData.lon, airportData.lat, {
+            new AeroflyNavRouteDestination(airportData.icaoId, airportData.lon, airportData.lat, {
                 elevation: airportData.elev,
             }),
         ]);
         flight._missionTitle = `Landing pattern entry at ${airportData.name}`;
         flight._missionBriefing = `\
-Your aircraft is ${configuration.distance_nm.toString()} NM away from ${airportData.name} Airport. You will have to make a correct ${runwayData.isRight ? "right-hand" : "left-hand"} landing pattern entry for runway ${runwayData.alignment}, and land safely.
+Your aircraft is ${getVectorString(aircraftVector)} of ${airportData.name} Airport. You will have to make a correct ${runwayData.isRight ? "right-hand" : "left-hand"} landing pattern entry for runway ${runwayData.id}, and land safely.
 `;
     }
 

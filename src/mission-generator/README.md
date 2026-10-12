@@ -8,4 +8,10 @@ To create a new mission generator:
    ```typescript
    export class XXXXMissionGenerator implements MissionGenerator {}
    ```
-4. You should _not_ use any export provided by the actual Startgerät project, but for type definitions. Instead rely on services passed to your mission generator.
+4. The Mission Generator class must be registered at `MISSION_GENERATOR_REGISTRY`
+
+## Functionality to consider
+
+- `Point` and `Vector` provide means to compute geographical postions.
+- `getAirportCached` gets additional information (e.g. runways) for airports.
+- `getVectorString` can be used in mission descriptions to describe relative positions.

@@ -19,6 +19,7 @@ import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.j
 import { SkyVectorUrl } from "../../data/SkyVectorUrl.js";
 import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
 import { getTimeFormat, getTimeFunction } from "../../formatter/getTimeString.js";
+import { numberFormat } from "../../formatter/numberFormat.js";
 
 export class AeroflyFlightToMarkdownConverter extends BaseAeroflyFlightToStringConverter {
     static readonly fileName = "Markdown Text File";
@@ -159,11 +160,6 @@ Created by [${APPLICATION_INFORMATION.name}  ${APPLICATION_INFORMATION.version}]
     }
 
     private numericOutput(value: number, unit: string = "", minimumFractionDigits = 0): string {
-        return (
-            Intl.NumberFormat(APPLICATION_INFORMATION.locale, {
-                minimumFractionDigits,
-                maximumFractionDigits: minimumFractionDigits,
-            }).format(value) + unit
-        );
+        return numberFormat(value, minimumFractionDigits) + unit;
     }
 }

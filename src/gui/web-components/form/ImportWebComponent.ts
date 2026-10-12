@@ -72,7 +72,6 @@ export class ImportWebComponent extends HTMLElement {
         }
 
         if (response.payload) {
-            console.log(this.elements.fpChooser);
             this.elements.fpChooser.values = response.payload;
             this.elements.fpChooser.open();
         }
