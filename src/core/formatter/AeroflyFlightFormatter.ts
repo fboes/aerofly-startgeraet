@@ -31,7 +31,7 @@ export function getAircraft(aeroflyFlight: AeroflyFlight): string {
 
 export function getFuelAndPayload(aeroflyFlight: AeroflyFlight): string {
     return aeroflyFlight.fuelLoadSetting.fuelMass
-        ? `${numberToString(aeroflyFlight.fuelLoadSetting.fuelMass)} / ${numberToString(aeroflyFlight.fuelLoadSetting.payloadMass)} kg`
+        ? `${numberFormat(aeroflyFlight.fuelLoadSetting.fuelMass)} / ${numberFormat(aeroflyFlight.fuelLoadSetting.payloadMass)} kg`
         : "Unset";
 }
 
@@ -122,7 +122,7 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
     const distanceNm = route.distanceTotal_nm;
     const hourString = getHourString(route.estimatedTimeEnrouteTotal_min);
 
-    return distanceNm ? `${numberToString(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}` : "Unknown";
+    return distanceNm ? `${numberFormat(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}` : "Unknown";
 }
 
 export function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string {
@@ -130,23 +130,23 @@ export function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string 
 }
 
 export function getWind(aeroflyFlight: AeroflyFlight): string {
-    let wind = `${numberToString(aeroflyFlight.wind.directionInDegree)}° @ ${numberToString(aeroflyFlight.wind.speed_kts)}kts`;
+    let wind = `${numberFormat(aeroflyFlight.wind.directionInDegree)}° @ ${numberFormat(aeroflyFlight.wind.speed_kts)}kts`;
     if (aeroflyFlight.wind.gust_kts > 0) {
-        wind += ` (gusts ${numberToString(aeroflyFlight.wind.gust_kts)}kts)`;
+        wind += ` (gusts ${numberFormat(aeroflyFlight.wind.gust_kts)}kts)`;
     }
     return wind;
 }
 
 export function getTemperature(aeroflyFlight: AeroflyFlight): string {
-    return `${numberToString(aeroflyFlight.wind.temperature_celsius)}°C`;
+    return `${numberFormat(aeroflyFlight.wind.temperature_celsius)}°C`;
 }
 
 export function getVisibility(aeroflyFlight: AeroflyFlight, separator = "/"): string {
     if (aeroflyFlight.visibility_sm === 10 || aeroflyFlight.visibility_meter === 9999) {
-        return `10SM ${separator} ${numberToString(9999)}m`;
+        return `10SM ${separator} ${numberFormat(9999)}m`;
     }
 
-    return `${numberToString(aeroflyFlight.visibility_sm) + quarter(aeroflyFlight.visibility_sm)}SM ${separator} ${numberToString(aeroflyFlight.visibility_meter)}m`;
+    return `${numberFormat(aeroflyFlight.visibility_sm) + quarter(aeroflyFlight.visibility_sm)}SM ${separator} ${numberFormat(aeroflyFlight.visibility_meter)}m`;
 }
 
 export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
@@ -154,7 +154,7 @@ export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
         aeroflyFlight.clouds
             .filter((cloud) => cloud.density > 0)
             .map((cloud) => {
-                return `${cloud.density_code} @ ${numberToString(cloud.height_ft)}ft`;
+                return `${cloud.density_code} @ ${numberFormat(cloud.height_ft)}ft`;
             })
             .join(join) || "CLR"
     );
@@ -176,10 +176,6 @@ export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightF
     }
 
     return "Night";
-}
-
-export function numberToString(num: number): string {
-    return numberFormat(Math.round(num));
 }
 
 export function dateToString(date: Date): string {
