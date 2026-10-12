@@ -19,8 +19,8 @@ describe("getVectorString", () => {
 
     it("provides vector strings", () => {
         assert.strictEqual(getVectorString(new Vector(0 * UNIT_METER_PER_NM, 45), "on site"), `on site`);
-        assert.strictEqual(getVectorString(new Vector(2 * UNIT_METER_PER_NM, 0)), `2NM to the north`);
-        assert.strictEqual(getVectorString(new Vector(5.5 * UNIT_METER_PER_NM, 90)), `5.5NM to the east`);
-        assert.strictEqual(getVectorString(new Vector(10.5 * UNIT_METER_PER_NM, 180)), `10NM to the south`);
+        assert.strictEqual(getVectorString(new Vector(2 * UNIT_METER_PER_NM, 0)), `2 NM to the north`);
+        assert.strictEqual(getVectorString(new Vector(5.5 * UNIT_METER_PER_NM, 90)), `5.5 NM to the east`);
+        assert.strictEqual(getVectorString(new Vector(10.5 * UNIT_METER_PER_NM, 180)), `11 NM to the south`);
     });
 });
