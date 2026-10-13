@@ -1,27 +1,6 @@
 import type { z } from "zod";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
-
-/**
- * Describes the purpose of a Mission Generator to the user
- */
-export type MissionGeneratorManifest = {
-    /**
-     * Technical identifier, the name cannot contain any non-URL-safe characters.
-     */
-    name: string;
-    /**
-     * Plain text, brief name
-     */
-    displayName: string;
-    /**
-     * Multi-line description. If in doubt use Markdown
-     */
-    description: string;
-    /**
-     * SEM ver, e.g. "2.0.0"
-     */
-    version: string;
-};
+import type { MissionGeneratorManifest } from "./MissionGenerator.type.js";
 
 /**
  * Interface for a Mission Generator. It provides a manifest which describes the

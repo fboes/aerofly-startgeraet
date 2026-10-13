@@ -31,11 +31,8 @@ import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 import type { FlightplanWebComponentState } from "../web-components/form/FlightplanWebComponent.js";
 import { CONFIG_ELECTRON } from "../io/ConfigElectron.js";
 import { fmt } from "../../core/formatter/format.js";
-import {
-    executeMissionGenerator,
-    getMissionGeneratorZodSchema,
-    type MissionGeneratorZodSchema,
-} from "../../mission-generator/generateFlightplan.js";
+import { executeMissionGenerator, getMissionGeneratorManifest } from "../../mission-generator/generateFlightplan.js";
+import type { MissionGeneratorManifest } from "../../mission-generator/MissionGenerator.type.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -192,7 +189,7 @@ export class AeroflyFlightServiceHandler {
             },
         );
 
-        this.ipcMain.handle("mission-generator:get", this.getMissionGenerator);
+        this.ipcMain.handle("mission-generator:get-manifest", this.getMissionGeneratorManifest);
         this.ipcMain.handle("mission-generator:execute", this.executeMissionGenerator);
     }
 
@@ -376,8 +373,11 @@ export class AeroflyFlightServiceHandler {
         return this.metar.convert(this.service.getAeroflyFlight());
     }
 
-    private getMissionGenerator = (event: IpcMainInvokeEvent, generatorName: string): MissionGeneratorZodSchema => {
-        return getMissionGeneratorZodSchema(generatorName);
+    private getMissionGeneratorManifest = (
+        event: IpcMainInvokeEvent,
+        generatorName: string,
+    ): MissionGeneratorManifest => {
+        return getMissionGeneratorManifest(generatorName);
     };
 
     /**

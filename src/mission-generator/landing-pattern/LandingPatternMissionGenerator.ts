@@ -1,6 +1,7 @@
 import z from "zod";
 import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import type { MissionGenerator, MissionGeneratorManifest } from "../MissionGenerator.interface.js";
+import type { MissionGenerator } from "../MissionGenerator.interface.js";
+import type { MissionGeneratorManifest } from "../MissionGenerator.type.js";
 import { Point, Vector } from "@fboes/geojson";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../core/util/units.js";
 import { randomArbitrary } from "../../core/util/random.js";
@@ -14,24 +15,46 @@ import {
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { getVectorString } from "../../core/formatter/getVectorString.js";
-import { getAirportDataViaOrigin, getBestRunwayViaFlightService, getRunwayPoint } from "../missionGeneratorUtils.js";
+import {
+    getAirportDataViaOrigin,
+    getBestRunwayViaFlightService,
+    getMinimumSafeAltitude,
+    getRunwayPoint,
+} from "../missionGeneratorUtils.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
-    initialAltAgl_ft: z.ZodDefault<z.ZodNumber>;
+    patternAltitudeAgl_ft: z.ZodDefault<z.ZodNumber>;
+    minimumSafeAltitude_ft: z.ZodOptional<z.ZodNumber>;
     rightPatternRunways: z.ZodOptional<z.ZodString>;
 };
 
 export class LandingPatternMissionGenerator implements MissionGenerator<LandingPatternMissionGeneratorConfiguration> {
     readonly patternDistance_Nm = 1;
     readonly patternFinalDistance_Nm = 1;
-    readonly patternAltitudeAgl_ft = 1000;
 
     manifest(): MissionGeneratorManifest {
         return {
             name: "landing-pattern",
             displayName: "Landing Pattern",
-            description: "Generates a landing pattern, using the current destination, time, date and weather settings.",
+            description: "Generates a landing pattern, using the current origin, time, date and weather settings.",
+            longDescription: `\
+This mission generator will create a civil landing pattern flightplan at your
+current origin airport, using the current weather settings to determine which
+runway to use.
+
+Your aircraft will be placed at a random location in the vicinity. If in doubt,
+provide a minimum safe altitude to not have your aircraft spawn in terrain.
+
+Right-hand patterns will be assumed for all runways ending with "R". You can
+provide an additional list of right-hand pattern runways.
+
+After completing your flight, you will be able to check if you hit the planned
+pattern by looking at the recent flight log.
+
+The mission generator will make at least one API call to an internet service,
+so possibly this could take a few seconds depending on API availability.
+`,
             version: "1.0.0",
         };
     }
@@ -40,10 +63,11 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
         return z.object({
             distance_nm: z
                 .number()
-                .min(1)
+                .min(2)
                 .default(8)
                 .describe("Initial aircraft distance from airport in Nautical Miles"),
-            initialAltAgl_ft: z.number().min(100).default(1000).describe("Pattern altitude in ft AGL"),
+            patternAltitudeAgl_ft: z.number().min(100).default(1000).describe("Pattern altitude in ft AGL"),
+            minimumSafeAltitude_ft: z.number().optional().describe("Minimum safe altitude in ft MSL"),
             rightPatternRunways: z
                 .string()
                 .optional()
@@ -65,7 +89,10 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
         const aircraftHeading = randomArbitrary(0, 356);
         const aircraftVector = new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360);
         const aircraftPoint = airportPoint.getPointBy(aircraftVector);
-        aircraftPoint.elevation = airportData.elev + configuration.initialAltAgl_ft * UNIT_METER_PER_FEET;
+        aircraftPoint.elevation = Math.min(
+            await getMinimumSafeAltitude(aircraftPoint, configuration.minimumSafeAltitude_ft),
+            airportData.elev + (configuration.patternAltitudeAgl_ft + 500) * UNIT_METER_PER_FEET,
+        );
 
         // Establish runway
         const runwayData = await getBestRunwayViaFlightService(airportData, flightPlanService);
@@ -92,7 +119,7 @@ export class LandingPatternMissionGenerator implements MissionGenerator<LandingP
                 elevation: runwayPoint.elevation,
                 direction_degree: runwayData.alignment,
             }),
-            ...this.getPatternWaypoints(runwayData, runwayPoint),
+            ...this.getPatternWaypoints(runwayData, runwayPoint, configuration.patternAltitudeAgl_ft),
             new AeroflyNavRouteDestinationRunway(runwayData.id, runwayPoint.longitude, runwayPoint.latitude, {
                 elevation: runwayPoint.elevation,
                 direction_degree: runwayData.alignment,
@@ -107,7 +134,11 @@ Your aircraft is ${getVectorString(aircraftVector)} of ${airportData.name} Airpo
 `;
     }
 
-    private getPatternWaypoints(runwayData: BestRunway, runwayPoint: Point): AeroflyNavRouteWaypoint[] {
+    private getPatternWaypoints(
+        runwayData: BestRunway,
+        runwayPoint: Point,
+        patternAltitudeAgl_ft: number,
+    ): AeroflyNavRouteWaypoint[] {
         /**
          * in meters
          */
@@ -131,7 +162,7 @@ Your aircraft is ${getVectorString(aircraftVector)} of ${airportData.name} Airpo
         /**
          * in meters MSL
          */
-        const patternAltitude = (runwayPoint.elevation ?? 0) + this.patternAltitudeAgl_ft * UNIT_METER_PER_FEET;
+        const patternAltitude = (runwayPoint.elevation ?? 0) + patternAltitudeAgl_ft * UNIT_METER_PER_FEET;
 
         /**
          * meters to sink per meter distance to have 3° glide slope
