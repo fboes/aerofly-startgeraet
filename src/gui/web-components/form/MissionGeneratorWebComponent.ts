@@ -2,8 +2,8 @@ import { sendToMain } from "../../renderer/sendToMain.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { registerShortcut, htmlShortcutString } from "../../renderer/registerShortcut.js";
 import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGenerator.type.js";
-import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { html } from "../../../core/formatter/html.js";
+import { MissionGeneratorSettingsWebComponent } from "./MissionGeneratorSettingsWebComponent.js";
 
 export class MissionGeneratorWebComponent extends HTMLElement {
     private isInitialized = false;
@@ -16,10 +16,12 @@ export class MissionGeneratorWebComponent extends HTMLElement {
         button: HTMLButtonElement;
         dialog: HTMLDialogElement;
         dialogInner: HTMLElement;
-        // missionGeneratorSettings
+        missionGeneratorSettings: MissionGeneratorSettingsWebComponent;
     };
 
     private initialize() {
+        MissionGeneratorSettingsWebComponent.registerElement();
+
         this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
 
@@ -31,14 +33,16 @@ export class MissionGeneratorWebComponent extends HTMLElement {
   <button commandfor="dialog-mission-generator" command="close" title="Close">✕</button>
 </dialog>
 
-<!-- aerofly-mission-generator-settings></aerofly-mission-generator-settings -->
+<aerofly-mission-generator-settings></aerofly-mission-generator-settings>
         `;
 
         this.elements = {
             button: this.querySelector("button") as HTMLButtonElement,
             dialog: this.querySelector("dialog") as HTMLDialogElement,
             dialogInner: this.querySelector("dialog section") as HTMLElement,
-            // missionGeneratorSettings: this.querySelector("aerofly-mission-generator-settings")
+            missionGeneratorSettings: this.querySelector(
+                "aerofly-mission-generator-settings",
+            ) as MissionGeneratorSettingsWebComponent,
         };
     }
 
@@ -82,24 +86,19 @@ export class MissionGeneratorWebComponent extends HTMLElement {
             return;
         }
 
+        this.openMissionGeneratorSettings(e.target.dataset.name);
+    };
+
+    private async openMissionGeneratorSettings(generatorName: string) {
         this.elements.dialog.close();
 
-        /*
-        const response = await sendToMain<NotificationEventPayload<MissionGeneratorManifest>("mission-generator:get-manifest", e.target.dataset.name,
+        const generatorManifest = await sendToMain<MissionGeneratorManifest>(
+            "mission-generator:get-manifest",
+            generatorName,
         );
-        if (response.payload) {
-            this.elements.missionGeneratorSettings.schema = response.payload;
-            this.elements.missionGeneratorSettings.open();
-        } */
 
-        dispatchNotificationEvent(document.body, `Generating mission`, "waiting");
-
-        const response = await sendToMain<NotificationEventPayload<undefined>>("mission-generator:execute", {
-            generatorName: e.target.dataset.name,
-            generatorPayload: {},
-        });
-        dispatchNotificationEvent(document.body, response.message, response.type);
-    };
+        this.elements.missionGeneratorSettings.open(generatorManifest);
+    }
 
     private createDialog() {
         if (this.missionGeneratorManifests.length === 0) {

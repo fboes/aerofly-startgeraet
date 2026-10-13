@@ -43,12 +43,6 @@ This mission generator will create a civil landing pattern flightplan at your
 current origin airport, using the current weather settings to determine which
 runway to use.
 
-Your aircraft will be placed at a random location in the vicinity. If in doubt,
-provide a minimum safe altitude to not have your aircraft spawn in terrain.
-
-Right-hand patterns will be assumed for all runways ending with "R". You can
-provide an additional list of right-hand pattern runways.
-
 After completing your flight, you will be able to check if you hit the planned
 pattern by looking at the recent flight log.
 
@@ -61,17 +55,26 @@ so possibly this could take a few seconds depending on API availability.
 
     configuration(): z.ZodObject<LandingPatternMissionGeneratorConfiguration> {
         return z.object({
-            distance_nm: z
-                .number()
-                .min(2)
-                .default(8)
-                .describe("Initial aircraft distance from airport in Nautical Miles"),
-            patternAltitudeAgl_ft: z.number().min(100).default(1000).describe("Pattern altitude in ft AGL"),
-            minimumSafeAltitude_ft: z.number().optional().describe("Minimum safe altitude in ft MSL"),
+            distance_nm: z.number().min(2).default(8).meta({
+                title: "Initial aircraft distance from airport in Nautical Miles",
+                description: `Your aircraft will be placed at a random location in the vicinity.`,
+            }),
+            patternAltitudeAgl_ft: z.number().min(100).default(1000).meta({
+                title: "Pattern altitude in ft AGL",
+                description: `The generator will create a landing pattern at this altitude above ground level.`,
+            }),
+            minimumSafeAltitude_ft: z.number().optional().meta({
+                title: "Minimum safe altitude in ft MSL",
+                description: `If in doubt, provide a minimum safe altitude to not have your aircraft spawn in terrain.`,
+            }),
             rightPatternRunways: z
                 .string()
                 .optional()
-                .describe("Comma-separated list of runway names with right-turn pattern"),
+                .meta({
+                    title: "Comma-separated list of runway names with right-turn pattern",
+                    description: `Right-hand patterns will be assumed for all runways ending with "R". You can
+provide an additional list of right-hand pattern runways.`,
+                }),
         });
     }
 
