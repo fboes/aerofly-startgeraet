@@ -5,7 +5,15 @@ import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
 import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 
-export type MissionGeneratorZodSchema = z.core.ZodStandardJSONSchemaPayload<z.ZodObject>;
+type ZodSchemaProperty = {
+    type: string;
+    title?: string;
+    description?: string;
+    unit?: string;
+    minimum?: number;
+    maximum?: number;
+    default?: number | string;
+};
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     "landing-pattern": LandingPatternMissionGenerator,
@@ -37,18 +45,35 @@ export function getMissionGeneratorManifest(generatorName: string): MissionGener
 
     return {
         ...m.manifest(),
-        configuration: getMissionGeneratorZodSchema(m.configuration()),
+        configuration: getMissionGeneratorConfiguration(m.configuration()),
     };
 }
 
-function getMissionGeneratorZodSchema(schema: z.ZodObject): MissionGeneratorManifestField[] {
+function getMissionGeneratorConfiguration(schema: z.ZodObject): MissionGeneratorManifestField[] {
     const jsonSchema = schema.toJSONSchema();
-    if (!jsonSchema) {
+    if (!jsonSchema?.properties) {
         return [];
     }
 
-    // TODO: Parse fields
-    return [];
+    const fields: MissionGeneratorManifestField[] = [];
+    for (const name in jsonSchema.properties) {
+        const s = jsonSchema.properties[name] as ZodSchemaProperty | undefined;
+        if (!s) {
+            continue;
+        }
+
+        fields.push({
+            name,
+            label: s.title || name,
+            unit: s.unit || "",
+            type: s.type === "number" ? "number" : "string",
+            min: s.minimum,
+            max: s.maximum,
+            default: s.default,
+            required: jsonSchema.required?.includes(name) || false,
+        });
+    }
+    return fields;
 }
 
 export function executeMissionGenerator(

@@ -31,6 +31,8 @@ export type MissionGeneratorManifest = {
 export type MissionGeneratorManifestField = {
     name: string;
     label: string;
+    unit?: string;
+    description?: string;
     type: "string" | "number";
     required: boolean;
     default?: string | number;
@@ -39,5 +41,5 @@ export type MissionGeneratorManifestField = {
     // Only applicable for `type:"number"`
     step?: number;
     // Only applicable for `type:"string"`
-    pattern?: number;
+    pattern?: string;
 };
