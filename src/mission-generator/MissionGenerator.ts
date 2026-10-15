@@ -1,13 +1,10 @@
 import type { z } from "zod";
 import type { MissionGenerator } from "./MissionGenerator.interface.js";
-import type {
-    MissionGeneratorManifest,
-    MissionGeneratorManifestField,
-    ZodSchemaProperty,
-} from "./MissionGenerator.type.js";
+import type { MissionGeneratorManifest, MissionGeneratorManifestField } from "./MissionGenerator.type.js";
 import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
 import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
+import type { JsonSchemaObject, JsonSchemaType } from "./JsonSchema.type.js";
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     "landing-pattern": LandingPatternMissionGenerator,
@@ -43,22 +40,32 @@ export function getMissionGeneratorManifest(generatorName: string): MissionGener
 }
 
 function getMissionGeneratorConfiguration(schema: z.ZodObject): MissionGeneratorManifestField[] {
-    const jsonSchema = schema.toJSONSchema();
+    const jsonSchema = schema.toJSONSchema() as JsonSchemaObject;
     if (!jsonSchema?.properties) {
         return [];
     }
 
     const fields: MissionGeneratorManifestField[] = [];
     for (const name in jsonSchema.properties) {
-        const s = jsonSchema.properties[name] as ZodSchemaProperty | undefined;
+        const s = jsonSchema.properties[name];
         if (!s) {
             continue;
+        }
+
+        const type: JsonSchemaType | undefined = Array.isArray(s.type) ? s.type[0] : s?.type;
+        if (!type) {
+            continue;
+        }
+
+        if (!["string", "number", "integer"].includes(type)) {
+            throw new ErrorFormatted("Unsupported JSON Schema type {{ type }} in mission configuration", { type });
         }
 
         fields.push({
             name,
             ...s,
-            required: jsonSchema.required?.includes(name) || false,
+            type,
+            isRequired: jsonSchema.required?.includes(name) || false,
         });
     }
     return fields;

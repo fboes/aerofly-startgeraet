@@ -20,7 +20,7 @@ import {
     getBestRunwayViaFlightService,
     getMinimumSafeAltitude,
     getRunwayPoint,
-} from "../missionGeneratorUtils.js";
+} from "../MissionGenerator.utils.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
@@ -83,7 +83,7 @@ so possibly this could take a few seconds depending on API availability.
         configuration: z.infer<z.ZodObject<LandingPatternMissionGeneratorConfiguration>>,
         flightPlanService: AeroflyFlightService,
     ): Promise<void> {
-        const rightPatternRunways = (configuration.rightPatternRunways ?? "").toUpperCase().split(/\s*,\s/);
+        const rightPatternRunways = (configuration.rightPatternRunways ?? "").toUpperCase().split(/\s*,\s*/);
 
         // Establish airport
         const airportData = await getAirportDataViaOrigin(flightPlanService);

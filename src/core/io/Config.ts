@@ -77,7 +77,7 @@ export type ConfigStore = Conf<ConfigData>;
  * as well as persistence handler.
  */
 export class Config {
-    protected readonly conf: ConfigStore = new Conf({ projectName: "startgeraet" });
+    protected readonly conf: ConfigStore = new Conf({ projectName: "startgeraet", defaults: CONFIG_DEFAULTS });
 
     // ----------------------------------------------------------
 

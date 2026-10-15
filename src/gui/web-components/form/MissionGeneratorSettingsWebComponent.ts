@@ -1,4 +1,7 @@
-import type { MissionGeneratorManifest } from "../../../mission-generator/MissionGenerator.type.js";
+import type {
+    MissionGeneratorManifest,
+    MissionGeneratorManifestField,
+} from "../../../mission-generator/MissionGenerator.type.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { registerElement } from "../../renderer/registerElement.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
@@ -13,7 +16,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         title: HTMLHeadingElement;
         description: HTMLParagraphElement;
         form: HTMLDivElement;
-        inputElements: HTMLInputElement[];
+        inputElements: (HTMLInputElement | HTMLSelectElement)[];
         submitButton: HTMLButtonElement;
     };
 
@@ -34,8 +37,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
   <p>There are no settings available for the mission generator.</p>
 
   <div id="dialog-mission-generator-settings-form" class="d-flex"></div>
-
-  <button id="dialog-mission-generator-settings-generate">Generate</button>
+  <button id="dialog-mission-generator-settings-generate" class="mt-3">Generate</button>
 
   <button commandfor="dialog-mission-generator-settings" command="close" title="Close">✕</button>
 </dialog>
@@ -68,7 +70,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         this.manifest = manifest;
         this.elements.title.innerText = manifest.displayName;
         this.elements.description.innerText = manifest.longDescription || manifest.description;
-        this.elements.form.replaceChildren(...this.getFormFieldsHtml());
+        this.elements.form.replaceChildren(...this.getFormFieldElements());
         this.elements.dialog.showModal();
     }
 
@@ -88,21 +90,13 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         dispatchNotificationEvent(document.body, response.message, response.type);
     };
 
-    /**
-     * <div class="form-group">
-        <label for="wind-gust">Wind gusts</label>
-        <span class="input-group">
-            <input id="wind-gust" type="number" min="0" value="0" />
-            <span>kts</span>
-        </span>
-    </div>
-     */
-    private getFormFieldsHtml(): HTMLElement[] {
+    private getFormFieldElements(): HTMLElement[] {
         if (!this.manifest?.configuration) {
             return [];
         }
 
         this.elements.inputElements = [];
+        console.log("this.manifest.configuration", this.manifest.configuration);
 
         return this.manifest.configuration.map((c) => {
             const div = document.createElement("div");
@@ -111,19 +105,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             const label = document.createElement("label");
             label.innerText = c.title || c.name;
 
-            const input = document.createElement("input");
-            input.name = c.name;
-            input.type = c.type;
-            if (c.minimum) {
-                input.min = c.minimum.toString();
-            }
-            if (c.maximum) {
-                input.max = c.maximum.toString();
-            }
-            if (c.default) {
-                input.value = c.default.toString();
-            }
-            input.required = c.required;
+            const input = this.getInput(c);
             this.elements.inputElements.push(input);
 
             if (c.unit) {
@@ -141,6 +123,42 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
 
             return div;
         });
+    }
+
+    private getInput(c: MissionGeneratorManifestField) {
+        const input = document.createElement(c.enum ? "select" : "input");
+        input.name = c.name;
+        input.required = c.isRequired;
+
+        if (input instanceof HTMLSelectElement && c.enum) {
+            input.append(
+                ...c.enum.map((e) => {
+                    const opt = document.createElement("option");
+                    opt.innerText = String(e);
+                    return opt;
+                }),
+            );
+        }
+
+        if (input instanceof HTMLInputElement) {
+            input.type = c.type === "number" || c.type === "integer" ? "number" : "text";
+            if (c.multipleOf) {
+                input.step = c.multipleOf.toString();
+            }
+            if (c.minimum) {
+                input.min = c.minimum.toString();
+            }
+            if (c.maximum) {
+                input.max = c.maximum.toString();
+            }
+            if (c.default) {
+                input.value = c.default.toString();
+            }
+            if (c.pattern) {
+                input.value = c.pattern;
+            }
+        }
+        return input;
     }
 
     static registerElement() {

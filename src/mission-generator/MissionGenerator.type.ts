@@ -1,3 +1,5 @@
+import type { JsonSchemaObject, JsonSchemaType } from "./JsonSchema.type.js";
+
 /**
  * Describes the purpose of a Mission Generator to the user
  */
@@ -28,17 +30,8 @@ export type MissionGeneratorManifest = {
     configuration?: MissionGeneratorManifestField[];
 };
 
-export type ZodSchemaProperty = {
-    type: string;
-    title?: string;
-    description?: string;
-    unit?: string;
-    minimum?: number;
-    maximum?: number;
-    default?: number | string;
-};
-
-export type MissionGeneratorManifestField = ZodSchemaProperty & {
+export type MissionGeneratorManifestField = JsonSchemaObject & {
     name: string;
-    required: boolean;
+    type: JsonSchemaType;
+    isRequired: boolean;
 };

@@ -8,8 +8,13 @@ import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightForma
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
 import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
-import { executeMissionGenerator, MISSIONS_GENERATOR_MANIFESTS } from "../../mission-generator/generateFlightplan.js";
+import {
+    executeMissionGenerator,
+    getMissionGeneratorManifest,
+    MISSIONS_GENERATOR_MANIFESTS,
+} from "../../mission-generator/MissionGenerator.js";
 import { fmt } from "../../core/formatter/format.js";
+import type { MissionGeneratorManifestField } from "../../mission-generator/MissionGenerator.type.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "writeMenuTitle" | "name" | "execute">;
 
@@ -61,6 +66,7 @@ export class MenuCommand extends BaseControllerCommand {
                 name: this.name("Flightplan", AeroflyFlightFormatter.getFlightplanSummary(aeroflyFlight)),
                 value: "importFlightplan",
                 short: "Import / export flightplan",
+                description: "Import / export flightplan, run mission generator",
             },
             {
                 name: this.name("Time & Date", this.controller.getTimeAndDateCombinedString(), true),
@@ -71,6 +77,7 @@ export class MenuCommand extends BaseControllerCommand {
                 name: this.name("Weather", AeroflyFlightFormatter.getCombinedFlightCategory(aeroflyFlight)),
                 value: "importWeather",
                 short: "Import weather",
+                description: "Import METAR & TAF weather reports",
             },
             {
                 name: this.name("Wind", AeroflyFlightFormatter.getWind(aeroflyFlight), true),
@@ -94,7 +101,11 @@ export class MenuCommand extends BaseControllerCommand {
                 short: "Set visibility",
             },
             new Separator(),
-            { name: "Configuration & Help", value: "setConfiguration" },
+            {
+                name: "Configuration & Help",
+                value: "setConfiguration",
+                description: "Change basic settings of this application",
+            },
             { name: "Save & Exit", value: "saveAndExit" },
         ];
 
@@ -111,9 +122,10 @@ export class MenuCommand extends BaseControllerCommand {
             message: "Aircraft",
             default: this.controller.getAircraft(),
             choices: getAllAeroflyAircraftWithLiveries()
-                .map((livery) => ({
-                    name: livery.nameFull,
-                    value: livery.aeroflyCode,
+                .map((aircraft) => ({
+                    name: aircraft.nameFull,
+                    value: aircraft.aeroflyCode,
+                    description: aircraft.icaoCode,
                 }))
                 .sort((a, b) => a.name.localeCompare(b.name)),
         });
@@ -129,6 +141,7 @@ export class MenuCommand extends BaseControllerCommand {
                           .map((livery) => ({
                               name: livery.name,
                               value: livery.aeroflyCode !== "default" ? livery.aeroflyCode : "",
+                              description: livery.icaoCode,
                           }))
                           .sort((a, b) => a.name.localeCompare(b.name)),
                   })
@@ -307,6 +320,7 @@ export class MenuCommand extends BaseControllerCommand {
                 ...MISSIONS_GENERATOR_MANIFESTS.map((manifest) => ({
                     name: manifest.displayName,
                     value: manifest.name,
+                    description: manifest.description,
                 })),
 
                 new Separator(),
@@ -318,12 +332,60 @@ export class MenuCommand extends BaseControllerCommand {
             return choice;
         }
 
-        executeMissionGenerator(this.controller, choice, {});
+        return this.missionGeneratorExecute(choice);
+    }
+
+    private async missionGeneratorExecute(generatorName: string): Promise<MenuCommandMethod> {
+        const manifest = getMissionGeneratorManifest(generatorName);
+
+        writeMenuTitle(["Mission Generator", manifest.displayName]);
+        writeln(manifest.longDescription);
+
+        const generatorConfiguration: Record<string, string | number | undefined> = {};
+        for (const field of manifest.configuration ?? []) {
+            generatorConfiguration[field.name] = await this.missionGeneratorField(field);
+        }
+
+        executeMissionGenerator(this.controller, generatorName, generatorConfiguration);
         writeSuccess(
-            fmt(`Mission generator {{ choice }} executed successfully, flight plan has been updated`, { choice }),
+            fmt(`Mission generator {{ generatorName }} executed successfully, flight plan has been updated`, {
+                generatorName,
+            }),
         );
 
         return "mainMenu";
+    }
+
+    private async missionGeneratorField(field: MissionGeneratorManifestField): Promise<string | number | undefined> {
+        const message = field.title ?? field.name + (field.unit ? ` (${field.unit})` : "");
+
+        if (field.enum) {
+            return select({
+                message,
+                choices: field.enum.map((e) => String(e)),
+                default: field.default ? String(field.default) : undefined,
+            });
+        }
+
+        switch (field.type) {
+            case "number":
+            case "integer":
+                return number({
+                    message,
+                    required: field.isRequired,
+                    min: field.minimum,
+                    max: field.maximum,
+                    step: field.multipleOf,
+                    default: field.default ? Number(field.default) : undefined,
+                });
+            default:
+                return input({
+                    message,
+                    required: field.isRequired,
+                    default: field.default ? String(field.default) : undefined,
+                });
+        }
+        return undefined;
     }
 
     async setTimeAndDate(): Promise<MenuCommandMethod> {
