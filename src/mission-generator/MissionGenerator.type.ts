@@ -28,18 +28,17 @@ export type MissionGeneratorManifest = {
     configuration?: MissionGeneratorManifestField[];
 };
 
-export type MissionGeneratorManifestField = {
-    name: string;
-    label: string;
-    unit?: string;
+export type ZodSchemaProperty = {
+    type: string;
+    title?: string;
     description?: string;
-    type: "string" | "number";
+    unit?: string;
+    minimum?: number;
+    maximum?: number;
+    default?: number | string;
+};
+
+export type MissionGeneratorManifestField = ZodSchemaProperty & {
+    name: string;
     required: boolean;
-    default?: string | number;
-    min?: number;
-    max?: number;
-    // Only applicable for `type:"number"`
-    step?: number;
-    // Only applicable for `type:"string"`
-    pattern?: string;
 };

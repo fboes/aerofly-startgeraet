@@ -109,22 +109,16 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             div.classList.add("form-group");
 
             const label = document.createElement("label");
-            label.innerText = c.label;
+            label.innerText = c.title || c.name;
 
             const input = document.createElement("input");
             input.name = c.name;
             input.type = c.type;
-            if (c.min) {
-                input.min = c.min.toString();
+            if (c.minimum) {
+                input.min = c.minimum.toString();
             }
-            if (c.max) {
-                input.max = c.max.toString();
-            }
-            if (c.step) {
-                input.step = c.step.toString();
-            }
-            if (c.pattern) {
-                input.pattern = c.pattern;
+            if (c.maximum) {
+                input.max = c.maximum.toString();
             }
             if (c.default) {
                 input.value = c.default.toString();
