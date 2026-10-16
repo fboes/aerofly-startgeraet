@@ -8,9 +8,9 @@ import { Point, Vector } from "@fboes/geojson";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../core/util/units.js";
 import { randomArbitrary } from "../../core/util/random.js";
 import { AeroflyNavigationConfig, AeroflyNavRouteWaypoint } from "@fboes/aerofly-custom-missions";
-import type { AviationWeatherApiFix, AviationWeatherApiNavaid } from "../../core/api/AviationWeatherApi.type.js";
+import { getHoldingPattern, type HoldingPattern } from "./HoldingPattern.js";
 
-type HoldingPatternMissionGeneratorConfiguration = {
+export type HoldingPatternMissionGeneratorConfiguration = {
     navaidIdentifier: z.ZodString;
     distance_nm: z.ZodDefault<z.ZodNumber>;
     holdAltitudeMsl_ft: z.ZodDefault<z.ZodNumber>;
@@ -51,7 +51,11 @@ so possibly this could take a few seconds depending on API availability.
                 .regex(/^[A-Z0-9]{2,6}$/)
                 .meta({ title: "Reference RNAV / Navigational Aid" }),
             distance_nm: z.number().min(2).default(8).meta({ title: "Initial aircraft distance from fix", unit: "NM" }),
-            holdAltitudeMsl_ft: z.number().min(0).default(10000).meta({ title: "Holding Altitude for pattern", unit: "ft MSL" }),
+            holdAltitudeMsl_ft: z
+                .number()
+                .min(0)
+                .default(10000)
+                .meta({ title: "Holding Altitude for pattern", unit: "ft MSL" }),
             inboundHeading_deg: z
                 .number()
                 .min(0)
@@ -93,6 +97,16 @@ so possibly this could take a few seconds depending on API availability.
               }
             : navaidData;
 
+        // Establish pattern
+        const aircraft = flightPlanService.getAircraftData();
+        const pattern = getHoldingPattern(
+            aircraft?.cruiseSpeedKts ?? 999,
+            fixData,
+            fixPoint,
+            inboundHeading,
+            configuration,
+        );
+
         // Establish aircraft position
         const aircraftHeading = randomArbitrary(0, 356);
         const aircraftVector = new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360);
@@ -117,34 +131,70 @@ so possibly this could take a few seconds depending on API availability.
         const flight = flightPlanService.getAeroflyFlight();
         flight.navigation = new AeroflyNavigationConfig(aircraftPoint.elevation, [
             departureAirport,
-            ...this.getPatternWaypoints(fixData, fixPoint),
+            ...this.getPatternWaypoints(pattern),
             arrivalAirport,
         ]);
         flight._missionTitle = `Holding pattern at ${navaidData.id}`;
         flight._missionBriefing = `\
-Your aircraft is ${getVectorString(aircraftVector)} of ${navaidData.id}.
+Your aircraft is ${getVectorString(aircraftVector)} of ${fixData.id}.
 `;
     }
 
-    private getPatternWaypoints(
-        fixData: AviationWeatherApiNavaid | AviationWeatherApiFix,
-        fixPoint: Point,
-    ): AeroflyNavRouteWaypoint[] {
+    private getPatternWaypoints(pattern: HoldingPattern): AeroflyNavRouteWaypoint[] {
+        const fixPoint = pattern.fixPoint;
+        const fixData = pattern.fixData;
+        const turnMultiplier = pattern.isLeftPattern ? -1 : 1;
+
+        const pointAfterFix = fixPoint.getPointBy(
+            new Vector(pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue + 180),
+        );
+        const pointAbeam = pointAfterFix.getPointBy(
+            new Vector(2 * pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue - turnMultiplier * 90),
+        );
+        const pointOutbound = pointAbeam.getPointBy(
+            new Vector(pattern.legDistanceMeters + 2 * pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue),
+        );
+        const pointInbound = pointOutbound.getPointBy(
+            new Vector(2 * pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue + turnMultiplier * 90),
+        );
+
         const navaidFrequency_khz: undefined | number = undefined;
+        const patternWaypointProperties = {
+            altitude: fixPoint.elevation,
+        };
 
         return [
             new AeroflyNavRouteWaypoint(fixData.id, fixPoint.longitude, fixPoint.latitude, {
-                altitude: fixPoint.elevation,
+                ...patternWaypointProperties,
                 flyOver: true,
                 navaidFrequency_khz,
             }),
-            // fix
-            // TURN
-            //  pattern.id + "-ABEAM",
-            // pattern.id + "-OUTBND",
-            //pattern.id + "-INBND",
+            new AeroflyNavRouteWaypoint(
+                fixData.id + "-TURN",
+                pointAfterFix.longitude,
+                pointAfterFix.latitude,
+                patternWaypointProperties,
+            ),
+            new AeroflyNavRouteWaypoint(
+                fixData.id + "-ABEAM",
+                pointAbeam.longitude,
+                pointAbeam.latitude,
+                patternWaypointProperties,
+            ),
+            new AeroflyNavRouteWaypoint(
+                fixData.id + "-OUTBND",
+                pointOutbound.longitude,
+                pointOutbound.latitude,
+                patternWaypointProperties,
+            ),
+            new AeroflyNavRouteWaypoint(
+                fixData.id + "-INBND",
+                pointInbound.longitude,
+                pointInbound.latitude,
+                patternWaypointProperties,
+            ),
             new AeroflyNavRouteWaypoint(fixData.id, fixPoint.longitude, fixPoint.latitude, {
-                altitude: fixPoint.elevation,
+                ...patternWaypointProperties,
                 flyOver: true,
                 navaidFrequency_khz,
             }),

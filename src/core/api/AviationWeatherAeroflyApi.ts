@@ -152,19 +152,15 @@ export async function getFixOrNavAidCached(fixCode: string): Promise<AviationWea
         return cachedFix;
     }
 
-    const navaids = await api.fetchNavaids([fixCode]);
-    if (navaids[0]) {
-        fixCache.set(fixCode, navaids[0]);
+    const navaids = fixCode.length < 4 ? await api.fetchNavaids([fixCode]) : await api.fetchFix([fixCode]);
+    if (!navaids[0]) {
+        throw new ErrorFormatted(`No nav aid / fix information found for "{{ fixCode }}"`, {
+            fixCode,
+        });
     }
 
-    const fixes = await api.fetchFix([fixCode]);
-    if (fixes[0]) {
-        fixCache.set(fixCode, fixes[0]);
-    }
-
-    throw new ErrorFormatted(`No nav aid / fix information found for "{{ fixCode }}"`, {
-        fixCode,
-    });
+    fixCache.set(fixCode, navaids[0]);
+    return navaids[0];
 }
 
 /**
