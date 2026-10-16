@@ -4,14 +4,14 @@
 
 export type JsonSchemaType = "null" | "boolean" | "object" | "array" | "number" | "string" | "integer";
 
-export type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
+export type JsonSchemaValue = null | boolean | number | string | JsonSchemaValue[] | { [key: string]: JsonSchemaValue };
 
 export type JsonSchemaObject = {
     type?: JsonSchemaType | JsonSchemaType[];
     title?: string;
     description?: string;
-    default?: JsonValue;
-    enum?: JsonValue[];
+    default?: JsonSchemaValue;
+    enum?: JsonSchemaValue[];
     properties?: Record<string, JsonSchemaObject>;
     required?: string[];
 

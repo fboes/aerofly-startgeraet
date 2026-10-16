@@ -1,3 +1,4 @@
+import type { JsonSchemaType } from "../../../mission-generator/JsonSchema.type.js";
 import type {
     MissionGeneratorManifest,
     MissionGeneratorManifestField,
@@ -20,13 +21,27 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         submitButton: HTMLButtonElement;
     };
 
-    get state(): Record<string, string | number | undefined> {
-        const state: Record<string, string | number | undefined> = {};
+    get state(): Record<string, string | number | boolean | undefined> {
+        const state: Record<string, string | number | boolean | undefined> = {};
         for (const input of this.elements.inputElements) {
-            state[input.name] = !input.value ? undefined : input.type === "number" ? input.valueAsNumber : input.value;
+            state[input.name] = this.getInputValue(input);
         }
 
         return state;
+    }
+
+    private getInputValue(input: HTMLInputElement | HTMLSelectElement): string | number | boolean | undefined {
+        if (input.value === "") {
+            return undefined;
+        }
+        switch (input.type) {
+            case "number":
+                return input.valueAsNumber;
+            case "checkbox":
+                return input.checked;
+            default:
+                return input.value;
+        }
     }
 
     private initialize() {
@@ -96,7 +111,6 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         }
 
         this.elements.inputElements = [];
-        console.log("this.manifest.configuration", this.manifest.configuration);
 
         return this.manifest.configuration.map((c) => {
             const div = document.createElement("div");
@@ -141,7 +155,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         }
 
         if (input instanceof HTMLInputElement) {
-            input.type = c.type === "number" || c.type === "integer" ? "number" : "text";
+            input.type = this.jsonSchemaTypeToInputType(c.type);
             if (c.multipleOf) {
                 input.step = c.multipleOf.toString();
             }
@@ -151,14 +165,26 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             if (c.maximum) {
                 input.max = c.maximum.toString();
             }
-            if (c.default) {
+            if (c.default !== undefined && c.default !== null) {
                 input.value = c.default.toString();
             }
             if (c.pattern) {
-                input.value = c.pattern;
+                input.pattern = c.pattern;
             }
         }
         return input;
+    }
+
+    private jsonSchemaTypeToInputType(jsonSchemaType: JsonSchemaType): string {
+        switch (jsonSchemaType) {
+            case "number":
+            case "integer":
+                return "number";
+            case "boolean":
+                return "checkbox";
+            default:
+                return "text";
+        }
     }
 
     static registerElement() {

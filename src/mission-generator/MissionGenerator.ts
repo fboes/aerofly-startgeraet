@@ -5,9 +5,13 @@ import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
 import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import type { JsonSchemaObject, JsonSchemaType } from "./JsonSchema.type.js";
+import { HoldingPatternMissionGenerator } from "./holding-pattern/HoldingPatternMissionGenerator.js";
+import { HemsMissionGenerator } from "./hems-mission/HemsMissionGenerator.js";
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     "landing-pattern": LandingPatternMissionGenerator,
+    "holding-pattern": HoldingPatternMissionGenerator,
+    "hems-mission": HemsMissionGenerator,
 };
 
 export const MISSIONS_GENERATOR_MANIFESTS: MissionGeneratorManifest[] = Object.entries(MISSION_GENERATOR_REGISTRY).map(
@@ -57,7 +61,7 @@ function getMissionGeneratorConfiguration(schema: z.ZodObject): MissionGenerator
             continue;
         }
 
-        if (!["string", "number", "integer"].includes(type)) {
+        if (!["string", "number", "integer", "boolean"].includes(type)) {
             throw new ErrorFormatted("Unsupported JSON Schema type {{ type }} in mission configuration", { type });
         }
 

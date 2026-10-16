@@ -1,4 +1,4 @@
-import { input, number, select, Separator } from "@inquirer/prompts";
+import { confirm, input, number, select, Separator } from "@inquirer/prompts";
 import type { AeroflyFlightServiceCloud } from "../../core/services/AeroflyFlightService.js";
 import { BaseControllerCommand } from "./ControllerCommand.base.js";
 import { HelpCommand } from "./HelpCommand.js";
@@ -341,7 +341,7 @@ export class MenuCommand extends BaseControllerCommand {
         writeMenuTitle(["Mission Generator", manifest.displayName]);
         writeln(manifest.longDescription);
 
-        const generatorConfiguration: Record<string, string | number | undefined> = {};
+        const generatorConfiguration: Record<string, string | number | boolean | undefined> = {};
         for (const field of manifest.configuration ?? []) {
             generatorConfiguration[field.name] = await this.missionGeneratorField(field);
         }
@@ -356,7 +356,9 @@ export class MenuCommand extends BaseControllerCommand {
         return "mainMenu";
     }
 
-    private async missionGeneratorField(field: MissionGeneratorManifestField): Promise<string | number | undefined> {
+    private async missionGeneratorField(
+        field: MissionGeneratorManifestField,
+    ): Promise<string | number | boolean | undefined> {
         const message = field.title ?? field.name + (field.unit ? ` (${field.unit})` : "");
 
         if (field.enum) {
@@ -377,6 +379,10 @@ export class MenuCommand extends BaseControllerCommand {
                     max: field.maximum,
                     step: field.multipleOf,
                     default: field.default ? Number(field.default) : undefined,
+                });
+            case "boolean":
+                return confirm({
+                    message,
                 });
             default:
                 return input({
