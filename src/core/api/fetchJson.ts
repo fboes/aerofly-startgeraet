@@ -7,7 +7,7 @@ import { APPLICATION_INFORMATION } from "../services/getApplicationInformation.j
  * - Add default header for user agent
  */
 export async function fetchJson(input: string | URL | Request, timeoutMs = 5000): Promise<Response> {
-    //console.log(input.toString());
+    // console.log(input.toString());
 
     const request = new Request(input);
 

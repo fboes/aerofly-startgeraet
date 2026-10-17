@@ -5,8 +5,6 @@ import type {
     AviationWeatherNormalizedMetar,
     AviationWeatherApiNormalizedTafForecast,
     AviationWeatherApiRunwaySurface,
-    AviationWeatherApiNavaid,
-    AviationWeatherApiFix,
 } from "./AviationWeatherApi.type.js";
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
 import { UNIT_METER_PER_FEET } from "../util/units.js";
@@ -29,7 +27,6 @@ export type BestRunway = {
 const api = new AviationWeatherApi();
 
 const airportCache = new Map<string, AviationWeatherNormalizedAirport>();
-const fixCache = new Map<string, AviationWeatherApiNavaid | AviationWeatherApiFix>();
 
 /**
  * Fetch METAR report for current flight setup, set METAR data to current flight
@@ -144,23 +141,6 @@ export async function getAirportCached(airportIcaoCode: string): Promise<Aviatio
 
     airportCache.set(airportIcaoCode, airports[0]);
     return airports[0];
-}
-
-export async function getFixOrNavAidCached(fixCode: string): Promise<AviationWeatherApiNavaid | AviationWeatherApiFix> {
-    const cachedFix = fixCache.get(fixCode);
-    if (cachedFix) {
-        return cachedFix;
-    }
-
-    const navaids = fixCode.length < 4 ? await api.fetchNavaids([fixCode]) : await api.fetchFix([fixCode]);
-    if (!navaids[0]) {
-        throw new ErrorFormatted(`No nav aid / fix information found for "{{ fixCode }}"`, {
-            fixCode,
-        });
-    }
-
-    fixCache.set(fixCode, navaids[0]);
-    return navaids[0];
 }
 
 /**

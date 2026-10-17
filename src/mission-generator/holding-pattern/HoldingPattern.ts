@@ -1,52 +1,56 @@
 import type z from "zod";
-import type { AviationWeatherApiNavaid, AviationWeatherApiFix } from "../../core/api/AviationWeatherApi.type.js";
 import { UNIT_METER_PER_NM } from "../../core/util/units.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
 import type { Point } from "@fboes/geojson";
+import type { MissionGeneratorWaypoint } from "../MissionGenerator.type.js";
 
 export type HoldingPattern = {
-    fixData: AviationWeatherApiNavaid | AviationWeatherApiFix;
+    fixData: MissionGeneratorWaypoint;
     fixPoint: Point;
     inboundHeading: number;
     dmeDistance_nm: number;
+    dmeDistanceOutbound_nm: number;
     holdAltitudeMsl_ft: number;
     isHoldingAwayPattern: boolean;
     isLeftPattern: boolean;
     turnRadiusMeters: number;
+    holdingAreaDirection: number;
     holdingAreaDirectionTrue: number;
     legDistanceMeters: number;
 };
 
 export function getHoldingPattern(
     cruiseSpeedKts: number,
-    fixData: AviationWeatherApiNavaid | AviationWeatherApiFix,
+    fixData: MissionGeneratorWaypoint,
     fixPoint: Point,
     inboundHeading: number,
     configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,
 ): HoldingPattern {
     const patternSpeedKts = Math.min(cruiseSpeedKts, getMaxPatternSpeedKts(configuration.holdAltitudeMsl_ft));
 
-    const dmeDistanceOutboundNm =
+    const dmeDistanceOutbound_nm =
         configuration.dmeDistance_nm > 0
             ? configuration.dmeDistance_nm + (configuration.isHoldingAwayPattern ? -4 : 4)
             : 0;
     const legTimeMin = configuration.holdAltitudeMsl_ft > 14000 ? 1.5 : 1.0;
     const turnRadiusMeters = getTurnRadiusMeters(patternSpeedKts);
     const holdingAreaDirection = (inboundHeading + (configuration.isHoldingAwayPattern ? 0 : 180)) % 360;
-    const holdingAreaDirectionTrue = holdingAreaDirection; //  + (fixData.mag_dec)) % 360; TODO
+    const holdingAreaDirectionTrue = (holdingAreaDirection + (fixData.mag_dec ?? 0)) % 360;
 
     return {
         fixData,
         fixPoint,
         inboundHeading,
         dmeDistance_nm: configuration.dmeDistance_nm,
+        dmeDistanceOutbound_nm,
+        holdingAreaDirection,
         holdAltitudeMsl_ft: configuration.holdAltitudeMsl_ft,
         isHoldingAwayPattern: configuration.isHoldingAwayPattern,
         isLeftPattern: configuration.isLeftPattern,
         turnRadiusMeters,
         holdingAreaDirectionTrue,
         legDistanceMeters: getLegDistanceMeters(
-            dmeDistanceOutboundNm,
+            dmeDistanceOutbound_nm,
             turnRadiusMeters,
             configuration.dmeDistance_nm,
             patternSpeedKts,
@@ -67,15 +71,15 @@ function getTurnRadiusMeters(patternSpeedKts: number): number {
 }
 
 function getLegDistanceMeters(
-    dmeDistanceOutboundNm: number,
+    dmeDistanceOutbound_nm: number,
     turnRadiusMeters: number,
     dmeDistanceNm: number,
     patternSpeedKts: number,
     legTimeMin: number,
 ): number {
-    if (dmeDistanceOutboundNm !== 0) {
+    if (dmeDistanceOutbound_nm !== 0) {
         return Math.abs(
-            Math.sqrt((dmeDistanceOutboundNm * UNIT_METER_PER_NM) ** 2 - (turnRadiusMeters * 2) ** 2) -
+            Math.sqrt((dmeDistanceOutbound_nm * UNIT_METER_PER_NM) ** 2 - (turnRadiusMeters * 2) ** 2) -
                 dmeDistanceNm * UNIT_METER_PER_NM,
         );
     }

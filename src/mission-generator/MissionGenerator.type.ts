@@ -35,3 +35,12 @@ export type MissionGeneratorManifestField = JsonSchemaObject & {
     type: JsonSchemaType;
     isRequired: boolean;
 };
+
+export type MissionGeneratorWaypoint = {
+    longitude: number;
+    latitude: number;
+    identifier: string;
+    title?: string;
+    freq_khz?: number;
+    mag_dec?: number;
+};

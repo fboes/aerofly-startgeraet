@@ -20,7 +20,7 @@ import {
     getBestRunwayViaFlightService,
     getMinimumSafeAltitude,
     getRunwayPoint,
-} from "../MissionGenerator.utils.js";
+} from "../utl/ApiService.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
@@ -52,8 +52,9 @@ If in doubt, provide a minimum safe altitude to not have your aircraft spawn in 
 Right-hand patterns will be assumed for all runways ending with "R". You can
 provide an additional list of right-hand pattern runways.
 
-The mission generator will make at least one API call to an internet service,
-so possibly this could take a few seconds depending on API availability.
+The mission generator will make at least one internet request to the
+Avaiation Weather Center API, so possibly this could take a few seconds
+depending on API availability.
 `,
             version: "1.0.0",
         };
