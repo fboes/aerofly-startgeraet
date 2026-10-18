@@ -189,7 +189,12 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     private handleCopyGeoJson = async () => {
         const response = await sendToMain<NotificationEventPayload<string>>("geojson:get");
 
-        dispatchNotificationEvent(document.body, response.message, response.type, response.payload);
+        dispatchNotificationEvent(
+            document.body,
+            response.type === "success" ? "GeoJSON has been copied to clipboard" : response.message,
+            response.type,
+            response.payload,
+        );
 
         if (!response.payload) {
             return;

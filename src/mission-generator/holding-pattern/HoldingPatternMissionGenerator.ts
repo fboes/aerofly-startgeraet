@@ -10,7 +10,7 @@ import { AeroflyNavigationConfig, AeroflyNavRouteWaypoint } from "@fboes/aerofly
 import { getHoldingPattern, type HoldingPattern } from "./HoldingPattern.js";
 import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
 import { numberFormat } from "../../core/formatter/numberFormat.js";
-import { getWaypointData, getWaypointFullName } from "../utl/Waypoint.js";
+import { getWaypointData, getWaypointFullName } from "../_util/Waypoint.js";
 
 export type HoldingPatternMissionGeneratorConfiguration = {
     navaidIdentifier: z.ZodString;
@@ -51,7 +51,8 @@ depending on API availability.
         return z.object({
             navaidIdentifier: z
                 .string()
-                .regex(/^[A-Z0-9]{2,6}$/)
+                .regex(/^[A-Za-z0-9]{2,6}$/)
+                .uppercase()
                 .meta({ title: "Reference RNAV / Navigational Aid" }),
             distance_nm: z.number().min(2).default(8).meta({ title: "Initial aircraft distance from fix", unit: "NM" }),
             holdAltitudeMsl_ft: z

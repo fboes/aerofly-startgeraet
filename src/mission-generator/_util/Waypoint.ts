@@ -40,7 +40,7 @@ export async function getWaypointData(
             return await getFixWaypointData(identifier);
     }
 
-    throw new ErrorFormatted("Invalid waypoint identifier: {{ identifier }} ", { identifier });
+    throw new ErrorFormatted("Did not find data for waypoint identifier: {{ identifier }}", { identifier });
 }
 
 /**

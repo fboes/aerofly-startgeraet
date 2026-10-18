@@ -28,7 +28,11 @@ export async function fetchJson(input: string | URL | Request, timeoutMs = 5000)
  */
 export async function handleJsonResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}: ${response.statusText}`);
+        throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
+    }
+
+    if (!response.body || response.status === 204) {
+        throw new Error(`API request failed, no result returned`);
     }
 
     return (await response.json()) as T;

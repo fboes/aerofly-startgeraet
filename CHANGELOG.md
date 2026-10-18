@@ -2,9 +2,10 @@
 
 ## [Unreleased]
 
-- Adding test artifact writing
 - Updated aircraft / airport database to current Aerofly FS 4 state
 - Added landing pattern mission generator
+- Added holding pattern mission generator
+- Added test artifact writing
 - Refactored API usage
 
 ## [2.6.4] - 2026-10-08

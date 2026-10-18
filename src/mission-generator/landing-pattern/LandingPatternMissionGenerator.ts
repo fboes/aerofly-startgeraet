@@ -20,7 +20,7 @@ import {
     getBestRunwayViaFlightService,
     getMinimumSafeAltitude,
     getRunwayPoint,
-} from "../utl/ApiService.js";
+} from "../_util/ApiService.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
@@ -104,6 +104,7 @@ depending on API availability.
         if (rightPatternRunways) {
             runwayData.isRight = rightPatternRunways.includes(runwayData.id);
         }
+        runwayData.alignment += airportData.magdec; // Changing true alignment to magnetic alignment
         const runwayPoint = getRunwayPoint(runwayData, airportPoint);
 
         // Add flight plan
