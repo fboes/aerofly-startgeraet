@@ -29,6 +29,8 @@ export interface MissionGenerator<S extends z.ZodRawShape> {
      * provided by the user, as well as the current state of the mission setup.
      * Changes to the mission setup are done via the pass-by-reference
      * `flightPlanService`.
+     *
+     * @returns if conversion was successful
      */
-    convert(configuration: z.infer<z.ZodObject<S>>, flightPlanService: AeroflyFlightService): Promise<void>;
+    convert(configuration: z.infer<z.ZodObject<S>>, flightPlanService: AeroflyFlightService): Promise<boolean>;
 }

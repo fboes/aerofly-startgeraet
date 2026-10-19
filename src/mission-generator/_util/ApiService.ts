@@ -39,9 +39,7 @@ export async function getBestRunwayViaFlightService(
  * Point data for runway, according to expected placement in Aerofly FS 4
  */
 export function getRunwayPoint(runwayData: BestRunway, airportPoint: Point): Point {
-    return airportPoint.getPointBy(
-        new Vector((runwayData.dimension.length / 2) * UNIT_METER_PER_FEET, (runwayData.alignment + 180) % 360),
-    );
+    return airportPoint.getPointBy(new Vector(runwayData.dimension.length / 2, (runwayData.alignment + 180) % 360));
 }
 
 /**

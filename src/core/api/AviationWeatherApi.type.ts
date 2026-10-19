@@ -150,6 +150,10 @@ export type AviationWeatherNormalizedRunway = {
      */
     dimension: [number, number];
     surface: AviationWeatherApiRunwaySurface;
+
+    /**
+     * True alignment
+     */
     alignment: number | null;
 };
 

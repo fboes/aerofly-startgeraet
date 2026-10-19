@@ -13,14 +13,23 @@ export type BestRunway = {
     id: string;
 
     /**
-     * length, width in ft
+     * length, width in meters
      */
     dimension: {
         length: number;
         width: number;
     };
+
+    /**
+     * Calculated by checking runway name
+     */
     isRight: boolean;
+
     surface: AviationWeatherApiRunwaySurface;
+
+    /**
+     * True alignment
+     */
     alignment: number;
 };
 
@@ -176,8 +185,8 @@ export async function getBestRunway(
                     (t: string, index: number): BestRunway => ({
                         id: t,
                         dimension: {
-                            length: r.dimension[0] ?? 0,
-                            width: r.dimension[1] ?? 0,
+                            length: (r.dimension[0] ?? 0) * UNIT_METER_PER_FEET,
+                            width: (r.dimension[1] ?? 0) * UNIT_METER_PER_FEET,
                         },
                         isRight: t.endsWith("R"),
                         surface: r.surface,

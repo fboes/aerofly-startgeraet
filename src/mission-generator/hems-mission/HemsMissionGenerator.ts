@@ -32,7 +32,8 @@ target is visible.
     async convert(
         configuration: z.infer<z.ZodObject<HemsMissionGeneratorConfiguration>>,
         flightPlanService: AeroflyFlightService,
-    ): Promise<void> {
+    ): Promise<boolean> {
         throw new Error("Not implemented yet");
+        return true;
     }
 }

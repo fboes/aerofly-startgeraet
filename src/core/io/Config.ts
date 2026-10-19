@@ -49,6 +49,7 @@ export type ConfigData = {
     };
     fontSizePercent: number;
     autoSaveDelaySeconds: number;
+    missionGenerator: Record<string, Record<string, unknown>>;
 };
 
 export const CONFIG_DEFAULTS: ConfigData = {
@@ -68,6 +69,7 @@ export const CONFIG_DEFAULTS: ConfigData = {
     },
     fontSizePercent: 93.75, // 15px
     autoSaveDelaySeconds: 2,
+    missionGenerator: {},
 };
 
 export type ConfigStore = Conf<ConfigData>;
@@ -234,6 +236,26 @@ export class Config {
 
     set autoSaveDelaySeconds(autoSaveDelaySeconds) {
         this.conf.set("autoSaveDelaySeconds", Math.max(-1, autoSaveDelaySeconds));
+    }
+
+    // ----------------------------------------------------------
+
+    getMissionGeneratorValues(missionsGeneratorName: string): Record<string, unknown> {
+        if (!this.checkMissionGeneratorName(missionsGeneratorName)) {
+            throw new Error("Broken mission generator name used for retrieving values");
+        }
+        return this.conf.get(`missionGenerator.${missionsGeneratorName}`);
+    }
+
+    setMissionGeneratorValues(missionsGeneratorName: string, missionGeneratorValues: Record<string, unknown>): void {
+        if (!this.checkMissionGeneratorName(missionsGeneratorName)) {
+            throw new Error("Broken mission generator name used for storing values");
+        }
+        return this.conf.set(`missionGenerator.${missionsGeneratorName}`, missionGeneratorValues);
+    }
+
+    private checkMissionGeneratorName(missionsGeneratorName: string): boolean {
+        return missionsGeneratorName.match(/^[a-zA-Z0-9-_]+$/) !== undefined;
     }
 
     // ----------------------------------------------------------

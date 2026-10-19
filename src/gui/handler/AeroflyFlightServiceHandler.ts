@@ -31,7 +31,12 @@ import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 import type { FlightplanWebComponentState } from "../web-components/form/FlightplanWebComponent.js";
 import { CONFIG_ELECTRON } from "../io/ConfigElectron.js";
 import { fmt } from "../../core/formatter/format.js";
-import { executeMissionGenerator, getMissionGeneratorManifest } from "../../mission-generator/MissionGenerator.js";
+import {
+    executeMissionGenerator,
+    getMissionGeneratorManifest,
+    getMissionGeneratorSavedValues,
+    setMissionGeneratorSavedValues,
+} from "../../mission-generator/MissionGenerator.js";
 import type { MissionGeneratorManifest } from "../../mission-generator/MissionGenerator.type.js";
 
 export class AeroflyFlightServiceHandler {
@@ -377,7 +382,9 @@ export class AeroflyFlightServiceHandler {
         event: IpcMainInvokeEvent,
         generatorName: string,
     ): MissionGeneratorManifest => {
-        return getMissionGeneratorManifest(generatorName);
+        const savedValues = getMissionGeneratorSavedValues(this.service.config, generatorName);
+
+        return getMissionGeneratorManifest(generatorName, savedValues);
     };
 
     /**
@@ -391,12 +398,20 @@ export class AeroflyFlightServiceHandler {
         },
     ) => {
         try {
-            await executeMissionGenerator(this.service, args.generatorName, args.generatorPayload);
-            this.sendStateUpdate();
-            return createNotificationPayload(
-                `Mission generator ${args.generatorName} executed successfully`,
-                "success",
-            );
+            const success = await executeMissionGenerator(this.service, args.generatorName, args.generatorPayload);
+            if (success) {
+                setMissionGeneratorSavedValues(this.service.config, args.generatorName, args.generatorPayload);
+                this.sendStateUpdate();
+                return createNotificationPayload(
+                    `Mission generator ${args.generatorName} executed successfully`,
+                    "success",
+                );
+            } else {
+                return createNotificationPayload(
+                    "Mission generator failed and did not update the flight plan. Please check your input.",
+                    "error",
+                );
+            }
         } catch (error) {
             return createNotificationPayload(
                 `Mission generator ${args.generatorName} failed: ${error instanceof Error ? error.message : String(error)}`,

@@ -82,7 +82,7 @@ depending on API availability.
     async convert(
         configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,
         flightPlanService: AeroflyFlightService,
-    ): Promise<void> {
+    ): Promise<boolean> {
         const flight = flightPlanService.getAeroflyFlight();
 
         // Establish navigational aid / RNAV waypoint
@@ -149,6 +149,8 @@ depending on API availability.
             `\
 Your aircraft is ${getVectorString(aircraftVector)} of ${fixData.identifier}.
 ` + this.getDescription(navaidData, pattern);
+
+        return true;
     }
 
     private getPatternWaypoints(pattern: HoldingPattern): AeroflyNavRouteWaypoint[] {

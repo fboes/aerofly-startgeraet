@@ -83,7 +83,7 @@ depending on API availability.
     async convert(
         configuration: z.infer<z.ZodObject<LandingPatternMissionGeneratorConfiguration>>,
         flightPlanService: AeroflyFlightService,
-    ): Promise<void> {
+    ): Promise<boolean> {
         const rightPatternRunways = (configuration.rightPatternRunways ?? "").toUpperCase().split(/\s*,\s*/);
 
         // Establish airport
@@ -104,7 +104,6 @@ depending on API availability.
         if (rightPatternRunways) {
             runwayData.isRight = rightPatternRunways.includes(runwayData.id);
         }
-        runwayData.alignment += airportData.magdec; // Changing true alignment to magnetic alignment
         const runwayPoint = getRunwayPoint(runwayData, airportPoint);
 
         // Add flight plan
@@ -138,6 +137,8 @@ depending on API availability.
         flight._missionBriefing = `\
 Your aircraft is ${getVectorString(aircraftVector)} of ${airportData.name} Airport. You will have to make a correct ${runwayData.isRight ? "right-hand" : "left-hand"} landing pattern entry for runway ${runwayData.id}, and land safely.
 `;
+
+        return true;
     }
 
     private getPatternWaypoints(

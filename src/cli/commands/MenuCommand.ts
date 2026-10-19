@@ -6,12 +6,14 @@ import { SetupCommand } from "./SetupCommand.js";
 import path from "node:path";
 import * as AeroflyFlightFormatter from "../../core/formatter/AeroflyFlightFormatter.js";
 import { getAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
-import { writeln, writeSuccess, writeMenuTitle, writeCatch } from "../formatter/writeCli.js";
+import { writeln, writeSuccess, writeMenuTitle, writeCatch, writeError } from "../formatter/writeCli.js";
 import { EXPORT_FILE_EXTENSIONS } from "../../core/io/exportFlightplan.js";
 import {
     executeMissionGenerator,
     getMissionGeneratorManifest,
+    getMissionGeneratorSavedValues,
     MISSIONS_GENERATOR_MANIFESTS,
+    setMissionGeneratorSavedValues,
 } from "../../mission-generator/MissionGenerator.js";
 import { fmt } from "../../core/formatter/format.js";
 import type { MissionGeneratorManifestField } from "../../mission-generator/MissionGenerator.type.js";
@@ -336,7 +338,8 @@ export class MenuCommand extends BaseControllerCommand {
     }
 
     private async missionGeneratorExecute(generatorName: string): Promise<MenuCommandMethod> {
-        const manifest = getMissionGeneratorManifest(generatorName);
+        const savedValues = getMissionGeneratorSavedValues(this.controller.config, generatorName);
+        const manifest = getMissionGeneratorManifest(generatorName, savedValues);
 
         writeMenuTitle(["Mission Generator", manifest.displayName]);
         writeln(manifest.longDescription);
@@ -346,12 +349,17 @@ export class MenuCommand extends BaseControllerCommand {
             generatorConfiguration[field.name] = await this.missionGeneratorField(field);
         }
 
-        executeMissionGenerator(this.controller, generatorName, generatorConfiguration);
-        writeSuccess(
-            fmt(`Mission generator {{ generatorName }} executed successfully, flight plan has been updated`, {
-                generatorName,
-            }),
-        );
+        const success = await executeMissionGenerator(this.controller, generatorName, generatorConfiguration);
+        if (success) {
+            setMissionGeneratorSavedValues(this.controller.config, generatorName, generatorConfiguration);
+            writeSuccess(
+                fmt(`Mission generator {{ generatorName }} executed successfully, flight plan has been updated`, {
+                    generatorName,
+                }),
+            );
+        } else {
+            writeError("Mission generator failed and did not update the flight plan. Please check your input.");
+        }
 
         return "mainMenu";
     }

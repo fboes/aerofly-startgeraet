@@ -4,8 +4,9 @@ import type { MissionGeneratorManifest, MissionGeneratorManifestField } from "./
 import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
 import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
-import type { JsonSchemaObject, JsonSchemaType } from "./JsonSchema.type.js";
+import type { JsonSchemaObject, JsonSchemaType, JsonSchemaValue } from "./JsonSchema.type.js";
 import { HoldingPatternMissionGenerator } from "./holding-pattern/HoldingPatternMissionGenerator.js";
+import { Config } from "../core/io/Config.js";
 //import { HemsMissionGenerator } from "./hems-mission/HemsMissionGenerator.js";
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
@@ -33,30 +34,38 @@ export function getMissionGenerator(generatorName: string): new () => MissionGen
     return missionGenerator;
 }
 
-export function getMissionGeneratorManifest(generatorName: string): MissionGeneratorManifest {
+/**
+ * @see getMissionGeneratorSavedValues
+ */
+export function getMissionGeneratorManifest(
+    generatorName: string,
+    savedValues: Record<string, unknown> = {},
+): MissionGeneratorManifest {
     const missionGenerator = getMissionGenerator(generatorName);
     const m = new missionGenerator();
 
     return {
         ...m.manifest(),
-        configuration: getMissionGeneratorConfiguration(m.configuration()),
+        configuration: getMissionGeneratorConfiguration(m.configuration(), savedValues),
     };
 }
 
-function getMissionGeneratorConfiguration(schema: z.ZodObject): MissionGeneratorManifestField[] {
+function getMissionGeneratorConfiguration(
+    schema: z.ZodObject,
+    savedValues: Record<string, unknown> = {},
+): MissionGeneratorManifestField[] {
     const jsonSchema = schema.toJSONSchema() as JsonSchemaObject;
     if (!jsonSchema?.properties) {
         return [];
     }
 
-    const fields: MissionGeneratorManifestField[] = [];
-    for (const name in jsonSchema.properties) {
-        const s = jsonSchema.properties[name];
-        if (!s) {
-            continue;
-        }
+    const verifiedValues = getMissionGeneratorConfigurationDefault(schema, savedValues);
 
-        const type: JsonSchemaType | undefined = Array.isArray(s.type) ? s.type[0] : s?.type;
+    const fields: MissionGeneratorManifestField[] = [];
+    for (const [jsonSchemaObjectName, jsonSchemaObject] of Object.entries(jsonSchema.properties)) {
+        const type: JsonSchemaType | undefined = Array.isArray(jsonSchemaObject.type)
+            ? jsonSchemaObject.type[0]
+            : jsonSchemaObject?.type;
         if (!type) {
             continue;
         }
@@ -66,20 +75,37 @@ function getMissionGeneratorConfiguration(schema: z.ZodObject): MissionGenerator
         }
 
         fields.push({
-            name,
-            ...s,
+            name: jsonSchemaObjectName,
+            ...jsonSchemaObject,
             type,
-            isRequired: jsonSchema.required?.includes(name) || false,
+            isRequired: jsonSchema.required?.includes(jsonSchemaObjectName) || false,
+            default: verifiedValues[jsonSchemaObjectName] ?? jsonSchemaObject.default,
         });
     }
     return fields;
 }
 
+function getMissionGeneratorConfigurationDefault(
+    schema: z.ZodObject,
+    values: Record<string, unknown> = {},
+): Record<string, JsonSchemaValue> {
+    const result: Record<string, JsonSchemaValue> = {};
+    for (const [name, fieldSchema] of Object.entries(schema.shape)) {
+        if (name in values && (fieldSchema as z.ZodType).safeParse(values[name]).success) {
+            result[name] = values[name] as JsonSchemaValue;
+        }
+    }
+    return result;
+}
+
+/**
+ * @see setMissionGeneratorSavedValues
+ */
 export function executeMissionGenerator(
     service: AeroflyFlightService,
     generatorName: string,
     generatorPayload: Record<string, unknown>,
-): Promise<void> {
+): Promise<boolean> {
     const missionGenerator = getMissionGenerator(generatorName);
     const m = new missionGenerator();
 
@@ -87,4 +113,16 @@ export function executeMissionGenerator(
     const configuration = ZodSchema.parse(generatorPayload);
 
     return m.convert(configuration, service);
+}
+
+export function getMissionGeneratorSavedValues(config: Config, generatorName: string): Record<string, unknown> {
+    return config.getMissionGeneratorValues(generatorName);
+}
+
+export function setMissionGeneratorSavedValues(
+    config: Config,
+    generatorName: string,
+    generatorValues: Record<string, unknown>,
+): void {
+    config.setMissionGeneratorValues(generatorName, generatorValues);
 }
