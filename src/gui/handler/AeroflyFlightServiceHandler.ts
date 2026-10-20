@@ -34,8 +34,8 @@ import { fmt } from "../../core/formatter/format.js";
 import {
     executeMissionGenerator,
     getMissionGeneratorManifest,
-    getMissionGeneratorSavedValues,
-    setMissionGeneratorSavedValues,
+    restoreMissionGeneratorValues,
+    storeMissionGeneratorValues,
 } from "../../mission-generator/MissionGenerator.js";
 import type { MissionGeneratorManifest } from "../../mission-generator/MissionGenerator.type.js";
 
@@ -382,7 +382,7 @@ export class AeroflyFlightServiceHandler {
         event: IpcMainInvokeEvent,
         generatorName: string,
     ): MissionGeneratorManifest => {
-        const savedValues = getMissionGeneratorSavedValues(this.service.config, generatorName);
+        const savedValues = restoreMissionGeneratorValues(this.service.config, generatorName);
 
         return getMissionGeneratorManifest(generatorName, savedValues);
     };
@@ -400,7 +400,7 @@ export class AeroflyFlightServiceHandler {
         try {
             const success = await executeMissionGenerator(this.service, args.generatorName, args.generatorPayload);
             if (success) {
-                setMissionGeneratorSavedValues(this.service.config, args.generatorName, args.generatorPayload);
+                storeMissionGeneratorValues(this.service.config, args.generatorName, args.generatorPayload);
                 this.sendStateUpdate();
                 return createNotificationPayload(
                     `Mission generator ${args.generatorName} executed successfully`,

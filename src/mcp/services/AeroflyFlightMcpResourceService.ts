@@ -3,10 +3,10 @@ import { ProtocolError, ProtocolErrorCode } from "@modelcontextprotocol/server";
 import type { Resource } from "@modelcontextprotocol/server";
 import {
     getAllAeroflyAircraftWithLiveries,
-    getAeroflyAircraft,
-    getAeroflyAircraftByIcaoCode,
+    findAeroflyAircraft,
+    findAeroflyAircraftByIcaoCode,
 } from "../../core/services/getAeroflyAircraft.js";
-import { getAeroflyAirportByIcaoCode, getAllAeroflyAirports } from "../../core/services/getAeroflyAirport.js";
+import { findAeroflyAirportByIcaoCode, getAllAeroflyAirports } from "../../core/services/getAeroflyAirport.js";
 import { RESOURCE_AIRCRAFT, RESOURCE_AIRPORTS } from "../registry/registerResourceHandlers.js";
 
 export type AeroflyFlightMcpResourceServiceAircraft = {
@@ -36,8 +36,8 @@ export function getAircraftList(): AeroflyFlightMcpResourceServiceAircraft[] {
     });
 }
 
-export function getAircraft(code: string): AeroflyAircraft {
-    const aircraft = getAeroflyAircraft(code) ?? getAeroflyAircraftByIcaoCode(code);
+export function findAircraft(code: string): AeroflyAircraft {
+    const aircraft = findAeroflyAircraft(code) ?? findAeroflyAircraftByIcaoCode(code);
 
     if (aircraft === undefined) {
         throw new ProtocolError(
@@ -53,7 +53,7 @@ export function getAircraft(code: string): AeroflyAircraft {
 }
 
 export function getAircraftRessources(): Resource[] {
-    return [getAeroflyAircraft("a320"), getAeroflyAircraft("c172")]
+    return [findAeroflyAircraft("a320"), findAeroflyAircraft("c172")]
         .filter((a) => a !== undefined)
         .map((a): Resource => {
             return {
@@ -117,8 +117,8 @@ export function searchAircraft({
     });
 }
 
-export function getAirport(icaoCode: string): AeroflyFlightMcpResourceServiceAirport {
-    const airport = getAeroflyAirportByIcaoCode(icaoCode);
+export function findAirport(icaoCode: string): AeroflyFlightMcpResourceServiceAirport {
+    const airport = findAeroflyAirportByIcaoCode(icaoCode);
 
     if (airport === undefined) {
         throw new ProtocolError(ProtocolErrorCode.InvalidRequest, `Could not find airport by ICAO code ${icaoCode}`, {
@@ -194,7 +194,7 @@ export function searchAirports({
 }
 
 export function getAirportRessources(): Resource[] {
-    return [getAeroflyAirportByIcaoCode("KEYW"), getAeroflyAirportByIcaoCode("EHAM")]
+    return [findAeroflyAirportByIcaoCode("KEYW"), findAeroflyAirportByIcaoCode("EHAM")]
         .filter((a) => a !== undefined)
         .map((a): Resource => {
             return {

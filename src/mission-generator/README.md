@@ -12,6 +12,6 @@ To create a new mission generator:
 
 ## Functionality to consider
 
-- `Point` and `Vector` provide means to compute geographical postions.
+- `Point` and `Vector` provide means to compute geographical positions.
 - `getAirportCached` gets additional information (e.g. runways) for airports.
 - `getVectorString` can be used in mission descriptions to describe relative positions.

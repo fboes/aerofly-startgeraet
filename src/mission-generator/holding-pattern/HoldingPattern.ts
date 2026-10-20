@@ -19,21 +19,21 @@ export type HoldingPattern = {
     legDistanceMeters: number;
 };
 
-export function getHoldingPattern(
+export function createHoldingPattern(
     cruiseSpeedKts: number,
     fixData: MissionGeneratorWaypoint,
     fixPoint: Point,
     inboundHeading: number,
     configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,
 ): HoldingPattern {
-    const patternSpeedKts = Math.min(cruiseSpeedKts, getMaxPatternSpeedKts(configuration.holdAltitudeMsl_ft));
+    const patternSpeedKts = Math.min(cruiseSpeedKts, calculateMaxPatternSpeedKts(configuration.holdAltitudeMsl_ft));
 
     const dmeDistanceOutbound_nm =
         configuration.dmeDistance_nm > 0
             ? configuration.dmeDistance_nm + (configuration.isHoldingAwayPattern ? -4 : 4)
             : 0;
     const legTimeMin = configuration.holdAltitudeMsl_ft > 14000 ? 1.5 : 1.0;
-    const turnRadiusMeters = getTurnRadiusMeters(patternSpeedKts);
+    const turnRadiusMeters = calculateTurnRadiusMeters(patternSpeedKts);
     const holdingAreaDirection = (inboundHeading + (configuration.isHoldingAwayPattern ? 0 : 180)) % 360;
     const holdingAreaDirectionTrue = (holdingAreaDirection + (fixData.mag_dec ?? 0)) % 360;
 
@@ -49,7 +49,7 @@ export function getHoldingPattern(
         isLeftPattern: configuration.isLeftPattern,
         turnRadiusMeters,
         holdingAreaDirectionTrue,
-        legDistanceMeters: getLegDistanceMeters(
+        legDistanceMeters: calculateLegDistanceMeters(
             dmeDistanceOutbound_nm,
             turnRadiusMeters,
             configuration.dmeDistance_nm,
@@ -65,12 +65,12 @@ export function getHoldingPattern(
  * to make all turns to achieve an average bank angle of at least 25˚ or
  * a rate of turn of 3˚ per second, whichever requires the lesser bank.
  */
-function getTurnRadiusMeters(patternSpeedKts: number): number {
+function calculateTurnRadiusMeters(patternSpeedKts: number): number {
     return (patternSpeedKts / (20 * Math.PI * 3)) * UNIT_METER_PER_NM; // turn radius at 3 degrees per second
     //return (patternSpeedKts ** 2 / (11.26 * Math.tan(25 * (Math.PI / 180)))) * Units.metersPerNauticalMile; // turn radius at 25 degrees bank angle
 }
 
-function getLegDistanceMeters(
+function calculateLegDistanceMeters(
     dmeDistanceOutbound_nm: number,
     turnRadiusMeters: number,
     dmeDistanceNm: number,
@@ -90,7 +90,7 @@ function getLegDistanceMeters(
 /**
  * @see https://www.code7700.com/holding.htm
  */
-function getMaxPatternSpeedKts(patternAltitudeFt: number): number {
+function calculateMaxPatternSpeedKts(patternAltitudeFt: number): number {
     // TODO: Turbulence: 280
     // TODO: Helicopter: patternAltitudeFt <= 6000 ? 100 : 170;
 

@@ -9,24 +9,24 @@ export function getAllAeroflyAircraftWithLiveries(): AeroflyAircraft[] {
     return AeroflyAircraftLiveries;
 }
 
-export function getAeroflyAircraft(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
+export function findAeroflyAircraft(aeroflyCodeAircraft: string): AeroflyAircraft | undefined {
     return AeroflyAircraftLiveries.find((aircraft) => aircraft.aeroflyCode === aeroflyCodeAircraft);
 }
 
-export function getAeroflyAircraftByIcaoCode(icaoCodeAircraft: string): AeroflyAircraft | undefined {
+export function findAeroflyAircraftByIcaoCode(icaoCodeAircraft: string): AeroflyAircraft | undefined {
     return AeroflyAircraftLiveries.find(
         (aircraft) => aircraft.icaoCode.toLowerCase() === icaoCodeAircraft.toLowerCase(),
     );
 }
 
-export function getAeroflyLivery(
+export function findAeroflyLivery(
     aircraft: AeroflyAircraft | undefined,
     aeroflyCodeLivery: string,
 ): AeroflyAircraftLivery | undefined {
     return aircraft?.liveries.find((livery) => livery.aeroflyCode === aeroflyCodeLivery);
 }
 
-export function getAeroflyLiveryByIcaoCode(
+export function findAeroflyLiveryByIcaoCode(
     aircraft: AeroflyAircraft | undefined,
     icaoCodeLivery: string,
 ): AeroflyAircraftLivery | undefined {
@@ -36,6 +36,6 @@ export function getAeroflyLiveryByIcaoCode(
 /**
  * Find Aerofly FS aircraft by a tag. Examples for tag search are "historical", "airliner", "helicopter", "military", "glider", "aerobatic", "general_aviation".
  */
-export function getAeroflyAircraftByTag(tag: string): AeroflyAircraft[] {
+export function findAeroflyAircraftByTag(tag: string): AeroflyAircraft[] {
     return AeroflyAircraftLiveries.filter((aircraft) => aircraft.tags?.includes(tag));
 }

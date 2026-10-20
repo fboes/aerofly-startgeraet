@@ -9,6 +9,6 @@ export function getAllAeroflyAirports(): AeroflyAirportCoordinatesObject[] {
     return AeroflyAirports;
 }
 
-export function getAeroflyAirportByIcaoCode(icaoCodeAirport: string): AeroflyAirportCoordinatesObject | undefined {
+export function findAeroflyAirportByIcaoCode(icaoCodeAirport: string): AeroflyAirportCoordinatesObject | undefined {
     return AeroflyAirports.find((airport) => airport.code.toUpperCase() === icaoCodeAirport.toUpperCase());
 }

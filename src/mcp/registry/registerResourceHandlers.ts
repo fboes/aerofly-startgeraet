@@ -6,7 +6,7 @@ import { z } from "zod";
 import * as AeroflyFlightMcpResourceService from "../services/AeroflyFlightMcpResourceService.js";
 import * as ZodExtra from "../../core/util/zExtra.js";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
-import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
+import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
 import { returnMcpResourceResult, returnMcpToolSimpleResult } from "../util/returnMcpResult.js";
 
 type Variables = Record<string, string | string[]>;
@@ -49,7 +49,7 @@ function registerResources(server: McpServer) {
         },
         (uri: URL, { aeroflyCode }: Variables): ReadResourceResult =>
             returnMcpResourceResult(
-                AeroflyFlightMcpResourceService.getAircraft(String(aeroflyCode)),
+                AeroflyFlightMcpResourceService.findAircraft(String(aeroflyCode)),
                 uri,
                 MIME_TYPE_RESPONSE,
             ),
@@ -79,7 +79,7 @@ function registerResources(server: McpServer) {
         },
         (uri: URL, { icaoCode }: Variables): ReadResourceResult =>
             returnMcpResourceResult(
-                AeroflyFlightMcpResourceService.getAirport(String(icaoCode)),
+                AeroflyFlightMcpResourceService.findAirport(String(icaoCode)),
                 uri,
                 MIME_TYPE_RESPONSE,
             ),
@@ -269,8 +269,7 @@ function registerTools(server: McpServer) {
         }: {
             coordinates: { longitude: number; latitude: number }[];
         }): Promise<CallToolResult> => {
-            const topoApi = new OpenTopoDataApi();
-            const results = await topoApi.fetch(
+            const results = await fetchOpenTopoData(
                 coordinates.map((t) => ({
                     lat: t.latitude,
                     lng: t.longitude,

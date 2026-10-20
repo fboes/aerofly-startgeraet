@@ -14,7 +14,7 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { getVectorString } from "../../core/formatter/getVectorString.js";
+import { asVectorString } from "../../core/formatter/getVectorString.js";
 import {
     getAirportDataViaOrigin,
     getBestRunwayViaFlightService,
@@ -135,7 +135,7 @@ depending on API availability.
         ]);
         flight._missionTitle = `Landing pattern entry at ${airportData.name}`;
         flight._missionBriefing = `\
-Your aircraft is ${getVectorString(aircraftVector)} of ${airportData.name} Airport. You will have to make a correct ${runwayData.isRight ? "right-hand" : "left-hand"} landing pattern entry for runway ${runwayData.id}, and land safely.
+Your aircraft is ${asVectorString(aircraftVector)} of ${airportData.name} Airport. You will have to make a correct ${runwayData.isRight ? "right-hand" : "left-hand"} landing pattern entry for runway ${runwayData.id}, and land safely.
 `;
 
         return true;

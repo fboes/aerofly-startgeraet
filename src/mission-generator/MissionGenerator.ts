@@ -35,7 +35,7 @@ export function getMissionGenerator(generatorName: string): new () => MissionGen
 }
 
 /**
- * @see getMissionGeneratorSavedValues
+ * @see restoreMissionGeneratorValues
  */
 export function getMissionGeneratorManifest(
     generatorName: string,
@@ -99,7 +99,7 @@ function getMissionGeneratorConfigurationDefault(
 }
 
 /**
- * @see setMissionGeneratorSavedValues
+ * @see storeMissionGeneratorValues
  */
 export function executeMissionGenerator(
     service: AeroflyFlightService,
@@ -115,14 +115,24 @@ export function executeMissionGenerator(
     return m.convert(configuration, service);
 }
 
-export function getMissionGeneratorSavedValues(config: Config, generatorName: string): Record<string, unknown> {
+export function restoreMissionGeneratorValues(config: Config, generatorName: string): Record<string, unknown> {
+    if (!MISSION_GENERATOR_REGISTRY[generatorName]) {
+        throw new ErrorFormatted("Unknown mission generator used for calling settings: {{ generatorName }}", {
+            generatorName,
+        });
+    }
     return config.getMissionGeneratorValues(generatorName);
 }
 
-export function setMissionGeneratorSavedValues(
+export function storeMissionGeneratorValues(
     config: Config,
     generatorName: string,
     generatorValues: Record<string, unknown>,
 ): void {
+    if (!MISSION_GENERATOR_REGISTRY[generatorName]) {
+        throw new ErrorFormatted("Unknown mission generator used for storing settings: {{ generatorName }}", {
+            generatorName,
+        });
+    }
     config.setMissionGeneratorValues(generatorName, generatorValues);
 }

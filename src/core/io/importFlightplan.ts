@@ -7,6 +7,8 @@ import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsT
 import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
 import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
+import path from "node:path";
+import type { Config } from "./Config.js";
 
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
@@ -47,6 +49,9 @@ export const IMPORT_FILE_EXTENSIONS: {
     },
 ];
 
+/**
+ * List of file extensions for all import types, e.g [`fms`, `pln`, ...]
+ */
 export const IMPORT_FILE_TYPES: string[] = IMPORT_FILE_EXTENSIONS.map((c) => c.extension);
 
 export function getFlightplansFromFile(filename: string): string[] {
@@ -84,6 +89,9 @@ export function importString(content: string, filename: string, flightplan: Aero
     new converter().convert(content, flightplan, index);
 }
 
+/**
+ * @see importString
+ */
 export function getImportConverter(filename: string): new () => BaseStringToAeroflyFlightConverter {
     const fileSuffix = filename.replace(/^[^.]+\./, "");
     if (!fileSuffix) {
@@ -95,4 +103,24 @@ export function getImportConverter(filename: string): new () => BaseStringToAero
         throw new ErrorFormatted(`Unsupported file type: {{ fileSuffix }}`, { fileSuffix });
     }
     return converter;
+}
+
+/**
+ * Finds all flight plan files in the import directory. The import directory can be configured in the application
+ * settings and defaults to the user's Downloads folder.
+ * @returns fully qualified filenames
+ */
+export function findImportFiles(config: Config): string[] {
+    const importDirectory = config.importDirectory;
+    if (!fs.existsSync(importDirectory)) {
+        return [];
+    }
+
+    const files = fs.readdirSync(importDirectory);
+    const importFiles = files.filter((file: string) => {
+        const lower = file.toLowerCase();
+        return IMPORT_FILE_TYPES.some((ext) => lower.endsWith(ext));
+    });
+
+    return importFiles.map((file) => path.join(importDirectory, file));
 }

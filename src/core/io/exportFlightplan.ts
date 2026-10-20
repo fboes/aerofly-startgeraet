@@ -47,6 +47,9 @@ export const EXPORT_FILE_EXTENSIONS: {
     },
 ];
 
+/**
+ * List of file extensions for all import types, e.g [`mcf`, `kml`, ...]
+ */
 export const EXPORT_FILE_TYPES: string[] = EXPORT_FILE_EXTENSIONS.map((c) => c.extension);
 
 export function exportFlightplanToString(filename: string, flightplan: AeroflyFlight): string {

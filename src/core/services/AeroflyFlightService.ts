@@ -13,11 +13,10 @@ import {
     type AeroflyTimeUtc,
     type AeroflyNavigationConfig,
 } from "@fboes/aerofly-custom-missions";
-import { SimBriefAeroflyApi } from "../api/SimBriefAeroflyApi.js";
+import { fetchSimBriefToAerofly } from "../api/SimBriefAeroflyApi.js";
 import * as AviationWeatherApiAerofly from "../api/AviationWeatherAeroflyApi.js";
 import type { Config } from "../io/Config.js";
 import { AeroflyMainConfigReader } from "../io/AeroflyMainConfigReader.js";
-import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import * as ImportFileReader from "../io/importFlightplan.js";
 import * as ExportFileWriter from "../io/exportFlightplan.js";
 import * as AeroflyFlightFormatter from "../formatter/AeroflyFlightFormatter.js";
@@ -25,14 +24,15 @@ import * as AeroflyFlightHelper from "../util/AeroflyFlightHelper.js";
 import { MetarToAeroflyFlightConverter } from "../converter/other/MetarToAeroflyFlightConverter.js";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { RoutePlanService, type RoutePlanServiceLeg, type RoutePlanServiceRoute } from "./RoutePlanService.js";
-import { getAeroflyAircraft } from "./getAeroflyAircraft.js";
+import { findAeroflyAircraft } from "./getAeroflyAircraft.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../util/AeroflyFlightHelper.js";
 import type { AeroflySettingsFlightConfiguration } from "@fboes/aerofly-custom-missions/types/dto-flight/AeroflySettingsFlight.js";
 import { UpdateCheckService, type GithubReleaseApiPayload } from "./UpdateCheckService.js";
 import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
-import { getAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
+import { findAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
 import { Point } from "@fboes/geojson";
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
+import { findImportFiles } from "../io/importFlightplan.js";
 
 /**
  * @property {number} base_feet_agl - The base altitude of the cloud layer in feet above ground level.
@@ -108,7 +108,7 @@ export class AeroflyFlightService {
             return;
         }
 
-        this.currentAircraft = getAeroflyAircraft(this.aeroflyFlight.aircraft.name);
+        this.currentAircraft = findAeroflyAircraft(this.aeroflyFlight.aircraft.name);
         if (!this.currentAircraft) {
             return;
         }
@@ -325,8 +325,7 @@ export class AeroflyFlightService {
      */
     async importFlightplanFromSimBrief(simBriefUserName: string, getWeatherFromDestination: number = 0) {
         try {
-            const simbrief = new SimBriefAeroflyApi();
-            await simbrief.fetchMission(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
+            await fetchSimBriefToAerofly(simBriefUserName, this.aeroflyFlight, getWeatherFromDestination);
         } catch (error) {
             if (error instanceof Error && error.message.includes("Unknown UserID")) {
                 this.config.simBriefUserName = "";
@@ -344,13 +343,13 @@ export class AeroflyFlightService {
             return;
         }
 
-        const originData = getAeroflyAirportByIcaoCode(originAirportIcao);
+        const originData = findAeroflyAirportByIcaoCode(originAirportIcao);
         if (!originData) {
             throw new ErrorFormatted(`Could not find origin airport with ICAO code "{{ originAirportIcao }}"`, {
                 originAirportIcao,
             });
         }
-        const destinationData = getAeroflyAirportByIcaoCode(destinationAirportIcao);
+        const destinationData = findAeroflyAirportByIcaoCode(destinationAirportIcao);
         if (!destinationData) {
             throw new ErrorFormatted(
                 `Could not find destination airport with ICAO code "{{ destinationAirportIcao }}"`,
@@ -445,9 +444,8 @@ export class AeroflyFlightService {
         return ExportFileWriter.exportFlightplanToString(`flightplan.${fileEnding}`, this.aeroflyFlight);
     }
 
-    getImportFiles(): string[] | null {
-        const importFileFinder = new ImportFileFinderService(this.config);
-        return importFileFinder.findImportFiles();
+    getImportFiles(): string[] {
+        return findImportFiles(this.config);
     }
 
     getImportableFlightplans(filePath: string): string[] {

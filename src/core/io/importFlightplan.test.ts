@@ -1,15 +1,15 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { ImportFileFinderService } from "./ImportFileFinderService.js";
 import { ConfigFixture } from "../../test/fixtures/ConfigFixture.js";
+import { findImportFiles } from "./importFlightplan.js";
 
-describe("ImportFileFinderService", () => {
+describe("importFlightplan", () => {
     it("should find files from fixture directory", () => {
         const config = new ConfigFixture();
-        const finder = new ImportFileFinderService(config);
-        const files = finder.findImportFiles();
+        const files = findImportFiles(config);
 
-        assert.strictEqual(12, files?.length);
+        assert.ok(config.importDirectory);
+        assert.strictEqual(files.length, 12);
         //console.log(files);
     });
 });

@@ -1,9 +1,9 @@
 import { Vector, type Point } from "@fboes/geojson";
-import { getAirportCached, getBestRunway, type BestRunway } from "../../core/api/AviationWeatherAeroflyApi.js";
+import { fetchAirportCached, fetchBestRunway, type BestRunway } from "../../core/api/AviationWeatherAeroflyApi.js";
 import type { AviationWeatherNormalizedAirport } from "../../core/api/AviationWeatherApi.type.js";
 import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { UNIT_METER_PER_FEET } from "../../core/util/units.js";
-import { OpenTopoDataApi } from "../../core/api/OpenTopoDataApi.js";
+import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
 import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
 
 /**
@@ -21,7 +21,7 @@ export async function getAirportDataViaOrigin(
         throw new Error("Please provide an initial airport");
     }
 
-    return getAirportCached(airport.identifier);
+    return fetchAirportCached(airport.identifier);
 }
 
 /**
@@ -32,7 +32,7 @@ export async function getBestRunwayViaFlightService(
     airportData: AviationWeatherNormalizedAirport,
     flightPlanService: AeroflyFlightService,
 ): Promise<BestRunway> {
-    return getBestRunway(airportData.icaoId, flightPlanService.getWindDirection(), flightPlanService.getWindSpeed());
+    return fetchBestRunway(airportData.icaoId, flightPlanService.getWindDirection(), flightPlanService.getWindSpeed());
 }
 
 /**
@@ -54,8 +54,7 @@ export async function getMinimumSafeAltitude(
         return minimumSafeAltitude_ft * UNIT_METER_PER_FEET;
     }
 
-    const openTopApi = new OpenTopoDataApi();
-    const results = await openTopApi.fetch([
+    const results = await fetchOpenTopoData([
         {
             lat: aircraftPoint.latitude,
             lng: aircraftPoint.longitude,

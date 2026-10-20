@@ -7,7 +7,7 @@ import {
     AeroflyMissionsList,
 } from "@fboes/aerofly-custom-missions";
 import { BaseAeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.base.js";
-import { getAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
+import { findAeroflyAircraftByIcaoCode } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
 import { UNIT_METER_PER_FEET } from "../../util/units.js";
 
@@ -46,7 +46,7 @@ export class AeroflyFlightToAeroflyCustomMissionsTmcConverter extends BaseAerofl
             description: this.getMissionBriefing(flightplan),
             aircraft: {
                 name: flightplan.aircraft.name,
-                icao: getAeroflyAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
+                icao: findAeroflyAircraftByIcaoCode(flightplan.aircraft.name)?.icaoCode ?? "",
                 livery: flightplan.aircraft.paintscheme,
             },
             fuelMass: flightplan.fuelLoadSetting.fuelMass,

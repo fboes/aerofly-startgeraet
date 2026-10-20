@@ -135,7 +135,7 @@ function convertNormalizedTafForecastToFlight(
  * @param airportIcaoCode
  * @returns airport information
  */
-export async function getAirportCached(airportIcaoCode: string): Promise<AviationWeatherNormalizedAirport> {
+export async function fetchAirportCached(airportIcaoCode: string): Promise<AviationWeatherNormalizedAirport> {
     const cachedAirport = airportCache.get(airportIcaoCode);
     if (cachedAirport) {
         return cachedAirport;
@@ -156,13 +156,13 @@ export async function getAirportCached(airportIcaoCode: string): Promise<Aviatio
  * @returns the best runway to land into / start into the wind, as well as
  *   considering the minimum runway length.
  */
-export async function getBestRunway(
+export async function fetchBestRunway(
     airportIcaoCode: string,
     windDirection: number,
     windSpeed_kts: number,
     minimumRunwayLength_m: number | null = null,
 ): Promise<BestRunway> {
-    const airport = await getAirportCached(airportIcaoCode);
+    const airport = await fetchAirportCached(airportIcaoCode);
     if (airport.runways.length === 0) {
         throw new ErrorFormatted(`No runways found for "{{ airportIcaoCode }}"`, {
             airportIcaoCode,

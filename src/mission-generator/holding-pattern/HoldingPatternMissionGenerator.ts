@@ -2,12 +2,12 @@ import z from "zod";
 import type { MissionGenerator } from "../MissionGenerator.interface.js";
 import type { MissionGeneratorManifest, MissionGeneratorWaypoint } from "../MissionGenerator.type.js";
 import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import { getCardinalDirection, getVectorString } from "../../core/formatter/getVectorString.js";
+import { cardinalDirection, asVectorString } from "../../core/formatter/getVectorString.js";
 import { Point, Vector } from "@fboes/geojson";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../core/util/units.js";
 import { randomArbitrary } from "../../core/util/random.js";
 import { AeroflyNavigationConfig, AeroflyNavRouteWaypoint } from "@fboes/aerofly-custom-missions";
-import { getHoldingPattern, type HoldingPattern } from "./HoldingPattern.js";
+import { createHoldingPattern, type HoldingPattern } from "./HoldingPattern.js";
 import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
 import { numberFormat } from "../../core/formatter/numberFormat.js";
 import { getWaypointData, getWaypointFullName } from "../_util/Waypoint.js";
@@ -110,7 +110,7 @@ depending on API availability.
 
         // Establish pattern
         const aircraft = flightPlanService.getAircraftData();
-        const pattern = getHoldingPattern(
+        const pattern = createHoldingPattern(
             aircraft?.cruiseSpeedKts ?? 999,
             fixData,
             fixPoint,
@@ -147,7 +147,7 @@ depending on API availability.
         flight._missionTitle = `Holding pattern at ${navaidData.identifier}`;
         flight._missionBriefing =
             `\
-Your aircraft is ${getVectorString(aircraftVector)} of ${fixData.identifier}.
+Your aircraft is ${asVectorString(aircraftVector)} of ${fixData.identifier}.
 ` + this.getDescription(navaidData, pattern);
 
         return true;
@@ -217,7 +217,7 @@ Your aircraft is ${getVectorString(aircraftVector)} of ${fixData.identifier}.
      * @see https://www.code7700.com/holding.htm
      */
     private getDescription(navaidData: MissionGeneratorWaypoint, pattern: HoldingPattern): string {
-        const direction = getCardinalDirection(pattern.holdingAreaDirection);
+        const direction = cardinalDirection(pattern.holdingAreaDirection);
         const dmeFix = pattern.dmeDistance_nm > 0 ? `the ${pattern.dmeDistance_nm} DME fix, ` : "";
         const radial =
             (navaidData.identifier.length !== 3 ? "inbound course " : "radial ") +

@@ -12,7 +12,7 @@ import {
     getWind,
 } from "../../formatter/AeroflyFlightFormatter.js";
 import { markdownTable } from "../../formatter/markdownTable.js";
-import { getAeroflyAircraft, getAeroflyLivery } from "../../services/getAeroflyAircraft.js";
+import { findAeroflyAircraft, findAeroflyLivery } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
 import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
 import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
@@ -39,11 +39,11 @@ ${this.getFlightSummary(flightplan)}
     }
 
     private getAircraftSummary(flightplan: AeroflyFlight) {
-        const currentAircraft = getAeroflyAircraft(flightplan.aircraft.name);
+        const currentAircraft = findAeroflyAircraft(flightplan.aircraft.name);
         if (!currentAircraft) {
             return "";
         }
-        const currentLivery = getAeroflyLivery(currentAircraft, flightplan.aircraft.paintscheme);
+        const currentLivery = findAeroflyLivery(currentAircraft, flightplan.aircraft.paintscheme);
 
         // TODO: Fuel and payload are not yet accessible via the AeroflyFlight API. For now, we just set them to false.
         const fuel = false; // flightplan.fuelLoadSetting.fuelMass || flightplan.fuelLoadSetting.payloadMass;

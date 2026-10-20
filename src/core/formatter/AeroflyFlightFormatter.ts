@@ -7,8 +7,8 @@ import {
     AeroflyNavRouteOrigin,
 } from "@fboes/aerofly-custom-missions";
 import { RoutePlanService } from "../services/RoutePlanService.js";
-import { getAeroflyAircraft, getAeroflyLivery } from "../services/getAeroflyAircraft.js";
-import { getAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
+import { findAeroflyAircraft, findAeroflyLivery } from "../services/getAeroflyAircraft.js";
+import { findAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
 import { getIcaoFlightCategory, getSunPosition, getFlightCategory } from "../util/AeroflyFlightHelper.js";
 import { getHourString } from "./getTimeString.js";
 import { numberFormat } from "./numberFormat.js";
@@ -20,12 +20,12 @@ export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Twilight";
  */
 
 export function getAircraft(aeroflyFlight: AeroflyFlight): string {
-    const currentAircraft = getAeroflyAircraft(aeroflyFlight.aircraft.name);
+    const currentAircraft = findAeroflyAircraft(aeroflyFlight.aircraft.name);
     if (!currentAircraft) {
         return "No aircraft selected";
     }
 
-    const currentLivery = getAeroflyLivery(currentAircraft, aeroflyFlight.aircraft.paintscheme);
+    const currentLivery = findAeroflyLivery(currentAircraft, aeroflyFlight.aircraft.paintscheme);
     return `${currentAircraft.nameFull} - ${currentLivery?.name ?? "Default Livery"}`;
 }
 
@@ -56,7 +56,7 @@ export function getFlightplanOriginName(aeroflyFlight: AeroflyFlight): string {
 }
 
 export function getAirportName(airportCode: string): string {
-    return airportCode !== "Unknown" ? (getAeroflyAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
+    return airportCode !== "Unknown" ? (findAeroflyAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
 }
 
 export function getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string {
@@ -113,7 +113,7 @@ export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength =
 }
 
 export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
-    const currentAircraft = getAeroflyAircraft(aeroflyFlight.aircraft.name);
+    const currentAircraft = findAeroflyAircraft(aeroflyFlight.aircraft.name);
     if (!currentAircraft) {
         return "Unknown";
     }

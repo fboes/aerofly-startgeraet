@@ -1,11 +1,11 @@
 import { strict as assert } from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { OpenTopoDataApi } from "./OpenTopoDataApi.js";
+import { fetchOpenTopoData } from "./OpenTopoDataApi.js";
 import type { OpenTopoDataApiCoordinates } from "./OpenTopoDataApi.type.js";
 
 await describe("OpenTopoDataApi", async (): Promise<void> => {
-    await it("should fetch elevation data", async () => {
+    await it("fetches Open Topo API elevation data", async () => {
         const coordinates: OpenTopoDataApiCoordinates[] = [
             {
                 lat: 56.0,
@@ -17,8 +17,7 @@ await describe("OpenTopoDataApi", async (): Promise<void> => {
             },
         ];
 
-        const topo = new OpenTopoDataApi();
-        const topoData = await topo.fetch(coordinates);
+        const topoData = await fetchOpenTopoData(coordinates);
 
         assert.strictEqual(topoData.status, "OK");
         assert.strictEqual(topoData.results.length, 2);
