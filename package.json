@@ -69,6 +69,7 @@
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@reporters/github": "^2.1.4",
     "@types/node": "^25.5.2",
     "electron": "^42.0.1",
     "electron-builder": "^26.15.3",
