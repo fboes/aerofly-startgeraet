@@ -2,7 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { AeroflyFlightFallback } from "../data/AeroflyFlightFallback.js";
 import { AeroflySettingsCloud } from "@fboes/aerofly-custom-missions";
-import { getSunPositionName, getClouds, getFlightplanWaypoints } from "./AeroflyFlightFormatter.js";
+import { sunPositionNameString, cloudString, waypointsString } from "./AeroflyFlightFormatter.js";
 import { AeroflyFlightFixture } from "../../test/fixtures/AeroflyFlightFixture.js";
 
 describe("AeroflyFlightFormatter", () => {
@@ -18,7 +18,7 @@ describe("AeroflyFlightFormatter", () => {
         ]) {
             aeroflyFlight.timeUtc.time = new Date(testCase[0]);
 
-            assert.strictEqual(testCase[1], getSunPositionName(aeroflyFlight));
+            assert.strictEqual(testCase[1], sunPositionNameString(aeroflyFlight));
         }
     });
 
@@ -30,7 +30,7 @@ describe("AeroflyFlightFormatter", () => {
             new AeroflySettingsCloud(0.625, 0.25),
         ];
 
-        const string = getClouds(aeroflyFlight);
+        const string = cloudString(aeroflyFlight);
         assert.strictEqual("FEW @ 1,100ft | BKN @ 1,400ft | BKN @ 2,500ft", string);
     });
 
@@ -47,7 +47,7 @@ describe("AeroflyFlightFormatter", () => {
             [4, "KEYW → … → HST → KMIA"],
             [5, "KEYW → KMTH → MNATE → HST → KMIA"],
         ]) {
-            const string = getFlightplanWaypoints(aeroflyFlight, testCase[0]);
+            const string = waypointsString(aeroflyFlight, testCase[0]);
             assert.strictEqual(string, testCase[1]);
         }
     });
@@ -58,6 +58,6 @@ describe("AeroflyFlightFormatter", () => {
 
         assert.strictEqual(aeroflyFlight.navigation.waypoints.length, 0);
 
-        assert.ok(getFlightplanWaypoints(aeroflyFlight));
+        assert.ok(waypointsString(aeroflyFlight));
     });
 });

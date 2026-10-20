@@ -19,7 +19,10 @@ export type AeroflyFlightFormatterSunPosition = "Day" | "Night" | "Twilight";
  * Additional methods to have human-readable representations of `AeroflyFlight` properties.
  */
 
-export function getAircraft(aeroflyFlight: AeroflyFlight): string {
+/**
+ * @returns full aircraft name as well as livery description
+ */
+export function aircraftString(aeroflyFlight: AeroflyFlight): string {
     const currentAircraft = findAeroflyAircraft(aeroflyFlight.aircraft.name);
     if (!currentAircraft) {
         return "No aircraft selected";
@@ -29,61 +32,66 @@ export function getAircraft(aeroflyFlight: AeroflyFlight): string {
     return `${currentAircraft.nameFull} - ${currentLivery?.name ?? "Default Livery"}`;
 }
 
-export function getFuelAndPayload(aeroflyFlight: AeroflyFlight): string {
+export function fuelAndPayloadString(aeroflyFlight: AeroflyFlight): string {
     return aeroflyFlight.fuelLoadSetting.fuelMass
         ? `${numberFormat(aeroflyFlight.fuelLoadSetting.fuelMass)} / ${numberFormat(aeroflyFlight.fuelLoadSetting.payloadMass)} kg`
         : "Unset";
 }
 
-export function getFlightplanIdentifier(aeroflyFlight: AeroflyFlight): string {
-    return `${getFlightplanOriginCode(aeroflyFlight)}-${getFlightplanDestinationCode(aeroflyFlight)}`.replace(
+export function flightPlanShortString(aeroflyFlight: AeroflyFlight): string {
+    return `${originIdentifierString(aeroflyFlight)}-${destinationIdentifierString(aeroflyFlight)}`.replace(
         /[^a-zA-Z0-9_-]+/g,
         "-",
     );
 }
 
-export function getFlightplanOriginCode(aeroflyFlight: AeroflyFlight): string {
+export function originIdentifierString(aeroflyFlight: AeroflyFlight): string {
     return (
         aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteOrigin)?.identifier ?? "Unknown"
     );
 }
 
-export function getFlightplanOriginName(aeroflyFlight: AeroflyFlight): string {
-    const airportCode = getFlightplanOriginCode(aeroflyFlight);
-    const airportName = getAirportName(airportCode);
+export function originFullNameString(aeroflyFlight: AeroflyFlight): string {
+    const airportCode = originIdentifierString(aeroflyFlight);
+    const airportName = airportNameString(airportCode);
 
     return airportName ? `${airportName} (${airportCode})` : airportCode;
 }
 
-export function getAirportName(airportCode: string): string {
+export function airportNameString(airportCode: string): string {
     return airportCode !== "Unknown" ? (findAeroflyAirportByIcaoCode(airportCode)?.name ?? "Unknown") : "";
 }
 
-export function getFlightplanDestinationCode(aeroflyFlight: AeroflyFlight): string {
+export function destinationIdentifierString(aeroflyFlight: AeroflyFlight): string {
     return (
         aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination)?.identifier ??
         "Unknown"
     );
 }
 
-export function getFlightplanDestinationName(aeroflyFlight: AeroflyFlight): string {
-    const airportCode = getFlightplanDestinationCode(aeroflyFlight);
-    const airportName = getAirportName(airportCode);
+export function destinationFullNameString(aeroflyFlight: AeroflyFlight): string {
+    const airportCode = destinationIdentifierString(aeroflyFlight);
+    const airportName = airportNameString(airportCode);
 
     return airportName ? `${airportName} (${airportCode})` : airportCode;
 }
 
-export function getFlightplanSummary(aeroflyFlight: AeroflyFlight): string {
-    return `${getFlightplanOriginName(aeroflyFlight)} → ${getFlightplanDestinationName(aeroflyFlight)} (${getFlightplanDistance(aeroflyFlight)})`;
+/**
+ * @returns full name of origin / destination as well as distance
+ * @see originFullNameString
+ * @see destinationFullNameString
+ * @see distanceTimeString
+ */
+export function flightPlanExtendedString(aeroflyFlight: AeroflyFlight): string {
+    return `${originFullNameString(aeroflyFlight)} → ${destinationFullNameString(aeroflyFlight)} (${distanceTimeString(aeroflyFlight)})`;
 }
 
 /**
- * Show waypoints (excluding runways) in a human-readable string.
  * @param aeroflyFlight
  * @param maxLength if >= 2 this will limit the amount of waypoints returned in the string
- * @returns
+ * @returns waypoints (excluding runways) in a human-readable string
  */
-export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength = 0): string {
+export function waypointsString(aeroflyFlight: AeroflyFlight, maxLength = 0): string {
     if (aeroflyFlight.navigation.waypoints.length === 0) {
         return "No waypoints";
     }
@@ -112,7 +120,10 @@ export function getFlightplanWaypoints(aeroflyFlight: AeroflyFlight, maxLength =
     return waypoints.join(" → ");
 }
 
-export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
+/**
+ * @returns combined distance and time string
+ */
+export function distanceTimeString(aeroflyFlight: AeroflyFlight): string {
     const currentAircraft = findAeroflyAircraft(aeroflyFlight.aircraft.name);
     if (!currentAircraft) {
         return "Unknown";
@@ -125,11 +136,18 @@ export function getFlightplanDistance(aeroflyFlight: AeroflyFlight): string {
     return distanceNm ? `${numberFormat(distanceNm)}NM${hourString ? ", " + hourString + "h" : ""}` : "Unknown";
 }
 
-export function getCombinedFlightCategory(aeroflyFlight: AeroflyFlight): string {
+/**
+ * @see getIcaoFlightCategory
+ * @see getFlightCategory
+ */
+export function flightCategoryCombinedString(aeroflyFlight: AeroflyFlight): string {
     return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getFlightCategory(aeroflyFlight)}`;
 }
 
-export function getWind(aeroflyFlight: AeroflyFlight): string {
+/**
+ * @returns wind speed, direction and gusts
+ */
+export function windString(aeroflyFlight: AeroflyFlight): string {
     let wind = `${numberFormat(aeroflyFlight.wind.directionInDegree)}° @ ${numberFormat(aeroflyFlight.wind.speed_kts)}kts`;
     if (aeroflyFlight.wind.gust_kts > 0) {
         wind += ` (gusts ${numberFormat(aeroflyFlight.wind.gust_kts)}kts)`;
@@ -137,11 +155,14 @@ export function getWind(aeroflyFlight: AeroflyFlight): string {
     return wind;
 }
 
-export function getTemperature(aeroflyFlight: AeroflyFlight): string {
-    return `${numberFormat(aeroflyFlight.wind.temperature_celsius)}°C`;
+export function temperatureString(aeroflyFlight: AeroflyFlight): string {
+    return numberFormat(aeroflyFlight.wind.temperature_celsius) + `°C`;
 }
 
-export function getVisibility(aeroflyFlight: AeroflyFlight, separator = "/"): string {
+/**
+ * @returns visbiility in SM as well as meters, seperated by `separator`
+ */
+export function visbilityString(aeroflyFlight: AeroflyFlight, separator = "/"): string {
     if (aeroflyFlight.visibility_sm === 10 || aeroflyFlight.visibility_meter === 9999) {
         return `10SM ${separator} ${numberFormat(9999)}m`;
     }
@@ -149,7 +170,10 @@ export function getVisibility(aeroflyFlight: AeroflyFlight, separator = "/"): st
     return `${numberFormat(aeroflyFlight.visibility_sm) + quarter(aeroflyFlight.visibility_sm)}SM ${separator} ${numberFormat(aeroflyFlight.visibility_meter)}m`;
 }
 
-export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
+/**
+ * @returns multiple cloud base & density values, joined by `join`
+ */
+export function cloudString(aeroflyFlight: AeroflyFlight, join = " | "): string {
     return (
         aeroflyFlight.clouds
             .filter((cloud) => cloud.density > 0)
@@ -161,11 +185,9 @@ export function getClouds(aeroflyFlight: AeroflyFlight, join = " | "): string {
 }
 
 /**
- *
- * @param aeroflyFlight
- * @returns the civil sun position
+ * @returns the civil sun position, e.g. `Day`
  */
-export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
+export function sunPositionNameString(aeroflyFlight: AeroflyFlight): AeroflyFlightFormatterSunPosition {
     const solarElevationAngleDeg = getSunPosition(aeroflyFlight).elevation;
 
     if (solarElevationAngleDeg >= 0) {
@@ -178,10 +200,16 @@ export function getSunPositionName(aeroflyFlight: AeroflyFlight): AeroflyFlightF
     return "Night";
 }
 
+/**
+ * @returns a human readable name
+ */
 export function dateToString(date: Date): string {
     return date.toISOString().substring(0, 16).replace("T", " ");
 }
 
+/**
+ * @returns an ASCII value fo the current values fraction, rounded to the next qarter
+ */
 function quarter(value: number): string {
     value = Math.round(value * 4) / 4;
     const quarter = Math.floor((value % 1) * 4);

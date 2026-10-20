@@ -7,7 +7,7 @@ import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import type { Config } from "../../core/io/Config.js";
 import type { AeroflylightCategoryUs, AeroflylightCategoryIcao } from "../../core/util/AeroflyFlightHelper.js";
 import {
-    getSunPositionName,
+    sunPositionNameString,
     type AeroflyFlightFormatterSunPosition,
 } from "../../core/formatter/AeroflyFlightFormatter.js";
 import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
@@ -77,7 +77,7 @@ export class AppState {
     protected getDateTime() {
         const localTime = AeroflyFlightHelper.getLocalTimeAndDate(this.aeroflyFlight);
         const timeZoneOffset_h = AeroflyFlightHelper.getLocalTimeZoneOffset(this.aeroflyFlight);
-        const sunPosition = getSunPositionName(this.aeroflyFlight);
+        const sunPosition = sunPositionNameString(this.aeroflyFlight);
 
         return {
             utc: {
@@ -103,7 +103,7 @@ export class AppState {
     protected getRoute() {
         const cruiseAltitude_ft = this.aeroflyFlight.navigation.cruiseAltitude_ft;
         const cruiseSpeed_kts = this.aeroflyFlight.navigation._cruiseSpeed_kts ?? 0;
-        const routeString = AeroflyFlightFormatter.getFlightplanWaypoints(this.aeroflyFlight, 3);
+        const routeString = AeroflyFlightFormatter.waypointsString(this.aeroflyFlight, 3);
 
         const route = new RoutePlanService(this.aeroflyFlight);
         const routeLegs = route.getRouteLegs(cruiseSpeed_kts);
@@ -113,8 +113,8 @@ export class AppState {
             minutes: Math.round(routeTotal.estimatedTimeEnrouteTotal_min % 60),
         };
 
-        const departureAirportCode = AeroflyFlightFormatter.getFlightplanOriginCode(this.aeroflyFlight);
-        const destinationAirportCode = AeroflyFlightFormatter.getFlightplanDestinationCode(this.aeroflyFlight);
+        const departureAirportCode = AeroflyFlightFormatter.originIdentifierString(this.aeroflyFlight);
+        const destinationAirportCode = AeroflyFlightFormatter.destinationIdentifierString(this.aeroflyFlight);
 
         const skyVector = new SkyVectorUrl(this.aeroflyFlight);
 
@@ -124,10 +124,10 @@ export class AppState {
             routeUrl: skyVector.getRouteURL().toString(),
             distance_nm: routeTotal.distanceTotal_nm,
             flightTime,
-            departureAirport: AeroflyFlightFormatter.getFlightplanOriginName(this.aeroflyFlight),
+            departureAirport: AeroflyFlightFormatter.originFullNameString(this.aeroflyFlight),
             departureAirportCode,
             departureAirportUrl: skyVector.getOriginURL().toString(),
-            destinationAirport: AeroflyFlightFormatter.getFlightplanDestinationName(this.aeroflyFlight),
+            destinationAirport: AeroflyFlightFormatter.destinationFullNameString(this.aeroflyFlight),
             destinationAirportCode,
             destinationAirportUrl: skyVector.getDestinationURL().toString(),
             cruiseAltitude_ft,

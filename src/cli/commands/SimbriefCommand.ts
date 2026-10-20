@@ -32,7 +32,7 @@ export class SimbriefCommand extends BaseControllerCommand {
             );
             writeSuccess("Flightplan imported successfully");
             writeln(
-                `Imported flightplan: ${AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight())}`,
+                `Imported flightplan: ${AeroflyFlightFormatter.waypointsString(this.controller.getAeroflyFlight())}`,
             );
         } catch (error) {
             writeCatch(error);

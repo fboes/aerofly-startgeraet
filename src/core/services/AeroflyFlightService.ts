@@ -483,7 +483,7 @@ export class AeroflyFlightService {
     }
 
     getTimeAndDateCombinedString(): string {
-        return `${this.getTimeAndDateString()} | ${this.getTimeAndDateDepartureString()} (${AeroflyFlightFormatter.getSunPositionName(this.aeroflyFlight)})`;
+        return `${this.getTimeAndDateString()} | ${this.getTimeAndDateDepartureString()} (${AeroflyFlightFormatter.sunPositionNameString(this.aeroflyFlight)})`;
     }
 
     /**

@@ -2,14 +2,14 @@ import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { BaseAeroflyFlightToStringConverter } from "./AeroflyFlightToStringConverter.base.js";
 import {
     dateToString,
-    getClouds,
-    getFlightplanDestinationName,
-    getFlightplanOriginCode,
-    getFlightplanOriginName,
-    getSunPositionName,
-    getTemperature,
-    getVisibility,
-    getWind,
+    cloudString,
+    destinationFullNameString,
+    originIdentifierString,
+    originFullNameString,
+    sunPositionNameString,
+    temperatureString,
+    visbilityString,
+    windString,
 } from "../../formatter/AeroflyFlightFormatter.js";
 import { markdownTable } from "../../formatter/markdownTable.js";
 import { findAeroflyAircraft, findAeroflyLivery } from "../../services/getAeroflyAircraft.js";
@@ -79,9 +79,9 @@ ${markdownTable([
     ["---", "--:", "---:", "------"],
     ["UTC", ...dateToString(flightplan.timeUtc.time).split(" "), ""],
     [
-        getFlightplanOriginCode(flightplan) + "¹",
+        originIdentifierString(flightplan) + "¹",
         ...dateToString(getLocalTimeAndDate(flightplan)).split(" "),
-        getSunPositionName(flightplan),
+        sunPositionNameString(flightplan),
     ],
 ])}
 
@@ -101,10 +101,10 @@ ${markdownTable([
     ["Wind", "Clouds", "Visibility", "Temperature", "Flight Category"],
     ["---", "--:", "--:", "--:", "---"],
     [
-        getWind(flightplan),
-        getClouds(flightplan, " <br> "),
-        getVisibility(flightplan, "<br>"),
-        getTemperature(flightplan),
+        windString(flightplan),
+        cloudString(flightplan, " <br> "),
+        visbilityString(flightplan, "<br>"),
+        temperatureString(flightplan),
         `${getIcaoFlightCategory(flightplan)} (ICAO) <br> ${getFlightCategory(flightplan)} (US)`,
     ],
 ])}
@@ -146,8 +146,8 @@ ${markdownTable([
     ]),
 ])}
 
-- [Skyvector: ${getFlightplanOriginName(flightplan)}](${skyvector.getOriginURL().toString()})
-- [Skyvector: ${getFlightplanDestinationName(flightplan)}](${skyvector.getDestinationURL().toString()})
+- [Skyvector: ${originFullNameString(flightplan)}](${skyvector.getOriginURL().toString()})
+- [Skyvector: ${destinationFullNameString(flightplan)}](${skyvector.getDestinationURL().toString()})
 - [SkyVector: ${this.getFlightplanTitle(flightplan)}](${skyvector.getRouteURL().toString()})
 
 - ²) Value for "To" waypoint

@@ -19,7 +19,7 @@ import { AeroflyMcfToImportFileConverter } from "../../core/converter/other/Aero
 import { IMPORT_FILE_EXTENSIONS, IMPORT_FILE_TYPES } from "../../core/io/importFlightplan.js";
 import { AeroflyFlightToAeroflyCustomMissionsTmcConverter } from "../../core/converter/aerofly-flight/AeroflyFlightToAeroflyCustomMissionsTmcConverter.js";
 import path from "node:path";
-import { getFlightplanIdentifier } from "../../core/formatter/AeroflyFlightFormatter.js";
+import { flightPlanShortString } from "../../core/formatter/AeroflyFlightFormatter.js";
 import type { MetarInputWebComponentState } from "../web-components/form/MetarInputWebComponent.js";
 import type { ImportWebComponentPayload } from "../web-components/form/ImportWebComponent.js";
 import type { FlightPlanChooserWebComponentState } from "../web-components/form/FlightPlanChooserWebComponent.js";
@@ -326,7 +326,7 @@ export class AeroflyFlightServiceHandler {
             title: "Select Flight Plan File",
             defaultPath: path.join(
                 this.service.config.exportDirectory,
-                `flight-${getFlightplanIdentifier(this.service.getAeroflyFlight())}.${AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension}`,
+                `flight-${flightPlanShortString(this.service.getAeroflyFlight())}.${AeroflyFlightToAeroflyCustomMissionsTmcConverter.fileExtension}`,
             ),
             filters: [
                 ...EXPORT_FILE_EXTENSIONS.map((c) => ({

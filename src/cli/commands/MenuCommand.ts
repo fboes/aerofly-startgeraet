@@ -55,7 +55,7 @@ export class MenuCommand extends BaseControllerCommand {
 
         const choices = [
             {
-                name: this.name("Aircraft", AeroflyFlightFormatter.getAircraft(aeroflyFlight)),
+                name: this.name("Aircraft", AeroflyFlightFormatter.aircraftString(aeroflyFlight)),
                 value: "selectAircraft",
                 short: "Select aircraft",
             },
@@ -65,7 +65,7 @@ export class MenuCommand extends BaseControllerCommand {
                 short: "Set fuel and payload",
             },*/
             {
-                name: this.name("Flightplan", AeroflyFlightFormatter.getFlightplanSummary(aeroflyFlight)),
+                name: this.name("Flightplan", AeroflyFlightFormatter.flightPlanExtendedString(aeroflyFlight)),
                 value: "importFlightplan",
                 short: "Import / export flightplan",
                 description: "Import / export flightplan, run mission generator",
@@ -76,29 +76,29 @@ export class MenuCommand extends BaseControllerCommand {
                 short: "Set time and date",
             },
             {
-                name: this.name("Weather", AeroflyFlightFormatter.getCombinedFlightCategory(aeroflyFlight)),
+                name: this.name("Weather", AeroflyFlightFormatter.flightCategoryCombinedString(aeroflyFlight)),
                 value: "importWeather",
                 short: "Import weather",
                 description: "Import METAR & TAF weather reports",
             },
             {
-                name: this.name("Wind", AeroflyFlightFormatter.getWind(aeroflyFlight), true),
+                name: this.name("Wind", AeroflyFlightFormatter.windString(aeroflyFlight), true),
                 value: "setWind",
                 short: "Set wind",
             },
             {
-                name: this.name("Temperature", AeroflyFlightFormatter.getTemperature(aeroflyFlight), true),
+                name: this.name("Temperature", AeroflyFlightFormatter.temperatureString(aeroflyFlight), true),
                 value: "setTemperature",
                 short: "Set thermal activity",
             },
 
             {
-                name: this.name("Clouds", AeroflyFlightFormatter.getClouds(aeroflyFlight), true),
+                name: this.name("Clouds", AeroflyFlightFormatter.cloudString(aeroflyFlight), true),
                 value: "setClouds",
                 short: "Set clouds",
             },
             {
-                name: this.name("Visibility", AeroflyFlightFormatter.getVisibility(aeroflyFlight), true),
+                name: this.name("Visibility", AeroflyFlightFormatter.visbilityString(aeroflyFlight), true),
                 value: "setVisibility",
                 short: "Set visibility",
             },
@@ -195,7 +195,7 @@ export class MenuCommand extends BaseControllerCommand {
 
         writeln(
             fmt(`Current flightplan: {{ waypoints }}`, {
-                waypoints: AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight()),
+                waypoints: AeroflyFlightFormatter.waypointsString(this.controller.getAeroflyFlight()),
             }),
         );
 
@@ -278,7 +278,7 @@ export class MenuCommand extends BaseControllerCommand {
         writeSuccess("Flightplan imported successfully");
         writeln(
             fmt(`Imported flightplan: {{ waypoints }}`, {
-                waypoints: AeroflyFlightFormatter.getFlightplanWaypoints(this.controller.getAeroflyFlight()),
+                waypoints: AeroflyFlightFormatter.waypointsString(this.controller.getAeroflyFlight()),
             }),
         );
 
@@ -296,7 +296,7 @@ export class MenuCommand extends BaseControllerCommand {
             })),
         });
 
-        const fileNameDefault = `flight-${AeroflyFlightFormatter.getFlightplanIdentifier(this.controller.getAeroflyFlight())}.${fileType}`;
+        const fileNameDefault = `flight-${AeroflyFlightFormatter.flightPlanShortString(this.controller.getAeroflyFlight())}.${fileType}`;
 
         const fileName = await input({
             message: "Enter file name to export flightplan",

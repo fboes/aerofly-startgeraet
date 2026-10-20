@@ -1,12 +1,12 @@
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
-import { getFlightplanOriginCode } from "../../formatter/AeroflyFlightFormatter.js";
+import { originIdentifierString } from "../../formatter/AeroflyFlightFormatter.js";
 
 export class AeroflyFlightToMetarConverter {
     // static readonly fileName: string;
     // static readonly fileExtension: string;
 
     convert(flightplan: AeroflyFlight): string {
-        return `METAR ${getFlightplanOriginCode(flightplan)} ${this.getTimeAndDate(flightplan)} ${this.getWind(flightplan)} ${this.getVisibility(flightplan)} ${this.getClouds(flightplan)} ${this.getTemperature(flightplan)} Q${Math.round(1013.25)}`;
+        return `METAR ${originIdentifierString(flightplan)} ${this.getTimeAndDate(flightplan)} ${this.getWind(flightplan)} ${this.getVisibility(flightplan)} ${this.getClouds(flightplan)} ${this.getTemperature(flightplan)} Q${Math.round(1013.25)}`;
     }
 
     private getTimeAndDate(flightplan: AeroflyFlight): string {
