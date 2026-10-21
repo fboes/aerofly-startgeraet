@@ -47,7 +47,7 @@ describe("MsfsPlnToAeroflyFlightConverter", () => {
         assert.notStrictEqual(flight.navigation.waypoints[4].longitude, flight.navigation.waypoints[5].longitude);
     });
 
-    it("should fail on trying to import EFB", () => {
+    it("throws Error on trying to import EFB", () => {
         const flight = new AeroflyFlightFallback();
         const content = loadFixture("KEYWKMIA_M24.pln");
 

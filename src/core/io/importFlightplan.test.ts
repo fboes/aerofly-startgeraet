@@ -9,7 +9,7 @@ describe("importFlightplan", () => {
         const files = findImportFiles(config);
 
         assert.ok(config.importDirectory);
-        assert.strictEqual(files.length, 12);
+        assert.strictEqual(files.length, 15);
         //console.log(files);
     });
 });

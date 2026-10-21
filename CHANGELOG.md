@@ -5,6 +5,7 @@
 - Updated aircraft / airport database to current Aerofly FS 4 state
 - Added landing pattern mission generator
 - Added holding pattern mission generator
+- Added GeoJSON import
 - Added test artifact writing
 - Refactored API usage
 

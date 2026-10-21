@@ -1,0 +1,307 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.2834799999999404, 53.3474, 0]
+      },
+      "properties": {
+        "id": 0,
+        "sequence": 1,
+        "title": "EGCC",
+        "type": "origin",
+        "altitude_ft": 0,
+        "marker-symbol": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.861110999999994, 53.20688917524122, 5681.173824920319]
+      },
+      "properties": {
+        "id": 1,
+        "sequence": 2,
+        "title": "NAPEX",
+        "type": "waypoint",
+        "altitude_ft": 18639.02233175158,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.00083, 52.9795318896952, 10805.749380294234]
+      },
+      "properties": {
+        "id": 2,
+        "sequence": 3,
+        "title": "DOLAS",
+        "type": "waypoint",
+        "altitude_ft": 35451.934796844536,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.4675000000000002, 52.80233351076124, 10805.100777956657]
+      },
+      "properties": {
+        "id": 3,
+        "sequence": 4,
+        "title": "ENITO",
+        "type": "waypoint",
+        "altitude_ft": 35449.806836351316,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.500000000000001, 52.798133548750165, 10805.085391689092]
+      },
+      "properties": {
+        "id": 4,
+        "sequence": 5,
+        "title": "DIBAL",
+        "type": "waypoint",
+        "altitude_ft": 35449.75635646924,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.80056, 52.75923389964498, 10804.942857062444]
+      },
+      "properties": {
+        "id": 5,
+        "sequence": 6,
+        "title": "BUKUT",
+        "type": "waypoint",
+        "altitude_ft": 35449.28872316475,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.99436, 52.73383412783351, 10804.849760509096]
+      },
+      "properties": {
+        "id": 6,
+        "sequence": 7,
+        "title": "LAMSO",
+        "type": "waypoint",
+        "altitude_ft": 35448.98328826866,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [3.3870000000000005, 52.64133495261911, 10804.51054430753]
+      },
+      "properties": {
+        "id": 7,
+        "sequence": 8,
+        "title": "EVELI",
+        "type": "waypoint",
+        "altitude_ft": 35447.87037418591,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [3.8573099999999982, 52.36863732734353, 10803.508852018043]
+      },
+      "properties": {
+        "id": 8,
+        "sequence": 9,
+        "title": "TULIP",
+        "type": "waypoint",
+        "altitude_ft": 35444.58398205488,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [4.697330000000003, 51.83554172387892, 10801.543838378973]
+      },
+      "properties": {
+        "id": 9,
+        "sequence": 10,
+        "title": "LARAS",
+        "type": "waypoint",
+        "altitude_ft": 35438.13708670727,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [4.77196, 51.81554188247628, 10801.469949654303]
+      },
+      "properties": {
+        "id": 10,
+        "sequence": 11,
+        "title": "INKET",
+        "type": "waypoint",
+        "altitude_ft": 35437.89466962383,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.39486, 51.46875563601609, 9781.883697010577]
+      },
+      "properties": {
+        "id": 11,
+        "sequence": 12,
+        "title": "EHN",
+        "type": "waypoint",
+        "altitude_ft": 32092.79530850018,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.901849999999999, 51.25042208214316, 8238.382436840795]
+      },
+      "properties": {
+        "id": 12,
+        "sequence": 13,
+        "title": "SOPVI",
+        "type": "waypoint",
+        "altitude_ft": 27028.814634084752,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.96025, 51.225108714466764, 8084.035306879319]
+      },
+      "properties": {
+        "id": 13,
+        "sequence": 14,
+        "title": "ROMIN",
+        "type": "waypoint",
+        "altitude_ft": 26522.426396221945,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.125, 51.19767102969269, 7651.991832958534]
+      },
+      "properties": {
+        "id": 14,
+        "sequence": 15,
+        "title": "MILGI",
+        "type": "waypoint",
+        "altitude_ft": 25104.96088524368,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.480279999999999, 50.973361142872484, 6386.452036336064]
+      },
+      "properties": {
+        "id": 15,
+        "sequence": 16,
+        "title": "INLAR",
+        "type": "waypoint",
+        "altitude_ft": 20952.927298892813,
+        "marker-symbol": "triangle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.540670000000004, 50.032600000000016, 0]
+      },
+      "properties": {
+        "id": 16,
+        "sequence": 17,
+        "title": "EDDF",
+        "type": "destination",
+        "altitude_ft": 0,
+        "marker-symbol": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.2834799999999404, 53.3474, 0],
+          [-2.2834799999999404, 53.3474, 0],
+          [-0.861110999999994, 53.20688917524122, 5681.173824920319],
+          [1.00083, 52.9795318896952, 10805.749380294234],
+          [2.4675000000000002, 52.80233351076124, 10805.100777956657],
+          [2.500000000000001, 52.798133548750165, 10805.085391689092],
+          [2.80056, 52.75923389964498, 10804.942857062444],
+          [2.99436, 52.73383412783351, 10804.849760509096],
+          [3.3870000000000005, 52.64133495261911, 10804.51054430753],
+          [3.8573099999999982, 52.36863732734353, 10803.508852018043],
+          [4.697330000000003, 51.83554172387892, 10801.543838378973],
+          [4.77196, 51.81554188247628, 10801.469949654303],
+          [5.39486, 51.46875563601609, 9781.883697010577],
+          [5.901849999999999, 51.25042208214316, 8238.382436840795],
+          [5.96025, 51.225108714466764, 8084.035306879319],
+          [6.125, 51.19767102969269, 7651.991832958534],
+          [6.480279999999999, 50.973361142872484, 6386.452036336064],
+          [8.540670000000004, 50.032600000000016, 0]
+        ]
+      },
+      "properties": {
+        "id": 19,
+        "title": "Flightplan EGCC → EDDF",
+        "type": "flightplan",
+        "stroke": "#FF1493"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.2834799999999404, 53.3474, 0]
+      },
+      "properties": {
+        "title": "mb339",
+        "livery": "uae",
+        "id": 20,
+        "type": "aircraft_position",
+        "altitude_ft": 0,
+        "marker-symbol": "airfield"
+      }
+    }
+  ]
+}

@@ -136,9 +136,6 @@ export function convertMission(
         ],
         Number(simbriefPayload.general.cruise_tas),
     );
-
-    flight._missionTitle = "";
-    flight._missionBriefing = "";
 }
 
 function getWaypointsFromNavlog(simbriefPayload: SimBriefApiPayload): AeroflyNavRouteWaypoint[] {

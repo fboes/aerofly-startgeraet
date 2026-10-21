@@ -7,8 +7,9 @@ export abstract class BaseStringToAeroflyFlightConverter {
 
     /**
      * In a given file there may be multiple flight plans present.
-     * This method is supposed to return the name as well as indices of the found flight plans.
-     * In most files there will be only a single flight plan included, so this will return a single string called "default".
+     * This method is supposed to return the name as well as indices of the
+     * found flight plans. In most files there will be only a single flight plan
+     * included, so this will return a single string called "default".
      */
     getIndices(content: string): string[] {
         if (content === "") {
@@ -34,8 +35,8 @@ export abstract class BaseStringToAeroflyFlightConverter {
     }
 
     /**
-     * @returns runway orientation by looking at the runway name. Obviously the runway direction will not
-     *   be precise, but rounded to the next 10 degrees.
+     * @returns runway orientation by looking at the runway name. Obviously the
+     * runway direction will not be precise, but rounded to the next 10 degrees.
      */
     parseRunwayDirection(runway: string): number | undefined {
         const rwy = Number(runway.replace(/\D+/g, ""));
@@ -48,6 +49,14 @@ export abstract class BaseStringToAeroflyFlightConverter {
             .filter((wp) => wp instanceof AeroflyNavRouteWaypoint)
             .filter((wp) => wp.altitude_ft !== null)
             .map((wp) => wp.altitude_ft as number)
+            .reduce((prev, curr) => (curr > prev ? curr : prev), 0);
+    }
+
+    getCruiseAltitudeM(waypoints: AeroflyNavRouteBase[]): number {
+        return waypoints
+            .filter((wp) => wp instanceof AeroflyNavRouteWaypoint)
+            .filter((wp) => wp.altitude !== null)
+            .map((wp) => wp.altitude as number)
             .reduce((prev, curr) => (curr > prev ? curr : prev), 0);
     }
 

@@ -9,6 +9,7 @@ import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/o
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
 import path from "node:path";
 import type { Config } from "./Config.js";
+import { GeoJsonToAeroflyFlightConverter } from "../converter/other/GeoJsonToAeroflyFlightConverter.js";
 
 /**
  * Reads a file and converts it into `AeroflyFlight` by selecting the
@@ -21,6 +22,7 @@ const IMPORT_REGISTRY: Record<string, (new () => BaseStringToAeroflyFlightConver
     [MsfsPlnToAeroflyFlightConverter.fileExtension]: MsfsPlnToAeroflyFlightConverter,
     [GarminFplToAeroflyFlightConverter.fileExtension]: GarminFplToAeroflyFlightConverter,
     [XplaneFmsToAeroflyFlightConverter.fileExtension]: XplaneFmsToAeroflyFlightConverter,
+    [GeoJsonToAeroflyFlightConverter.fileExtension]: GeoJsonToAeroflyFlightConverter,
 };
 
 export const IMPORT_FILE_EXTENSIONS: {
@@ -46,6 +48,10 @@ export const IMPORT_FILE_EXTENSIONS: {
     {
         name: XplaneFmsToAeroflyFlightConverter.fileName,
         extension: XplaneFmsToAeroflyFlightConverter.fileExtension,
+    },
+    {
+        name: GeoJsonToAeroflyFlightConverter.fileName,
+        extension: GeoJsonToAeroflyFlightConverter.fileExtension,
     },
 ];
 
