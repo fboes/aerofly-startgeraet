@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import z from "zod";
-import type { MissionGenerator } from "../MissionGenerator.interface.js";
-import type { MissionGeneratorManifest } from "../MissionGenerator.type.js";
-import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
+import type { MissionGenerator } from "../../MissionGenerator.interface.js";
+import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
+import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 
 type HemsMissionGeneratorConfiguration = {
     isEndAtHospital: z.ZodDefault<z.ZodBoolean>;

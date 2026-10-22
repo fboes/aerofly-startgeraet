@@ -2,10 +2,10 @@ import type { z } from "zod";
 import type { MissionGenerator } from "./MissionGenerator.interface.js";
 import type { MissionGeneratorManifest, MissionGeneratorManifestField } from "./MissionGenerator.type.js";
 import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
-import { LandingPatternMissionGenerator } from "./landing-pattern/LandingPatternMissionGenerator.js";
+import { LandingPatternMissionGenerator } from "./generators/landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import type { JsonSchemaObject, JsonSchemaType, JsonSchemaValue } from "./JsonSchema.type.js";
-import { HoldingPatternMissionGenerator } from "./holding-pattern/HoldingPatternMissionGenerator.js";
+import { HoldingPatternMissionGenerator } from "./generators/holding-pattern/HoldingPatternMissionGenerator.js";
 import { Config } from "../core/io/Config.js";
 //import { HemsMissionGenerator } from "./hems-mission/HemsMissionGenerator.js";
 

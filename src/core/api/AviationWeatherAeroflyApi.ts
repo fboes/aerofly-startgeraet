@@ -8,6 +8,7 @@ import type {
 } from "./AviationWeatherApi.type.js";
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
 import { UNIT_METER_PER_FEET } from "../util/units.js";
+import { degreeDifference, degreeNormalize } from "../util/degree.js";
 
 export type BestRunway = {
     id: string;
@@ -190,7 +191,7 @@ export async function fetchBestRunway(
                         },
                         isRight: t.endsWith("R"),
                         surface: r.surface,
-                        alignment: ((r.alignment ?? 0) + index * 180 - (t.endsWith("R") ? 0.25 : 0)) % 360,
+                        alignment: degreeNormalize((r.alignment ?? 0) + index * 180 - (t.endsWith("R") ? 0.25 : 0)),
                     }),
                 ),
         )
@@ -201,21 +202,9 @@ export async function fetchBestRunway(
     }
 
     return possibleRunways.reduce((a, b) => {
-        return degreeDifference(a.alignment, windDirection) < degreeDifference(b.alignment, windDirection) ? a : b;
+        return Math.abs(degreeDifference(a.alignment, windDirection)) <
+            Math.abs(degreeDifference(b.alignment, windDirection))
+            ? a
+            : b;
     });
-}
-
-/**
- * Computes the difference between to angles
- */
-function degreeDifference(fromDegree: number, toDegree: number): number {
-    let result = toDegree - fromDegree;
-    while (result > 180) {
-        result -= 360;
-    }
-    while (result < -180) {
-        result += 360;
-    }
-
-    return Math.abs(result);
 }

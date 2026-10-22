@@ -1,11 +1,11 @@
 import z from "zod";
-import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import type { MissionGenerator } from "../MissionGenerator.interface.js";
-import type { MissionGeneratorManifest } from "../MissionGenerator.type.js";
+import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
+import type { MissionGenerator } from "../../MissionGenerator.interface.js";
+import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
 import { Point, Vector } from "@fboes/geojson";
-import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../core/util/units.js";
-import { randomArbitrary } from "../../core/util/random.js";
-import type { BestRunway } from "../../core/api/AviationWeatherAeroflyApi.js";
+import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../../core/util/units.js";
+import { randomArbitrary } from "../../../core/util/random.js";
+import type { BestRunway } from "../../../core/api/AviationWeatherAeroflyApi.js";
 import {
     AeroflyNavigationConfig,
     AeroflyNavRouteDepartureRunway,
@@ -14,13 +14,14 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { asVectorString } from "../../core/formatter/getVectorString.js";
+import { asVectorString } from "../../../core/formatter/getVectorString.js";
 import {
     getAirportDataViaOrigin,
     getBestRunwayViaFlightService,
     getMinimumSafeAltitude,
     getRunwayPoint,
-} from "../_util/ApiService.js";
+} from "../../util/ApiService.js";
+import { degreeNormalize as normalizeDegree } from "../../../core/util/degree.js";
 
 type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
@@ -92,7 +93,10 @@ depending on API availability.
 
         // Establish aircraft position
         const aircraftHeading = randomArbitrary(0, 356);
-        const aircraftVector = new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360);
+        const aircraftVector = new Vector(
+            configuration.distance_nm * UNIT_METER_PER_NM,
+            normalizeDegree(aircraftHeading + 180),
+        );
         const aircraftPoint = airportPoint.getPointBy(aircraftVector);
         aircraftPoint.elevation = Math.min(
             await getMinimumSafeAltitude(aircraftPoint, configuration.minimumSafeAltitude_ft),

@@ -11,6 +11,7 @@ import { Point } from "@fboes/geojson";
 import { findAeroflyAircraft } from "./getAeroflyAircraft.js";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../util/units.js";
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
+import { degreeNormalize } from "../util/degree.js";
 
 type RoutePlanServiceLegType =
     | "origin"
@@ -239,7 +240,7 @@ export class RoutePlanService {
         return {
             ground_speed,
             heading_rad,
-            heading: ((heading_rad * 180) / Math.PI) % 360,
+            heading: degreeNormalize((heading_rad * 180) / Math.PI),
         };
     }
 }

@@ -5,6 +5,7 @@ import type { AeroflyFlightService } from "../../core/services/AeroflyFlightServ
 import { UNIT_METER_PER_FEET } from "../../core/util/units.js";
 import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
 import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
+import { degreeNormalize } from "../../core/util/degree.js";
 
 /**
  * Additional airport data for current origin / destination airport not provided
@@ -39,7 +40,9 @@ export async function getBestRunwayViaFlightService(
  * Point data for runway, according to expected placement in Aerofly FS 4
  */
 export function getRunwayPoint(runwayData: BestRunway, airportPoint: Point): Point {
-    return airportPoint.getPointBy(new Vector(runwayData.dimension.length / 2, (runwayData.alignment + 180) % 360));
+    return airportPoint.getPointBy(
+        new Vector(runwayData.dimension.length / 2, degreeNormalize(runwayData.alignment + 180)),
+    );
 }
 
 /**

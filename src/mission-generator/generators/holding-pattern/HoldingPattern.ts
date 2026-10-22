@@ -1,8 +1,11 @@
 import type z from "zod";
-import { UNIT_METER_PER_NM } from "../../core/util/units.js";
+import { UNIT_METER_PER_NM } from "../../../core/util/units.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
 import type { Point } from "@fboes/geojson";
-import type { MissionGeneratorWaypoint } from "../MissionGenerator.type.js";
+import type { MissionGeneratorWaypoint } from "../../MissionGenerator.type.js";
+import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
+
+export type HoldingPatternEntry = "direct" | "parallel" | "offset";
 
 export type HoldingPattern = {
     fixData: MissionGeneratorWaypoint;
@@ -19,6 +22,9 @@ export type HoldingPattern = {
     legDistanceMeters: number;
 };
 
+/**
+ * @returns a data object with all relevant data to specify a hold pattern.
+ */
 export function createHoldingPattern(
     cruiseSpeedKts: number,
     fixData: MissionGeneratorWaypoint,
@@ -34,8 +40,8 @@ export function createHoldingPattern(
             : 0;
     const legTimeMin = configuration.holdAltitudeMsl_ft > 14000 ? 1.5 : 1.0;
     const turnRadiusMeters = calculateTurnRadiusMeters(patternSpeedKts);
-    const holdingAreaDirection = (inboundHeading + (configuration.isHoldingAwayPattern ? 0 : 180)) % 360;
-    const holdingAreaDirectionTrue = (holdingAreaDirection + (fixData.mag_dec ?? 0)) % 360;
+    const holdingAreaDirection = degreeNormalize(inboundHeading + (configuration.isHoldingAwayPattern ? 0 : 180));
+    const holdingAreaDirectionTrue = degreeNormalize(holdingAreaDirection + (fixData.mag_dec ?? 0));
 
     return {
         fixData,
@@ -104,4 +110,15 @@ function calculateMaxPatternSpeedKts(patternAltitudeFt: number): number {
         return 240; // ICAO
     }
     return 265; // ICAO
+}
+
+export function calculateHoldingPatternEntry(pattern: HoldingPattern, bearing: number): HoldingPatternEntry {
+    const delta = degreeDifference(pattern.holdingAreaDirectionTrue, bearing) * (pattern.isLeftPattern ? -1 : 1);
+    if (delta >= 110) {
+        return "offset";
+    }
+    if (delta <= -70) {
+        return "parallel";
+    }
+    return "direct";
 }

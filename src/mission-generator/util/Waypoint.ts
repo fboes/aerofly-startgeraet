@@ -63,7 +63,7 @@ export async function getFlightplanWaypointData(
 }
 
 /**
- * Will try fetch navigationall aid waypoint data from API.
+ * Will try fetch navigational aid waypoint data from API.
  * Will also use caching.
  */
 export async function getNavaidWaypointData(identifier: string): Promise<MissionGeneratorWaypoint | undefined> {

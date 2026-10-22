@@ -1,16 +1,18 @@
 import z from "zod";
-import type { MissionGenerator } from "../MissionGenerator.interface.js";
-import type { MissionGeneratorManifest, MissionGeneratorWaypoint } from "../MissionGenerator.type.js";
-import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import { cardinalDirection, asVectorString } from "../../core/formatter/getVectorString.js";
+import type { MissionGenerator } from "../../MissionGenerator.interface.js";
+import type { MissionGeneratorManifest, MissionGeneratorWaypoint } from "../../MissionGenerator.type.js";
+import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
+import { cardinalDirection, asVectorString } from "../../../core/formatter/getVectorString.js";
 import { Point, Vector } from "@fboes/geojson";
-import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../core/util/units.js";
-import { randomArbitrary } from "../../core/util/random.js";
+import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../../core/util/units.js";
+import { randomArbitrary } from "../../../core/util/random.js";
 import { AeroflyNavigationConfig, AeroflyNavRouteWaypoint } from "@fboes/aerofly-custom-missions";
-import { createHoldingPattern, type HoldingPattern } from "./HoldingPattern.js";
-import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
-import { numberFormat } from "../../core/formatter/numberFormat.js";
-import { getWaypointData, getWaypointFullName } from "../_util/Waypoint.js";
+import { calculateHoldingPatternEntry, createHoldingPattern, type HoldingPattern } from "./HoldingPattern.js";
+import { ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
+import { numberFormat } from "../../../core/formatter/numberFormat.js";
+import { getWaypointData, getWaypointFullName } from "../../util/Waypoint.js";
+import { degreeNormalize } from "../../../core/util/degree.js";
+import { getEntryWaypoints, getPatternWaypoints } from "./HoldingPatternWaypoints.js";
 
 export type HoldingPatternMissionGeneratorConfiguration = {
     navaidIdentifier: z.ZodString;
@@ -18,6 +20,7 @@ export type HoldingPatternMissionGeneratorConfiguration = {
     holdAltitudeMsl_ft: z.ZodDefault<z.ZodNumber>;
     inboundHeading_deg: z.ZodOptional<z.ZodNumber>;
     dmeDistance_nm: z.ZodDefault<z.ZodNumber>;
+    hasEntryWaypoints: z.ZodDefault<z.ZodBoolean>;
     isLeftPattern: z.ZodDefault<z.ZodBoolean>;
     isHoldingAwayPattern: z.ZodDefault<z.ZodBoolean>;
 };
@@ -71,6 +74,7 @@ depending on API availability.
                 .min(0)
                 .default(0)
                 .meta({ title: "DME distance from Navigational Aid", unit: "NM" }),
+            hasEntryWaypoints: z.boolean().default(false).meta({ title: "Add entry procedure waypoints" }),
             isLeftPattern: z.boolean().default(false).meta({ title: "Use left turn holding pattern" }),
             isHoldingAwayPattern: z
                 .boolean()
@@ -108,6 +112,15 @@ depending on API availability.
               }
             : navaidData;
 
+        // Establish aircraft position
+        const aircraftHeading = randomArbitrary(0, 356);
+        const aircraftVector = new Vector(
+            configuration.distance_nm * UNIT_METER_PER_NM,
+            degreeNormalize(aircraftHeading + 180),
+        );
+        const aircraftPoint = fixPoint.getPointBy(aircraftVector);
+        aircraftPoint.elevation = configuration.holdAltitudeMsl_ft * UNIT_METER_PER_FEET;
+
         // Establish pattern
         const aircraft = flightPlanService.getAircraftData();
         const pattern = createHoldingPattern(
@@ -117,12 +130,7 @@ depending on API availability.
             inboundHeading,
             configuration,
         );
-
-        // Establish aircraft position
-        const aircraftHeading = randomArbitrary(0, 356);
-        const aircraftVector = new Vector(configuration.distance_nm * UNIT_METER_PER_NM, (aircraftHeading + 180) % 360);
-        const aircraftPoint = fixPoint.getPointBy(aircraftVector);
-        aircraftPoint.elevation = configuration.holdAltitudeMsl_ft * UNIT_METER_PER_FEET;
+        const patternEntry = calculateHoldingPatternEntry(pattern, aircraftVector.bearing);
 
         // Add flight plan
         const departureAirport = flightPlanService.getFlightplanDepartureAirport();
@@ -141,82 +149,27 @@ depending on API availability.
         );
         flight.navigation = new AeroflyNavigationConfig(aircraftPoint.elevation, [
             departureAirport,
-            ...this.getPatternWaypoints(pattern),
+            new AeroflyNavRouteWaypoint("WP-0001", aircraftPoint.longitude, aircraftPoint.latitude, {
+                altitude: aircraftPoint.elevation,
+            }),
+            ...getEntryWaypoints(pattern, configuration.hasEntryWaypoints ? patternEntry : ""),
+            ...getPatternWaypoints(pattern),
             arrivalAirport,
         ]);
         flight._missionTitle = `Holding pattern at ${navaidData.identifier}`;
-        flight._missionBriefing =
-            `\
-Your aircraft is ${asVectorString(aircraftVector)} of ${fixData.identifier}.
-` + this.getDescription(navaidData, pattern);
+        flight._missionBriefing = this.getDescription(aircraftVector, navaidData, pattern);
 
         return true;
-    }
-
-    private getPatternWaypoints(pattern: HoldingPattern): AeroflyNavRouteWaypoint[] {
-        const fixPoint = pattern.fixPoint;
-        const fixData = pattern.fixData;
-        const turnMultiplier = pattern.isLeftPattern ? -1 : 1;
-
-        const pointAfterFix = fixPoint.getPointBy(
-            new Vector(pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue + 180),
-        );
-        const pointAbeam = pointAfterFix.getPointBy(
-            new Vector(2 * pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue - turnMultiplier * 90),
-        );
-        const pointOutbound = pointAbeam.getPointBy(
-            new Vector(pattern.legDistanceMeters + 2 * pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue),
-        );
-        const pointInbound = pointOutbound.getPointBy(
-            new Vector(2 * pattern.turnRadiusMeters, pattern.holdingAreaDirectionTrue + turnMultiplier * 90),
-        );
-
-        const patternWaypointProperties = {
-            altitude_ft: pattern.holdAltitudeMsl_ft,
-        };
-
-        return [
-            new AeroflyNavRouteWaypoint(fixData.identifier, fixPoint.longitude, fixPoint.latitude, {
-                ...patternWaypointProperties,
-                flyOver: true,
-                navaidFrequency_khz: fixData.freq_khz,
-            }),
-            new AeroflyNavRouteWaypoint(
-                fixData.identifier + "-TURN",
-                pointAfterFix.longitude,
-                pointAfterFix.latitude,
-                patternWaypointProperties,
-            ),
-            new AeroflyNavRouteWaypoint(
-                fixData.identifier + "-ABEAM",
-                pointAbeam.longitude,
-                pointAbeam.latitude,
-                patternWaypointProperties,
-            ),
-            new AeroflyNavRouteWaypoint(
-                fixData.identifier + "-OUTBND",
-                pointOutbound.longitude,
-                pointOutbound.latitude,
-                patternWaypointProperties,
-            ),
-            new AeroflyNavRouteWaypoint(
-                fixData.identifier + "-INBND",
-                pointInbound.longitude,
-                pointInbound.latitude,
-                patternWaypointProperties,
-            ),
-            new AeroflyNavRouteWaypoint(fixData.identifier, fixPoint.longitude, fixPoint.latitude, {
-                ...patternWaypointProperties,
-                flyOver: true,
-                navaidFrequency_khz: fixData.freq_khz,
-            }),
-        ];
     }
 
     /**
      * @see https://www.code7700.com/holding.htm
      */
-    private getDescription(navaidData: MissionGeneratorWaypoint, pattern: HoldingPattern): string {
+    private getDescription(
+        aircraftVector: Vector,
+        navaidData: MissionGeneratorWaypoint,
+        pattern: HoldingPattern,
+    ): string {
         const direction = cardinalDirection(pattern.holdingAreaDirection);
         const dmeFix = pattern.dmeDistance_nm > 0 ? `the ${pattern.dmeDistance_nm} DME fix, ` : "";
         const radial =
@@ -230,7 +183,9 @@ Your aircraft is ${asVectorString(aircraftVector)} of ${fixData.identifier}.
         const turnInfo = pattern.isLeftPattern ? "make left-hand turns, " : "make right-hand turns, ";
         const altitude = numberFormat(pattern.holdAltitudeMsl_ft);
 
-        return `Hold ${direction} of ${dmeFix + getWaypointFullName(navaidData)} \
+        return `\
+Your aircraft is ${asVectorString(aircraftVector)} of ${pattern.fixData.identifier}.
+Hold ${direction} of ${dmeFix + getWaypointFullName(navaidData)} \
 on the ${radial}, \
 ${dmeInfo}\
 ${turnInfo}\

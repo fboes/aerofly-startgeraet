@@ -154,8 +154,10 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             );
         }
 
+        const type = this.jsonSchemaTypeToInputType(c.type);
+
         if (input instanceof HTMLInputElement) {
-            input.type = this.jsonSchemaTypeToInputType(c.type);
+            input.type = type;
             if (c.multipleOf) {
                 input.step = c.multipleOf.toString();
             }
@@ -166,7 +168,12 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
                 input.max = c.maximum.toString();
             }
             if (c.default !== undefined && c.default !== null) {
-                input.value = c.default.toString();
+                if (type === "checkbox") {
+                    input.value = "1";
+                    input.checked = Boolean(c.default);
+                } else {
+                    input.value = c.default.toString();
+                }
             }
             if (c.pattern) {
                 input.pattern = c.pattern;
