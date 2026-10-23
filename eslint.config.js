@@ -11,4 +11,10 @@ export default defineConfig([
         languageOptions: { globals: { ...globals.browser, ...globals.nodeBuiltin } },
     },
     tseslint.configs.strict,
+    {
+        files: ["**/*.{ts,mts,cts}"],
+        rules: {
+            "@typescript-eslint/consistent-type-imports": "error",
+        },
+    }
 ]);

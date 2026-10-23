@@ -13,6 +13,7 @@ import { numberFormat } from "../../../core/formatter/numberFormat.js";
 import { getWaypointData, getWaypointFullName } from "../../util/Waypoint.js";
 import { degreeNormalize } from "../../../core/util/degree.js";
 import { getEntryWaypoints, getPatternWaypoints } from "./HoldingPatternWaypoints.js";
+import * as ZodExtra from "../../../core/util/zExtra.js";
 
 export type HoldingPatternMissionGeneratorConfiguration = {
     navaidIdentifier: z.ZodString;
@@ -52,11 +53,7 @@ depending on API availability.
 
     configuration(): z.ZodObject<HoldingPatternMissionGeneratorConfiguration> {
         return z.object({
-            navaidIdentifier: z
-                .string()
-                .regex(/^[A-Za-z0-9]{2,6}$/)
-                .uppercase()
-                .meta({ title: "Reference RNAV / Navigational Aid" }),
+            navaidIdentifier: ZodExtra.identifier().meta({ title: "Reference RNAV / Navigational Aid" }),
             distance_nm: z.number().min(2).default(8).meta({ title: "Initial aircraft distance from fix", unit: "NM" }),
             holdAltitudeMsl_ft: z
                 .number()

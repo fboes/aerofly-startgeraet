@@ -2,6 +2,7 @@ import type { McpServer, CallToolResult } from "@modelcontextprotocol/server";
 import type { Config } from "../../core/io/Config.js";
 import { z } from "zod";
 import { returnMcpToolSimpleResult, returnMcpToolResult } from "../util/returnMcpResult.js";
+import * as ZodExtra from "../../core/util/zExtra.js";
 
 export const TOOL_GET_CONFIG = "get-config";
 export const TOOL_SET_CONFIG = "set-config";
@@ -30,12 +31,12 @@ export function registerConfigurationHandlers(server: McpServer, config: Config)
             inputSchema: z.object({
                 mainMcfFilePath: z
                     .string()
+                    .trim()
                     .optional()
                     .describe(
                         `Absolute path to the \`main.mcf\` file. This file is the main interface to Aerofly FS 4 and is crucial for reading and writting mission data to Aerofly FS 4.`,
                     ),
-                simBriefUserName: z
-                    .string()
+                simBriefUserName: ZodExtra.simBriefUsername()
                     .optional()
                     .describe(
                         `Username or UserID for SimBrief API. Only required if user asks to populate Aerofly FS 4 by importing a SimBrief flightplan.`,

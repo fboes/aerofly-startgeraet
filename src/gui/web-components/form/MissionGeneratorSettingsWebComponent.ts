@@ -1,4 +1,3 @@
-import type { JsonSchemaType } from "../../../mission-generator/JsonSchema.type.js";
 import type {
     MissionGeneratorManifest,
     MissionGeneratorManifestField,
@@ -17,7 +16,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         title: HTMLHeadingElement;
         description: HTMLParagraphElement;
         form: HTMLDivElement;
-        inputElements: (HTMLInputElement | HTMLSelectElement)[];
+        inputElements: (HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement)[];
         submitButton: HTMLButtonElement;
     };
 
@@ -30,10 +29,16 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         return state;
     }
 
-    private getInputValue(input: HTMLInputElement | HTMLSelectElement): string | number | boolean | undefined {
+    private getInputValue(
+        input: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+    ): string | number | boolean | undefined {
         if (input.value === "") {
             return undefined;
         }
+        if (input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
+            return input.value;
+        }
+
         switch (input.type) {
             case "number":
                 return input.valueAsNumber;
@@ -140,7 +145,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
     }
 
     private getInput(c: MissionGeneratorManifestField) {
-        const input = document.createElement(c.enum ? "select" : "input");
+        const input = document.createElement(this.jsonSchemaTypeToTag(c));
         input.name = c.name;
         input.required = c.isRequired;
 
@@ -154,9 +159,20 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             );
         }
 
-        const type = this.jsonSchemaTypeToInputType(c.type);
+        if (input instanceof HTMLTextAreaElement || input instanceof HTMLInputElement) {
+            if (c.minLength) {
+                input.minLength = c.minLength;
+            }
+            if (c.maxLength) {
+                input.maxLength = c.maxLength;
+            }
+            if (c.example) {
+                input.placeholder = c.example.toString();
+            }
+        }
 
         if (input instanceof HTMLInputElement) {
+            const type = this.jsonSchemaTypeToInputType(c);
             input.type = type;
             if (c.multipleOf) {
                 input.step = c.multipleOf.toString();
@@ -167,6 +183,9 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             if (c.maximum) {
                 input.max = c.maximum.toString();
             }
+            if (c.pattern) {
+                input.pattern = c.pattern;
+            }
             if (c.default !== undefined && c.default !== null) {
                 if (type === "checkbox") {
                     input.value = "1";
@@ -175,23 +194,43 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
                     input.value = c.default.toString();
                 }
             }
-            if (c.pattern) {
-                input.pattern = c.pattern;
+        } else if (input instanceof HTMLTextAreaElement) {
+            if (c.default !== undefined && c.default !== null) {
+                input.value = c.default.toString();
             }
         }
+
         return input;
     }
 
-    private jsonSchemaTypeToInputType(jsonSchemaType: JsonSchemaType): string {
-        switch (jsonSchemaType) {
+    private jsonSchemaTypeToInputType(c: MissionGeneratorManifestField): string {
+        switch (c.type) {
             case "number":
             case "integer":
                 return "number";
             case "boolean":
                 return "checkbox";
             default:
-                return "text";
+                switch (c.format) {
+                    case "email":
+                    case "date":
+                        return c.format;
+                    case "uri":
+                        return "url";
+                    case "date-time":
+                        return "datetime-local";
+                    default:
+                        return "text";
+                }
         }
+    }
+
+    private jsonSchemaTypeToTag(c: MissionGeneratorManifestField): "input" | "select" | "textarea" {
+        if (c.htmlType === "textarea") {
+            return "textarea";
+        }
+
+        return c.enum ? "select" : "input";
     }
 
     static registerElement() {

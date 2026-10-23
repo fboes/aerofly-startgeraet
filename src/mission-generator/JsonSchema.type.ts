@@ -10,6 +10,8 @@ export type JsonSchemaObject = {
     type?: JsonSchemaType | JsonSchemaType[];
     title?: string;
     description?: string;
+    htmlType?: string;
+    example?: JsonSchemaValue;
     default?: JsonSchemaValue;
     enum?: JsonSchemaValue[];
     properties?: Record<string, JsonSchemaObject>;

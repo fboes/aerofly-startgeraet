@@ -6,6 +6,9 @@ import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 
 type HemsMissionGeneratorConfiguration = {
+    minRange: z.ZodDefault<z.ZodNumber>;
+    maxRange: z.ZodDefault<z.ZodNumber>;
+    geoJson: z.ZodDefault<z.ZodString>;
     isEndAtHospital: z.ZodDefault<z.ZodBoolean>;
 };
 
@@ -25,6 +28,21 @@ target is visible.
 
     configuration(): z.ZodObject<HemsMissionGeneratorConfiguration> {
         return z.object({
+            minRange: z.number().min(1).default(5).meta({ title: "Minimum distance", unit: "km" }),
+            maxRange: z.number().min(2).default(5).meta({ title: "Maximum distance", unit: "km" }),
+            geoJson: z
+                .string()
+                .default(
+                    JSON.stringify(
+                        {
+                            type: "FeatureCollection",
+                            features: [],
+                        },
+                        null,
+                        2,
+                    ),
+                )
+                .meta({ title: "Emergency sites & hospitals", htmlType: "textarea" }),
             isEndAtHospital: z.boolean().default(false).meta({ title: "End flight at hospital" }),
         });
     }
@@ -34,6 +52,5 @@ target is visible.
         flightPlanService: AeroflyFlightService,
     ): Promise<boolean> {
         throw new Error("Not implemented yet");
-        return true;
     }
 }

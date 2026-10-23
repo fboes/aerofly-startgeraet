@@ -123,6 +123,7 @@ function registerTools(server: McpServer) {
             inputSchema: z.object({
                 query: z
                     .string()
+                    .trim()
                     .optional()
                     .describe(
                         `Aerofly FS 4 code, ICAO code, (partial) name of aircraft or (partial) name of livery name available for aircraft. Call ${RESOURCE_AIRCRAFT} to see a list of all available ICAO or Aerofly FS4 codes.`,
@@ -162,6 +163,7 @@ function registerTools(server: McpServer) {
             inputSchema: z.object({
                 query: z
                     .string()
+                    .trim()
                     .optional()
                     .describe(
                         `Airport ICAO code or (partial) name of airport. Will only find airports present in Aerofly FS 4.`,
@@ -186,7 +188,7 @@ function registerTools(server: McpServer) {
             title: `Get airport details`,
             description: `Get detailed airport / heliport information like runway data elevation (in meters MSL). Runway data will include identifiers, alignment, length (in feet), width (in feet), and surface type initials (Asphalt, Concrete, Grass, Water, Helipad).`,
             inputSchema: z.object({
-                icaoCode: z.string().length(4).describe("Airport ICAO code"),
+                icaoCode: ZodExtra.identifier().length(4).describe("Airport ICAO code"),
             }),
             annotations: {
                 ...annotations,

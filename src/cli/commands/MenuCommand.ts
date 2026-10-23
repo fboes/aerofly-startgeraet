@@ -398,7 +398,6 @@ export class MenuCommand extends BaseControllerCommand {
                     default: field.default ? String(field.default) : undefined,
                 });
         }
-        return undefined;
     }
 
     async setTimeAndDate(): Promise<MenuCommandMethod> {

@@ -76,6 +76,7 @@ depending on API availability.
             minimumSafeAltitude_ft: z.number().optional().meta({ title: "Minimum safe altitude", unit: "ft MSL" }),
             rightPatternRunways: z
                 .string()
+                .trim()
                 .optional()
                 .meta({ title: "Comma-separated list of runway names with right-turn pattern" }),
         });

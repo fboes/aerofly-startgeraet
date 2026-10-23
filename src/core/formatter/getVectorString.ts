@@ -1,4 +1,4 @@
-import { Vector } from "@fboes/geojson";
+import type { Vector } from "@fboes/geojson";
 import { UNIT_METER_PER_NM } from "../util/units.js";
 import { fmt } from "./format.js";
 import { numberFormat } from "./numberFormat.js";

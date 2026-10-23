@@ -28,10 +28,18 @@ export function normalized(): z.ZodNumber {
 export function identifier(): z.ZodString {
     return z
         .string()
-        .uppercase()
-        .regex(/^[A-Z0-9-]+$/)
+        .trim()
+        .toUpperCase()
+        .regex(/^[A-Z0-9\-]+$/v)
         .min(2)
         .max(12);
+}
+
+export function simBriefUsername(): z.ZodString {
+    return z
+        .string()
+        .trim()
+        .regex(/^[a-zA-Z0-9_]+$/);
 }
 
 export function waypointType(): z.ZodEnum {
@@ -50,8 +58,9 @@ export function waypointType(): z.ZodEnum {
 export function aircraft(): z.ZodString {
     return z
         .string()
-        .lowercase()
-        .regex(/^[a-z0-9-_]+$/)
+        .trim()
+        .toLowerCase()
+        .regex(/^[a-z0-9_\-]+$/v)
         .min(1)
         .max(8);
 }

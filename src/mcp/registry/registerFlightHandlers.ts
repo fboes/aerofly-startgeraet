@@ -62,6 +62,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
                 aeroflyCodeAircraft: ZodExtra.aircraft().describe(`Aerofly aircraft code`),
                 aeroflyCodeLivery: z
                     .string()
+                    .trim()
                     .lowercase()
                     .optional()
                     .describe(
@@ -245,10 +246,7 @@ function registerTools(server: McpServer, flightService: AeroflyFlightService): 
             title: `Replace complete flight mission setup with SimBrief flight plan fetched via API`,
             description: `Will use the SimBrief API to fetch the latest flight plan for the given SimBrief user, including weather and aircraft type. Should only be called if user explicitly requests SimBrief import. Returns the flight mission setup. The SimBrief username can be stored by calling ${ConfigurationRegistry.TOOL_SET_CONFIG}, and (if stored) can be read by calling ${ConfigurationRegistry.TOOL_GET_CONFIG}.`,
             inputSchema: z.object({
-                simBriefUserName: z
-                    .string()
-                    .regex(/^[a-zA-Z0-9_]+$/)
-                    .describe(`SimBrief username or user id.`),
+                simBriefUserName: ZodExtra.simBriefUsername().describe(`SimBrief username or user id.`),
             }),
             annotations: {
                 ...annotations,
@@ -409,7 +407,7 @@ Sets the aircraft's systems, flaps, gear, and throttle state. Does not affect th
             title: `Set mission title and briefing for flight mission setup`,
             description: `Store a mission title and briefing for the current flight plan. This is not a setting of Aerofly FS 4, but can be used to store information about the current flight plan for other export formats.`,
             inputSchema: z.object({
-                title: z.string().optional().describe(`Title of the mission briefing.`),
+                title: z.string().trim().optional().describe(`Title of the mission briefing.`),
                 briefing: z.string().optional().describe(`Text of the mission briefing.`),
             }),
             annotations,
@@ -612,7 +610,7 @@ function registerPrompts(server: McpServer) {
             description:
                 "Prepare a complete flight plan for Aerofly FS 4, including aircraft, route, weather and time settings.",
             argsSchema: z.object({
-                missionIdea: z.string().describe("Mission idea to build mission for"),
+                missionIdea: z.string().trim().describe("Mission idea to build mission for"),
             }),
         },
         ({ missionIdea }) => ({
