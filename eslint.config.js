@@ -3,18 +3,30 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 
+const webComponents = ["{src,dist}/gui/web-components/**", "{src,dist}/gui/renderer/**", "docs/simform"];
+
 export default defineConfig([
     {
-        files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+        files: ["**/*.{js,ts}"],
         plugins: { js },
         extends: ["js/recommended"],
-        languageOptions: { globals: { ...globals.browser, ...globals.nodeBuiltin } },
     },
     tseslint.configs.strict,
     {
-        files: ["**/*.{ts,mts,cts}"],
+        files: ["**/*.ts}"],
         rules: {
             "@typescript-eslint/consistent-type-imports": "error",
         },
-    }
+    },
+    {
+        // Electron main / Node-Code
+        files: ["**/*.{js,ts}"],
+        ignores: webComponents,
+        languageOptions: { globals: { ...globals.nodeBuiltin } },
+    },
+    {
+        // Renderer / Web Components
+        files: webComponents.map((p) => `${p}/*.{js,ts}`),
+        languageOptions: { globals: { ...globals.browser } },
+    },
 ]);

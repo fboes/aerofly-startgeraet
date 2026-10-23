@@ -24,7 +24,7 @@ Mission generators will to define a user-facing form using Zod. Apart from the r
 Field defined via Zod may also hold additional meta attributes:
 
 ```typescript
-.meta({ 
+.meta({
   title: "Holding Altitude for pattern", // User-facing label for input field
   unit: "ft MSL" // User-facing unit hint for input field
 })
