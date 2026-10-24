@@ -38,7 +38,7 @@ Supported flight plan file formats:
 | [Garmin / Infinite Flight `fpl`](https://www8.garmin.com/xmlschemas/FlightPlanv1.xsd)                                                              | ✅               |                  |
 | [SimBrief API](./docs/importing-flightplans.md)                                                                                                    | ✅ <sup>1)</sup> |                  |
 | [Aviation Weather Center METAR API](https://aviationweather.gov/)                                                                                  | ✅ <sup>3)</sup> |                  |
-| GeoJSON                                                                                                                                            |                  | ✅               |
+| GeoJSON                                                                                                                                            | ✅               | ✅               |
 | Keyhole Markup Language (KML)                                                                                                                      |                  | ✅               |
 | Markdown Text File (for mission briefing)                                                                                                          |                  | ✅ <sup>1)</sup> |
 

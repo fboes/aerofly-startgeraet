@@ -47,7 +47,8 @@
     "build:gui": "npx electron-builder --publish never",
     "build:mcpb": "mkdir -p artifacts/mcpb && npx -y @anthropic-ai/mcpb pack && mv *.mcpb artifacts/mcpb/",
     "version": "jq --arg ver \"$(jq -r '.version' package.json)\" '.version = $ver' manifest.json > manifest.tmp && mv manifest.tmp manifest.json && git add manifest.json CHANGELOG.md",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "cleanup": "npm run prettier && npm run test && npm run eslint"
   },
   "keywords": [
     "aerofly",
