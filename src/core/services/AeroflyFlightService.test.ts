@@ -12,7 +12,7 @@ import {
 
 describe("AeroflyFlightService", () => {
     it("should create flightplans", () => {
-        const config = new ConfigFixture();
+        const config = new ConfigFixture("AeroflyFlightService");
         const service = new AeroflyFlightService(config);
 
         const flightplan = service.setFlightplan(
@@ -71,7 +71,7 @@ describe("AeroflyFlightService", () => {
     });
 
     it("should calculate fuel & payload correctly and do capping", () => {
-        const config = new ConfigFixture();
+        const config = new ConfigFixture("AeroflyFlightService");
         const service = new AeroflyFlightService(config);
         const testAircraft = "c172",
             megaFuel = 2000,

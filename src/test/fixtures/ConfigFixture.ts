@@ -9,13 +9,16 @@ import { DIR_FIXTURE } from "../loadFixture.js";
  * production files or searching for non-existing files.
  */
 export class ConfigFixture extends Config {
-    protected readonly conf: ConfigStore = new Conf({
-        projectName: "startgeraet-fixture",
-        defaults: CONFIG_DEFAULTS,
-    });
+    public conf: ConfigStore;
 
-    constructor() {
+    constructor(projectName: string) {
         super();
+
+        this.conf = new Conf({
+            projectName: "fixture-" + projectName,
+            defaults: CONFIG_DEFAULTS,
+        });
+
         this.conf.clear();
         this.mainMcfFilePath = DIR_FIXTURE;
         this.importDirectory = DIR_FIXTURE;

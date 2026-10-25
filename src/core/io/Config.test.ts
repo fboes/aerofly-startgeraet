@@ -4,7 +4,7 @@ import { ConfigFixture } from "../../test/fixtures/ConfigFixture.js";
 
 describe("Config / ConfigFixture", () => {
     it("should get configuration data as JSON", () => {
-        const config = new ConfigFixture();
+        const config = new ConfigFixture("Config");
         const json = config.toJSON();
 
         //console.log(json);
@@ -15,14 +15,14 @@ describe("Config / ConfigFixture", () => {
     });
 
     it("should handle the Date storage correctly", () => {
-        const config = new ConfigFixture();
+        const config = new ConfigFixture("Config");
         assert.strictEqual(typeof config.lastUpdateCheck, "object", "lastUpdateCheck should return a Date");
         assert.strictEqual(typeof config.lastUpdateCheck.getDate(), "number");
         assert.strictEqual(typeof config.lastUpdateCheck.toISOString(), "string");
     });
 
     it("should handle getters and setters for config values", () => {
-        const config = new ConfigFixture();
+        const config = new ConfigFixture("Config");
 
         config.fontSizePercent = 100;
         assert.strictEqual(config.fontSizePercent, 100);

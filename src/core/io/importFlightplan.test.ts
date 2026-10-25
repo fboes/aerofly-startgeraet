@@ -5,7 +5,7 @@ import { findImportFiles } from "./importFlightplan.js";
 
 describe("importFlightplan", () => {
     it("should find files from fixture directory", () => {
-        const config = new ConfigFixture();
+        const config = new ConfigFixture("importFlightplan");
         const files = findImportFiles(config);
 
         assert.ok(config.importDirectory);
