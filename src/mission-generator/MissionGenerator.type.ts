@@ -36,11 +36,30 @@ export type MissionGeneratorManifestField = JsonSchemaObject & {
     isRequired: boolean;
 };
 
-export type MissionGeneratorWaypoint = {
+export type MissionGeneratorWaypoint<T extends Record<string, unknown> | undefined = undefined> = {
     longitude: number;
     latitude: number;
+
+    /**
+     * Altitude in meters
+     */
+    altitude_m?: number;
+
+    /**
+     * ICAO code, nav aid code, fix code, etc.
+     */
     identifier: string;
     title?: string;
+
     freq_khz?: number;
+
+    /**
+     * With "+" to the east and "-" to the west. Subtracted from a true heading this will give the magnetic heading.
+     */
     mag_dec?: number;
+
+    /**
+     * Custom payload
+     */
+    payload?: T;
 };

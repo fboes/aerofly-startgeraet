@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import z from "zod";
 import type { MissionGenerator } from "../../MissionGenerator.interface.js";
 import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
+import { convertScenario } from "./Scenario.js";
 
-type HemsMissionGeneratorConfiguration = {
-    minRange: z.ZodDefault<z.ZodNumber>;
-    maxRange: z.ZodDefault<z.ZodNumber>;
-    geoJson: z.ZodDefault<z.ZodString>;
-    isEndAtHospital: z.ZodDefault<z.ZodBoolean>;
+export type HemsMissionGeneratorConfiguration = {
+    minRange_km: z.ZodDefault<z.ZodNumber>;
+    maxRange_km: z.ZodDefault<z.ZodNumber>;
+    isColdAndDark: z.ZodDefault<z.ZodBoolean>;
 };
 
 export class HemsMissionGenerator implements MissionGenerator<HemsMissionGeneratorConfiguration> {
@@ -19,6 +17,14 @@ export class HemsMissionGenerator implements MissionGenerator<HemsMissionGenerat
             displayName: "Helicopter Emergency Medical Services",
             description: "Creates an emergency medical mission, using the current time, date and weather settings.",
             longDescription: `\
+This mission generator will create a new flight plan, starting at your current
+origin airport. You will have to fly to an emergency site in the vicinity, and
+bring a patient you will pick up there to a nearby hospital.
+
+A collection of emergency sites the generator will taken from a GeoJSON file
+stored in the \`startgeraet\` directory of your Aerofly FS user folder.
+If this file does not exist, the generator will take some time setting it up.
+
 The mission generator will create an accident site as POI file, so your mission
 target is visible.
 `,
@@ -28,22 +34,9 @@ target is visible.
 
     configuration(): z.ZodObject<HemsMissionGeneratorConfiguration> {
         return z.object({
-            minRange: z.number().min(1).default(5).meta({ title: "Minimum distance", unit: "km" }),
-            maxRange: z.number().min(2).default(5).meta({ title: "Maximum distance", unit: "km" }),
-            geoJson: z
-                .string()
-                .default(
-                    JSON.stringify(
-                        {
-                            type: "FeatureCollection",
-                            features: [],
-                        },
-                        null,
-                        2,
-                    ),
-                )
-                .meta({ title: "Emergency sites & hospitals", htmlType: "textarea" }),
-            isEndAtHospital: z.boolean().default(false).meta({ title: "End flight at hospital" }),
+            minRange_km: z.number().min(1).max(59).default(5).meta({ title: "Minimum distance", unit: "km" }),
+            maxRange_km: z.number().min(2).max(60).default(5).meta({ title: "Maximum distance", unit: "km" }),
+            isColdAndDark: z.boolean().default(false).meta({ title: "Start cold & dark" }),
         });
     }
 
@@ -51,6 +44,6 @@ target is visible.
         configuration: z.infer<z.ZodObject<HemsMissionGeneratorConfiguration>>,
         flightPlanService: AeroflyFlightService,
     ): Promise<boolean> {
-        throw new Error("Not implemented yet");
+        return convertScenario(configuration, flightPlanService);
     }
 }

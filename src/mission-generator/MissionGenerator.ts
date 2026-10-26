@@ -8,6 +8,7 @@ import type { JsonSchemaObject, JsonSchemaType, JsonSchemaValue } from "./JsonSc
 import { HoldingPatternMissionGenerator } from "./generators/holding-pattern/HoldingPatternMissionGenerator.js";
 import type { Config } from "../core/io/Config.js";
 // import { HemsMissionGenerator } from "./generators/hems-mission/HemsMissionGenerator.js";
+import path from "node:path";
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     "landing-pattern": LandingPatternMissionGenerator,
@@ -135,4 +136,9 @@ export function storeMissionGeneratorValues(
         });
     }
     config.setMissionGeneratorValues(generatorName, generatorValues);
+}
+
+export function missionGeneratorArtifactDirectory(config: Config) {
+    const directory = config.mainMcfFilePath ?? config.importDirectory;
+    return path.join(directory, "startgeraet");
 }
