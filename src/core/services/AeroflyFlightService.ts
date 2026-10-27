@@ -103,7 +103,7 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.aircraft;
     }
 
-    private updateCurrentAircraft() {
+    private updateCurrentAircraft(keepCruise = false) {
         if (this.aeroflyFlight.aircraft.name === this.currentAircraft?.aeroflyCode) {
             return;
         }
@@ -113,8 +113,12 @@ export class AeroflyFlightService {
             return;
         }
 
-        this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
-        this.aeroflyFlight.navigation._cruiseSpeed_kts = this.currentAircraft.cruiseSpeedKts;
+        if (!keepCruise || this.aeroflyFlight.navigation.cruiseAltitude_ft === 0) {
+            this.aeroflyFlight.navigation.cruiseAltitude_ft = this.currentAircraft.cruiseAltitudeFt;
+        }
+        if (!keepCruise || this.aeroflyFlight.navigation._cruiseSpeed_kts === 0) {
+            this.aeroflyFlight.navigation._cruiseSpeed_kts = this.currentAircraft.cruiseSpeedKts;
+        }
     }
 
     getAircraft(): string {
@@ -338,7 +342,7 @@ export class AeroflyFlightService {
             }
             throw error instanceof Error ? error : new Error("An unknown error occurred while fetching SimBrief data");
         }
-        this.updateCurrentAircraft();
+        this.updateCurrentAircraft(true);
     }
 
     setQuickFlightplan(originAirportIcao: string, destinationAirportIcao: string) {
@@ -461,7 +465,7 @@ export class AeroflyFlightService {
     importFlightplanFromFile(filePath: string, index = 0): void {
         ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
         this.setFlightPositionToDeparture();
-        this.updateCurrentAircraft();
+        this.updateCurrentAircraft(true);
     }
 
     // ----------------------------------------------------------

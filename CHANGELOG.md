@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Fixed cruise speed / altitude resetting
+
 ## [2.7.0] - 2026-10-24
 
 - Updated aircraft / airport database to current Aerofly FS 4 state
