@@ -34,8 +34,8 @@ target is visible.
 
     configuration(): z.ZodObject<HemsMissionGeneratorConfiguration> {
         return z.object({
-            minRange_km: z.number().min(1).max(59).default(5).meta({ title: "Minimum distance", unit: "km" }),
-            maxRange_km: z.number().min(2).max(60).default(5).meta({ title: "Maximum distance", unit: "km" }),
+            minRange_km: z.number().min(0).max(99).default(5).meta({ title: "Minimum distance", unit: "km" }),
+            maxRange_km: z.number().min(0).max(99).default(60).meta({ title: "Maximum distance", unit: "km" }),
             isColdAndDark: z.boolean().default(false).meta({ title: "Start cold & dark" }),
         });
     }

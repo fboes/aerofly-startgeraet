@@ -197,6 +197,9 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDepartureRunway);
     }
 
+    /**
+     * @returns the identifier of the departure airport
+     */
     getFlightplanDepartureAirportString(): string {
         return this.getFlightplanDepartureAirport()?.identifier ?? "";
     }
@@ -205,6 +208,9 @@ export class AeroflyFlightService {
         return this.aeroflyFlight.navigation.waypoints.find((wp) => wp instanceof AeroflyNavRouteDestination);
     }
 
+    /**
+     * @returns the identifier of the destination airport
+     */
     getFlightplanArrivalAirportString(): string {
         return this.getFlightplanArrivalAirport()?.identifier ?? "";
     }
