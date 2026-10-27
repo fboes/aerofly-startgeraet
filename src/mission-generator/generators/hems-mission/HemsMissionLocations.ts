@@ -1,7 +1,7 @@
 import type { MissionGeneratorPayloadWaypoint } from "../../MissionGenerator.type.js";
 import { Feature, FeatureCollection, Point, Vector } from "@fboes/geojson";
 import { randomIntInclusive } from "../../../core/util/random.js";
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../../core/util/degree.js";
@@ -19,9 +19,16 @@ export class HemsMissionLocations {
 
     private locations: HemsMissionLocation[] = [];
 
-    loadLocationsFile(identifier: string, directory: string): number {
-        const content = fs.readFileSync(this.pathLocations(identifier, directory), "utf-8");
+    async loadLocationsFile(identifier: string, directory: string): Promise<number> {
+        const filePath = this.pathLocations(identifier, directory);
+        const fileExists = await fs.stat(filePath, {
+            throwIfNoEntry: false,
+        });
+        if (!fileExists) {
+            return -1;
+        }
 
+        const content = await fs.readFile(filePath, "utf-8");
         const geoJson = JSON.parse(content);
 
         this.locations = asJSONArray(geoJson.features)
@@ -29,7 +36,7 @@ export class HemsMissionLocations {
                 const geometry = asJSONObject(f.geometry);
                 return asJSONString(f.type) === "Feature" && asJSONString(geometry.type) === "Point";
             })
-            .map((f): HemsMissionLocation => {
+            .map((f, index): HemsMissionLocation => {
                 const geometry = asJSONObject(f.geometry);
                 const coordinates = asJSONArray(geometry.coordinates);
                 const longitude = asJSONNumber(coordinates[0]);
@@ -44,13 +51,14 @@ export class HemsMissionLocations {
                       ? [direction, degreeNormalize(direction + 180)]
                       : undefined;
                 const type = properties["marker-symbol"] ? asJSONString(properties["marker-symbol"]) : undefined;
-                const identifier = type === HemsMissionLocations.TYPE_HOSPITAL ? "HOSPITAL" : "MEDEVAC";
 
                 return {
                     longitude,
                     latitude,
                     altitude_m,
-                    identifier: properties.icaoCode ? asJSONString(properties.icaoCode) : identifier,
+                    identifier: properties.icaoCode
+                        ? asJSONString(properties.icaoCode)
+                        : `WP-${index.toString().padStart(3, "0")}`,
                     title: asJSONString(properties.title),
                     payload: {
                         type,
@@ -64,8 +72,9 @@ export class HemsMissionLocations {
         return this.locations.length;
     }
 
-    createLocationsFile(airportWaypoint: HemsMissionLocation, directory: string) {
-        fs.writeFileSync(
+    async createLocationsFile(airportWaypoint: HemsMissionLocation, directory: string) {
+        await fs.mkdir(directory, { recursive: true });
+        return fs.writeFile(
             this.pathLocations(airportWaypoint.identifier, directory),
             JSON.stringify(this.createFeatureCollection(airportWaypoint), null, 2),
         );
@@ -77,15 +86,40 @@ export class HemsMissionLocations {
     }
 
     private createFeatureCollection(airportWaypoint: HemsMissionLocation) {
+        let i = 0;
         return new FeatureCollection([
-            new Feature(airportWaypoint.payload.point, {
-                title: airportWaypoint.title,
-                icaoCode: airportWaypoint.identifier,
-                "marker-symbol": "heliport",
-            }),
-            new Feature(airportWaypoint.payload.point.getPointBy(new Vector(5000, 45)), {
-                title: "some emergency site",
-            }),
+            new Feature(
+                airportWaypoint.payload.point,
+                {
+                    title: airportWaypoint.title ?? airportWaypoint.identifier,
+                    icaoCode: airportWaypoint.identifier,
+                    "marker-symbol": HemsMissionLocations.TYPE_HELIPORT,
+                },
+                i++,
+            ),
+            new Feature(
+                airportWaypoint.payload.point.getPointBy(new Vector(5000, 300)),
+                {
+                    title: "a hospital",
+                    "marker-symbol": HemsMissionLocations.TYPE_HOSPITAL,
+                },
+                i++,
+            ),
+            new Feature(
+                airportWaypoint.payload.point.getPointBy(new Vector(5000, 60)),
+                {
+                    title: "some emergency site",
+                },
+                i++,
+            ),
+
+            new Feature(
+                airportWaypoint.payload.point.getPointBy(new Vector(5000, 180)),
+                {
+                    title: "another emergency site",
+                },
+                i,
+            ),
         ]);
     }
 

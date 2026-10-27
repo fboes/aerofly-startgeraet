@@ -7,13 +7,13 @@ import type { AeroflyFlightService } from "../core/services/AeroflyFlightService
 import type { JsonSchemaObject, JsonSchemaType, JsonSchemaValue } from "./JsonSchema.type.js";
 import { HoldingPatternMissionGenerator } from "./generators/holding-pattern/HoldingPatternMissionGenerator.js";
 import type { Config } from "../core/io/Config.js";
-// import { HemsMissionGenerator } from "./generators/hems-mission/HemsMissionGenerator.js";
+import { HemsMissionGenerator } from "./generators/hems-mission/HemsMissionGenerator.js";
 import path from "node:path";
 
 export const MISSION_GENERATOR_REGISTRY: Record<string, (new () => MissionGenerator<z.ZodRawShape>) | undefined> = {
     "landing-pattern": LandingPatternMissionGenerator,
     "holding-pattern": HoldingPatternMissionGenerator,
-    //"hems-mission": HemsMissionGenerator,
+    "hems-mission": HemsMissionGenerator,
 };
 
 export const MISSIONS_GENERATOR_MANIFESTS: MissionGeneratorManifest[] = Object.entries(MISSION_GENERATOR_REGISTRY).map(

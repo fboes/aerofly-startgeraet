@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-* Fixed cruise speed / altitude resetting
+- Fixed cruise speed / altitude resetting
 
 ## [2.7.0] - 2026-10-24
 
