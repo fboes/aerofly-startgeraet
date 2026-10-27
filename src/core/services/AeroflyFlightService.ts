@@ -105,7 +105,7 @@ export class AeroflyFlightService {
 
     private updateCurrentAircraft(keepCruise = false) {
         if (this.aeroflyFlight.aircraft.name === this.currentAircraft?.aeroflyCode) {
-            return;
+            keepCruise = true;
         }
 
         this.currentAircraft = findAeroflyAircraft(this.aeroflyFlight.aircraft.name);
