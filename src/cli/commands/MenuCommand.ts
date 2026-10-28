@@ -202,9 +202,10 @@ export class MenuCommand extends BaseControllerCommand {
         const isMissionGeneratorDisabled = MISSIONS_GENERATOR_MANIFESTS.length === 0;
 
         const simBriefUserName = this.controller.config.simBriefUserName;
-        const importableFileChoices = this.controller
-            .getImportFiles()
-            .map((file) => ({ name: fmt(`Import from file {{ file }}`, { file }), value: file }));
+        const importableFileChoices = (await this.controller.getImportFiles()).map((file) => ({
+            name: fmt(`Import from file {{ file }}`, { file }),
+            value: file,
+        }));
 
         const choice = await select({
             message: "Import",

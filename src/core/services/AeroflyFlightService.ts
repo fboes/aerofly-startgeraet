@@ -454,7 +454,7 @@ export class AeroflyFlightService {
         return ExportFileWriter.exportFlightplanToString(`flightplan.${fileEnding}`, this.aeroflyFlight);
     }
 
-    getImportFiles(): string[] {
+    async getImportFiles(): Promise<string[]> {
         return findImportFiles(this.config);
     }
 

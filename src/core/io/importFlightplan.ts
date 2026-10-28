@@ -116,13 +116,15 @@ export function getImportConverter(filename: string): new () => BaseStringToAero
  * settings and defaults to the user's Downloads folder.
  * @returns fully qualified filenames
  */
-export function findImportFiles(config: Config): string[] {
+export async function findImportFiles(config: Config): Promise<string[]> {
     const importDirectory = config.importDirectory;
-    if (!fs.existsSync(importDirectory)) {
+    try {
+        (await fs.promises.stat(importDirectory)).isDirectory();
+    } catch {
         return [];
     }
 
-    const files = fs.readdirSync(importDirectory);
+    const files = await fs.promises.readdir(importDirectory);
     const importFiles = files.filter((file: string) => {
         const lower = file.toLowerCase();
         return IMPORT_FILE_TYPES.some((ext) => lower.endsWith(ext));
