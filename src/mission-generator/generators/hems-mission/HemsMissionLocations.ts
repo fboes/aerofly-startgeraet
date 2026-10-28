@@ -19,12 +19,17 @@ export class HemsMissionLocations {
 
     private locations: HemsMissionLocation[] = [];
 
+    /**
+     * Will open the GeoJSON file with the mission locations
+     * @param identifier ICAO code of starting airport
+     * @param directory the directory the GeoJSON file is supposed to be in
+     * @returns the number of found locations. `-1` is returned if no file is found.
+     */
     async loadLocationsFile(identifier: string, directory: string): Promise<number> {
         const filePath = this.pathLocations(identifier, directory);
-        const fileExists = await fs.stat(filePath, {
-            throwIfNoEntry: false,
-        });
-        if (!fileExists) {
+        try {
+            (await fs.stat(filePath)).isFile();
+        } catch {
             return -1;
         }
 
@@ -72,6 +77,11 @@ export class HemsMissionLocations {
         return this.locations.length;
     }
 
+    /**
+     * Will create a new GeoJSON file with the mission locations
+     * @param identifier ICAO code of starting airport
+     * @param directory the directory the GeoJSON file is supposed to be in
+     */
     async createLocationsFile(airportWaypoint: HemsMissionLocation, directory: string) {
         await fs.mkdir(directory, { recursive: true });
         return fs.writeFile(
@@ -80,8 +90,13 @@ export class HemsMissionLocations {
         );
     }
 
+    /**
+     * @param identifier ICAO code of starting airport
+     * @param directory the directory the GeoJSON file is supposed to be in
+     * @returns the correct file path to the GeoJSON file
+     */
     private pathLocations(identifier: string, directory: string) {
-        const slug = identifier.replace(/[^A-Za-z0-9\-]/v, "");
+        const slug = identifier.replace(/[^A-Za-z0-9\-]+/vg, "");
         return path.join(directory, `hems-mission-${slug}.geojson`);
     }
 
