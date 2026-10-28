@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { AeroflyFlightToAeroflyMainMcfConverter } from "../converter/aerofly-flight/AeroflyFlightToAeroflyMainMcfConverter.js";
 import type { BaseAeroflyFlightToStringConverter } from "../converter/aerofly-flight/AeroflyFlightToStringConverter.base.js";
@@ -57,9 +57,9 @@ export function exportFlightplanToString(filename: string, flightplan: AeroflyFl
     return new converter().convert(flightplan);
 }
 
-export function exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): void {
+export function exportFlightplanToFile(filename: string, flightplan: AeroflyFlight): Promise<void> {
     const content = exportFlightplanToString(filename, flightplan);
-    fs.writeFileSync(filename, content, "utf8");
+    return fs.writeFile(filename, content, "utf8");
 }
 
 export function getExportConverter(filename: string): new () => BaseAeroflyFlightToStringConverter {

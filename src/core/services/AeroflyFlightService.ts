@@ -447,7 +447,7 @@ export class AeroflyFlightService {
     }
 
     async exportFlightplanToFile(filePath: string): Promise<void> {
-        ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
+        return ExportFileWriter.exportFlightplanToFile(filePath, this.aeroflyFlight);
     }
 
     async exportFlightplanToString(fileEnding: string): Promise<string> {

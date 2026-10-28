@@ -341,7 +341,7 @@ export class AeroflyFlightServiceHandler {
         }
 
         try {
-            this.service.exportFlightplanToFile(result.filePath);
+            await this.service.exportFlightplanToFile(result.filePath);
             this.sendStateUpdate();
         } catch (error) {
             return createNotificationErrorPayload(error);
