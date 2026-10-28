@@ -1,7 +1,7 @@
 import Conf from "conf";
 import os from "node:os";
 import path from "node:path";
-import fs from "fs";
+import fs from "node:fs";
 
 /**
  * Will test for known paths the `main.mcf` may be located in.

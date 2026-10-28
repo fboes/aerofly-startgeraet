@@ -5,7 +5,7 @@ import {
     AeroflyNavRouteDestinationRunway,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { URLSearchParams } from "url";
+import { URLSearchParams } from "node:url";
 import { GeoCoordinates } from "./GeoCoordinates.js";
 
 export class SkyVectorUrl {
