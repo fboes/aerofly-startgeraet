@@ -11,7 +11,7 @@ describe("HemsMissionLocations", () => {
         assert.ok(locations);
         assert.strictEqual(locations.getAllLocations().length, 0);
 
-        const count = locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
+        const count = await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
         assert.strictEqual(count, 41);
 
         const allLocations = locations.getAllLocations();
@@ -28,9 +28,9 @@ describe("HemsMissionLocations", () => {
         assert.ok(allEmergencies.length + allHospitals.length <= count);
     });
 
-    it("find a random emergency waypoints in a given distance range", () => {
+    it("find a random emergency waypoints in a given distance range", async() => {
         const locations = new HemsMissionLocations();
-        locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
+        await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
 
         const airportPoint = new Point(10.457620941302837, 53.24756138354581, 49.02);
         const emergency = locations.findRandomEmergencyWaypoint(airportPoint, 35_000, 40_000);
@@ -40,9 +40,9 @@ describe("HemsMissionLocations", () => {
         //console.log(emergency);
     });
 
-    it("finds the closest hospital", () => {
+    it("finds the closest hospital", async() => {
         const locations = new HemsMissionLocations();
-        locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
+        await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
 
         const emergencyData: HemsMissionLocation = {
             longitude: 10.457620941302837,
