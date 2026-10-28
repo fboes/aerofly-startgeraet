@@ -684,7 +684,7 @@ export class AeroflyFlightService {
         return update.isUpdateAvailable(force ? "0.0.0" : APPLICATION_INFORMATION.version);
     }
 
-    writeFile(): void {
-        this.aeroflyMainConfigReader.write(this.aeroflyFlight);
+    async writeMainMcf(): Promise<void> {
+        return this.aeroflyMainConfigReader.write(this.aeroflyFlight);
     }
 }

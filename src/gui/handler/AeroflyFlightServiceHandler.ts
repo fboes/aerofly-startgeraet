@@ -75,9 +75,9 @@ export class AeroflyFlightServiceHandler {
         }
     }
 
-    writeMainMcf() {
+    async writeMainMcf(): Promise<void> {
         try {
-            this.service.writeFile();
+            await this.service.writeMainMcf();
             this.isMissingMainMcf = false;
         } catch (e) {
             if (e instanceof AeroflyMainConfigReaderError) {
@@ -420,8 +420,8 @@ export class AeroflyFlightServiceHandler {
         }
     };
 
-    onClose() {
-        this.writeMainMcf();
+    async onClose() {
+        await this.writeMainMcf();
     }
 
     sendStateUpdate(intial = false) {
@@ -439,7 +439,10 @@ export class AeroflyFlightServiceHandler {
         }
     }
 
-    startDebouncedWriteFile() {
+    /**
+     * Queues writing to main.mcf
+     */
+    startDebouncedWriteFile(): void {
         if (this.writeDelay < 0) {
             return;
         }
@@ -448,9 +451,14 @@ export class AeroflyFlightServiceHandler {
             clearTimeout(this.writeTimer);
         }
 
-        this.writeTimer = setTimeout(() => {
+        this.writeTimer = setTimeout(async () => {
+            // TODO: This does not handle concurrent, long running writes
             this.writeTimer = null;
-            this.writeMainMcf();
+            try {
+                await this.writeMainMcf();
+            } catch (err) {
+                console.error("Failed to write main.mcf", err);
+            }
         }, this.writeDelay);
     }
 }

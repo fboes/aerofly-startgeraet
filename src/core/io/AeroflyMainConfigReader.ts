@@ -50,10 +50,27 @@ export class AeroflyMainConfigReader {
         return parser.parse(mainMcfContent);
     }
 
-    write(flight: AeroflyFlight): void {
-        // Open the main.mcf file
-        let mainMcfContent = fs.readFileSync(this.mainCfgFileName, "utf-8");
+    /**
+     * Read main.mcf, change settings, write atomic
+     * @param flight
+     */
+    async write(flight: AeroflyFlight): Promise<void> {
+        const mainMcfFilename = this.mainCfgFileName;
+        const tmpMcfFilename = mainMcfFilename + "~";
 
+        let mainMcfContent = await fs.promises.readFile(mainMcfFilename, "utf-8");
+        mainMcfContent = this.updateMainMcfContent(mainMcfContent, flight);
+
+        try {
+            await fs.promises.writeFile(tmpMcfFilename, mainMcfContent, { encoding: "utf-8", flag: "wx" });
+            await fs.promises.rename(tmpMcfFilename, mainMcfFilename);
+        } catch (err) {
+            await fs.promises.unlink(tmpMcfFilename).catch(() => {});
+            throw err;
+        }
+    }
+
+    private updateMainMcfContent(mainMcfContent: string, flight: AeroflyFlight): string {
         // Replace the appropriate sections with the data from the AeroflyFlight object
         const parser = new AeroflyFileParser();
         mainMcfContent = parser.setGroup(
@@ -84,8 +101,6 @@ export class AeroflyMainConfigReader {
             flight.fuelLoadSetting.getElement().toString(2),
         );
         mainMcfContent = parser.setNumber(mainMcfContent, "visibility", flight.visibility);
-
-        // Save the modified content back to the main.mcf file
-        fs.writeFileSync(this.mainCfgFileName, mainMcfContent, "utf-8");
+        return mainMcfContent;
     }
 }

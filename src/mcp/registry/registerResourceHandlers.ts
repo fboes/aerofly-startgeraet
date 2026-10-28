@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { ResourceTemplate } from "@modelcontextprotocol/server";
 import type { McpServer, CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/server";
@@ -92,12 +92,12 @@ function registerResources(server: McpServer) {
             description: "General rules and constraints that apply to all workflows",
             mimeType: "text/markdown",
         },
-        (uri: URL): ReadResourceResult => ({
+        async (uri: URL): Promise<ReadResourceResult> => ({
             contents: [
                 {
                     uri: uri.href,
                     mimeType: "text/markdown",
-                    text: fs.readFileSync(
+                    text: await fs.readFile(
                         path.join(import.meta.dirname, "../../..", "docs/mcp", "resource-general-rules.md"),
                         "utf-8",
                     ),
