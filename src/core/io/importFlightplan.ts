@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import type { AeroflyFlight } from "@fboes/aerofly-custom-missions";
 import { MsfsPlnToAeroflyFlightConverter } from "../converter/other/MsfsPlnToAeroflyFlightConverter.js";
 import { GarminFplToAeroflyFlightConverter } from "../converter/other/GarminFplToAeroflyFlightConverter.js";
@@ -6,7 +6,7 @@ import type { BaseStringToAeroflyFlightConverter } from "../converter/other/Stri
 import { XplaneFmsToAeroflyFlightConverter } from "../converter/other/XplaneFmsToAeroflyFlightConverter.js";
 import { AeroflyMcfToImportFileConverter } from "../converter/other/AeroflyMcfToImportFileConverter.js";
 import { AeroflyCustomMissionsTmcToAeroflyFlightConverter } from "../converter/other/AeroflyCustomMissionsTmcToAeroflyFlightConverter.js";
-import { ErrorFormatted } from "../util/ErrorFormatted.js";
+import { ErrorDetail } from "../util/ErrorFormatted.js";
 import path from "node:path";
 import type { Config } from "./Config.js";
 import { GeoJsonToAeroflyFlightConverter } from "../converter/other/GeoJsonToAeroflyFlightConverter.js";
@@ -60,8 +60,8 @@ export const IMPORT_FILE_EXTENSIONS: {
  */
 export const IMPORT_FILE_TYPES: string[] = IMPORT_FILE_EXTENSIONS.map((c) => c.extension);
 
-export function getFlightplansFromFile(filename: string): string[] {
-    const content = fs.readFileSync(filename, "utf8");
+export async function getFlightplansFromFile(filename: string): Promise<string[]> {
+    const content = await fs.readFile(filename, "utf8");
     return getFlightplansFromString(content, filename);
 }
 
@@ -82,8 +82,8 @@ export function getFlightplansFromString(content: string, filename: string): str
  * @see MsfsPlnToAeroflyFlightConverter for handling Microsoft Flight Simulator .pln files.
  * @see GarminFplToAeroflyFlightConverter for handling Garmin .fpl files.
  */
-export function importFile(filename: string, flightplan: AeroflyFlight, index = 0): void {
-    const content = fs.readFileSync(filename, "utf8");
+export async function importFile(filename: string, flightplan: AeroflyFlight, index = 0): Promise<void> {
+    const content = await fs.readFile(filename, "utf8");
     importString(content, filename, flightplan, index);
 }
 
@@ -101,12 +101,12 @@ export function importString(content: string, filename: string, flightplan: Aero
 export function getImportConverter(filename: string): new () => BaseStringToAeroflyFlightConverter {
     const fileSuffix = filename.replace(/^[^.]+\./, "");
     if (!fileSuffix) {
-        throw new ErrorFormatted(`Could not determine file type for "{{ filename }}"`, { filename });
+        throw new ErrorDetail(`Could not determine file type of file`, filename);
     }
 
     const converter = IMPORT_REGISTRY[fileSuffix];
     if (!converter) {
-        throw new ErrorFormatted(`Unsupported file type: {{ fileSuffix }}`, { fileSuffix });
+        throw new ErrorDetail(`Unsupported file type`, fileSuffix);
     }
     return converter;
 }
@@ -119,12 +119,12 @@ export function getImportConverter(filename: string): new () => BaseStringToAero
 export async function findImportFiles(config: Config): Promise<string[]> {
     const importDirectory = config.importDirectory;
     try {
-        (await fs.promises.stat(importDirectory)).isDirectory();
+        (await fs.stat(importDirectory)).isDirectory();
     } catch {
         return [];
     }
 
-    const files = await fs.promises.readdir(importDirectory);
+    const files = await fs.readdir(importDirectory);
     const importFiles = files.filter((file: string) => {
         const lower = file.toLowerCase();
         return IMPORT_FILE_TYPES.some((ext) => lower.endsWith(ext));

@@ -31,7 +31,7 @@ import { UpdateCheckService, type GithubReleaseApiPayload } from "./UpdateCheckS
 import { APPLICATION_INFORMATION } from "./getApplicationInformation.js";
 import { findAeroflyAirportByIcaoCode } from "./getAeroflyAirport.js";
 import { Point } from "@fboes/geojson";
-import { ErrorFormatted } from "../util/ErrorFormatted.js";
+import { ErrorDetail } from "../util/ErrorFormatted.js";
 import { findImportFiles } from "../io/importFlightplan.js";
 
 /**
@@ -204,7 +204,7 @@ export class AeroflyFlightService {
     /**
      * @returns the identifier of the departure airport
      */
-    getFlightplanDepartureAirportString(): string {
+    getFlightplanDepartureAirportIdentifier(): string {
         return this.getFlightplanDepartureAirport()?.identifier ?? "";
     }
 
@@ -215,7 +215,7 @@ export class AeroflyFlightService {
     /**
      * @returns the identifier of the destination airport
      */
-    getFlightplanArrivalAirportString(): string {
+    getFlightplanArrivalAirportIdentifier(): string {
         return this.getFlightplanArrivalAirport()?.identifier ?? "";
     }
 
@@ -355,16 +355,11 @@ export class AeroflyFlightService {
 
         const originData = findAeroflyAirportByIcaoCode(originAirportIcao);
         if (!originData) {
-            throw new ErrorFormatted(`Could not find origin airport with ICAO code "{{ originAirportIcao }}"`, {
-                originAirportIcao,
-            });
+            throw new ErrorDetail(`Could not find origin airport with ICAO code `, originAirportIcao);
         }
         const destinationData = findAeroflyAirportByIcaoCode(destinationAirportIcao);
         if (!destinationData) {
-            throw new ErrorFormatted(
-                `Could not find destination airport with ICAO code "{{ destinationAirportIcao }}"`,
-                { destinationAirportIcao },
-            );
+            throw new ErrorDetail(`Could not find destination airport with ICAO code`, destinationAirportIcao);
         }
 
         this.setFlightplan(
@@ -458,12 +453,12 @@ export class AeroflyFlightService {
         return findImportFiles(this.config);
     }
 
-    getImportableFlightplans(filePath: string): string[] {
-        return ImportFileReader.getFlightplansFromFile(filePath);
+    async getImportableFlightplans(filePath: string): Promise<string[]> {
+        return await ImportFileReader.getFlightplansFromFile(filePath);
     }
 
-    importFlightplanFromFile(filePath: string, index = 0): void {
-        ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
+    async importFlightplanFromFile(filePath: string, index = 0): Promise<void> {
+        await ImportFileReader.importFile(filePath, this.aeroflyFlight, index);
         this.setFlightPositionToDeparture();
         this.updateCurrentAircraft(true);
     }

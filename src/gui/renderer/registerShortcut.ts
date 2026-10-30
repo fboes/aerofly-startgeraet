@@ -1,5 +1,5 @@
 import { html } from "../../core/formatter/html.js";
-import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
 
 const registry = new Map<string, () => void>();
 const CLASS_BODY_ACTIVE = "has-pressed-modifier";
@@ -36,7 +36,7 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
  */
 export function registerShortcut(key: string, handler: () => void): () => boolean {
     if (registry.has(key)) {
-        throw new ErrorFormatted(`Shortcut for key "{{ key }}" is already registered.`, { key });
+        throw new ErrorDetail(`Shortcut is already registered for key`, key);
     }
     registry.set(key, handler);
     return () => registry.delete(key);

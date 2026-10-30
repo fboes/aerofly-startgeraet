@@ -10,7 +10,7 @@ import {
 import { Point } from "@fboes/geojson";
 import { findAeroflyAircraft } from "./getAeroflyAircraft.js";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../util/units.js";
-import { ErrorFormatted } from "../util/ErrorFormatted.js";
+import { ErrorDetail } from "../util/ErrorFormatted.js";
 import { degreeNormalize } from "../util/degree.js";
 
 type RoutePlanServiceLegType =
@@ -195,9 +195,7 @@ export class RoutePlanService {
 
         const aircraft = findAeroflyAircraft(this.aeroflyFlight.aircraft.name);
         if (!aircraft) {
-            throw new ErrorFormatted(`No matching aircraft found for {{ aircraft }}`, {
-                aircraft: this.aeroflyFlight.aircraft.name,
-            });
+            throw new ErrorDetail(`No matching aircraft found`, this.aeroflyFlight.aircraft.name);
         }
         return aircraft.cruiseSpeedKts;
     }

@@ -8,6 +8,7 @@ import * as ZodExtra from "../../core/util/zExtra.js";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
 import { returnMcpResourceResult, returnMcpToolSimpleResult } from "../util/returnMcpResult.js";
+import { DIR_PROMPTS } from "../util/directories.js";
 
 type Variables = Record<string, string | string[]>;
 
@@ -97,10 +98,7 @@ function registerResources(server: McpServer) {
                 {
                     uri: uri.href,
                     mimeType: "text/markdown",
-                    text: await fs.readFile(
-                        path.join(import.meta.dirname, "../../..", "docs/mcp", "resource-general-rules.md"),
-                        "utf-8",
-                    ),
+                    text: await fs.readFile(path.join(DIR_PROMPTS, "resource-general-rules.md"), "utf-8"),
                 },
             ],
         }),

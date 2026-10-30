@@ -155,9 +155,9 @@ export class AeroflyFlightServiceHandler {
         this.ipcMain.handle("flightplan:import-file", this.openDialogAndImportFile);
         this.ipcMain.handle(
             "flightplan:import-flightplan-index",
-            (event: IpcMainInvokeEvent, payload: FlightPlanChooserWebComponentState) => {
+            async (event: IpcMainInvokeEvent, payload: FlightPlanChooserWebComponentState) => {
                 try {
-                    this.service.importFlightplanFromFile(payload.filepath, payload.flightPlanIndex);
+                    await this.service.importFlightplanFromFile(payload.filepath, payload.flightPlanIndex);
                     this.sendStateUpdate();
                 } catch (error) {
                     return createNotificationErrorPayload(error);
@@ -298,7 +298,7 @@ export class AeroflyFlightServiceHandler {
         filepath: string,
     ): Promise<NotificationEventPayload<ImportWebComponentPayload | undefined>> {
         try {
-            const flightplans = this.service.getImportableFlightplans(filepath);
+            const flightplans = await this.service.getImportableFlightplans(filepath);
             if (flightplans.length > 1) {
                 return createNotificationPayload<ImportWebComponentPayload>(
                     "Multiple flightplans found in file. Please select the desired flightplan in the app.",
@@ -310,7 +310,7 @@ export class AeroflyFlightServiceHandler {
                 );
             }
 
-            this.service.importFlightplanFromFile(filepath);
+            await this.service.importFlightplanFromFile(filepath);
             this.sendStateUpdate();
         } catch (error) {
             return createNotificationErrorPayload(error);

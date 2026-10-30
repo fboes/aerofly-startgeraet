@@ -4,7 +4,7 @@ import type { AviationWeatherNormalizedAirport } from "../../core/api/AviationWe
 import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { UNIT_METER_PER_FEET } from "../../core/util/units.js";
 import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
-import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
 import { degreeNormalize } from "../../core/util/degree.js";
 
 /**
@@ -66,9 +66,7 @@ export async function getMinimumSafeAltitude(
 
     const result = results.results[0];
     if (!result) {
-        throw new ErrorFormatted("No elevation could be determined, status {{ status }}", {
-            status: results.status,
-        });
+        throw new ErrorDetail("No elevation could be determined, status", results.status);
     }
 
     return result.elevation + 1500 * UNIT_METER_PER_FEET;

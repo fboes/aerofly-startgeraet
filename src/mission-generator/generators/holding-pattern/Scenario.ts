@@ -5,7 +5,7 @@ import { cardinalDirection, asVectorString } from "../../../core/formatter/getVe
 import { numberFormat } from "../../../core/formatter/numberFormat.js";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 import { degreeNormalize } from "../../../core/util/degree.js";
-import { ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../../../core/util/ErrorFormatted.js";
 import { randomArbitrary } from "../../../core/util/random.js";
 import { UNIT_METER_PER_NM, UNIT_METER_PER_FEET } from "../../../core/util/units.js";
 import type { MissionGeneratorWaypoint } from "../../MissionGenerator.type.js";
@@ -23,9 +23,7 @@ export async function convertScenario(
     // Establish navigational aid / RNAV waypoint
     const navaidData = await getWaypointData(configuration.navaidIdentifier, flight.navigation.waypoints);
     if (!navaidData) {
-        throw new ErrorFormatted("Nav aid identifier could not be found: {{ navaidIdentifier }}", {
-            navaidIdentifier: configuration.navaidIdentifier,
-        });
+        throw new ErrorDetail("Nav aid identifier could not be found", configuration.navaidIdentifier);
     }
     const navaidPoint = new Point(navaidData.longitude, navaidData.latitude);
 

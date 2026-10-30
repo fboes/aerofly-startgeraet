@@ -1,7 +1,7 @@
 import type { z } from "zod";
 import type { MissionGenerator } from "./MissionGenerator.interface.js";
 import type { MissionGeneratorManifest, MissionGeneratorManifestField } from "./MissionGenerator.type.js";
-import { ErrorFormatted } from "../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../core/util/ErrorFormatted.js";
 import { LandingPatternMissionGenerator } from "./generators/landing-pattern/LandingPatternMissionGenerator.js";
 import type { AeroflyFlightService } from "../core/services/AeroflyFlightService.js";
 import type { JsonSchemaObject, JsonSchemaType, JsonSchemaValue } from "./JsonSchema.type.js";
@@ -28,9 +28,7 @@ export const MISSIONS_GENERATOR_MANIFESTS: MissionGeneratorManifest[] = Object.e
 export function getMissionGenerator(generatorName: string): new () => MissionGenerator<z.ZodRawShape> {
     const missionGenerator = MISSION_GENERATOR_REGISTRY[generatorName];
     if (!missionGenerator) {
-        throw new ErrorFormatted(`Unknown mission generator slug: {{ generatorName }}`, {
-            generatorName,
-        });
+        throw new ErrorDetail(`Unknown mission generator slug`, generatorName);
     }
     return missionGenerator;
 }
@@ -72,7 +70,7 @@ function getMissionGeneratorConfiguration(
         }
 
         if (!["string", "number", "integer", "boolean"].includes(type)) {
-            throw new ErrorFormatted("Unsupported JSON Schema type {{ type }} in mission configuration", { type });
+            throw new ErrorDetail("Unsupported JSON Schema type in mission configuration", type);
         }
 
         fields.push({
@@ -118,9 +116,7 @@ export function executeMissionGenerator(
 
 export function restoreMissionGeneratorValues(config: Config, generatorName: string): Record<string, unknown> {
     if (!MISSION_GENERATOR_REGISTRY[generatorName]) {
-        throw new ErrorFormatted("Unknown mission generator used for calling settings: {{ generatorName }}", {
-            generatorName,
-        });
+        throw new ErrorDetail("Unknown mission generator used for calling settings", generatorName);
     }
     return config.getMissionGeneratorValues(generatorName);
 }
@@ -131,9 +127,7 @@ export function storeMissionGeneratorValues(
     generatorValues: Record<string, unknown>,
 ): void {
     if (!MISSION_GENERATOR_REGISTRY[generatorName]) {
-        throw new ErrorFormatted("Unknown mission generator used for storing settings: {{ generatorName }}", {
-            generatorName,
-        });
+        throw new ErrorDetail("Unknown mission generator used for storing settings", generatorName);
     }
     config.setMissionGeneratorValues(generatorName, generatorValues);
 }

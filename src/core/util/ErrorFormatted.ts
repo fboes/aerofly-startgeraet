@@ -19,3 +19,13 @@ export class ErrorFormatted extends Error {
         super(fmt(messageRaw, args));
     }
 }
+
+export class ErrorDetail extends Error {
+    constructor(
+        public readonly messageRaw: string,
+        public readonly detail: string,
+        public readonly code: string = "",
+    ) {
+        super(messageRaw + ": `" + detail + "`");
+    }
+}

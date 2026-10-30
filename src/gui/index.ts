@@ -6,11 +6,11 @@ import { registerApplicationHandlers } from "./handler/registerApplicationHandle
 import { IMPORT_FILE_TYPES } from "../core/io/importFlightplan.js";
 import { getWindowState, storeWindowState } from "./handler/windowState.js";
 import { APPLICATION_INFORMATION } from "../core/services/getApplicationInformation.js";
+import { DIR_ASSETS, DIR_ROOT } from "../core/util/directory.js";
 
 let fileToOpen: string | null = null;
 
 const createWindow = () => {
-    const rootDir = path.join(import.meta.dirname, "../..");
     const win = new BrowserWindow({
         ...getWindowState(APPLICATION_INFORMATION.isDev),
         autoHideMenuBar: true,
@@ -18,10 +18,10 @@ const createWindow = () => {
         ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),
         webPreferences: {
             sandbox: false,
-            preload: path.join(rootDir, "dist/gui/preload.js"),
+            preload: path.join(DIR_ROOT, "dist/gui/preload.js"),
         },
     });
-    win.loadFile(path.join(rootDir, "assets/gui/index.html"));
+    win.loadFile(path.join(DIR_ASSETS, "gui/index.html"));
 
     if (APPLICATION_INFORMATION.isDev) {
         win.webContents.openDevTools();
@@ -36,10 +36,10 @@ const createWindow = () => {
 
     switch (process.platform) {
         case "win32":
-            win.setIcon(path.join(rootDir, "assets/icons/windows/icon.ico"));
+            win.setIcon(path.join(DIR_ASSETS, "icons/windows/icon.ico"));
             break;
         case "linux":
-            win.setIcon(path.join(rootDir, "assets/icons/linux/icons/512x512.png"));
+            win.setIcon(path.join(DIR_ASSETS, "icons/linux/icons/512x512.png"));
             break;
     }
 

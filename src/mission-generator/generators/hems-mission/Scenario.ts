@@ -1,3 +1,4 @@
+import path from "node:path";
 import type z from "zod";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 import type { HemsMissionGeneratorConfiguration } from "./HemsMissionGenerator.js";
@@ -12,32 +13,37 @@ import {
 import { HemsMissionLocations, type HemsMissionLocation } from "./HemsMissionLocations.js";
 import { missionGeneratorArtifactDirectory } from "../../MissionGenerator.js";
 import { getWaypointData } from "../../util/Waypoint.js";
-import { ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
+import { ErrorDetail, ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
 import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../../core/util/units.js";
+import { DIR_ASSETS } from "../../../core/util/directory.js";
+
+const DIR_HEMS_FALLBACK = path.join(DIR_ASSETS, "mission-generator/hems-mission");
 
 export async function convertScenario(
     configuration: z.infer<z.ZodObject<HemsMissionGeneratorConfiguration>>,
     flightPlanService: AeroflyFlightService,
 ): Promise<boolean> {
+    const originIdentifier = flightPlanService.getFlightplanDepartureAirportIdentifier();
+
     const locations = new HemsMissionLocations();
-
-    // Establish airport
-    const airportWaypoint = await findAirportWaypointData(locations, flightPlanService);
-
-    // Establish aircraft position
-    const aircraftPoint = airportWaypoint.payload.point;
-
-    // Establish emergency site
     const directory = missionGeneratorArtifactDirectory(flightPlanService.config);
-    const locationsCount = await locations.loadLocationsFile(airportWaypoint.identifier, directory);
+    let locationsCount = await locations.loadLocationsFile(originIdentifier, directory);
     if (locationsCount <= 0) {
+        locationsCount = await locations.loadLocationsFile(originIdentifier, DIR_HEMS_FALLBACK);
+    }
+    if (locationsCount <= 0) {
+        const airportWaypoint = await findAirportWaypointData(locations, flightPlanService);
         await locations.createLocationsFile(airportWaypoint, directory);
         throw new ErrorFormatted(`Did not find (correct) GeoJSON file in {{ directory }}, created a new file`, {
             directory,
         });
     }
 
+    // Establish airport
+    const airportWaypoint = await findAirportWaypointData(locations, flightPlanService);
+
+    // Establish emergency site
     const emergencyWaypoint: HemsMissionLocation = locations.findRandomEmergencyWaypoint(
         airportWaypoint.payload.point,
         configuration.minRange_km * 1000,
@@ -52,15 +58,15 @@ export async function convertScenario(
     const windDirection_deg = flightPlanService.getWindDirection();
 
     flightPlanService.setFlightPosition(
-        aircraftPoint.longitude,
-        aircraftPoint.latitude,
-        aircraftPoint.elevation ?? 0,
+        airportWaypoint.longitude,
+        airportWaypoint.latitude,
+        airportWaypoint.payload.point.elevation ?? 0,
         airportWaypoint.payload.direction ?? flight.flightSetting.heading_degree,
         0,
         configuration.isColdAndDark ? "ColdAndDark" : "OnGround",
     );
 
-    flight.navigation = new AeroflyNavigationConfig(aircraftPoint.elevation ?? 0, [
+    flight.navigation = new AeroflyNavigationConfig(airportWaypoint.payload.point.elevation ?? 0, [
         ...getDepartureWaypoints(airportWaypoint, windDirection_deg),
         ...getEmergencyWaypoints(emergencyWaypoint),
         ...getHospitalWaypoints(hospitalWaypoint, windDirection_deg),
@@ -79,7 +85,7 @@ async function findAirportWaypointData(
     locations: HemsMissionLocations,
     flightPlanService: AeroflyFlightService,
 ): Promise<HemsMissionLocation> {
-    const icaoId = flightPlanService.getFlightplanDepartureAirportString();
+    const icaoId = flightPlanService.getFlightplanDepartureAirportIdentifier();
     const airport = locations.findHeliportWaypointByIcaoId(icaoId);
     if (airport) {
         return airport;
@@ -87,7 +93,7 @@ async function findAirportWaypointData(
 
     const airportData = await getWaypointData(icaoId, flightPlanService.getAeroflyFlight().navigation.waypoints);
     if (!airportData) {
-        throw new ErrorFormatted("Airport not found: {{ icaoId }}", { icaoId });
+        throw new ErrorDetail("Airport not found", icaoId);
     }
 
     return {

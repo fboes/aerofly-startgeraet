@@ -260,7 +260,7 @@ export class MenuCommand extends BaseControllerCommand {
             if (!filename) {
                 throw new Error("No filename selected for import");
             }
-            const flightplans = this.controller.getImportableFlightplans(filename);
+            const flightplans = await this.controller.getImportableFlightplans(filename);
             const index: string =
                 flightplans.length === 1
                     ? "0"
@@ -274,7 +274,7 @@ export class MenuCommand extends BaseControllerCommand {
                           }),
                       });
             writeln(fmt(`Importing flightplan from file {{ filename }}...`, { filename }));
-            this.controller.importFlightplanFromFile(filename, Number(index));
+            await this.controller.importFlightplanFromFile(filename, Number(index));
         }
         writeSuccess("Flightplan imported successfully");
         writeln(
@@ -486,19 +486,19 @@ export class MenuCommand extends BaseControllerCommand {
             choices: [
                 {
                     name: fmt(`Import weather via API for {{ airport }}`, {
-                        airport: this.controller.getFlightplanDepartureAirportString(),
+                        airport: this.controller.getFlightplanDepartureAirportIdentifier(),
                     }),
-                    value: this.controller.getFlightplanDepartureAirportString(),
+                    value: this.controller.getFlightplanDepartureAirportIdentifier(),
                 },
                 {
                     name: fmt(`Import weather via API for {{ airport }}`, {
-                        airport: this.controller.getFlightplanArrivalAirportString(),
+                        airport: this.controller.getFlightplanArrivalAirportIdentifier(),
                     }),
-                    value: this.controller.getFlightplanArrivalAirportString(),
+                    value: this.controller.getFlightplanArrivalAirportIdentifier(),
                 },
                 {
                     name: fmt(`Import weather by METAR code for {{ airport }}`, {
-                        airport: this.controller.getFlightplanArrivalAirportString(),
+                        airport: this.controller.getFlightplanArrivalAirportIdentifier(),
                     }),
                     value: `metar`,
                 },

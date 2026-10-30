@@ -16,6 +16,7 @@ export type HemsMissionLocation = MissionGeneratorPayloadWaypoint<{
 export class HemsMissionLocations {
     static readonly TYPE_HELIPORT = "heliport";
     static readonly TYPE_HOSPITAL = "hospital";
+    static readonly TYPE_HOSPITAL_HELIPORT = "hospital-JP";
 
     private locations: HemsMissionLocation[] = [];
 
@@ -96,11 +97,16 @@ export class HemsMissionLocations {
      * @returns the correct file path to the GeoJSON file
      */
     private pathLocations(identifier: string, directory: string) {
-        const slug = identifier.replace(/[^A-Za-z0-9\-]+/vg, "");
+        const slug = identifier.replace(/[^A-Za-z0-9\-]+/gv, "");
         return path.join(directory, `hems-mission-${slug}.geojson`);
     }
 
-    private createFeatureCollection(airportWaypoint: HemsMissionLocation) {
+    private createFeatureCollection(
+        airportWaypoint: HemsMissionLocation,
+        minRange_m: number = 0,
+        maxRange_m: number = 60_000,
+    ) {
+        const averageRange_m = (minRange_m + maxRange_m) / 2;
         let i = 0;
         return new FeatureCollection([
             new Feature(
@@ -113,7 +119,7 @@ export class HemsMissionLocations {
                 i++,
             ),
             new Feature(
-                airportWaypoint.payload.point.getPointBy(new Vector(5000, 300)),
+                airportWaypoint.payload.point.getPointBy(new Vector(averageRange_m, 300)),
                 {
                     title: "a hospital",
                     "marker-symbol": HemsMissionLocations.TYPE_HOSPITAL,
@@ -121,7 +127,7 @@ export class HemsMissionLocations {
                 i++,
             ),
             new Feature(
-                airportWaypoint.payload.point.getPointBy(new Vector(5000, 60)),
+                airportWaypoint.payload.point.getPointBy(new Vector(averageRange_m, 60)),
                 {
                     title: "some emergency site",
                 },
@@ -129,7 +135,7 @@ export class HemsMissionLocations {
             ),
 
             new Feature(
-                airportWaypoint.payload.point.getPointBy(new Vector(5000, 180)),
+                airportWaypoint.payload.point.getPointBy(new Vector(averageRange_m, 180)),
                 {
                     title: "another emergency site",
                 },
@@ -146,7 +152,8 @@ export class HemsMissionLocations {
         return this.locations.filter(
             (c) =>
                 c.payload.type !== HemsMissionLocations.TYPE_HOSPITAL &&
-                c.payload.type !== HemsMissionLocations.TYPE_HELIPORT,
+                c.payload.type !== HemsMissionLocations.TYPE_HELIPORT &&
+                c.payload.type !== HemsMissionLocations.TYPE_HOSPITAL_HELIPORT,
         );
     }
 
@@ -179,7 +186,11 @@ export class HemsMissionLocations {
     }
 
     findAllHospitalWaypoints(): HemsMissionLocation[] {
-        return this.locations.filter((c) => c.payload.type === HemsMissionLocations.TYPE_HOSPITAL);
+        return this.locations.filter(
+            (c) =>
+                c.payload.type === HemsMissionLocations.TYPE_HOSPITAL ||
+                c.payload.type === HemsMissionLocations.TYPE_HOSPITAL_HELIPORT,
+        );
     }
 
     findNearestHospitalWaypoint(emergencyData: HemsMissionLocation): HemsMissionLocation | undefined {
@@ -196,7 +207,11 @@ export class HemsMissionLocations {
     }
 
     findAllHeliportWaypoints(): HemsMissionLocation[] {
-        return this.locations.filter((c) => c.payload.type === HemsMissionLocations.TYPE_HELIPORT);
+        return this.locations.filter(
+            (c) =>
+                c.payload.type === HemsMissionLocations.TYPE_HELIPORT ||
+                c.payload.type === HemsMissionLocations.TYPE_HOSPITAL_HELIPORT,
+        );
     }
 
     findHeliportWaypointByIcaoId(icaoId: string): HemsMissionLocation | undefined {

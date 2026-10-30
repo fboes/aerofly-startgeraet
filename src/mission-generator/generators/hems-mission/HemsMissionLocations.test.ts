@@ -28,7 +28,7 @@ describe("HemsMissionLocations", () => {
         assert.ok(allEmergencies.length + allHospitals.length <= count);
     });
 
-    it("find a random emergency waypoints in a given distance range", async() => {
+    it("find a random emergency waypoints in a given distance range", async () => {
         const locations = new HemsMissionLocations();
         await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
 
@@ -40,7 +40,7 @@ describe("HemsMissionLocations", () => {
         //console.log(emergency);
     });
 
-    it("finds the closest hospital", async() => {
+    it("finds the closest hospital", async () => {
         const locations = new HemsMissionLocations();
         await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
 
@@ -58,5 +58,17 @@ describe("HemsMissionLocations", () => {
         assert.ok(hospital);
         assert.strictEqual(hospital.identifier, "de0819");
         //console.log(hospital);
+    });
+
+    it("finds heliports", async () => {
+        const locations = new HemsMissionLocations();
+        await locations.loadLocationsFile("EGEO", DIR_FIXTURE + "/startgeraet");
+
+        const heliports = locations.findAllHeliportWaypoints();
+        assert.strictEqual(heliports.length, 1);
+
+        const heliport = locations.findHeliportWaypointByIcaoId("EGEO");
+        assert.strictEqual(heliport?.payload.direction, 281);
+        assert.strictEqual(heliport.payload.approaches?.length, 2);
     });
 });

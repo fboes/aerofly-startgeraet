@@ -10,7 +10,7 @@ import {
     sunPositionNameString,
     type AeroflyFlightFormatterSunPosition,
 } from "../../core/formatter/AeroflyFlightFormatter.js";
-import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
 
 export class AppState {
     readonly dateTime: {
@@ -95,7 +95,7 @@ export class AppState {
     protected formatDateTime(dateIn: Date): { date: string; time: string } {
         const [date, time] = dateIn.toISOString().split("T");
         if (!date || !time) {
-            throw new ErrorFormatted(`Invalid date: {{ date }}`, { date: dateIn.toISOString() });
+            throw new ErrorDetail(`Invalid date`, dateIn.toISOString());
         }
         return { date, time: time.substring(0, 5) };
     }

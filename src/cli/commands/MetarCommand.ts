@@ -3,7 +3,7 @@ import { BaseControllerCommand } from "./ControllerCommand.base.js";
 
 export class MetarCommand extends BaseControllerCommand {
     async execute(): Promise<number> {
-        const choice = this.controller.getFlightplanDepartureAirportString();
+        const choice = this.controller.getFlightplanDepartureAirportIdentifier();
 
         writeln(`Importing METAR for ${choice}...`);
         await this.controller.setWeatherFromMETAR(choice);

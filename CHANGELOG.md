@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 - Fixed cruise speed / altitude resetting
+- Improved file handling (non-blocking / atomic)
+- Added fallback mission files
 
 ## [2.7.0] - 2026-10-24
 

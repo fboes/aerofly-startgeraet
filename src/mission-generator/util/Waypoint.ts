@@ -1,7 +1,7 @@
 import type { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { numberFormat } from "../../core/formatter/numberFormat.js";
-import { ErrorFormatted } from "../../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
 import type { MissionGeneratorWaypoint } from "../MissionGenerator.type.js";
 
 /**
@@ -40,7 +40,7 @@ export async function getWaypointData(
             return await getFixWaypointData(identifier);
     }
 
-    throw new ErrorFormatted("Did not find data for waypoint identifier: {{ identifier }}", { identifier });
+    throw new ErrorDetail("Did not find data for waypoint identifier", identifier);
 }
 
 /**
