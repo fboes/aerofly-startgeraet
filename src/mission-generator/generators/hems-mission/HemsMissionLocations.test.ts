@@ -4,6 +4,28 @@ import { HemsMissionLocations, type HemsMissionLocation } from "./HemsMissionLoc
 import { DIR_FIXTURE } from "../../../test/loadFixture.js";
 import { Point } from "@fboes/geojson";
 
+const WAYPOINT_EDHG: HemsMissionLocation = {
+    longitude: 10.457620941302837,
+    latitude: 53.24756138354581,
+    altitude_m: 49.02,
+    identifier: "EDHG",
+    payload: {
+        point: new Point(10.457620941302837, 53.24756138354581, 49.02),
+    },
+};
+
+const WAYPOINT_EGEO: HemsMissionLocation = {
+    longitude: -5.3984619465384185,
+    latitude: 56.464572641198856,
+    altitude_m: 7,
+    identifier: "EGEO",
+    payload: {
+        point: new Point(-5.3984619465384185, 56.464572641198856, 7),
+    },
+};
+
+const DIR_FIXTURE_MISSION_GENERATOR = DIR_FIXTURE + "/mission-generator";
+
 describe("HemsMissionLocations", () => {
     it("loads locations", async () => {
         const locations = new HemsMissionLocations();
@@ -11,7 +33,7 @@ describe("HemsMissionLocations", () => {
         assert.ok(locations);
         assert.strictEqual(locations.getAllLocations().length, 0);
 
-        const count = await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
+        const count = await locations.loadLocationsFile(WAYPOINT_EDHG, DIR_FIXTURE_MISSION_GENERATOR);
         assert.strictEqual(count, 41);
 
         const allLocations = locations.getAllLocations();
@@ -30,7 +52,7 @@ describe("HemsMissionLocations", () => {
 
     it("find a random emergency waypoints in a given distance range", async () => {
         const locations = new HemsMissionLocations();
-        await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
+        await locations.loadLocationsFile(WAYPOINT_EDHG, DIR_FIXTURE_MISSION_GENERATOR);
 
         const airportPoint = new Point(10.457620941302837, 53.24756138354581, 49.02);
         const emergency = locations.findRandomEmergencyWaypoint(airportPoint, 35_000, 40_000);
@@ -42,18 +64,9 @@ describe("HemsMissionLocations", () => {
 
     it("finds the closest hospital", async () => {
         const locations = new HemsMissionLocations();
-        await locations.loadLocationsFile("EDHG", DIR_FIXTURE + "/startgeraet");
+        await locations.loadLocationsFile(WAYPOINT_EDHG, DIR_FIXTURE_MISSION_GENERATOR);
 
-        const emergencyData: HemsMissionLocation = {
-            longitude: 10.457620941302837,
-            latitude: 53.24756138354581,
-            altitude_m: 49.02,
-            identifier: "EDHG",
-            payload: {
-                point: new Point(10.457620941302837, 53.24756138354581, 49.02),
-            },
-        };
-        const hospital = locations.findNearestHospitalWaypoint(emergencyData);
+        const hospital = locations.findNearestHospitalWaypoint(WAYPOINT_EDHG);
 
         assert.ok(hospital);
         assert.strictEqual(hospital.identifier, "de0819");
@@ -62,7 +75,7 @@ describe("HemsMissionLocations", () => {
 
     it("finds heliports", async () => {
         const locations = new HemsMissionLocations();
-        await locations.loadLocationsFile("EGEO", DIR_FIXTURE + "/startgeraet");
+        await locations.loadLocationsFile(WAYPOINT_EGEO, DIR_FIXTURE_MISSION_GENERATOR);
 
         const heliports = locations.findAllHeliportWaypoints();
         assert.strictEqual(heliports.length, 1);

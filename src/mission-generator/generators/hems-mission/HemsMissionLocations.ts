@@ -22,12 +22,12 @@ export class HemsMissionLocations {
 
     /**
      * Will open the GeoJSON file with the mission locations
-     * @param identifier ICAO code of starting airport
-     * @param directory the directory the GeoJSON file is supposed to be in
+     * @param airportWaypoint starting airport
+     * @param directory the directory the mission folders are supposed to be in
      * @returns the number of found locations. `-1` is returned if no file is found.
      */
-    async loadLocationsFile(identifier: string, directory: string): Promise<number> {
-        const filePath = this.pathLocations(identifier, directory);
+    async loadLocationsFile(airportWaypoit: HemsMissionLocation, directory: string): Promise<number> {
+        const filePath = this.pathLocations(airportWaypoit, directory);
         try {
             (await fs.stat(filePath)).isFile();
         } catch {
@@ -80,25 +80,43 @@ export class HemsMissionLocations {
 
     /**
      * Will create a new GeoJSON file with the mission locations
-     * @param identifier ICAO code of starting airport
-     * @param directory the directory the GeoJSON file is supposed to be in
+     * @param airportWaypoint starting airport
+     * @param directory the directory the mission folders are supposed to be in
      */
     async createLocationsFile(airportWaypoint: HemsMissionLocation, directory: string) {
-        await fs.mkdir(directory, { recursive: true });
-        return fs.writeFile(
-            this.pathLocations(airportWaypoint.identifier, directory),
-            JSON.stringify(this.createFeatureCollection(airportWaypoint), null, 2),
+        const pathLocations = this.pathLocations(airportWaypoint, directory);
+        await fs.mkdir(path.dirname(pathLocations), { recursive: true });
+        return fs.writeFile(pathLocations, JSON.stringify(this.createFeatureCollection(airportWaypoint), null, 2));
+    }
+
+    /**
+     * @param airportWaypoint starting airport
+     * @returns the correct file path to the GeoJSON file
+     */
+    private pathLocations(airportWaypoint: HemsMissionLocation, directory: string) {
+        const slug = this.fileSlug(airportWaypoint.identifier);
+        return path.join(
+            directory,
+            `${this.aeroflyPoiFolderCoordinates(airportWaypoint.payload.point)}_${slug}`,
+            `${slug}.geojson`,
         );
     }
 
     /**
-     * @param identifier ICAO code of starting airport
-     * @param directory the directory the GeoJSON file is supposed to be in
-     * @returns the correct file path to the GeoJSON file
+     * @param point holding coordinates
+     * @returns something like `e01045n5324`
      */
-    private pathLocations(identifier: string, directory: string) {
-        const slug = identifier.replace(/[^A-Za-z0-9\-]+/gv, "");
-        return path.join(directory, `hems-mission-${slug}.geojson`);
+    aeroflyPoiFolderCoordinates(point: Point): string {
+        return (
+            (point.longitude > 0 ? "e" : "w") +
+            String(Math.abs(Math.round(point.longitude * 100))).padStart(5, "0") +
+            (point.latitude > 0 ? "n" : "s") +
+            String(Math.abs(Math.round(point.latitude * 100))).padStart(4, "0")
+        );
+    }
+
+    private fileSlug(identifier: string) {
+        return "startgeraet-hems-" + identifier.replace(/[^A-Za-z0-9\-]+/gv, "");
     }
 
     private createFeatureCollection(

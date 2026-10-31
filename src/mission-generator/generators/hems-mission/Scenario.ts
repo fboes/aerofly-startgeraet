@@ -11,30 +11,28 @@ import {
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { HemsMissionLocations, type HemsMissionLocation } from "./HemsMissionLocations.js";
-import { missionGeneratorArtifactDirectory } from "../../MissionGenerator.js";
 import { getWaypointData } from "../../util/Waypoint.js";
 import { ErrorDetail, ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
 import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../../core/util/units.js";
-import { DIR_ASSETS } from "../../../core/util/directory.js";
+import { DIR_ASSETS, poiDirectory } from "../../../core/util/directory.js";
 
-const DIR_HEMS_FALLBACK = path.join(DIR_ASSETS, "mission-generator/hems-mission");
+const DIR_HEMS_FALLBACK = path.join(DIR_ASSETS, "mission-generator");
 
 export async function convertScenario(
     configuration: z.infer<z.ZodObject<HemsMissionGeneratorConfiguration>>,
     flightPlanService: AeroflyFlightService,
 ): Promise<boolean> {
-    const originIdentifier = flightPlanService.getFlightplanDepartureAirportIdentifier();
-
     const locations = new HemsMissionLocations();
-    const directory = missionGeneratorArtifactDirectory(flightPlanService.config);
-    let locationsCount = await locations.loadLocationsFile(originIdentifier, directory);
+    const originWaypoint = await findAirportWaypointData(locations, flightPlanService);
+
+    const directory = poiDirectory(flightPlanService.config);
+    let locationsCount = await locations.loadLocationsFile(originWaypoint, directory);
     if (locationsCount <= 0) {
-        locationsCount = await locations.loadLocationsFile(originIdentifier, DIR_HEMS_FALLBACK);
+        locationsCount = await locations.loadLocationsFile(originWaypoint, DIR_HEMS_FALLBACK);
     }
     if (locationsCount <= 0) {
-        const airportWaypoint = await findAirportWaypointData(locations, flightPlanService);
-        await locations.createLocationsFile(airportWaypoint, directory);
+        await locations.createLocationsFile(originWaypoint, directory);
         throw new ErrorFormatted(`Did not find (correct) GeoJSON file in {{ directory }}, created a new file`, {
             directory,
         });

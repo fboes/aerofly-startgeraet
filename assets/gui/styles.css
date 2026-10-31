@@ -481,7 +481,7 @@ startgeraet-notification {
     inset-block-end: 0;
     inset-inline-start: 50%;
     z-index: 2;
-    width: 20rem;
+    width: 25rem;
     margin-block: 0;
     margin-inline: auto;
     transform: translateX(-50%);
