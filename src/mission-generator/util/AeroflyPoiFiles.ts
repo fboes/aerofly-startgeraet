@@ -18,7 +18,7 @@ export type AeroflyPoiLight = {
     groupIndex?: number;
 };
 
-type AeroflyPoiXref = {
+export type AeroflyPoiXref = {
     name: string;
     direction?: number;
     position: Point;

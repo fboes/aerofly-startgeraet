@@ -6,7 +6,7 @@ import path from "node:path";
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../../core/util/degree.js";
 import { DIR_ASSETS } from "../../../core/util/directory.js";
-import { AeroflyPoiFiles } from "../../util/AeroflyPoiFiles.js";
+import { createHemsPoiFiles } from "./HemsPoiFiles.js";
 
 export type HemsMissionLocation = MissionGeneratorPayloadWaypoint<{
     type?: string;
@@ -100,7 +100,8 @@ export class HemsMissionLocations {
         const pathFallback = path.join(DIR_ASSETS, "poi", "fallback");
         await fs.mkdir(path.dirname(pathLocations), { recursive: true });
 
-        const poi = new AeroflyPoiFiles(path.basename(pathLocations));
+        // TODO: Currently this only maps emergency waypoints
+        const poi = createHemsPoiFiles(path.basename(pathLocations), this.findAllEmergencyWaypoints());
 
         return Promise.all([
             fs.writeFile(pathLocations + ".toc", poi.tocFileContent()),
