@@ -127,4 +127,4 @@ There are also short-hand CLI commands which solve a single task without any use
 
 ---
 
-[Back to top](../README.md)
+[Back to documentation index](./README.md) | [Back to top](../README.md)

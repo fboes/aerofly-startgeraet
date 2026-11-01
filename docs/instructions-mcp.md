@@ -125,4 +125,4 @@ Once an MCP server is added to a local AI client, its tool definitions are loade
 
 ---
 
-[Back to top](../README.md)
+[Back to documentation index](./README.md) | [Back to top](../README.md)

@@ -32,4 +32,4 @@ Importing flight plans is not completely straightforward with the Aerofly Startg
 
 ---
 
-[Back to top](../README.md)
+[Back to documentation index](./README.md) | [Back to top](../README.md)

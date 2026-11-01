@@ -13,7 +13,7 @@ await describe("AeroflyPoiFiles", (): void => {
             position: new Point(10, 20),
             color: [255, 0, 0],
             intensity: 50,
-            flashing: [1, 2, 3],
+            flashing: [1, 2, 3, 0],
             groupIndex: 1,
         });
 

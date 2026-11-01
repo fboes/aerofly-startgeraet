@@ -1,6 +1,9 @@
 import { fetchJson, handleJsonResponse } from "./fetchJson.js";
 import type { OpenTopoDataApiCoordinates, OpenTopoDataApiResult } from "./OpenTopoDataApi.type.js";
 
+/**
+ * @see https://www.opentopodata.org/api/
+ */
 export async function fetchOpenTopoData(
     coordinates: OpenTopoDataApiCoordinates[],
     datasetName = "aster30m",

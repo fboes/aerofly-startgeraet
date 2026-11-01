@@ -41,4 +41,4 @@ On changing settings in the Aerofly Startgerät, these settings will be written 
 
 ---
 
-[Back to top](../README.md)
+[Back to documentation index](./README.md) | [Back to top](../README.md)

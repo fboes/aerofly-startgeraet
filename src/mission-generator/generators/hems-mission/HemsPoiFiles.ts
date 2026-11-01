@@ -49,12 +49,14 @@ function lightsFromLocation(location: HemsMissionLocation): AeroflyPoiLight[] {
             height: 3,
             color: [0, 0, 1],
             flashing: [10, 0, 100, 0],
+            groupIndex: 3,
         },
         {
             position: policeCarVector(location.payload.point, direction),
             height: 1.7,
             color: [0, 0, 1],
             flashing: [20, 0, 100, 0],
+            groupIndex: 3,
         },
     ];
 }

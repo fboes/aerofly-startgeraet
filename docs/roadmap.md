@@ -23,4 +23,4 @@ This application will grow in multiple steps:
 
 ---
 
-[Back to top](../README.md)
+[Back to documentation index](./README.md) | [Back to top](../README.md)

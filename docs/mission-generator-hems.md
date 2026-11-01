@@ -1,4 +1,4 @@
-# Helicopter Emergency Medical Services Mission GeoJSON Files
+# ![](../assets/icons/icon.svg) Aerofly Startgerät - Helicopter Emergency Medical Services Mission GeoJSON Files
 
 The mission generator needs a [GeoJSON file](https://geojson.org/) which contains all possible locations to be used in the missions.
 
@@ -61,3 +61,7 @@ There are special `properties.marker-symbol` values for emergency sites, which w
 | `swimming`                 | Lost person in open water (not yet fully implemented)             |
 
 ²) Some marker symbols will not spawn the correct icon in [geojson.io](https://geojson.io/), but are still valid mission types.
+
+---
+
+[Back to documentation index](./README.md) | [Back to top](../README.md)
