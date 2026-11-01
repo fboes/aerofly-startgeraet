@@ -37,6 +37,18 @@ export class AeroflyPoiFiles {
 
     // -------------------------------------------------------------------------
 
+    private tocXrefContents(): string[] {
+        return this.xref.map((xref, index) => {
+            return `\
+            <[xref][element][${index}]
+                <[string8u][name][${xref.name}]>
+                <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} 0]>
+                <[float64][direction][${xref.direction}]>
+                <[float32][scale_factor][1]>
+            >`;
+        });
+    }
+
     tocLightContents(): string[] {
         return this.lights.map((light, index) => {
             return `\
@@ -46,17 +58,6 @@ export class AeroflyPoiFiles {
                 <[float32][intensity][${light.intensity ?? 100}]>
                 <[vector4_float32][flashing][${(light.flashing ?? []).join(" ")}]>
                 <[uint32][group_index][${light.groupIndex ?? 1}]>
-            >`;
-        });
-    }
-
-    private tocXrefContents(): string[] {
-        return this.xref.map((xref, index) => {
-            return `\
-            <[xref][element][${index}]
-                <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} 0]>
-                <[float64][direction][${xref.direction}]>
-                <[string8u][name][${xref.name}]>
             >`;
         });
     }
@@ -78,27 +79,30 @@ ${this.tocXrefContents().join("\n")}
 
     // -------------------------------------------------------------------------
 
-    private tslObjectsContents(): string[] {
-        return this.xref.map((xref, index) => {
-            return `\
-            <[tmsimulator_scenery_object][element][${index}]
-                <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} -10]>
-                <[int32][autoheight_override][-1]>
-                <[string8][geometry][fallback/fallback]>
+    private tslObjectsContents(): string {
+        const xref = this.xref[0];
+        if (!xref) {
+            return "";
+        }
+        return `\
+        <[list_tmsimulator_scenery_object][objects][]
+            <[tmsimulator_scenery_object][element][0]
                 <[string8u][type][object]>
+                <[string8][geometry][fallback/fallback]>
+                <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} -1.0]>
+                <[int32][autoheight_override][-1]>
             >`;
-        });
     }
 
     tslFileContent(): string {
         return `\
 <[file][][]
     <[tmsimulator_scenery_place_simple][][]
-        <[string8u] [coordinate_system] [lonlat]>
+        <[string8u][coordinate_system][lonlat]>
         <[bool][autoheight][true]>
         <[string8u][cultivation][${this.slug}]> # TOC file
         <[list_tmsimulator_scenery_object][objects][]
-${this.tslObjectsContents().join("\n")}
+${this.tslObjectsContents()}
         >
     >
 >
