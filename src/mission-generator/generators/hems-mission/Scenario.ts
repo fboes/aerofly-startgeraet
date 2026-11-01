@@ -33,9 +33,14 @@ export async function convertScenario(
     }
     if (locationsCount <= 0) {
         await locations.createLocationsFile(originWaypoint, directory);
+        await locations.createPoiFiles(originWaypoint, directory);
         throw new ErrorFormatted(`Did not find (correct) GeoJSON file in {{ directory }}, created a new file`, {
             directory,
         });
+    }
+
+    if (configuration.createPois) {
+        await locations.createPoiFiles(originWaypoint, directory);
     }
 
     // Establish airport

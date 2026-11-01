@@ -5,6 +5,7 @@
 - Fixed cruise speed / altitude resetting
 - Improved file handling (non-blocking / atomic)
 - Added fallback mission files
+- Added simple POI file generator
 
 ## [2.7.0] - 2026-10-24
 

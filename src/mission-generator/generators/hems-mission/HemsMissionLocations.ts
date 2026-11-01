@@ -5,6 +5,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../../core/util/degree.js";
+import { DIR_ASSETS } from "../../../core/util/directory.js";
+import { AeroflyPoiFiles } from "../../util/AeroflyPoiFiles.js";
 
 export type HemsMissionLocation = MissionGeneratorPayloadWaypoint<{
     type?: string;
@@ -26,8 +28,9 @@ export class HemsMissionLocations {
      * @param directory the directory the mission folders are supposed to be in
      * @returns the number of found locations. `-1` is returned if no file is found.
      */
-    async loadLocationsFile(airportWaypoit: HemsMissionLocation, directory: string): Promise<number> {
-        const filePath = this.pathLocations(airportWaypoit, directory);
+    async loadLocationsFile(airportWaypoint: HemsMissionLocation, directory: string): Promise<number> {
+        const filePath = this.pathLocations(airportWaypoint, directory) + ".geojson";
+
         try {
             (await fs.stat(filePath)).isFile();
         } catch {
@@ -86,20 +89,34 @@ export class HemsMissionLocations {
     async createLocationsFile(airportWaypoint: HemsMissionLocation, directory: string) {
         const pathLocations = this.pathLocations(airportWaypoint, directory);
         await fs.mkdir(path.dirname(pathLocations), { recursive: true });
-        return fs.writeFile(pathLocations, JSON.stringify(this.createFeatureCollection(airportWaypoint), null, 2));
+        return fs.writeFile(
+            pathLocations + ".geojson",
+            JSON.stringify(this.createFeatureCollection(airportWaypoint), null, 2),
+        );
+    }
+
+    async createPoiFiles(airportWaypoint: HemsMissionLocation, directory: string) {
+        const pathLocations = this.pathLocations(airportWaypoint, directory);
+        const pathFallback = path.join(DIR_ASSETS, "poi", "fallback");
+        await fs.mkdir(path.dirname(pathLocations), { recursive: true });
+
+        const poi = new AeroflyPoiFiles(path.basename(pathLocations));
+
+        return Promise.all([
+            fs.writeFile(pathLocations + ".toc", poi.tocFileContent()),
+            fs.writeFile(pathLocations + ".tsl", poi.tslFileContent()),
+            fs.cp(pathFallback, path.join(path.dirname(pathLocations), "fallback"), { recursive: true }),
+        ]);
     }
 
     /**
      * @param airportWaypoint starting airport
-     * @returns the correct file path to the GeoJSON file
+     * @param directory the directory the mission folders are supposed to be in
+     * @returns path to regular locations files, wothout file ending
      */
     private pathLocations(airportWaypoint: HemsMissionLocation, directory: string) {
         const slug = this.fileSlug(airportWaypoint.identifier);
-        return path.join(
-            directory,
-            `${this.aeroflyPoiFolderCoordinates(airportWaypoint.payload.point)}_${slug}`,
-            `${slug}.geojson`,
-        );
+        return path.join(directory, `${this.aeroflyPoiFolderCoordinates(airportWaypoint.payload.point)}_${slug}`, slug);
     }
 
     /**

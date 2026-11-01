@@ -8,6 +8,7 @@ export type HemsMissionGeneratorConfiguration = {
     minRange_km: z.ZodDefault<z.ZodNumber>;
     maxRange_km: z.ZodDefault<z.ZodNumber>;
     isColdAndDark: z.ZodDefault<z.ZodBoolean>;
+    createPois: z.ZodDefault<z.ZodBoolean>;
 };
 
 export class HemsMissionGenerator implements MissionGenerator<HemsMissionGeneratorConfiguration> {
@@ -37,6 +38,7 @@ target is visible.
             minRange_km: z.number().min(0).max(99).default(5).meta({ title: "Minimum distance", unit: "km" }),
             maxRange_km: z.number().min(0).max(99).default(60).meta({ title: "Maximum distance", unit: "km" }),
             isColdAndDark: z.boolean().default(false).meta({ title: "Start cold & dark" }),
+            createPois: z.boolean().default(false).meta({ title: "Create POI file" }),
         });
     }
 
