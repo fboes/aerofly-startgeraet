@@ -5,13 +5,13 @@ export type AeroflyPoiLight = {
     /**
      * above ground level in meters, default 1
      */
-    height?: number;
+    heightAdjust?: number;
     /**
-     * R, G, B
+     * R, G, B, [0,1]
      */
     color: [number, number, number];
     /**
-     * 0 - 1000
+     * [0,1000]
      */
     intensity?: number;
     /**
@@ -25,30 +25,48 @@ export type AeroflyPoiLight = {
 };
 
 export type AeroflyPoiXref = {
+    /**
+     * XREF object reference
+     */
     name: string;
+    /**
+     * [0,360]
+     */
     direction?: number;
     position: Point;
+    /**
+     * above ground level in meters, default 1
+     */
+    heightAdjust?: number;
 };
 
 /**
  * Serves to create simple POI files for the mission generator. These files can
  * be read by Aerofly FS and will display objects and lights in the simulator.
+ *
+ * Credits to [ApfelFlieger](https://www.aerofly.com/community/index.php?user/58802-apfelflieger/)
+ * & [Jugac64](https://www.aerofly.com/community/index.php?user/67428-jugac64/)
+ * for the kickstarter to this implementation.
+ *
+ * @see https://github.com/jlgabriel/afs4-poi-creator/
  */
 export class AeroflyPoiFiles {
     constructor(
         public slug: string,
         public xref: AeroflyPoiXref[] = [],
         public lights: AeroflyPoiLight[] = [],
+        public isAutoHeight: boolean = false,
     ) {}
 
     // -------------------------------------------------------------------------
 
     private tocXrefContents(): string[] {
         return this.xref.map((xref, index) => {
+            const height = this.isAutoHeight ? 0 : (xref.position.elevation ?? 0) + (xref.heightAdjust ?? 1);
             return `\
             <[xref][element][${index}]
                 <[string8u][name][${xref.name}]>
-                <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} 0]>
+                <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} ${height}]>
                 <[float64][direction][${xref.direction}]>
                 <[float32][scale_factor][1]>
             >`;
@@ -57,12 +75,13 @@ export class AeroflyPoiFiles {
 
     tocLightContents(): string[] {
         return this.lights.map((light, index) => {
+            const height = (light.position.elevation ?? 0) + (light.heightAdjust ?? 1);
             return `\
             <[light][element][${index}]
-                <[vector3_float64][position][${light.position.longitude} ${light.position.latitude} ${light.height ?? 1}]>
+                <[vector3_float64][position][${light.position.longitude} ${light.position.latitude} ${height}]>
                 <[vector3_float32][color][${light.color.join(" ")}]>
                 <[float32][intensity][${light.intensity ?? 100}]>
-                <[vector4_float32][flashing][${(light.flashing ?? []).join(" ")}]>
+                <[vector4_float32][flashing][${(light.flashing ?? [0, 0, 0, 0]).join(" ")}]>
                 <[uint32][group_index][${light.groupIndex ?? 1}]>
             >`;
         });
@@ -97,7 +116,9 @@ ${this.tocXrefContents().join("\n")}
                 <[string8][geometry][fallback/fallback]>
                 <[vector3_float64][position][${xref.position.longitude} ${xref.position.latitude} -1.0]>
                 <[int32][autoheight_override][-1]>
-            >`;
+            >
+        >
+`;
     }
 
     tslFileContent(): string {
@@ -105,11 +126,9 @@ ${this.tocXrefContents().join("\n")}
 <[file][][]
     <[tmsimulator_scenery_place_simple][][]
         <[string8u][coordinate_system][lonlat]>
-        <[bool][autoheight][true]>
+        <[bool][autoheight][${this.isAutoHeight ? "true" : "false"}]>
         <[string8u][cultivation][${this.slug}]> # TOC file
-        <[list_tmsimulator_scenery_object][objects][]
-${this.tslObjectsContents()}
-        >
+${this.isAutoHeight ? this.tslObjectsContents() : ""}\
     >
 >
 `;

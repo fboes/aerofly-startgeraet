@@ -1,13 +1,20 @@
 import { Vector, type Point } from "@fboes/geojson";
 import { AeroflyPoiFiles, type AeroflyPoiLight, type AeroflyPoiXref } from "../../util/AeroflyPoiFiles.js";
 import type { HemsMissionLocation } from "./HemsMissionLocations.js";
+import { setMisionGeneratorWaypointElevationFromApi } from "../../util/setElevation.js";
 
 /**
  * @param slug
- * @param locations
+ * @param locations>
  * @returns the new definition of the POI files for the given slug and locations
  */
-export function createHemsPoiFiles(slug: string, locations: HemsMissionLocation[]): AeroflyPoiFiles {
+export async function createHemsPoiFiles(slug: string, locations: HemsMissionLocation[]): Promise<AeroflyPoiFiles> {
+    await setMisionGeneratorWaypointElevationFromApi(locations);
+
+    locations.forEach((location) => {
+        location.payload.point.elevation = location.altitude_m ?? 0;
+    });
+
     return new AeroflyPoiFiles(slug, xrefFromLocations(locations), lightsFromLocations(locations));
 }
 
@@ -46,14 +53,14 @@ function lightsFromLocation(location: HemsMissionLocation): AeroflyPoiLight[] {
     return [
         {
             position: location.payload.point,
-            height: 3,
+            heightAdjust: 3,
             color: [0, 0, 1],
             flashing: [10, 0, 100, 0],
             groupIndex: 3,
         },
         {
             position: policeCarVector(location.payload.point, direction),
-            height: 1.7,
+            heightAdjust: 1.7,
             color: [0, 0, 1],
             flashing: [20, 0, 100, 0],
             groupIndex: 3,

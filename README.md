@@ -74,24 +74,6 @@ All application versions support computers running Microsoft Windows, Apple macO
 
 See also [the instructions on how to import flight plans](./docs/flight-plan-import.md).
 
-### The SimBrief API workflow
-
-Enter your SimBrief username and click **Fetch**. Startgerät automatically injects your active/latest flight plan directly into Aerofly FS 4 in less then a second.
-
-**Important Navigation Data Note:** SimBrief utilizes the modern AIRAC database 2503 for free users, whereas Aerofly FS 4 relies on a legacy internal database. This may cause a data gap. This is completely normal and rarely impacts standard routes. You may simply need to adjust your terminal procedures (SID/STAR) inside the native Aerofly menu before clicking "Fly".
-
-**Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the flight plan and then fetch the plan via Startgerät, which takes literally seconds to do.
-
-Be aware that weather data imported from SimBrief reflects the weather settings at the time the flight plan was generated, and not the the weather settings at the actual start of flight. You might want to use the "Fetch METAR" functionality to obtain current weather.
-
-> Instructions contributed by AeRodri from [RealFlightOps](https://www.youtube.com/@RealFlightOps)
-
-### Other flight planning software workflow
-
-Create your route on any flight planning software, and crucially, manually select a AIRAC Cycle matching with Aerofly's native database.
-
-Be aware that most flight plan formats do not include aircraft and weather settings. They need to be setup using the Aerofly Startgerät.
-
 ## Technical stuff
 
 This projects uses the public APIs of the [Aviation Weather Center](https://aviationweather.gov/) and [SimBrief](https://www.simbrief.com/). The usage of these APIs may be restricted or blocked on your local computer.
@@ -118,3 +100,7 @@ This software complies with the General Data Protection Regulation (GDPR) as it 
 - [Aviation Weather Center API](https://aviationweather.gov/): Used for fetching METAR data on demand in the CLI / GUI, or for METAR / NAVAID data in the MCP
 - [SimBrief API](https://www.simbrief.com/): Used for fetching flight plans on demand in all application
 - GitHub API: Used for checking update status in the GUI
+
+## Credits
+
+This tool could not have been done without the support of the development team of IPACS, as well as Aerofly forum members [ApfelFlieger](https://www.aerofly.com/community/index.php?user/58802-apfelflieger/) and [Jugac64](https://www.aerofly.com/community/index.php?user/67428-jugac64/). Special thanks to [AeRodri](https://www.aerofly.com/community/index.php?user/70667-aerodri/) and his relentless testing effort.

@@ -1,8 +1,12 @@
 # ![](../assets/icons/icon.svg) Aerofly Startgerät - Importing flight plans
 
-Importing flight plans is not completely straightforward with the Aerofly Startgerät. This workflow will get you started:
+Importing flight plans is not completely straightforward with the Aerofly Startgerät. There are multiple workflow to create flight plans:
 
-## Regular flight plan files
+1. Import from regular flight plan files
+2. SimBrief import
+3. Use the [Aerofly Startgerät Mission Generator](./mission-generator.md)
+
+## Import from regular flight plan files
 
 1. Download the flight plan file to your import folder. By default this is the `Downloads` folder of your operating system.
 2. Start the Aerofly Startgerät and import the flight plan into the `main.mcf`.
@@ -15,6 +19,11 @@ Importing flight plans is not completely straightforward with the Aerofly Startg
    2. Add runways, as the Aerofly Startgerät and most external flight plan formats do not know about the runway designations of Aerofly FS 4.
    3. Choose a starting position, as the Aerofly Startgerät does not know about the valid parking positions.
 6. Start your flight normally.
+
+Caveats:
+
+- Create your route on any flight planning software, and crucially, manually select a AIRAC Cycle matching with Aerofly's native database.
+- Be aware that most flight plan formats do not include aircraft and weather settings. They need to be setup using the Aerofly Startgerät.
 
 ## SimBrief import
 
@@ -29,6 +38,13 @@ Importing flight plans is not completely straightforward with the Aerofly Startg
    2. Add runways, as the Aerofly Startgerät and most external flight plan formats do not know about the runway designations of Aerofly FS 4.
    3. Choose a starting position, as the Aerofly Startgerät does not know about the valid parking positions.
 5. Start your flight normally.
+
+Caveats:
+
+- **Oceanic Routing (NATs/PACOTs):** Aerofly cannot parse compressed track designators (e.g., NAT U). To fix this, take the expanded latitude/longitude coordinates manually from SimBrief's map above, write them by hand into the route text box, re-validate the entire route, generate the flight plan and then fetch the plan via Startgerät, which takes literally seconds to do.
+- Be aware that weather data imported from SimBrief reflects the weather settings at the time the flight plan was generated, and not the the weather settings at the actual start of flight. You might want to use the "Fetch METAR" functionality to obtain current weather.
+
+> Instructions contributed by AeRodri from [RealFlightOps](https://www.youtube.com/@RealFlightOps)
 
 ---
 

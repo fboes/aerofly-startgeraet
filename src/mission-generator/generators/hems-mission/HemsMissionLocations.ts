@@ -50,7 +50,7 @@ export class HemsMissionLocations {
                 const coordinates = asJSONArray(geometry.coordinates);
                 const longitude = asJSONNumber(coordinates[0]);
                 const latitude = asJSONNumber(coordinates[1]);
-                const altitude_m = coordinates[0] ? asJSONNumber(coordinates[0]) : undefined;
+                const altitude_m = coordinates[2] ? asJSONNumber(coordinates[2]) : undefined;
 
                 const properties = asJSONObject(f.properties);
                 const direction = properties.direction ? asJSONNumber(properties.direction) : undefined;
@@ -91,7 +91,7 @@ export class HemsMissionLocations {
         await fs.mkdir(path.dirname(pathLocations), { recursive: true });
         return fs.writeFile(
             pathLocations + ".geojson",
-            JSON.stringify(this.createFeatureCollection(airportWaypoint), null, 2),
+            JSON.stringify(await this.createFeatureCollection(airportWaypoint), null, 2),
         );
     }
 
@@ -101,19 +101,21 @@ export class HemsMissionLocations {
         await fs.mkdir(path.dirname(pathLocations), { recursive: true });
 
         // TODO: Currently this only maps emergency waypoints
-        const poi = createHemsPoiFiles(path.basename(pathLocations), this.findAllEmergencyWaypoints());
+        const poi = await createHemsPoiFiles(path.basename(pathLocations), this.findAllEmergencyWaypoints());
 
         return Promise.all([
             fs.writeFile(pathLocations + ".toc", poi.tocFileContent()),
             fs.writeFile(pathLocations + ".tsl", poi.tslFileContent()),
-            fs.cp(pathFallback, path.join(path.dirname(pathLocations), "fallback"), { recursive: true }),
+            poi.isAutoHeight
+                ? fs.cp(pathFallback, path.join(path.dirname(pathLocations), "fallback"), { recursive: true })
+                : Promise.resolve(),
         ]);
     }
 
     /**
      * @param airportWaypoint starting airport
      * @param directory the directory the mission folders are supposed to be in
-     * @returns path to regular locations files, wothout file ending
+     * @returns path to regular locations files, without file ending
      */
     private pathLocations(airportWaypoint: HemsMissionLocation, directory: string) {
         const slug = this.fileSlug(airportWaypoint.identifier);
@@ -137,13 +139,16 @@ export class HemsMissionLocations {
         return "startgeraet-hems-" + identifier.replace(/[^A-Za-z0-9\-]+/gv, "");
     }
 
-    private createFeatureCollection(
+    private async createFeatureCollection(
         airportWaypoint: HemsMissionLocation,
         minRange_m: number = 0,
         maxRange_m: number = 60_000,
-    ) {
+    ): Promise<FeatureCollection> {
         const averageRange_m = (minRange_m + maxRange_m) / 2;
         let i = 0;
+
+        // await setElevationFromApi(featureCollection)
+
         return new FeatureCollection([
             new Feature(
                 airportWaypoint.payload.point,
