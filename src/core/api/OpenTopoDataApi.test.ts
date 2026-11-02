@@ -4,7 +4,9 @@ import { describe, it } from "node:test";
 import { fetchOpenTopoData } from "./OpenTopoDataApi.js";
 import type { OpenTopoDataApiCoordinates } from "./OpenTopoDataApi.type.js";
 
-await describe("OpenTopoDataApi", async (): Promise<void> => {
+const includeApiTests = process.env.INCLUDE_API_TESTS === "1";
+
+await describe("OpenTopoDataApi", { skip: !includeApiTests }, async (): Promise<void> => {
     await it("fetches Open Topo API elevation data", async () => {
         const coordinates: OpenTopoDataApiCoordinates[] = [
             {
@@ -21,6 +23,8 @@ await describe("OpenTopoDataApi", async (): Promise<void> => {
 
         assert.strictEqual(topoData.status, "OK");
         assert.strictEqual(topoData.results.length, 2);
+        assert.ok(topoData.results[0]?.elevation !== null);
+        assert.ok(topoData.results[1]?.elevation !== null);
 
         //console.log(topoData.results);
     });

@@ -11,8 +11,9 @@ export type OpenTopoDataApiResultItem = {
     /**
      * Elevation, using units and datum from the dataset.
      * For example, the SRTM and ASTER dataset uses meters.
+     *  May be `null` for `NODATA` values.
      */
-    elevation: number;
+    elevation: number | null;
     location: {
         lat: number;
         lng: number;

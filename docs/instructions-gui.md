@@ -1,4 +1,4 @@
-# ![](../assets/icons/favicon-64x64.png) Aerofly Startgerät - GUI App
+# ![](../assets/icons/favicon-64x64.png) Aerofly Startgerät - GUI App instructions
 
 ![](./gui-example.png)
 

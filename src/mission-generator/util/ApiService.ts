@@ -52,7 +52,7 @@ export function getRunwayPoint(runwayData: BestRunway, airportPoint: Point): Poi
 export async function getMinimumSafeAltitude(
     aircraftPoint: Point,
     minimumSafeAltitude_ft: number | undefined = undefined,
-): Promise<number> {
+): Promise<number | null> {
     if (minimumSafeAltitude_ft) {
         return minimumSafeAltitude_ft * UNIT_METER_PER_FEET;
     }
@@ -66,7 +66,11 @@ export async function getMinimumSafeAltitude(
 
     const result = results.results[0];
     if (!result) {
-        throw new ErrorDetail("No elevation could be determined, status", results.status);
+        throw new ErrorDetail("No result item was returned, status", results.status);
+    }
+
+    if (result.elevation === null) {
+        return null;
     }
 
     return result.elevation + 1500 * UNIT_METER_PER_FEET;

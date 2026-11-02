@@ -1,4 +1,4 @@
-# Generate icons
+# Generate icons for Electron apps
 
 - [Electron Forge - Custom App Icons](https://www.electronforge.io/guides/create-and-add-icons)
 - [Electron Icon Generator](https://webutils.io/tool/electron-icon-generator)

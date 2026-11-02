@@ -1,4 +1,4 @@
-# ![](../assets/icons/icon.svg) Aerofly Startgerät - MCP Server
+# ![](../assets/icons/icon.svg) Aerofly Startgerät - MCP Server instructions
 
 The Aerofly Startgerät MCP server acts as an interface usable by local AI clients to set up flight plans as well as other flight parameters in Aerofly FS 4.
 

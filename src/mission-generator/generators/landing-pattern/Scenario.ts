@@ -42,8 +42,9 @@ export async function convertScenario(
         degreeNormalize(aircraftHeading + 180),
     );
     const aircraftPoint = airportPoint.getPointBy(aircraftVector);
+    const minimumSafeAltitude = await getMinimumSafeAltitude(aircraftPoint, configuration.minimumSafeAltitude_ft);
     aircraftPoint.elevation = Math.min(
-        await getMinimumSafeAltitude(aircraftPoint, configuration.minimumSafeAltitude_ft),
+        minimumSafeAltitude ?? 20_000,
         airportData.elev + (configuration.patternAltitudeAgl_ft + 500) * UNIT_METER_PER_FEET,
     );
 

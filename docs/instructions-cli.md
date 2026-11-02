@@ -1,4 +1,4 @@
-# ![](../assets/icons/icon.svg) Aerofly Startgerät - CLI Tool
+# ![](../assets/icons/icon.svg) Aerofly Startgerät - CLI Tool instructions
 
 ![](./startgeraet.png)
 

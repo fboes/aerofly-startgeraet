@@ -8,8 +8,17 @@ export async function fetchOpenTopoData(
     coordinates: OpenTopoDataApiCoordinates[],
     datasetName = "aster30m",
 ): Promise<OpenTopoDataApiResult> {
-    const url = new URL(datasetName, "https://api.opentopodata.org/v1/");
-    url.searchParams.append("locations", coordinates.map((c) => c.lat.toString() + "," + c.lng.toString()).join("|"));
+    const payload = coordinates.map((c) => c.lat.toString() + "," + c.lng.toString()).join("|");
+
+    const url = new Request(`https://api.opentopodata.org/v1/${datasetName}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            locations: payload,
+        }),
+    });
 
     const response = await fetchJson(url);
 
