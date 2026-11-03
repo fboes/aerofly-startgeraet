@@ -1,4 +1,11 @@
-import type { AeroflyNavRouteBase } from "@fboes/aerofly-custom-missions";
+import {
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteDestination,
+    AeroflyNavRouteDestinationRunway,
+    AeroflyNavRouteOrigin,
+    AeroflyNavRouteWaypoint,
+    type AeroflyNavRouteBase,
+} from "@fboes/aerofly-custom-missions";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { numberFormat } from "../../core/formatter/numberFormat.js";
 import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
@@ -58,16 +65,28 @@ export async function getFlightplanLocationData(
 
     const location = locations.find((w) => w.identifier === identifier);
     if (location) {
-        const locationData: MissionGeneratorLocation = {
-            position: new Point(location.longitude, location.latitude), // elevation
-            identifier: location.identifier,
-            //title: location.title,
-            //freq_khz: location.freq_khz,
-            //mag_dec: location.mag_dec,
-        };
+        const locationData: MissionGeneratorLocation = convertAeroflyNavRouteBaseToMissionGeneratorLocation(location);
         locationCache.set(identifier, locationData);
         return locationData;
     }
+}
+
+function convertAeroflyNavRouteBaseToMissionGeneratorLocation(wp: AeroflyNavRouteBase): MissionGeneratorLocation {
+    const elevation =
+        wp instanceof AeroflyNavRouteOrigin ||
+        wp instanceof AeroflyNavRouteDestination ||
+        wp instanceof AeroflyNavRouteDepartureRunway ||
+        wp instanceof AeroflyNavRouteDestinationRunway
+            ? wp.elevation
+            : undefined;
+
+    const freq_khz = wp instanceof AeroflyNavRouteWaypoint ? (wp.navaidFrequency_khz ?? undefined) : undefined;
+
+    return {
+        position: new Point(wp.longitude, wp.latitude, elevation),
+        identifier: wp.identifier,
+        freq_khz,
+    };
 }
 
 /**
@@ -86,7 +105,7 @@ export async function getNavaidLocationData(identifier: string): Promise<Mission
     }
 
     const location = {
-        position: new Point(navaid.lon, navaid.lat),
+        position: new Point(navaid.lon, navaid.lat, navaid.elev),
         identifier: navaid.id,
         title: navaid.name,
         mag_dec: navaid.mag_dec,
@@ -112,7 +131,7 @@ export async function getAirportLocationData(identifier: string): Promise<Missio
     }
 
     const location = {
-        position: new Point(airport.lon, airport.lat),
+        position: new Point(airport.lon, airport.lat, airport.elev),
         identifier: airport.icaoId,
         title: airport.name,
         mag_dec: airport.magdec,
