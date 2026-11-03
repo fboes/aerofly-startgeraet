@@ -15,7 +15,7 @@ import type { HoldingPattern, HoldingPatternEntry } from "./HoldingPattern.js";
  */
 export function getPatternWaypoints(pattern: HoldingPattern): AeroflyNavRouteWaypoint[] {
     const fixPoint = pattern.fixPoint;
-    const fixData = pattern.fixData;
+    const fixLocation = pattern.fixLocation;
     const turnMultiplier = pattern.isLeftPattern ? -1 : 1;
 
     const pointAfterFix = fixPoint.getPointBy(
@@ -36,39 +36,39 @@ export function getPatternWaypoints(pattern: HoldingPattern): AeroflyNavRouteWay
     };
 
     return [
-        new AeroflyNavRouteWaypoint(fixData.identifier, fixPoint.longitude, fixPoint.latitude, {
+        new AeroflyNavRouteWaypoint(fixLocation.identifier, fixPoint.longitude, fixPoint.latitude, {
             ...patternWaypointProperties,
             flyOver: true,
-            navaidFrequency_khz: fixData.freq_khz,
+            navaidFrequency_khz: fixLocation.freq_khz,
         }),
         new AeroflyNavRouteWaypoint(
-            fixData.identifier + "-TURN",
+            fixLocation.identifier + "-TURN",
             pointAfterFix.longitude,
             pointAfterFix.latitude,
             patternWaypointProperties,
         ),
         new AeroflyNavRouteWaypoint(
-            fixData.identifier + "-ABEAM",
+            fixLocation.identifier + "-ABEAM",
             pointAbeam.longitude,
             pointAbeam.latitude,
             patternWaypointProperties,
         ),
         new AeroflyNavRouteWaypoint(
-            fixData.identifier + "-OUTBND",
+            fixLocation.identifier + "-OUTBND",
             pointOutbound.longitude,
             pointOutbound.latitude,
             patternWaypointProperties,
         ),
         new AeroflyNavRouteWaypoint(
-            fixData.identifier + "-INBND",
+            fixLocation.identifier + "-INBND",
             pointInbound.longitude,
             pointInbound.latitude,
             patternWaypointProperties,
         ),
-        new AeroflyNavRouteWaypoint(fixData.identifier, fixPoint.longitude, fixPoint.latitude, {
+        new AeroflyNavRouteWaypoint(fixLocation.identifier, fixPoint.longitude, fixPoint.latitude, {
             ...patternWaypointProperties,
             flyOver: true,
-            navaidFrequency_khz: fixData.freq_khz,
+            navaidFrequency_khz: fixLocation.freq_khz,
         }),
     ];
 }
@@ -108,7 +108,7 @@ function getSimpleEntryWaypoint(pattern: HoldingPattern): AeroflyNavRouteWaypoin
 
     return [
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-ENTRY",
+            pattern.fixLocation.identifier + "-ENTRY",
             pointInbound.longitude,
             pointInbound.latitude,
             patternWaypointProperties,
@@ -145,28 +145,28 @@ function getParallelEntryWaypoints(pattern: HoldingPattern): AeroflyNavRouteWayp
 
     return [
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-PRL0",
+            pattern.fixLocation.identifier + "-PRL0",
             pointAlmostFix.longitude,
             pointAlmostFix.latitude,
             {
                 ...patternWaypointProperties,
-                navaidFrequency_khz: pattern.fixData.freq_khz,
+                navaidFrequency_khz: pattern.fixLocation.freq_khz,
             },
         ),
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-PRL1",
+            pattern.fixLocation.identifier + "-PRL1",
             pointTurnOutbound.longitude,
             pointTurnOutbound.latitude,
             patternWaypointProperties,
         ),
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-PRL2",
+            pattern.fixLocation.identifier + "-PRL2",
             pointTurnInbound.longitude,
             pointTurnInbound.latitude,
             patternWaypointProperties,
         ),
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-PRL3",
+            pattern.fixLocation.identifier + "-PRL3",
             pointInbound.longitude,
             pointInbound.latitude,
             patternWaypointProperties,
@@ -195,19 +195,24 @@ function getOffsetEntryWaypoints(pattern: HoldingPattern): AeroflyNavRouteWaypoi
     );
 
     return [
-        new AeroflyNavRouteWaypoint(pattern.fixData.identifier, pattern.fixPoint.longitude, pattern.fixPoint.latitude, {
-            ...patternWaypointProperties,
-            navaidFrequency_khz: pattern.fixData.freq_khz,
-            flyOver: true,
-        }),
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-OFF1",
+            pattern.fixLocation.identifier,
+            pattern.fixPoint.longitude,
+            pattern.fixPoint.latitude,
+            {
+                ...patternWaypointProperties,
+                navaidFrequency_khz: pattern.fixLocation.freq_khz,
+                flyOver: true,
+            },
+        ),
+        new AeroflyNavRouteWaypoint(
+            pattern.fixLocation.identifier + "-OFF1",
             pointAfterFix.longitude,
             pointAfterFix.latitude,
             patternWaypointProperties,
         ),
         new AeroflyNavRouteWaypoint(
-            pattern.fixData.identifier + "-OFF2",
+            pattern.fixLocation.identifier + "-OFF2",
             pointInbound.longitude,
             pointInbound.latitude,
             patternWaypointProperties,

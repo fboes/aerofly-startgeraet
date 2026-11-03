@@ -9,14 +9,14 @@ import {
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { numberFormat } from "../../core/formatter/numberFormat.js";
 import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
-import type { MissionGeneratorLocation } from "../MissionGenerator.type.js";
+import type { Location } from "../util/Location.type.js";
 import { Point } from "@fboes/geojson";
 
 /**
  * Keeps normalized airports, navigational aids and fixes cached after fetching
  * from API or extracted from flight plan
  */
-const locationCache = new Map<string, MissionGeneratorLocation>();
+const locationCache = new Map<string, Location>();
 
 /**
  * Will try to extract waypoint by identifier from flight plan, or ask
@@ -30,7 +30,7 @@ const locationCache = new Map<string, MissionGeneratorLocation>();
 export async function getLocationData(
     identifier: string,
     waypoints: AeroflyNavRouteBase[] = [],
-): Promise<MissionGeneratorLocation | undefined> {
+): Promise<Location | undefined> {
     if (waypoints) {
         const aerofly = await getFlightplanLocationData(identifier, waypoints);
         if (aerofly) {
@@ -58,20 +58,20 @@ export async function getLocationData(
 export async function getFlightplanLocationData(
     identifier: string,
     locations: AeroflyNavRouteBase[],
-): Promise<MissionGeneratorLocation | undefined> {
+): Promise<Location | undefined> {
     if (locationCache.has(identifier)) {
         return locationCache.get(identifier);
     }
 
     const location = locations.find((w) => w.identifier === identifier);
     if (location) {
-        const locationData: MissionGeneratorLocation = convertAeroflyNavRouteBaseToMissionGeneratorLocation(location);
+        const locationData: Location = convertAeroflyNavRouteBaseToMissionGeneratorLocation(location);
         locationCache.set(identifier, locationData);
         return locationData;
     }
 }
 
-function convertAeroflyNavRouteBaseToMissionGeneratorLocation(wp: AeroflyNavRouteBase): MissionGeneratorLocation {
+function convertAeroflyNavRouteBaseToMissionGeneratorLocation(wp: AeroflyNavRouteBase): Location {
     const elevation =
         wp instanceof AeroflyNavRouteOrigin ||
         wp instanceof AeroflyNavRouteDestination ||
@@ -93,7 +93,7 @@ function convertAeroflyNavRouteBaseToMissionGeneratorLocation(wp: AeroflyNavRout
  * Will try fetch navigational aid waypoint / location data from API.
  * Will also use caching.
  */
-export async function getNavaidLocationData(identifier: string): Promise<MissionGeneratorLocation | undefined> {
+export async function getNavaidLocationData(identifier: string): Promise<Location | undefined> {
     if (locationCache.has(identifier)) {
         return locationCache.get(identifier);
     }
@@ -119,7 +119,7 @@ export async function getNavaidLocationData(identifier: string): Promise<Mission
 /**
  * Will try fetch airport waypoint data from API. Will also use caching.
  */
-export async function getAirportLocationData(identifier: string): Promise<MissionGeneratorLocation | undefined> {
+export async function getAirportLocationData(identifier: string): Promise<Location | undefined> {
     if (locationCache.has(identifier)) {
         return locationCache.get(identifier);
     }
@@ -144,7 +144,7 @@ export async function getAirportLocationData(identifier: string): Promise<Missio
 /**
  * Will try fetch fix waypoint / location data from API. Will also use caching.
  */
-export async function getFixLocationData(identifier: string): Promise<MissionGeneratorLocation | undefined> {
+export async function getFixLocationData(identifier: string): Promise<Location | undefined> {
     if (locationCache.has(identifier)) {
         return locationCache.get(identifier);
     }
@@ -168,7 +168,7 @@ export async function getFixLocationData(identifier: string): Promise<MissionGen
  * Used for flight briefings: Get waypoint / location name or identifier,
  * as well as navigational aid frequency.
  */
-export function getLocationFullName(location: MissionGeneratorLocation): string {
+export function getLocationFullName(location: Location): string {
     return (
         location.title ??
         location.identifier +

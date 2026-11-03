@@ -24,72 +24,72 @@ export async function convertScenario(
     flightPlanService: AeroflyFlightService,
 ): Promise<boolean> {
     const locations = new HemsMissionLocations();
-    const originWaypoint = await findAirportWaypointData(locations, flightPlanService);
+    const originLocation = await findAirportLocation(locations, flightPlanService);
 
     const directory = poiDirectory(flightPlanService.config);
-    let locationsCount = await locations.loadLocationsFile(originWaypoint, directory);
+    let locationsCount = await locations.loadLocationsFile(originLocation, directory);
     if (locationsCount <= 0) {
-        locationsCount = await locations.loadLocationsFile(originWaypoint, DIR_HEMS_FALLBACK);
+        locationsCount = await locations.loadLocationsFile(originLocation, DIR_HEMS_FALLBACK);
     }
     if (locationsCount <= 0) {
-        await locations.createLocationsFile(originWaypoint, directory);
-        await locations.createPoiFiles(originWaypoint, directory);
+        await locations.createLocationsFile(originLocation, directory);
+        await locations.createPoiFiles(originLocation, directory);
         throw new ErrorFormatted(`Did not find (correct) GeoJSON file in {{ directory }}, created a new file`, {
             directory,
         });
     }
 
     if (configuration.createPois) {
-        await locations.createPoiFiles(originWaypoint, directory);
+        await locations.createPoiFiles(originLocation, directory);
     }
 
     // Establish airport
-    const airportWaypoint = await findAirportWaypointData(locations, flightPlanService);
+    const airportLocation = await findAirportLocation(locations, flightPlanService);
 
     // Establish emergency site
-    const emergencyWaypoint: HemsMissionLocation = locations.findRandomEmergencyWaypoint(
-        airportWaypoint.position,
+    const emergencyLocation: HemsMissionLocation = locations.findRandomEmergencyLocation(
+        airportLocation.position,
         configuration.minRange_km * 1000,
         configuration.maxRange_km * 1000,
     );
 
     // Establish next hospital - if there are hospitals around
-    const hospitalWaypoint: HemsMissionLocation | undefined = locations.findNearestHospitalWaypoint(emergencyWaypoint);
+    const hospitalLocation: HemsMissionLocation | undefined = locations.findNearestHospitalLocation(emergencyLocation);
 
     // Add flight plan
     const flight = flightPlanService.getAeroflyFlight();
     const windDirection_deg = flightPlanService.getWindDirection();
 
     flightPlanService.setFlightPosition(
-        airportWaypoint.position.longitude,
-        airportWaypoint.position.latitude,
-        airportWaypoint.position.elevation ?? 0,
-        airportWaypoint.payload.direction ?? flight.flightSetting.heading_degree,
+        airportLocation.position.longitude,
+        airportLocation.position.latitude,
+        airportLocation.position.elevation ?? 0,
+        airportLocation.payload.direction ?? flight.flightSetting.heading_degree,
         0,
         configuration.isColdAndDark ? "ColdAndDark" : "OnGround",
     );
 
-    flight.navigation = new AeroflyNavigationConfig(airportWaypoint.position.elevation ?? 0, [
-        ...getDepartureWaypoints(airportWaypoint, windDirection_deg),
-        ...getEmergencyWaypoints(emergencyWaypoint),
-        ...getHospitalWaypoints(hospitalWaypoint, windDirection_deg),
-        ...getDestinationWaypoints(airportWaypoint, windDirection_deg),
+    flight.navigation = new AeroflyNavigationConfig(airportLocation.position.elevation ?? 0, [
+        ...getDepartureWaypoints(airportLocation, windDirection_deg),
+        ...getEmergencyWaypoints(emergencyLocation),
+        ...getHospitalWaypoints(hospitalLocation, windDirection_deg),
+        ...getDestinationWaypoints(airportLocation, windDirection_deg),
     ]);
-    flight._missionTitle = `MedEvac at ${emergencyWaypoint.title ?? "emergency site"}`;
+    flight._missionTitle = `MedEvac at ${emergencyLocation.title ?? "emergency site"}`;
     flight._missionBriefing = `\
-Fly to ${emergencyWaypoint.title ?? "emergency site"} to drop off your emergency doctor / paramedic, and take a patient on board if necessary.
-Afterwards fly to ${hospitalWaypoint?.title ?? airportWaypoint.title}.
+Fly to ${emergencyLocation.title ?? "emergency site"} to drop off your emergency doctor / paramedic, and take a patient on board if necessary.
+Afterwards fly to ${hospitalLocation?.title ?? airportLocation.title}.
     `;
 
     return true;
 }
 
-async function findAirportWaypointData(
+async function findAirportLocation(
     locations: HemsMissionLocations,
     flightPlanService: AeroflyFlightService,
 ): Promise<HemsMissionLocation> {
     const icaoId = flightPlanService.getFlightplanDepartureAirportIdentifier();
-    const airport = locations.findHeliportWaypointByIcaoId(icaoId);
+    const airport = locations.findHeliportLocationByIcaoId(icaoId);
     if (airport) {
         return airport;
     }
@@ -107,46 +107,46 @@ async function findAirportWaypointData(
 
 // -----------------------------------------------------------------------------
 
-function getDepartureWaypoints(airportWaypoint: HemsMissionLocation, windDirection_deg: number): AeroflyNavRouteBase[] {
+function getDepartureWaypoints(airportLocation: HemsMissionLocation, windDirection_deg: number): AeroflyNavRouteBase[] {
     return [
         new AeroflyNavRouteOrigin(
-            airportWaypoint.identifier,
-            airportWaypoint.position.longitude,
-            airportWaypoint.position.latitude,
+            airportLocation.identifier,
+            airportLocation.position.longitude,
+            airportLocation.position.latitude,
             {
-                elevation: airportWaypoint.position.elevation,
+                elevation: airportLocation.position.elevation,
             },
         ),
-        ...getApproachWaypoints(airportWaypoint, windDirection_deg, true),
+        ...getApproachWaypoints(airportLocation, windDirection_deg, true),
     ];
 }
 
 function getDestinationWaypoints(
-    airportWaypoint: HemsMissionLocation,
+    airportLocation: HemsMissionLocation,
     windDirection_deg: number,
 ): AeroflyNavRouteBase[] {
     return [
-        ...getApproachWaypoints(airportWaypoint, windDirection_deg),
+        ...getApproachWaypoints(airportLocation, windDirection_deg),
         new AeroflyNavRouteDestination(
-            airportWaypoint.identifier,
-            airportWaypoint.position.longitude,
-            airportWaypoint.position.latitude,
+            airportLocation.identifier,
+            airportLocation.position.longitude,
+            airportLocation.position.latitude,
             {
-                elevation: airportWaypoint.position.elevation,
+                elevation: airportLocation.position.elevation,
             },
         ),
     ];
 }
 
-function getEmergencyWaypoints(emergencyWaypoint: HemsMissionLocation): AeroflyNavRouteWaypoint[] {
+function getEmergencyWaypoints(emergencyLocation: HemsMissionLocation): AeroflyNavRouteWaypoint[] {
     return [
         new AeroflyNavRouteWaypoint(
             "MEDEVAC",
-            emergencyWaypoint.position.longitude,
-            emergencyWaypoint.position.latitude,
+            emergencyLocation.position.longitude,
+            emergencyLocation.position.latitude,
             {
-                altitude: emergencyWaypoint.position.elevation,
-                navaidFrequency_khz: emergencyWaypoint.freq_khz,
+                altitude: emergencyLocation.position.elevation,
+                navaidFrequency_khz: emergencyLocation.freq_khz,
                 flyOver: true,
             },
         ),
@@ -154,26 +154,26 @@ function getEmergencyWaypoints(emergencyWaypoint: HemsMissionLocation): AeroflyN
 }
 
 function getHospitalWaypoints(
-    hospitalWaypoint: HemsMissionLocation | undefined,
+    hospitalLocation: HemsMissionLocation | undefined,
     windDirection_deg: number,
 ): AeroflyNavRouteWaypoint[] {
-    if (!hospitalWaypoint) {
+    if (!hospitalLocation) {
         return [];
     }
 
     return [
-        ...getApproachWaypoints(hospitalWaypoint, windDirection_deg),
+        ...getApproachWaypoints(hospitalLocation, windDirection_deg),
         new AeroflyNavRouteWaypoint(
             "HOSPITAL",
-            hospitalWaypoint.position.longitude,
-            hospitalWaypoint.position.latitude,
+            hospitalLocation.position.longitude,
+            hospitalLocation.position.latitude,
             {
-                altitude: hospitalWaypoint.position.elevation,
-                navaidFrequency_khz: hospitalWaypoint.freq_khz,
+                altitude: hospitalLocation.position.elevation,
+                navaidFrequency_khz: hospitalLocation.freq_khz,
                 flyOver: true,
             },
         ),
-        ...getApproachWaypoints(hospitalWaypoint, windDirection_deg, true),
+        ...getApproachWaypoints(hospitalLocation, windDirection_deg, true),
     ];
 }
 

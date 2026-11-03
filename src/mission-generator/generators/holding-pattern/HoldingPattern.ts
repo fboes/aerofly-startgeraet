@@ -2,13 +2,13 @@ import type z from "zod";
 import { UNIT_METER_PER_NM } from "../../../core/util/units.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
 import type { Point } from "@fboes/geojson";
-import type { MissionGeneratorLocation } from "../../MissionGenerator.type.js";
+import type { Location } from "../../util/Location.type.js";
 import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
 
 export type HoldingPatternEntry = "direct" | "parallel" | "offset";
 
 export type HoldingPattern = {
-    fixData: MissionGeneratorLocation;
+    fixLocation: Location;
     fixPoint: Point;
     inboundHeading: number;
     dmeDistance_nm: number;
@@ -27,7 +27,7 @@ export type HoldingPattern = {
  */
 export function createHoldingPattern(
     cruiseSpeedKts: number,
-    fixData: MissionGeneratorLocation,
+    fixLocation: Location,
     fixPoint: Point,
     inboundHeading: number,
     configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,
@@ -41,10 +41,10 @@ export function createHoldingPattern(
     const legTimeMin = configuration.holdAltitudeMsl_ft > 14000 ? 1.5 : 1.0;
     const turnRadiusMeters = calculateTurnRadiusMeters(patternSpeedKts);
     const holdingAreaDirection = degreeNormalize(inboundHeading + (configuration.isHoldingAwayPattern ? 0 : 180));
-    const holdingAreaDirectionTrue = degreeNormalize(holdingAreaDirection + (fixData.mag_dec ?? 0));
+    const holdingAreaDirectionTrue = degreeNormalize(holdingAreaDirection + (fixLocation.mag_dec ?? 0));
 
     return {
-        fixData,
+        fixLocation,
         fixPoint,
         inboundHeading,
         dmeDistance_nm: configuration.dmeDistance_nm,

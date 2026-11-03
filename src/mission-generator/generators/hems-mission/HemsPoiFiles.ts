@@ -1,7 +1,7 @@
 import { Vector, type Point } from "@fboes/geojson";
 import { AeroflyPoiFiles, type AeroflyPoiLight, type AeroflyPoiXref } from "../../util/AeroflyPoiFiles.js";
 import type { HemsMissionLocation } from "./HemsMissionLocations.js";
-import { setMisionGeneratorWaypointElevationFromApi } from "../../util/setElevation.js";
+import { setLocationElevationFromApi } from "../../util/setElevation.js";
 
 /**
  * @param slug
@@ -9,7 +9,7 @@ import { setMisionGeneratorWaypointElevationFromApi } from "../../util/setElevat
  * @returns the new definition of the POI files for the given slug and locations
  */
 export async function createHemsPoiFiles(slug: string, locations: HemsMissionLocation[]): Promise<AeroflyPoiFiles> {
-    await setMisionGeneratorWaypointElevationFromApi(locations);
+    await setLocationElevationFromApi(locations);
     return new AeroflyPoiFiles(slug, xrefFromLocations(locations), lightsFromLocations(locations));
 }
 

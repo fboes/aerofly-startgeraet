@@ -1,5 +1,4 @@
 import type { JsonSchemaObject, JsonSchemaType } from "./JsonSchema.type.js";
-import type { Point } from "@fboes/geojson";
 
 /**
  * Describes the purpose of a Mission Generator to the user
@@ -35,32 +34,4 @@ export type MissionGeneratorManifestField = JsonSchemaObject & {
     name: string;
     type: JsonSchemaType;
     isRequired: boolean;
-};
-
-export type MissionGeneratorLocation = {
-    /**
-     * Elevation is not altitude, but the height above ground level.
-     * It is used to determine the height of the object in the simulator.
-     */
-    position: Point;
-
-    /**
-     * ICAO code, nav aid code, fix code, etc.
-     */
-    identifier: string;
-    title?: string;
-
-    freq_khz?: number;
-
-    /**
-     * With "+" to the east and "-" to the west. Subtracted from a true heading this will give the magnetic heading.
-     */
-    mag_dec?: number;
-};
-
-export type MissionGeneratorPayloadWaypoint<T extends Record<string, unknown>> = MissionGeneratorLocation & {
-    /**
-     * Custom payload
-     */
-    payload: T;
 };

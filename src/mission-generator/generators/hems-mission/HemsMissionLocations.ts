@@ -1,4 +1,4 @@
-import type { MissionGeneratorPayloadWaypoint } from "../../MissionGenerator.type.js";
+import type { LocationPayloaded } from "../../util/Location.type.js";
 import { Feature, FeatureCollection, Point, Vector } from "@fboes/geojson";
 import { randomIntInclusive } from "../../../core/util/random.js";
 import fs from "node:fs/promises";
@@ -7,8 +7,9 @@ import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../../
 import { degreeNormalize } from "../../../core/util/degree.js";
 import { DIR_ASSETS } from "../../../core/util/directory.js";
 import { createHemsPoiFiles } from "./HemsPoiFiles.js";
+import { AeroflyPoiFiles } from "../../util/AeroflyPoiFiles.js";
 
-export type HemsMissionLocation = MissionGeneratorPayloadWaypoint<{
+export type HemsMissionLocation = LocationPayloaded<{
     type?: string;
     direction?: number;
     approaches?: number[];
@@ -23,12 +24,12 @@ export class HemsMissionLocations {
 
     /**
      * Will open the GeoJSON file with the mission locations
-     * @param airportWaypoint starting airport
+     * @param airportLocation starting airport
      * @param directory the directory the mission folders are supposed to be in
      * @returns the number of found locations. `-1` is returned if no file is found.
      */
-    async loadLocationsFile(airportWaypoint: HemsMissionLocation, directory: string): Promise<number> {
-        const filePath = this.pathLocations(airportWaypoint, directory) + ".geojson";
+    async loadLocationsFile(airportLocation: HemsMissionLocation, directory: string): Promise<number> {
+        const filePath = this.pathLocations(airportLocation, directory) + ".geojson";
 
         try {
             (await fs.stat(filePath)).isFile();
@@ -79,25 +80,25 @@ export class HemsMissionLocations {
 
     /**
      * Will create a new GeoJSON file with the mission locations
-     * @param airportWaypoint starting airport
+     * @param airportLocation starting airport
      * @param directory the directory the mission folders are supposed to be in
      */
-    async createLocationsFile(airportWaypoint: HemsMissionLocation, directory: string) {
-        const pathLocations = this.pathLocations(airportWaypoint, directory);
+    async createLocationsFile(airportLocation: HemsMissionLocation, directory: string) {
+        const pathLocations = this.pathLocations(airportLocation, directory);
         await fs.mkdir(path.dirname(pathLocations), { recursive: true });
         return fs.writeFile(
             pathLocations + ".geojson",
-            JSON.stringify(await this.createFeatureCollection(airportWaypoint), null, 2),
+            JSON.stringify(await this.createFeatureCollection(airportLocation), null, 2),
         );
     }
 
-    async createPoiFiles(airportWaypoint: HemsMissionLocation, directory: string) {
-        const pathLocations = this.pathLocations(airportWaypoint, directory);
+    async createPoiFiles(airportLocation: HemsMissionLocation, directory: string) {
+        const pathLocations = this.pathLocations(airportLocation, directory);
         const pathFallback = path.join(DIR_ASSETS, "poi", "fallback");
         await fs.mkdir(path.dirname(pathLocations), { recursive: true });
 
-        // TODO: Currently this only maps emergency waypoints
-        const poi = await createHemsPoiFiles(path.basename(pathLocations), this.findAllEmergencyWaypoints());
+        // TODO: Currently this only maps emergency locations
+        const poi = await createHemsPoiFiles(path.basename(pathLocations), this.findAllEmergencyLocations());
 
         return Promise.all([
             fs.writeFile(pathLocations + ".toc", poi.tocFileContent()),
@@ -109,26 +110,13 @@ export class HemsMissionLocations {
     }
 
     /**
-     * @param airportWaypoint starting airport
+     * @param airportLocation starting airport
      * @param directory the directory the mission folders are supposed to be in
      * @returns path to regular locations files, without file ending
      */
-    private pathLocations(airportWaypoint: HemsMissionLocation, directory: string) {
-        const slug = this.fileSlug(airportWaypoint.identifier);
-        return path.join(directory, `${this.aeroflyPoiFolderCoordinates(airportWaypoint.position)}_${slug}`, slug);
-    }
-
-    /**
-     * @param point holding coordinates
-     * @returns something like `e01045n5324`
-     */
-    aeroflyPoiFolderCoordinates(point: Point): string {
-        return (
-            (point.longitude > 0 ? "e" : "w") +
-            String(Math.abs(Math.round(point.longitude * 100))).padStart(5, "0") +
-            (point.latitude > 0 ? "n" : "s") +
-            String(Math.abs(Math.round(point.latitude * 100))).padStart(4, "0")
-        );
+    private pathLocations(airportLocation: HemsMissionLocation, directory: string) {
+        const slug = this.fileSlug(airportLocation.identifier);
+        return path.join(directory, AeroflyPoiFiles.poiFolderName(airportLocation.position, slug), slug);
     }
 
     private fileSlug(identifier: string) {
@@ -136,7 +124,7 @@ export class HemsMissionLocations {
     }
 
     private async createFeatureCollection(
-        airportWaypoint: HemsMissionLocation,
+        airportLocation: HemsMissionLocation,
         minRange_m: number = 0,
         maxRange_m: number = 60_000,
     ): Promise<FeatureCollection> {
@@ -147,16 +135,16 @@ export class HemsMissionLocations {
 
         return new FeatureCollection([
             new Feature(
-                airportWaypoint.position,
+                airportLocation.position,
                 {
-                    title: airportWaypoint.title ?? airportWaypoint.identifier,
-                    icaoCode: airportWaypoint.identifier,
+                    title: airportLocation.title ?? airportLocation.identifier,
+                    icaoCode: airportLocation.identifier,
                     "marker-symbol": HemsMissionLocations.TYPE_HELIPORT,
                 },
                 i++,
             ),
             new Feature(
-                airportWaypoint.position.getPointBy(new Vector(averageRange_m, 300)),
+                airportLocation.position.getPointBy(new Vector(averageRange_m, 300)),
                 {
                     title: "a hospital",
                     "marker-symbol": HemsMissionLocations.TYPE_HOSPITAL,
@@ -164,7 +152,7 @@ export class HemsMissionLocations {
                 i++,
             ),
             new Feature(
-                airportWaypoint.position.getPointBy(new Vector(averageRange_m, 60)),
+                airportLocation.position.getPointBy(new Vector(averageRange_m, 60)),
                 {
                     title: "some emergency site",
                 },
@@ -172,7 +160,7 @@ export class HemsMissionLocations {
             ),
 
             new Feature(
-                airportWaypoint.position.getPointBy(new Vector(averageRange_m, 180)),
+                airportLocation.position.getPointBy(new Vector(averageRange_m, 180)),
                 {
                     title: "another emergency site",
                 },
@@ -185,7 +173,7 @@ export class HemsMissionLocations {
         return this.locations;
     }
 
-    findAllEmergencyWaypoints(): HemsMissionLocation[] {
+    findAllEmergencyLocations(): HemsMissionLocation[] {
         return this.locations.filter(
             (c) =>
                 c.payload.type !== HemsMissionLocations.TYPE_HOSPITAL &&
@@ -194,35 +182,35 @@ export class HemsMissionLocations {
         );
     }
 
-    findRandomEmergencyWaypoint(airportPoint: Point, minRange_m: number, maxRange_m: number): HemsMissionLocation {
+    findRandomEmergencyLocation(airportPoint: Point, minRange_m: number, maxRange_m: number): HemsMissionLocation {
         if (minRange_m > maxRange_m) {
             throw new Error("Invalid distance range, minimum distance is greather than maximum distance");
         }
         const needsFiltering = minRange_m > 0 || maxRange_m < 99_000;
 
-        const emergencyWaypoints = needsFiltering
-            ? this.findAllEmergencyWaypoints().filter((wp) => {
+        const emergencyLocations = needsFiltering
+            ? this.findAllEmergencyLocations().filter((wp) => {
                   const vector = wp.position.getVectorTo(airportPoint);
                   return vector.meters >= minRange_m && vector.meters <= maxRange_m;
               })
-            : this.findAllEmergencyWaypoints();
+            : this.findAllEmergencyLocations();
 
-        if (emergencyWaypoints.length === 0) {
+        if (emergencyLocations.length === 0) {
             throw new Error(
                 needsFiltering
                     ? `No emergency sites found - check data source as well as filter`
-                    : `No emergency sites found- check data source`,
+                    : `No emergency sites found - check data source`,
             );
         }
 
-        const emergencyWaypoint = emergencyWaypoints.at(randomIntInclusive(0, emergencyWaypoints.length - 1));
-        if (!emergencyWaypoint) {
-            throw new Error(`No emergency site found - check data source as well as filter`);
+        const emergencyLocation = emergencyLocations.at(randomIntInclusive(0, emergencyLocations.length - 1));
+        if (!emergencyLocation) {
+            throw new Error(`No emergency site found - randomizer is broken`);
         }
-        return emergencyWaypoint;
+        return emergencyLocation;
     }
 
-    findAllHospitalWaypoints(): HemsMissionLocation[] {
+    findAllHospitalLocations(): HemsMissionLocation[] {
         return this.locations.filter(
             (c) =>
                 c.payload.type === HemsMissionLocations.TYPE_HOSPITAL ||
@@ -230,8 +218,8 @@ export class HemsMissionLocations {
         );
     }
 
-    findNearestHospitalWaypoint(emergencyData: HemsMissionLocation): HemsMissionLocation | undefined {
-        return this.findAllHospitalWaypoints()
+    findNearestHospitalLocation(emergencyData: HemsMissionLocation): HemsMissionLocation | undefined {
+        return this.findAllHospitalLocations()
             .sort((a: HemsMissionLocation, b: HemsMissionLocation): number => {
                 return a.position.getVectorTo(emergencyData.position).meters >
                     b.position.getVectorTo(emergencyData.position).meters
@@ -241,7 +229,7 @@ export class HemsMissionLocations {
             .at(0);
     }
 
-    findAllHeliportWaypoints(): HemsMissionLocation[] {
+    findAllHeliportLocations(): HemsMissionLocation[] {
         return this.locations.filter(
             (c) =>
                 c.payload.type === HemsMissionLocations.TYPE_HELIPORT ||
@@ -249,8 +237,8 @@ export class HemsMissionLocations {
         );
     }
 
-    findHeliportWaypointByIcaoId(icaoId: string): HemsMissionLocation | undefined {
-        return this.findAllHeliportWaypoints()
+    findHeliportLocationByIcaoId(icaoId: string): HemsMissionLocation | undefined {
+        return this.findAllHeliportLocations()
             .filter((h) => h.identifier === icaoId || h.title === icaoId)
             .at(0);
     }

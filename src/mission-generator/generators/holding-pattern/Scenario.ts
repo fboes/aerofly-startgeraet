@@ -8,7 +8,7 @@ import { degreeNormalize } from "../../../core/util/degree.js";
 import { ErrorDetail } from "../../../core/util/ErrorFormatted.js";
 import { randomArbitrary } from "../../../core/util/random.js";
 import { UNIT_METER_PER_NM, UNIT_METER_PER_FEET } from "../../../core/util/units.js";
-import type { MissionGeneratorLocation } from "../../MissionGenerator.type.js";
+import type { Location } from "../../util/Location.type.js";
 import { getLocationData, getLocationFullName } from "../../util/Location.js";
 import { createHoldingPattern, calculateHoldingPatternEntry, type HoldingPattern } from "./HoldingPattern.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
@@ -21,8 +21,8 @@ export async function convertScenario(
     const flight = flightPlanService.getAeroflyFlight();
 
     // Establish navigational aid / RNAV waypoint
-    const navaidData = await getLocationData(configuration.navaidIdentifier, flight.navigation.waypoints);
-    if (!navaidData) {
+    const navaidLocation = await getLocationData(configuration.navaidIdentifier, flight.navigation.waypoints);
+    if (!navaidLocation) {
         throw new ErrorDetail("Nav aid identifier could not be found", configuration.navaidIdentifier);
     }
 
@@ -31,14 +31,16 @@ export async function convertScenario(
 
     // Establish fix
     const fixPoint = configuration.dmeDistance_nm
-        ? navaidData.position.getPointBy(new Vector(configuration.dmeDistance_nm * UNIT_METER_PER_NM, inboundHeading))
-        : navaidData.position;
-    const fixData = configuration.dmeDistance_nm
+        ? navaidLocation.position.getPointBy(
+              new Vector(configuration.dmeDistance_nm * UNIT_METER_PER_NM, inboundHeading),
+          )
+        : navaidLocation.position;
+    const fixLocation = configuration.dmeDistance_nm
         ? {
-              ...navaidData,
-              id: `${navaidData.identifier}+${String(configuration.dmeDistance_nm).padStart(2, "0")}`,
+              ...navaidLocation,
+              id: `${navaidLocation.identifier}+${String(configuration.dmeDistance_nm).padStart(2, "0")}`,
           }
-        : navaidData;
+        : navaidLocation;
 
     // Establish aircraft position
     const aircraftHeading = randomArbitrary(0, 356);
@@ -53,7 +55,7 @@ export async function convertScenario(
     const aircraft = flightPlanService.getAircraftData();
     const pattern = createHoldingPattern(
         aircraft?.cruiseSpeedKts ?? 999,
-        fixData,
+        fixLocation,
         fixPoint,
         inboundHeading,
         configuration,
@@ -84,8 +86,8 @@ export async function convertScenario(
         ...getPatternWaypoints(pattern),
         arrivalAirport,
     ]);
-    flight._missionTitle = `Holding pattern at ${navaidData.identifier}`;
-    flight._missionBriefing = getDescription(aircraftVector, navaidData, pattern);
+    flight._missionTitle = `Holding pattern at ${navaidLocation.identifier}`;
+    flight._missionBriefing = getDescription(aircraftVector, navaidLocation, pattern);
 
     return true;
 }
@@ -93,11 +95,11 @@ export async function convertScenario(
 /**
  * @see https://www.code7700.com/holding.htm
  */
-function getDescription(aircraftVector: Vector, navaidData: MissionGeneratorLocation, pattern: HoldingPattern): string {
+function getDescription(aircraftVector: Vector, navaidLocation: Location, pattern: HoldingPattern): string {
     const direction = cardinalDirection(pattern.holdingAreaDirection);
     const dmeFix = pattern.dmeDistance_nm > 0 ? `the ${pattern.dmeDistance_nm} DME fix, ` : "";
     const radial =
-        (navaidData.identifier.length !== 3 ? "inbound course " : "radial ") +
+        (navaidLocation.identifier.length !== 3 ? "inbound course " : "radial ") +
         String(Math.round(pattern.inboundHeading)).padStart(3, "0") +
         "°";
     const dmeInfo =
@@ -108,8 +110,8 @@ function getDescription(aircraftVector: Vector, navaidData: MissionGeneratorLoca
     const altitude = numberFormat(pattern.holdAltitudeMsl_ft);
 
     return `\
-Your aircraft is ${asVectorString(aircraftVector)} of ${pattern.fixData.identifier}.
-Hold ${direction} of ${dmeFix + getLocationFullName(navaidData)} \
+Your aircraft is ${asVectorString(aircraftVector)} of ${pattern.fixLocation.identifier}.
+Hold ${direction} of ${dmeFix + getLocationFullName(navaidLocation)} \
 on the ${radial}, \
 ${dmeInfo}\
 ${turnInfo}\

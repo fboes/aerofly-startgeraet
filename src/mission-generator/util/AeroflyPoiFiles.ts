@@ -51,12 +51,31 @@ export type AeroflyPoiXref = {
  * @see https://github.com/jlgabriel/afs4-poi-creator/
  */
 export class AeroflyPoiFiles {
+    public readonly slug: string;
+
     constructor(
-        public slug: string,
+        slug: string,
         public xref: AeroflyPoiXref[] = [],
         public lights: AeroflyPoiLight[] = [],
         public isAutoHeight: boolean = false,
-    ) {}
+    ) {
+        this.slug = slug.trim().replace(/[^A-Za-z0-9_\-]/gv, "");
+    }
+
+    /**
+     * @param point holding coordinates
+     * @param slug
+     * @returns something like `e01045n5324_slug`
+     */
+    static poiFolderName(point: Point, slug: string): string {
+        return (
+            (point.longitude > 0 ? "e" : "w") +
+            String(Math.abs(Math.round(point.longitude * 100))).padStart(5, "0") +
+            (point.latitude > 0 ? "n" : "s") +
+            String(Math.abs(Math.round(point.latitude * 100))).padStart(4, "0") +
+            (slug ? "_" + slug.trim().replace(/[^A-Za-z0-9_\-]/gv, "") : "")
+        );
+    }
 
     // -------------------------------------------------------------------------
 
