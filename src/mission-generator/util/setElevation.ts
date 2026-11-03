@@ -1,7 +1,7 @@
 import { type Feature, type FeatureCollection, Point } from "@fboes/geojson";
 import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
 import type { OpenTopoDataApiCoordinates } from "../../core/api/OpenTopoDataApi.type.js";
-import type { MissionGeneratorWaypoint } from "../MissionGenerator.type.js";
+import type { MissionGeneratorLocation } from "../MissionGenerator.type.js";
 
 export async function setPointElevationFromApi(points: Point[]): Promise<Point[]> {
     const pointsWithoutElevation = points
@@ -54,14 +54,14 @@ export async function setFeatureElevationFromApi(featureCollection: FeatureColle
 }
 
 export async function setMisionGeneratorWaypointElevationFromApi(
-    waypoints: MissionGeneratorWaypoint[],
-): Promise<MissionGeneratorWaypoint[]> {
+    waypoints: MissionGeneratorLocation[],
+): Promise<MissionGeneratorLocation[]> {
     const pointsWithoutElevation = waypoints
-        .filter((w: MissionGeneratorWaypoint) => w.altitude_m === null || w.altitude_m === undefined)
+        .filter((w: MissionGeneratorLocation) => w.position.elevation === null || w.position.elevation === undefined)
         .map(
-            (w: MissionGeneratorWaypoint): OpenTopoDataApiCoordinates => ({
-                lng: w.longitude,
-                lat: w.latitude,
+            (w: MissionGeneratorLocation): OpenTopoDataApiCoordinates => ({
+                lng: w.position.longitude,
+                lat: w.position.latitude,
             }),
         );
 
@@ -72,7 +72,7 @@ export async function setMisionGeneratorWaypointElevationFromApi(
     const elevations = await fetchOpenTopoData(pointsWithoutElevation);
 
     waypoints.forEach((w, index) => {
-        w.altitude_m = elevations.results[index]?.elevation ?? undefined;
+        w.position.elevation = elevations.results[index]?.elevation ?? null;
     });
 
     return waypoints;

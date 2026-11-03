@@ -5,23 +5,15 @@ import { DIR_FIXTURE } from "../../../test/loadFixture.js";
 import { Point } from "@fboes/geojson";
 
 const WAYPOINT_EDHG: HemsMissionLocation = {
-    longitude: 10.457620941302837,
-    latitude: 53.24756138354581,
-    altitude_m: 49.02,
     identifier: "EDHG",
-    payload: {
-        point: new Point(10.457620941302837, 53.24756138354581, 49.02),
-    },
+    position: new Point(10.457620941302837, 53.24756138354581, 49.02),
+    payload: {},
 };
 
 const WAYPOINT_EGEO: HemsMissionLocation = {
-    longitude: -5.3984619465384185,
-    latitude: 56.464572641198856,
-    altitude_m: 7,
     identifier: "EGEO",
-    payload: {
-        point: new Point(-5.3984619465384185, 56.464572641198856, 7),
-    },
+    position: new Point(-5.3984619465384185, 56.464572641198856, 7),
+    payload: {},
 };
 
 const DIR_FIXTURE_MISSION_GENERATOR = DIR_FIXTURE + "/mission-generator";

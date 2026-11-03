@@ -10,7 +10,6 @@ import { createHemsPoiFiles } from "./HemsPoiFiles.js";
 
 export type HemsMissionLocation = MissionGeneratorPayloadWaypoint<{
     type?: string;
-    point: Point;
     direction?: number;
     approaches?: number[];
 }>;
@@ -62,16 +61,13 @@ export class HemsMissionLocations {
                 const type = properties["marker-symbol"] ? asJSONString(properties["marker-symbol"]) : undefined;
 
                 return {
-                    longitude,
-                    latitude,
-                    altitude_m,
+                    position: new Point(longitude, latitude, altitude_m),
                     identifier: properties.icaoCode
                         ? asJSONString(properties.icaoCode)
                         : `WP-${index.toString().padStart(3, "0")}`,
                     title: asJSONString(properties.title),
                     payload: {
                         type,
-                        point: new Point(longitude, latitude, altitude_m),
                         direction,
                         approaches,
                     },
@@ -119,7 +115,7 @@ export class HemsMissionLocations {
      */
     private pathLocations(airportWaypoint: HemsMissionLocation, directory: string) {
         const slug = this.fileSlug(airportWaypoint.identifier);
-        return path.join(directory, `${this.aeroflyPoiFolderCoordinates(airportWaypoint.payload.point)}_${slug}`, slug);
+        return path.join(directory, `${this.aeroflyPoiFolderCoordinates(airportWaypoint.position)}_${slug}`, slug);
     }
 
     /**
@@ -151,7 +147,7 @@ export class HemsMissionLocations {
 
         return new FeatureCollection([
             new Feature(
-                airportWaypoint.payload.point,
+                airportWaypoint.position,
                 {
                     title: airportWaypoint.title ?? airportWaypoint.identifier,
                     icaoCode: airportWaypoint.identifier,
@@ -160,7 +156,7 @@ export class HemsMissionLocations {
                 i++,
             ),
             new Feature(
-                airportWaypoint.payload.point.getPointBy(new Vector(averageRange_m, 300)),
+                airportWaypoint.position.getPointBy(new Vector(averageRange_m, 300)),
                 {
                     title: "a hospital",
                     "marker-symbol": HemsMissionLocations.TYPE_HOSPITAL,
@@ -168,7 +164,7 @@ export class HemsMissionLocations {
                 i++,
             ),
             new Feature(
-                airportWaypoint.payload.point.getPointBy(new Vector(averageRange_m, 60)),
+                airportWaypoint.position.getPointBy(new Vector(averageRange_m, 60)),
                 {
                     title: "some emergency site",
                 },
@@ -176,7 +172,7 @@ export class HemsMissionLocations {
             ),
 
             new Feature(
-                airportWaypoint.payload.point.getPointBy(new Vector(averageRange_m, 180)),
+                airportWaypoint.position.getPointBy(new Vector(averageRange_m, 180)),
                 {
                     title: "another emergency site",
                 },
@@ -206,7 +202,7 @@ export class HemsMissionLocations {
 
         const emergencyWaypoints = needsFiltering
             ? this.findAllEmergencyWaypoints().filter((wp) => {
-                  const vector = wp.payload.point.getVectorTo(airportPoint);
+                  const vector = wp.position.getVectorTo(airportPoint);
                   return vector.meters >= minRange_m && vector.meters <= maxRange_m;
               })
             : this.findAllEmergencyWaypoints();
@@ -235,12 +231,10 @@ export class HemsMissionLocations {
     }
 
     findNearestHospitalWaypoint(emergencyData: HemsMissionLocation): HemsMissionLocation | undefined {
-        const emergencyPoint = new Point(emergencyData.longitude, emergencyData.latitude, emergencyData.altitude_m);
-
         return this.findAllHospitalWaypoints()
             .sort((a: HemsMissionLocation, b: HemsMissionLocation): number => {
-                return a.payload.point.getVectorTo(emergencyPoint).meters >
-                    b.payload.point.getVectorTo(emergencyPoint).meters
+                return a.position.getVectorTo(emergencyData.position).meters >
+                    b.position.getVectorTo(emergencyData.position).meters
                     ? 1
                     : -1;
             })

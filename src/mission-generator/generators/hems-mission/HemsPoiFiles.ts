@@ -10,11 +10,6 @@ import { setMisionGeneratorWaypointElevationFromApi } from "../../util/setElevat
  */
 export async function createHemsPoiFiles(slug: string, locations: HemsMissionLocation[]): Promise<AeroflyPoiFiles> {
     await setMisionGeneratorWaypointElevationFromApi(locations);
-
-    locations.forEach((location) => {
-        location.payload.point.elevation = location.altitude_m ?? 0;
-    });
-
     return new AeroflyPoiFiles(slug, xrefFromLocations(locations), lightsFromLocations(locations));
 }
 
@@ -29,12 +24,12 @@ function xrefFromLocation(location: HemsMissionLocation): AeroflyPoiXref[] {
     const direction = location.payload.direction ?? 0;
     return [
         {
-            position: location.payload.point,
+            position: location.position,
             direction,
             name: "ambulance",
         },
         {
-            position: policeCarVector(location.payload.point, direction),
+            position: policeCarVector(location.position, direction),
             direction,
             name: "police_car",
         },
@@ -52,14 +47,14 @@ function lightsFromLocation(location: HemsMissionLocation): AeroflyPoiLight[] {
     const direction = location.payload.direction ?? 0;
     return [
         {
-            position: location.payload.point,
+            position: location.position,
             heightAdjust: 3,
             color: [0, 0, 1],
             flashing: [10, 0, 100, 0],
             groupIndex: 3,
         },
         {
-            position: policeCarVector(location.payload.point, direction),
+            position: policeCarVector(location.position, direction),
             heightAdjust: 1.7,
             color: [0, 0, 1],
             flashing: [20, 0, 100, 0],

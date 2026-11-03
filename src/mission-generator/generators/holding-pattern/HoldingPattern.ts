@@ -2,13 +2,13 @@ import type z from "zod";
 import { UNIT_METER_PER_NM } from "../../../core/util/units.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
 import type { Point } from "@fboes/geojson";
-import type { MissionGeneratorWaypoint } from "../../MissionGenerator.type.js";
+import type { MissionGeneratorLocation } from "../../MissionGenerator.type.js";
 import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
 
 export type HoldingPatternEntry = "direct" | "parallel" | "offset";
 
 export type HoldingPattern = {
-    fixData: MissionGeneratorWaypoint;
+    fixData: MissionGeneratorLocation;
     fixPoint: Point;
     inboundHeading: number;
     dmeDistance_nm: number;
@@ -27,7 +27,7 @@ export type HoldingPattern = {
  */
 export function createHoldingPattern(
     cruiseSpeedKts: number,
-    fixData: MissionGeneratorWaypoint,
+    fixData: MissionGeneratorLocation,
     fixPoint: Point,
     inboundHeading: number,
     configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,

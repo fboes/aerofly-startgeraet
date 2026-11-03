@@ -2,7 +2,7 @@ import path from "node:path";
 import type z from "zod";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 import type { HemsMissionGeneratorConfiguration } from "./HemsMissionGenerator.js";
-import { Point, Vector } from "@fboes/geojson";
+import { Vector } from "@fboes/geojson";
 import {
     AeroflyNavigationConfig,
     type AeroflyNavRouteBase,
@@ -11,7 +11,7 @@ import {
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
 import { HemsMissionLocations, type HemsMissionLocation } from "./HemsMissionLocations.js";
-import { getWaypointData } from "../../util/Waypoint.js";
+import { getLocationData } from "../../util/Location.js";
 import { ErrorDetail, ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
 import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../../core/util/units.js";
@@ -48,7 +48,7 @@ export async function convertScenario(
 
     // Establish emergency site
     const emergencyWaypoint: HemsMissionLocation = locations.findRandomEmergencyWaypoint(
-        airportWaypoint.payload.point,
+        airportWaypoint.position,
         configuration.minRange_km * 1000,
         configuration.maxRange_km * 1000,
     );
@@ -61,15 +61,15 @@ export async function convertScenario(
     const windDirection_deg = flightPlanService.getWindDirection();
 
     flightPlanService.setFlightPosition(
-        airportWaypoint.longitude,
-        airportWaypoint.latitude,
-        airportWaypoint.payload.point.elevation ?? 0,
+        airportWaypoint.position.longitude,
+        airportWaypoint.position.latitude,
+        airportWaypoint.position.elevation ?? 0,
         airportWaypoint.payload.direction ?? flight.flightSetting.heading_degree,
         0,
         configuration.isColdAndDark ? "ColdAndDark" : "OnGround",
     );
 
-    flight.navigation = new AeroflyNavigationConfig(airportWaypoint.payload.point.elevation ?? 0, [
+    flight.navigation = new AeroflyNavigationConfig(airportWaypoint.position.elevation ?? 0, [
         ...getDepartureWaypoints(airportWaypoint, windDirection_deg),
         ...getEmergencyWaypoints(emergencyWaypoint),
         ...getHospitalWaypoints(hospitalWaypoint, windDirection_deg),
@@ -94,16 +94,14 @@ async function findAirportWaypointData(
         return airport;
     }
 
-    const airportData = await getWaypointData(icaoId, flightPlanService.getAeroflyFlight().navigation.waypoints);
+    const airportData = await getLocationData(icaoId, flightPlanService.getAeroflyFlight().navigation.waypoints);
     if (!airportData) {
         throw new ErrorDetail("Airport not found", icaoId);
     }
 
     return {
         ...airportData,
-        payload: {
-            point: new Point(airportData.longitude, airportData.latitude, airportData.altitude_m),
-        },
+        payload: {},
     };
 }
 
@@ -111,9 +109,14 @@ async function findAirportWaypointData(
 
 function getDepartureWaypoints(airportWaypoint: HemsMissionLocation, windDirection_deg: number): AeroflyNavRouteBase[] {
     return [
-        new AeroflyNavRouteOrigin(airportWaypoint.identifier, airportWaypoint.longitude, airportWaypoint.latitude, {
-            elevation: airportWaypoint.altitude_m,
-        }),
+        new AeroflyNavRouteOrigin(
+            airportWaypoint.identifier,
+            airportWaypoint.position.longitude,
+            airportWaypoint.position.latitude,
+            {
+                elevation: airportWaypoint.position.elevation,
+            },
+        ),
         ...getApproachWaypoints(airportWaypoint, windDirection_deg, true),
     ];
 }
@@ -126,10 +129,10 @@ function getDestinationWaypoints(
         ...getApproachWaypoints(airportWaypoint, windDirection_deg),
         new AeroflyNavRouteDestination(
             airportWaypoint.identifier,
-            airportWaypoint.longitude,
-            airportWaypoint.latitude,
+            airportWaypoint.position.longitude,
+            airportWaypoint.position.latitude,
             {
-                elevation: airportWaypoint.altitude_m,
+                elevation: airportWaypoint.position.elevation,
             },
         ),
     ];
@@ -137,11 +140,16 @@ function getDestinationWaypoints(
 
 function getEmergencyWaypoints(emergencyWaypoint: HemsMissionLocation): AeroflyNavRouteWaypoint[] {
     return [
-        new AeroflyNavRouteWaypoint("MEDEVAC", emergencyWaypoint.longitude, emergencyWaypoint.latitude, {
-            altitude: emergencyWaypoint.altitude_m,
-            navaidFrequency_khz: emergencyWaypoint.freq_khz,
-            flyOver: true,
-        }),
+        new AeroflyNavRouteWaypoint(
+            "MEDEVAC",
+            emergencyWaypoint.position.longitude,
+            emergencyWaypoint.position.latitude,
+            {
+                altitude: emergencyWaypoint.position.elevation,
+                navaidFrequency_khz: emergencyWaypoint.freq_khz,
+                flyOver: true,
+            },
+        ),
     ];
 }
 
@@ -155,11 +163,16 @@ function getHospitalWaypoints(
 
     return [
         ...getApproachWaypoints(hospitalWaypoint, windDirection_deg),
-        new AeroflyNavRouteWaypoint("HOSPITAL", hospitalWaypoint.longitude, hospitalWaypoint.latitude, {
-            altitude: hospitalWaypoint.altitude_m,
-            navaidFrequency_khz: hospitalWaypoint.freq_khz,
-            flyOver: true,
-        }),
+        new AeroflyNavRouteWaypoint(
+            "HOSPITAL",
+            hospitalWaypoint.position.longitude,
+            hospitalWaypoint.position.latitude,
+            {
+                altitude: hospitalWaypoint.position.elevation,
+                navaidFrequency_khz: hospitalWaypoint.freq_khz,
+                flyOver: true,
+            },
+        ),
         ...getApproachWaypoints(hospitalWaypoint, windDirection_deg, true),
     ];
 }
@@ -186,7 +199,7 @@ function getApproachWaypoints(
     });
 
     const course = (approach + (asDeparture ? 180 : 0)) % 360;
-    const approachPoint = missionLocation.payload.point.getPointBy(
+    const approachPoint = missionLocation.position.getPointBy(
         new Vector(UNIT_METER_PER_NM * (asDeparture ? 0.75 : 1.5), degreeNormalize(approach + 180)),
     );
 

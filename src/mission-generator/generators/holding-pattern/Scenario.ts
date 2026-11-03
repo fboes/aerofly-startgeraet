@@ -1,5 +1,5 @@
 import { AeroflyNavigationConfig, AeroflyNavRouteWaypoint } from "@fboes/aerofly-custom-missions";
-import { Point, Vector } from "@fboes/geojson";
+import { Vector } from "@fboes/geojson";
 import type z from "zod";
 import { cardinalDirection, asVectorString } from "../../../core/formatter/getVectorString.js";
 import { numberFormat } from "../../../core/formatter/numberFormat.js";
@@ -8,8 +8,8 @@ import { degreeNormalize } from "../../../core/util/degree.js";
 import { ErrorDetail } from "../../../core/util/ErrorFormatted.js";
 import { randomArbitrary } from "../../../core/util/random.js";
 import { UNIT_METER_PER_NM, UNIT_METER_PER_FEET } from "../../../core/util/units.js";
-import type { MissionGeneratorWaypoint } from "../../MissionGenerator.type.js";
-import { getWaypointData, getWaypointFullName } from "../../util/Waypoint.js";
+import type { MissionGeneratorLocation } from "../../MissionGenerator.type.js";
+import { getLocationData, getLocationFullName } from "../../util/Location.js";
 import { createHoldingPattern, calculateHoldingPatternEntry, type HoldingPattern } from "./HoldingPattern.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
 import { getEntryWaypoints, getPatternWaypoints } from "./HoldingPatternWaypoints.js";
@@ -21,19 +21,18 @@ export async function convertScenario(
     const flight = flightPlanService.getAeroflyFlight();
 
     // Establish navigational aid / RNAV waypoint
-    const navaidData = await getWaypointData(configuration.navaidIdentifier, flight.navigation.waypoints);
+    const navaidData = await getLocationData(configuration.navaidIdentifier, flight.navigation.waypoints);
     if (!navaidData) {
         throw new ErrorDetail("Nav aid identifier could not be found", configuration.navaidIdentifier);
     }
-    const navaidPoint = new Point(navaidData.longitude, navaidData.latitude);
 
     // Establish holding pattern inbound direction
     const inboundHeading = configuration.inboundHeading_deg ?? randomArbitrary(0, 360);
 
     // Establish fix
     const fixPoint = configuration.dmeDistance_nm
-        ? navaidPoint.getPointBy(new Vector(configuration.dmeDistance_nm * UNIT_METER_PER_NM, inboundHeading))
-        : navaidPoint;
+        ? navaidData.position.getPointBy(new Vector(configuration.dmeDistance_nm * UNIT_METER_PER_NM, inboundHeading))
+        : navaidData.position;
     const fixData = configuration.dmeDistance_nm
         ? {
               ...navaidData,
@@ -94,7 +93,7 @@ export async function convertScenario(
 /**
  * @see https://www.code7700.com/holding.htm
  */
-function getDescription(aircraftVector: Vector, navaidData: MissionGeneratorWaypoint, pattern: HoldingPattern): string {
+function getDescription(aircraftVector: Vector, navaidData: MissionGeneratorLocation, pattern: HoldingPattern): string {
     const direction = cardinalDirection(pattern.holdingAreaDirection);
     const dmeFix = pattern.dmeDistance_nm > 0 ? `the ${pattern.dmeDistance_nm} DME fix, ` : "";
     const radial =
@@ -110,7 +109,7 @@ function getDescription(aircraftVector: Vector, navaidData: MissionGeneratorWayp
 
     return `\
 Your aircraft is ${asVectorString(aircraftVector)} of ${pattern.fixData.identifier}.
-Hold ${direction} of ${dmeFix + getWaypointFullName(navaidData)} \
+Hold ${direction} of ${dmeFix + getLocationFullName(navaidData)} \
 on the ${radial}, \
 ${dmeInfo}\
 ${turnInfo}\
