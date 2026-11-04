@@ -75,9 +75,9 @@ export class AeroflyFlightServiceHandler {
         }
     }
 
-    async writeMainMcf(): Promise<void> {
+    writeMainMcf(): void {
         try {
-            await this.service.writeMainMcf();
+            this.service.writeMainMcf();
             this.isMissingMainMcf = false;
         } catch (e) {
             if (e instanceof AeroflyMainConfigReaderError) {
@@ -420,8 +420,8 @@ export class AeroflyFlightServiceHandler {
         }
     };
 
-    async onClose() {
-        await this.writeMainMcf();
+    onClose() {
+        this.writeMainMcf();
     }
 
     sendStateUpdate(intial = false) {
@@ -451,11 +451,11 @@ export class AeroflyFlightServiceHandler {
             clearTimeout(this.writeTimer);
         }
 
-        this.writeTimer = setTimeout(async () => {
+        this.writeTimer = setTimeout(() => {
             // TODO: This does not handle concurrent, long running writes
             this.writeTimer = null;
             try {
-                await this.writeMainMcf();
+                this.writeMainMcf();
             } catch (err) {
                 console.error("Failed to write main.mcf", err);
             }

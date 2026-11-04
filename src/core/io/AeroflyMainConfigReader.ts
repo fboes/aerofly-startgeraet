@@ -54,18 +54,18 @@ export class AeroflyMainConfigReader {
      * Read main.mcf, change settings, write atomic
      * @param flight
      */
-    async write(flight: AeroflyFlight): Promise<void> {
+    write(flight: AeroflyFlight): void {
         const mainMcfFilename = this.mainCfgFileName;
         const tmpMcfFilename = mainMcfFilename + "~";
 
-        let mainMcfContent = await fs.promises.readFile(mainMcfFilename, "utf-8");
+        let mainMcfContent = fs.readFileSync(mainMcfFilename, "utf-8");
         mainMcfContent = this.updateMainMcfContent(mainMcfContent, flight);
 
         try {
-            await fs.promises.writeFile(tmpMcfFilename, mainMcfContent, { encoding: "utf-8", flag: "wx" });
-            await fs.promises.rename(tmpMcfFilename, mainMcfFilename);
+            fs.writeFileSync(tmpMcfFilename, mainMcfContent, { encoding: "utf-8", flag: "wx" });
+            fs.renameSync(tmpMcfFilename, mainMcfFilename);
         } catch (err) {
-            await fs.promises.unlink(tmpMcfFilename).catch(() => {});
+            fs.unlinkSync(tmpMcfFilename);
             throw err;
         }
     }

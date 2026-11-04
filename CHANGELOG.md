@@ -2,10 +2,14 @@
 
 ## [Unreleased]
 
-- Fixed cruise speed / altitude resetting
-- Improved file handling (non-blocking / atomic)
 - Added fallback mission files
 - Added simple POI file generator
+
+## [2.7.1] - 2026-11-04
+
+- Fixed cruise speed / altitude resetting
+- Improved file handling (non-blocking)
+- Updated livery codes
 
 ## [2.7.0] - 2026-10-24
 

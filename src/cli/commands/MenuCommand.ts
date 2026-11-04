@@ -665,7 +665,7 @@ export class MenuCommand extends BaseControllerCommand {
 
     async saveAndExit(): Promise<MenuCommandMethod> {
         process.stdout.write("Saving flightplan...\n");
-        await this.controller.writeMainMcf();
+        this.controller.writeMainMcf();
         writeSuccess("Flightplan saved successfully");
 
         return "exit";

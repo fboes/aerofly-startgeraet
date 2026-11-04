@@ -565,9 +565,9 @@ Cruise speed setting in knots. If not supplied will be inferred from currently s
                 openWorldHint: true,
             },
         },
-        async (): Promise<CallToolResult> => {
+        (): CallToolResult => {
             try {
-                await flightService.writeMainMcf();
+                flightService.writeMainMcf();
             } catch (e) {
                 return returnMcpToolErrorResult([
                     `You might want to check the configuration of the MCP server. To change the configuration, call \`${ConfigurationRegistry.TOOL_SET_CONFIG}\`.`,
