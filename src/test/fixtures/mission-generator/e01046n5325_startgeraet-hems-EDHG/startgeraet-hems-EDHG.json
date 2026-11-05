@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "app": "pct",
+  "name": "klaus",
+  "poiName": "klaus",
+  "createdAt": "2026-11-01T15:56:47.510Z",
+  "modifiedAt": "2026-11-01T16:04:05.552Z",
+  "reference": null,
+  "camera": {
+    "lon": 10.128528177738191,
+    "lat": 53.42613242425865,
+    "zoom": 20
+  },
+  "objects": [
+    {
+      "id": "6aea7864-94f2-439a-93dc-9a963be8475e",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.12842357158661,
+        "lat": 53.42619530283982
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 27.03213566069678,
+      "label": "#hospital",
+      "scale": 1
+    },
+    {
+      "id": "149e8f4d-74f8-4bc2-804c-5c5dfecf758f",
+      "kind": "xref",
+      "name": "police_car",
+      "position": {
+        "lon": 10.12831896543503,
+        "lat": 53.426149465186526
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 330.5560716506128,
+      "label": "Hospital #hospital #icao:abc #approach:1",
+      "scale": 1
+    }
+  ],
+  "heightMode": "autoheight"
+}

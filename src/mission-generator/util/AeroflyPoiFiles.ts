@@ -22,6 +22,7 @@ export type AeroflyPoiLight = {
      * 0: only at night - 3: always on
      */
     groupIndex?: 0 | 1 | 2 | 3;
+    label?: string;
 };
 
 export type AeroflyPoiXref = {
@@ -38,6 +39,7 @@ export type AeroflyPoiXref = {
      * above ground level in meters, default 1
      */
     heightAdjust?: number;
+    label?: string;
 };
 
 /**

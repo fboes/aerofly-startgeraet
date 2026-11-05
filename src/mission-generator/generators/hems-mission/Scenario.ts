@@ -1,4 +1,3 @@
-import path from "node:path";
 import type z from "zod";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 import type { HemsMissionGeneratorConfiguration } from "./HemsMissionGenerator.js";
@@ -10,14 +9,13 @@ import {
     AeroflyNavRouteOrigin,
     AeroflyNavRouteWaypoint,
 } from "@fboes/aerofly-custom-missions";
-import { HemsMissionLocations, type HemsMissionLocation } from "./HemsMissionLocations.js";
+import { HemsMissionLocations } from "./HemsMissionLocations.js";
 import { getLocationData } from "../../util/Location.js";
-import { ErrorDetail, ErrorFormatted } from "../../../core/util/ErrorFormatted.js";
+import { ErrorDetail } from "../../../core/util/ErrorFormatted.js";
 import { degreeDifference, degreeNormalize } from "../../../core/util/degree.js";
 import { UNIT_METER_PER_FEET, UNIT_METER_PER_NM } from "../../../core/util/units.js";
-import { DIR_ASSETS, poiDirectory } from "../../../core/util/directory.js";
-
-const DIR_HEMS_FALLBACK = path.join(DIR_ASSETS, "mission-generator");
+import { poiDirectory } from "../../../core/util/directory.js";
+import type { LocationExtended } from "../../util/Location.type.js";
 
 export async function convertScenario(
     configuration: z.infer<z.ZodObject<HemsMissionGeneratorConfiguration>>,
@@ -27,34 +25,23 @@ export async function convertScenario(
     const originLocation = await findAirportLocation(locations, flightPlanService);
 
     const directory = poiDirectory(flightPlanService.config);
-    let locationsCount = await locations.loadLocationsFile(originLocation, directory);
+    const locationsCount = await locations.loadLocationsFile(originLocation, directory);
     if (locationsCount <= 0) {
-        locationsCount = await locations.loadLocationsFile(originLocation, DIR_HEMS_FALLBACK);
-    }
-    if (locationsCount <= 0) {
-        await locations.createLocationsFile(originLocation, directory);
-        await locations.createPoiFiles(originLocation, directory);
-        throw new ErrorFormatted(`Did not find (correct) GeoJSON file in {{ directory }}, created a new file`, {
-            directory,
-        });
-    }
-
-    if (configuration.createPois) {
-        await locations.createPoiFiles(originLocation, directory);
+        throw new ErrorDetail(`Did not find (correct) PCT JSON file`, directory);
     }
 
     // Establish airport
     const airportLocation = await findAirportLocation(locations, flightPlanService);
 
     // Establish emergency site
-    const emergencyLocation: HemsMissionLocation = locations.findRandomEmergencyLocation(
+    const emergencyLocation: LocationExtended = locations.findRandomEmergencyLocation(
         airportLocation.position,
         configuration.minRange_km * 1000,
         configuration.maxRange_km * 1000,
     );
 
     // Establish next hospital - if there are hospitals around
-    const hospitalLocation: HemsMissionLocation | undefined = locations.findNearestHospitalLocation(emergencyLocation);
+    const hospitalLocation: LocationExtended | undefined = locations.findNearestHospitalLocation(emergencyLocation);
 
     // Add flight plan
     const flight = flightPlanService.getAeroflyFlight();
@@ -64,7 +51,7 @@ export async function convertScenario(
         airportLocation.position.longitude,
         airportLocation.position.latitude,
         airportLocation.position.elevation ?? 0,
-        airportLocation.payload.direction ?? flight.flightSetting.heading_degree,
+        airportLocation.direction ?? flight.flightSetting.heading_degree,
         0,
         configuration.isColdAndDark ? "ColdAndDark" : "OnGround",
     );
@@ -87,27 +74,24 @@ Afterwards fly to ${hospitalLocation?.title ?? airportLocation.title}.
 async function findAirportLocation(
     locations: HemsMissionLocations,
     flightPlanService: AeroflyFlightService,
-): Promise<HemsMissionLocation> {
+): Promise<LocationExtended> {
     const icaoId = flightPlanService.getFlightplanDepartureAirportIdentifier();
     const airport = locations.findHeliportLocationByIcaoId(icaoId);
     if (airport) {
         return airport;
     }
 
-    const airportData = await getLocationData(icaoId, flightPlanService.getAeroflyFlight().navigation.waypoints);
-    if (!airportData) {
+    const airportLocation = await getLocationData(icaoId, flightPlanService.getAeroflyFlight().navigation.waypoints);
+    if (!airportLocation) {
         throw new ErrorDetail("Airport not found", icaoId);
     }
 
-    return {
-        ...airportData,
-        payload: {},
-    };
+    return airportLocation;
 }
 
 // -----------------------------------------------------------------------------
 
-function getDepartureWaypoints(airportLocation: HemsMissionLocation, windDirection_deg: number): AeroflyNavRouteBase[] {
+function getDepartureWaypoints(airportLocation: LocationExtended, windDirection_deg: number): AeroflyNavRouteBase[] {
     return [
         new AeroflyNavRouteOrigin(
             airportLocation.identifier,
@@ -121,10 +105,7 @@ function getDepartureWaypoints(airportLocation: HemsMissionLocation, windDirecti
     ];
 }
 
-function getDestinationWaypoints(
-    airportLocation: HemsMissionLocation,
-    windDirection_deg: number,
-): AeroflyNavRouteBase[] {
+function getDestinationWaypoints(airportLocation: LocationExtended, windDirection_deg: number): AeroflyNavRouteBase[] {
     return [
         ...getApproachWaypoints(airportLocation, windDirection_deg),
         new AeroflyNavRouteDestination(
@@ -138,7 +119,7 @@ function getDestinationWaypoints(
     ];
 }
 
-function getEmergencyWaypoints(emergencyLocation: HemsMissionLocation): AeroflyNavRouteWaypoint[] {
+function getEmergencyWaypoints(emergencyLocation: LocationExtended): AeroflyNavRouteWaypoint[] {
     return [
         new AeroflyNavRouteWaypoint(
             "MEDEVAC",
@@ -154,7 +135,7 @@ function getEmergencyWaypoints(emergencyLocation: HemsMissionLocation): AeroflyN
 }
 
 function getHospitalWaypoints(
-    hospitalLocation: HemsMissionLocation | undefined,
+    hospitalLocation: LocationExtended | undefined,
     windDirection_deg: number,
 ): AeroflyNavRouteWaypoint[] {
     if (!hospitalLocation) {
@@ -178,11 +159,11 @@ function getHospitalWaypoints(
 }
 
 function getApproachWaypoints(
-    missionLocation: HemsMissionLocation,
+    missionLocation: LocationExtended,
     windDirection_deg: number,
     asDeparture: boolean = false,
 ): AeroflyNavRouteWaypoint[] {
-    if (!missionLocation.payload.approaches) {
+    if (!missionLocation.approaches) {
         return [];
     }
 
@@ -194,7 +175,7 @@ function getApproachWaypoints(
         return Math.abs(degreeDifference((alignment + (asDeparture ? 180 : 0)) % 360, windDirection_deg));
     };
 
-    const approach = missionLocation.payload.approaches.reduce((a, b) => {
+    const approach = missionLocation.approaches.reduce((a, b) => {
         return difference(a) < difference(b) ? a : b;
     });
 

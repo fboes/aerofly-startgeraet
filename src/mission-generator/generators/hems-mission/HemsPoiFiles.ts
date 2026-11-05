@@ -1,32 +1,33 @@
 import { Vector, type Point } from "@fboes/geojson";
 import { AeroflyPoiFiles, type AeroflyPoiLight, type AeroflyPoiXref } from "../../util/AeroflyPoiFiles.js";
-import type { HemsMissionLocation } from "./HemsMissionLocations.js";
 import { setLocationElevationFromApi } from "../../util/setElevation.js";
+import type { LocationExtended } from "../../util/Location.type.js";
 
 /**
  * @param slug
  * @param locations>
  * @returns the new definition of the POI files for the given slug and locations
  */
-export async function createHemsPoiFiles(slug: string, locations: HemsMissionLocation[]): Promise<AeroflyPoiFiles> {
+export async function createHemsPoiFiles(slug: string, locations: LocationExtended[]): Promise<AeroflyPoiFiles> {
     await setLocationElevationFromApi(locations);
     return new AeroflyPoiFiles(slug, xrefFromLocations(locations), lightsFromLocations(locations));
 }
 
 // -----------------------------------------------------------------------------
 
-function xrefFromLocations(locations: HemsMissionLocation[]): AeroflyPoiXref[] {
+export function xrefFromLocations(locations: LocationExtended[]): AeroflyPoiXref[] {
     return locations.map(xrefFromLocation).flatMap((xref) => xref);
 }
 
-function xrefFromLocation(location: HemsMissionLocation): AeroflyPoiXref[] {
+function xrefFromLocation(location: LocationExtended): AeroflyPoiXref[] {
     // TODO: Currently this only maps emergency waypoints
-    const direction = location.payload.direction ?? 0;
+    const direction = location.direction ?? 0;
     return [
         {
             position: location.position,
             direction,
             name: "ambulance",
+            label: label(location),
         },
         {
             position: policeCarVector(location.position, direction),
@@ -36,15 +37,28 @@ function xrefFromLocation(location: HemsMissionLocation): AeroflyPoiXref[] {
     ];
 }
 
+function label(location: LocationExtended): string | undefined {
+    const tags: string[] = [location.title ?? "", ...(location.tags ?? [])];
+
+    if (location.approaches) {
+        tags.push(...location.approaches.map((a) => `#approach:+${a}`));
+    }
+    if (location.identifier) {
+        tags.push(`#icao:${location.identifier}`);
+    }
+
+    return tags.join(" ");
+}
+
 // -----------------------------------------------------------------------------
 
-function lightsFromLocations(locations: HemsMissionLocation[]): AeroflyPoiLight[] {
+export function lightsFromLocations(locations: LocationExtended[]): AeroflyPoiLight[] {
     return locations.map(lightsFromLocation).flatMap((light) => light);
 }
 
-function lightsFromLocation(location: HemsMissionLocation): AeroflyPoiLight[] {
+function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
     // TODO: Currently this only maps emergency waypoints
-    const direction = location.payload.direction ?? 0;
+    const direction = location.direction ?? 0;
     return [
         {
             position: location.position,

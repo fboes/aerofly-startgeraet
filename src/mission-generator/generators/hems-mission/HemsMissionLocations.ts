@@ -1,112 +1,36 @@
-import type { LocationPayloaded } from "../../util/Location.type.js";
-import { Feature, FeatureCollection, Point, Vector } from "@fboes/geojson";
+import { Feature, FeatureCollection, type Point, Vector } from "@fboes/geojson";
 import { randomIntInclusive } from "../../../core/util/random.js";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../../core/converter/parser/parseJSON.js";
-import { degreeNormalize } from "../../../core/util/degree.js";
-import { DIR_ASSETS } from "../../../core/util/directory.js";
-import { createHemsPoiFiles } from "./HemsPoiFiles.js";
-import { AeroflyPoiFiles } from "../../util/AeroflyPoiFiles.js";
-
-export type HemsMissionLocation = LocationPayloaded<{
-    type?: string;
-    direction?: number;
-    approaches?: number[];
-}>;
+import type { LocationExtended } from "../../util/Location.type.js";
+import { parsePctJsonToLocations } from "../../util/Location.js";
 
 export class HemsMissionLocations {
     static readonly TYPE_HELIPORT = "heliport";
     static readonly TYPE_HOSPITAL = "hospital";
     static readonly TYPE_HOSPITAL_HELIPORT = "hospital-JP";
 
-    private locations: HemsMissionLocation[] = [];
+    private locations: LocationExtended[] = [];
 
     /**
-     * Will open the GeoJSON file with the mission locations
+     * Will open the POI Creator Tool (PCT) JSON file with the mission locations
      * @param airportLocation starting airport
      * @param directory the directory the mission folders are supposed to be in
      * @returns the number of found locations. `-1` is returned if no file is found.
      */
-    async loadLocationsFile(airportLocation: HemsMissionLocation, directory: string): Promise<number> {
-        const filePath = this.pathLocations(airportLocation, directory) + ".geojson";
+    async loadLocationsFile(airportLocation: LocationExtended, directory: string): Promise<number> {
+        const filePath = this.locationsFileGlob(airportLocation, directory);
+        const file = await fs.glob(filePath).next();
 
-        try {
-            (await fs.stat(filePath)).isFile();
-        } catch {
+        if (!file.value) {
             return -1;
         }
 
-        const content = await fs.readFile(filePath, "utf-8");
-        const geoJson = JSON.parse(content);
-
-        this.locations = asJSONArray(geoJson.features)
-            .filter((f) => {
-                const geometry = asJSONObject(f.geometry);
-                return asJSONString(f.type) === "Feature" && asJSONString(geometry.type) === "Point";
-            })
-            .map((f, index): HemsMissionLocation => {
-                const geometry = asJSONObject(f.geometry);
-                const coordinates = asJSONArray(geometry.coordinates);
-                const longitude = asJSONNumber(coordinates[0]);
-                const latitude = asJSONNumber(coordinates[1]);
-                const altitude_m = coordinates[2] ? asJSONNumber(coordinates[2]) : undefined;
-
-                const properties = asJSONObject(f.properties);
-                const direction = properties.direction ? asJSONNumber(properties.direction) : undefined;
-                const approaches = properties.approaches
-                    ? asJSONArray(properties.approaches).map((a) => asJSONNumber(a))
-                    : direction
-                      ? [direction, degreeNormalize(direction + 180)]
-                      : undefined;
-                const type = properties["marker-symbol"] ? asJSONString(properties["marker-symbol"]) : undefined;
-
-                return {
-                    position: new Point(longitude, latitude, altitude_m),
-                    identifier: properties.icaoCode
-                        ? asJSONString(properties.icaoCode)
-                        : `WP-${index.toString().padStart(3, "0")}`,
-                    title: asJSONString(properties.title),
-                    payload: {
-                        type,
-                        direction,
-                        approaches,
-                    },
-                };
-            });
+        const content = await fs.readFile(file.value, "utf-8");
+        const pctJson = JSON.parse(content);
+        this.locations = parsePctJsonToLocations(pctJson);
 
         return this.locations.length;
-    }
-
-    /**
-     * Will create a new GeoJSON file with the mission locations
-     * @param airportLocation starting airport
-     * @param directory the directory the mission folders are supposed to be in
-     */
-    async createLocationsFile(airportLocation: HemsMissionLocation, directory: string) {
-        const pathLocations = this.pathLocations(airportLocation, directory);
-        await fs.mkdir(path.dirname(pathLocations), { recursive: true });
-        return fs.writeFile(
-            pathLocations + ".geojson",
-            JSON.stringify(await this.createFeatureCollection(airportLocation), null, 2),
-        );
-    }
-
-    async createPoiFiles(airportLocation: HemsMissionLocation, directory: string) {
-        const pathLocations = this.pathLocations(airportLocation, directory);
-        const pathFallback = path.join(DIR_ASSETS, "poi", "fallback");
-        await fs.mkdir(path.dirname(pathLocations), { recursive: true });
-
-        // TODO: Currently this only maps emergency locations
-        const poi = await createHemsPoiFiles(path.basename(pathLocations), this.findAllEmergencyLocations());
-
-        return Promise.all([
-            fs.writeFile(pathLocations + ".toc", poi.tocFileContent()),
-            fs.writeFile(pathLocations + ".tsl", poi.tslFileContent()),
-            poi.isAutoHeight
-                ? fs.cp(pathFallback, path.join(path.dirname(pathLocations), "fallback"), { recursive: true })
-                : Promise.resolve(),
-        ]);
     }
 
     /**
@@ -114,17 +38,13 @@ export class HemsMissionLocations {
      * @param directory the directory the mission folders are supposed to be in
      * @returns path to regular locations files, without file ending
      */
-    private pathLocations(airportLocation: HemsMissionLocation, directory: string) {
-        const slug = this.fileSlug(airportLocation.identifier);
-        return path.join(directory, AeroflyPoiFiles.poiFolderName(airportLocation.position, slug), slug);
-    }
-
-    private fileSlug(identifier: string) {
-        return "startgeraet-hems-" + identifier.replace(/[^A-Za-z0-9\-]+/gv, "");
+    private locationsFileGlob(airportLocation: LocationExtended, directory: string) {
+        const slug = "startgeraet-hems-" + airportLocation.identifier.replace(/[^A-Za-z0-9\-]+/gv, "");
+        return path.join(directory, "*_" + slug, "*.json");
     }
 
     private async createFeatureCollection(
-        airportLocation: HemsMissionLocation,
+        airportLocation: LocationExtended,
         minRange_m: number = 0,
         maxRange_m: number = 60_000,
     ): Promise<FeatureCollection> {
@@ -173,16 +93,16 @@ export class HemsMissionLocations {
         return this.locations;
     }
 
-    findAllEmergencyLocations(): HemsMissionLocation[] {
+    findAllEmergencyLocations(): LocationExtended[] {
         return this.locations.filter(
             (c) =>
-                c.payload.type !== HemsMissionLocations.TYPE_HOSPITAL &&
-                c.payload.type !== HemsMissionLocations.TYPE_HELIPORT &&
-                c.payload.type !== HemsMissionLocations.TYPE_HOSPITAL_HELIPORT,
+                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL) &&
+                c.tags?.includes(HemsMissionLocations.TYPE_HELIPORT) &&
+                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL_HELIPORT),
         );
     }
 
-    findRandomEmergencyLocation(airportPoint: Point, minRange_m: number, maxRange_m: number): HemsMissionLocation {
+    findRandomEmergencyLocation(airportPoint: Point, minRange_m: number, maxRange_m: number): LocationExtended {
         if (minRange_m > maxRange_m) {
             throw new Error("Invalid distance range, minimum distance is greather than maximum distance");
         }
@@ -210,17 +130,17 @@ export class HemsMissionLocations {
         return emergencyLocation;
     }
 
-    findAllHospitalLocations(): HemsMissionLocation[] {
+    findAllHospitalLocations(): LocationExtended[] {
         return this.locations.filter(
             (c) =>
-                c.payload.type === HemsMissionLocations.TYPE_HOSPITAL ||
-                c.payload.type === HemsMissionLocations.TYPE_HOSPITAL_HELIPORT,
+                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL) ||
+                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL_HELIPORT),
         );
     }
 
-    findNearestHospitalLocation(emergencyData: HemsMissionLocation): HemsMissionLocation | undefined {
+    findNearestHospitalLocation(emergencyData: LocationExtended): LocationExtended | undefined {
         return this.findAllHospitalLocations()
-            .sort((a: HemsMissionLocation, b: HemsMissionLocation): number => {
+            .sort((a: LocationExtended, b: LocationExtended): number => {
                 return a.position.getVectorTo(emergencyData.position).meters >
                     b.position.getVectorTo(emergencyData.position).meters
                     ? 1
@@ -229,15 +149,15 @@ export class HemsMissionLocations {
             .at(0);
     }
 
-    findAllHeliportLocations(): HemsMissionLocation[] {
+    findAllHeliportLocations(): LocationExtended[] {
         return this.locations.filter(
             (c) =>
-                c.payload.type === HemsMissionLocations.TYPE_HELIPORT ||
-                c.payload.type === HemsMissionLocations.TYPE_HOSPITAL_HELIPORT,
+                c.tags?.includes(HemsMissionLocations.TYPE_HELIPORT) ||
+                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL_HELIPORT),
         );
     }
 
-    findHeliportLocationByIcaoId(icaoId: string): HemsMissionLocation | undefined {
+    findHeliportLocationByIcaoId(icaoId: string): LocationExtended | undefined {
         return this.findAllHeliportLocations()
             .filter((h) => h.identifier === icaoId || h.title === icaoId)
             .at(0);
