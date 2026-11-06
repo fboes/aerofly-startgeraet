@@ -37,7 +37,7 @@ function label(location: LocationExtended): string | undefined {
     const tags: string[] = [location.title ?? "", ...(location.tags ?? []).map((tag) => `#${tag}`)];
 
     if (location.approaches) {
-        tags.push(...location.approaches.map((a) => `#approach:+${a}`));
+        tags.push(...location.approaches.map((a) => `#approach:${a.toFixed(0)}`));
     }
     if (location.identifier) {
         tags.push(`#icao:${location.identifier}`);

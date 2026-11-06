@@ -3,13 +3,13 @@
   "app": "pct",
   "name": "startgeraet-hems-CN02",
   "poiName": "startgeraet-hems-CN02",
-  "createdAt": "2026-11-06T13:03:21.541Z",
-  "modifiedAt": "2026-11-06T13:03:21.541Z",
+  "createdAt": "2026-11-06T18:31:41.062Z",
+  "modifiedAt": "2026-11-06T18:31:41.062Z",
   "reference": null,
   "camera": {},
   "objects": [
     {
-      "id": "1894a0f6-00c8-47f2-a8a2-a1508392ad45",
+      "id": "430609e4-3ebb-4cf7-8cdb-4bf6b994b82b",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -17,14 +17,15 @@
         "lat": 37.783536231828364
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 17
       },
       "direction": 282,
       "scale": 1,
-      "label": "San Francisco VA Medical Center #hospital-JP #approach:+282 #approach:+102 #icao:CN02"
+      "label": "San Francisco VA Medical Center #hospital-JP #approach:282 #approach:102 #icao:CN02"
     },
     {
-      "id": "2807a308-1832-4e81-8f0e-47229d2d428d",
+      "id": "532b83ff-ebcb-4678-814c-b30ab5372089",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -32,14 +33,15 @@
         "lat": 37.80293680860956
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Fort Scott Field #icao:WP-001"
     },
     {
-      "id": "153a2d50-7531-49ce-86c9-ec5efffa361a",
+      "id": "65d36353-ba3b-49ad-bf69-1c3e04c9c789",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -47,14 +49,15 @@
         "lat": 37.83313967504088
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Golden Gate Vista Point #icao:WP-002"
     },
     {
-      "id": "73c2fb83-ced8-4ee3-9604-1593b2641cd0",
+      "id": "6f01e40d-6b29-4f44-9fd3-c914603d3211",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -62,14 +65,15 @@
         "lat": 37.82594647665468
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Alcatraz #icao:CA27"
     },
     {
-      "id": "7ed33caa-cde1-4662-8383-9e456c212803",
+      "id": "f94e4802-b9a5-4fc0-9c05-47f6275e5900",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -77,14 +81,15 @@
         "lat": 37.723233522830554
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Harding Park golf course #icao:WP-004"
     },
     {
-      "id": "304c962d-97c2-4a6a-aeea-b92dfae8a172",
+      "id": "ac08687b-dd22-45c7-8171-6f20e4ed2c37",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -92,14 +97,15 @@
         "lat": 37.71450776952203
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Battery Davis #icao:WP-005"
     },
     {
-      "id": "68e48a41-619e-484d-93e7-d18ab78f3882",
+      "id": "a2a2601b-6d47-49c6-bc74-784038d579ad",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -107,14 +113,15 @@
         "lat": 37.82981117099823
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Gateview Avenue #icao:WP-006"
     },
     {
-      "id": "b3a635e0-564d-49c3-b92f-3cb7691e0d0a",
+      "id": "5cc00b0c-de30-491c-acc1-d59dbe3fd1a2",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -122,14 +129,15 @@
         "lat": 37.76666240592256
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 90,
       "scale": 1,
-      "label": "ICSF Medial Center Mission Bay #hospital #approach:+90 #approach:+270 #icao:18CN"
+      "label": "ICSF Medial Center Mission Bay #hospital #approach:90 #approach:270 #icao:18CN"
     },
     {
-      "id": "ada874cf-a865-434e-a52c-596abd6d3f15",
+      "id": "9bd72800-6eef-408a-a15a-464ec0b2c834",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -137,14 +145,15 @@
         "lat": 37.66657073444098
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Chinese Cemetery #icao:WP-008"
     },
     {
-      "id": "786d2681-3daf-4a9a-9900-e6086bbc444e",
+      "id": "c54bafb9-1b66-4daf-ba34-e0f885416fd3",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -152,14 +161,15 @@
         "lat": 37.656573127297634
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Junipero Serra Freeway #road-accident #icao:WP-009"
     },
     {
-      "id": "c8b9d476-a9a0-43d4-a46e-f32edd98d74e",
+      "id": "f98a1021-7059-479e-9d43-b163871cc04c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -167,14 +177,15 @@
         "lat": 37.65667186784739
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Serra Vista School #icao:WP-010"
     },
     {
-      "id": "84b7f25e-282a-4e00-aee3-63c7b5de4ef7",
+      "id": "40158aee-1364-4223-879e-20f48c3668ed",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -182,14 +193,15 @@
         "lat": 37.69254167740718
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Bayshore Freeway #road-accident #icao:WP-011"
     },
     {
-      "id": "079884cd-8dd0-4a77-b162-1e4f89fe8d25",
+      "id": "d1501f9f-3a0f-4933-8471-ac3e816d259f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -197,14 +209,15 @@
         "lat": 37.81118887098165
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Oakland Bay Bridge #road-accident #icao:WP-012"
     },
     {
-      "id": "94560d02-d72d-4134-b830-ec55dc682c24",
+      "id": "49bfba10-dd89-4683-88e0-0aed79f135ba",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -212,14 +225,15 @@
         "lat": 37.762660849867245
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Castro Street #rail-light #icao:WP-013"
     },
     {
-      "id": "aa72472d-c23a-4582-8a9b-d9fd8e84f451",
+      "id": "8f20c410-7133-40d3-9aee-6709b93b6867",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -227,14 +241,15 @@
         "lat": 37.76358496130557
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Everett Middle School #icao:WP-014"
     },
     {
-      "id": "8f927959-a568-49db-b6e1-e848a94590a9",
+      "id": "98b29356-c02a-41e7-b91e-9ff228b0d6e7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -242,14 +257,15 @@
         "lat": 37.77513850470348
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 135,
       "scale": 1,
-      "label": "Hall of Justice #approach:+135 #approach:+315 #icao:CA26"
+      "label": "Hall of Justice #approach:135 #approach:315 #icao:CA26"
     },
     {
-      "id": "83e66260-2e23-4792-9150-8b96c4322c94",
+      "id": "c08f0fbd-0c2c-4035-9a97-b70d64fe1d31",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -257,14 +273,15 @@
         "lat": 37.75486903407182
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Christmas Tree Point #icao:WP-016"
     },
     {
-      "id": "3a6a6463-4515-4897-97b0-ea0352b0a48e",
+      "id": "8afd1069-e91f-4973-b79f-96422e9347a4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -272,14 +289,15 @@
         "lat": 37.75685815534176
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Christopher Drive #icao:WP-017"
     },
     {
-      "id": "95f44277-6a1d-4133-a8e7-c0d5af787a95",
+      "id": "d0d6ade2-2072-4e81-82e8-d62afadbff93",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -287,14 +305,15 @@
         "lat": 37.79668230571792
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "position near Point Bonita #ferry #icao:WP-018"
     },
     {
-      "id": "d71f9ae1-3a20-4aae-b448-ccac104c6e8a",
+      "id": "c01153d6-9085-4c08-a6af-be4e1421b3b0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -302,14 +321,15 @@
         "lat": 37.85188828967411
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Tennessee Valley Trail #cricket #icao:WP-019"
     },
     {
-      "id": "88c20310-4b43-49e1-a926-defccdd355c8",
+      "id": "69e1e6d5-dddb-4077-b0b4-4eee0e58af4b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -317,14 +337,15 @@
         "lat": 37.82382676689478
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Radio Beach #icao:WP-020"
     },
     {
-      "id": "ab3b298f-8bb4-4c30-9ca6-10a783441105",
+      "id": "6f812e42-7fc4-4e63-ac82-f49f471ff443",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -332,14 +353,15 @@
         "lat": 37.861036100032265
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Haypress Campground #icao:WP-021"
     },
     {
-      "id": "938edfde-5bc8-458a-a9ac-83361ecd5e94",
+      "id": "18d03e43-ddd0-45c0-9843-8de47c84ffe5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -347,14 +369,15 @@
         "lat": 37.8597664426694
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Muir Beach #icao:WP-022"
     },
     {
-      "id": "880c27d9-b5be-4965-a9ab-1a11d6be6ceb",
+      "id": "7f00ee7f-252a-4985-b889-85f111064d5c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -362,14 +385,15 @@
         "lat": 37.876021990345905
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Muir Valley Road #road-accident #icao:WP-023"
     },
     {
-      "id": "f798023e-7917-4c19-b352-f52fec897ed7",
+      "id": "79052610-d1d8-463f-98b3-ed4b003d795d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -377,14 +401,15 @@
         "lat": 37.88553225091758
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Egret Way in Harbor Point #icao:WP-024"
     },
     {
-      "id": "04e1faee-1485-4f2e-b344-c3dfdcc996b8",
+      "id": "4f90b500-3e92-444a-a8c4-352e09e838d6",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -392,14 +417,15 @@
         "lat": 37.862953722217014
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Fort McDowell #icao:WP-025"
     },
     {
-      "id": "1660692b-0220-42a1-be0d-ec5e58831f28",
+      "id": "d85108ac-a4c4-4904-b75d-a6d0139d77f5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -407,14 +433,15 @@
         "lat": 37.86336108799398
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Angle Island State Park #cricket #icao:WP-026"
     },
     {
-      "id": "3e40c3ce-e21d-4003-b1a8-cf8b8d802c9f",
+      "id": "577978cf-fd91-40a1-a219-c9515bdec477",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -422,14 +449,15 @@
         "lat": 37.56452876232234
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Cabrillo Highway #road-accident #icao:WP-027"
     },
     {
-      "id": "26ac98eb-50c0-478a-8fed-06168d20ef76",
+      "id": "3f28e22d-6978-4bbc-b9d8-e4a03267a5fd",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -437,14 +465,15 @@
         "lat": 37.719974065226225
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 350,
       "scale": 1,
-      "label": "Police Pistol Range Heliport #approach:+350 #approach:+170 #icao:16CA"
+      "label": "Police Pistol Range Heliport #approach:350 #approach:170 #icao:16CA"
     },
     {
-      "id": "abc12d2b-9c69-43c1-bd22-8286f1d82db8",
+      "id": "9008ccc8-12cd-4709-8379-a0a9a2e9ba3b",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -452,14 +481,15 @@
         "lat": 37.591803125655886
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Mills Peninsula Medical Center #hospital #icao:CA36"
     },
     {
-      "id": "bd74adcb-29d0-4ee8-aed2-1b09a8d151d5",
+      "id": "91eda3ff-2c9c-4491-a5f7-6239fdf798f5",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -467,14 +497,15 @@
         "lat": 37.69897306985257
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 90,
       "scale": 1,
-      "label": "Sutter Medical Center Castro Valley #hospital #approach:+90 #approach:+270 #icao:0CA1"
+      "label": "Sutter Medical Center Castro Valley #hospital #approach:90 #approach:270 #icao:0CA1"
     },
     {
-      "id": "d1e62478-c7ad-48a1-bf69-9e5add6dc2bb",
+      "id": "bc5fb187-80c5-485b-8359-e06eed4e11ec",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -482,14 +513,15 @@
         "lat": 37.557487253878946
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 135,
       "scale": 1,
-      "label": "Washington Hospital Fremont #hospital #approach:+135 #approach:+315 #icao:CL64"
+      "label": "Washington Hospital Fremont #hospital #approach:135 #approach:315 #icao:CL64"
     },
     {
-      "id": "d0d63f66-50d3-4a88-8463-010d75b0275f",
+      "id": "6073add4-b0ac-4dd7-b19e-ae659a5325e7",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -497,14 +529,15 @@
         "lat": 37.83615324428712
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 80,
       "scale": 1,
-      "label": "Children's Hospital Oakland  #hospital #approach:+80 #approach:+260 #icao:7CL1"
+      "label": "Children's Hospital Oakland  #hospital #approach:80 #approach:260 #icao:7CL1"
     },
     {
-      "id": "61093e33-7520-4c2e-aeea-de99048a0862",
+      "id": "a60f0fdc-d504-40ea-ae84-e12dba87b583",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -512,14 +545,15 @@
         "lat": 37.91285210158537
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 60,
       "scale": 1,
-      "label": "John Muir Walnut Creek Medical Center #hospital #approach:+60 #approach:+240 #icao:CA63"
+      "label": "John Muir Walnut Creek Medical Center #hospital #approach:60 #approach:240 #icao:CA63"
     },
     {
-      "id": "2695c45d-5147-48be-87b2-3f0e83f85655",
+      "id": "88b50bb4-dfeb-41ad-b775-b53b01f5e4f3",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -527,14 +561,15 @@
         "lat": 38.32387994894668
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 90,
       "scale": 1,
-      "label": "Queen Of The Valley Hospital #hospital #approach:+90 #approach:+270 #icao:CN14"
+      "label": "Queen Of The Valley Hospital #hospital #approach:90 #approach:270 #icao:CN14"
     },
     {
-      "id": "f4adb281-4e42-4338-9870-466d62bffee3",
+      "id": "79ed21d6-bf47-4c7e-ad43-cd4c4c343c08",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -542,14 +577,15 @@
         "lat": 37.694413416174555
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 45,
       "scale": 1,
-      "label": "Stanford Health Care-Valleycare #hospital #approach:+45 #approach:+225 #icao:55CA"
+      "label": "Stanford Health Care-Valleycare #hospital #approach:45 #approach:225 #icao:55CA"
     },
     {
-      "id": "d041b487-5115-4f33-8644-a2def8f2d0e6",
+      "id": "1b864d81-2e08-437a-9541-1bbb9dbf93fa",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -557,14 +593,15 @@
         "lat": 38.03534714713544
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Sunshine Beach #cricket #icao:WP-036"
     },
     {
-      "id": "b23c39a4-86c7-4e30-8b04-3867c3fa5166",
+      "id": "523b2ad5-3a99-4b8a-bb80-c5a83feaa6e1",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -572,14 +609,15 @@
         "lat": 38.07035122947417
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "West Marin School, Point Reyes Station #icao:WP-037"
     },
     {
-      "id": "a55c4bcb-3abc-4738-b2d9-cec925a83337",
+      "id": "c431f01a-1750-4ea9-b0b2-864447504da2",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -587,14 +625,15 @@
         "lat": 38.16511830740262
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Cypress Grove #icao:WP-038"
     },
     {
-      "id": "90f1434b-2097-4f66-a014-8fe6914be79d",
+      "id": "e17d6e96-81c3-4c26-b881-f1282e771995",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -602,14 +641,15 @@
         "lat": 37.997347640594924
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Peters Dam #icao:WP-039"
     },
     {
-      "id": "c8c38d75-8ef3-45b1-b3c5-19341edca119",
+      "id": "dcf88a08-44da-484b-a1d2-903e6441edb4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -617,14 +657,15 @@
         "lat": 37.95918808678492
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Bon Tempe Lake #icao:WP-040"
     },
     {
-      "id": "b496f400-170b-48e3-9e6b-ac35769182f9",
+      "id": "255d30e5-0078-43ea-9abb-204a6caee05b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -632,14 +673,15 @@
         "lat": 37.920981900161905
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "San Clemente School #icao:WP-041"
     },
     {
-      "id": "71f4852d-c127-4cc8-93a3-892d27ea4174",
+      "id": "f144fca0-8095-41f8-bbc8-490cafc4546f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -647,14 +689,15 @@
         "lat": 37.68744126364534
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Guadelupe Valley Quarry #icao:WP-042"
     },
     {
-      "id": "6f1dd0fd-e3c9-485b-8449-1b8f42cab520",
+      "id": "1f3c6f23-c399-4500-bcbe-c8e7b354e408",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -662,14 +705,15 @@
         "lat": 37.67465260832179
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "eBay Advertising #icao:WP-043"
     },
     {
-      "id": "e930c373-9831-4f33-b093-a0fdfb29ecec",
+      "id": "24649896-5826-499c-b192-68e6a5a341c2",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -677,14 +721,15 @@
         "lat": 37.5364877700667
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Redwood Shores Parkway #icao:WP-044"
     },
     {
-      "id": "9ba2018a-0059-4f9e-9451-bef3059e06ab",
+      "id": "319fe634-3f8e-48de-803a-1f149af4a838",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -692,14 +737,15 @@
         "lat": 37.87261281667058
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Centennial Drive #icao:WP-045"
     },
     {
-      "id": "57e5a0ea-c1e3-449e-8048-19731397ea65",
+      "id": "ffc857ab-611c-49df-87be-bbfc613587a0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -707,14 +753,15 @@
         "lat": 37.465129156435765
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Half Moon Bay beach #icao:WP-046"
     },
     {
-      "id": "2d5c9369-8b24-412a-b0e4-2a485c5af80c",
+      "id": "d953ab65-6c47-4d90-953f-d0ff5ea92a98",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -722,14 +769,15 @@
         "lat": 37.51538408487788
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Antenna Test Range #icao:WP-047"
     },
     {
-      "id": "0a9e50e6-1861-40bc-93e1-d8faf6089304",
+      "id": "0258ade4-a553-4d77-a384-73c521eb2da7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -737,14 +785,15 @@
         "lat": 37.4237270966874
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Google Campus West #icao:WP-048"
     },
     {
-      "id": "007a4dcd-c990-4f26-9fdc-0463c1e914a9",
+      "id": "d67df80f-8629-4618-b485-8f0b256c259d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -752,14 +801,15 @@
         "lat": 37.59829972071371
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Niles Canyon #icao:WP-049"
     },
     {
-      "id": "63803087-685a-4c84-8ba8-72af48f4d058",
+      "id": "dbee8424-3889-41e6-9636-264e69e11b53",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -767,14 +817,15 @@
         "lat": 38.15504858534587
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 40,
       "scale": 1,
-      "label": "Infineon Raceway #approach:+40 #approach:+220 #icao:CN06"
+      "label": "Infineon Raceway #approach:40 #approach:220 #icao:CN06"
     },
     {
-      "id": "646f31ee-6463-4195-b2d9-342074ec5e12",
+      "id": "acd24d9d-c5af-49c7-bc57-e8c9ad4dc0a7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -782,14 +833,19 @@
         "lat": 38.158258968710356
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 45,
       "scale": 1,
-      "label": "Sonoma Raceway #approach:+45 #approach:+225 #icao:CL85"
+      "label": "Sonoma Raceway #approach:45 #approach:225 #icao:CL85"
     },
     {
-      "id": "057dc910-529a-49bb-aff2-0813d7b936a5",
+      "id": "21c8bdbb-36fd-486e-9349-324b19709d01",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50681134861222,
@@ -811,7 +867,11 @@
       "label": ""
     },
     {
-      "id": "92d94b45-e36a-40eb-a81b-84dcea735feb",
+      "id": "6982674b-d6b8-41ec-841f-b9671f7328e2",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50675445330863,
@@ -833,7 +893,11 @@
       "label": ""
     },
     {
-      "id": "1fbc5825-6ccd-439f-9e7b-846db20ac117",
+      "id": "50b3be60-a863-40d4-b983-3724d41cd6be",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50671280309959,
@@ -855,7 +919,11 @@
       "label": ""
     },
     {
-      "id": "c9bd6fb7-019d-44d7-ad95-61dabbe49113",
+      "id": "ff4e9518-67a5-4386-83d8-bdd283f48df0",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50669755812497,
@@ -877,7 +945,11 @@
       "label": ""
     },
     {
-      "id": "170c879a-6b5d-41db-960d-f9503077ef78",
+      "id": "855e6ed5-d870-4da1-8c22-4fb300972bff",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50671280321951,
@@ -899,7 +971,11 @@
       "label": ""
     },
     {
-      "id": "f9d73615-5afa-4a5d-b0e2-a98a3c22a702",
+      "id": "19753846-8506-41ed-8c38-a81fb71a7b28",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50675445342856,
@@ -921,7 +997,11 @@
       "label": ""
     },
     {
-      "id": "925c2ecb-6c50-4b3e-99ec-5cabfd4b0ad8",
+      "id": "80396605-5722-4d0e-bdb0-dc3678f1c57e",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50681134861222,
@@ -943,7 +1023,11 @@
       "label": ""
     },
     {
-      "id": "b92f0be4-b85e-4f94-bd24-69f15b36dd94",
+      "id": "133a068c-1f98-4be8-9dc8-3f22c74602ea",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.5068682437959,
@@ -965,7 +1049,11 @@
       "label": ""
     },
     {
-      "id": "a1a41212-1d5f-42ce-9673-bf20e2ef1a87",
+      "id": "cffe47cb-f030-419b-915a-16f4b206ba47",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50690989400495,
@@ -987,7 +1075,11 @@
       "label": ""
     },
     {
-      "id": "4d3cccb1-37ad-4214-9f50-58beeaa6e764",
+      "id": "a7a1698e-d745-434c-8318-46489dfcb284",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.5069251390995,
@@ -1009,7 +1101,11 @@
       "label": ""
     },
     {
-      "id": "580d405c-2921-4412-a26f-51b9ccdbf89f",
+      "id": "e9c49bd5-026e-400c-9c1c-140a3f7b0f1f",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.50690989412486,
@@ -1031,7 +1127,11 @@
       "label": ""
     },
     {
-      "id": "7db1034a-3095-452b-b79f-34d69635df02",
+      "id": "cbc5405b-881c-4b93-8b0c-d7191eb7b680",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.5068682439158,
@@ -1053,7 +1153,11 @@
       "label": ""
     },
     {
-      "id": "ff8013f6-19ec-489a-8ce8-269f098dfbe9",
+      "id": "75c120b0-e4fe-4d13-bb29-cd7c1f7a8523",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.47445745246182,
@@ -1075,7 +1179,11 @@
       "label": ""
     },
     {
-      "id": "cc5e1407-5e50-4985-b0d6-fbf78efc0cb5",
+      "id": "5ffdd485-3458-424e-99b3-ca87105383ba",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.4808990184868,
@@ -1097,7 +1205,11 @@
       "label": ""
     },
     {
-      "id": "15b7c9ba-dfbc-40ec-a744-c13acf32cb48",
+      "id": "0ec15e74-80d4-4f51-a1ed-51b807e67e8c",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.42143777266423,
@@ -1119,7 +1231,11 @@
       "label": ""
     },
     {
-      "id": "baa94268-3d88-4bbf-9f47-6ee5ee481c34",
+      "id": "628edb83-b9eb-4d39-b4cf-cfed693abae0",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.48946193028505,
@@ -1141,7 +1257,11 @@
       "label": ""
     },
     {
-      "id": "cf94c0d2-586a-400c-a727-e9a896599c1e",
+      "id": "19c7f965-29ac-4586-bc74-1f1b029c78e6",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.50250368541992,
@@ -1163,7 +1283,11 @@
       "label": ""
     },
     {
-      "id": "c311dbdd-4b63-4755-b911-c0215e91fa68",
+      "id": "11731082-0a93-4d48-8390-2aac963e56ca",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.37532909515727,
@@ -1185,7 +1309,11 @@
       "label": ""
     },
     {
-      "id": "51e6a25c-d82d-4c04-9a55-29fc8c3c86e7",
+      "id": "80e67f59-bb77-4992-a460-1009b0d3838e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39043962568736,
@@ -1207,7 +1335,11 @@
       "label": ""
     },
     {
-      "id": "02c3c9d6-289d-48bd-a7bc-7c1f9527fc41",
+      "id": "d967a5fe-ddaf-433f-a2a4-6e12d5d1334e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39038274336787,
@@ -1229,7 +1361,11 @@
       "label": ""
     },
     {
-      "id": "e6e019e2-144e-4bbe-8d35-a91d094c2f7b",
+      "id": "3319912d-0d64-4afc-96b8-46c4d9dc24ec",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39034110266383,
@@ -1251,7 +1387,11 @@
       "label": ""
     },
     {
-      "id": "d1c06203-dfc8-4b63-b3e6-f60a5f3cb721",
+      "id": "6b4edb37-4792-4991-ba42-21b4c9492454",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.3903258611682,
@@ -1273,7 +1413,11 @@
       "label": ""
     },
     {
-      "id": "e12679a7-1117-4138-9d57-bed1ed1c6111",
+      "id": "e366c85b-fa10-4ba8-9ae8-604bc389a899",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39034110278361,
@@ -1295,7 +1439,11 @@
       "label": ""
     },
     {
-      "id": "d1389409-9f7c-4924-99b7-28641afcb543",
+      "id": "20b78551-786e-4906-8e33-f6cd8266df7c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39038274348768,
@@ -1317,7 +1465,11 @@
       "label": ""
     },
     {
-      "id": "d2a5ad13-f386-48a0-9a60-268d353b5607",
+      "id": "06508322-54c8-46a3-a161-668504914c38",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39043962568736,
@@ -1339,7 +1491,11 @@
       "label": ""
     },
     {
-      "id": "32e6ea27-2f27-4e4b-bc7a-03636c7440d7",
+      "id": "b5b36774-7a30-41a5-9269-20e57fb19a79",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39049650788705,
@@ -1361,7 +1517,11 @@
       "label": ""
     },
     {
-      "id": "f5840cfe-707b-48d9-8ec0-bfd2cb48a504",
+      "id": "f95d9ca2-c77c-41e3-93dc-4352d65cea61",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39053814859112,
@@ -1383,7 +1543,11 @@
       "label": ""
     },
     {
-      "id": "d6fbacbe-aa9e-46bb-9022-6b9eaebc2331",
+      "id": "f86f529d-cdf1-4d00-96a1-3427c1747d42",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39055339020655,
@@ -1405,7 +1569,11 @@
       "label": ""
     },
     {
-      "id": "47c8ff79-8363-4ef5-8cbe-24f32d760c6e",
+      "id": "00a0a430-cf93-4615-b00a-9a7480d84024",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39053814871092,
@@ -1427,7 +1595,11 @@
       "label": ""
     },
     {
-      "id": "7ec5ef3a-d21e-4322-bf93-8580711aa881",
+      "id": "9f0fda40-24c0-4983-9252-4079cc9be09a",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.39049650800686,
@@ -1449,7 +1621,11 @@
       "label": ""
     },
     {
-      "id": "8136dabd-1968-4a20-a39b-6ca7d4116e0a",
+      "id": "4ef49286-4ebd-4332-b7ac-b710b660cbb5",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.47232917030945,
@@ -1471,7 +1647,11 @@
       "label": ""
     },
     {
-      "id": "076ad59d-69c0-40d0-a0fa-790548ac9afd",
+      "id": "17f5114a-8cea-41c8-b1bd-14300ccfb48b",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.45996706572464,
@@ -1493,7 +1673,11 @@
       "label": ""
     },
     {
-      "id": "00077566-f46b-4bfc-8373-daa263de615f",
+      "id": "76155b03-7369-4e88-b0a3-4f7bbc2c6dec",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.45523822252545,
@@ -1515,7 +1699,11 @@
       "label": ""
     },
     {
-      "id": "4b3d1fb3-9d3d-4a1b-bd33-b2dcf51d2c8f",
+      "id": "58a6af88-e512-4a34-b561-3d0584359a89",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.39128110877542,
@@ -1537,7 +1725,11 @@
       "label": ""
     },
     {
-      "id": "f345d4c6-508d-4e0c-8cde-ddf5eb4f4c46",
+      "id": "2c2639e6-f176-419d-9c3f-ea4fc285633e",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.36388397128653,
@@ -1559,7 +1751,11 @@
       "label": ""
     },
     {
-      "id": "102ddd8d-1378-4c2d-a933-19c2943195a6",
+      "id": "2fc5b1e3-450a-4d92-9759-8faa7664bd5b",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.4351748840555,
@@ -1581,7 +1777,11 @@
       "label": ""
     },
     {
-      "id": "66adab81-646a-48cf-bd3b-947c905087cb",
+      "id": "6f29da22-101a-4e0f-961e-23602286b75f",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.42993143531159,
@@ -1603,7 +1803,11 @@
       "label": ""
     },
     {
-      "id": "aed2fcdd-0e7a-490e-a037-14d9bd8aef97",
+      "id": "71610fef-1bf1-45d3-94eb-9c69f47a3183",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.40444127903888,
@@ -1625,7 +1829,11 @@
       "label": ""
     },
     {
-      "id": "6d4ef91e-c61d-49f2-b194-34a0bea0e47c",
+      "id": "fa0442e7-bd5b-417f-a767-91a9b2901255",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.44679860312644,
@@ -1647,7 +1855,11 @@
       "label": ""
     },
     {
-      "id": "6c33a1a2-5e27-43f7-bdf9-18eb2839e18d",
+      "id": "00f0e823-79b0-4e15-b0aa-dd02ab41a866",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.45479444646111,
@@ -1669,7 +1881,11 @@
       "label": ""
     },
     {
-      "id": "0abc934e-4c03-4df8-8b7a-37bce4369b5f",
+      "id": "91221fac-d88e-4353-bf92-196d13c4ed50",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.55463172714393,
@@ -1691,7 +1907,11 @@
       "label": ""
     },
     {
-      "id": "c5b23474-cb89-42aa-a136-aa9df3ac8503",
+      "id": "83f5b0e8-94d8-4a85-ab15-9c555c62b578",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.53803845658578,
@@ -1713,7 +1933,11 @@
       "label": ""
     },
     {
-      "id": "fc4607e5-a1f4-49a7-93c1-ed1e1804afe5",
+      "id": "1547eb50-fc93-4eb9-a5e4-ddc12d27a01f",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.32037481024958,
@@ -1735,7 +1959,11 @@
       "label": ""
     },
     {
-      "id": "4399138b-acb5-472b-914f-3f5c15e99e01",
+      "id": "8e1556d1-d5f2-48d3-abf0-76b868c367d0",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.54548533537792,
@@ -1757,7 +1985,11 @@
       "label": ""
     },
     {
-      "id": "413efeee-8fb0-40a7-a016-c737514d9a95",
+      "id": "44b2ed17-6bd7-4a53-b8ba-55b1dbdf92ed",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.57662866145921,
@@ -1779,7 +2011,11 @@
       "label": ""
     },
     {
-      "id": "6bcff3c0-8996-4b77-9e69-9b3f7d2afcb1",
+      "id": "0532b292-1be2-4f0c-9632-d42aa9408f3d",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.58241110487361,
@@ -1801,7 +2037,11 @@
       "label": ""
     },
     {
-      "id": "87c2e1ea-c965-499f-89ce-77db03372adc",
+      "id": "1ca4a9e8-94e3-4cf6-99d4-a537033a0458",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.49916644793194,
@@ -1823,7 +2063,11 @@
       "label": ""
     },
     {
-      "id": "2b57c62e-f15f-42a1-8054-f2cfc9283191",
+      "id": "54728631-014e-4e14-8fb8-7e9b47906575",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.42039923381034,
@@ -1845,7 +2089,11 @@
       "label": ""
     },
     {
-      "id": "67df62ad-654a-4c29-89bb-de3c036ed9f7",
+      "id": "e047414b-3844-439c-a205-bc87f16644c1",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.42873581653679,
@@ -1867,7 +2115,11 @@
       "label": ""
     },
     {
-      "id": "904cae4b-eb25-4e18-a384-b5989f9a1cb6",
+      "id": "c1cab4f1-c5c5-434a-b974-6d50d9f26a88",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.51258978241458,
@@ -1889,7 +2141,11 @@
       "label": ""
     },
     {
-      "id": "f98d4b7c-8bfe-4c46-a455-79cfdafd6dc8",
+      "id": "defc25d9-5275-47d4-a442-c3b0fa13d6a1",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.49914181085835,
@@ -1911,7 +2167,11 @@
       "label": ""
     },
     {
-      "id": "cf089a7f-428d-4784-aa80-bc53b9e3a955",
+      "id": "368fed27-8f5a-468d-8be4-4a4be48da98b",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38382217694006,
@@ -1933,7 +2193,11 @@
       "label": ""
     },
     {
-      "id": "8697b087-e296-459e-858a-8364a6a46cfb",
+      "id": "11819d44-0f64-48d3-b59b-3a8a7303b11c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38376542853409,
@@ -1955,7 +2219,11 @@
       "label": ""
     },
     {
-      "id": "632e5f98-a463-414c-a951-3a9e99d1ba3d",
+      "id": "58a53d0e-adc6-448c-a722-75851f790f18",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38372388586117,
@@ -1977,7 +2245,11 @@
       "label": ""
     },
     {
-      "id": "386d5a92-3c31-4c0b-ae63-b0a3e6bfba8b",
+      "id": "1b44f035-1e7c-4c0e-98fe-e23b270c292c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38370868024694,
@@ -1999,7 +2271,11 @@
       "label": ""
     },
     {
-      "id": "8cd51ff1-024b-4164-85e6-0d28e92965a2",
+      "id": "dcd58dd0-beb1-42ec-a7f6-33f617588218",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38372388597995,
@@ -2021,7 +2297,11 @@
       "label": ""
     },
     {
-      "id": "e7bf7d7c-5bb4-4f67-b70d-667dcba6f837",
+      "id": "9ade272a-f2af-4213-9014-c70f7381e4e7",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38376542865286,
@@ -2043,7 +2323,11 @@
       "label": ""
     },
     {
-      "id": "ca515145-3b9a-4648-a80b-9038c63db3fe",
+      "id": "4cfa7150-5ba1-48e7-939a-f9cc1b20a595",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38382217694006,
@@ -2065,7 +2349,11 @@
       "label": ""
     },
     {
-      "id": "02925722-e831-48d7-96f9-209eaa8def8e",
+      "id": "9b11c685-19e3-40f0-bbbe-aa435d7aa128",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38387892522724,
@@ -2087,7 +2375,11 @@
       "label": ""
     },
     {
-      "id": "2c048be2-093b-40af-9541-ed58fedc8e1a",
+      "id": "076413ed-d45d-40bc-b817-32b43638ea2e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38392046790015,
@@ -2109,7 +2401,11 @@
       "label": ""
     },
     {
-      "id": "9b560165-4897-4556-9bc6-359e28eaac50",
+      "id": "2adce657-f2fa-43ec-83de-e3a835d181a8",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38393567363316,
@@ -2131,7 +2427,11 @@
       "label": ""
     },
     {
-      "id": "b35f2642-9ce3-46bc-b05f-064566f1736c",
+      "id": "79b81670-89a3-4bf1-a525-c04edc4fb562",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38392046801893,
@@ -2153,7 +2453,11 @@
       "label": ""
     },
     {
-      "id": "a849a9e4-13cd-48c6-b597-e37892e2d1e7",
+      "id": "4e92b98f-5ecc-4714-820a-645b97d08244",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.38387892534601,
@@ -2175,7 +2479,11 @@
       "label": ""
     },
     {
-      "id": "b844c49c-6cd3-4a81-8b71-1a897b6bf9b7",
+      "id": "54b08991-3ba7-4e1c-bcc5-b54c1c2011f3",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08926577987928,
@@ -2197,7 +2505,11 @@
       "label": ""
     },
     {
-      "id": "7f92c57d-2db0-4ed8-8661-bf3af7c63593",
+      "id": "4c7cf5fc-aef7-4419-9467-d4d6e0455595",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08920894953644,
@@ -2219,7 +2531,11 @@
       "label": ""
     },
     {
-      "id": "72e0ba65-0f53-4ac1-9288-7b06579bc1cc",
+      "id": "e4008eed-dc3c-4aeb-8570-d7c2303c06c0",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08916734688178,
@@ -2241,7 +2557,11 @@
       "label": ""
     },
     {
-      "id": "91a11f9c-8e2d-4815-ade5-7a76de6eb2cb",
+      "id": "92697ae6-b649-4f1a-9133-77b483ebb21b",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.089152119313,
@@ -2263,7 +2583,11 @@
       "label": ""
     },
     {
-      "id": "c7955bed-a377-45a8-a8bf-11451bd25ac1",
+      "id": "43300a58-8e99-4a8d-8f4e-30865694f235",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08916734700118,
@@ -2285,7 +2609,11 @@
       "label": ""
     },
     {
-      "id": "d632117b-193d-4014-a570-7bb812927014",
+      "id": "63bd7305-9534-433a-b5d8-803e39388ecb",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08920894965587,
@@ -2307,7 +2635,11 @@
       "label": ""
     },
     {
-      "id": "239bc2d1-39cb-4632-8805-86074bf0b84a",
+      "id": "e9ac8ffc-a44b-482e-9f61-8f7c3c51cad5",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08926577987928,
@@ -2329,7 +2661,11 @@
       "label": ""
     },
     {
-      "id": "b801c414-dc39-4267-8196-55d6e608493c",
+      "id": "7c3814b3-a9ea-4bcc-acc6-73ed765538f9",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08932261010273,
@@ -2351,7 +2687,11 @@
       "label": ""
     },
     {
-      "id": "1612d904-bf8e-4319-b311-b560a5ff6220",
+      "id": "178af270-26db-46fb-aeba-d6c18fee232d",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08936421275739,
@@ -2373,7 +2713,11 @@
       "label": ""
     },
     {
-      "id": "fde5b285-f676-4869-aa0e-dd96d03d99d3",
+      "id": "0b3403ee-be4e-4d75-8c31-ca6995129889",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08937944044557,
@@ -2395,7 +2739,11 @@
       "label": ""
     },
     {
-      "id": "0ef669f1-4569-491f-bbce-e1477ee8319d",
+      "id": "6cc2cd55-3f7c-4cb7-8867-5724074614f2",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08936421287682,
@@ -2417,7 +2765,11 @@
       "label": ""
     },
     {
-      "id": "0fcc9f34-6224-4b50-9684-46259b914231",
+      "id": "4a97ad8c-ccef-4e4d-9e5e-a85cd44bb745",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.08932261022215,
@@ -2439,7 +2791,11 @@
       "label": ""
     },
     {
-      "id": "8eb82413-e83c-45c6-835f-9281c6fd139a",
+      "id": "e49b2497-f946-4553-816d-e25c1c3ba3d6",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.9782141021117,
@@ -2461,7 +2817,11 @@
       "label": ""
     },
     {
-      "id": "59e139ab-bf64-48e5-b77e-3c39b3632e1b",
+      "id": "8de728fb-1c51-43dd-b354-d4d7dc47e49d",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97815737985016,
@@ -2483,7 +2843,11 @@
       "label": ""
     },
     {
-      "id": "3a95b106-b8f5-45e1-ac3e-3a5cf020ac98",
+      "id": "5284749f-e7b1-4a62-8fe6-5b348a982d5c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97811585631621,
@@ -2505,7 +2869,11 @@
       "label": ""
     },
     {
-      "id": "9774e1b7-5c9d-4fb5-8f52-27f469b52b55",
+      "id": "8f1b5cec-a205-4ed8-b1b5-ad188eff1ead",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97810065770722,
@@ -2527,7 +2895,11 @@
       "label": ""
     },
     {
-      "id": "45289cd1-faa4-4730-a72e-2b61e2767382",
+      "id": "ae198f29-8605-4376-af5f-15f3b6f323cc",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97811585643477,
@@ -2549,7 +2921,11 @@
       "label": ""
     },
     {
-      "id": "026ed93a-1d3a-40fa-a716-7d1c85292b17",
+      "id": "8c76fe0d-1f93-4690-8df4-df16f737cb9a",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97815737996874,
@@ -2571,7 +2947,11 @@
       "label": ""
     },
     {
-      "id": "f561fad9-42c3-4a49-9705-67ddb5e91852",
+      "id": "94724c35-ef57-4ca7-86db-a1cb00345fac",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.9782141021117,
@@ -2593,7 +2973,11 @@
       "label": ""
     },
     {
-      "id": "f07a79e0-0a9a-41b4-a92d-7cec213c9926",
+      "id": "bf04d0b1-78b4-420a-9ad9-a329aa95a528",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.9782708242547,
@@ -2615,7 +2999,11 @@
       "label": ""
     },
     {
-      "id": "e1c0df68-6699-4f93-87c7-9ad431e462c3",
+      "id": "ac6d708d-4915-457c-bb64-b75eac511b38",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97831234778866,
@@ -2637,7 +3025,11 @@
       "label": ""
     },
     {
-      "id": "7dc657c5-11c9-4ace-ab7f-3c11434217d9",
+      "id": "c431c259-e22f-4154-823f-104eb53c602f",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97832754651621,
@@ -2659,7 +3051,11 @@
       "label": ""
     },
     {
-      "id": "7caf8003-a63b-4801-a0b1-84a162963979",
+      "id": "d39dd295-d7e3-475c-bf27-8f89364fa3dc",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97831234790722,
@@ -2681,7 +3077,11 @@
       "label": ""
     },
     {
-      "id": "97d57d81-2937-4c6e-bb98-9ea56260f2ba",
+      "id": "f0f1a873-d5ad-4b29-b921-9aec398138ec",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.97827082437327,
@@ -2703,7 +3103,11 @@
       "label": ""
     },
     {
-      "id": "dd27367d-4a87-4008-a686-cd42555a67a0",
+      "id": "bc271802-17d5-4c3b-996b-0d8fb0ad2d27",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.2667695852445,
@@ -2725,7 +3129,11 @@
       "label": ""
     },
     {
-      "id": "9c449cc9-41e3-4836-8237-07cbbe23c49c",
+      "id": "de6a1140-6305-4b8d-99ae-ee72496f5e5a",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26671264938332,
@@ -2747,7 +3155,11 @@
       "label": ""
     },
     {
-      "id": "4bc36ba2-5d04-44c7-88ea-6c359046c46e",
+      "id": "9bacb289-cffd-4221-885e-2856c28db361",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26667096948414,
@@ -2769,7 +3181,11 @@
       "label": ""
     },
     {
-      "id": "a8a1c47e-f89e-4707-a362-f7fd6d4541fd",
+      "id": "ed48538f-1504-4430-a04b-1ded935e4454",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26665571364234,
@@ -2791,7 +3207,11 @@
       "label": ""
     },
     {
-      "id": "c489c8ed-dc9e-4c94-aed9-dec165e020bb",
+      "id": "60df6d24-a034-4755-811c-6cd17443cdf0",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26667096960438,
@@ -2813,7 +3233,11 @@
       "label": ""
     },
     {
-      "id": "093fb390-5aaa-4a76-9783-b08ed60e9acc",
+      "id": "a1f6bdda-4133-48c5-ac4c-1261a265a3fc",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26671264950352,
@@ -2835,7 +3259,11 @@
       "label": ""
     },
     {
-      "id": "e16c6bd3-5c2f-4a6e-9015-b975d4c6a41e",
+      "id": "fca85602-d890-4e38-837e-b43387663288",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.2667695852445,
@@ -2857,7 +3285,11 @@
       "label": ""
     },
     {
-      "id": "b6eb0d50-f468-4277-89cc-6e689619ac92",
+      "id": "2bec128c-4a71-4e10-84da-f216ca566a98",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26682652098549,
@@ -2879,7 +3311,11 @@
       "label": ""
     },
     {
-      "id": "42408411-0d9f-4c32-beb2-3fd0ab36423c",
+      "id": "ac4910c5-c5db-49e0-af22-9fc85a2bb50f",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26686820088463,
@@ -2901,7 +3337,11 @@
       "label": ""
     },
     {
-      "id": "95a44eb3-1743-4c57-84ec-22a20b91ff6d",
+      "id": "af68147e-3dae-44a9-8765-3437b8501b79",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26688345684667,
@@ -2923,7 +3363,11 @@
       "label": ""
     },
     {
-      "id": "e3b2fadd-f7d8-4143-8d97-18a1465bd7a0",
+      "id": "8d79598e-dc87-4567-bb2a-bf998a4f48f8",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26686820100485,
@@ -2945,7 +3389,11 @@
       "label": ""
     },
     {
-      "id": "3851ed46-700a-4992-9929-a02e83cae1e8",
+      "id": "c394ddfc-8c4f-44e7-b4cf-3467f59d7f9c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.26682652110568,
@@ -2967,7 +3415,11 @@
       "label": ""
     },
     {
-      "id": "9f8772af-19c1-45ee-9928-40029bc257b5",
+      "id": "1f519f3e-efa0-4660-83db-a7b09703263a",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.0416242598889,
@@ -2989,7 +3441,11 @@
       "label": ""
     },
     {
-      "id": "bfea314e-3624-48b5-a02a-5fd29aecdf3d",
+      "id": "6c84311d-712a-4580-8999-9c865f8d0c3d",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04156726471774,
@@ -3011,7 +3467,11 @@
       "label": ""
     },
     {
-      "id": "9a96d12a-1899-47eb-ad3d-7d06a8f2903d",
+      "id": "696f65d4-9823-4225-a8aa-ae34e9edeeb2",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04152554140084,
@@ -3033,7 +3493,11 @@
       "label": ""
     },
     {
-      "id": "40190e7a-7542-43c2-b97b-6359140513cb",
+      "id": "a00e92d2-1797-4547-97c9-e1f59fa76c1d",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04151026966727,
@@ -3055,7 +3519,11 @@
       "label": ""
     },
     {
-      "id": "af882748-0354-469d-88c4-4a85b669e368",
+      "id": "02d0ff16-2ffd-4e6e-bb16-5b56ff980b30",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04152554152154,
@@ -3077,7 +3545,11 @@
       "label": ""
     },
     {
-      "id": "de298d91-a132-44bb-96b1-113a026730e9",
+      "id": "7aafb1ec-bb97-4dcc-b48f-87ee5f126d7e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04156726483843,
@@ -3099,7 +3571,11 @@
       "label": ""
     },
     {
-      "id": "11f80a4b-1405-4ccf-916f-38b9b42d9e13",
+      "id": "b66a519f-6129-4760-8db8-e2b6f358d160",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.0416242598889,
@@ -3121,7 +3597,11 @@
       "label": ""
     },
     {
-      "id": "0f846ccb-2dd4-402b-a895-f0e830a33c64",
+      "id": "34928863-4fe3-4d73-8d1f-23bc99ecd3e4",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04168125493938,
@@ -3143,7 +3623,11 @@
       "label": ""
     },
     {
-      "id": "086e4550-e69d-40e4-82b1-549d9547cd18",
+      "id": "3e1064c0-bd65-43b1-b9a3-87224f324abf",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04172297825626,
@@ -3165,7 +3649,11 @@
       "label": ""
     },
     {
-      "id": "0e9be00a-5735-427d-b2d1-e0aa0ea7f1a7",
+      "id": "dee31645-c85b-4054-9b62-f4e1a17147bf",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04173825011051,
@@ -3187,7 +3675,11 @@
       "label": ""
     },
     {
-      "id": "00fa9626-103f-45f5-9213-b8fae6a56d38",
+      "id": "898a9739-2b06-4f2e-8a23-3bdbd6976da8",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04172297837694,
@@ -3209,7 +3701,11 @@
       "label": ""
     },
     {
-      "id": "34c74085-e818-44f6-9083-88b4192ae742",
+      "id": "0477b4c3-37ca-435b-82d2-56116c268f68",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.04168125506004,
@@ -3231,7 +3727,11 @@
       "label": ""
     },
     {
-      "id": "a1a18207-7c83-4d88-b4b8-e28f49884de0",
+      "id": "cfa02dab-ad0c-4483-a116-4b2c80a84de2",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29717855028134,
@@ -3253,7 +3753,11 @@
       "label": ""
     },
     {
-      "id": "5d92c3da-84fb-42a5-924d-cd88747d077f",
+      "id": "0ffae2d9-653c-4661-877d-38d265fb63ec",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29712123339472,
@@ -3275,7 +3779,11 @@
       "label": ""
     },
     {
-      "id": "5e008dc8-b526-47b7-adb8-dd403fa6cab7",
+      "id": "6fc5a655-bac2-4a43-a61b-90805e8c3444",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29707927456666,
@@ -3297,7 +3805,11 @@
       "label": ""
     },
     {
-      "id": "922d59b4-fa16-4840-9161-f8dbba87fdf7",
+      "id": "bc99e1ec-444b-46d6-98eb-849b09fa1c13",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29706391663125,
@@ -3319,7 +3831,11 @@
       "label": ""
     },
     {
-      "id": "b778eb21-7628-47cf-81b8-f4a79193f78b",
+      "id": "7ec959fc-cb3d-4f92-8e82-9ae9633c48a2",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.2970792746898,
@@ -3341,7 +3857,11 @@
       "label": ""
     },
     {
-      "id": "5c9b5cd3-d860-4b92-8dea-39e33e6bfd24",
+      "id": "77663683-5d1e-42e1-a92c-8be04f20026c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29712123351787,
@@ -3363,7 +3883,11 @@
       "label": ""
     },
     {
-      "id": "ce1acb94-0c6c-4251-ae15-1f6b31680466",
+      "id": "e366de28-497f-4c44-9e42-0d14f1d89b4c",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29717855028134,
@@ -3385,7 +3909,11 @@
       "label": ""
     },
     {
-      "id": "1e01daf7-f7a5-4737-bd42-a043ce0fbe47",
+      "id": "a867025a-a8e9-4e92-8a9c-0da43410b2ff",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.2972358670448,
@@ -3407,7 +3935,11 @@
       "label": ""
     },
     {
-      "id": "70a1b9f5-7f48-4ed6-afe5-c620a2af79a3",
+      "id": "c6b6299d-a625-4122-aebc-f3fef02e562e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29727782587287,
@@ -3429,7 +3961,11 @@
       "label": ""
     },
     {
-      "id": "0e9be994-879f-4a9e-837e-486b59258547",
+      "id": "86212d25-5ee9-4d10-8c8a-d3f935c59e7e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29729318393143,
@@ -3451,7 +3987,11 @@
       "label": ""
     },
     {
-      "id": "6e2d086d-db72-4cca-a199-11ea83e2b3e3",
+      "id": "d6d02ab1-4cb2-4e0a-8d73-5f7e18111696",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29727782599603,
@@ -3473,7 +4013,11 @@
       "label": ""
     },
     {
-      "id": "c30a7b44-ff76-4869-ab3a-44eae13b8d1e",
+      "id": "aa0d2ed3-2c3e-43be-bc35-67ad36d35154",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -122.29723586716796,
@@ -3495,7 +4039,11 @@
       "label": ""
     },
     {
-      "id": "4df2f325-79ef-47db-9b14-f09a312d5cf7",
+      "id": "c3acf95a-7184-426c-a1f6-d504031a7b83",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88090048656166,
@@ -3517,7 +4065,11 @@
       "label": ""
     },
     {
-      "id": "d2a44b0b-d5f8-4b5e-bb75-e767db6f9afa",
+      "id": "2507381e-7138-420c-b911-2066199429c7",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88084365971376,
@@ -3539,7 +4091,11 @@
       "label": ""
     },
     {
-      "id": "55bf9070-50b3-499e-951a-f172a38c3980",
+      "id": "9628a777-4840-476b-8d4e-df7f20bf3141",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88080205961758,
@@ -3561,7 +4117,11 @@
       "label": ""
     },
     {
-      "id": "2bcae02d-a68f-47b7-9347-2bc848045bad",
+      "id": "2e7e4934-6e7f-4bea-a728-95185b145f32",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88078683298527,
@@ -3583,7 +4143,11 @@
       "label": ""
     },
     {
-      "id": "23306dd9-9515-41bf-afe9-944c5b65b938",
+      "id": "0a200b29-e81d-4d2d-ad1d-bd1f2561b674",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88080205973696,
@@ -3605,7 +4169,11 @@
       "label": ""
     },
     {
-      "id": "6e13bfb7-dec8-4030-b112-61cdee1e5818",
+      "id": "791b3b18-7ccd-4087-a971-337bf4f5e0d0",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88084365983315,
@@ -3627,7 +4195,11 @@
       "label": ""
     },
     {
-      "id": "1e1368fb-027c-4fc7-a745-eca4a7e6c94f",
+      "id": "893268fe-49e5-4b68-9530-313c7ebb9149",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88090048656166,
@@ -3649,7 +4221,11 @@
       "label": ""
     },
     {
-      "id": "40dda35c-7010-4e4e-abda-35b9cbdcdfca",
+      "id": "868848f3-c7a3-44f7-8b9b-002b7787ae87",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88095731329017,
@@ -3671,7 +4247,11 @@
       "label": ""
     },
     {
-      "id": "71be2f20-604e-4593-b51d-e9642cc6afde",
+      "id": "bfb4a1d5-8073-4ed0-9579-a05d7020d7c3",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88099891338635,
@@ -3693,7 +4273,11 @@
       "label": ""
     },
     {
-      "id": "08951027-7f1d-417b-9893-806d53e8f0fa",
+      "id": "eb58563c-6840-4dee-98bc-5cc27bcb4f52",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88101414013806,
@@ -3715,7 +4299,11 @@
       "label": ""
     },
     {
-      "id": "17162017-219d-433c-acea-062f8cd24817",
+      "id": "77e6cac7-c9b2-43cc-ae32-1053e3e2e4a5",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88099891350574,
@@ -3737,7 +4325,11 @@
       "label": ""
     },
     {
-      "id": "6c6359b0-cfec-4999-9b66-03114af4bfad",
+      "id": "4d240df3-50ce-4575-9766-7f6309b4bad9",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": -121.88095731340957,
@@ -3759,7 +4351,11 @@
       "label": ""
     },
     {
-      "id": "a667214f-e0c7-40ce-810d-f9b14ef295df",
+      "id": "80a7f006-63ea-411d-b6f8-c4f2ee7fa6cf",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.92531969484634,
@@ -3781,7 +4377,11 @@
       "label": ""
     },
     {
-      "id": "65f9c151-9332-48da-a19a-3df19e1be425",
+      "id": "745e08a1-2d90-4973-98db-80c645cf9462",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.80244115475375,
@@ -3803,7 +4403,11 @@
       "label": ""
     },
     {
-      "id": "ef5ebed1-e60d-49d0-95fc-4ff776568879",
+      "id": "c7d0969b-98c4-4820-8b33-5fcc505ce8fe",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.90056810609019,
@@ -3825,7 +4429,11 @@
       "label": ""
     },
     {
-      "id": "805bfa21-b1dd-469c-a4dc-0e33c178301e",
+      "id": "e5d86a06-b464-4078-8f0c-bc6f9940bbf1",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.70560719402889,
@@ -3847,7 +4455,11 @@
       "label": ""
     },
     {
-      "id": "d2e97d2d-2eb3-4859-ae2b-ac9431073cc7",
+      "id": "e91ac06c-0e4c-4b1f-81a8-9b89a95fe855",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.60983153076037,
@@ -3869,7 +4481,11 @@
       "label": ""
     },
     {
-      "id": "645fca8a-998a-4164-a1e0-8c1a5be17aef",
+      "id": "e7254a74-d90c-493a-b469-8e64de18bede",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.49845844470582,
@@ -3891,7 +4507,11 @@
       "label": ""
     },
     {
-      "id": "1b8ab213-0bb4-4e72-a54b-034b3a6b221b",
+      "id": "c474fc79-ec2e-4719-b091-2e1f4e4fa8ff",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.41982387626376,
@@ -3913,7 +4533,11 @@
       "label": ""
     },
     {
-      "id": "31d2571b-ff74-44c3-944d-599b41d5d81e",
+      "id": "5a71319b-7ff3-4e15-8a92-55c6aba0026c",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.38623729579999,
@@ -3935,7 +4559,11 @@
       "label": ""
     },
     {
-      "id": "0d83fe63-7381-47d1-8e9b-02c9c6fd7338",
+      "id": "a41f5f11-bf2b-4d80-a27e-d6beac00da72",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.23568651925041,
@@ -3957,7 +4585,11 @@
       "label": ""
     },
     {
-      "id": "0e64fb4f-26c5-4a47-9512-c85de5b4f94b",
+      "id": "7c27023e-e3a8-417d-9f29-589e381fffdb",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.24201313444753,
@@ -3979,7 +4611,11 @@
       "label": ""
     },
     {
-      "id": "93a80949-b02a-480b-9d46-0cd08e1acd83",
+      "id": "36fe617f-0cab-42de-ba17-803c61d526ce",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.44464823173371,
@@ -4001,7 +4637,11 @@
       "label": ""
     },
     {
-      "id": "f5e5829b-a507-49fd-8087-ebfbb805d53d",
+      "id": "48749782-53f8-49ae-9dba-10879fb317a0",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.37991924711324,
@@ -4023,7 +4663,11 @@
       "label": ""
     },
     {
-      "id": "91ba9a2f-45ec-4e5d-be1a-707ca0f96338",
+      "id": "1d9345ff-e5f8-4815-928a-c010d3f20317",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.08999774453744,
@@ -4045,7 +4689,11 @@
       "label": ""
     },
     {
-      "id": "d0763a80-ce29-4351-81b5-f35f2b80c90f",
+      "id": "06324628-d0ae-4a9c-9ab5-f1733bd23857",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -121.91859264663638,
@@ -4067,7 +4715,11 @@
       "label": ""
     },
     {
-      "id": "c4c73056-b4d3-47ba-ac5d-16cdecbbb418",
+      "id": "e633c46f-563c-4c9b-883a-4efb3ddfa5b5",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.45069753359465,
@@ -4089,7 +4741,11 @@
       "label": ""
     },
     {
-      "id": "68c6f9c8-e0ae-47de-9bfb-15708ec5dd9b",
+      "id": "6de4c767-bc3a-45a2-a424-1e4bab422c4a",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": -122.45632899987486,

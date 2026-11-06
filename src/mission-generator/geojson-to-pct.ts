@@ -8,6 +8,7 @@ import { DIR_ASSETS } from "../core/util/directory.js";
 import type { LocationExtended } from "./util/Location.type.js";
 import { writeln, writeSuccess } from "../cli/formatter/writeCli.js";
 import { DIR_FIXTURE } from "../test/loadFixture.js";
+//import { setLocationElevationFromApi } from "./util/setElevation.js";
 
 const paths = fs.glob([
     path.join(DIR_ASSETS, "mission-generator", "**", "*.geojson"),
@@ -19,9 +20,14 @@ for await (const sourcePath of paths) {
     const geoJson = JSON.parse(content);
     const locations = parseGeoJsonToLocations(geoJson);
 
+    //writeln("Setting elevation for " + styleText("blueBright", locations.length.toString()) + " locations...");
+    //wait setLocationElevationFromApi(locations);
+
     const sourceDirectory = path.dirname(sourcePath);
     const poiName = path.basename(sourceDirectory).replace(/^[ew][0-9]+[ns][0-9]+_/, "");
     const targetPath = path.join(sourceDirectory, `__${poiName}.json`);
+
+    writeln("Writing " + styleText("blueBright", targetPath) + "...");
     await writeFile(targetPath, locations, poiName);
 }
 writeSuccess("Done");
@@ -48,7 +54,8 @@ async function writeFile(targetPath: string, locations: LocationExtended[], poiN
                         name: xref.name,
                         position: convertPosition(xref.position),
                         height: {
-                            mode: "terrain",
+                            mode: "asl",
+                            value: (xref.position.elevation ?? 0) + (xref.heightAdjust ?? 1),
                         },
                         direction: xref.direction ?? 0,
                         scale: 1,
@@ -56,6 +63,10 @@ async function writeFile(targetPath: string, locations: LocationExtended[], poiN
                     })),
                     ...lightsFromLocations(locations).map((light) => ({
                         id: uuid(),
+                        height: {
+                            mode: "asl",
+                            value: (light.position.elevation ?? 0) + (light.heightAdjust ?? 1),
+                        },
                         kind: "light",
                         position: convertPosition(light.position),
                         color: light.color,

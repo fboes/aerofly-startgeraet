@@ -3,13 +3,13 @@
   "app": "pct",
   "name": "startgeraet-hems-EDHG",
   "poiName": "startgeraet-hems-EDHG",
-  "createdAt": "2026-11-06T13:03:21.537Z",
-  "modifiedAt": "2026-11-06T13:03:21.537Z",
+  "createdAt": "2026-11-06T18:33:33.826Z",
+  "modifiedAt": "2026-11-06T18:33:33.826Z",
   "reference": null,
   "camera": {},
   "objects": [
     {
-      "id": "187ad3c2-4467-4967-9f5b-22c3f08fad4e",
+      "id": "e48e7b70-5524-4bb8-bcc5-827a6b98539f",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -17,14 +17,15 @@
         "lat": 53.24756138354581
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 50
       },
       "direction": 290,
       "scale": 1,
-      "label": "Lüneburg airfield #heliport #approach:+73 #approach:+253 #icao:EDHG"
+      "label": "Lüneburg airfield #heliport #approach:73 #approach:253 #icao:EDHG"
     },
     {
-      "id": "21c5df6f-70b6-441d-a4f1-2dad5d53267c",
+      "id": "01419cee-cfb0-48ea-8722-fbae564156a6",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -32,14 +33,15 @@
         "lat": 53.124447358131846
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 48
       },
       "direction": 0,
       "scale": 1,
       "label": "Amelinghausen, Sportplatz #icao:WP-001"
     },
     {
-      "id": "8284f9df-1ddf-462b-b945-87011a1da64c",
+      "id": "36d2c45c-6219-41e1-92ea-d86077bfcce0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -47,14 +49,15 @@
         "lat": 53.220286446750805
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 8
       },
       "direction": 0,
       "scale": 1,
       "label": "Heiligenthal, Hauptstraße #icao:WP-002"
     },
     {
-      "id": "2effa87f-82a4-4f24-9446-af7f2f192d40",
+      "id": "259ff511-70c0-41f6-a905-7a9b326842de",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -62,14 +65,15 @@
         "lat": 53.31370643839796
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 9
       },
       "direction": 0,
       "scale": 1,
       "label": "A39 #road-accident #icao:WP-003"
     },
     {
-      "id": "21a2241f-060b-4453-975a-dd37ab0805d0",
+      "id": "22ecaa35-834d-4c98-89b5-21cf693c1441",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -77,14 +81,15 @@
         "lat": 53.33285564688879
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 8
       },
       "direction": 0,
       "scale": 1,
       "label": "B404 #road-accident #icao:WP-004"
     },
     {
-      "id": "10d5effd-ac43-4525-b189-5992d33ac5b5",
+      "id": "ebd55e5b-ee46-463e-91c4-5323e51670f1",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -92,14 +97,15 @@
         "lat": 53.34860122223179
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 17
       },
       "direction": 132,
       "scale": 1,
-      "label": "Hospital Winsen/Luhe #hospital #approach:+132 #approach:+312 #icao:de1034"
+      "label": "Hospital Winsen/Luhe #hospital #approach:132 #approach:312 #icao:de1034"
     },
     {
-      "id": "530816de-35d5-42b7-b2e8-17141229286a",
+      "id": "8912c9a0-580e-4ac9-906a-fe391e0c9998",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -107,14 +113,15 @@
         "lat": 52.97322272971323
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 15
       },
       "direction": 231,
       "scale": 1,
-      "label": "Klinikum Uelzen #hospital #approach:+231 #approach:+51 #icao:de0999"
+      "label": "Klinikum Uelzen #hospital #approach:231 #approach:51 #icao:de0999"
     },
     {
-      "id": "b704b252-a461-46f8-8974-27f601eb0e0c",
+      "id": "3ac506ec-1683-4587-908d-a44972f3ba1b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -122,14 +129,15 @@
         "lat": 53.36597221408283
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 41
       },
       "direction": 0,
       "scale": 1,
       "label": "Hohnstorf #icao:WP-007"
     },
     {
-      "id": "e8a999ed-07c3-4fe3-b5c4-9779d595e96f",
+      "id": "664b9416-4eea-4fc0-a051-15b8ba8e6363",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -137,14 +145,15 @@
         "lat": 53.36989266003667
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 76
       },
       "direction": 0,
       "scale": 1,
       "label": "Lauenburg train station #icao:WP-008"
     },
     {
-      "id": "19afe19c-467f-42c7-84de-b8d47bb534f4",
+      "id": "d0a54e3f-2478-4bfd-a61f-0f0798055cae",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -152,14 +161,15 @@
         "lat": 53.429604495969954
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 89
       },
       "direction": 0,
       "scale": 1,
       "label": "camping site Stover Strand #icao:WP-009"
     },
     {
-      "id": "96444c8b-31b0-4555-bac2-bdd8ef1f15aa",
+      "id": "b170cf41-e44f-4029-89c1-bc0d2e332329",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -167,14 +177,15 @@
         "lat": 53.37309484488506
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 32
       },
       "direction": 0,
       "scale": 1,
       "label": "Lauenburg bus station #icao:WP-010"
     },
     {
-      "id": "e889fe72-373e-4991-a75b-a5c471659315",
+      "id": "70e0c30b-3882-4804-b8ea-efd7724338f3",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -182,14 +193,15 @@
         "lat": 53.03058529092442
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 51
       },
       "direction": 0,
       "scale": 1,
       "label": "Kloster Ebstorf #icao:WP-011"
     },
     {
-      "id": "7697c2c7-541d-4e6c-8f02-b763e49132f5",
+      "id": "b284e348-c351-48ac-9d83-73fe173abcb8",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -197,14 +209,15 @@
         "lat": 53.04810173362972
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 21
       },
       "direction": 0,
       "scale": 1,
       "label": "Tätendorf #icao:WP-012"
     },
     {
-      "id": "1e903753-e364-4da9-8759-0e3bdba8f750",
+      "id": "03e808d6-e005-45a1-a130-837b521017c8",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -212,14 +225,15 @@
         "lat": 53.079146254730915
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 39
       },
       "direction": 0,
       "scale": 1,
       "label": "Bad Bevensen, Neptunbrunnen #icao:WP-013"
     },
     {
-      "id": "fee622d8-3a01-4209-a8da-a4bd8d02fe57",
+      "id": "7c92eb60-810a-490f-98de-b5a2c3dd8013",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -227,14 +241,15 @@
         "lat": 53.15928983887568
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 20
       },
       "direction": 0,
       "scale": 1,
       "label": "Heinsen #icao:WP-014"
     },
     {
-      "id": "3ac9166a-f4e1-4b3d-868a-9dbb065a2298",
+      "id": "f88afccc-c844-4a47-85d8-4491f5a93d07",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -242,14 +257,15 @@
         "lat": 53.15917996298393
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 14
       },
       "direction": 0,
       "scale": 1,
       "label": "B4 near Melbeck #road-accident #icao:WP-015"
     },
     {
-      "id": "53f22e16-1638-4ccb-a803-1a53ad9c796f",
+      "id": "30f4cf08-d1eb-4131-b2bc-495a09642d30",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -257,14 +273,15 @@
         "lat": 53.125255014016375
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 101
       },
       "direction": 0,
       "scale": 1,
       "label": "B4 near Bargdorf #road-accident #icao:WP-016"
     },
     {
-      "id": "ff31c446-bf8c-4688-83dd-9a0f80682200",
+      "id": "77756aac-5eac-4165-8ab8-46c8f1ca819d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -272,14 +289,15 @@
         "lat": 53.14596924950487
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 34
       },
       "direction": 0,
       "scale": 1,
       "label": "Bienenbüttel #icao:WP-017"
     },
     {
-      "id": "690f570f-288e-43f6-be02-cae7a9d81f90",
+      "id": "513ce0d1-79fa-405b-8bd1-2d4e8ce95ee0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -287,14 +305,15 @@
         "lat": 53.293680955955494
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 50
       },
       "direction": 0,
       "scale": 1,
       "label": "Scharnebeck Schiffshebewerk #icao:WP-018"
     },
     {
-      "id": "f4a79c89-0e5f-4b00-af41-fec420133ef6",
+      "id": "b10acc8f-699a-4729-aae4-ba59c9c89cdc",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -302,14 +321,15 @@
         "lat": 53.173984874291335
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 10
       },
       "direction": 0,
       "scale": 1,
       "label": "Ravener Dorfstraße #icao:WP-019"
     },
     {
-      "id": "ab962afe-ad39-4efe-a32c-1c65af486028",
+      "id": "3a36de88-c3f0-4b0c-9f52-f16f33e5b7e5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -317,14 +337,15 @@
         "lat": 53.21882386140226
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 6
       },
       "direction": 0,
       "scale": 1,
       "label": "Salzhausen school #icao:WP-020"
     },
     {
-      "id": "e15be216-1dd0-48d0-90b3-681b562fe589",
+      "id": "5ab02c14-cf95-423c-9fd2-36d430f2f29c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -332,14 +353,15 @@
         "lat": 53.227157492596945
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 12
       },
       "direction": 0,
       "scale": 1,
       "label": "Salzhausen supermarket #icao:WP-021"
     },
     {
-      "id": "0cd1216e-083c-4f9c-9b72-23c3694dc78a",
+      "id": "75c8b2b8-d9f1-4a49-b584-82bef0371f4a",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -347,14 +369,15 @@
         "lat": 53.40213312648689
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 9
       },
       "direction": 0,
       "scale": 1,
       "label": "Maschen train yard #icao:WP-022"
     },
     {
-      "id": "519de02b-f212-477b-9e5b-a47749838ae4",
+      "id": "03e1facc-e76d-4e1b-b390-1a4a2785573b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -362,14 +385,15 @@
         "lat": 53.41840434555314
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 10
       },
       "direction": 0,
       "scale": 1,
       "label": "Fliegenberg Sportplatz #icao:WP-023"
     },
     {
-      "id": "0ebad2b3-e2aa-4475-ae53-ffdcf19ae305",
+      "id": "666036de-c228-4b99-a990-dfe197e91de5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -377,14 +401,15 @@
         "lat": 53.351436643668876
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 67
       },
       "direction": 0,
       "scale": 1,
       "label": "Barum center #icao:WP-024"
     },
     {
-      "id": "f0ba5dbe-9b01-4176-b293-7c550998f996",
+      "id": "a038f09a-3856-40b8-a942-d566c67f6eab",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -392,14 +417,15 @@
         "lat": 53.343692982314536
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 31
       },
       "direction": 0,
       "scale": 1,
       "label": "Neetze lake #icao:WP-025"
     },
     {
-      "id": "329f1f41-7633-48ee-a524-81667a643eaf",
+      "id": "12a706b7-a510-45f4-b2ab-5f0af429dad5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -407,14 +433,15 @@
         "lat": 53.42694129877583
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 73
       },
       "direction": 0,
       "scale": 1,
       "label": "Elbe Fischtreppe #icao:WP-026"
     },
     {
-      "id": "c06e5832-02ce-4976-b891-13ee0a14d743",
+      "id": "6d647bea-2ddd-4f93-8e0e-38d9b49c2f35",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -422,14 +449,15 @@
         "lat": 53.21846313175075
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 22
       },
       "direction": 0,
       "scale": 1,
       "label": "B216 near Norndorf #icao:WP-027"
     },
     {
-      "id": "6456998f-4c89-4179-8c39-80977d71c038",
+      "id": "81d48885-1735-4e92-9fd1-a623ee0aec23",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -437,14 +465,15 @@
         "lat": 53.24081383105499
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 280,
       "scale": 1,
-      "label": "Klinikum Lüneburg #hospital #approach:+280 #approach:+178 #icao:de0819"
+      "label": "Klinikum Lüneburg #hospital #approach:280 #approach:178 #icao:de0819"
     },
     {
-      "id": "2da3b01f-10c1-400c-8b99-608ff63d925f",
+      "id": "fbe26d3c-7e77-4a84-8937-3747f5d5d105",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -452,14 +481,15 @@
         "lat": 53.25998210137857
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 20
       },
       "direction": 0,
       "scale": 1,
       "label": "A7 near Toppenstedt #road-accident #icao:WP-029"
     },
     {
-      "id": "493fe42e-3b14-4140-8f64-69f9555c19a8",
+      "id": "47e7a17c-a496-40fa-a933-bd6f7a88434e",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -467,14 +497,15 @@
         "lat": 53.27204589064155
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 88
       },
       "direction": 0,
       "scale": 1,
       "label": "position near Köhlerhütte #pitch #icao:WP-030"
     },
     {
-      "id": "1decd933-ecef-4b32-a51a-5893f1c9c8b2",
+      "id": "e4f262dc-ba89-445d-9f9f-edc9f3a69a2d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -482,14 +513,15 @@
         "lat": 53.42263937836077
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 86
       },
       "direction": 0,
       "scale": 1,
       "label": "position near Altstadt #ferry #icao:WP-031"
     },
     {
-      "id": "054ebe90-a151-4f6b-af43-7b5c4b2dc7d2",
+      "id": "10eda46f-9c58-4573-afa0-1a8bf5754e7f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -497,14 +529,15 @@
         "lat": 53.69968757641965
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 82
       },
       "direction": 0,
       "scale": 1,
       "label": "Ratzeburg town hall #icao:WP-032"
     },
     {
-      "id": "894eee00-ff07-46d4-9f47-7578d292c2cf",
+      "id": "a3977dbd-b472-4796-83a9-bc5a780925af",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -512,14 +545,15 @@
         "lat": 53.333633099685045
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 95
       },
       "direction": 176,
       "scale": 1,
-      "label": "Buchholz hospital #hospital #approach:+176 #approach:+26 #icao:de0686"
+      "label": "Buchholz hospital #hospital #approach:176 #approach:26 #icao:de0686"
     },
     {
-      "id": "e3d2fdd0-ab6d-4e82-90ad-92e4a0adde32",
+      "id": "28c7edca-b163-4100-bb35-a6bfdb2239bd",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -527,14 +561,15 @@
         "lat": 52.989555966531356
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 14
       },
       "direction": 20,
       "scale": 1,
-      "label": "Soltau Klinikum #hospital #approach:+20 #approach:+200 #icao:de0968"
+      "label": "Soltau Klinikum #hospital #approach:20 #approach:200 #icao:de0968"
     },
     {
-      "id": "dba5cae8-0365-445b-9823-ce73742e1a66",
+      "id": "1ba4fdfe-94d9-4f36-9371-1ce8a1e4a529",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -542,14 +577,15 @@
         "lat": 52.73901787857494
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 79
       },
       "direction": 0,
       "scale": 1,
       "label": "Eschede, Bergener Straße #icao:WP-035"
     },
     {
-      "id": "df13c1cc-efd8-45a2-8ae3-e6be88c1328d",
+      "id": "86226b6e-81bc-4ae3-97f2-1bd53770ba5f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -557,14 +593,15 @@
         "lat": 53.10971719084068
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 16
       },
       "direction": 0,
       "scale": 1,
       "label": "Bispingen Tank & Rast #icao:WP-036"
     },
     {
-      "id": "ce60205b-79d6-4e43-aab5-e4b4a600cb7a",
+      "id": "6854e5d2-9e39-421c-a7bb-6257d68f79ac",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -572,14 +609,15 @@
         "lat": 53.31948422849007
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 31
       },
       "direction": 0,
       "scale": 1,
       "label": "Amt Neuhaus #icao:WP-037"
     },
     {
-      "id": "7a1ce285-7405-4fc5-b57e-3c8a16829233",
+      "id": "b7239b11-44a4-4c90-9451-5054ae5401d1",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -587,14 +625,15 @@
         "lat": 53.05106472160625
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "fields near Hanstedt I #cricket #icao:WP-038"
     },
     {
-      "id": "f2480e60-58b5-43f5-a112-1eb01dbb599c",
+      "id": "ef68ec5e-310e-4fa8-b6f2-da586cd827dd",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -602,14 +641,15 @@
         "lat": 53.135646958970966
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Dömitz Elbbrücke #icao:WP-039"
     },
     {
-      "id": "1352fabc-e17e-4df3-b310-7f7ebf4aac54",
+      "id": "81cd1995-66c1-46cc-9247-57a6914ced1f",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -617,14 +657,19 @@
         "lat": 53.43183398847245
       },
       "height": {
-        "mode": "terrain"
+        "mode": "asl",
+        "value": 1
       },
       "direction": 80,
       "scale": 1,
-      "label": "Johanniter Hospital Geesthacht #hospital #approach:+80 #approach:+260 #icao:DE0493"
+      "label": "Johanniter Hospital Geesthacht #hospital #approach:80 #approach:260 #icao:DE0493"
     },
     {
-      "id": "2634243a-72d0-4e82-b773-cecdc861e3e3",
+      "id": "bff7121f-d781-4d0d-81c2-debfdaf27d5d",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457620941302835,
@@ -646,7 +691,11 @@
       "label": ""
     },
     {
-      "id": "bef2652a-60cf-462d-80ea-6431f2659302",
+      "id": "edde41b3-070b-465b-8c8d-2146acba0a92",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.45769609047661,
@@ -668,7 +717,11 @@
       "label": ""
     },
     {
-      "id": "e394dff6-6af1-43ae-8bd6-1519758639e0",
+      "id": "a1149e00-327c-4a2a-b1ea-93d49d5c7550",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457751103389823,
@@ -690,7 +743,11 @@
       "label": ""
     },
     {
-      "id": "1000bd86-760b-4905-bd2e-11f947cd66ba",
+      "id": "8ba0e546-dd16-461e-b37d-fc9aa431bbb5",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.45777123937681,
@@ -712,7 +769,11 @@
       "label": ""
     },
     {
-      "id": "81e00d79-e3ea-4fd1-9d45-fab361856126",
+      "id": "cc0c7cd1-5dd2-4877-89be-d256a3eefb0b",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457751103116252,
@@ -734,7 +795,11 @@
       "label": ""
     },
     {
-      "id": "4f802bfa-7e48-4102-8bc5-1f7e02c34ee2",
+      "id": "61ff4594-32e2-4b06-a75a-00ab170afa45",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457696090203038,
@@ -756,7 +821,11 @@
       "label": ""
     },
     {
-      "id": "f0abc484-82ac-4861-b071-d3b7ea95864e",
+      "id": "31b1ec2c-d28c-4d78-a9be-c1ef52aa1cc1",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457620941302835,
@@ -778,7 +847,11 @@
       "label": ""
     },
     {
-      "id": "8fadd0b1-9b0a-4117-8796-d42c965feb81",
+      "id": "27a4649b-43aa-4205-998f-c597d31b777d",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457545792402634,
@@ -800,7 +873,11 @@
       "label": ""
     },
     {
-      "id": "5349c8e9-eaa3-4ade-a0d5-e7bb21338935",
+      "id": "af64f328-30b1-427b-9f6e-af350ed4e5d3",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.45749077948942,
@@ -822,7 +899,11 @@
       "label": ""
     },
     {
-      "id": "f918c17f-8f1a-4d9d-b728-e73db1df2648",
+      "id": "0d2f8ebc-9e9e-4165-aff4-1fc90a23764b",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457470643228863,
@@ -844,7 +925,11 @@
       "label": ""
     },
     {
-      "id": "cd7becc7-1dbb-4d44-bdca-606b1723d57e",
+      "id": "d0436147-824b-473a-9876-7ff4918a63f7",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.45749077921585,
@@ -866,7 +951,11 @@
       "label": ""
     },
     {
-      "id": "e90611d7-1127-4801-b9e9-5b56a626a4b2",
+      "id": "48998c71-a138-4887-a104-06ab4454c259",
+      "height": {
+        "mode": "asl",
+        "value": 49.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.457545792129062,
@@ -888,7 +977,11 @@
       "label": ""
     },
     {
-      "id": "11850ede-e663-4f15-bf98-43aa2ee7458f",
+      "id": "4911004b-e546-49ea-96c7-cd345887323c",
+      "height": {
+        "mode": "asl",
+        "value": 50
+      },
       "kind": "light",
       "position": {
         "lon": 10.22211473995057,
@@ -910,7 +1003,11 @@
       "label": ""
     },
     {
-      "id": "8cfe9815-2345-423b-9236-55b28f62f2a4",
+      "id": "6fc48ab5-d90d-4dc8-a6c3-3a8bcf081649",
+      "height": {
+        "mode": "asl",
+        "value": 10
+      },
       "kind": "light",
       "position": {
         "lon": 10.336700553669715,
@@ -932,7 +1029,11 @@
       "label": ""
     },
     {
-      "id": "8b5dfe31-493e-4d7b-88ad-426f834ec0c9",
+      "id": "8aac4a4a-7334-4490-acfb-57ca146660bb",
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
       "kind": "light",
       "position": {
         "lon": 10.32015049893485,
@@ -954,7 +1055,11 @@
       "label": ""
     },
     {
-      "id": "ff8e3058-e49a-4f8f-b22a-80c181d2324a",
+      "id": "112c5645-e493-4d03-8721-9bfad9390be2",
+      "height": {
+        "mode": "asl",
+        "value": 10
+      },
       "kind": "light",
       "position": {
         "lon": 10.334796094702824,
@@ -976,7 +1081,11 @@
       "label": ""
     },
     {
-      "id": "06db974f-5735-43bb-9dc0-3b3b7305acbf",
+      "id": "e6fb043d-c79a-4a22-b95b-f6ee02e5ce8d",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199265119023437,
@@ -998,7 +1107,11 @@
       "label": ""
     },
     {
-      "id": "11937b00-9570-4b4e-a46c-e407bd7254e8",
+      "id": "6e135d28-bccc-4cbc-a0b6-a7312ad5584f",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199340446190334,
@@ -1020,7 +1133,11 @@
       "label": ""
     },
     {
-      "id": "63afd7ad-bdb3-40bb-bc30-55fa47ebafd3",
+      "id": "bc876b6a-9e43-4a9f-bca6-5c4af9c22805",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.19939558940295,
@@ -1042,7 +1159,11 @@
       "label": ""
     },
     {
-      "id": "011f670b-e8fc-4f3c-87bb-dbb0632c4374",
+      "id": "344fadeb-2ab0-45fa-a6e2-53d8dfdb58d6",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199415773082,
@@ -1064,7 +1185,11 @@
       "label": ""
     },
     {
-      "id": "37aff9e5-f231-4f1a-986b-e70388921aa8",
+      "id": "8d92bd7c-2528-40c7-a55a-3accd348ba5f",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199395589127722,
@@ -1086,7 +1211,11 @@
       "label": ""
     },
     {
-      "id": "360dcf8f-9914-4004-aa11-ef7905049682",
+      "id": "e92575d8-9511-4bca-8476-6bbcb3e14aab",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199340445915105,
@@ -1108,7 +1237,11 @@
       "label": ""
     },
     {
-      "id": "8291befc-068c-4c64-b96e-ef88f9c3e2c3",
+      "id": "8fcc5f87-b13c-446f-9a51-0558dc30e7f4",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199265119023437,
@@ -1130,7 +1263,11 @@
       "label": ""
     },
     {
-      "id": "404f5c39-bcd6-41a6-b30e-5fcf57bc51e4",
+      "id": "4f1accd6-c02f-48f5-bd52-1e2ac7d03a18",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.19918979213177,
@@ -1152,7 +1289,11 @@
       "label": ""
     },
     {
-      "id": "a4189c23-66e8-4d40-8cb0-b872bcdfc1f2",
+      "id": "75218784-bc36-4bd0-85fe-921922084d2a",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199134648919152,
@@ -1174,7 +1315,11 @@
       "label": ""
     },
     {
-      "id": "dd480aca-4fdb-44f7-a051-c7b08ab8e549",
+      "id": "18bd5df0-e36c-412c-8082-4f411619050d",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199114464964874,
@@ -1196,7 +1341,11 @@
       "label": ""
     },
     {
-      "id": "495f331a-8639-4041-bd36-dc5996bb134d",
+      "id": "39710b8b-8d22-4170-a38f-8a635d99ebc5",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.199134648643923,
@@ -1218,7 +1367,11 @@
       "label": ""
     },
     {
-      "id": "1e72607c-1fa5-4320-a37f-5fa1d0b05290",
+      "id": "29fb33c8-7344-4e0b-8b3a-114f38e6a7f9",
+      "height": {
+        "mode": "asl",
+        "value": 16.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.19918979185654,
@@ -1240,7 +1393,11 @@
       "label": ""
     },
     {
-      "id": "ab6844ea-d2d4-4d37-a0cd-ad55ca316df8",
+      "id": "5eeda984-6b8e-4b96-bd5e-874e74024a6c",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.53266261154144,
@@ -1262,7 +1419,11 @@
       "label": ""
     },
     {
-      "id": "2da5112e-5681-4338-a614-bbb3b9df405b",
+      "id": "36b71087-b595-4226-9615-36a25d5d04ca",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532737282817397,
@@ -1284,7 +1445,11 @@
       "label": ""
     },
     {
-      "id": "b66c32b1-6e9c-4bc2-a186-f8ebb2e5a02a",
+      "id": "8006f4ce-0002-465a-b2ab-d1f20569b441",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532791945886753,
@@ -1306,7 +1471,11 @@
       "label": ""
     },
     {
-      "id": "5d1756a0-1716-4cdd-a332-f073748ea55f",
+      "id": "edbf3d1a-d67f-4851-b58c-d5b864e82171",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.53281195382422,
@@ -1328,7 +1497,11 @@
       "label": ""
     },
     {
-      "id": "0628fae9-0ada-4546-bd29-41d84021c142",
+      "id": "ae4fa29a-0438-487d-883c-3851a5f71c04",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.53279194561762,
@@ -1350,7 +1523,11 @@
       "label": ""
     },
     {
-      "id": "2b7311b6-c06a-43d8-a572-4da04363b9ba",
+      "id": "0fa5c0ce-a1fb-4a87-8e2b-a0f24d5bd16a",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532737282548263,
@@ -1372,7 +1549,11 @@
       "label": ""
     },
     {
-      "id": "2758b615-17bc-4737-aded-fb11dcff4d96",
+      "id": "01c735eb-b9b3-452a-b569-63c4047f9710",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.53266261154144,
@@ -1394,7 +1575,11 @@
       "label": ""
     },
     {
-      "id": "ce7f8d42-87d4-4ece-a188-83136216daab",
+      "id": "e42723b6-50e3-425f-9c8b-d7c44bc13e1f",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532587940534619,
@@ -1416,7 +1601,11 @@
       "label": ""
     },
     {
-      "id": "9ee3990d-abf4-41c8-bb8b-517af3eaa51a",
+      "id": "d988b84b-957d-4c3f-b937-88d6977a8b72",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532533277465262,
@@ -1438,7 +1627,11 @@
       "label": ""
     },
     {
-      "id": "d0ff8426-9f42-4ac0-aa7e-4b52e5f591d0",
+      "id": "2d88e46d-90bf-42e4-af09-d7120b2e0bfa",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532513269258661,
@@ -1460,7 +1653,11 @@
       "label": ""
     },
     {
-      "id": "32a4ae7f-7ca9-42af-872d-ae6df8d79ea7",
+      "id": "2de6943b-f0fd-4e24-81b5-2e37a3567c2e",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532533277196128,
@@ -1482,7 +1679,11 @@
       "label": ""
     },
     {
-      "id": "668abdd7-43c0-47d9-93a2-b1c830ad8c7d",
+      "id": "556b6996-38ff-4b0d-a42f-6379df122f01",
+      "height": {
+        "mode": "asl",
+        "value": 14.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.532587940265485,
@@ -1504,7 +1705,11 @@
       "label": ""
     },
     {
-      "id": "2b67f785-2344-4847-b527-2e869447da61",
+      "id": "e807fd09-86bf-4dac-9b9d-3d21234114d4",
+      "height": {
+        "mode": "asl",
+        "value": 43
+      },
       "kind": "light",
       "position": {
         "lon": 10.55079170884369,
@@ -1526,7 +1731,11 @@
       "label": ""
     },
     {
-      "id": "11c79210-6bbf-4f99-9e67-b7f58be79c4d",
+      "id": "e428a3e2-9a5b-4c62-988a-e0a30176386e",
+      "height": {
+        "mode": "asl",
+        "value": 78
+      },
       "kind": "light",
       "position": {
         "lon": 10.567126950807477,
@@ -1548,7 +1757,11 @@
       "label": ""
     },
     {
-      "id": "b4673afb-e5de-4d40-b51b-18981cba37e1",
+      "id": "137ac01a-7ea5-4b1c-ad29-3597ab18b1ce",
+      "height": {
+        "mode": "asl",
+        "value": 91
+      },
       "kind": "light",
       "position": {
         "lon": 10.304816277769817,
@@ -1570,7 +1783,11 @@
       "label": ""
     },
     {
-      "id": "7727b216-6f61-43e0-af22-56fec85a1151",
+      "id": "cd9573c4-53cf-49ec-afae-86b0776d7db3",
+      "height": {
+        "mode": "asl",
+        "value": 34
+      },
       "kind": "light",
       "position": {
         "lon": 10.554734991634405,
@@ -1592,7 +1809,11 @@
       "label": ""
     },
     {
-      "id": "49390e8d-bc9f-4b9b-8158-44e6d339d064",
+      "id": "f3b57585-6b71-40d8-9c01-68aa05ccd8e9",
+      "height": {
+        "mode": "asl",
+        "value": 53
+      },
       "kind": "light",
       "position": {
         "lon": 10.41305322117077,
@@ -1614,7 +1835,11 @@
       "label": ""
     },
     {
-      "id": "d7449c9e-4d55-4e71-a255-1adf42520a1f",
+      "id": "258e2eef-f59f-4f8c-8f28-e242f4d01f04",
+      "height": {
+        "mode": "asl",
+        "value": 23
+      },
       "kind": "light",
       "position": {
         "lon": 10.543655214829954,
@@ -1636,7 +1861,11 @@
       "label": ""
     },
     {
-      "id": "bb56c6a2-454f-4295-9059-d17e106a3ff1",
+      "id": "eaeb5fd0-60fe-4f4a-ac1d-013ad4793bb6",
+      "height": {
+        "mode": "asl",
+        "value": 41
+      },
       "kind": "light",
       "position": {
         "lon": 10.58551273624019,
@@ -1658,7 +1887,11 @@
       "label": ""
     },
     {
-      "id": "7d768b2f-14d4-4410-9fa0-d7b11969b57e",
+      "id": "a1f473b5-b641-48de-b1db-977ff49bc341",
+      "height": {
+        "mode": "asl",
+        "value": 22
+      },
       "kind": "light",
       "position": {
         "lon": 10.34527694080353,
@@ -1680,7 +1913,11 @@
       "label": ""
     },
     {
-      "id": "8e270b95-13a1-4fc7-8345-92cdcbd26483",
+      "id": "44c665fe-0f14-4fd3-9ee0-823a6d9f4674",
+      "height": {
+        "mode": "asl",
+        "value": 16
+      },
       "kind": "light",
       "position": {
         "lon": 10.446288200425585,
@@ -1702,7 +1939,11 @@
       "label": ""
     },
     {
-      "id": "cc91a6ae-8a61-433f-aa83-d73470caaeb8",
+      "id": "15023a59-db3a-40f2-81ff-59d105b83d44",
+      "height": {
+        "mode": "asl",
+        "value": 103
+      },
       "kind": "light",
       "position": {
         "lon": 10.504967565637628,
@@ -1724,7 +1965,11 @@
       "label": ""
     },
     {
-      "id": "cdfe2f62-0e26-40ea-b6c7-dc3bf246f26e",
+      "id": "c838f59b-189e-42fe-85ff-1353d64895bd",
+      "height": {
+        "mode": "asl",
+        "value": 36
+      },
       "kind": "light",
       "position": {
         "lon": 10.487080419964371,
@@ -1746,7 +1991,11 @@
       "label": ""
     },
     {
-      "id": "5a8217e7-9bec-4055-80d3-1c2a037e0064",
+      "id": "e9eccd67-ef97-43f3-9179-3c5fb87222d9",
+      "height": {
+        "mode": "asl",
+        "value": 52
+      },
       "kind": "light",
       "position": {
         "lon": 10.490672560793087,
@@ -1768,7 +2017,11 @@
       "label": ""
     },
     {
-      "id": "b41150f3-c221-4e94-bde4-ceac2436e785",
+      "id": "4a645722-6b16-4ca7-9f7b-cab082e62c6d",
+      "height": {
+        "mode": "asl",
+        "value": 12
+      },
       "kind": "light",
       "position": {
         "lon": 10.15905044457196,
@@ -1790,7 +2043,11 @@
       "label": ""
     },
     {
-      "id": "2cd11623-a1ed-4fa0-a296-6a0d9dabcaa7",
+      "id": "52424e7b-a7ce-4382-9225-a95a2074b83c",
+      "height": {
+        "mode": "asl",
+        "value": 8
+      },
       "kind": "light",
       "position": {
         "lon": 10.167603583258597,
@@ -1812,7 +2069,11 @@
       "label": ""
     },
     {
-      "id": "bea7c6b3-c989-447e-bafc-7377c1fdb69a",
+      "id": "c8301f80-55d1-49aa-b04c-c392fc8a4fb3",
+      "height": {
+        "mode": "asl",
+        "value": 14
+      },
       "kind": "light",
       "position": {
         "lon": 10.159191329745653,
@@ -1834,7 +2095,11 @@
       "label": ""
     },
     {
-      "id": "ae661192-baa2-40f3-a8fc-5b0052d00cb2",
+      "id": "31bfd430-1e3c-4f9f-8e16-19add48ab16f",
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
       "kind": "light",
       "position": {
         "lon": 10.062092751746263,
@@ -1856,7 +2121,11 @@
       "label": ""
     },
     {
-      "id": "4a21aa8d-71d7-466d-91b8-69545eb19419",
+      "id": "ee3faef3-ac3f-4627-87aa-7f3f6d96db30",
+      "height": {
+        "mode": "asl",
+        "value": 12
+      },
       "kind": "light",
       "position": {
         "lon": 10.13348856784097,
@@ -1878,7 +2147,11 @@
       "label": ""
     },
     {
-      "id": "b2545c04-4b0a-44a0-8cb0-91635d8956cd",
+      "id": "ffb8ee4d-402c-400f-9072-27290299eb1d",
+      "height": {
+        "mode": "asl",
+        "value": 69
+      },
       "kind": "light",
       "position": {
         "lon": 10.410811785698087,
@@ -1900,7 +2173,11 @@
       "label": ""
     },
     {
-      "id": "4f322d95-2d6f-4cb4-b865-048b34f1ca83",
+      "id": "337427ad-c7de-4486-96f5-570dd2c3b564",
+      "height": {
+        "mode": "asl",
+        "value": 33
+      },
       "kind": "light",
       "position": {
         "lon": 10.457899131808603,
@@ -1922,7 +2199,11 @@
       "label": ""
     },
     {
-      "id": "0fa2d75c-09cd-4362-baa5-a73e16315f57",
+      "id": "328c192c-9af5-486c-af15-86fc2d8b00ba",
+      "height": {
+        "mode": "asl",
+        "value": 75
+      },
       "kind": "light",
       "position": {
         "lon": 10.336222832307982,
@@ -1944,7 +2225,11 @@
       "label": ""
     },
     {
-      "id": "0d34bbaa-b286-4b87-bfe4-d37ef9de3db5",
+      "id": "5c0f4d42-0c03-4a06-a489-227fe13b4e19",
+      "height": {
+        "mode": "asl",
+        "value": 24
+      },
       "kind": "light",
       "position": {
         "lon": 10.578000561826343,
@@ -1966,7 +2251,11 @@
       "label": ""
     },
     {
-      "id": "7179f51a-2c8c-4b3a-8fa2-c3b8caa1533c",
+      "id": "7c632bf3-6896-4bd9-8a2a-0cd68684c120",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395810021196723,
@@ -1988,7 +2277,11 @@
       "label": ""
     },
     {
-      "id": "283de069-9717-4320-9d1c-2480c9fa7925",
+      "id": "287c6c59-6212-41c6-807f-f87fbf81e52e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395885158522193,
@@ -2010,7 +2303,11 @@
       "label": ""
     },
     {
-      "id": "1477c2ee-9bf0-42be-8d62-25ae5417c200",
+      "id": "0df5378e-3a7a-4ef8-b3b3-1f8f0e77abd0",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395940162761885,
@@ -2032,7 +2329,11 @@
       "label": ""
     },
     {
-      "id": "32d9f029-32ab-4749-8f8e-5b5eda96394f",
+      "id": "4c859f49-c18d-4eb1-abee-8f397ad5e89e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395960295574197,
@@ -2054,7 +2355,11 @@
       "label": ""
     },
     {
-      "id": "373cbdf9-824a-4f09-b1af-6eb242e4791f",
+      "id": "88f8b909-83ef-4785-9249-bd2c52db9acf",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395940162488424,
@@ -2076,7 +2381,11 @@
       "label": ""
     },
     {
-      "id": "17e08cb7-400f-4736-a0d7-57497e7ba50b",
+      "id": "a375143f-c761-42de-8096-57787f2595a7",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395885158248731,
@@ -2098,7 +2407,11 @@
       "label": ""
     },
     {
-      "id": "d227e7fc-d866-4230-afad-e27b86f1e2d5",
+      "id": "bb971582-d25b-4962-9562-2d8edf5cd80b",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395810021196723,
@@ -2120,7 +2433,11 @@
       "label": ""
     },
     {
-      "id": "43d00a03-5c6c-4b5b-902d-d78d27453361",
+      "id": "ddaa6cf6-5ca3-40f4-b12a-3bca1c789c07",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395734884144716,
@@ -2142,7 +2459,11 @@
       "label": ""
     },
     {
-      "id": "19af95e1-6e79-4d91-ad30-1299a5c27f2b",
+      "id": "05f76dc0-9df2-4e0e-811f-064e3065175a",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395679879905021,
@@ -2164,7 +2485,11 @@
       "label": ""
     },
     {
-      "id": "9f134a72-8eec-4604-a333-ac09e317e913",
+      "id": "a50c7b8b-59d8-41d0-903b-5439b5f0326f",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395659746819248,
@@ -2186,7 +2511,11 @@
       "label": ""
     },
     {
-      "id": "65d4f820-04e5-43a0-aa5a-4ff640049e8c",
+      "id": "85788415-589f-42ec-8fff-39eccf0db7b4",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.39567987963156,
@@ -2208,7 +2537,11 @@
       "label": ""
     },
     {
-      "id": "7b5a8541-89e4-45c1-a9d9-062c5174920a",
+      "id": "d899914e-b6d3-440b-9527-e5803df2c78f",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.395734883871253,
@@ -2230,7 +2563,11 @@
       "label": ""
     },
     {
-      "id": "f58b8569-b1f6-45ef-825b-85a05e3f3720",
+      "id": "e894550d-5b9d-4b2c-a8e2-87d6672672eb",
+      "height": {
+        "mode": "asl",
+        "value": 22
+      },
       "kind": "light",
       "position": {
         "lon": 10.088219383819023,
@@ -2252,7 +2589,11 @@
       "label": ""
     },
     {
-      "id": "195a2a10-6e7f-4463-b86d-c4e20cc30358",
+      "id": "a1ef064e-46a0-452f-a43c-6fc9f658ae5b",
+      "height": {
+        "mode": "asl",
+        "value": 90
+      },
       "kind": "light",
       "position": {
         "lon": 10.260094188899842,
@@ -2274,7 +2615,11 @@
       "label": ""
     },
     {
-      "id": "be6d6030-19b5-4ec8-ba32-e24fe63a3e2d",
+      "id": "a6fb7760-abbb-4da6-b00b-db6bdc0fcc27",
+      "height": {
+        "mode": "asl",
+        "value": 88
+      },
       "kind": "light",
       "position": {
         "lon": 10.381508838996467,
@@ -2296,7 +2641,11 @@
       "label": ""
     },
     {
-      "id": "965ff171-4f01-4777-b5cc-e1691498f3dc",
+      "id": "366f9d94-9a7b-4f74-a2ad-1520414994b6",
+      "height": {
+        "mode": "asl",
+        "value": 84
+      },
       "kind": "light",
       "position": {
         "lon": 10.769166265978242,
@@ -2318,7 +2667,11 @@
       "label": ""
     },
     {
-      "id": "f10151cd-fbd8-49d6-8d47-bc74dfb1754a",
+      "id": "da44fb3b-a2b8-47a6-ba1d-ac1fd0a01388",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870384146621774,
@@ -2340,7 +2693,11 @@
       "label": ""
     },
     {
-      "id": "8375e125-516c-40b8-bd5c-8d049d29ccde",
+      "id": "92c6ceee-bc71-4ef3-a935-6c1a9eaf0d27",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870459447352662,
@@ -2362,7 +2719,11 @@
       "label": ""
     },
     {
-      "id": "d5198aa1-6fd7-4268-aec3-c600f486c61e",
+      "id": "b0b18838-4f0f-46d5-b6f2-974b5b30f63b",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870514571212864,
@@ -2384,7 +2745,11 @@
       "label": ""
     },
     {
-      "id": "b54f73b8-0fda-47c5-8b19-82ab71e4fa9e",
+      "id": "d70b3e54-1e1f-4d94-9d98-64bc57a41bc6",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870534747808563,
@@ -2406,7 +2771,11 @@
       "label": ""
     },
     {
-      "id": "e60904b8-833a-40b7-b5cd-fa67991aff96",
+      "id": "2a1afdd3-82a7-48e7-bd48-7b58eb600197",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.87051457093788,
@@ -2428,7 +2797,11 @@
       "label": ""
     },
     {
-      "id": "0017a944-518a-4e4a-8327-722f350ed939",
+      "id": "9a7043b4-c9b5-4ed3-ac69-462112c10c78",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870459447077677,
@@ -2450,7 +2823,11 @@
       "label": ""
     },
     {
-      "id": "4dc6b4ca-c99f-40a5-9ec3-b95686079d65",
+      "id": "ca498f5d-073f-4d6b-8bf8-14ab0329c6c5",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870384146621774,
@@ -2472,7 +2849,11 @@
       "label": ""
     },
     {
-      "id": "7a4bda0b-9d9c-46eb-8796-2e0bdc3751a6",
+      "id": "51b03f9b-d3de-4fdf-9a9d-d7f0cd3cb67c",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.87030884616587,
@@ -2494,7 +2875,11 @@
       "label": ""
     },
     {
-      "id": "e6ebea8d-2f83-4439-a983-f622be7dcbdf",
+      "id": "8998ec0b-48c0-4c6f-b93d-ed4824b8abc5",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870253722305668,
@@ -2516,7 +2901,11 @@
       "label": ""
     },
     {
-      "id": "eb2fe5a5-103d-4bd6-b036-5db554b1425d",
+      "id": "813b3032-bc40-4483-929f-f6bbd9e67afe",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870233545434985,
@@ -2538,7 +2927,11 @@
       "label": ""
     },
     {
-      "id": "22904e21-c812-42a9-bda3-92da65909900",
+      "id": "f7e19691-316d-42d2-a06a-5fe2833187d1",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870253722030682,
@@ -2560,7 +2953,11 @@
       "label": ""
     },
     {
-      "id": "29f13c26-ca22-4751-b3d5-aa55ad2cef8f",
+      "id": "e033da83-831b-497d-a15e-86dc1f46ba07",
+      "height": {
+        "mode": "asl",
+        "value": 94.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.870308845890886,
@@ -2582,7 +2979,11 @@
       "label": ""
     },
     {
-      "id": "ffa590a3-311c-4b58-8ec3-607c337954ee",
+      "id": "143b9025-1db9-4e1a-b7bb-a4acc0526d0b",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.85505020999929,
@@ -2604,7 +3005,11 @@
       "label": ""
     },
     {
-      "id": "79567cb1-edd7-45a8-83e8-3a254dd05a2a",
+      "id": "99171765-6047-46a8-ae11-9a34eb4ff0fa",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.855124909509653,
@@ -2626,7 +3031,11 @@
       "label": ""
     },
     {
-      "id": "906b112f-a22d-4e08-93b1-6c4215623e0a",
+      "id": "db77e1ff-ca23-4202-88f0-8fc91c0bb532",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.855179593247934,
@@ -2648,7 +3057,11 @@
       "label": ""
     },
     {
-      "id": "c5b75575-5f91-4334-a8ee-f0bb894a693b",
+      "id": "d5327a17-9f22-4a08-b572-95c3f56e6a3d",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.85519960875062,
@@ -2670,7 +3083,11 @@
       "label": ""
     },
     {
-      "id": "932c79e5-dc65-404f-ba40-53b6fa4b5547",
+      "id": "3ac0d9aa-8290-4e35-bb40-b17ccd37db09",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.855179592978537,
@@ -2692,7 +3109,11 @@
       "label": ""
     },
     {
-      "id": "b463aabf-6db5-4c78-81f1-e2eb20730a9c",
+      "id": "c47ca2e5-c713-49d7-8740-fa81817d1c09",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.855124909240256,
@@ -2714,7 +3135,11 @@
       "label": ""
     },
     {
-      "id": "a6ecf029-6021-4217-a4d6-bd2edd203f6b",
+      "id": "a0765830-b7e8-494d-9993-f721da4c44a3",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.85505020999929,
@@ -2736,7 +3161,11 @@
       "label": ""
     },
     {
-      "id": "f2501be7-276e-485f-ae21-4e052bb3f2c9",
+      "id": "f258fa58-2559-4757-b43f-1975eac27c97",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.854975510758324,
@@ -2758,7 +3187,11 @@
       "label": ""
     },
     {
-      "id": "51d60d57-6b16-49b1-8eff-cd38db4b5e68",
+      "id": "7e7fe735-1286-446e-9002-da5caa4e12ad",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.854920827020045,
@@ -2780,7 +3213,11 @@
       "label": ""
     },
     {
-      "id": "502f138d-e3f7-4eb0-a0f5-24b0828d9e3e",
+      "id": "16641590-5860-4cd6-87d2-add50324d5d2",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.854900811247962,
@@ -2802,7 +3239,11 @@
       "label": ""
     },
     {
-      "id": "01e6da3b-da73-40c2-909b-f46698de1a19",
+      "id": "173593d4-7b2d-4db5-a7d8-8b435d04a95f",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.854920826750648,
@@ -2824,7 +3265,11 @@
       "label": ""
     },
     {
-      "id": "85a4a432-b55c-4b58-8dda-ac9dfa35fb75",
+      "id": "56e0063d-51ae-40d7-901b-15c8300d4c74",
+      "height": {
+        "mode": "asl",
+        "value": 13.25
+      },
       "kind": "light",
       "position": {
         "lon": 9.854975510488927,
@@ -2846,7 +3291,11 @@
       "label": ""
     },
     {
-      "id": "59c1df07-228d-4668-8fe2-22d276c47d27",
+      "id": "f53dbcf9-ee07-42df-b698-e6f7b808c534",
+      "height": {
+        "mode": "asl",
+        "value": 81
+      },
       "kind": "light",
       "position": {
         "lon": 10.232429782113314,
@@ -2868,7 +3317,11 @@
       "label": ""
     },
     {
-      "id": "85f3c843-66a7-4ef7-a85a-a334142d0c65",
+      "id": "151a43c1-a371-4a75-9db7-5bd3c0e8093a",
+      "height": {
+        "mode": "asl",
+        "value": 18
+      },
       "kind": "light",
       "position": {
         "lon": 9.985045411278293,
@@ -2890,7 +3343,11 @@
       "label": ""
     },
     {
-      "id": "a705511b-7616-413c-be4f-ba2187d99699",
+      "id": "65362131-3e48-4438-82b2-4c013c787250",
+      "height": {
+        "mode": "asl",
+        "value": 33
+      },
       "kind": "light",
       "position": {
         "lon": 10.953937815099437,
@@ -2912,7 +3369,11 @@
       "label": ""
     },
     {
-      "id": "6c526a1a-0061-4f08-967d-31b8650dedc2",
+      "id": "255334b1-adf6-4e59-97be-25643eb96144",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": 10.338989347884848,
@@ -2934,7 +3395,11 @@
       "label": ""
     },
     {
-      "id": "db7e52a4-7f7f-428a-b8dc-2a054a824314",
+      "id": "d86373c6-a367-405c-99cb-1d17b72ba13c",
+      "height": {
+        "mode": "asl",
+        "value": 3
+      },
       "kind": "light",
       "position": {
         "lon": 11.222829482397032,
@@ -2956,7 +3421,11 @@
       "label": ""
     },
     {
-      "id": "ee2f01f8-54ea-45bc-842e-2f8122829991",
+      "id": "fe661064-2faf-4550-9999-968dff4fa8e5",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.38554108838295,
@@ -2978,7 +3447,11 @@
       "label": ""
     },
     {
-      "id": "b3ff215a-9424-4bcb-a7d1-2011ae08ce30",
+      "id": "a7689829-0b83-4492-9077-577984269a34",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385616562985076,
@@ -3000,7 +3473,11 @@
       "label": ""
     },
     {
-      "id": "d80e4885-ac08-40c0-8dc8-667a6ba2d869",
+      "id": "b894124e-3ebf-4555-aed9-a442c71fcb1f",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385671814127269,
@@ -3022,7 +3499,11 @@
       "label": ""
     },
     {
-      "id": "df33bb42-2428-416d-91f8-1bb1ac1b8425",
+      "id": "c1d44812-9770-4232-bd07-b4339a11b934",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385692037310596,
@@ -3044,7 +3525,11 @@
       "label": ""
     },
     {
-      "id": "86510b59-dd2f-4e37-be0f-2f85e8bae934",
+      "id": "12b66e48-05cf-41d7-a7ee-d5324281f7ef",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385671813850664,
@@ -3066,7 +3551,11 @@
       "label": ""
     },
     {
-      "id": "c8d8dda9-1702-49e0-ab47-c65c4a8f486b",
+      "id": "8f9b8825-eee4-40fe-8e0f-8aa90ae9f472",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385616562708469,
@@ -3088,7 +3577,11 @@
       "label": ""
     },
     {
-      "id": "92e6c271-3863-44a9-9521-e4f0510a539c",
+      "id": "6709ef8c-ad0c-4a5f-94d0-f0ee2ad5494a",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.38554108838295,
@@ -3110,7 +3603,11 @@
       "label": ""
     },
     {
-      "id": "1d6d8c1b-0938-42f0-a2dc-13c194c3f6e0",
+      "id": "435bd454-539c-4cc2-b3b8-31d978650549",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.38546561405743,
@@ -3132,7 +3629,11 @@
       "label": ""
     },
     {
-      "id": "21255fce-a0d8-464a-8366-8a3986b1bc97",
+      "id": "737b809e-45be-4ade-a2c1-b0449836cac3",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385410362915238,
@@ -3154,7 +3655,11 @@
       "label": ""
     },
     {
-      "id": "89e21c3c-052d-4f68-8b7b-284d862c6ccc",
+      "id": "d6acd638-e518-4e17-9b2c-13621529129e",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385390139455305,
@@ -3176,7 +3681,11 @@
       "label": ""
     },
     {
-      "id": "2aa25f84-185f-4448-b84e-d914d0e536a8",
+      "id": "20281ffd-cc74-47ea-a2a0-56438a878bde",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385410362638632,
@@ -3198,7 +3707,11 @@
       "label": ""
     },
     {
-      "id": "5f8f54a8-2add-4666-af78-e199f7692bbf",
+      "id": "887c5846-cfa7-43b1-b900-52dd3d89fd9d",
+      "height": {
+        "mode": "asl",
+        "value": 0.25
+      },
       "kind": "light",
       "position": {
         "lon": 10.385465613780823,
