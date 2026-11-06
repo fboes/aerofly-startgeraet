@@ -1,7 +1,8 @@
-import { Vector, type Point } from "@fboes/geojson";
 import { AeroflyPoiFiles, type AeroflyPoiLight, type AeroflyPoiXref } from "../../util/AeroflyPoiFiles.js";
 import { setLocationElevationFromApi } from "../../util/setElevation.js";
 import type { LocationExtended } from "../../util/Location.type.js";
+import { HemsMissionLocations } from "./HemsMissionLocations.js";
+import { Vector } from "@fboes/geojson";
 
 /**
  * @param slug
@@ -20,25 +21,20 @@ export function xrefFromLocations(locations: LocationExtended[]): AeroflyPoiXref
 }
 
 function xrefFromLocation(location: LocationExtended): AeroflyPoiXref[] {
-    // TODO: Currently this only maps emergency waypoints
     const direction = location.direction ?? 0;
+    const type = typeOfLocation(location);
     return [
         {
             position: location.position,
             direction,
-            name: "ambulance",
+            name: typeSwitch<string>(type, { emergency: "ambulance" }) ?? "helipad",
             label: label(location),
-        },
-        {
-            position: policeCarVector(location.position, direction),
-            direction,
-            name: "police_car",
         },
     ];
 }
 
 function label(location: LocationExtended): string | undefined {
-    const tags: string[] = [location.title ?? "", ...(location.tags ?? [])];
+    const tags: string[] = [location.title ?? "", ...(location.tags ?? []).map((tag) => `#${tag}`)];
 
     if (location.approaches) {
         tags.push(...location.approaches.map((a) => `#approach:+${a}`));
@@ -57,31 +53,48 @@ export function lightsFromLocations(locations: LocationExtended[]): AeroflyPoiLi
 }
 
 function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
-    // TODO: Currently this only maps emergency waypoints
-    const direction = location.direction ?? 0;
-    return [
-        {
-            position: location.position,
-            heightAdjust: 3,
-            color: [0, 0, 1],
-            flashing: [10, 0, 100, 0],
-            groupIndex: 3,
-        },
-        {
-            position: policeCarVector(location.position, direction),
-            heightAdjust: 1.7,
-            color: [0, 0, 1],
-            flashing: [20, 0, 100, 0],
-            groupIndex: 3,
-        },
-    ];
+    const type = typeOfLocation(location);
+    return (
+        typeSwitch<AeroflyPoiLight[]>(type, {
+            emergency: [
+                {
+                    position: location.position,
+                    heightAdjust: 3,
+                    color: [0, 0, 1],
+                    intensity: 100,
+                    flashing: [10, 0, 100, 0],
+                    groupIndex: 3,
+                },
+            ],
+        }) ??
+        [...Array(12).keys()].map(
+            (index: number): AeroflyPoiLight => ({
+                position: location.position.getPointBy(new Vector(10, index * 30)),
+                heightAdjust: 0.25,
+                color: [0, 1, 0],
+                flashing: [10, 0, 100, 0],
+                intensity: 500,
+                groupIndex: 3,
+            }),
+        )
+    );
 }
 
 // -----------------------------------------------------------------------------
 
-/**
- * @returns
- */
-function policeCarVector(point: Point, direction: number): Point {
-    return point.getPointBy(new Vector(7, direction));
+function typeOfLocation(location: LocationExtended): "emergency" | "hospital" | "heliport" {
+    if (
+        location.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL) ||
+        location.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL_HELIPORT)
+    ) {
+        return "hospital";
+    }
+    if (location.tags?.includes(HemsMissionLocations.TYPE_HELIPORT)) {
+        return "heliport";
+    }
+    return "emergency";
+}
+
+function typeSwitch<T>(typeOfLocation: string, returnValue: Record<string, T>): T | undefined {
+    return returnValue[typeOfLocation];
 }

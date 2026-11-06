@@ -1,0 +1,4114 @@
+{
+  "schemaVersion": 1,
+  "app": "pct",
+  "name": "startgeraet-hems-CN02",
+  "poiName": "startgeraet-hems-CN02",
+  "createdAt": "2026-11-06T13:03:21.541Z",
+  "modifiedAt": "2026-11-06T13:03:21.541Z",
+  "reference": null,
+  "camera": {},
+  "objects": [
+    {
+      "id": "1894a0f6-00c8-47f2-a8a2-a1508392ad45",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.50681134861225,
+        "lat": 37.783536231828364
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 282,
+      "scale": 1,
+      "label": "San Francisco VA Medical Center #hospital-JP #approach:+282 #approach:+102 #icao:CN02"
+    },
+    {
+      "id": "2807a308-1832-4e81-8f0e-47229d2d428d",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.47445745246182,
+        "lat": 37.80293680860956
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Fort Scott Field #icao:WP-001"
+    },
+    {
+      "id": "153a2d50-7531-49ce-86c9-ec5efffa361a",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.4808990184868,
+        "lat": 37.83313967504088
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Golden Gate Vista Point #icao:WP-002"
+    },
+    {
+      "id": "73c2fb83-ced8-4ee3-9604-1593b2641cd0",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.42143777266423,
+        "lat": 37.82594647665468
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Alcatraz #icao:CA27"
+    },
+    {
+      "id": "7ed33caa-cde1-4662-8383-9e456c212803",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.48946193028505,
+        "lat": 37.723233522830554
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Harding Park golf course #icao:WP-004"
+    },
+    {
+      "id": "304c962d-97c2-4a6a-aeea-b92dfae8a172",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.50250368541992,
+        "lat": 37.71450776952203
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Battery Davis #icao:WP-005"
+    },
+    {
+      "id": "68e48a41-619e-484d-93e7-d18ab78f3882",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.37532909515727,
+        "lat": 37.82981117099823
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Gateview Avenue #icao:WP-006"
+    },
+    {
+      "id": "b3a635e0-564d-49c3-b92f-3cb7691e0d0a",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.39043962568735,
+        "lat": 37.76666240592256
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 90,
+      "scale": 1,
+      "label": "ICSF Medial Center Mission Bay #hospital #approach:+90 #approach:+270 #icao:18CN"
+    },
+    {
+      "id": "ada874cf-a865-434e-a52c-596abd6d3f15",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.47232917030945,
+        "lat": 37.66657073444098
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Chinese Cemetery #icao:WP-008"
+    },
+    {
+      "id": "786d2681-3daf-4a9a-9900-e6086bbc444e",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.45996706572464,
+        "lat": 37.656573127297634
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Junipero Serra Freeway #road-accident #icao:WP-009"
+    },
+    {
+      "id": "c8b9d476-a9a0-43d4-a46e-f32edd98d74e",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.45523822252545,
+        "lat": 37.65667186784739
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Serra Vista School #icao:WP-010"
+    },
+    {
+      "id": "84b7f25e-282a-4e00-aee3-63c7b5de4ef7",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.39128110877542,
+        "lat": 37.69254167740718
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bayshore Freeway #road-accident #icao:WP-011"
+    },
+    {
+      "id": "079884cd-8dd0-4a77-b162-1e4f89fe8d25",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.36388397128653,
+        "lat": 37.81118887098165
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Oakland Bay Bridge #road-accident #icao:WP-012"
+    },
+    {
+      "id": "94560d02-d72d-4134-b830-ec55dc682c24",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.4351748840555,
+        "lat": 37.762660849867245
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Castro Street #rail-light #icao:WP-013"
+    },
+    {
+      "id": "aa72472d-c23a-4582-8a9b-d9fd8e84f451",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.42993143531159,
+        "lat": 37.76358496130557
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Everett Middle School #icao:WP-014"
+    },
+    {
+      "id": "8f927959-a568-49db-b6e1-e848a94590a9",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.40444127903888,
+        "lat": 37.77513850470348
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 135,
+      "scale": 1,
+      "label": "Hall of Justice #approach:+135 #approach:+315 #icao:CA26"
+    },
+    {
+      "id": "83e66260-2e23-4792-9150-8b96c4322c94",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.44679860312644,
+        "lat": 37.75486903407182
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Christmas Tree Point #icao:WP-016"
+    },
+    {
+      "id": "3a6a6463-4515-4897-97b0-ea0352b0a48e",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.45479444646111,
+        "lat": 37.75685815534176
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Christopher Drive #icao:WP-017"
+    },
+    {
+      "id": "95f44277-6a1d-4133-a8e7-c0d5af787a95",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.55463172714393,
+        "lat": 37.79668230571792
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "position near Point Bonita #ferry #icao:WP-018"
+    },
+    {
+      "id": "d71f9ae1-3a20-4aae-b448-ccac104c6e8a",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.53803845658578,
+        "lat": 37.85188828967411
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Tennessee Valley Trail #cricket #icao:WP-019"
+    },
+    {
+      "id": "88c20310-4b43-49e1-a926-defccdd355c8",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.32037481024958,
+        "lat": 37.82382676689478
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Radio Beach #icao:WP-020"
+    },
+    {
+      "id": "ab3b298f-8bb4-4c30-9ca6-10a783441105",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.54548533537792,
+        "lat": 37.861036100032265
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Haypress Campground #icao:WP-021"
+    },
+    {
+      "id": "938edfde-5bc8-458a-a9ac-83361ecd5e94",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.57662866145921,
+        "lat": 37.8597664426694
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Muir Beach #icao:WP-022"
+    },
+    {
+      "id": "880c27d9-b5be-4965-a9ab-1a11d6be6ceb",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.58241110487361,
+        "lat": 37.876021990345905
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Muir Valley Road #road-accident #icao:WP-023"
+    },
+    {
+      "id": "f798023e-7917-4c19-b352-f52fec897ed7",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.49916644793194,
+        "lat": 37.88553225091758
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Egret Way in Harbor Point #icao:WP-024"
+    },
+    {
+      "id": "04e1faee-1485-4f2e-b344-c3dfdcc996b8",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.42039923381034,
+        "lat": 37.862953722217014
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Fort McDowell #icao:WP-025"
+    },
+    {
+      "id": "1660692b-0220-42a1-be0d-ec5e58831f28",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.42873581653679,
+        "lat": 37.86336108799398
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Angle Island State Park #cricket #icao:WP-026"
+    },
+    {
+      "id": "3e40c3ce-e21d-4003-b1a8-cf8b8d802c9f",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.51258978241458,
+        "lat": 37.56452876232234
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Cabrillo Highway #road-accident #icao:WP-027"
+    },
+    {
+      "id": "26ac98eb-50c0-478a-8fed-06168d20ef76",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.49914181085835,
+        "lat": 37.719974065226225
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 350,
+      "scale": 1,
+      "label": "Police Pistol Range Heliport #approach:+350 #approach:+170 #icao:16CA"
+    },
+    {
+      "id": "abc12d2b-9c69-43c1-bd22-8286f1d82db8",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.38382217694004,
+        "lat": 37.591803125655886
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Mills Peninsula Medical Center #hospital #icao:CA36"
+    },
+    {
+      "id": "bd74adcb-29d0-4ee8-aed2-1b09a8d151d5",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.0892657798793,
+        "lat": 37.69897306985257
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 90,
+      "scale": 1,
+      "label": "Sutter Medical Center Castro Valley #hospital #approach:+90 #approach:+270 #icao:0CA1"
+    },
+    {
+      "id": "d1e62478-c7ad-48a1-bf69-9e5add6dc2bb",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -121.97821410211172,
+        "lat": 37.557487253878946
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 135,
+      "scale": 1,
+      "label": "Washington Hospital Fremont #hospital #approach:+135 #approach:+315 #icao:CL64"
+    },
+    {
+      "id": "d0d63f66-50d3-4a88-8463-010d75b0275f",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.2667695852445,
+        "lat": 37.83615324428712
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 80,
+      "scale": 1,
+      "label": "Children's Hospital Oakland  #hospital #approach:+80 #approach:+260 #icao:7CL1"
+    },
+    {
+      "id": "61093e33-7520-4c2e-aeea-de99048a0862",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.04162425988889,
+        "lat": 37.91285210158537
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 60,
+      "scale": 1,
+      "label": "John Muir Walnut Creek Medical Center #hospital #approach:+60 #approach:+240 #icao:CA63"
+    },
+    {
+      "id": "2695c45d-5147-48be-87b2-3f0e83f85655",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -122.29717855028133,
+        "lat": 38.32387994894668
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 90,
+      "scale": 1,
+      "label": "Queen Of The Valley Hospital #hospital #approach:+90 #approach:+270 #icao:CN14"
+    },
+    {
+      "id": "f4adb281-4e42-4338-9870-466d62bffee3",
+      "kind": "xref",
+      "name": "helipad",
+      "position": {
+        "lon": -121.88090048656166,
+        "lat": 37.694413416174555
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 45,
+      "scale": 1,
+      "label": "Stanford Health Care-Valleycare #hospital #approach:+45 #approach:+225 #icao:55CA"
+    },
+    {
+      "id": "d041b487-5115-4f33-8644-a2def8f2d0e6",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.92531969484634,
+        "lat": 38.03534714713544
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Sunshine Beach #cricket #icao:WP-036"
+    },
+    {
+      "id": "b23c39a4-86c7-4e30-8b04-3867c3fa5166",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.80244115475375,
+        "lat": 38.07035122947417
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "West Marin School, Point Reyes Station #icao:WP-037"
+    },
+    {
+      "id": "a55c4bcb-3abc-4738-b2d9-cec925a83337",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.90056810609019,
+        "lat": 38.16511830740262
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Cypress Grove #icao:WP-038"
+    },
+    {
+      "id": "90f1434b-2097-4f66-a014-8fe6914be79d",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.70560719402889,
+        "lat": 37.997347640594924
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Peters Dam #icao:WP-039"
+    },
+    {
+      "id": "c8c38d75-8ef3-45b1-b3c5-19341edca119",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.60983153076037,
+        "lat": 37.95918808678492
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bon Tempe Lake #icao:WP-040"
+    },
+    {
+      "id": "b496f400-170b-48e3-9e6b-ac35769182f9",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.49845844470582,
+        "lat": 37.920981900161905
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "San Clemente School #icao:WP-041"
+    },
+    {
+      "id": "71f4852d-c127-4cc8-93a3-892d27ea4174",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.41982387626376,
+        "lat": 37.68744126364534
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Guadelupe Valley Quarry #icao:WP-042"
+    },
+    {
+      "id": "6f1dd0fd-e3c9-485b-8449-1b8f42cab520",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.38623729579999,
+        "lat": 37.67465260832179
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "eBay Advertising #icao:WP-043"
+    },
+    {
+      "id": "e930c373-9831-4f33-b093-a0fdfb29ecec",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.23568651925041,
+        "lat": 37.5364877700667
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Redwood Shores Parkway #icao:WP-044"
+    },
+    {
+      "id": "9ba2018a-0059-4f9e-9451-bef3059e06ab",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.24201313444753,
+        "lat": 37.87261281667058
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Centennial Drive #icao:WP-045"
+    },
+    {
+      "id": "57e5a0ea-c1e3-449e-8048-19731397ea65",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.44464823173371,
+        "lat": 37.465129156435765
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Half Moon Bay beach #icao:WP-046"
+    },
+    {
+      "id": "2d5c9369-8b24-412a-b0e4-2a485c5af80c",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.37991924711324,
+        "lat": 37.51538408487788
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Antenna Test Range #icao:WP-047"
+    },
+    {
+      "id": "0a9e50e6-1861-40bc-93e1-d8faf6089304",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.08999774453744,
+        "lat": 37.4237270966874
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Google Campus West #icao:WP-048"
+    },
+    {
+      "id": "007a4dcd-c990-4f26-9fdc-0463c1e914a9",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -121.91859264663638,
+        "lat": 37.59829972071371
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Niles Canyon #icao:WP-049"
+    },
+    {
+      "id": "63803087-685a-4c84-8ba8-72af48f4d058",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.45069753359465,
+        "lat": 38.15504858534587
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 40,
+      "scale": 1,
+      "label": "Infineon Raceway #approach:+40 #approach:+220 #icao:CN06"
+    },
+    {
+      "id": "646f31ee-6463-4195-b2d9-342074ec5e12",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -122.45632899987486,
+        "lat": 38.158258968710356
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "direction": 45,
+      "scale": 1,
+      "label": "Sonoma Raceway #approach:+45 #approach:+225 #icao:CL85"
+    },
+    {
+      "id": "057dc910-529a-49bb-aff2-0813d7b936a5",
+      "kind": "light",
+      "position": {
+        "lon": -122.50681134861222,
+        "lat": 37.783626163988956
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "92d94b45-e36a-40eb-a81b-84dcea735feb",
+      "kind": "light",
+      "position": {
+        "lon": -122.50675445330863,
+        "lat": 37.78361411535037
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1fbc5825-6ccd-439f-9e7b-846db20ac117",
+      "kind": "light",
+      "position": {
+        "lon": -122.50671280309959,
+        "lat": 37.78358119786763
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c9bd6fb7-019d-44d7-ad95-61dabbe49113",
+      "kind": "light",
+      "position": {
+        "lon": -122.50669755812497,
+        "lat": 37.78353623177365
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "170c879a-6b5d-41db-960d-f9503077ef78",
+      "kind": "light",
+      "position": {
+        "lon": -122.50671280321951,
+        "lat": 37.78349126570703
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f9d73615-5afa-4a5d-b0e2-a98a3c22a702",
+      "kind": "light",
+      "position": {
+        "lon": -122.50675445342856,
+        "lat": 37.78345834827899
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "925c2ecb-6c50-4b3e-99ec-5cabfd4b0ad8",
+      "kind": "light",
+      "position": {
+        "lon": -122.50681134861222,
+        "lat": 37.783446299667766
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b92f0be4-b85e-4f94-bd24-69f15b36dd94",
+      "kind": "light",
+      "position": {
+        "lon": -122.5068682437959,
+        "lat": 37.78345834827899
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a1a41212-1d5f-42ce-9673-bf20e2ef1a87",
+      "kind": "light",
+      "position": {
+        "lon": -122.50690989400495,
+        "lat": 37.78349126570703
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4d3cccb1-37ad-4214-9f50-58beeaa6e764",
+      "kind": "light",
+      "position": {
+        "lon": -122.5069251390995,
+        "lat": 37.78353623177365
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "580d405c-2921-4412-a26f-51b9ccdbf89f",
+      "kind": "light",
+      "position": {
+        "lon": -122.50690989412486,
+        "lat": 37.78358119786763
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "7db1034a-3095-452b-b79f-34d69635df02",
+      "kind": "light",
+      "position": {
+        "lon": -122.5068682439158,
+        "lat": 37.78361411535037
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "ff8013f6-19ec-489a-8ce8-269f098dfbe9",
+      "kind": "light",
+      "position": {
+        "lon": -122.47445745246182,
+        "lat": 37.80293680860956
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "cc5e1407-5e50-4985-b0d6-fbf78efc0cb5",
+      "kind": "light",
+      "position": {
+        "lon": -122.4808990184868,
+        "lat": 37.83313967504088
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "15b7c9ba-dfbc-40ec-a744-c13acf32cb48",
+      "kind": "light",
+      "position": {
+        "lon": -122.42143777266423,
+        "lat": 37.82594647665468
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "baa94268-3d88-4bbf-9f47-6ee5ee481c34",
+      "kind": "light",
+      "position": {
+        "lon": -122.48946193028505,
+        "lat": 37.723233522830554
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "cf94c0d2-586a-400c-a727-e9a896599c1e",
+      "kind": "light",
+      "position": {
+        "lon": -122.50250368541992,
+        "lat": 37.71450776952203
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c311dbdd-4b63-4755-b911-c0215e91fa68",
+      "kind": "light",
+      "position": {
+        "lon": -122.37532909515727,
+        "lat": 37.82981117099823
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "51e6a25c-d82d-4c04-9a55-29fc8c3c86e7",
+      "kind": "light",
+      "position": {
+        "lon": -122.39043962568736,
+        "lat": 37.76675233808315
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "02c3c9d6-289d-48bd-a7bc-7c1f9527fc41",
+      "kind": "light",
+      "position": {
+        "lon": -122.39038274336787,
+        "lat": 37.76674028944459
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e6e019e2-144e-4bbe-8d35-a91d094c2f7b",
+      "kind": "light",
+      "position": {
+        "lon": -122.39034110266383,
+        "lat": 37.76670737196185
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d1c06203-dfc8-4b63-b3e6-f60a5f3cb721",
+      "kind": "light",
+      "position": {
+        "lon": -122.3903258611682,
+        "lat": 37.76666240586788
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e12679a7-1117-4138-9d57-bed1ed1c6111",
+      "kind": "light",
+      "position": {
+        "lon": -122.39034110278361,
+        "lat": 37.76661743980125
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d1389409-9f7c-4924-99b7-28641afcb543",
+      "kind": "light",
+      "position": {
+        "lon": -122.39038274348768,
+        "lat": 37.76658452237319
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d2a5ad13-f386-48a0-9a60-268d353b5607",
+      "kind": "light",
+      "position": {
+        "lon": -122.39043962568736,
+        "lat": 37.766572473761975
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "32e6ea27-2f27-4e4b-bc7a-03636c7440d7",
+      "kind": "light",
+      "position": {
+        "lon": -122.39049650788705,
+        "lat": 37.76658452237319
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f5840cfe-707b-48d9-8ec0-bfd2cb48a504",
+      "kind": "light",
+      "position": {
+        "lon": -122.39053814859112,
+        "lat": 37.76661743980125
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d6fbacbe-aa9e-46bb-9022-6b9eaebc2331",
+      "kind": "light",
+      "position": {
+        "lon": -122.39055339020655,
+        "lat": 37.76666240586788
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "47c8ff79-8363-4ef5-8cbe-24f32d760c6e",
+      "kind": "light",
+      "position": {
+        "lon": -122.39053814871092,
+        "lat": 37.76670737196185
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "7ec5ef3a-d21e-4322-bf93-8580711aa881",
+      "kind": "light",
+      "position": {
+        "lon": -122.39049650800686,
+        "lat": 37.76674028944459
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8136dabd-1968-4a20-a39b-6ca7d4116e0a",
+      "kind": "light",
+      "position": {
+        "lon": -122.47232917030945,
+        "lat": 37.66657073444098
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "076ad59d-69c0-40d0-a0fa-790548ac9afd",
+      "kind": "light",
+      "position": {
+        "lon": -122.45996706572464,
+        "lat": 37.656573127297634
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "00077566-f46b-4bfc-8373-daa263de615f",
+      "kind": "light",
+      "position": {
+        "lon": -122.45523822252545,
+        "lat": 37.65667186784739
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4b3d1fb3-9d3d-4a1b-bd33-b2dcf51d2c8f",
+      "kind": "light",
+      "position": {
+        "lon": -122.39128110877542,
+        "lat": 37.69254167740718
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f345d4c6-508d-4e0c-8cde-ddf5eb4f4c46",
+      "kind": "light",
+      "position": {
+        "lon": -122.36388397128653,
+        "lat": 37.81118887098165
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "102ddd8d-1378-4c2d-a933-19c2943195a6",
+      "kind": "light",
+      "position": {
+        "lon": -122.4351748840555,
+        "lat": 37.762660849867245
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "66adab81-646a-48cf-bd3b-947c905087cb",
+      "kind": "light",
+      "position": {
+        "lon": -122.42993143531159,
+        "lat": 37.76358496130557
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "aed2fcdd-0e7a-490e-a037-14d9bd8aef97",
+      "kind": "light",
+      "position": {
+        "lon": -122.40444127903888,
+        "lat": 37.77513850470348
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6d4ef91e-c61d-49f2-b194-34a0bea0e47c",
+      "kind": "light",
+      "position": {
+        "lon": -122.44679860312644,
+        "lat": 37.75486903407182
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6c33a1a2-5e27-43f7-bdf9-18eb2839e18d",
+      "kind": "light",
+      "position": {
+        "lon": -122.45479444646111,
+        "lat": 37.75685815534176
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0abc934e-4c03-4df8-8b7a-37bce4369b5f",
+      "kind": "light",
+      "position": {
+        "lon": -122.55463172714393,
+        "lat": 37.79668230571792
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c5b23474-cb89-42aa-a136-aa9df3ac8503",
+      "kind": "light",
+      "position": {
+        "lon": -122.53803845658578,
+        "lat": 37.85188828967411
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "fc4607e5-a1f4-49a7-93c1-ed1e1804afe5",
+      "kind": "light",
+      "position": {
+        "lon": -122.32037481024958,
+        "lat": 37.82382676689478
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4399138b-acb5-472b-914f-3f5c15e99e01",
+      "kind": "light",
+      "position": {
+        "lon": -122.54548533537792,
+        "lat": 37.861036100032265
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "413efeee-8fb0-40a7-a016-c737514d9a95",
+      "kind": "light",
+      "position": {
+        "lon": -122.57662866145921,
+        "lat": 37.8597664426694
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6bcff3c0-8996-4b77-9e69-9b3f7d2afcb1",
+      "kind": "light",
+      "position": {
+        "lon": -122.58241110487361,
+        "lat": 37.876021990345905
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "87c2e1ea-c965-499f-89ce-77db03372adc",
+      "kind": "light",
+      "position": {
+        "lon": -122.49916644793194,
+        "lat": 37.88553225091758
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "2b57c62e-f15f-42a1-8054-f2cfc9283191",
+      "kind": "light",
+      "position": {
+        "lon": -122.42039923381034,
+        "lat": 37.862953722217014
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "67df62ad-654a-4c29-89bb-de3c036ed9f7",
+      "kind": "light",
+      "position": {
+        "lon": -122.42873581653679,
+        "lat": 37.86336108799398
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "904cae4b-eb25-4e18-a384-b5989f9a1cb6",
+      "kind": "light",
+      "position": {
+        "lon": -122.51258978241458,
+        "lat": 37.56452876232234
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f98d4b7c-8bfe-4c46-a455-79cfdafd6dc8",
+      "kind": "light",
+      "position": {
+        "lon": -122.49914181085835,
+        "lat": 37.719974065226225
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "cf089a7f-428d-4784-aa80-bc53b9e3a955",
+      "kind": "light",
+      "position": {
+        "lon": -122.38382217694006,
+        "lat": 37.591893057816485
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8697b087-e296-459e-858a-8364a6a46cfb",
+      "kind": "light",
+      "position": {
+        "lon": -122.38376542853409,
+        "lat": 37.59188100917799
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "632e5f98-a463-414c-a951-3a9e99d1ba3d",
+      "kind": "light",
+      "position": {
+        "lon": -122.38372388586117,
+        "lat": 37.59184809169543
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "386d5a92-3c31-4c0b-ae63-b0a3e6bfba8b",
+      "kind": "light",
+      "position": {
+        "lon": -122.38370868024694,
+        "lat": 37.59180312560155
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8cd51ff1-024b-4164-85e6-0d28e92965a2",
+      "kind": "light",
+      "position": {
+        "lon": -122.38372388597995,
+        "lat": 37.591758159534834
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e7bf7d7c-5bb4-4f67-b70d-667dcba6f837",
+      "kind": "light",
+      "position": {
+        "lon": -122.38376542865286,
+        "lat": 37.59172524210662
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "ca515145-3b9a-4648-a80b-9038c63db3fe",
+      "kind": "light",
+      "position": {
+        "lon": -122.38382217694006,
+        "lat": 37.591713193495295
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "02925722-e831-48d7-96f9-209eaa8def8e",
+      "kind": "light",
+      "position": {
+        "lon": -122.38387892522724,
+        "lat": 37.59172524210662
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "2c048be2-093b-40af-9541-ed58fedc8e1a",
+      "kind": "light",
+      "position": {
+        "lon": -122.38392046790015,
+        "lat": 37.591758159534834
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9b560165-4897-4556-9bc6-359e28eaac50",
+      "kind": "light",
+      "position": {
+        "lon": -122.38393567363316,
+        "lat": 37.59180312560155
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b35f2642-9ce3-46bc-b05f-064566f1736c",
+      "kind": "light",
+      "position": {
+        "lon": -122.38392046801893,
+        "lat": 37.59184809169543
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a849a9e4-13cd-48c6-b597-e37892e2d1e7",
+      "kind": "light",
+      "position": {
+        "lon": -122.38387892534601,
+        "lat": 37.59188100917799
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b844c49c-6cd3-4a81-8b71-1a897b6bf9b7",
+      "kind": "light",
+      "position": {
+        "lon": -122.08926577987928,
+        "lat": 37.69906300201316
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "7f92c57d-2db0-4ed8-8661-bf3af7c63593",
+      "kind": "light",
+      "position": {
+        "lon": -122.08920894953644,
+        "lat": 37.69905095337462
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "72e0ba65-0f53-4ac1-9288-7b06579bc1cc",
+      "kind": "light",
+      "position": {
+        "lon": -122.08916734688178,
+        "lat": 37.69901803589196
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "91a11f9c-8e2d-4815-ade5-7a76de6eb2cb",
+      "kind": "light",
+      "position": {
+        "lon": -122.089152119313,
+        "lat": 37.69897306979802
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c7955bed-a377-45a8-a8bf-11451bd25ac1",
+      "kind": "light",
+      "position": {
+        "lon": -122.08916734700118,
+        "lat": 37.69892810373136
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d632117b-193d-4014-a570-7bb812927014",
+      "kind": "light",
+      "position": {
+        "lon": -122.08920894965587,
+        "lat": 37.69889518630325
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "239bc2d1-39cb-4632-8805-86074bf0b84a",
+      "kind": "light",
+      "position": {
+        "lon": -122.08926577987928,
+        "lat": 37.69888313769198
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b801c414-dc39-4267-8196-55d6e608493c",
+      "kind": "light",
+      "position": {
+        "lon": -122.08932261010273,
+        "lat": 37.69889518630325
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1612d904-bf8e-4319-b311-b560a5ff6220",
+      "kind": "light",
+      "position": {
+        "lon": -122.08936421275739,
+        "lat": 37.69892810373136
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "fde5b285-f676-4869-aa0e-dd96d03d99d3",
+      "kind": "light",
+      "position": {
+        "lon": -122.08937944044557,
+        "lat": 37.69897306979802
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0ef669f1-4569-491f-bbce-e1477ee8319d",
+      "kind": "light",
+      "position": {
+        "lon": -122.08936421287682,
+        "lat": 37.69901803589196
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0fcc9f34-6224-4b50-9684-46259b914231",
+      "kind": "light",
+      "position": {
+        "lon": -122.08932261022215,
+        "lat": 37.69905095337462
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8eb82413-e83c-45c6-835f-9281c6fd139a",
+      "kind": "light",
+      "position": {
+        "lon": -121.9782141021117,
+        "lat": 37.55757718603954
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "59e139ab-bf64-48e5-b77e-3c39b3632e1b",
+      "kind": "light",
+      "position": {
+        "lon": -121.97815737985016,
+        "lat": 37.55756513740108
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "3a95b106-b8f5-45e1-ac3e-3a5cf020ac98",
+      "kind": "light",
+      "position": {
+        "lon": -121.97811585631621,
+        "lat": 37.55753221991854
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9774e1b7-5c9d-4fb5-8f52-27f469b52b55",
+      "kind": "light",
+      "position": {
+        "lon": -121.97810065770722,
+        "lat": 37.55748725382468
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "45289cd1-faa4-4730-a72e-2b61e2767382",
+      "kind": "light",
+      "position": {
+        "lon": -121.97811585643477,
+        "lat": 37.55744228775795
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "026ed93a-1d3a-40fa-a716-7d1c85292b17",
+      "kind": "light",
+      "position": {
+        "lon": -121.97815737996874,
+        "lat": 37.55740937032969
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f561fad9-42c3-4a49-9705-67ddb5e91852",
+      "kind": "light",
+      "position": {
+        "lon": -121.9782141021117,
+        "lat": 37.55739732171836
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f07a79e0-0a9a-41b4-a92d-7cec213c9926",
+      "kind": "light",
+      "position": {
+        "lon": -121.9782708242547,
+        "lat": 37.55740937032969
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e1c0df68-6699-4f93-87c7-9ad431e462c3",
+      "kind": "light",
+      "position": {
+        "lon": -121.97831234778866,
+        "lat": 37.55744228775795
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "7dc657c5-11c9-4ace-ab7f-3c11434217d9",
+      "kind": "light",
+      "position": {
+        "lon": -121.97832754651621,
+        "lat": 37.55748725382468
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "7caf8003-a63b-4801-a0b1-84a162963979",
+      "kind": "light",
+      "position": {
+        "lon": -121.97831234790722,
+        "lat": 37.55753221991854
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "97d57d81-2937-4c6e-bb98-9ea56260f2ba",
+      "kind": "light",
+      "position": {
+        "lon": -121.97827082437327,
+        "lat": 37.55756513740108
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "dd27367d-4a87-4008-a686-cd42555a67a0",
+      "kind": "light",
+      "position": {
+        "lon": -122.2667695852445,
+        "lat": 37.83624317644772
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9c449cc9-41e3-4836-8237-07cbbe23c49c",
+      "kind": "light",
+      "position": {
+        "lon": -122.26671264938332,
+        "lat": 37.83623112780909
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4bc36ba2-5d04-44c7-88ea-6c359046c46e",
+      "kind": "light",
+      "position": {
+        "lon": -122.26667096948414,
+        "lat": 37.8361982103263
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a8a1c47e-f89e-4707-a362-f7fd6d4541fd",
+      "kind": "light",
+      "position": {
+        "lon": -122.26665571364234,
+        "lat": 37.8361532442323
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c489c8ed-dc9e-4c94-aed9-dec165e020bb",
+      "kind": "light",
+      "position": {
+        "lon": -122.26667096960438,
+        "lat": 37.8361082781657
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "093fb390-5aaa-4a76-9783-b08ed60e9acc",
+      "kind": "light",
+      "position": {
+        "lon": -122.26671264950352,
+        "lat": 37.83607536073772
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e16c6bd3-5c2f-4a6e-9015-b975d4c6a41e",
+      "kind": "light",
+      "position": {
+        "lon": -122.2667695852445,
+        "lat": 37.83606331212652
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b6eb0d50-f468-4277-89cc-6e689619ac92",
+      "kind": "light",
+      "position": {
+        "lon": -122.26682652098549,
+        "lat": 37.83607536073772
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "42408411-0d9f-4c32-beb2-3fd0ab36423c",
+      "kind": "light",
+      "position": {
+        "lon": -122.26686820088463,
+        "lat": 37.8361082781657
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "95a44eb3-1743-4c57-84ec-22a20b91ff6d",
+      "kind": "light",
+      "position": {
+        "lon": -122.26688345684667,
+        "lat": 37.8361532442323
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e3b2fadd-f7d8-4143-8d97-18a1465bd7a0",
+      "kind": "light",
+      "position": {
+        "lon": -122.26686820100485,
+        "lat": 37.8361982103263
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "3851ed46-700a-4992-9929-a02e83cae1e8",
+      "kind": "light",
+      "position": {
+        "lon": -122.26682652110568,
+        "lat": 37.83623112780909
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9f8772af-19c1-45ee-9928-40029bc257b5",
+      "kind": "light",
+      "position": {
+        "lon": -122.0416242598889,
+        "lat": 37.91294203374596
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "bfea314e-3624-48b5-a02a-5fd29aecdf3d",
+      "kind": "light",
+      "position": {
+        "lon": -122.04156726471774,
+        "lat": 37.912929985107326
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9a96d12a-1899-47eb-ad3d-7d06a8f2903d",
+      "kind": "light",
+      "position": {
+        "lon": -122.04152554140084,
+        "lat": 37.91289706762444
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "40190e7a-7542-43c2-b97b-6359140513cb",
+      "kind": "light",
+      "position": {
+        "lon": -122.04151026966727,
+        "lat": 37.912852101530405
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "af882748-0354-469d-88c4-4a85b669e368",
+      "kind": "light",
+      "position": {
+        "lon": -122.04152554152154,
+        "lat": 37.91280713546386
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "de298d91-a132-44bb-96b1-113a026730e9",
+      "kind": "light",
+      "position": {
+        "lon": -122.04156726483843,
+        "lat": 37.91277421803595
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "11f80a4b-1405-4ccf-916f-38b9b42d9e13",
+      "kind": "light",
+      "position": {
+        "lon": -122.0416242598889,
+        "lat": 37.91276216942479
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0f846ccb-2dd4-402b-a895-f0e830a33c64",
+      "kind": "light",
+      "position": {
+        "lon": -122.04168125493938,
+        "lat": 37.91277421803595
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "086e4550-e69d-40e4-82b1-549d9547cd18",
+      "kind": "light",
+      "position": {
+        "lon": -122.04172297825626,
+        "lat": 37.91280713546386
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0e9be00a-5735-427d-b2d1-e0aa0ea7f1a7",
+      "kind": "light",
+      "position": {
+        "lon": -122.04173825011051,
+        "lat": 37.912852101530405
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "00fa9626-103f-45f5-9213-b8fae6a56d38",
+      "kind": "light",
+      "position": {
+        "lon": -122.04172297837694,
+        "lat": 37.91289706762444
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "34c74085-e818-44f6-9083-88b4192ae742",
+      "kind": "light",
+      "position": {
+        "lon": -122.04168125506004,
+        "lat": 37.912929985107326
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a1a18207-7c83-4d88-b4b8-e28f49884de0",
+      "kind": "light",
+      "position": {
+        "lon": -122.29717855028134,
+        "lat": 38.323969881107274
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "5d92c3da-84fb-42a5-924d-cd88747d077f",
+      "kind": "light",
+      "position": {
+        "lon": -122.29712123339472,
+        "lat": 38.323957832468416
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "5e008dc8-b526-47b7-adb8-dd403fa6cab7",
+      "kind": "light",
+      "position": {
+        "lon": -122.29707927456666,
+        "lat": 38.323924914985135
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "922d59b4-fa16-4840-9161-f8dbba87fdf7",
+      "kind": "light",
+      "position": {
+        "lon": -122.29706391663125,
+        "lat": 38.32387994889089
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b778eb21-7628-47cf-81b8-f4a79193f78b",
+      "kind": "light",
+      "position": {
+        "lon": -122.2970792746898,
+        "lat": 38.32383498282454
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "5c9b5cd3-d860-4b92-8dea-39e33e6bfd24",
+      "kind": "light",
+      "position": {
+        "lon": -122.29712123351787,
+        "lat": 38.32380206539704
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "ce1acb94-0c6c-4251-ae15-1f6b31680466",
+      "kind": "light",
+      "position": {
+        "lon": -122.29717855028134,
+        "lat": 38.323790016786084
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1e01daf7-f7a5-4737-bd42-a043ce0fbe47",
+      "kind": "light",
+      "position": {
+        "lon": -122.2972358670448,
+        "lat": 38.32380206539704
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "70a1b9f5-7f48-4ed6-afe5-c620a2af79a3",
+      "kind": "light",
+      "position": {
+        "lon": -122.29727782587287,
+        "lat": 38.32383498282454
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0e9be994-879f-4a9e-837e-486b59258547",
+      "kind": "light",
+      "position": {
+        "lon": -122.29729318393143,
+        "lat": 38.32387994889089
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6e2d086d-db72-4cca-a199-11ea83e2b3e3",
+      "kind": "light",
+      "position": {
+        "lon": -122.29727782599603,
+        "lat": 38.323924914985135
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c30a7b44-ff76-4869-ab3a-44eae13b8d1e",
+      "kind": "light",
+      "position": {
+        "lon": -122.29723586716796,
+        "lat": 38.323957832468416
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4df2f325-79ef-47db-9b14-f09a312d5cf7",
+      "kind": "light",
+      "position": {
+        "lon": -121.88090048656166,
+        "lat": 37.694503348335154
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d2a44b0b-d5f8-4b5e-bb75-e767db6f9afa",
+      "kind": "light",
+      "position": {
+        "lon": -121.88084365971376,
+        "lat": 37.69449129969662
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "55bf9070-50b3-499e-951a-f172a38c3980",
+      "kind": "light",
+      "position": {
+        "lon": -121.88080205961758,
+        "lat": 37.69445838221396
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "2bcae02d-a68f-47b7-9347-2bc848045bad",
+      "kind": "light",
+      "position": {
+        "lon": -121.88078683298527,
+        "lat": 37.69441341612002
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "23306dd9-9515-41bf-afe9-944c5b65b938",
+      "kind": "light",
+      "position": {
+        "lon": -121.88080205973696,
+        "lat": 37.69436845005336
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6e13bfb7-dec8-4030-b112-61cdee1e5818",
+      "kind": "light",
+      "position": {
+        "lon": -121.88084365983315,
+        "lat": 37.69433553262523
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1e1368fb-027c-4fc7-a745-eca4a7e6c94f",
+      "kind": "light",
+      "position": {
+        "lon": -121.88090048656166,
+        "lat": 37.69432348401397
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "40dda35c-7010-4e4e-abda-35b9cbdcdfca",
+      "kind": "light",
+      "position": {
+        "lon": -121.88095731329017,
+        "lat": 37.69433553262523
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "71be2f20-604e-4593-b51d-e9642cc6afde",
+      "kind": "light",
+      "position": {
+        "lon": -121.88099891338635,
+        "lat": 37.69436845005336
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "08951027-7f1d-417b-9893-806d53e8f0fa",
+      "kind": "light",
+      "position": {
+        "lon": -121.88101414013806,
+        "lat": 37.69441341612002
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "17162017-219d-433c-acea-062f8cd24817",
+      "kind": "light",
+      "position": {
+        "lon": -121.88099891350574,
+        "lat": 37.69445838221396
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6c6359b0-cfec-4999-9b66-03114af4bfad",
+      "kind": "light",
+      "position": {
+        "lon": -121.88095731340957,
+        "lat": 37.69449129969662
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 500,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a667214f-e0c7-40ce-810d-f9b14ef295df",
+      "kind": "light",
+      "position": {
+        "lon": -122.92531969484634,
+        "lat": 38.03534714713544
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "65f9c151-9332-48da-a19a-3df19e1be425",
+      "kind": "light",
+      "position": {
+        "lon": -122.80244115475375,
+        "lat": 38.07035122947417
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "ef5ebed1-e60d-49d0-95fc-4ff776568879",
+      "kind": "light",
+      "position": {
+        "lon": -122.90056810609019,
+        "lat": 38.16511830740262
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "805bfa21-b1dd-469c-a4dc-0e33c178301e",
+      "kind": "light",
+      "position": {
+        "lon": -122.70560719402889,
+        "lat": 37.997347640594924
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d2e97d2d-2eb3-4859-ae2b-ac9431073cc7",
+      "kind": "light",
+      "position": {
+        "lon": -122.60983153076037,
+        "lat": 37.95918808678492
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "645fca8a-998a-4164-a1e0-8c1a5be17aef",
+      "kind": "light",
+      "position": {
+        "lon": -122.49845844470582,
+        "lat": 37.920981900161905
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1b8ab213-0bb4-4e72-a54b-034b3a6b221b",
+      "kind": "light",
+      "position": {
+        "lon": -122.41982387626376,
+        "lat": 37.68744126364534
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "31d2571b-ff74-44c3-944d-599b41d5d81e",
+      "kind": "light",
+      "position": {
+        "lon": -122.38623729579999,
+        "lat": 37.67465260832179
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0d83fe63-7381-47d1-8e9b-02c9c6fd7338",
+      "kind": "light",
+      "position": {
+        "lon": -122.23568651925041,
+        "lat": 37.5364877700667
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0e64fb4f-26c5-4a47-9512-c85de5b4f94b",
+      "kind": "light",
+      "position": {
+        "lon": -122.24201313444753,
+        "lat": 37.87261281667058
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "93a80949-b02a-480b-9d46-0cd08e1acd83",
+      "kind": "light",
+      "position": {
+        "lon": -122.44464823173371,
+        "lat": 37.465129156435765
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f5e5829b-a507-49fd-8087-ebfbb805d53d",
+      "kind": "light",
+      "position": {
+        "lon": -122.37991924711324,
+        "lat": 37.51538408487788
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "91ba9a2f-45ec-4e5d-be1a-707ca0f96338",
+      "kind": "light",
+      "position": {
+        "lon": -122.08999774453744,
+        "lat": 37.4237270966874
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d0763a80-ce29-4351-81b5-f35f2b80c90f",
+      "kind": "light",
+      "position": {
+        "lon": -121.91859264663638,
+        "lat": 37.59829972071371
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c4c73056-b4d3-47ba-ac5d-16cdecbbb418",
+      "kind": "light",
+      "position": {
+        "lon": -122.45069753359465,
+        "lat": 38.15504858534587
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "68c6f9c8-e0ae-47de-9bfb-15708ec5dd9b",
+      "kind": "light",
+      "position": {
+        "lon": -122.45632899987486,
+        "lat": 38.158258968710356
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 100,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    }
+  ]
+}

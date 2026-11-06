@@ -18,7 +18,7 @@ const LOCATION_EGEO: LocationExtended = {
 const DIR_FIXTURE_MISSION_GENERATOR = DIR_FIXTURE + "/mission-generator";
 
 describe("HemsMissionLocations", () => {
-    it("loads locations", { todo: true }, async () => {
+    it("loads locations", async () => {
         const locations = new HemsMissionLocations();
 
         assert.ok(locations);
@@ -26,21 +26,18 @@ describe("HemsMissionLocations", () => {
 
         const count = await locations.loadLocationsFile(LOCATION_EDHG, DIR_FIXTURE_MISSION_GENERATOR);
 
-        console.log(locations.getAllLocations());
         assert.strictEqual(count, 41);
 
         const allLocations = locations.getAllLocations();
         assert.strictEqual(allLocations.length, count, "Number of all locations matches number of all locations ;)");
 
         const allHospitals = locations.findAllHospitalLocations();
-        assert.ok(allHospitals.length < count);
+        assert.strictEqual(allHospitals.length, 6, "6 hospitals found");
         //console.log("Hospitals", allHospitals);
 
         const allEmergencies = locations.findAllEmergencyLocations();
-        assert.ok(allEmergencies.length < count);
+        assert.strictEqual(allEmergencies.length, 34, "34 emergency locations found");
         //console.log("Emergencies", allEmergencies);
-
-        assert.ok(allEmergencies.length + allHospitals.length <= count);
     });
 
     it("find a random emergency waypoints in a given distance range", { todo: true }, async () => {
@@ -55,7 +52,7 @@ describe("HemsMissionLocations", () => {
         //console.log(emergency);
     });
 
-    it("finds the closest hospital", { todo: true }, async () => {
+    it("finds the closest hospital", async () => {
         const locations = new HemsMissionLocations();
         await locations.loadLocationsFile(LOCATION_EDHG, DIR_FIXTURE_MISSION_GENERATOR);
 
@@ -66,7 +63,7 @@ describe("HemsMissionLocations", () => {
         //console.log(hospital);
     });
 
-    it("finds heliports", { todo: true }, async () => {
+    it("finds heliports", async () => {
         const locations = new HemsMissionLocations();
         await locations.loadLocationsFile(LOCATION_EGEO, DIR_FIXTURE_MISSION_GENERATOR);
 

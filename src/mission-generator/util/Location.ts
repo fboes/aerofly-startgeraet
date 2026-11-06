@@ -236,31 +236,22 @@ export function parsePctJsonToLocations(pctJson: unknown): LocationExtended[] {
             return o.label;
         })
         .map((o, index): LocationExtended => {
-            const position = asJSONObject(o.position);
-            const longitude = asJSONNumber(position.lon);
-            const latitude = asJSONNumber(position.lat);
+            const position = asJSONObject(o.position, "o.position");
+            const longitude = asJSONNumber(position.lon, "o.position.lon");
+            const latitude = asJSONNumber(position.lat, "o.position.lat");
 
-            /*
-       const height = asJSONObject(o.height);
-            const heightMode = asJSONString(o.mode);
+            const height = asJSONObject(o.height, "o.height");
+            const heightMode = o.mode ? asJSONString(o.mode, "o.mode") : undefined;
+            const elevation =
+                heightMode === "asl" && height.value ? asJSONNumber(height.value, "o.height.value") : undefined;
 
-            switch (spec.mode) {
-    case "asl":
-      return spec.value;
-    case "terrain":
-      return terrainAsl;
-    case "terrain-offset":
-      return terrainAsl === null ? null : terrainAsl + spec.offset;
-  }
-            const altitude = null;*/
+            const direction = asJSONNumber(o.direction, "o.direction");
 
-            const direction = asJSONNumber(o.direction);
-
-            const label = asJSONString(o.label);
+            const label = asJSONString(o.label, "o.label");
             const { title, tags, identifier, approaches } = splitLabel(label);
 
             return {
-                position: new Point(longitude, latitude),
+                position: new Point(longitude, latitude, elevation),
                 identifier: identifier ?? identifierFromNumber(index),
                 title,
                 tags,

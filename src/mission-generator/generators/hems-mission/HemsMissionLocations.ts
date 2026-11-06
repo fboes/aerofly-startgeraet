@@ -96,9 +96,9 @@ export class HemsMissionLocations {
     findAllEmergencyLocations(): LocationExtended[] {
         return this.locations.filter(
             (c) =>
-                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL) &&
-                c.tags?.includes(HemsMissionLocations.TYPE_HELIPORT) &&
-                c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL_HELIPORT),
+                !c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL) &&
+                !c.tags?.includes(HemsMissionLocations.TYPE_HELIPORT) &&
+                !c.tags?.includes(HemsMissionLocations.TYPE_HOSPITAL_HELIPORT),
         );
     }
 
