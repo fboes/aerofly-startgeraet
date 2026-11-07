@@ -7,12 +7,12 @@ import type { Point } from "@fboes/geojson";
 import { DIR_ASSETS } from "../core/util/directory.js";
 import type { LocationExtended } from "./util/Location.type.js";
 import { writeln, writeSuccess } from "../cli/formatter/writeCli.js";
-import { DIR_FIXTURE } from "../test/loadFixture.js";
-//import { setLocationElevationFromApi } from "./util/setElevation.js";
+//import { DIR_FIXTURE } from "../test/loadFixture.js";
+import { setLocationElevationFromApi } from "./util/setElevation.js";
 
 const paths = fs.glob([
     path.join(DIR_ASSETS, "mission-generator", "**", "*.geojson"),
-    path.join(DIR_FIXTURE, "mission-generator", "**", "*.geojson"),
+   // path.join(DIR_FIXTURE, "mission-generator", "**", "*.geojson"),
 ]);
 for await (const sourcePath of paths) {
     writeln("Converting " + styleText("blueBright", sourcePath) + "...");
@@ -20,8 +20,8 @@ for await (const sourcePath of paths) {
     const geoJson = JSON.parse(content);
     const locations = parseGeoJsonToLocations(geoJson);
 
-    //writeln("Setting elevation for " + styleText("blueBright", locations.length.toString()) + " locations...");
-    //wait setLocationElevationFromApi(locations);
+    writeln("Setting elevation for " + styleText("blueBright", locations.length.toString()) + " locations...");
+    await setLocationElevationFromApi(locations);
 
     const sourceDirectory = path.dirname(sourcePath);
     const poiName = path.basename(sourceDirectory).replace(/^[ew][0-9]+[ns][0-9]+_/, "");
@@ -35,6 +35,10 @@ writeSuccess("Done");
 // ---------------------------------------------------------------------------------------------------------------------
 
 async function writeFile(targetPath: string, locations: LocationExtended[], poiName: string = "pct") {
+    const baseLocation = locations[0];
+    if (!baseLocation) {
+        throw new Error("No locations found");
+    }
     await fs.writeFile(
         targetPath,
         JSON.stringify(
@@ -46,7 +50,11 @@ async function writeFile(targetPath: string, locations: LocationExtended[], poiN
                 createdAt: new Date(),
                 modifiedAt: new Date(),
                 reference: null,
-                camera: {},
+                camera: {
+                    lon: baseLocation.position.longitude,
+                    lat: baseLocation.position.latitude,
+                    zoom: 21,
+                },
                 objects: [
                     ...xrefFromLocations(locations).map((xref) => ({
                         id: uuid(),

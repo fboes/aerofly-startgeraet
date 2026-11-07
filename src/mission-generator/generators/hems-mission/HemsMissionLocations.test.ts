@@ -40,7 +40,7 @@ describe("HemsMissionLocations", () => {
         //console.log("Emergencies", allEmergencies);
     });
 
-    it("find a random emergency waypoints in a given distance range", { todo: true }, async () => {
+    it("find a random emergency waypoints in a given distance range", async () => {
         const locations = new HemsMissionLocations();
         await locations.loadLocationsFile(LOCATION_EDHG, DIR_FIXTURE_MISSION_GENERATOR);
 

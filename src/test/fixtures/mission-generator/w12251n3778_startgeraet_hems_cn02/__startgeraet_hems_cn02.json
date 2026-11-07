@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "app": "pct",
-  "name": "startgeraet-hems-CN02",
-  "poiName": "startgeraet-hems-CN02",
-  "createdAt": "2026-11-06T18:33:33.250Z",
-  "modifiedAt": "2026-11-06T18:33:33.250Z",
+  "name": "startgeraet_hems_cn02",
+  "poiName": "startgeraet_hems_cn02",
+  "createdAt": "2026-11-06T18:31:41.062Z",
+  "modifiedAt": "2026-11-06T18:31:41.062Z",
   "reference": null,
   "camera": {},
   "objects": [
     {
-      "id": "5c76d8ac-edf6-4921-87d6-dd3e70a45257",
+      "id": "430609e4-3ebb-4cf7-8cdb-4bf6b994b82b",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -18,14 +18,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 73
+        "value": 17
       },
       "direction": 282,
       "scale": 1,
       "label": "San Francisco VA Medical Center #hospital-JP #approach:282 #approach:102 #icao:CN02"
     },
     {
-      "id": "309e0b4d-3e26-4e28-aca2-f00dd5996d2b",
+      "id": "532b83ff-ebcb-4678-814c-b30ab5372089",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -34,14 +34,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 67
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Fort Scott Field #icao:WP-001"
     },
     {
-      "id": "e779370a-12c1-420d-b130-6b4e7e745967",
+      "id": "65d36353-ba3b-49ad-bf69-1c3e04c9c789",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -50,14 +50,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 21
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Golden Gate Vista Point #icao:WP-002"
     },
     {
-      "id": "1c502b83-73d1-4364-930f-32a288984ccc",
+      "id": "6f01e40d-6b29-4f44-9fd3-c914603d3211",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -66,14 +66,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 22
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Alcatraz #icao:CA27"
     },
     {
-      "id": "85ba32dd-fd0c-4b9b-ae30-ab1dcfbbffee",
+      "id": "f94e4802-b9a5-4fc0-9c05-47f6275e5900",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -82,14 +82,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 52
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Harding Park golf course #icao:WP-004"
     },
     {
-      "id": "afde7bcc-3db8-4dc8-954c-15587ea76c7f",
+      "id": "ac08687b-dd22-45c7-8171-6f20e4ed2c37",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -98,14 +98,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 8
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Battery Davis #icao:WP-005"
     },
     {
-      "id": "c12f6503-dbd6-423f-9f5b-1b7c18e904c9",
+      "id": "a2a2601b-6d47-49c6-bc74-784038d579ad",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -114,14 +114,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 10
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Gateview Avenue #icao:WP-006"
     },
     {
-      "id": "0eadfb78-162a-42db-8e4b-21c132aa9729",
+      "id": "5cc00b0c-de30-491c-acc1-d59dbe3fd1a2",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -130,14 +130,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 142
+        "value": 1
       },
       "direction": 90,
       "scale": 1,
       "label": "ICSF Medial Center Mission Bay #hospital #approach:90 #approach:270 #icao:18CN"
     },
     {
-      "id": "cc6a3668-0656-417f-a114-503ba0f80f35",
+      "id": "9bd72800-6eef-408a-a15a-464ec0b2c834",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -146,14 +146,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 123
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Chinese Cemetery #icao:WP-008"
     },
     {
-      "id": "4a861574-a785-4646-9a94-3d6b26cc22e1",
+      "id": "c54bafb9-1b66-4daf-ba34-e0f885416fd3",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -162,14 +162,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 92
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Junipero Serra Freeway #road-accident #icao:WP-009"
     },
     {
-      "id": "a822c3f1-6a56-46be-9e3c-bc0824eeac62",
+      "id": "f98a1021-7059-479e-9d43-b163871cc04c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -178,14 +178,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 5
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Serra Vista School #icao:WP-010"
     },
     {
-      "id": "54f635d4-7795-4bea-bdd5-8d313491b5e7",
+      "id": "40158aee-1364-4223-879e-20f48c3668ed",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -194,14 +194,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 56
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Bayshore Freeway #road-accident #icao:WP-011"
     },
     {
-      "id": "e772c15b-f0c3-437b-b973-469a9ae048fd",
+      "id": "d1501f9f-3a0f-4933-8471-ac3e816d259f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -210,14 +210,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 59
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Oakland Bay Bridge #road-accident #icao:WP-012"
     },
     {
-      "id": "b56d6ebf-fb69-438f-851a-6ce345aab377",
+      "id": "49bfba10-dd89-4683-88e0-0aed79f135ba",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -226,14 +226,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 35
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Castro Street #rail-light #icao:WP-013"
     },
     {
-      "id": "d0210515-a7f4-4945-ab9f-564d85701355",
+      "id": "8f20c410-7133-40d3-9aee-6709b93b6867",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -242,14 +242,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 26
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Everett Middle School #icao:WP-014"
     },
     {
-      "id": "6deaaa99-9f17-45b1-935d-2880fd68364d",
+      "id": "98b29356-c02a-41e7-b91e-9ff228b0d6e7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -258,14 +258,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 262
+        "value": 1
       },
       "direction": 135,
       "scale": 1,
       "label": "Hall of Justice #approach:135 #approach:315 #icao:CA26"
     },
     {
-      "id": "05112844-5876-4315-979f-eb66363ba874",
+      "id": "c08f0fbd-0c2c-4035-9a97-b70d64fe1d31",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -274,14 +274,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 227
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Christmas Tree Point #icao:WP-016"
     },
     {
-      "id": "1ecbc36b-468b-4909-93e1-ac3cc04b97ef",
+      "id": "8afd1069-e91f-4973-b79f-96422e9347a4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -297,7 +297,7 @@
       "label": "Christopher Drive #icao:WP-017"
     },
     {
-      "id": "2bf51493-2e1d-466a-a1aa-6dc31276ca6f",
+      "id": "d0d6ade2-2072-4e81-82e8-d62afadbff93",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -306,14 +306,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 45
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "position near Point Bonita #ferry #icao:WP-018"
     },
     {
-      "id": "3905f7ff-19d2-4122-9abd-7ec4e02c799f",
+      "id": "c01153d6-9085-4c08-a6af-be4e1421b3b0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -322,14 +322,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 10
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Tennessee Valley Trail #cricket #icao:WP-019"
     },
     {
-      "id": "98696a09-0b64-4d33-a1a6-300810552d4d",
+      "id": "69e1e6d5-dddb-4077-b0b4-4eee0e58af4b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -338,14 +338,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 91
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Radio Beach #icao:WP-020"
     },
     {
-      "id": "de3262fa-4766-428d-9fb2-23250984589a",
+      "id": "6f812e42-7fc4-4e63-ac82-f49f471ff443",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -354,14 +354,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 7
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Haypress Campground #icao:WP-021"
     },
     {
-      "id": "d714d6f4-afe2-4122-bdae-e88d3d4b0ba1",
+      "id": "18d03e43-ddd0-45c0-9843-8de47c84ffe5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -370,14 +370,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 26
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Muir Beach #icao:WP-022"
     },
     {
-      "id": "7d446e23-2f33-42c9-beba-9fc91e1dccb5",
+      "id": "7f00ee7f-252a-4985-b889-85f111064d5c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -386,14 +386,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 8
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Muir Valley Road #road-accident #icao:WP-023"
     },
     {
-      "id": "913dd82a-9f60-45cb-95cb-23de8b4a4764",
+      "id": "79052610-d1d8-463f-98b3-ed4b003d795d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -402,14 +402,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 13
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Egret Way in Harbor Point #icao:WP-024"
     },
     {
-      "id": "fda28f39-d60d-4f9d-9224-268e7174feb9",
+      "id": "4f90b500-3e92-444a-a8c4-352e09e838d6",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -418,14 +418,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 181
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Fort McDowell #icao:WP-025"
     },
     {
-      "id": "9131a5bb-0ed2-4bc9-8d0b-6fd0b13212e8",
+      "id": "d85108ac-a4c4-4904-b75d-a6d0139d77f5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -434,14 +434,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 46
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Angle Island State Park #cricket #icao:WP-026"
     },
     {
-      "id": "a977ab9a-b4b7-43fd-8716-77f8dacad775",
+      "id": "577978cf-fd91-40a1-a219-c9515bdec477",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -450,14 +450,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 11
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Cabrillo Highway #road-accident #icao:WP-027"
     },
     {
-      "id": "be3039aa-0dbc-498b-b2b8-8dc7f694ff14",
+      "id": "3f28e22d-6978-4bbc-b9d8-e4a03267a5fd",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -466,14 +466,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 40
+        "value": 1
       },
       "direction": 350,
       "scale": 1,
       "label": "Police Pistol Range Heliport #approach:350 #approach:170 #icao:16CA"
     },
     {
-      "id": "66c01787-d908-4be9-9e7f-4b4855d72fcd",
+      "id": "9008ccc8-12cd-4709-8379-a0a9a2e9ba3b",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -482,14 +482,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 77
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Mills Peninsula Medical Center #hospital #icao:CA36"
     },
     {
-      "id": "8b93c877-8e7f-4538-8231-667c2751ee5a",
+      "id": "91eda3ff-2c9c-4491-a5f7-6239fdf798f5",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -498,14 +498,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 21
+        "value": 1
       },
       "direction": 90,
       "scale": 1,
       "label": "Sutter Medical Center Castro Valley #hospital #approach:90 #approach:270 #icao:0CA1"
     },
     {
-      "id": "a7ed13af-6266-4bd7-91f0-361edeb1a82d",
+      "id": "bc5fb187-80c5-485b-8359-e06eed4e11ec",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -514,14 +514,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 39
+        "value": 1
       },
       "direction": 135,
       "scale": 1,
       "label": "Washington Hospital Fremont #hospital #approach:135 #approach:315 #icao:CL64"
     },
     {
-      "id": "70ef02f8-33a4-44ea-9a7a-732918cd4ccc",
+      "id": "6073add4-b0ac-4dd7-b19e-ae659a5325e7",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -530,14 +530,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 68
+        "value": 1
       },
       "direction": 80,
       "scale": 1,
       "label": "Children's Hospital Oakland  #hospital #approach:80 #approach:260 #icao:7CL1"
     },
     {
-      "id": "66d9dcff-31ee-40ca-b531-bc75839d27b0",
+      "id": "a60f0fdc-d504-40ea-ae84-e12dba87b583",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -546,14 +546,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 22
+        "value": 1
       },
       "direction": 60,
       "scale": 1,
       "label": "John Muir Walnut Creek Medical Center #hospital #approach:60 #approach:240 #icao:CA63"
     },
     {
-      "id": "7fec89d8-298a-4988-b0af-5e8d8ac1f178",
+      "id": "88b50bb4-dfeb-41ad-b775-b53b01f5e4f3",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -562,14 +562,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 108
+        "value": 1
       },
       "direction": 90,
       "scale": 1,
       "label": "Queen Of The Valley Hospital #hospital #approach:90 #approach:270 #icao:CN14"
     },
     {
-      "id": "3a4dee04-a1e0-43f6-a762-ee16bb95d9d7",
+      "id": "79ed21d6-bf47-4c7e-ad43-cd4c4c343c08",
       "kind": "xref",
       "name": "helipad",
       "position": {
@@ -578,14 +578,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 6
+        "value": 1
       },
       "direction": 45,
       "scale": 1,
       "label": "Stanford Health Care-Valleycare #hospital #approach:45 #approach:225 #icao:55CA"
     },
     {
-      "id": "c058c4b9-d73b-4bfe-8314-d7b608d60fb3",
+      "id": "1b864d81-2e08-437a-9541-1bbb9dbf93fa",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -594,14 +594,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 25
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Sunshine Beach #cricket #icao:WP-036"
     },
     {
-      "id": "056cf548-9985-40d4-aa12-03d38210c5e6",
+      "id": "523b2ad5-3a99-4b8a-bb80-c5a83feaa6e1",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -610,14 +610,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 10
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "West Marin School, Point Reyes Station #icao:WP-037"
     },
     {
-      "id": "2bbcf514-3582-4751-bc89-e68250e3996c",
+      "id": "c431f01a-1750-4ea9-b0b2-864447504da2",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -626,14 +626,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 132
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Cypress Grove #icao:WP-038"
     },
     {
-      "id": "837a5d66-dc0f-4834-bd20-dfbb059fad85",
+      "id": "e17d6e96-81c3-4c26-b881-f1282e771995",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -642,14 +642,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 219
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Peters Dam #icao:WP-039"
     },
     {
-      "id": "df6b2f04-e406-41b9-b994-74eefd53e694",
+      "id": "dcf88a08-44da-484b-a1d2-903e6441edb4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -658,14 +658,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 11
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Bon Tempe Lake #icao:WP-040"
     },
     {
-      "id": "1f492ac7-2397-4e5e-b8ee-9e28c263ef85",
+      "id": "255d30e5-0078-43ea-9abb-204a6caee05b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -674,14 +674,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 65
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "San Clemente School #icao:WP-041"
     },
     {
-      "id": "df5e9163-b223-440d-bf39-33084af5b06d",
+      "id": "f144fca0-8095-41f8-bbc8-490cafc4546f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -690,14 +690,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 17
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Guadelupe Valley Quarry #icao:WP-042"
     },
     {
-      "id": "c5b0a46d-8bcb-4405-86ba-1a0e7c18afeb",
+      "id": "1f3c6f23-c399-4500-bcbe-c8e7b354e408",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -706,14 +706,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 12
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "eBay Advertising #icao:WP-043"
     },
     {
-      "id": "616ba653-633b-4cfa-9f6d-7bf520877b3f",
+      "id": "24649896-5826-499c-b192-68e6a5a341c2",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -722,14 +722,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 190
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Redwood Shores Parkway #icao:WP-044"
     },
     {
-      "id": "27beb393-b701-49f8-8e53-1a9847d96731",
+      "id": "319fe634-3f8e-48de-803a-1f149af4a838",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -738,14 +738,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 18
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Centennial Drive #icao:WP-045"
     },
     {
-      "id": "7dbc1a44-55a4-4d3e-a8ea-f11e26dcbab0",
+      "id": "ffc857ab-611c-49df-87be-bbfc613587a0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -754,14 +754,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 331
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Half Moon Bay beach #icao:WP-046"
     },
     {
-      "id": "630928b0-9f23-4de7-8400-3650d1a5ab06",
+      "id": "d953ab65-6c47-4d90-953f-d0ff5ea92a98",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -770,14 +770,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 11
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Antenna Test Range #icao:WP-047"
     },
     {
-      "id": "b7079be9-185d-4ddf-aaab-4f4597d6aae9",
+      "id": "0258ade4-a553-4d77-a384-73c521eb2da7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -786,14 +786,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 83
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Google Campus West #icao:WP-048"
     },
     {
-      "id": "8dcfc0bb-b70a-45f4-a69b-aa527e23a587",
+      "id": "d67df80f-8629-4618-b485-8f0b256c259d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -802,14 +802,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 32
+        "value": 1
       },
       "direction": 0,
       "scale": 1,
       "label": "Niles Canyon #icao:WP-049"
     },
     {
-      "id": "8dde5369-1ba1-4790-a152-543effff02d7",
+      "id": "dbee8424-3889-41e6-9636-264e69e11b53",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -818,14 +818,14 @@
       },
       "height": {
         "mode": "asl",
-        "value": 31
+        "value": 1
       },
       "direction": 40,
       "scale": 1,
       "label": "Infineon Raceway #approach:40 #approach:220 #icao:CN06"
     },
     {
-      "id": "75aec19c-10d8-4699-b02e-f42fc1fc7519",
+      "id": "acd24d9d-c5af-49c7-bc57-e8c9ad4dc0a7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -841,10 +841,10 @@
       "label": "Sonoma Raceway #approach:45 #approach:225 #icao:CL85"
     },
     {
-      "id": "c04ab080-02bb-4692-ab10-edee7d786171",
+      "id": "21c8bdbb-36fd-486e-9349-324b19709d01",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -867,10 +867,10 @@
       "label": ""
     },
     {
-      "id": "04b1d163-3c88-4ab7-989e-aebb3429b885",
+      "id": "6982674b-d6b8-41ec-841f-b9671f7328e2",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -893,10 +893,10 @@
       "label": ""
     },
     {
-      "id": "009ee75b-00ba-4564-9ec8-f9b3bd9ecbb6",
+      "id": "50b3be60-a863-40d4-b983-3724d41cd6be",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -919,10 +919,10 @@
       "label": ""
     },
     {
-      "id": "e399db7c-a5fb-44b3-be00-f4c84bfc0fb9",
+      "id": "ff4e9518-67a5-4386-83d8-bdd283f48df0",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -945,10 +945,10 @@
       "label": ""
     },
     {
-      "id": "24e8c4e2-187a-464d-9e18-6516b25704ce",
+      "id": "855e6ed5-d870-4da1-8c22-4fb300972bff",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -971,10 +971,10 @@
       "label": ""
     },
     {
-      "id": "5a950f12-6be9-45c4-b761-2d2df15ab074",
+      "id": "19753846-8506-41ed-8c38-a81fb71a7b28",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -997,10 +997,10 @@
       "label": ""
     },
     {
-      "id": "5e671cba-1c30-469c-91e9-6e439db32f07",
+      "id": "80396605-5722-4d0e-bdb0-dc3678f1c57e",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -1023,10 +1023,10 @@
       "label": ""
     },
     {
-      "id": "97989a0d-db78-4802-9707-44afa64d76a4",
+      "id": "133a068c-1f98-4be8-9dc8-3f22c74602ea",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -1049,10 +1049,10 @@
       "label": ""
     },
     {
-      "id": "c10eded0-5bc7-42bd-8169-23ad655cd0c7",
+      "id": "cffe47cb-f030-419b-915a-16f4b206ba47",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -1075,10 +1075,10 @@
       "label": ""
     },
     {
-      "id": "a8e1dfbe-39a0-4df7-a3ce-4e7bdf73ab8e",
+      "id": "a7a1698e-d745-434c-8318-46489dfcb284",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -1101,10 +1101,10 @@
       "label": ""
     },
     {
-      "id": "7f278291-7ecb-4f55-b297-7cd55e5908ed",
+      "id": "e9c49bd5-026e-400c-9c1c-140a3f7b0f1f",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -1127,10 +1127,10 @@
       "label": ""
     },
     {
-      "id": "bc0b4afb-66cb-4bc0-a32b-9f9980c0adf3",
+      "id": "cbc5405b-881c-4b93-8b0c-d7191eb7b680",
       "height": {
         "mode": "asl",
-        "value": 72.25
+        "value": 16.25
       },
       "kind": "light",
       "position": {
@@ -1153,10 +1153,10 @@
       "label": ""
     },
     {
-      "id": "d0a0ac5b-b759-4fe6-98ab-b7525ce9febe",
+      "id": "75c120b0-e4fe-4d13-bb29-cd7c1f7a8523",
       "height": {
         "mode": "asl",
-        "value": 69
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1179,10 +1179,10 @@
       "label": ""
     },
     {
-      "id": "f0002e88-24a4-4eb2-905c-559e10e0b1d4",
+      "id": "5ffdd485-3458-424e-99b3-ca87105383ba",
       "height": {
         "mode": "asl",
-        "value": 23
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1205,10 +1205,10 @@
       "label": ""
     },
     {
-      "id": "f1402fa0-98b6-490f-a901-0e186cb6a9e0",
+      "id": "0ec15e74-80d4-4f51-a1ed-51b807e67e8c",
       "height": {
         "mode": "asl",
-        "value": 24
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1231,10 +1231,10 @@
       "label": ""
     },
     {
-      "id": "c38c362a-6e5c-4f91-ac74-13e64b293a08",
+      "id": "628edb83-b9eb-4d39-b4cf-cfed693abae0",
       "height": {
         "mode": "asl",
-        "value": 54
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1257,10 +1257,10 @@
       "label": ""
     },
     {
-      "id": "f8757b3e-d861-4f97-984e-ceac2ae24370",
+      "id": "19c7f965-29ac-4586-bc74-1f1b029c78e6",
       "height": {
         "mode": "asl",
-        "value": 10
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1283,10 +1283,10 @@
       "label": ""
     },
     {
-      "id": "6a40c4c4-9bd3-4522-86d3-81453e0f6abc",
+      "id": "11731082-0a93-4d48-8390-2aac963e56ca",
       "height": {
         "mode": "asl",
-        "value": 12
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1309,10 +1309,10 @@
       "label": ""
     },
     {
-      "id": "c2fdab22-d2d1-47e1-ba9c-f1dfacad761e",
+      "id": "80e67f59-bb77-4992-a460-1009b0d3838e",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1335,10 +1335,10 @@
       "label": ""
     },
     {
-      "id": "7c009370-94af-448d-8555-d44d90a971be",
+      "id": "d967a5fe-ddaf-433f-a2a4-6e12d5d1334e",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1361,10 +1361,10 @@
       "label": ""
     },
     {
-      "id": "23f7136b-6b8b-4766-8a31-e36a0af44751",
+      "id": "3319912d-0d64-4afc-96b8-46c4d9dc24ec",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1387,10 +1387,10 @@
       "label": ""
     },
     {
-      "id": "e66ebd78-13a4-421c-9058-f5bf4d28ae89",
+      "id": "6b4edb37-4792-4991-ba42-21b4c9492454",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1413,10 +1413,10 @@
       "label": ""
     },
     {
-      "id": "d458ddf2-fef7-43bd-9a9d-357621e6566e",
+      "id": "e366c85b-fa10-4ba8-9ae8-604bc389a899",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1439,10 +1439,10 @@
       "label": ""
     },
     {
-      "id": "81821d30-201f-4458-84f5-3237a9aa00b5",
+      "id": "20b78551-786e-4906-8e33-f6cd8266df7c",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1465,10 +1465,10 @@
       "label": ""
     },
     {
-      "id": "9b3996a9-2320-4bd2-8fb0-e1a5e595aa9c",
+      "id": "06508322-54c8-46a3-a161-668504914c38",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1491,10 +1491,10 @@
       "label": ""
     },
     {
-      "id": "41490d6f-ce81-4b6a-a46c-bf28f8ef1d36",
+      "id": "b5b36774-7a30-41a5-9269-20e57fb19a79",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1517,10 +1517,10 @@
       "label": ""
     },
     {
-      "id": "fa152c9b-212a-4dd2-bd39-a1509b242ed5",
+      "id": "f95d9ca2-c77c-41e3-93dc-4352d65cea61",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1543,10 +1543,10 @@
       "label": ""
     },
     {
-      "id": "3b6305a8-4414-4147-a60f-dc5c8309f727",
+      "id": "f86f529d-cdf1-4d00-96a1-3427c1747d42",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1569,10 +1569,10 @@
       "label": ""
     },
     {
-      "id": "2f6f6655-717d-461d-b658-7ed10f922e50",
+      "id": "00a0a430-cf93-4615-b00a-9a7480d84024",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1595,10 +1595,10 @@
       "label": ""
     },
     {
-      "id": "4c512d05-905a-4f0c-95da-248f65db10a8",
+      "id": "9f0fda40-24c0-4983-9252-4079cc9be09a",
       "height": {
         "mode": "asl",
-        "value": 141.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -1621,10 +1621,10 @@
       "label": ""
     },
     {
-      "id": "fd75eb8e-e722-4f0f-9141-90db420021c5",
+      "id": "4ef49286-4ebd-4332-b7ac-b710b660cbb5",
       "height": {
         "mode": "asl",
-        "value": 125
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1647,10 +1647,10 @@
       "label": ""
     },
     {
-      "id": "c87e1855-7511-43c3-b3cc-2633858e13bb",
+      "id": "17f5114a-8cea-41c8-b1bd-14300ccfb48b",
       "height": {
         "mode": "asl",
-        "value": 94
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1673,10 +1673,10 @@
       "label": ""
     },
     {
-      "id": "eaa65cd3-13b7-4de1-bad1-b37b77b1a9e9",
+      "id": "76155b03-7369-4e88-b0a3-4f7bbc2c6dec",
       "height": {
         "mode": "asl",
-        "value": 7
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1699,10 +1699,10 @@
       "label": ""
     },
     {
-      "id": "094129cd-bc25-4646-a6c9-ac55daf05959",
+      "id": "58a6af88-e512-4a34-b561-3d0584359a89",
       "height": {
         "mode": "asl",
-        "value": 58
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1725,10 +1725,10 @@
       "label": ""
     },
     {
-      "id": "de61fbc5-2edd-40e0-a75f-029259a7d287",
+      "id": "2c2639e6-f176-419d-9c3f-ea4fc285633e",
       "height": {
         "mode": "asl",
-        "value": 61
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1751,10 +1751,10 @@
       "label": ""
     },
     {
-      "id": "80575240-1e33-4183-bf3a-b5588493d4b5",
+      "id": "2fc5b1e3-450a-4d92-9759-8faa7664bd5b",
       "height": {
         "mode": "asl",
-        "value": 37
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1777,10 +1777,10 @@
       "label": ""
     },
     {
-      "id": "3f97dc8e-29ea-48cc-9c98-ec6f03d6a13a",
+      "id": "6f29da22-101a-4e0f-961e-23602286b75f",
       "height": {
         "mode": "asl",
-        "value": 28
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1803,10 +1803,10 @@
       "label": ""
     },
     {
-      "id": "15abf7b6-2216-4668-b745-efded2576aec",
+      "id": "71610fef-1bf1-45d3-94eb-9c69f47a3183",
       "height": {
         "mode": "asl",
-        "value": 264
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1829,10 +1829,10 @@
       "label": ""
     },
     {
-      "id": "05656772-36e1-4f80-bbea-dcca4e1260bb",
+      "id": "fa0442e7-bd5b-417f-a767-91a9b2901255",
       "height": {
         "mode": "asl",
-        "value": 229
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1855,7 +1855,7 @@
       "label": ""
     },
     {
-      "id": "c9ef6462-cc40-4053-893c-466d9cc17d71",
+      "id": "00f0e823-79b0-4e15-b0aa-dd02ab41a866",
       "height": {
         "mode": "asl",
         "value": 3
@@ -1881,10 +1881,10 @@
       "label": ""
     },
     {
-      "id": "ff3c130a-f649-46c0-ada2-074c56043ef7",
+      "id": "91221fac-d88e-4353-bf92-196d13c4ed50",
       "height": {
         "mode": "asl",
-        "value": 47
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1907,10 +1907,10 @@
       "label": ""
     },
     {
-      "id": "024c89d0-8aea-4ef9-b561-1bcd73632a6d",
+      "id": "83f5b0e8-94d8-4a85-ab15-9c555c62b578",
       "height": {
         "mode": "asl",
-        "value": 12
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1933,10 +1933,10 @@
       "label": ""
     },
     {
-      "id": "38d59c1e-37a4-4b61-a712-49908a9905e7",
+      "id": "1547eb50-fc93-4eb9-a5e4-ddc12d27a01f",
       "height": {
         "mode": "asl",
-        "value": 93
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1959,10 +1959,10 @@
       "label": ""
     },
     {
-      "id": "77daac60-7bbc-4b44-858a-89cb46bec2c9",
+      "id": "8e1556d1-d5f2-48d3-abf0-76b868c367d0",
       "height": {
         "mode": "asl",
-        "value": 9
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -1985,10 +1985,10 @@
       "label": ""
     },
     {
-      "id": "e57c7966-e628-41f2-a023-2d579caa2466",
+      "id": "44b2ed17-6bd7-4a53-b8ba-55b1dbdf92ed",
       "height": {
         "mode": "asl",
-        "value": 28
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2011,10 +2011,10 @@
       "label": ""
     },
     {
-      "id": "78c144d7-b5cc-415b-94a1-e315749313e0",
+      "id": "0532b292-1be2-4f0c-9632-d42aa9408f3d",
       "height": {
         "mode": "asl",
-        "value": 10
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2037,10 +2037,10 @@
       "label": ""
     },
     {
-      "id": "a331328c-793e-4b86-80a6-cd42267e9edf",
+      "id": "1ca4a9e8-94e3-4cf6-99d4-a537033a0458",
       "height": {
         "mode": "asl",
-        "value": 15
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2063,10 +2063,10 @@
       "label": ""
     },
     {
-      "id": "4cf60cc0-9e54-4e01-8cdc-6210a89b7ff4",
+      "id": "54728631-014e-4e14-8fb8-7e9b47906575",
       "height": {
         "mode": "asl",
-        "value": 183
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2089,10 +2089,10 @@
       "label": ""
     },
     {
-      "id": "26d4b5e1-73ba-4dd3-9d89-0ffdff24ffc7",
+      "id": "e047414b-3844-439c-a205-bc87f16644c1",
       "height": {
         "mode": "asl",
-        "value": 48
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2115,10 +2115,10 @@
       "label": ""
     },
     {
-      "id": "3465f207-b01c-4e8f-a7ea-00c270d8ec25",
+      "id": "c1cab4f1-c5c5-434a-b974-6d50d9f26a88",
       "height": {
         "mode": "asl",
-        "value": 13
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2141,10 +2141,10 @@
       "label": ""
     },
     {
-      "id": "b80b5966-b1ef-4793-b2b7-978a2496ab13",
+      "id": "defc25d9-5275-47d4-a442-c3b0fa13d6a1",
       "height": {
         "mode": "asl",
-        "value": 42
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -2167,10 +2167,10 @@
       "label": ""
     },
     {
-      "id": "f00ebc1d-88f7-423e-80f6-47498be0cb2c",
+      "id": "368fed27-8f5a-468d-8be4-4a4be48da98b",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2193,10 +2193,10 @@
       "label": ""
     },
     {
-      "id": "cdbaf472-36a8-4d0c-bb7d-2f166c63dfda",
+      "id": "11819d44-0f64-48d3-b59b-3a8a7303b11c",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2219,10 +2219,10 @@
       "label": ""
     },
     {
-      "id": "5250c822-a652-472b-aff6-800362c197ba",
+      "id": "58a53d0e-adc6-448c-a722-75851f790f18",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2245,10 +2245,10 @@
       "label": ""
     },
     {
-      "id": "ef3837ad-9717-48df-8418-d4941ee52359",
+      "id": "1b44f035-1e7c-4c0e-98fe-e23b270c292c",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2271,10 +2271,10 @@
       "label": ""
     },
     {
-      "id": "3b714fe0-cdd6-4961-98cb-15bdab0bbf2d",
+      "id": "dcd58dd0-beb1-42ec-a7f6-33f617588218",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2297,10 +2297,10 @@
       "label": ""
     },
     {
-      "id": "67af91ea-ac75-4038-92f4-286353c13e6e",
+      "id": "9ade272a-f2af-4213-9014-c70f7381e4e7",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2323,10 +2323,10 @@
       "label": ""
     },
     {
-      "id": "93667c47-cdbb-4843-8115-b9a0a567d552",
+      "id": "4cfa7150-5ba1-48e7-939a-f9cc1b20a595",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2349,10 +2349,10 @@
       "label": ""
     },
     {
-      "id": "d4046dea-3332-4f39-8b11-48222d012022",
+      "id": "9b11c685-19e3-40f0-bbbe-aa435d7aa128",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2375,10 +2375,10 @@
       "label": ""
     },
     {
-      "id": "7da4570d-0fff-4569-a055-9d7e680ccdfc",
+      "id": "076413ed-d45d-40bc-b817-32b43638ea2e",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2401,10 +2401,10 @@
       "label": ""
     },
     {
-      "id": "574e81db-5f70-493b-837b-3dc497595d1a",
+      "id": "2adce657-f2fa-43ec-83de-e3a835d181a8",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2427,10 +2427,10 @@
       "label": ""
     },
     {
-      "id": "d44a2cc3-9fca-4de5-98b4-d5e56f7ed3dc",
+      "id": "79b81670-89a3-4bf1-a525-c04edc4fb562",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2453,10 +2453,10 @@
       "label": ""
     },
     {
-      "id": "cf20928e-d419-4fc8-a295-ac5e66c2aff8",
+      "id": "4e92b98f-5ecc-4714-820a-645b97d08244",
       "height": {
         "mode": "asl",
-        "value": 76.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2479,10 +2479,10 @@
       "label": ""
     },
     {
-      "id": "f4fbc274-3646-4302-8ca9-ab74da47d042",
+      "id": "54b08991-3ba7-4e1c-bcc5-b54c1c2011f3",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2505,10 +2505,10 @@
       "label": ""
     },
     {
-      "id": "74f424bd-5db8-4906-a4a8-62229353532b",
+      "id": "4c7cf5fc-aef7-4419-9467-d4d6e0455595",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2531,10 +2531,10 @@
       "label": ""
     },
     {
-      "id": "f53f82db-b3d5-4f4d-8f0b-614b21bf71a0",
+      "id": "e4008eed-dc3c-4aeb-8570-d7c2303c06c0",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2557,10 +2557,10 @@
       "label": ""
     },
     {
-      "id": "af219d30-10a3-4ab1-8f72-31e3e86d8c62",
+      "id": "92697ae6-b649-4f1a-9133-77b483ebb21b",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2583,10 +2583,10 @@
       "label": ""
     },
     {
-      "id": "0ecdefdb-e044-4ef3-b290-f5588022b5a8",
+      "id": "43300a58-8e99-4a8d-8f4e-30865694f235",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2609,10 +2609,10 @@
       "label": ""
     },
     {
-      "id": "44c8e11d-2cb3-416b-9a44-ff5f95143be9",
+      "id": "63bd7305-9534-433a-b5d8-803e39388ecb",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2635,10 +2635,10 @@
       "label": ""
     },
     {
-      "id": "f6f43387-4f69-41ef-926b-5621f22f7ac8",
+      "id": "e9ac8ffc-a44b-482e-9f61-8f7c3c51cad5",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2661,10 +2661,10 @@
       "label": ""
     },
     {
-      "id": "e7628977-56bc-4c83-9a71-304efebf7b9e",
+      "id": "7c3814b3-a9ea-4bcc-acc6-73ed765538f9",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2687,10 +2687,10 @@
       "label": ""
     },
     {
-      "id": "34ee4e84-ed35-4f69-b143-f19d6fe637b8",
+      "id": "178af270-26db-46fb-aeba-d6c18fee232d",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2713,10 +2713,10 @@
       "label": ""
     },
     {
-      "id": "395d34c0-1961-4425-8621-724506996a9f",
+      "id": "0b3403ee-be4e-4d75-8c31-ca6995129889",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2739,10 +2739,10 @@
       "label": ""
     },
     {
-      "id": "65db0cdd-706f-4220-ad6e-3cea6dd0d2da",
+      "id": "6cc2cd55-3f7c-4cb7-8867-5724074614f2",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2765,10 +2765,10 @@
       "label": ""
     },
     {
-      "id": "c12b25e1-ff81-40a6-9ed7-c19e31e0563e",
+      "id": "4a97ad8c-ccef-4e4d-9e5e-a85cd44bb745",
       "height": {
         "mode": "asl",
-        "value": 20.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2791,10 +2791,10 @@
       "label": ""
     },
     {
-      "id": "21c806da-56c3-459d-bdae-506da5b3f79d",
+      "id": "e49b2497-f946-4553-816d-e25c1c3ba3d6",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2817,10 +2817,10 @@
       "label": ""
     },
     {
-      "id": "e8b228f7-dc62-4e72-bede-9982a8fe8664",
+      "id": "8de728fb-1c51-43dd-b354-d4d7dc47e49d",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2843,10 +2843,10 @@
       "label": ""
     },
     {
-      "id": "682195b5-86ce-412b-b21d-07e46070c749",
+      "id": "5284749f-e7b1-4a62-8fe6-5b348a982d5c",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2869,10 +2869,10 @@
       "label": ""
     },
     {
-      "id": "4ed297c1-35a0-4d2c-b147-ec7436dfea42",
+      "id": "8f1b5cec-a205-4ed8-b1b5-ad188eff1ead",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2895,10 +2895,10 @@
       "label": ""
     },
     {
-      "id": "188d4313-e443-49b2-b8c2-2477a7b9ab9c",
+      "id": "ae198f29-8605-4376-af5f-15f3b6f323cc",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2921,10 +2921,10 @@
       "label": ""
     },
     {
-      "id": "c8b709c0-c8bb-46ae-9869-88b72a9ed8f8",
+      "id": "8c76fe0d-1f93-4690-8df4-df16f737cb9a",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2947,10 +2947,10 @@
       "label": ""
     },
     {
-      "id": "a2fbed94-4b7b-4f7e-8914-7c9b62ce99c4",
+      "id": "94724c35-ef57-4ca7-86db-a1cb00345fac",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2973,10 +2973,10 @@
       "label": ""
     },
     {
-      "id": "94aad615-5de2-4054-a27f-efb7fb235f79",
+      "id": "bf04d0b1-78b4-420a-9ad9-a329aa95a528",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -2999,10 +2999,10 @@
       "label": ""
     },
     {
-      "id": "e99d0d43-c88c-480c-aa0c-a336a0210ddf",
+      "id": "ac6d708d-4915-457c-bb64-b75eac511b38",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3025,10 +3025,10 @@
       "label": ""
     },
     {
-      "id": "02a1c3c0-c6c8-462e-aac8-07cdffd852b6",
+      "id": "c431c259-e22f-4154-823f-104eb53c602f",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3051,10 +3051,10 @@
       "label": ""
     },
     {
-      "id": "1760b48a-26b2-4da0-ad25-6560ded3dbd1",
+      "id": "d39dd295-d7e3-475c-bf27-8f89364fa3dc",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3077,10 +3077,10 @@
       "label": ""
     },
     {
-      "id": "60858b56-0bef-4523-8eac-202c0da2415d",
+      "id": "f0f1a873-d5ad-4b29-b921-9aec398138ec",
       "height": {
         "mode": "asl",
-        "value": 38.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3103,10 +3103,10 @@
       "label": ""
     },
     {
-      "id": "e71b4901-c820-42d4-8069-5a13638185b2",
+      "id": "bc271802-17d5-4c3b-996b-0d8fb0ad2d27",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3129,10 +3129,10 @@
       "label": ""
     },
     {
-      "id": "41d334f9-9675-4593-b0e2-68cf5c5526da",
+      "id": "de6a1140-6305-4b8d-99ae-ee72496f5e5a",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3155,10 +3155,10 @@
       "label": ""
     },
     {
-      "id": "6a6ad943-d560-48d1-b734-5d8c05203868",
+      "id": "9bacb289-cffd-4221-885e-2856c28db361",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3181,10 +3181,10 @@
       "label": ""
     },
     {
-      "id": "468a9bc7-dfe4-4506-a106-0910092eab3d",
+      "id": "ed48538f-1504-4430-a04b-1ded935e4454",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3207,10 +3207,10 @@
       "label": ""
     },
     {
-      "id": "25fb27a5-6144-4b45-9bf0-f1fd8dbf5c35",
+      "id": "60df6d24-a034-4755-811c-6cd17443cdf0",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3233,10 +3233,10 @@
       "label": ""
     },
     {
-      "id": "345a6f1c-3247-437f-acbc-7f5e9655403e",
+      "id": "a1f6bdda-4133-48c5-ac4c-1261a265a3fc",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3259,10 +3259,10 @@
       "label": ""
     },
     {
-      "id": "6049bea4-964e-488c-b264-eb936f67efcc",
+      "id": "fca85602-d890-4e38-837e-b43387663288",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3285,10 +3285,10 @@
       "label": ""
     },
     {
-      "id": "8b8cb648-d490-4579-af0c-43eef33745c8",
+      "id": "2bec128c-4a71-4e10-84da-f216ca566a98",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3311,10 +3311,10 @@
       "label": ""
     },
     {
-      "id": "f7e459a3-21f2-4c85-9934-919e2f88ee78",
+      "id": "ac4910c5-c5db-49e0-af22-9fc85a2bb50f",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3337,10 +3337,10 @@
       "label": ""
     },
     {
-      "id": "1df92a55-dedc-419f-b62a-40342723cfcf",
+      "id": "af68147e-3dae-44a9-8765-3437b8501b79",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3363,10 +3363,10 @@
       "label": ""
     },
     {
-      "id": "265a2445-0428-4bf1-9702-b5b6d90ed950",
+      "id": "8d79598e-dc87-4567-bb2a-bf998a4f48f8",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3389,10 +3389,10 @@
       "label": ""
     },
     {
-      "id": "0b3d052d-00af-4233-bb08-2473bfd61221",
+      "id": "c394ddfc-8c4f-44e7-b4cf-3467f59d7f9c",
       "height": {
         "mode": "asl",
-        "value": 67.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3415,10 +3415,10 @@
       "label": ""
     },
     {
-      "id": "22039baa-eb74-4841-a3a2-75058b16f87a",
+      "id": "1f519f3e-efa0-4660-83db-a7b09703263a",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3441,10 +3441,10 @@
       "label": ""
     },
     {
-      "id": "76f2f60e-8641-4ca2-b271-6d4e94bc85aa",
+      "id": "6c84311d-712a-4580-8999-9c865f8d0c3d",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3467,10 +3467,10 @@
       "label": ""
     },
     {
-      "id": "0bffad2f-e382-4293-b419-84d71b2407d1",
+      "id": "696f65d4-9823-4225-a8aa-ae34e9edeeb2",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3493,10 +3493,10 @@
       "label": ""
     },
     {
-      "id": "fea4a42f-dbd3-47d9-98ab-aa442893aefa",
+      "id": "a00e92d2-1797-4547-97c9-e1f59fa76c1d",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3519,10 +3519,10 @@
       "label": ""
     },
     {
-      "id": "854f1f10-f6dd-4a1b-8f2f-967ec0669928",
+      "id": "02d0ff16-2ffd-4e6e-bb16-5b56ff980b30",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3545,10 +3545,10 @@
       "label": ""
     },
     {
-      "id": "e8d9d25c-0150-4532-8228-c53e11603e41",
+      "id": "7aafb1ec-bb97-4dcc-b48f-87ee5f126d7e",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3571,10 +3571,10 @@
       "label": ""
     },
     {
-      "id": "112181e5-edef-4dbc-93d0-f7ac38d3fa4b",
+      "id": "b66a519f-6129-4760-8db8-e2b6f358d160",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3597,10 +3597,10 @@
       "label": ""
     },
     {
-      "id": "3ecf3da4-ac0b-4852-a763-5aa7afe9b431",
+      "id": "34928863-4fe3-4d73-8d1f-23bc99ecd3e4",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3623,10 +3623,10 @@
       "label": ""
     },
     {
-      "id": "d8426652-6069-4d3e-81d8-51d3f34d1fe2",
+      "id": "3e1064c0-bd65-43b1-b9a3-87224f324abf",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3649,10 +3649,10 @@
       "label": ""
     },
     {
-      "id": "cce1abda-d44e-4141-8553-82373b97cbc4",
+      "id": "dee31645-c85b-4054-9b62-f4e1a17147bf",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3675,10 +3675,10 @@
       "label": ""
     },
     {
-      "id": "286f369c-b129-4eed-ac9c-9d821276acb3",
+      "id": "898a9739-2b06-4f2e-8a23-3bdbd6976da8",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3701,10 +3701,10 @@
       "label": ""
     },
     {
-      "id": "c867c208-283c-44bf-92ef-0da51029bef2",
+      "id": "0477b4c3-37ca-435b-82d2-56116c268f68",
       "height": {
         "mode": "asl",
-        "value": 21.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3727,10 +3727,10 @@
       "label": ""
     },
     {
-      "id": "92210192-1ecb-4871-b664-6b6c53911726",
+      "id": "cfa02dab-ad0c-4483-a116-4b2c80a84de2",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3753,10 +3753,10 @@
       "label": ""
     },
     {
-      "id": "f7e4d0f9-6e4f-43b1-99b7-cca22cac82b0",
+      "id": "0ffae2d9-653c-4661-877d-38d265fb63ec",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3779,10 +3779,10 @@
       "label": ""
     },
     {
-      "id": "74823bb4-2340-4e8e-aca5-2bc62d4641f5",
+      "id": "6fc5a655-bac2-4a43-a61b-90805e8c3444",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3805,10 +3805,10 @@
       "label": ""
     },
     {
-      "id": "3c9dd0f1-7017-4ce2-abde-933b453c0282",
+      "id": "bc99e1ec-444b-46d6-98eb-849b09fa1c13",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3831,10 +3831,10 @@
       "label": ""
     },
     {
-      "id": "61d76ce4-c2ef-4695-a759-a9486744012b",
+      "id": "7ec959fc-cb3d-4f92-8e82-9ae9633c48a2",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3857,10 +3857,10 @@
       "label": ""
     },
     {
-      "id": "ba594a95-c42e-4e1f-bb66-0c605e4e9e4d",
+      "id": "77663683-5d1e-42e1-a92c-8be04f20026c",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3883,10 +3883,10 @@
       "label": ""
     },
     {
-      "id": "c96220a9-a9ce-47ed-b7fc-825a74c9973e",
+      "id": "e366de28-497f-4c44-9e42-0d14f1d89b4c",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3909,10 +3909,10 @@
       "label": ""
     },
     {
-      "id": "f2889ae8-ce12-40a6-9947-a8341ab6199c",
+      "id": "a867025a-a8e9-4e92-8a9c-0da43410b2ff",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3935,10 +3935,10 @@
       "label": ""
     },
     {
-      "id": "8bbe5c63-57bb-4f8e-9fdd-15a2f440d981",
+      "id": "c6b6299d-a625-4122-aebc-f3fef02e562e",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3961,10 +3961,10 @@
       "label": ""
     },
     {
-      "id": "dda0c508-2c67-4f21-b068-9023e655ebf0",
+      "id": "86212d25-5ee9-4d10-8c8a-d3f935c59e7e",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -3987,10 +3987,10 @@
       "label": ""
     },
     {
-      "id": "f8243b3f-b69a-4e54-8506-ac8612248627",
+      "id": "d6d02ab1-4cb2-4e0a-8d73-5f7e18111696",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4013,10 +4013,10 @@
       "label": ""
     },
     {
-      "id": "adc54484-3694-4be3-93bd-eaac65da1271",
+      "id": "aa0d2ed3-2c3e-43be-bc35-67ad36d35154",
       "height": {
         "mode": "asl",
-        "value": 107.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4039,10 +4039,10 @@
       "label": ""
     },
     {
-      "id": "1be36d77-4307-432c-a8fc-8b1677dff71f",
+      "id": "c3acf95a-7184-426c-a1f6-d504031a7b83",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4065,10 +4065,10 @@
       "label": ""
     },
     {
-      "id": "dd43b7fb-679c-4741-bb2b-e6d4450c73be",
+      "id": "2507381e-7138-420c-b911-2066199429c7",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4091,10 +4091,10 @@
       "label": ""
     },
     {
-      "id": "0b9349da-8fe6-4ade-a117-e309b421d90c",
+      "id": "9628a777-4840-476b-8d4e-df7f20bf3141",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4117,10 +4117,10 @@
       "label": ""
     },
     {
-      "id": "d3d48287-9657-4c3e-baa9-8cf36acfc136",
+      "id": "2e7e4934-6e7f-4bea-a728-95185b145f32",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4143,10 +4143,10 @@
       "label": ""
     },
     {
-      "id": "2398a95b-8d35-46c8-9409-d33d573464bb",
+      "id": "0a200b29-e81d-4d2d-ad1d-bd1f2561b674",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4169,10 +4169,10 @@
       "label": ""
     },
     {
-      "id": "9c35a5fb-50a6-4a24-b045-695103cb3912",
+      "id": "791b3b18-7ccd-4087-a971-337bf4f5e0d0",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4195,10 +4195,10 @@
       "label": ""
     },
     {
-      "id": "74b6ff22-7e1b-4615-992d-4dce6d63d728",
+      "id": "893268fe-49e5-4b68-9530-313c7ebb9149",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4221,10 +4221,10 @@
       "label": ""
     },
     {
-      "id": "29e5e680-2fcc-49f9-a549-dccd78a86e49",
+      "id": "868848f3-c7a3-44f7-8b9b-002b7787ae87",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4247,10 +4247,10 @@
       "label": ""
     },
     {
-      "id": "529976e7-8938-4301-aa0f-110e5e44c239",
+      "id": "bfb4a1d5-8073-4ed0-9579-a05d7020d7c3",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4273,10 +4273,10 @@
       "label": ""
     },
     {
-      "id": "02a56654-1fcf-4841-9ac2-dbeaadc50bbf",
+      "id": "eb58563c-6840-4dee-98bc-5cc27bcb4f52",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4299,10 +4299,10 @@
       "label": ""
     },
     {
-      "id": "523feb4b-8d70-4834-8074-e60ca5631961",
+      "id": "77e6cac7-c9b2-43cc-ae32-1053e3e2e4a5",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4325,10 +4325,10 @@
       "label": ""
     },
     {
-      "id": "3dea5e45-53c7-4c70-b95e-b886feb64838",
+      "id": "4d240df3-50ce-4575-9766-7f6309b4bad9",
       "height": {
         "mode": "asl",
-        "value": 5.25
+        "value": 0.25
       },
       "kind": "light",
       "position": {
@@ -4351,10 +4351,10 @@
       "label": ""
     },
     {
-      "id": "af9cd86a-0743-45e4-a003-4c61c4690938",
+      "id": "80a7f006-63ea-411d-b6f8-c4f2ee7fa6cf",
       "height": {
         "mode": "asl",
-        "value": 27
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4377,10 +4377,10 @@
       "label": ""
     },
     {
-      "id": "fb9b6e3b-e35b-4d04-a690-807e925ce48a",
+      "id": "745e08a1-2d90-4973-98db-80c645cf9462",
       "height": {
         "mode": "asl",
-        "value": 12
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4403,10 +4403,10 @@
       "label": ""
     },
     {
-      "id": "6b557eca-d4ff-40b0-80b4-57d390792b6a",
+      "id": "c7d0969b-98c4-4820-8b33-5fcc505ce8fe",
       "height": {
         "mode": "asl",
-        "value": 134
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4429,10 +4429,10 @@
       "label": ""
     },
     {
-      "id": "648c4840-8230-4fd4-b51a-97933740407e",
+      "id": "e5d86a06-b464-4078-8f0c-bc6f9940bbf1",
       "height": {
         "mode": "asl",
-        "value": 221
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4455,10 +4455,10 @@
       "label": ""
     },
     {
-      "id": "fe66d2fe-6aaf-46bb-9641-0c511f4a2a2a",
+      "id": "e91ac06c-0e4c-4b1f-81a8-9b89a95fe855",
       "height": {
         "mode": "asl",
-        "value": 13
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4481,10 +4481,10 @@
       "label": ""
     },
     {
-      "id": "f0ea5dd3-4e02-49cc-bdc8-9bbfa5957272",
+      "id": "e7254a74-d90c-493a-b469-8e64de18bede",
       "height": {
         "mode": "asl",
-        "value": 67
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4507,10 +4507,10 @@
       "label": ""
     },
     {
-      "id": "0d60d0f4-9b83-4c91-8d59-176a40e68eb2",
+      "id": "c474fc79-ec2e-4719-b091-2e1f4e4fa8ff",
       "height": {
         "mode": "asl",
-        "value": 19
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4533,10 +4533,10 @@
       "label": ""
     },
     {
-      "id": "d44d3c8f-0377-4ccb-b6f4-0bf998b2ef89",
+      "id": "5a71319b-7ff3-4e15-8a92-55c6aba0026c",
       "height": {
         "mode": "asl",
-        "value": 14
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4559,10 +4559,10 @@
       "label": ""
     },
     {
-      "id": "acf27ae2-2b17-4fcc-9fd7-46f6524bd404",
+      "id": "a41f5f11-bf2b-4d80-a27e-d6beac00da72",
       "height": {
         "mode": "asl",
-        "value": 192
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4585,10 +4585,10 @@
       "label": ""
     },
     {
-      "id": "23dc0a08-809c-4d25-9a9a-d19b4ef7a991",
+      "id": "7c27023e-e3a8-417d-9f29-589e381fffdb",
       "height": {
         "mode": "asl",
-        "value": 20
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4611,10 +4611,10 @@
       "label": ""
     },
     {
-      "id": "ef7993aa-30c7-4f3c-9140-5aca4a1561c7",
+      "id": "36fe617f-0cab-42de-ba17-803c61d526ce",
       "height": {
         "mode": "asl",
-        "value": 333
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4637,10 +4637,10 @@
       "label": ""
     },
     {
-      "id": "3c403a1e-b752-414e-afe8-0fc9ce6f5529",
+      "id": "48749782-53f8-49ae-9dba-10879fb317a0",
       "height": {
         "mode": "asl",
-        "value": 13
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4663,10 +4663,10 @@
       "label": ""
     },
     {
-      "id": "2a24d52a-c3d2-4f82-9198-1c135779d42f",
+      "id": "1d9345ff-e5f8-4815-928a-c010d3f20317",
       "height": {
         "mode": "asl",
-        "value": 85
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4689,10 +4689,10 @@
       "label": ""
     },
     {
-      "id": "71d622d3-95ef-4166-853b-71494e0ca3ac",
+      "id": "06324628-d0ae-4a9c-9ab5-f1733bd23857",
       "height": {
         "mode": "asl",
-        "value": 34
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4715,10 +4715,10 @@
       "label": ""
     },
     {
-      "id": "49143e6c-1449-4f68-a3b2-b583d880655b",
+      "id": "e633c46f-563c-4c9b-883a-4efb3ddfa5b5",
       "height": {
         "mode": "asl",
-        "value": 33
+        "value": 3
       },
       "kind": "light",
       "position": {
@@ -4741,7 +4741,7 @@
       "label": ""
     },
     {
-      "id": "ce274bdb-cf52-46aa-8f19-ea13aed1354a",
+      "id": "6de4c767-bc3a-45a2-a424-1e4bab422c4a",
       "height": {
         "mode": "asl",
         "value": 3

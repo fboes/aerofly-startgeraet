@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "app": "pct",
-  "name": "startgeraet-hems-EGEO",
-  "poiName": "startgeraet-hems-EGEO",
+  "name": "startgeraet_hems_egeo",
+  "poiName": "startgeraet_hems_egeo",
   "createdAt": "2026-11-06T18:31:41.068Z",
   "modifiedAt": "2026-11-06T18:31:41.068Z",
   "reference": null,
