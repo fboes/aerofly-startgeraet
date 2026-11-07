@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "app": "pct",
+  "name": "",
+  "poiName": "startgeraet_hems_cn02",
+  "createdAt": "2026-11-07T06:35:36.759Z",
+  "modifiedAt": "2026-11-07T06:40:02.679Z",
+  "reference": null,
+  "camera": {
+    "lon": -122.50664725899698,
+    "lat": 37.78353842482782,
+    "zoom": 21
+  },
+  "objects": [
+    {
+      "id": "1539b678-6cc4-4e53-8592-74ac3596a1b5",
+      "kind": "airport_light",
+      "typeName": "helipad_beacon",
+      "position": {
+        "lon": -122.50675588846208,
+        "lat": 37.78354902812476
+      },
+      "height": {
+        "mode": "terrain"
+      },
+      "orientation": 301.2537079117965,
+      "configuration": "",
+      "groupIndex": 0
+    },
+    {
+      "id": "768a2d7e-2bd2-4d94-90dd-292223ca3f29",
+      "kind": "xref",
+      "name": "airport_windsock_large1",
+      "position": {
+        "lon": -122.506694868207,
+        "lat": 37.78364445765568
+      },
+      "height": {
+        "mode": "asl",
+        "value": 76
+      },
+      "direction": 147.4887928896386,
+      "scale": 1,
+      "label": "CN02 #heliport #hospital"
+    }
+  ]
+}

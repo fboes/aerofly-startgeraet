@@ -2,7 +2,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { styleText } from "node:util";
 import { parseGeoJsonToLocations } from "./util/Location.js";
-import { lightsFromLocations, xrefFromLocations } from "./generators/hems-mission/HemsPoiFiles.js";
+import {
+    airportLightsFromLocation,
+    lightsFromLocations,
+    xrefFromLocations,
+} from "./generators/hems-mission/HemsPoiFiles.js";
 import type { Point } from "@fboes/geojson";
 import { DIR_ASSETS } from "../core/util/directory.js";
 import type { LocationExtended } from "./util/Location.type.js";
@@ -12,7 +16,7 @@ import { setLocationElevationFromApi } from "./util/setElevation.js";
 
 const paths = fs.glob([
     path.join(DIR_ASSETS, "mission-generator", "**", "*.geojson"),
-   // path.join(DIR_FIXTURE, "mission-generator", "**", "*.geojson"),
+    // path.join(DIR_FIXTURE, "mission-generator", "**", "*.geojson"),
 ]);
 for await (const sourcePath of paths) {
     writeln("Converting " + styleText("blueBright", sourcePath) + "...");
@@ -80,6 +84,20 @@ async function writeFile(targetPath: string, locations: LocationExtended[], poiN
                         color: light.color,
                         intensity: light.intensity ?? 100,
                         flashing: light.flashing ?? [0, 0, 0, 0],
+                        groupIndex: light.groupIndex ?? 0,
+                        label: light.label ?? "",
+                    })),
+                    ...airportLightsFromLocation(locations).map((light) => ({
+                        id: uuid(),
+                        kind: "airport-light",
+                        typeName: light.name,
+                        position: convertPosition(light.position),
+                        height: {
+                            mode: "asl",
+                            value: (light.position.elevation ?? 0) + (light.heightAdjust ?? 1),
+                        },
+                        orientation: light.orientation ?? 0,
+                        configuration: "",
                         groupIndex: light.groupIndex ?? 0,
                         label: light.label ?? "",
                     })),

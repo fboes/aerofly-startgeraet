@@ -3,7 +3,7 @@ import type { Point } from "@fboes/geojson";
 export type AeroflyPoiLight = {
     position: Point;
     /**
-     * above ground level in meters, default 1
+     * above ground level in meters
      */
     heightAdjust?: number;
     /**
@@ -18,6 +18,27 @@ export type AeroflyPoiLight = {
      * Cycle, Sequence, Length, Offset
      */
     flashing?: [number, number, number, number];
+    /**
+     * 0: only at night - 3: always on
+     */
+    groupIndex?: 0 | 1 | 2 | 3;
+    label?: string;
+};
+
+export type AeroflyPoiAirportLight = {
+    /**
+     * XREF object reference
+     */
+    name: string;
+    /**
+     * [0,360]
+     */
+    orientation?: number;
+    position: Point;
+    /**
+     * above ground level in meters
+     */
+    heightAdjust?: number;
     /**
      * 0: only at night - 3: always on
      */

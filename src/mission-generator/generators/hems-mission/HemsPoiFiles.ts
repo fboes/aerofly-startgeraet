@@ -1,8 +1,12 @@
-import { AeroflyPoiFiles, type AeroflyPoiLight, type AeroflyPoiXref } from "../../util/AeroflyPoiFiles.js";
+import {
+    AeroflyPoiFiles,
+    type AeroflyPoiAirportLight,
+    type AeroflyPoiLight,
+    type AeroflyPoiXref,
+} from "../../util/AeroflyPoiFiles.js";
 import { setLocationElevationFromApi } from "../../util/setElevation.js";
 import type { LocationExtended } from "../../util/Location.type.js";
 import { HemsMissionLocations } from "./HemsMissionLocations.js";
-import { Vector } from "@fboes/geojson";
 
 /**
  * @param slug
@@ -66,17 +70,20 @@ function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
                     groupIndex: 3,
                 },
             ],
-        }) ??
-        [...Array(12).keys()].map(
-            (index: number): AeroflyPoiLight => ({
-                position: location.position.getPointBy(new Vector(10, index * 30)),
-                heightAdjust: 0.25,
-                color: [0, 1, 0],
-                flashing: [10, 0, 100, 0],
-                intensity: 500,
-                groupIndex: 3,
-            }),
-        )
+        }) ?? []
+    );
+}
+
+// -----------------------------------------------------------------------------
+export function airportLightsFromLocation(locations: LocationExtended[]): AeroflyPoiAirportLight[] {
+    return locations.map(airportLightFromLocation).flatMap((light) => light);
+}
+
+function airportLightFromLocation(location: LocationExtended): AeroflyPoiAirportLight[] {
+    return (
+        typeSwitch<AeroflyPoiAirportLight[]>(typeOfLocation(location), {
+            emergency: [],
+        }) ?? []
     );
 }
 

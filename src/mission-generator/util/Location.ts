@@ -13,6 +13,7 @@ import type { Location, LocationExtended } from "../util/Location.type.js";
 import { Point } from "@fboes/geojson";
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../core/util/degree.js";
+import { parsePct, parsePctXrefs } from "./parsePct.js";
 
 /**
  * Keeps normalized airports, navigational aids and fixes cached after fetching
@@ -221,42 +222,30 @@ export function parseGeoJsonToLocations(geoJson: unknown): LocationExtended[] {
 }
 
 /**
+ * Parses XREF objects from the POI Creator tool. Will ignore all other
+ * objects, as the do not contain `label` property and are not relevant for the
+ * mission generator.
+ *
  * @see https://github.com/jlgabriel/afs4-poi-creator
  * @returns an array of `LocationExtended` from POI Creation Tool JSON input
  */
 export function parsePctJsonToLocations(pctJson: unknown): LocationExtended[] {
-    const pctJsonObject = asJSONObject(pctJson);
+    const pctJsonObject = parsePct(pctJson);
 
-    if (asJSONNumber(pctJsonObject.schemaVersion) !== 1 || asJSONString(pctJsonObject.app) !== "pct") {
-        throw new Error("Supplied JSON is no compatible POI Creation Tool JSON");
-    }
-
-    return asJSONArray(pctJsonObject.objects)
+    return parsePctXrefs(pctJsonObject)
         .filter((o) => {
             return o.label;
         })
         .map((o, index): LocationExtended => {
-            const position = asJSONObject(o.position, "o.position");
-            const longitude = asJSONNumber(position.lon, "o.position.lon");
-            const latitude = asJSONNumber(position.lat, "o.position.lat");
-
-            const height = asJSONObject(o.height, "o.height");
-            const heightMode = o.mode ? asJSONString(o.mode, "o.mode") : undefined;
-            const elevation =
-                heightMode === "asl" && height.value ? asJSONNumber(height.value, "o.height.value") : undefined;
-
-            const direction = asJSONNumber(o.direction, "o.direction");
-
-            const label = asJSONString(o.label, "o.label");
-            const { title, tags, identifier, approaches } = splitLabel(label);
+            const { title, tags, identifier, approaches } = splitLabel(o.label);
 
             return {
-                position: new Point(longitude, latitude, elevation),
+                position: new Point(o.position.lon, o.position.lat, o.height.value),
                 identifier: identifier ?? identifierFromNumber(index),
                 title,
                 tags,
-                direction,
-                approaches: approaches ?? (direction ? [direction, degreeNormalize(direction + 180)] : undefined),
+                direction: o.direction,
+                approaches: approaches ?? (o.direction ? [o.direction, degreeNormalize(o.direction + 180)] : undefined),
             };
         });
 }
