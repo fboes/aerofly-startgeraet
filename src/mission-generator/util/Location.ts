@@ -13,7 +13,7 @@ import type { Location, LocationExtended } from "../util/Location.type.js";
 import { Point } from "@fboes/geojson";
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../core/util/degree.js";
-import { parsePct, parsePctXrefs } from "./parsePct.js";
+import { parsePct } from "./parsePct.js";
 
 /**
  * Keeps normalized airports, navigational aids and fixes cached after fetching
@@ -230,13 +230,14 @@ export function parseGeoJsonToLocations(geoJson: unknown): LocationExtended[] {
  * @returns an array of `LocationExtended` from POI Creation Tool JSON input
  */
 export function parsePctJsonToLocations(pctJson: unknown): LocationExtended[] {
-    const pctJsonObject = parsePct(pctJson);
-
-    return parsePctXrefs(pctJsonObject)
-        .filter((o) => {
+    return parsePct(pctJson)
+        .objects.filter((o) => {
             return o.label;
         })
         .map((o, index): LocationExtended => {
+            if (!o.label) {
+                throw new ErrorDetail("POI object does not have a label", JSON.stringify(o));
+            }
             const { title, tags, identifier, approaches } = splitLabel(o.label);
 
             return {

@@ -39,7 +39,7 @@ export class HemsMissionLocations {
      * @returns path to regular locations files, without file ending
      */
     private locationsFileGlob(airportLocation: LocationExtended, directory: string) {
-        const slug = "startgeraet_hems_" + airportLocation.identifier.toLowerCase().replace(/[^A-Za-z0-9\-]+/gv, "");
+        const slug = "startgeraet_hems_" + airportLocation.identifier.toLowerCase().replace(/[^a-z0-9_]+/gv, "");
         console.log(slug);
         return path.join(directory, "*_" + slug, "*.json");
     }
