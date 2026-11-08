@@ -3,8 +3,8 @@
   "app": "pct",
   "name": "startgeraet_hems_egeo",
   "poiName": "startgeraet_hems_egeo",
-  "createdAt": "2026-11-08T06:35:52.386Z",
-  "modifiedAt": "2026-11-08T10:51:23.454Z",
+  "createdAt": "2026-11-08T10:06:28.407Z",
+  "modifiedAt": "2026-11-08T13:07:42.864Z",
   "reference": null,
   "camera": {
     "lon": -5.474652806281114,
@@ -13,7 +13,7 @@
   },
   "objects": [
     {
-      "id": "a6cf280b-a159-4aac-bb8e-1a3fb20900cf",
+      "id": "e4baf7bf-40b4-4746-8e9e-967d7603ff88",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -29,7 +29,7 @@
       "label": "Rhunacairn Cottage #icao:WP-001"
     },
     {
-      "id": "a4b2ea5d-e08f-4770-a2e4-40dbd910ed92",
+      "id": "e9785eae-6328-41bf-b527-f6b4d6e274ee",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -45,7 +45,7 @@
       "label": "A85 #road-accident #icao:WP-002"
     },
     {
-      "id": "3bf12a7f-5d9c-473b-b5e8-f1223cc87825",
+      "id": "7bfcc49b-471f-4fc6-a891-bc1a9f62c2f4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -61,7 +61,7 @@
       "label": "Appin #icao:WP-003"
     },
     {
-      "id": "ae62ef3c-59d8-436d-babd-59f61856915a",
+      "id": "1e10371c-fd43-4b46-b17d-5f4b1fb053c4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -77,7 +77,7 @@
       "label": "Iverinan #icao:WP-004"
     },
     {
-      "id": "6df85bee-a004-408b-9084-1b6ddc82cd32",
+      "id": "9ef3ddd9-2e7b-4b2f-aa58-53f9c6d42c8a",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -93,7 +93,7 @@
       "label": "Glenforsa Airfield #approach:297 #approach:117 #icao:EGGLNF"
     },
     {
-      "id": "b56ed656-fbd8-456e-ba91-e48ef4fdcad5",
+      "id": "f63153d3-3106-4e7e-9f55-d560c6b71394",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -109,7 +109,7 @@
       "label": "Fishnish Ferry #icao:WP-006"
     },
     {
-      "id": "46e9a6b7-48b6-4c22-8ea9-2931e95b4143",
+      "id": "3af5435b-5081-4e68-99de-8974ec196a98",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -125,7 +125,7 @@
       "label": "Lochaline #icao:WP-007"
     },
     {
-      "id": "82a83bd2-4b42-47e9-8601-f2a0a3391ee9",
+      "id": "572c5891-9699-42c7-acbe-6c468905c36f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -141,7 +141,7 @@
       "label": "Achnacroish #icao:WP-008"
     },
     {
-      "id": "1be0b814-51b5-479c-91dd-ad128e72b17c",
+      "id": "c5c360e9-d3a1-46dd-874f-f8b941ff8187",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -157,7 +157,7 @@
       "label": "Port Appin #icao:WP-009"
     },
     {
-      "id": "1353194b-4e83-4d6f-a959-a3db5aa216df",
+      "id": "813b976d-0140-4662-ad6e-0e4c277618a3",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -173,7 +173,7 @@
       "label": "Dunstaffnage Castle #icao:WP-010"
     },
     {
-      "id": "4e9a6c80-2e95-4aa8-8ff8-5bef8e4ed5b7",
+      "id": "7ebaeb76-0c77-4c75-8f0c-907beb8f8681",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -189,7 +189,7 @@
       "label": "Bonawe Iron Furnace #icao:WP-011"
     },
     {
-      "id": "53493e32-af52-4578-96ff-f5ab733ab62c",
+      "id": "5b4a63ec-bc5f-4e0e-b601-1531d059b1ac",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -205,7 +205,7 @@
       "label": "Inverawe Smokehouse #icao:WP-012"
     },
     {
-      "id": "21ffa259-dd3d-4cbd-88cb-ee56fa959ecf",
+      "id": "91ef4e19-9ec6-49d4-a7e3-bc95256a9964",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -221,7 +221,7 @@
       "label": "Cruachan Power Station #icao:WP-013"
     },
     {
-      "id": "42bda0d1-6223-4d9d-b9e7-37fe9336d6a6",
+      "id": "e56b78c1-cc4a-4ca7-b881-935aae383940",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -237,7 +237,7 @@
       "label": "position near Loch Nant #cricket #icao:WP-014"
     },
     {
-      "id": "a889739d-54ea-4407-b5cd-12d5e00f7a7e",
+      "id": "1dab2b17-6abc-4e19-8182-45f54bcf37b2",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -253,7 +253,7 @@
       "label": "Musdale #farm #icao:WP-015"
     },
     {
-      "id": "868a2ed4-bb1d-44b1-9395-2013e046f987",
+      "id": "a835ef94-0ddf-4525-ab55-93c0cfe0d7ba",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -269,7 +269,7 @@
       "label": "hotel at Kilmelford #icao:WP-016"
     },
     {
-      "id": "b108590c-b7c3-4acc-83de-c0baec218463",
+      "id": "5f8f380f-9444-4184-8594-c3a87941b481",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -285,7 +285,7 @@
       "label": "farm near Loch Spelve #farm #icao:WP-017"
     },
     {
-      "id": "5de43280-c7dc-44e2-864a-0dd3bf906618",
+      "id": "e2b6d5b1-113c-4b70-ba4e-cdf44345da1e",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -301,7 +301,7 @@
       "label": "Loch Linnhe #ferry #icao:WP-018"
     },
     {
-      "id": "2667cb99-2796-420a-98af-f28222ba25d1",
+      "id": "38b052fa-0f71-4c6e-91c8-55516b3e379a",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -317,7 +317,7 @@
       "label": "north of Loch Etive #logging #icao:WP-019"
     },
     {
-      "id": "b3c73efc-78c9-470c-b910-9910aa320181",
+      "id": "def87c4c-fbe5-4706-b5b5-2df2880bd8b3",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -333,7 +333,7 @@
       "label": "Beinn Bhreac #mountain #icao:WP-020"
     },
     {
-      "id": "e3a87c7a-4f1c-4aba-83eb-4bd99174b64b",
+      "id": "c0bcde11-da61-41da-b4e7-8f5a76fbd978",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -349,7 +349,7 @@
       "label": "River Esragan #cricket #icao:WP-021"
     },
     {
-      "id": "7e3be8eb-9e1a-4f06-aa29-4eac80b5d23e",
+      "id": "f053cc27-757b-41a1-97a7-a9f86c5ebfa3",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -365,7 +365,7 @@
       "label": "Inveraray #icao:WP-022"
     },
     {
-      "id": "45981af4-1aee-46ff-997b-5997cc4f740a",
+      "id": "5adffc18-b588-4041-b7ec-370130284cc5",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -381,7 +381,7 @@
       "label": "Inch Kenneth #icao:WP-023"
     },
     {
-      "id": "6a93146e-1d37-41be-a297-8862973d9377",
+      "id": "f6585381-7e2b-484e-bd81-557a037879de",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -397,7 +397,7 @@
       "label": "Cuan ferry #icao:WP-024"
     },
     {
-      "id": "53ff73ad-7d7b-4e6a-b1c3-b3b39d23c776",
+      "id": "f1c4a3be-380a-4f65-b57e-a7d0f8519966",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -413,7 +413,7 @@
       "label": "Kingairloch #icao:WP-025"
     },
     {
-      "id": "86de1099-6204-44cf-867f-3ad11d310666",
+      "id": "4bb73d8a-9a62-4bf9-ba9e-b61ea2773819",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -429,7 +429,7 @@
       "label": "Strontian #icao:WP-026"
     },
     {
-      "id": "5ad9234b-397f-4dba-a762-2a98c883bce8",
+      "id": "cd71fb5b-e56f-4d33-98cf-72b3c978bb4b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -445,7 +445,7 @@
       "label": "A861 #road-accident #icao:WP-027"
     },
     {
-      "id": "d2728050-4e31-43dd-ac90-9e34ebd7865c",
+      "id": "58c535ff-a152-4400-92e6-21539ced84cf",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -461,7 +461,7 @@
       "label": "Tobermory high school #icao:WP-028"
     },
     {
-      "id": "09947738-191e-47e3-85fb-3dbc8f4df5f3",
+      "id": "f20eb540-27d5-46bc-b40d-d281d6d68f86",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -477,7 +477,7 @@
       "label": "Glen Lonan Road #road-accident #icao:WP-029"
     },
     {
-      "id": "d4e4b9b6-666d-42cd-9e7d-34686ea8b88a",
+      "id": "7cb1885d-ed1b-44ab-be9b-e85158d91af8",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -493,7 +493,7 @@
       "label": "Muckarin Castle #icao:WP-030"
     },
     {
-      "id": "58cbc907-d9e4-4d84-895b-39dacc7103e7",
+      "id": "646df7d6-e1f8-4e6b-9534-cd071b19a4f1",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -509,7 +509,7 @@
       "label": "location east of Tom Ard #train #icao:WP-031"
     },
     {
-      "id": "bc24482e-b582-4470-9aab-3ff92151f71e",
+      "id": "33306ce3-bb00-4548-ab66-c2e46371cafb",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -525,7 +525,7 @@
       "label": "Creag Ruisgte #cricket #icao:WP-032"
     },
     {
-      "id": "fdb9f870-5793-440b-a102-6970a41b3ef0",
+      "id": "edc55f8f-34a1-4655-b8e9-07ff75fc2e1c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -541,7 +541,7 @@
       "label": "Bishop's house at Iona #icao:WP-033"
     },
     {
-      "id": "c9abc5fc-a1a6-45ee-9ecf-9f859eb2a33e",
+      "id": "a6cd22c0-695b-46b8-8db3-d4375876145b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -557,7 +557,7 @@
       "label": "Aird #icao:WP-034"
     },
     {
-      "id": "fb7fd7f8-6655-41d6-9abf-a2c58dbb7371",
+      "id": "7df723a6-fcd8-4b6a-9fa6-6cf22883a465",
       "height": {
         "mode": "asl",
         "value": 18.1
@@ -583,7 +583,7 @@
       "label": "Lorn & Islands Hospital #hospital #approach:90 #approach:270 #icao:GB-0174"
     },
     {
-      "id": "be6e9c28-e45a-4c42-a388-c8ab07fcde5b",
+      "id": "9621a183-1af0-4a82-8bcb-8c22f9c82286",
       "height": {
         "mode": "asl",
         "value": 18.5
@@ -605,11 +605,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "4e3ebcd5-f7cf-4e4f-88de-518c6786e7d2",
+      "id": "4abd52f7-f73f-4f20-8ff8-8f346875ab9d",
       "height": {
         "mode": "asl",
         "value": 18.5
@@ -631,11 +631,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "ee6da826-a931-41cc-a1eb-6b39b7db39e7",
+      "id": "08be06f6-bcc0-461a-a6b1-26674a4a8dbf",
       "height": {
         "mode": "asl",
         "value": 18.5
@@ -657,11 +657,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "0a45198c-5b57-49f7-9254-b6fcd5b18cce",
+      "id": "0fc37887-07df-4b03-9fcf-1bf77bb50796",
       "height": {
         "mode": "asl",
         "value": 18.5
@@ -683,11 +683,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "08d50e60-628a-472e-93a8-b521efedd010",
+      "id": "55f66f81-01c1-4471-9c4a-fe280fe7142c",
       "height": {
         "mode": "asl",
         "value": 19.5
@@ -713,7 +713,7 @@
       "label": ""
     },
     {
-      "id": "d62bd004-7ad4-4162-82a6-4fb103aeb320",
+      "id": "539de330-d40d-4b7e-9802-8ab6803ea888",
       "height": {
         "mode": "asl",
         "value": 22.5
@@ -739,7 +739,7 @@
       "label": ""
     },
     {
-      "id": "d2af48d1-343c-4dff-96a7-78b567ed96c5",
+      "id": "c5ec39f2-7bd1-47ed-b7e5-2d08dbe2e682",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -765,7 +765,7 @@
       "label": ""
     },
     {
-      "id": "bdf9d4a4-1f63-433b-b0fc-578f40847a8c",
+      "id": "9bce405d-3a96-49d1-bc74-b398b92f6527",
       "height": {
         "mode": "asl",
         "value": 57.5
@@ -791,7 +791,7 @@
       "label": ""
     },
     {
-      "id": "58e7b399-f9d9-4bb1-8d23-a5b16a989424",
+      "id": "08a5ac40-41fe-4ca3-b1e7-1ff3cc3c3458",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -817,7 +817,7 @@
       "label": ""
     },
     {
-      "id": "f28a2800-8e3c-4d74-b03c-f7ed991d8695",
+      "id": "f12214d1-66a3-4645-95a7-154029ffc38e",
       "height": {
         "mode": "asl",
         "value": 3.5
@@ -843,7 +843,7 @@
       "label": ""
     },
     {
-      "id": "8d350d02-2349-4ac4-bdeb-2a9e88022d5a",
+      "id": "c6512be3-54b7-4999-b9d6-9fecf43d476e",
       "height": {
         "mode": "asl",
         "value": 16.5
@@ -869,7 +869,7 @@
       "label": ""
     },
     {
-      "id": "7c93298b-d0d6-4216-9086-adfd6b269b57",
+      "id": "1d1db74a-5e84-4cc3-a95d-ea87d487039d",
       "height": {
         "mode": "asl",
         "value": 21.5
@@ -895,7 +895,7 @@
       "label": ""
     },
     {
-      "id": "e2340fd1-6435-4543-8755-f90b8b17fc58",
+      "id": "b81cdc33-7689-467d-9194-cea45313e763",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -921,7 +921,7 @@
       "label": ""
     },
     {
-      "id": "d66c8be1-c082-4d18-b3f8-5d38fd8d5a97",
+      "id": "8ad34595-c76f-4e9b-ae75-a92d53cb9062",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -947,7 +947,7 @@
       "label": ""
     },
     {
-      "id": "e50246bb-4e6a-42a8-bed2-c920f55f693d",
+      "id": "3fd6d997-56d7-4b7f-bad1-6a3dab88039d",
       "height": {
         "mode": "asl",
         "value": 50.5
@@ -973,7 +973,7 @@
       "label": ""
     },
     {
-      "id": "f5005607-f441-4c2d-89f1-6e7d304816ef",
+      "id": "c97e9f7f-63b4-4c03-adcb-59e6f9c84ad3",
       "height": {
         "mode": "asl",
         "value": 49.5
@@ -999,7 +999,7 @@
       "label": ""
     },
     {
-      "id": "f7c34431-3f9d-4a51-8f07-0f21bdac8744",
+      "id": "975d52bf-6d21-4953-b349-6678e206e40a",
       "height": {
         "mode": "asl",
         "value": 266.5
@@ -1025,7 +1025,7 @@
       "label": ""
     },
     {
-      "id": "b607189a-d5b1-4fdd-9e1e-189575cbaf4d",
+      "id": "7c1bd71b-31a3-402d-ba2c-8f1b9e69289a",
       "height": {
         "mode": "asl",
         "value": 162.5
@@ -1051,7 +1051,7 @@
       "label": ""
     },
     {
-      "id": "dcacf043-ebca-4302-b228-2e6956607ecf",
+      "id": "abfbf8d5-ec47-4197-b69b-c8c1004c0853",
       "height": {
         "mode": "asl",
         "value": 33.5
@@ -1077,7 +1077,7 @@
       "label": ""
     },
     {
-      "id": "cd716cbf-07b0-4822-bc07-2c23a9f7dbe5",
+      "id": "a09dec20-8eca-4717-9e1b-f5ea1c069ed2",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -1103,7 +1103,7 @@
       "label": ""
     },
     {
-      "id": "72b914a8-e739-4801-90d8-33198c9fda42",
+      "id": "a980b2be-2034-4b90-87c7-8e72af3d570a",
       "height": {
         "mode": "asl",
         "value": 3.5
@@ -1129,7 +1129,7 @@
       "label": ""
     },
     {
-      "id": "b090806e-5071-4930-9b12-f2fad31610a0",
+      "id": "9092c018-ecd0-4142-8e41-01125b3e84c9",
       "height": {
         "mode": "asl",
         "value": 53.5
@@ -1155,7 +1155,7 @@
       "label": ""
     },
     {
-      "id": "162bd2d8-4d2a-4148-bac0-9af6be626844",
+      "id": "126107f8-f5c3-44de-8168-e37465683920",
       "height": {
         "mode": "asl",
         "value": 707.5
@@ -1181,7 +1181,7 @@
       "label": ""
     },
     {
-      "id": "7ba52a86-8ec7-4373-8658-59891ed6ce80",
+      "id": "5e0ef51f-7954-4928-94e0-ff9f5bbcfbe5",
       "height": {
         "mode": "asl",
         "value": 203.5
@@ -1207,7 +1207,7 @@
       "label": ""
     },
     {
-      "id": "19bc415c-bfcb-4594-9f3e-f9bbdecbe0a1",
+      "id": "f4ebf1e5-ee10-49da-80de-c7d380480fc7",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -1233,7 +1233,7 @@
       "label": ""
     },
     {
-      "id": "30641e72-fb4d-4e11-b782-147cf8458592",
+      "id": "4318e03f-b097-47cc-a677-4965c670c4e5",
       "height": {
         "mode": "asl",
         "value": 25.5
@@ -1259,7 +1259,7 @@
       "label": ""
     },
     {
-      "id": "cec945a0-c483-4eeb-8081-02832b6905ed",
+      "id": "02bc5008-b412-4ae0-915f-d0c2bb1bd67d",
       "height": {
         "mode": "asl",
         "value": 10.5
@@ -1285,7 +1285,7 @@
       "label": ""
     },
     {
-      "id": "a10dffee-1d92-4aaf-a911-2a178ed08afe",
+      "id": "61c064cb-2262-42b1-adc9-682f39c519b9",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -1311,7 +1311,7 @@
       "label": ""
     },
     {
-      "id": "005011d9-6224-4656-9e48-65128479a42c",
+      "id": "755703b8-6b78-494c-abe9-90900d8457d3",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -1337,7 +1337,7 @@
       "label": ""
     },
     {
-      "id": "351dc000-7fb6-4ba8-88ac-de8db906362d",
+      "id": "6651be92-85fe-4625-97e9-97b6a8fa8237",
       "height": {
         "mode": "asl",
         "value": 52.5
@@ -1363,7 +1363,7 @@
       "label": ""
     },
     {
-      "id": "762ec79a-24e2-4535-a97e-2bb277e1e211",
+      "id": "e75d881e-2648-44ff-9e2e-f92bfd23557c",
       "height": {
         "mode": "asl",
         "value": 40.5
@@ -1389,7 +1389,7 @@
       "label": ""
     },
     {
-      "id": "83e31b72-bd93-4ddc-90a7-82373fedc75a",
+      "id": "a6d06eaf-f2ed-45ae-b892-3689fc706d2b",
       "height": {
         "mode": "asl",
         "value": 73.5
@@ -1415,7 +1415,7 @@
       "label": ""
     },
     {
-      "id": "a4711278-16d4-4ed0-97d9-bd472d7e5c56",
+      "id": "d2e3eb6a-7e80-4699-a5ac-e116c23d2135",
       "height": {
         "mode": "asl",
         "value": 19.5
@@ -1441,7 +1441,7 @@
       "label": ""
     },
     {
-      "id": "8c6b85bc-31e4-4768-ad0c-4bf762afabb2",
+      "id": "073357ea-ba06-47a6-971a-165bf5f753ea",
       "height": {
         "mode": "asl",
         "value": 60.5
@@ -1467,7 +1467,7 @@
       "label": ""
     },
     {
-      "id": "a033386d-9c73-4cab-9ffa-1c2a864119b6",
+      "id": "c0920ed1-a4aa-477a-9fc8-de3abb3ea910",
       "height": {
         "mode": "asl",
         "value": 187.5
@@ -1493,7 +1493,7 @@
       "label": ""
     },
     {
-      "id": "aea8a7ac-08ef-477b-b09e-bf3a5544fc2c",
+      "id": "a5b50b11-654c-4412-a53f-680b0f6b9563",
       "height": {
         "mode": "asl",
         "value": 17.5
@@ -1519,7 +1519,7 @@
       "label": ""
     },
     {
-      "id": "96ee2150-5e34-4bca-8f1b-ca1974573944",
+      "id": "367481fe-aa24-445e-a8cb-8406a0523e69",
       "height": {
         "mode": "asl",
         "value": 10.5
@@ -1545,7 +1545,7 @@
       "label": ""
     },
     {
-      "id": "920bf1a6-6669-46b1-a6fb-0af2fee9a7d9",
+      "id": "97bfcee3-b96e-46a5-9ba3-cfcd972d4de6",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -1571,7 +1571,7 @@
       "label": ""
     },
     {
-      "id": "f4a314b8-d17a-45e0-8329-1b46ea4279ae",
+      "id": "67bcb21d-2864-4ebf-8cf1-8a1ba8d4f628",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -1597,7 +1597,7 @@
       "label": "Mull and Iona Community Hospital #hospital #approach:135 #approach:315 #icao:WP-035"
     },
     {
-      "id": "1227f707-401a-4c41-80ac-4ac0b8e6dc6e",
+      "id": "d32d9869-4260-4d78-bed8-2faeef695cd5",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1619,11 +1619,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "d429d976-9f38-413d-9780-7069c35de34b",
+      "id": "1a67a8f9-758d-466a-adcd-576d88484540",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1645,11 +1645,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "0a6cbc01-d399-436c-9104-5e4489eacfc8",
+      "id": "c0657876-e503-42a0-b5ce-c58412a2d538",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1671,11 +1671,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "821007eb-4ad7-4a1b-a2dc-76ee8295f7d3",
+      "id": "7430eed8-d4a1-47f5-8ec1-289fb124ff81",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1697,11 +1697,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "d8e4cc6d-603a-45c7-a06b-18e5d976f275",
+      "id": "9043ae06-8b2b-4d06-934d-b695f0d131ff",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -1727,7 +1727,7 @@
       "label": "Oban Airport #heliport #approach:281 #approach:101 #icao:EGEO"
     },
     {
-      "id": "62cda157-8606-4997-9e70-8e9b4aa1124c",
+      "id": "325ae501-da46-4966-9e60-55a7ed69b06e",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1749,11 +1749,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "2171de33-70f8-49e0-8b62-00dbbe8e31dd",
+      "id": "7077acc9-e2df-454d-8034-3229c8444616",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1775,11 +1775,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "c633c262-2ddc-4810-a5d3-4d5845962514",
+      "id": "5cbb266d-a8ef-4ffd-9ac4-13a283643837",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1801,11 +1801,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "3e2a038b-a8ce-402a-bd99-1c6d0ba4abcb",
+      "id": "daf9277a-164a-4655-97e1-f7f23677c53e",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1827,7 +1827,7 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     }
   ]

@@ -3,8 +3,8 @@
   "app": "pct",
   "name": "startgeraet_hems_edhg",
   "poiName": "startgeraet_hems_edhg",
-  "createdAt": "2026-11-08T06:35:52.385Z",
-  "modifiedAt": "2026-11-08T10:51:23.570Z",
+  "createdAt": "2026-11-08T10:06:28.395Z",
+  "modifiedAt": "2026-11-08T13:07:43.002Z",
   "reference": null,
   "camera": {
     "lon": 10.457620941302837,
@@ -13,7 +13,7 @@
   },
   "objects": [
     {
-      "id": "68af6f7a-8f1f-44e1-84f3-c4cf4eb15aea",
+      "id": "a9469861-53ec-4b6a-a971-fc291061d25d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -29,7 +29,7 @@
       "label": "Amelinghausen, Sportplatz #icao:WP-001"
     },
     {
-      "id": "645521d5-6804-4eac-a2a9-0e746f32d9e4",
+      "id": "d1ffb09c-fe3e-4c59-b1a1-02c8f4ad2955",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -45,7 +45,7 @@
       "label": "Heiligenthal, Hauptstraße #icao:WP-002"
     },
     {
-      "id": "0a4e0d7f-1a14-49f0-bb04-04ab3cd19ec7",
+      "id": "6f7dfc18-73f3-440f-b02e-cb1fdb2f2eda",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -61,7 +61,7 @@
       "label": "A39 #road-accident #icao:WP-003"
     },
     {
-      "id": "60dea5f8-9a34-4c8b-ae17-dd95fe57a40f",
+      "id": "8470f996-5b19-42ef-96c3-3ddbdf82d5e0",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -77,7 +77,7 @@
       "label": "B404 #road-accident #icao:WP-004"
     },
     {
-      "id": "e9cca9be-3a76-4999-b792-25afe020e029",
+      "id": "57aafa23-dac8-47f0-bb51-7d72dd14f330",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -93,7 +93,7 @@
       "label": "Hohnstorf #icao:WP-007"
     },
     {
-      "id": "597d6176-3023-458f-83f0-ba9c08d72485",
+      "id": "7964c2da-f314-4d42-bbb1-87cadd08b08f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -109,7 +109,7 @@
       "label": "Lauenburg train station #icao:WP-008"
     },
     {
-      "id": "7d20cab2-4b01-45da-9f79-ad69d8a2294f",
+      "id": "247e2ee5-c558-4c31-8f0b-d3bb62606797",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -125,7 +125,7 @@
       "label": "camping site Stover Strand #icao:WP-009"
     },
     {
-      "id": "9361f73e-8b5e-4ca0-bce2-bdf3b690d41c",
+      "id": "34fdd6f9-c9b3-416d-98ff-3b1daf0f596d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -141,7 +141,7 @@
       "label": "Lauenburg bus station #icao:WP-010"
     },
     {
-      "id": "17717b92-f901-4355-ac17-40eb9661d754",
+      "id": "eb12b96c-4977-4848-9f73-b02aa94565f7",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -157,7 +157,7 @@
       "label": "Kloster Ebstorf #icao:WP-011"
     },
     {
-      "id": "4066f51a-755e-41b4-9265-b81820312d68",
+      "id": "90ef3fb3-12a4-43a7-8e42-554a81c1a699",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -173,7 +173,7 @@
       "label": "Tätendorf #icao:WP-012"
     },
     {
-      "id": "86184632-bac7-4422-b82c-4c946123dbc6",
+      "id": "e83af1dd-4e91-466f-9089-26034bcbf809",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -189,7 +189,7 @@
       "label": "Bad Bevensen, Neptunbrunnen #icao:WP-013"
     },
     {
-      "id": "7d844b59-1248-4247-8f1b-2d6921fb81ca",
+      "id": "378223e6-7916-4720-bfbd-e1f17e91bc30",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -205,7 +205,7 @@
       "label": "Heinsen #icao:WP-014"
     },
     {
-      "id": "ebae46fa-6ea2-42d6-bf32-5d3cf17bc7c4",
+      "id": "44f0bad4-9574-410c-9e4c-67304436faaa",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -221,7 +221,7 @@
       "label": "B4 near Melbeck #road-accident #icao:WP-015"
     },
     {
-      "id": "2acc6370-ffd1-4621-bb14-bacb94feee59",
+      "id": "5bc672c1-a8f5-434d-918b-16b025877632",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -237,7 +237,7 @@
       "label": "B4 near Bargdorf #road-accident #icao:WP-016"
     },
     {
-      "id": "a9f94ba1-91b4-4f35-8b24-5a96471b902f",
+      "id": "298a3107-d379-4825-bb13-523b26b38c57",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -253,7 +253,7 @@
       "label": "Bienenbüttel #icao:WP-017"
     },
     {
-      "id": "e0f9ff89-90ca-4e2a-809a-5934198b9da6",
+      "id": "8fb64c40-d03e-4a23-b89c-7dcf9c915fd1",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -269,7 +269,7 @@
       "label": "Scharnebeck Schiffshebewerk #icao:WP-018"
     },
     {
-      "id": "7a0b8a5d-2bf4-4ad9-ae59-c8efbb7a1942",
+      "id": "34b56d19-6f62-4624-b4ce-e63a7c47aa1b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -285,7 +285,7 @@
       "label": "Ravener Dorfstraße #icao:WP-019"
     },
     {
-      "id": "eea656cf-c797-43fb-84eb-6a4dba32a3d7",
+      "id": "1a257ad1-cc9c-4c80-8c46-79b96ae02c1b",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -301,7 +301,7 @@
       "label": "Salzhausen school #icao:WP-020"
     },
     {
-      "id": "f9562b96-a59a-4387-8a29-a136b9c9dd36",
+      "id": "a9b29fb7-f90e-43bd-856c-7725c56ec8d4",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -317,7 +317,7 @@
       "label": "Salzhausen supermarket #icao:WP-021"
     },
     {
-      "id": "748aa596-f455-4f66-a560-ff610fb1b83b",
+      "id": "2b0c32a7-49b3-4b86-9d3c-7802743cec64",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -333,7 +333,7 @@
       "label": "Maschen train yard #icao:WP-022"
     },
     {
-      "id": "b42179ab-e342-4537-b319-bfe09ed0aff0",
+      "id": "76afb462-f9ea-4d81-91ea-d3649e1b044d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -349,7 +349,7 @@
       "label": "Fliegenberg Sportplatz #icao:WP-023"
     },
     {
-      "id": "80d43eb4-dbf3-40f3-9af4-8e66723bcf12",
+      "id": "d4cf7965-71fd-4170-b791-1c3bfcb7aee8",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -365,7 +365,7 @@
       "label": "Barum center #icao:WP-024"
     },
     {
-      "id": "1445b26b-0745-4021-ada8-0d0da5bd2b9c",
+      "id": "b0927a7c-0b2d-473f-a074-8b8f22d2691a",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -381,7 +381,7 @@
       "label": "Neetze lake #icao:WP-025"
     },
     {
-      "id": "23b53d24-56ce-4bc6-b5ac-2a2c0aa8e4df",
+      "id": "1c6baf90-4f40-4c82-bfe9-2ef04b6d4423",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -397,7 +397,7 @@
       "label": "Elbe Fischtreppe #icao:WP-026"
     },
     {
-      "id": "a60ce335-bb8a-4e73-b55a-4047167d51f6",
+      "id": "774465b7-36b1-455d-a8ab-ceb10694c654",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -413,7 +413,7 @@
       "label": "B216 near Norndorf #icao:WP-027"
     },
     {
-      "id": "c41a2abf-48d9-429c-bf17-79b3455a7e4a",
+      "id": "4e9a09d1-a46f-4b61-aca5-9b95e59b3305",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -429,7 +429,7 @@
       "label": "A7 near Toppenstedt #road-accident #icao:WP-029"
     },
     {
-      "id": "2af5c4f7-2ee9-4769-bc8e-c412cb58cb8d",
+      "id": "f1646f83-ce9b-4762-8a91-56b7d191a41f",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -445,7 +445,7 @@
       "label": "position near Köhlerhütte #pitch #icao:WP-030"
     },
     {
-      "id": "226b14c3-cbf7-4d82-b259-32655ebe7733",
+      "id": "c648fb3d-1ae3-4434-91ab-649b1c817d47",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -461,7 +461,7 @@
       "label": "position near Altstadt #ferry #icao:WP-031"
     },
     {
-      "id": "e72ae0cb-6463-458f-9944-074cc85ccd3d",
+      "id": "553e2b09-a3ff-4b7f-812a-0ed82616a75d",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -477,7 +477,7 @@
       "label": "Ratzeburg town hall #icao:WP-032"
     },
     {
-      "id": "0e18318c-2fe9-4ae8-80f4-f4c3a980763b",
+      "id": "9af7c1ae-d7d7-4064-b796-5a3f79e3f391",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -493,7 +493,7 @@
       "label": "Eschede, Bergener Straße #icao:WP-035"
     },
     {
-      "id": "77e149f5-6257-4ecc-ba1f-7a8fc1329f16",
+      "id": "2c376fcb-ba6f-4042-9ea7-f809449ec70c",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -509,7 +509,7 @@
       "label": "Bispingen Tank & Rast #icao:WP-036"
     },
     {
-      "id": "aa9d5722-74cb-46ff-9f8b-c5976319698e",
+      "id": "023e07d9-39c0-46bc-b11e-34a9983b12fa",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -525,7 +525,7 @@
       "label": "Amt Neuhaus #icao:WP-037"
     },
     {
-      "id": "5e1e1d28-8282-41a6-87c6-3800f277dd38",
+      "id": "e3f7fd63-9927-4533-a0cd-ccced50c229a",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -541,7 +541,7 @@
       "label": "fields near Hanstedt I #cricket #icao:WP-038"
     },
     {
-      "id": "29fd196b-9cfc-42aa-98e4-cdd4ca1f16a8",
+      "id": "becd03ac-2f76-4ab4-b69a-f1c3b5ef8f05",
       "kind": "xref",
       "name": "ambulance",
       "position": {
@@ -557,7 +557,7 @@
       "label": "Dömitz Elbbrücke #icao:WP-039"
     },
     {
-      "id": "041b290e-eca3-4b51-87ed-2c4386ca0fef",
+      "id": "420288da-b753-434a-b489-aae316f557a8",
       "height": {
         "mode": "asl",
         "value": 49.1
@@ -583,7 +583,7 @@
       "label": "Lüneburg airfield #heliport #approach:73 #approach:253 #icao:EDHG"
     },
     {
-      "id": "93194ea6-5e1e-4a31-80e8-1bb90d3eaee7",
+      "id": "f22544f6-469f-49bd-b607-c5e8ce80f2a5",
       "height": {
         "mode": "asl",
         "value": 49.5
@@ -605,11 +605,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "c4fe92d0-132d-439b-8b21-4bc5f1a09790",
+      "id": "828fc99f-8265-40c5-b9c0-7a5eee238c0d",
       "height": {
         "mode": "asl",
         "value": 49.5
@@ -631,11 +631,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "f2b39ef8-0c77-45a4-b247-bb69470f4575",
+      "id": "f4cd56be-a429-49ca-87dc-0c63de78f43e",
       "height": {
         "mode": "asl",
         "value": 49.5
@@ -657,11 +657,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "3f629fe9-e4b2-4903-9063-fedc238ade54",
+      "id": "448dd29c-fe76-481d-9ab7-d10f5294ce94",
       "height": {
         "mode": "asl",
         "value": 49.5
@@ -683,11 +683,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "67b41af8-041a-41a7-8d3b-36728539e5c5",
+      "id": "07cc4397-4e8e-4f33-802c-71cc92d8bb67",
       "height": {
         "mode": "asl",
         "value": 50.5
@@ -713,7 +713,7 @@
       "label": ""
     },
     {
-      "id": "5115ef30-91ab-4b42-bb93-03514ec6de44",
+      "id": "a8650850-1bc1-48d8-9e92-ec025073f322",
       "height": {
         "mode": "asl",
         "value": 10.5
@@ -739,7 +739,7 @@
       "label": ""
     },
     {
-      "id": "a4f63c19-ace3-4ddf-a4f1-1d6cb9b37c81",
+      "id": "c36c42b9-d1ef-49f9-ada8-f6c3faa4175a",
       "height": {
         "mode": "asl",
         "value": 11.5
@@ -765,7 +765,7 @@
       "label": ""
     },
     {
-      "id": "e60fc767-4305-489d-9bcc-009e33cb9a69",
+      "id": "e9ae4824-fc35-4005-a648-ba940a636416",
       "height": {
         "mode": "asl",
         "value": 10.5
@@ -791,7 +791,7 @@
       "label": ""
     },
     {
-      "id": "389657cb-7db3-4120-8b47-899be655a6f9",
+      "id": "37a6dcbb-6e36-4f12-b75f-d05c0edd9e29",
       "height": {
         "mode": "asl",
         "value": 16.1
@@ -817,7 +817,7 @@
       "label": "Hospital Winsen/Luhe #hospital #approach:132 #approach:312 #icao:de1034"
     },
     {
-      "id": "fd900730-0342-44cb-ab20-d011d07f0f02",
+      "id": "8cbd32ed-edfa-45d5-8713-ee2fc6b75258",
       "height": {
         "mode": "asl",
         "value": 16.5
@@ -839,11 +839,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "e0a122b1-a6ae-44c9-830e-67cfa3c67a5a",
+      "id": "66139010-e6e9-49a8-8034-82ee84b08639",
       "height": {
         "mode": "asl",
         "value": 16.5
@@ -865,11 +865,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "5a3c5976-b6a9-4d4f-bf3e-5de3dd3860e1",
+      "id": "ef8e1306-0868-4278-ae8b-1c96cbca5c41",
       "height": {
         "mode": "asl",
         "value": 16.5
@@ -891,11 +891,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "a9fa00f1-a199-40d7-8d41-2d6d1b1abd28",
+      "id": "e212189d-22a3-46ca-9c07-b95641955cb3",
       "height": {
         "mode": "asl",
         "value": 16.5
@@ -917,11 +917,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "b9ae3cc8-3576-4d6b-9693-37176860e6e1",
+      "id": "90b7bf91-ae68-47f7-a240-2a49a417000b",
       "height": {
         "mode": "asl",
         "value": 14.1
@@ -947,7 +947,7 @@
       "label": "Klinikum Uelzen #hospital #approach:231 #approach:51 #icao:de0999"
     },
     {
-      "id": "853f124e-4899-4c6a-876c-fde9c0b84c9a",
+      "id": "d8817ee5-d1de-4159-8694-e221360fa8f0",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -969,11 +969,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "2962aa56-c3d2-4612-979a-0c47ec5fc297",
+      "id": "949db5d3-01a3-4959-a8bc-7bc063076a6b",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -995,11 +995,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "5927d7b6-2f73-4e25-ba22-403492eedb78",
+      "id": "e80c302a-0d28-471c-8d0c-5d3a5109fa86",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -1021,11 +1021,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "18532bc3-ef31-464f-a435-703eca90ed0b",
+      "id": "db1992a4-7bec-4b5b-8bec-0bf14ba10669",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -1047,11 +1047,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "c74f442d-1854-40c7-b5a8-3e2551df9e9a",
+      "id": "b974465f-e0b1-4811-8d3b-52f8a431a631",
       "height": {
         "mode": "asl",
         "value": 43.5
@@ -1077,7 +1077,7 @@
       "label": ""
     },
     {
-      "id": "1a3c47b4-e65b-4cdc-be94-065ad314134a",
+      "id": "4de52ef2-f494-42c3-9b0c-7b311606b48d",
       "height": {
         "mode": "asl",
         "value": 78.5
@@ -1103,7 +1103,7 @@
       "label": ""
     },
     {
-      "id": "5993923c-65a8-417b-a992-ce443f421a98",
+      "id": "e126d02a-944b-41c3-a8bd-9144fa14d84e",
       "height": {
         "mode": "asl",
         "value": 91.5
@@ -1129,7 +1129,7 @@
       "label": ""
     },
     {
-      "id": "fcff7073-6e79-46d0-bea9-94dd58971db1",
+      "id": "277380b0-8220-4d1b-9e9f-781270575792",
       "height": {
         "mode": "asl",
         "value": 34.5
@@ -1155,7 +1155,7 @@
       "label": ""
     },
     {
-      "id": "17bbd6cc-dc8d-496b-921e-456d3fb73e8c",
+      "id": "83436516-9617-4356-9b23-13d88b4835f4",
       "height": {
         "mode": "asl",
         "value": 53.5
@@ -1181,7 +1181,7 @@
       "label": ""
     },
     {
-      "id": "d5d576d9-fd3a-47a2-972e-1adab8350cdf",
+      "id": "0029a6e2-2fc7-4256-b069-c00297d2ee31",
       "height": {
         "mode": "asl",
         "value": 23.5
@@ -1207,7 +1207,7 @@
       "label": ""
     },
     {
-      "id": "cb05ae58-88ed-4acb-ae89-d18cc4dd93c0",
+      "id": "17821deb-6c3a-4685-9c01-8ac1d99f564c",
       "height": {
         "mode": "asl",
         "value": 41.5
@@ -1233,7 +1233,7 @@
       "label": ""
     },
     {
-      "id": "e04a06b4-3c39-4f06-9218-7f27e2a526ba",
+      "id": "aecb2452-1d73-4581-abcd-2f62600266d8",
       "height": {
         "mode": "asl",
         "value": 22.5
@@ -1259,7 +1259,7 @@
       "label": ""
     },
     {
-      "id": "c2357c92-4261-4106-bb47-f96c7543f7f0",
+      "id": "95b2b1d7-4632-41d3-bcad-60242c7b281f",
       "height": {
         "mode": "asl",
         "value": 16.5
@@ -1285,7 +1285,7 @@
       "label": ""
     },
     {
-      "id": "6a845688-8344-4d73-973a-675ed7e25798",
+      "id": "8a824a6a-a1ca-4db6-a90d-7cff5c992810",
       "height": {
         "mode": "asl",
         "value": 103.5
@@ -1311,7 +1311,7 @@
       "label": ""
     },
     {
-      "id": "76d917d6-db21-4f4c-a827-ab956b38d271",
+      "id": "0dd8e50c-df01-4724-8566-41ef625aac13",
       "height": {
         "mode": "asl",
         "value": 36.5
@@ -1337,7 +1337,7 @@
       "label": ""
     },
     {
-      "id": "0e297313-10e9-4fc1-b92f-8f95b0c891a0",
+      "id": "ae4fdb0c-d0ff-4d3c-a461-c40878a80491",
       "height": {
         "mode": "asl",
         "value": 52.5
@@ -1363,7 +1363,7 @@
       "label": ""
     },
     {
-      "id": "aa2e3e7b-ebd7-4536-aa58-fc2d1dee9b9e",
+      "id": "e413d475-122e-4671-ba4f-67fec97a561d",
       "height": {
         "mode": "asl",
         "value": 12.5
@@ -1389,7 +1389,7 @@
       "label": ""
     },
     {
-      "id": "9cb8c5bc-9b46-4073-95e5-63602cb82001",
+      "id": "aeda6f68-4700-4d7d-b672-2f3052f13758",
       "height": {
         "mode": "asl",
         "value": 8.5
@@ -1415,7 +1415,7 @@
       "label": ""
     },
     {
-      "id": "94ae4c86-994e-4ed7-b269-2bd17d530aa6",
+      "id": "17f85f6f-3715-40ee-8395-ce6f0b836e4c",
       "height": {
         "mode": "asl",
         "value": 14.5
@@ -1441,7 +1441,7 @@
       "label": ""
     },
     {
-      "id": "29cb949b-e1e1-497f-98d6-51fdba15eb7c",
+      "id": "c9bc3baf-ae91-49cd-8143-99472d213ac2",
       "height": {
         "mode": "asl",
         "value": 11.5
@@ -1467,7 +1467,7 @@
       "label": ""
     },
     {
-      "id": "6ae5e672-5292-4e11-83cd-9504b2eb5324",
+      "id": "b3cc25c7-3d18-4c6c-82b0-63070c1c490e",
       "height": {
         "mode": "asl",
         "value": 12.5
@@ -1493,7 +1493,7 @@
       "label": ""
     },
     {
-      "id": "39bb5eac-0b22-4845-855e-e9ecf0dbfc10",
+      "id": "a0c80b39-2fb0-4be9-95d1-24c4211aadb5",
       "height": {
         "mode": "asl",
         "value": 69.5
@@ -1519,7 +1519,7 @@
       "label": ""
     },
     {
-      "id": "4a7e65f4-d547-4295-b846-2a117984c11b",
+      "id": "2bda72a3-66e4-4a56-8d04-88adce52a666",
       "height": {
         "mode": "asl",
         "value": 33.5
@@ -1545,7 +1545,7 @@
       "label": ""
     },
     {
-      "id": "0430f2f6-e724-4e2b-b212-c0eb697be377",
+      "id": "c2b3f76f-fb95-4df4-b7b6-476201e0e210",
       "height": {
         "mode": "asl",
         "value": 75.5
@@ -1571,7 +1571,7 @@
       "label": ""
     },
     {
-      "id": "22314e1a-fce9-44f5-8417-34758c7ce9aa",
+      "id": "a1036f21-fe6e-4547-aacb-3d2944987ed8",
       "height": {
         "mode": "asl",
         "value": 24.5
@@ -1597,7 +1597,7 @@
       "label": ""
     },
     {
-      "id": "60613e9d-d95d-4ada-b3bb-2248c2b109e8",
+      "id": "a39a210c-2f62-4e08-a2bc-03e7ccd294f4",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -1623,7 +1623,7 @@
       "label": "Klinikum Lüneburg #hospital #approach:280 #approach:178 #icao:de0819"
     },
     {
-      "id": "887a42fd-fc64-4409-a3d3-a4578b41e4b2",
+      "id": "a27db129-37eb-40a9-a8ce-9d0e3ab9130f",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1645,11 +1645,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "32fe2b94-0200-489b-a1a3-99ba194005e6",
+      "id": "d84a5ab3-0071-465a-98dc-643ca054c5fd",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1671,11 +1671,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "d9c730b9-0287-4f01-80aa-1ac71d154762",
+      "id": "81150192-108f-4cf5-8735-4a9ab46b90f8",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1697,11 +1697,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "765b0db0-c937-4449-ab7e-558819cf40fe",
+      "id": "c24cc91a-5405-4e2d-ac72-4ff753268675",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -1723,11 +1723,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "a012c6fa-7464-4e55-b038-ca449d4c0723",
+      "id": "350d0fcc-7edc-4a55-bcd8-4b896f8c6b45",
       "height": {
         "mode": "asl",
         "value": 22.5
@@ -1753,7 +1753,7 @@
       "label": ""
     },
     {
-      "id": "686a7ea8-0f4d-4aca-ba1d-3f3ed8ccc1d4",
+      "id": "2641d98d-1d8f-4b26-8193-e9c193d70623",
       "height": {
         "mode": "asl",
         "value": 90.5
@@ -1779,7 +1779,7 @@
       "label": ""
     },
     {
-      "id": "db985309-a8a1-4e95-86be-d270c507b759",
+      "id": "1461f412-8d43-4f13-8831-fd021ec96dac",
       "height": {
         "mode": "asl",
         "value": 88.5
@@ -1805,7 +1805,7 @@
       "label": ""
     },
     {
-      "id": "10a446eb-1d5f-41f1-941c-e1f7c333efc1",
+      "id": "fed85619-f635-455a-9fc1-8abbc33377f8",
       "height": {
         "mode": "asl",
         "value": 84.5
@@ -1831,7 +1831,7 @@
       "label": ""
     },
     {
-      "id": "8ccd3a55-3cbb-4fb3-a97b-3291e232bda1",
+      "id": "ab97ea3a-3f49-43ad-874c-1b9325836359",
       "height": {
         "mode": "asl",
         "value": 94.1
@@ -1857,7 +1857,7 @@
       "label": "Buchholz hospital #hospital #approach:176 #approach:26 #icao:de0686"
     },
     {
-      "id": "fe97cfa4-0e46-47a7-8126-b33d6339e689",
+      "id": "8e905cd7-0065-462f-ba9b-fcfb0bf8d898",
       "height": {
         "mode": "asl",
         "value": 94.5
@@ -1879,11 +1879,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "fba66776-dc41-491b-ba39-ae9688b9b27b",
+      "id": "76e83983-3dd7-43ab-b44d-83f1dadf53f2",
       "height": {
         "mode": "asl",
         "value": 94.5
@@ -1905,11 +1905,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "36aa8dfc-b852-4990-9af0-2b0f1e592dc2",
+      "id": "eaba4bcf-bdc1-4f2e-b49a-670cb9f2efad",
       "height": {
         "mode": "asl",
         "value": 94.5
@@ -1931,11 +1931,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "a9ecf0d3-9929-4108-8caa-d0ccfd406975",
+      "id": "1e01e5b0-2318-45d7-bb0c-629d9be34468",
       "height": {
         "mode": "asl",
         "value": 94.5
@@ -1957,11 +1957,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "483975bd-5e11-4e2d-a1c5-16678e7eb589",
+      "id": "a6f603b3-c029-44b6-b9ab-2716b8e207ba",
       "height": {
         "mode": "asl",
         "value": 13.1
@@ -1987,7 +1987,7 @@
       "label": "Soltau Klinikum #hospital #approach:20 #approach:200 #icao:de0968"
     },
     {
-      "id": "4bb3fcf9-b300-430b-a791-3fb2c3a61b07",
+      "id": "409a8020-7d32-456d-8b95-782d9df9402f",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -2009,11 +2009,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "cb14acd8-ab93-407f-b8d3-3ea696044c94",
+      "id": "774e5ce5-e644-425e-8463-24303385df8d",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -2035,11 +2035,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "3c3d0e93-1d4d-4390-b66c-a23dcd3d2557",
+      "id": "fac3db6a-e2ee-47e7-8686-3d495e622055",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -2061,11 +2061,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "e9ec73af-fb1d-4a14-b65e-a43d4f19f0af",
+      "id": "c6913261-53f2-4b53-bff3-b3151fd4377c",
       "height": {
         "mode": "asl",
         "value": 13.5
@@ -2087,11 +2087,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "ecd31b83-73fd-4299-93e5-cd6a77e75a0d",
+      "id": "a76d0edf-0e69-4889-86f2-3fc3401ad485",
       "height": {
         "mode": "asl",
         "value": 81.5
@@ -2117,7 +2117,7 @@
       "label": ""
     },
     {
-      "id": "b22c3fe9-6406-4adf-8a8f-9e4c5ceb6a7b",
+      "id": "a51976e1-5610-4b63-835c-cf0dd70d2f36",
       "height": {
         "mode": "asl",
         "value": 18.5
@@ -2143,7 +2143,7 @@
       "label": ""
     },
     {
-      "id": "3aac2163-234d-4978-b783-c4dd5ae73005",
+      "id": "e10920c9-8556-4bf1-b63e-8fe516a1e9b7",
       "height": {
         "mode": "asl",
         "value": 33.5
@@ -2169,7 +2169,7 @@
       "label": ""
     },
     {
-      "id": "38d94df7-6257-4fae-b881-9207c86ed83d",
+      "id": "a3db7cb2-d2ca-4b6d-8e6e-21cb299804b5",
       "height": {
         "mode": "asl",
         "value": 3.5
@@ -2195,7 +2195,7 @@
       "label": ""
     },
     {
-      "id": "ebcfc356-321c-4f5f-9566-67ed7ba81b7f",
+      "id": "383a9de3-6c3d-4c27-9d5e-6c3cca1a8999",
       "height": {
         "mode": "asl",
         "value": 3.5
@@ -2221,7 +2221,7 @@
       "label": ""
     },
     {
-      "id": "0e865924-cf53-4651-bdf0-ff64aea11f36",
+      "id": "444aeec8-b07e-40f8-a91f-30a1203482c7",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -2247,7 +2247,7 @@
       "label": "Johanniter Hospital Geesthacht #hospital #approach:80 #approach:260 #icao:DE0493"
     },
     {
-      "id": "2e6faae4-b117-4f6c-96a5-3836d9adbc34",
+      "id": "504871c5-b795-4602-beb5-a1329471dcfb",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -2269,11 +2269,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "d792711b-6d29-48f7-86f0-ef11f6721a2e",
+      "id": "b81fa244-2f5f-4bd2-9cde-3fa3fd239795",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -2295,11 +2295,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "d3e9ca2f-c675-4454-b0e6-26a38f887662",
+      "id": "dddd49b6-b95f-471c-9967-568c44d5fb23",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -2321,11 +2321,11 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     },
     {
-      "id": "fccc8838-abad-4fe9-bf59-cfe16a5534d2",
+      "id": "00a6978e-97da-4af4-bd1e-b2906cef6b14",
       "height": {
         "mode": "asl",
         "value": 0.5
@@ -2347,7 +2347,7 @@
         0,
         0
       ],
-      "groupIndex": 3,
+      "groupIndex": 0,
       "label": ""
     }
   ]

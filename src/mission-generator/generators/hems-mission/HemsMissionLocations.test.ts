@@ -71,7 +71,9 @@ describe("HemsMissionLocations", () => {
         assert.strictEqual(heliports.length, 1);
 
         const heliport = locations.findHeliportLocationByIcaoId("EGEO");
-        assert.strictEqual(heliport?.direction, 281);
-        assert.strictEqual(heliport.approaches?.length, 2);
+
+        assert.ok(heliport);
+        assert.strictEqual(heliport?.approaches?.[0], 281);
+        assert.strictEqual(heliport?.approaches?.[1], 101);
     });
 });

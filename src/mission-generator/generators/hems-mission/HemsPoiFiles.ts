@@ -87,7 +87,7 @@ function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
                     heightAdjust: 0.5,
                     color: [0, 1, 0],
                     intensity: 100,
-                    groupIndex: 3,
+                    groupIndex: 0,
                 }),
             ),
         ]
