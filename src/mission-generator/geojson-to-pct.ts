@@ -11,7 +11,7 @@ import type { Point } from "@fboes/geojson";
 import { DIR_ASSETS } from "../core/util/directory.js";
 import type { LocationExtended } from "./util/Location.type.js";
 import { writeln, writeSuccess } from "../cli/formatter/writeCli.js";
-//import { DIR_FIXTURE } from "../test/loadFixture.js";
+import { DIR_FIXTURE } from "../test/loadFixture.js";
 import { setLocationElevationFromApi } from "./util/setElevation.js";
 
 const paths = fs.glob([
@@ -20,6 +20,7 @@ const paths = fs.glob([
 ]);
 for await (const sourcePath of paths) {
     writeln("Converting " + styleText("blueBright", sourcePath) + "...");
+    const fstat = await fs.stat(sourcePath);
     const content = await fs.readFile(sourcePath, "utf-8");
     const geoJson = JSON.parse(content);
     const locations = parseGeoJsonToLocations(geoJson);
@@ -32,13 +33,16 @@ for await (const sourcePath of paths) {
     const targetPath = path.join(sourceDirectory, `__${poiName}.json`);
 
     writeln("Writing " + styleText("blueBright", targetPath) + "...");
-    await writeFile(targetPath, locations, poiName);
+    await writeFile(targetPath, locations, poiName, fstat);
 }
+
+fs.cp(path.join(DIR_ASSETS, "mission-generator"), path.join(DIR_FIXTURE, "mission-generator"), { recursive: true });
+
 writeSuccess("Done");
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-async function writeFile(targetPath: string, locations: LocationExtended[], poiName: string = "pct") {
+async function writeFile(targetPath: string, locations: LocationExtended[], poiName: string = "pct", fstat?: fs.Stats) {
     const baseLocation = locations[0];
     if (!baseLocation) {
         throw new Error("No locations found");
@@ -51,7 +55,7 @@ async function writeFile(targetPath: string, locations: LocationExtended[], poiN
                 app: "pct",
                 name: poiName,
                 poiName,
-                createdAt: new Date(),
+                createdAt: fstat?.mtime ?? new Date(),
                 modifiedAt: new Date(),
                 reference: null,
                 camera: {

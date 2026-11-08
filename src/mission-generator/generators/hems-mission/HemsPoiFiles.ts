@@ -7,6 +7,7 @@ import {
 import { setLocationElevationFromApi } from "../../util/setElevation.js";
 import type { LocationExtended } from "../../util/Location.type.js";
 import { HemsMissionLocations } from "./HemsMissionLocations.js";
+import { Vector } from "@fboes/geojson";
 
 /**
  * @param slug
@@ -27,14 +28,18 @@ export function xrefFromLocations(locations: LocationExtended[]): AeroflyPoiXref
 function xrefFromLocation(location: LocationExtended): AeroflyPoiXref[] {
     const direction = location.direction ?? 0;
     const type = typeOfLocation(location);
-    return [
-        {
-            position: location.position,
-            direction,
-            name: typeSwitch<string>(type, { emergency: "ambulance" }) ?? "helipad",
-            label: label(location),
-        },
-    ];
+    return (
+        typeSwitch<AeroflyPoiXref[]>(type, {
+            emergency: [
+                {
+                    position: location.position,
+                    direction,
+                    name: "ambulance",
+                    label: label(location),
+                },
+            ],
+        }) ?? []
+    );
 }
 
 function label(location: LocationExtended): string | undefined {
@@ -70,7 +75,17 @@ function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
                     groupIndex: 3,
                 },
             ],
-        }) ?? []
+        }) ?? [
+            {
+                position: location.position,
+                heightAdjust: 0.1,
+                color: [0.1, 0.1, 0.1],
+                intensity: 1,
+                flashing: [0, 0, 0, 0],
+                groupIndex: 0,
+                label: label(location),
+            },
+        ]
     );
 }
 
@@ -80,9 +95,19 @@ export function airportLightsFromLocation(locations: LocationExtended[]): Aerofl
 }
 
 function airportLightFromLocation(location: LocationExtended): AeroflyPoiAirportLight[] {
+    const direction = location.direction ?? 0;
     return (
         typeSwitch<AeroflyPoiAirportLight[]>(typeOfLocation(location), {
-            emergency: [],
+            hospital: [45, 135, 225, 315].map(
+                (orientation): AeroflyPoiAirportLight => ({
+                    name: "hospital",
+                    orientation: direction + orientation,
+                    position: location.position.getPointBy(new Vector(5, direction + orientation)),
+                    heightAdjust: 0.5,
+                    groupIndex: 3,
+                    label: label(location),
+                }),
+            ),
         }) ?? []
     );
 }

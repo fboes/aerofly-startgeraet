@@ -13,7 +13,7 @@ import type { Location, LocationExtended } from "../util/Location.type.js";
 import { Point } from "@fboes/geojson";
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../core/util/degree.js";
-import { parsePct } from "./parsePct.js";
+import { parsePct } from "./PoiCreatorToolFile.js";
 
 /**
  * Keeps normalized airports, navigational aids and fixes cached after fetching

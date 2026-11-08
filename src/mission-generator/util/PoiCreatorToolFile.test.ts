@@ -1,7 +1,7 @@
 import path from "node:path";
 import { strict as assert } from "node:assert/strict";
 import { describe, it } from "node:test";
-import { parsePct } from "./parsePct.js";
+import { parsePct } from "./PoiCreatorToolFile.js";
 import { loadFixture } from "../../test/loadFixture.js";
 
 describe("parsePct", () => {

@@ -1,5 +1,5 @@
 import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../core/converter/parser/parseJSON.js";
-import type { PctFile, PctFileHeightMode, PctFileObject, PctFileObjectKind } from "./parsePct.type.js";
+import type { PctFile, PctFileHeightMode, PctFileObject, PctFileObjectKind } from "./PoiCreatorToolFile.type.js";
 
 /**
  * Ensuring that the supplied JSON is a valid POI Creation Tool JSON file
