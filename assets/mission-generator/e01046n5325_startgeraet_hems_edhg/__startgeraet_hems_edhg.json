@@ -3,8 +3,8 @@
   "app": "pct",
   "name": "startgeraet_hems_edhg",
   "poiName": "startgeraet_hems_edhg",
-  "createdAt": "2026-11-08T10:06:28.395Z",
-  "modifiedAt": "2026-11-08T13:07:43.002Z",
+  "createdAt": "2026-11-08T17:54:21.814Z",
+  "modifiedAt": "2026-11-08T17:56:45.960Z",
   "reference": null,
   "camera": {
     "lon": 10.457620941302837,
@@ -557,7 +557,7 @@
       "label": "Dömitz Elbbrücke #icao:WP-039"
     },
     {
-      "id": "420288da-b753-434a-b489-aae316f557a8",
+      "id": "4ccbcfc0-8afd-4391-bd39-98f2d9530a3e",
       "height": {
         "mode": "asl",
         "value": 49.1
@@ -568,11 +568,11 @@
         "lat": 53.24756138354581
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -791,7 +791,7 @@
       "label": ""
     },
     {
-      "id": "37a6dcbb-6e36-4f12-b75f-d05c0edd9e29",
+      "id": "b7b331d6-f8c1-474f-bf07-4e2648e93a8a",
       "height": {
         "mode": "asl",
         "value": 16.1
@@ -802,11 +802,11 @@
         "lat": 53.34860122223179
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -921,7 +921,7 @@
       "label": ""
     },
     {
-      "id": "90b7bf91-ae68-47f7-a240-2a49a417000b",
+      "id": "0cfbf0bf-9c17-4cf8-a179-afa7ca409181",
       "height": {
         "mode": "asl",
         "value": 14.1
@@ -932,11 +932,11 @@
         "lat": 52.97322272971323
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1597,7 +1597,7 @@
       "label": ""
     },
     {
-      "id": "a39a210c-2f62-4e08-a2bc-03e7ccd294f4",
+      "id": "be1b213d-e82e-49ec-8b10-3a4114e9a5c4",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -1608,11 +1608,11 @@
         "lat": 53.24081383105499
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1831,7 +1831,7 @@
       "label": ""
     },
     {
-      "id": "ab97ea3a-3f49-43ad-874c-1b9325836359",
+      "id": "8c534acb-9133-463c-8261-bcbd8ee9c2e2",
       "height": {
         "mode": "asl",
         "value": 94.1
@@ -1842,11 +1842,11 @@
         "lat": 53.333633099685045
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1961,7 +1961,7 @@
       "label": ""
     },
     {
-      "id": "a6f603b3-c029-44b6-b9ab-2716b8e207ba",
+      "id": "9805e375-2b7c-44c1-93f3-8bdea48c641c",
       "height": {
         "mode": "asl",
         "value": 13.1
@@ -1972,11 +1972,11 @@
         "lat": 52.989555966531356
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -2221,7 +2221,7 @@
       "label": ""
     },
     {
-      "id": "444aeec8-b07e-40f8-a91f-30a1203482c7",
+      "id": "233bcebf-0b7e-46a1-afe8-f9d686d50818",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -2232,11 +2232,11 @@
         "lat": 53.43183398847245
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,

@@ -3,8 +3,8 @@
   "app": "pct",
   "name": "startgeraet_hems_cn02",
   "poiName": "startgeraet_hems_cn02",
-  "createdAt": "2026-11-08T10:06:28.410Z",
-  "modifiedAt": "2026-11-08T13:07:42.751Z",
+  "createdAt": "2026-11-08T17:54:21.815Z",
+  "modifiedAt": "2026-11-08T17:56:45.733Z",
   "reference": null,
   "camera": {
     "lon": -122.50681134861225,
@@ -701,7 +701,7 @@
       "label": "Sonoma Raceway #approach:45 #approach:225 #icao:CL85"
     },
     {
-      "id": "95decd49-ed64-4cae-a032-c5336e05b1ef",
+      "id": "976e49c7-e0ae-469f-a08f-df3630e85805",
       "height": {
         "mode": "asl",
         "value": 72.1
@@ -712,11 +712,11 @@
         "lat": 37.783536231828364
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -987,7 +987,7 @@
       "label": ""
     },
     {
-      "id": "64f4a4c5-d06f-4d50-9f7d-b21fce775b7d",
+      "id": "f97e49ad-b174-4dc8-a631-a07800487691",
       "height": {
         "mode": "asl",
         "value": 141.1
@@ -998,11 +998,11 @@
         "lat": 37.76666240592256
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1663,7 +1663,7 @@
       "label": ""
     },
     {
-      "id": "e0ff5c1d-defc-4a91-84dd-7bb7416ba54a",
+      "id": "04465268-f32b-4752-b814-89ce2adabd9e",
       "height": {
         "mode": "asl",
         "value": 76.1
@@ -1674,11 +1674,11 @@
         "lat": 37.591803125655886
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1793,7 +1793,7 @@
       "label": ""
     },
     {
-      "id": "4cb8eb1c-f810-49d8-936c-b56c14b4ac2f",
+      "id": "4aee815d-9575-4d1b-911f-53832991788d",
       "height": {
         "mode": "asl",
         "value": 20.1
@@ -1804,11 +1804,11 @@
         "lat": 37.69897306985257
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1923,7 +1923,7 @@
       "label": ""
     },
     {
-      "id": "fa2a31b1-e894-4e1f-96ac-92cba7a4393a",
+      "id": "fcb4de62-50b5-4216-816d-bd6f3b0799ed",
       "height": {
         "mode": "asl",
         "value": 38.1
@@ -1934,11 +1934,11 @@
         "lat": 37.557487253878946
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -2053,7 +2053,7 @@
       "label": ""
     },
     {
-      "id": "2b8e9b97-7c05-4f46-9af9-b6b1a3f792e0",
+      "id": "73304462-1d6a-4efc-a32e-36bed815b64a",
       "height": {
         "mode": "asl",
         "value": 67.1
@@ -2064,11 +2064,11 @@
         "lat": 37.83615324428712
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -2183,7 +2183,7 @@
       "label": ""
     },
     {
-      "id": "815cc94e-ef48-43fb-8095-4b3a0ccb4f6e",
+      "id": "78625ee1-a0c1-4af3-8a56-8e44f47ed814",
       "height": {
         "mode": "asl",
         "value": 21.1
@@ -2194,11 +2194,11 @@
         "lat": 37.91285210158537
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -2313,7 +2313,7 @@
       "label": ""
     },
     {
-      "id": "e4b423e9-5744-431f-808a-ba139c485c57",
+      "id": "8761c6a5-1a71-4f65-b9a4-882d628c50aa",
       "height": {
         "mode": "asl",
         "value": 107.1
@@ -2324,11 +2324,11 @@
         "lat": 38.32387994894668
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -2443,7 +2443,7 @@
       "label": ""
     },
     {
-      "id": "b7955694-a6ac-4110-829a-9d8075bd95bd",
+      "id": "f3d4a9d6-2fa2-457c-8945-3ed08b73f82a",
       "height": {
         "mode": "asl",
         "value": 5.1
@@ -2454,11 +2454,11 @@
         "lat": 37.694413416174555
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,

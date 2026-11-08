@@ -3,8 +3,8 @@
   "app": "pct",
   "name": "startgeraet_hems_egeo",
   "poiName": "startgeraet_hems_egeo",
-  "createdAt": "2026-11-08T10:06:28.407Z",
-  "modifiedAt": "2026-11-08T13:07:42.864Z",
+  "createdAt": "2026-11-08T17:54:21.814Z",
+  "modifiedAt": "2026-11-08T17:56:45.844Z",
   "reference": null,
   "camera": {
     "lon": -5.474652806281114,
@@ -557,7 +557,7 @@
       "label": "Aird #icao:WP-034"
     },
     {
-      "id": "7df723a6-fcd8-4b6a-9fa6-6cf22883a465",
+      "id": "2ce1de88-6731-42f5-9e1f-e92fae2ad7e5",
       "height": {
         "mode": "asl",
         "value": 18.1
@@ -568,11 +568,11 @@
         "lat": 56.399445314371434
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1571,7 +1571,7 @@
       "label": ""
     },
     {
-      "id": "67bcb21d-2864-4ebf-8cf1-8a1ba8d4f628",
+      "id": "587e12a0-a203-48f8-b670-ca85768ec8c6",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -1582,11 +1582,11 @@
         "lat": 56.48048411820514
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
@@ -1701,7 +1701,7 @@
       "label": ""
     },
     {
-      "id": "9043ae06-8b2b-4d06-934d-b695f0d131ff",
+      "id": "5b589789-0cb4-4ed1-8e93-72b9c20476ac",
       "height": {
         "mode": "asl",
         "value": 0.1
@@ -1712,11 +1712,11 @@
         "lat": 56.464572641198856
       },
       "color": [
-        0.1,
-        0.1,
-        0.1
+        1,
+        1,
+        1
       ],
-      "intensity": 1,
+      "intensity": 5,
       "flashing": [
         0,
         0,
