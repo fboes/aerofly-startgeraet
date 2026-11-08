@@ -1,0 +1,7 @@
+<[file][][]
+    <[tmsimulator_scenery_place_simple][][]
+        <[string8u][coordinate_system][lonlat]>
+        <[bool][autoheight][false]>
+        <[string8u][cultivation][pct]>
+    >
+>

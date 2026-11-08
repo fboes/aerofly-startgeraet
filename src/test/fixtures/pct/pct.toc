@@ -1,0 +1,22 @@
+<[file][][]
+    <[cultivation][][]
+        <[string8u][coordinate_system][lonlat]>
+        <[list_airport_light][airport_light_list][]
+            <[airport_light][element][0]
+                <[string8u][type_name][helipad_beacon]>
+                <[string8u][configuration][]>
+                <[vector3_float64][position][-122.5067559 37.7835490 76.00]>
+                <[float64][orientation][301.254]>
+                <[uint32][group_index][0]>
+            >
+        >
+        <[list_xref][xref_list][]
+            <[xref][element][0]
+                <[string8u][name][airport_windsock_large1]>
+                <[vector3_float64][position][-122.5066949 37.7836445 76.00]>
+                <[float32][direction][147.489]>
+                <[float32][scale_factor][1]>
+            >
+        >
+    >
+>

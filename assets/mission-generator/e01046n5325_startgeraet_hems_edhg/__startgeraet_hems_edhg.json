@@ -1,0 +1,2354 @@
+{
+  "schemaVersion": 1,
+  "app": "pct",
+  "name": "startgeraet_hems_edhg",
+  "poiName": "startgeraet_hems_edhg",
+  "createdAt": "2026-11-08T17:54:21.814Z",
+  "modifiedAt": "2026-11-08T17:56:45.960Z",
+  "reference": null,
+  "camera": {
+    "lon": 10.457620941302837,
+    "lat": 53.24756138354581,
+    "zoom": 21
+  },
+  "objects": [
+    {
+      "id": "a9469861-53ec-4b6a-a971-fc291061d25d",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.22211473995057,
+        "lat": 53.124447358131846
+      },
+      "height": {
+        "mode": "asl",
+        "value": 48
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Amelinghausen, Sportplatz #icao:WP-001"
+    },
+    {
+      "id": "d1ffb09c-fe3e-4c59-b1a1-02c8f4ad2955",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.336700553669715,
+        "lat": 53.220286446750805
+      },
+      "height": {
+        "mode": "asl",
+        "value": 8
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Heiligenthal, Hauptstraße #icao:WP-002"
+    },
+    {
+      "id": "6f7dfc18-73f3-440f-b02e-cb1fdb2f2eda",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.32015049893485,
+        "lat": 53.31370643839796
+      },
+      "height": {
+        "mode": "asl",
+        "value": 9
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "A39 #road-accident #icao:WP-003"
+    },
+    {
+      "id": "8470f996-5b19-42ef-96c3-3ddbdf82d5e0",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.334796094702824,
+        "lat": 53.33285564688879
+      },
+      "height": {
+        "mode": "asl",
+        "value": 8
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "B404 #road-accident #icao:WP-004"
+    },
+    {
+      "id": "57aafa23-dac8-47f0-bb51-7d72dd14f330",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.55079170884369,
+        "lat": 53.36597221408283
+      },
+      "height": {
+        "mode": "asl",
+        "value": 41
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Hohnstorf #icao:WP-007"
+    },
+    {
+      "id": "7964c2da-f314-4d42-bbb1-87cadd08b08f",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.567126950807477,
+        "lat": 53.36989266003667
+      },
+      "height": {
+        "mode": "asl",
+        "value": 76
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Lauenburg train station #icao:WP-008"
+    },
+    {
+      "id": "247e2ee5-c558-4c31-8f0b-d3bb62606797",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.304816277769817,
+        "lat": 53.429604495969954
+      },
+      "height": {
+        "mode": "asl",
+        "value": 89
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "camping site Stover Strand #icao:WP-009"
+    },
+    {
+      "id": "34fdd6f9-c9b3-416d-98ff-3b1daf0f596d",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.554734991634405,
+        "lat": 53.37309484488506
+      },
+      "height": {
+        "mode": "asl",
+        "value": 32
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Lauenburg bus station #icao:WP-010"
+    },
+    {
+      "id": "eb12b96c-4977-4848-9f73-b02aa94565f7",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.41305322117077,
+        "lat": 53.03058529092442
+      },
+      "height": {
+        "mode": "asl",
+        "value": 51
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Kloster Ebstorf #icao:WP-011"
+    },
+    {
+      "id": "90ef3fb3-12a4-43a7-8e42-554a81c1a699",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.543655214829954,
+        "lat": 53.04810173362972
+      },
+      "height": {
+        "mode": "asl",
+        "value": 21
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Tätendorf #icao:WP-012"
+    },
+    {
+      "id": "e83af1dd-4e91-466f-9089-26034bcbf809",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.58551273624019,
+        "lat": 53.079146254730915
+      },
+      "height": {
+        "mode": "asl",
+        "value": 39
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bad Bevensen, Neptunbrunnen #icao:WP-013"
+    },
+    {
+      "id": "378223e6-7916-4720-bfbd-e1f17e91bc30",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.34527694080353,
+        "lat": 53.15928983887568
+      },
+      "height": {
+        "mode": "asl",
+        "value": 20
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Heinsen #icao:WP-014"
+    },
+    {
+      "id": "44f0bad4-9574-410c-9e4c-67304436faaa",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.446288200425585,
+        "lat": 53.15917996298393
+      },
+      "height": {
+        "mode": "asl",
+        "value": 14
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "B4 near Melbeck #road-accident #icao:WP-015"
+    },
+    {
+      "id": "5bc672c1-a8f5-434d-918b-16b025877632",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.504967565637628,
+        "lat": 53.125255014016375
+      },
+      "height": {
+        "mode": "asl",
+        "value": 101
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "B4 near Bargdorf #road-accident #icao:WP-016"
+    },
+    {
+      "id": "298a3107-d379-4825-bb13-523b26b38c57",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.487080419964371,
+        "lat": 53.14596924950487
+      },
+      "height": {
+        "mode": "asl",
+        "value": 34
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bienenbüttel #icao:WP-017"
+    },
+    {
+      "id": "8fb64c40-d03e-4a23-b89c-7dcf9c915fd1",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.490672560793087,
+        "lat": 53.293680955955494
+      },
+      "height": {
+        "mode": "asl",
+        "value": 50
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Scharnebeck Schiffshebewerk #icao:WP-018"
+    },
+    {
+      "id": "34b56d19-6f62-4624-b4ce-e63a7c47aa1b",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.15905044457196,
+        "lat": 53.173984874291335
+      },
+      "height": {
+        "mode": "asl",
+        "value": 10
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Ravener Dorfstraße #icao:WP-019"
+    },
+    {
+      "id": "1a257ad1-cc9c-4c80-8c46-79b96ae02c1b",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.167603583258597,
+        "lat": 53.21882386140226
+      },
+      "height": {
+        "mode": "asl",
+        "value": 6
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Salzhausen school #icao:WP-020"
+    },
+    {
+      "id": "a9b29fb7-f90e-43bd-856c-7725c56ec8d4",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.159191329745653,
+        "lat": 53.227157492596945
+      },
+      "height": {
+        "mode": "asl",
+        "value": 12
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Salzhausen supermarket #icao:WP-021"
+    },
+    {
+      "id": "2b0c32a7-49b3-4b86-9d3c-7802743cec64",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.062092751746263,
+        "lat": 53.40213312648689
+      },
+      "height": {
+        "mode": "asl",
+        "value": 9
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Maschen train yard #icao:WP-022"
+    },
+    {
+      "id": "76afb462-f9ea-4d81-91ea-d3649e1b044d",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.13348856784097,
+        "lat": 53.41840434555314
+      },
+      "height": {
+        "mode": "asl",
+        "value": 10
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Fliegenberg Sportplatz #icao:WP-023"
+    },
+    {
+      "id": "d4cf7965-71fd-4170-b791-1c3bfcb7aee8",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.410811785698087,
+        "lat": 53.351436643668876
+      },
+      "height": {
+        "mode": "asl",
+        "value": 67
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Barum center #icao:WP-024"
+    },
+    {
+      "id": "b0927a7c-0b2d-473f-a074-8b8f22d2691a",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.457899131808603,
+        "lat": 53.343692982314536
+      },
+      "height": {
+        "mode": "asl",
+        "value": 31
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Neetze lake #icao:WP-025"
+    },
+    {
+      "id": "1c6baf90-4f40-4c82-bfe9-2ef04b6d4423",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.336222832307982,
+        "lat": 53.42694129877583
+      },
+      "height": {
+        "mode": "asl",
+        "value": 73
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Elbe Fischtreppe #icao:WP-026"
+    },
+    {
+      "id": "774465b7-36b1-455d-a8ab-ceb10694c654",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.578000561826343,
+        "lat": 53.21846313175075
+      },
+      "height": {
+        "mode": "asl",
+        "value": 22
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "B216 near Norndorf #icao:WP-027"
+    },
+    {
+      "id": "4e9a09d1-a46f-4b61-aca5-9b95e59b3305",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.088219383819023,
+        "lat": 53.25998210137857
+      },
+      "height": {
+        "mode": "asl",
+        "value": 20
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "A7 near Toppenstedt #road-accident #icao:WP-029"
+    },
+    {
+      "id": "f1646f83-ce9b-4762-8a91-56b7d191a41f",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.260094188899842,
+        "lat": 53.27204589064155
+      },
+      "height": {
+        "mode": "asl",
+        "value": 88
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "position near Köhlerhütte #pitch #icao:WP-030"
+    },
+    {
+      "id": "c648fb3d-1ae3-4434-91ab-649b1c817d47",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.381508838996467,
+        "lat": 53.42263937836077
+      },
+      "height": {
+        "mode": "asl",
+        "value": 86
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "position near Altstadt #ferry #icao:WP-031"
+    },
+    {
+      "id": "553e2b09-a3ff-4b7f-812a-0ed82616a75d",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.769166265978242,
+        "lat": 53.69968757641965
+      },
+      "height": {
+        "mode": "asl",
+        "value": 82
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Ratzeburg town hall #icao:WP-032"
+    },
+    {
+      "id": "9af7c1ae-d7d7-4064-b796-5a3f79e3f391",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.232429782113314,
+        "lat": 52.73901787857494
+      },
+      "height": {
+        "mode": "asl",
+        "value": 79
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Eschede, Bergener Straße #icao:WP-035"
+    },
+    {
+      "id": "2c376fcb-ba6f-4042-9ea7-f809449ec70c",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 9.985045411278293,
+        "lat": 53.10971719084068
+      },
+      "height": {
+        "mode": "asl",
+        "value": 16
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bispingen Tank & Rast #icao:WP-036"
+    },
+    {
+      "id": "023e07d9-39c0-46bc-b11e-34a9983b12fa",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.953937815099437,
+        "lat": 53.31948422849007
+      },
+      "height": {
+        "mode": "asl",
+        "value": 31
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Amt Neuhaus #icao:WP-037"
+    },
+    {
+      "id": "e3f7fd63-9927-4533-a0cd-ccced50c229a",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 10.338989347884848,
+        "lat": 53.05106472160625
+      },
+      "height": {
+        "mode": "asl",
+        "value": 1
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "fields near Hanstedt I #cricket #icao:WP-038"
+    },
+    {
+      "id": "becd03ac-2f76-4ab4-b69a-f1c3b5ef8f05",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": 11.222829482397032,
+        "lat": 53.135646958970966
+      },
+      "height": {
+        "mode": "asl",
+        "value": 1
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Dömitz Elbbrücke #icao:WP-039"
+    },
+    {
+      "id": "4ccbcfc0-8afd-4391-bd39-98f2d9530a3e",
+      "height": {
+        "mode": "asl",
+        "value": 49.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.457620941302837,
+        "lat": 53.24756138354581
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Lüneburg airfield #heliport #approach:73 #approach:253 #icao:EDHG"
+    },
+    {
+      "id": "f22544f6-469f-49bd-b607-c5e8ce80f2a5",
+      "height": {
+        "mode": "asl",
+        "value": 49.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.457589181917204,
+        "lat": 53.247602136650315
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "828fc99f-8265-40c5-b9c0-7a5eee238c0d",
+      "height": {
+        "mode": "asl",
+        "value": 49.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.457689049490494,
+        "lat": 53.247580387013095
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "f4cd56be-a429-49ca-87dc-0c63de78f43e",
+      "height": {
+        "mode": "asl",
+        "value": 49.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.457652700627971,
+        "lat": 53.24752063043285
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "448dd29c-fe76-481d-9ab7-d10f5294ce94",
+      "height": {
+        "mode": "asl",
+        "value": 49.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.457552833175674,
+        "lat": 53.24754238003971
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "07cc4397-4e8e-4f33-802c-71cc92d8bb67",
+      "height": {
+        "mode": "asl",
+        "value": 50.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.22211473995057,
+        "lat": 53.124447358131846
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a8650850-1bc1-48d8-9e92-ec025073f322",
+      "height": {
+        "mode": "asl",
+        "value": 10.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.336700553669715,
+        "lat": 53.220286446750805
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c36c42b9-d1ef-49f9-ada8-f6c3faa4175a",
+      "height": {
+        "mode": "asl",
+        "value": 11.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.32015049893485,
+        "lat": 53.31370643839796
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e9ae4824-fc35-4005-a648-ba940a636416",
+      "height": {
+        "mode": "asl",
+        "value": 10.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.334796094702824,
+        "lat": 53.33285564688879
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b7b331d6-f8c1-474f-bf07-4e2648e93a8a",
+      "height": {
+        "mode": "asl",
+        "value": 16.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.199265119023437,
+        "lat": 53.34860122223179
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Hospital Winsen/Luhe #hospital #approach:132 #approach:312 #icao:de1034"
+    },
+    {
+      "id": "8cbd32ed-edfa-45d5-8713-ee2fc6b75258",
+      "height": {
+        "mode": "asl",
+        "value": 16.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.199269061331393,
+        "lat": 53.34855631777588
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "66139010-e6e9-49a8-8034-82ee84b08639",
+      "height": {
+        "mode": "asl",
+        "value": 16.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.199189895231385,
+        "lat": 53.348598868865324
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "ef8e1306-0868-4278-ae8b-1c96cbca5c41",
+      "height": {
+        "mode": "asl",
+        "value": 16.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.199261176707177,
+        "lat": 53.34864612668757
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "e212189d-22a3-46ca-9c07-b95641955cb3",
+      "height": {
+        "mode": "asl",
+        "value": 16.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.199340342823795,
+        "lat": 53.348603575550946
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "0cfbf0bf-9c17-4cf8-a179-afa7ca409181",
+      "height": {
+        "mode": "asl",
+        "value": 14.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.53266261154144,
+        "lat": 52.97322272971323
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Klinikum Uelzen #hospital #approach:231 #approach:51 #icao:de0999"
+    },
+    {
+      "id": "d8817ee5-d1de-4159-8694-e221360fa8f0",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.5325883494483,
+        "lat": 52.97322742992536
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "949db5d3-01a3-4959-a8bc-7bc063076a6b",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.532670416809177,
+        "lat": 52.97326744946437
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "e80c302a-0d28-471c-8d0c-5d3a5109fa86",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.532736873618427,
+        "lat": 52.97321802945482
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "db1992a4-7bec-4b5b-8bec-0bf14ba10669",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.532654806289857,
+        "lat": 52.97317800996157
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "b974465f-e0b1-4811-8d3b-52f8a431a631",
+      "height": {
+        "mode": "asl",
+        "value": 43.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.55079170884369,
+        "lat": 53.36597221408283
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4de52ef2-f494-42c3-9b0c-7b311606b48d",
+      "height": {
+        "mode": "asl",
+        "value": 78.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.567126950807477,
+        "lat": 53.36989266003667
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e126d02a-944b-41c3-a8bd-9144fa14d84e",
+      "height": {
+        "mode": "asl",
+        "value": 91.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.304816277769817,
+        "lat": 53.429604495969954
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "277380b0-8220-4d1b-9e9f-781270575792",
+      "height": {
+        "mode": "asl",
+        "value": 34.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.554734991634405,
+        "lat": 53.37309484488506
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "83436516-9617-4356-9b23-13d88b4835f4",
+      "height": {
+        "mode": "asl",
+        "value": 53.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.41305322117077,
+        "lat": 53.03058529092442
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0029a6e2-2fc7-4256-b069-c00297d2ee31",
+      "height": {
+        "mode": "asl",
+        "value": 23.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.543655214829954,
+        "lat": 53.04810173362972
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "17821deb-6c3a-4685-9c01-8ac1d99f564c",
+      "height": {
+        "mode": "asl",
+        "value": 41.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.58551273624019,
+        "lat": 53.079146254730915
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "aecb2452-1d73-4581-abcd-2f62600266d8",
+      "height": {
+        "mode": "asl",
+        "value": 22.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.34527694080353,
+        "lat": 53.15928983887568
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "95b2b1d7-4632-41d3-bcad-60242c7b281f",
+      "height": {
+        "mode": "asl",
+        "value": 16.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.446288200425585,
+        "lat": 53.15917996298393
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8a824a6a-a1ca-4db6-a90d-7cff5c992810",
+      "height": {
+        "mode": "asl",
+        "value": 103.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.504967565637628,
+        "lat": 53.125255014016375
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "0dd8e50c-df01-4724-8566-41ef625aac13",
+      "height": {
+        "mode": "asl",
+        "value": 36.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.487080419964371,
+        "lat": 53.14596924950487
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "ae4fdb0c-d0ff-4d3c-a461-c40878a80491",
+      "height": {
+        "mode": "asl",
+        "value": 52.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.490672560793087,
+        "lat": 53.293680955955494
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e413d475-122e-4671-ba4f-67fec97a561d",
+      "height": {
+        "mode": "asl",
+        "value": 12.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.15905044457196,
+        "lat": 53.173984874291335
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "aeda6f68-4700-4d7d-b672-2f3052f13758",
+      "height": {
+        "mode": "asl",
+        "value": 8.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.167603583258597,
+        "lat": 53.21882386140226
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "17f85f6f-3715-40ee-8395-ce6f0b836e4c",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.159191329745653,
+        "lat": 53.227157492596945
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c9bc3baf-ae91-49cd-8143-99472d213ac2",
+      "height": {
+        "mode": "asl",
+        "value": 11.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.062092751746263,
+        "lat": 53.40213312648689
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b3cc25c7-3d18-4c6c-82b0-63070c1c490e",
+      "height": {
+        "mode": "asl",
+        "value": 12.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.13348856784097,
+        "lat": 53.41840434555314
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a0c80b39-2fb0-4be9-95d1-24c4211aadb5",
+      "height": {
+        "mode": "asl",
+        "value": 69.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.410811785698087,
+        "lat": 53.351436643668876
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "2bda72a3-66e4-4a56-8d04-88adce52a666",
+      "height": {
+        "mode": "asl",
+        "value": 33.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.457899131808603,
+        "lat": 53.343692982314536
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c2b3f76f-fb95-4df4-b7b6-476201e0e210",
+      "height": {
+        "mode": "asl",
+        "value": 75.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.336222832307982,
+        "lat": 53.42694129877583
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a1036f21-fe6e-4547-aacb-3d2944987ed8",
+      "height": {
+        "mode": "asl",
+        "value": 24.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.578000561826343,
+        "lat": 53.21846313175075
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "be1b213d-e82e-49ec-8b10-3a4114e9a5c4",
+      "height": {
+        "mode": "asl",
+        "value": 0.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.395810021196723,
+        "lat": 53.24081383105499
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Klinikum Lüneburg #hospital #approach:280 #approach:178 #icao:de0819"
+    },
+    {
+      "id": "a27db129-37eb-40a9-a8ce-9d0e3ab9130f",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.395766924238679,
+        "lat": 53.24085066510382
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "d84a5ab3-0071-465a-98dc-643ca054c5fd",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.39587157001557,
+        "lat": 53.24083962252323
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "81150192-108f-4cf5-8735-4a9ab46b90f8",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.395853118080586,
+        "lat": 53.240776996990625
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "c24cc91a-5405-4e2d-ac72-4ff753268675",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.395748472452055,
+        "lat": 53.240788039555056
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "350d0fcc-7edc-4a55-bcd8-4b896f8c6b45",
+      "height": {
+        "mode": "asl",
+        "value": 22.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.088219383819023,
+        "lat": 53.25998210137857
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "2641d98d-1d8f-4b26-8193-e9c193d70623",
+      "height": {
+        "mode": "asl",
+        "value": 90.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.260094188899842,
+        "lat": 53.27204589064155
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1461f412-8d43-4f13-8831-fd021ec96dac",
+      "height": {
+        "mode": "asl",
+        "value": 88.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.381508838996467,
+        "lat": 53.42263937836077
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "fed85619-f635-455a-9fc1-8abbc33377f8",
+      "height": {
+        "mode": "asl",
+        "value": 84.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.769166265978242,
+        "lat": 53.69968757641965
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8c534acb-9133-463c-8261-bcbd8ee9c2e2",
+      "height": {
+        "mode": "asl",
+        "value": 94.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.870384146621774,
+        "lat": 53.333633099685045
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Buchholz hospital #hospital #approach:176 #approach:26 #icao:de0686"
+    },
+    {
+      "id": "8e905cd7-0065-462f-ba9b-fcfb0bf8d898",
+      "height": {
+        "mode": "asl",
+        "value": 94.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.870334745026893,
+        "lat": 53.333599163343266
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "76e83983-3dd7-43ab-b44d-83f1dadf53f2",
+      "height": {
+        "mode": "asl",
+        "value": 94.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.87032731650324,
+        "lat": 53.333662600074526
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "eaba4bcf-bdc1-4f2e-b49a-670cb9f2efad",
+      "height": {
+        "mode": "asl",
+        "value": 94.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.870433548295262,
+        "lat": 53.33366703600642
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "1e01e5b0-2318-45d7-bb0c-629d9be34468",
+      "height": {
+        "mode": "asl",
+        "value": 94.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.8704409766617,
+        "lat": 53.333603599268564
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "9805e375-2b7c-44c1-93f3-8bdea48c641c",
+      "height": {
+        "mode": "asl",
+        "value": 13.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.855050209999291,
+        "lat": 52.989555966531356
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Soltau Klinikum #hospital #approach:20 #approach:200 #icao:de0968"
+    },
+    {
+      "id": "409a8020-7d32-456d-8b95-782d9df9402f",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.855117910654927,
+        "lat": 52.98957496999882
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "774e5ce5-e644-425e-8463-24303385df8d",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.8550817792898,
+        "lat": 52.98951521341845
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "fac3db6a-e2ee-47e7-8686-3d495e622055",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.854982509403227,
+        "lat": 52.989536963025444
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "c6913261-53f2-4b53-bff3-b3151fd4377c",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.855018640649206,
+        "lat": 52.98959671963589
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "a76d0edf-0e69-4889-86f2-3fc3401ad485",
+      "height": {
+        "mode": "asl",
+        "value": 81.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.232429782113314,
+        "lat": 52.73901787857494
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a51976e1-5610-4b63-835c-cf0dd70d2f36",
+      "height": {
+        "mode": "asl",
+        "value": 18.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 9.985045411278293,
+        "lat": 53.10971719084068
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e10920c9-8556-4bf1-b63e-8fe516a1e9b7",
+      "height": {
+        "mode": "asl",
+        "value": 33.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.953937815099437,
+        "lat": 53.31948422849007
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a3db7cb2-d2ca-4b6d-8e6e-21cb299804b5",
+      "height": {
+        "mode": "asl",
+        "value": 3.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.338989347884848,
+        "lat": 53.05106472160625
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "383a9de3-6c3d-4c27-9d5e-6c3cca1a8999",
+      "height": {
+        "mode": "asl",
+        "value": 3.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 11.222829482397032,
+        "lat": 53.135646958970966
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "233bcebf-0b7e-46a1-afe8-f9d686d50818",
+      "height": {
+        "mode": "asl",
+        "value": 0.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.38554108838295,
+        "lat": 53.43183398847245
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Johanniter Hospital Geesthacht #hospital #approach:80 #approach:260 #icao:DE0493"
+    },
+    {
+      "id": "504871c5-b795-4602-beb5-a1329471dcfb",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.385602913406764,
+        "lat": 53.4318081969724
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "b81fa244-2f5f-4bd2-9cde-3fa3fd239795",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.385497798046472,
+        "lat": 53.43179715440804
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "dddd49b6-b95f-471c-9967-568c44d5fb23",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.3854792632841,
+        "lat": 53.43185977994058
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "00a6978e-97da-4af4-bd1e-b2906cef6b14",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": 10.385584378794462,
+        "lat": 53.431870822521226
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    }
+  ]
+}

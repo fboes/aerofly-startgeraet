@@ -1,0 +1,1834 @@
+{
+  "schemaVersion": 1,
+  "app": "pct",
+  "name": "startgeraet_hems_egeo",
+  "poiName": "startgeraet_hems_egeo",
+  "createdAt": "2026-11-08T17:54:21.814Z",
+  "modifiedAt": "2026-11-08T17:56:45.844Z",
+  "reference": null,
+  "camera": {
+    "lon": -5.474652806281114,
+    "lat": 56.399445314371434,
+    "zoom": 21
+  },
+  "objects": [
+    {
+      "id": "e4baf7bf-40b4-4746-8e9e-967d7603ff88",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.308223663270439,
+        "lat": 56.453799735711556
+      },
+      "height": {
+        "mode": "asl",
+        "value": 17
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Rhunacairn Cottage #icao:WP-001"
+    },
+    {
+      "id": "e9785eae-6328-41bf-b527-f6b4d6e274ee",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.3243188839262245,
+        "lat": 56.44842177409521
+      },
+      "height": {
+        "mode": "asl",
+        "value": 20
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "A85 #road-accident #icao:WP-002"
+    },
+    {
+      "id": "7bfcc49b-471f-4fc6-a891-bc1a9f62c2f4",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.361130560994695,
+        "lat": 56.56334486097299
+      },
+      "height": {
+        "mode": "asl",
+        "value": 12
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Appin #icao:WP-003"
+    },
+    {
+      "id": "1e10371c-fd43-4b46-b17d-5f4b1fb053c4",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.2360001176813284,
+        "lat": 56.30942448933797
+      },
+      "height": {
+        "mode": "asl",
+        "value": 55
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Iverinan #icao:WP-004"
+    },
+    {
+      "id": "9ef3ddd9-2e7b-4b2f-aa58-53f9c6d42c8a",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.9127,
+        "lat": 56.5169
+      },
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
+      "direction": 297,
+      "scale": 1,
+      "label": "Glenforsa Airfield #approach:297 #approach:117 #icao:EGGLNF"
+    },
+    {
+      "id": "f63153d3-3106-4e7e-9f55-d560c6b71394",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.81006663618524,
+        "lat": 56.514302497952514
+      },
+      "height": {
+        "mode": "asl",
+        "value": 1
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Fishnish Ferry #icao:WP-006"
+    },
+    {
+      "id": "3af5435b-5081-4e68-99de-8974ec196a98",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.775432475201427,
+        "lat": 56.536062188205335
+      },
+      "height": {
+        "mode": "asl",
+        "value": 14
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Lochaline #icao:WP-007"
+    },
+    {
+      "id": "572c5891-9699-42c7-acbe-6c468905c36f",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.492697231261388,
+        "lat": 56.51144561162428
+      },
+      "height": {
+        "mode": "asl",
+        "value": 19
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Achnacroish #icao:WP-008"
+    },
+    {
+      "id": "c5c360e9-d3a1-46dd-874f-f8b941ff8187",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.409269334492279,
+        "lat": 56.55493048093186
+      },
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Port Appin #icao:WP-009"
+    },
+    {
+      "id": "813b976d-0140-4662-ad6e-0e4c277618a3",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.437967104528354,
+        "lat": 56.45429415712539
+      },
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Dunstaffnage Castle #icao:WP-010"
+    },
+    {
+      "id": "7ebaeb76-0c77-4c75-8f0c-907beb8f8681",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.229653398336211,
+        "lat": 56.43667238465602
+      },
+      "height": {
+        "mode": "asl",
+        "value": 48
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bonawe Iron Furnace #icao:WP-011"
+    },
+    {
+      "id": "5b4a63ec-bc5f-4e0e-b601-1531d059b1ac",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.202297726296933,
+        "lat": 56.429627944105476
+      },
+      "height": {
+        "mode": "asl",
+        "value": 47
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Inverawe Smokehouse #icao:WP-012"
+    },
+    {
+      "id": "91ef4e19-9ec6-49d4-a7e3-bc95256a9964",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.116530166654769,
+        "lat": 56.39460828668339
+      },
+      "height": {
+        "mode": "asl",
+        "value": 264
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Cruachan Power Station #icao:WP-013"
+    },
+    {
+      "id": "e56b78c1-cc4a-4ca7-b881-935aae383940",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.253138600907334,
+        "lat": 56.3620057702212
+      },
+      "height": {
+        "mode": "asl",
+        "value": 160
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "position near Loch Nant #cricket #icao:WP-014"
+    },
+    {
+      "id": "1dab2b17-6abc-4e19-8182-45f54bcf37b2",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.341697193681398,
+        "lat": 56.34601380992925
+      },
+      "height": {
+        "mode": "asl",
+        "value": 31
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Musdale #farm #icao:WP-015"
+    },
+    {
+      "id": "a835ef94-0ddf-4525-ab55-93c0cfe0d7ba",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.474834296256319,
+        "lat": 56.26179854318883
+      },
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "hotel at Kilmelford #icao:WP-016"
+    },
+    {
+      "id": "5f8f380f-9444-4184-8594-c3a87941b481",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.754860959012916,
+        "lat": 56.411492128834226
+      },
+      "height": {
+        "mode": "asl",
+        "value": 1
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "farm near Loch Spelve #farm #icao:WP-017"
+    },
+    {
+      "id": "e2b6d5b1-113c-4b70-ba4e-cdf44345da1e",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.6354136665212025,
+        "lat": 56.48064039784467
+      },
+      "height": {
+        "mode": "asl",
+        "value": 51
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Loch Linnhe #ferry #icao:WP-018"
+    },
+    {
+      "id": "38b052fa-0f71-4c6e-91c8-55516b3e379a",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.143557786652707,
+        "lat": 56.51281687791749
+      },
+      "height": {
+        "mode": "asl",
+        "value": 705
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "north of Loch Etive #logging #icao:WP-019"
+    },
+    {
+      "id": "def87c4c-fbe5-4706-b5b5-2df2880bd8b3",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.237889966009163,
+        "lat": 56.517778542046415
+      },
+      "height": {
+        "mode": "asl",
+        "value": 201
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Beinn Bhreac #mountain #icao:WP-020"
+    },
+    {
+      "id": "c0bcde11-da61-41da-b4e7-8f5a76fbd978",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.252706805658789,
+        "lat": 56.48859922553183
+      },
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "River Esragan #cricket #icao:WP-021"
+    },
+    {
+      "id": "f053cc27-757b-41a1-97a7-a9f86c5ebfa3",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.073388290724523,
+        "lat": 56.232023235240604
+      },
+      "height": {
+        "mode": "asl",
+        "value": 23
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Inveraray #icao:WP-022"
+    },
+    {
+      "id": "5adffc18-b588-4041-b7ec-370130284cc5",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -6.157876302258018,
+        "lat": 56.442148988004504
+      },
+      "height": {
+        "mode": "asl",
+        "value": 8
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Inch Kenneth #icao:WP-023"
+    },
+    {
+      "id": "f6585381-7e2b-484e-bd81-557a037879de",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.6289270711294535,
+        "lat": 56.26827977496674
+      },
+      "height": {
+        "mode": "asl",
+        "value": 12
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Cuan ferry #icao:WP-024"
+    },
+    {
+      "id": "f1c4a3be-380a-4f65-b57e-a7d0f8519966",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.527570272095176,
+        "lat": 56.61963154365938
+      },
+      "height": {
+        "mode": "asl",
+        "value": 12
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Kingairloch #icao:WP-025"
+    },
+    {
+      "id": "4bb73d8a-9a62-4bf9-ba9e-b61ea2773819",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.568085997838608,
+        "lat": 56.69626830578417
+      },
+      "height": {
+        "mode": "asl",
+        "value": 50
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Strontian #icao:WP-026"
+    },
+    {
+      "id": "cd71fb5b-e56f-4d33-98cf-72b3c978bb4b",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.400060791554665,
+        "lat": 56.68449128721866
+      },
+      "height": {
+        "mode": "asl",
+        "value": 38
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "A861 #road-accident #icao:WP-027"
+    },
+    {
+      "id": "58c535ff-a152-4400-92e6-21539ced84cf",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -6.066952672067913,
+        "lat": 56.624257101579275
+      },
+      "height": {
+        "mode": "asl",
+        "value": 71
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Tobermory high school #icao:WP-028"
+    },
+    {
+      "id": "f20eb540-27d5-46bc-b40d-d281d6d68f86",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.341992223222775,
+        "lat": 56.39866116939427
+      },
+      "height": {
+        "mode": "asl",
+        "value": 17
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Glen Lonan Road #road-accident #icao:WP-029"
+    },
+    {
+      "id": "7cb1885d-ed1b-44ab-be9b-e85158d91af8",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.282320685999309,
+        "lat": 56.44950851932478
+      },
+      "height": {
+        "mode": "asl",
+        "value": 58
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Muckarin Castle #icao:WP-030"
+    },
+    {
+      "id": "646df7d6-e1f8-4e6b-9534-cd071b19a4f1",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.421618989371268,
+        "lat": 56.434676191717074
+      },
+      "height": {
+        "mode": "asl",
+        "value": 185
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "location east of Tom Ard #train #icao:WP-031"
+    },
+    {
+      "id": "33306ce3-bb00-4548-ab66-c2e46371cafb",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.31250827547305,
+        "lat": 56.42206527805192
+      },
+      "height": {
+        "mode": "asl",
+        "value": 15
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Creag Ruisgte #cricket #icao:WP-032"
+    },
+    {
+      "id": "edc55f8f-34a1-4655-b8e9-07ff75fc2e1c",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -6.391553432650625,
+        "lat": 56.332559168976275
+      },
+      "height": {
+        "mode": "asl",
+        "value": 8
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Bishop's house at Iona #icao:WP-033"
+    },
+    {
+      "id": "a6cd22c0-695b-46b8-8db3-d4375876145b",
+      "kind": "xref",
+      "name": "ambulance",
+      "position": {
+        "lon": -5.598339812281949,
+        "lat": 56.14524589257155
+      },
+      "height": {
+        "mode": "asl",
+        "value": 11
+      },
+      "direction": 0,
+      "scale": 1,
+      "label": "Aird #icao:WP-034"
+    },
+    {
+      "id": "2ce1de88-6731-42f5-9e1f-e92fae2ad7e5",
+      "height": {
+        "mode": "asl",
+        "value": 18.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.474652806281114,
+        "lat": 56.399445314371434
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Lorn & Islands Hospital #hospital #approach:90 #approach:270 #icao:GB-0174"
+    },
+    {
+      "id": "9621a183-1af0-4a82-8bcb-8c22f9c82286",
+      "height": {
+        "mode": "asl",
+        "value": 18.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.474595350885395,
+        "lat": 56.39941351853785
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "4abd52f7-f73f-4f20-8ff8-8f346875ab9d",
+      "height": {
+        "mode": "asl",
+        "value": 18.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.47471026167683,
+        "lat": 56.39941351853785
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "08be06f6-bcc0-461a-a6b1-26674a4a8dbf",
+      "height": {
+        "mode": "asl",
+        "value": 18.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.474710261772809,
+        "lat": 56.39947711017844
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "0fc37887-07df-4b03-9fcf-1bf77bb50796",
+      "height": {
+        "mode": "asl",
+        "value": 18.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.474595350789418,
+        "lat": 56.39947711017844
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "55f66f81-01c1-4471-9c4a-fe280fe7142c",
+      "height": {
+        "mode": "asl",
+        "value": 19.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.308223663270439,
+        "lat": 56.453799735711556
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "539de330-d40d-4b7e-9802-8ab6803ea888",
+      "height": {
+        "mode": "asl",
+        "value": 22.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.3243188839262245,
+        "lat": 56.44842177409521
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c5ec39f2-7bd1-47ed-b7e5-2d08dbe2e682",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.361130560994695,
+        "lat": 56.56334486097299
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9bce405d-3a96-49d1-bc74-b398b92f6527",
+      "height": {
+        "mode": "asl",
+        "value": 57.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.2360001176813284,
+        "lat": 56.30942448933797
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "08a5ac40-41fe-4ca3-b1e7-1ff3cc3c3458",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.9127,
+        "lat": 56.5169
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f12214d1-66a3-4645-95a7-154029ffc38e",
+      "height": {
+        "mode": "asl",
+        "value": 3.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.81006663618524,
+        "lat": 56.514302497952514
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c6512be3-54b7-4999-b9d6-9fecf43d476e",
+      "height": {
+        "mode": "asl",
+        "value": 16.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.775432475201427,
+        "lat": 56.536062188205335
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "1d1db74a-5e84-4cc3-a95d-ea87d487039d",
+      "height": {
+        "mode": "asl",
+        "value": 21.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.492697231261388,
+        "lat": 56.51144561162428
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "b81cdc33-7689-467d-9194-cea45313e763",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.409269334492279,
+        "lat": 56.55493048093186
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "8ad34595-c76f-4e9b-ae75-a92d53cb9062",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.437967104528354,
+        "lat": 56.45429415712539
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "3fd6d997-56d7-4b7f-bad1-6a3dab88039d",
+      "height": {
+        "mode": "asl",
+        "value": 50.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.229653398336211,
+        "lat": 56.43667238465602
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c97e9f7f-63b4-4c03-adcb-59e6f9c84ad3",
+      "height": {
+        "mode": "asl",
+        "value": 49.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.202297726296933,
+        "lat": 56.429627944105476
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "975d52bf-6d21-4953-b349-6678e206e40a",
+      "height": {
+        "mode": "asl",
+        "value": 266.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.116530166654769,
+        "lat": 56.39460828668339
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "7c1bd71b-31a3-402d-ba2c-8f1b9e69289a",
+      "height": {
+        "mode": "asl",
+        "value": 162.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.253138600907334,
+        "lat": 56.3620057702212
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "abfbf8d5-ec47-4197-b69b-c8c1004c0853",
+      "height": {
+        "mode": "asl",
+        "value": 33.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.341697193681398,
+        "lat": 56.34601380992925
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a09dec20-8eca-4717-9e1b-f5ea1c069ed2",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.474834296256319,
+        "lat": 56.26179854318883
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a980b2be-2034-4b90-87c7-8e72af3d570a",
+      "height": {
+        "mode": "asl",
+        "value": 3.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.754860959012916,
+        "lat": 56.411492128834226
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "9092c018-ecd0-4142-8e41-01125b3e84c9",
+      "height": {
+        "mode": "asl",
+        "value": 53.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.6354136665212025,
+        "lat": 56.48064039784467
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "126107f8-f5c3-44de-8168-e37465683920",
+      "height": {
+        "mode": "asl",
+        "value": 707.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.143557786652707,
+        "lat": 56.51281687791749
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "5e0ef51f-7954-4928-94e0-ff9f5bbcfbe5",
+      "height": {
+        "mode": "asl",
+        "value": 203.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.237889966009163,
+        "lat": 56.517778542046415
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "f4ebf1e5-ee10-49da-80de-c7d380480fc7",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.252706805658789,
+        "lat": 56.48859922553183
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "4318e03f-b097-47cc-a677-4965c670c4e5",
+      "height": {
+        "mode": "asl",
+        "value": 25.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.073388290724523,
+        "lat": 56.232023235240604
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "02bc5008-b412-4ae0-915f-d0c2bb1bd67d",
+      "height": {
+        "mode": "asl",
+        "value": 10.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -6.157876302258018,
+        "lat": 56.442148988004504
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "61c064cb-2262-42b1-adc9-682f39c519b9",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.6289270711294535,
+        "lat": 56.26827977496674
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "755703b8-6b78-494c-abe9-90900d8457d3",
+      "height": {
+        "mode": "asl",
+        "value": 14.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.527570272095176,
+        "lat": 56.61963154365938
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "6651be92-85fe-4625-97e9-97b6a8fa8237",
+      "height": {
+        "mode": "asl",
+        "value": 52.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.568085997838608,
+        "lat": 56.69626830578417
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "e75d881e-2648-44ff-9e2e-f92bfd23557c",
+      "height": {
+        "mode": "asl",
+        "value": 40.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.400060791554665,
+        "lat": 56.68449128721866
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a6d06eaf-f2ed-45ae-b892-3689fc706d2b",
+      "height": {
+        "mode": "asl",
+        "value": 73.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -6.066952672067913,
+        "lat": 56.624257101579275
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "d2e3eb6a-7e80-4699-a5ac-e116c23d2135",
+      "height": {
+        "mode": "asl",
+        "value": 19.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.341992223222775,
+        "lat": 56.39866116939427
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "073357ea-ba06-47a6-971a-165bf5f753ea",
+      "height": {
+        "mode": "asl",
+        "value": 60.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.282320685999309,
+        "lat": 56.44950851932478
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "c0920ed1-a4aa-477a-9fc8-de3abb3ea910",
+      "height": {
+        "mode": "asl",
+        "value": 187.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.421618989371268,
+        "lat": 56.434676191717074
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "a5b50b11-654c-4412-a53f-680b0f6b9563",
+      "height": {
+        "mode": "asl",
+        "value": 17.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.31250827547305,
+        "lat": 56.42206527805192
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "367481fe-aa24-445e-a8cb-8406a0523e69",
+      "height": {
+        "mode": "asl",
+        "value": 10.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -6.391553432650625,
+        "lat": 56.332559168976275
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "97bfcee3-b96e-46a5-9ba3-cfcd972d4de6",
+      "height": {
+        "mode": "asl",
+        "value": 13.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.598339812281949,
+        "lat": 56.14524589257155
+      },
+      "color": [
+        0,
+        0,
+        1
+      ],
+      "intensity": 50,
+      "flashing": [
+        10,
+        0,
+        100,
+        0
+      ],
+      "groupIndex": 3,
+      "label": ""
+    },
+    {
+      "id": "587e12a0-a203-48f8-b670-ca85768ec8c6",
+      "height": {
+        "mode": "asl",
+        "value": 0.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.716356261586526,
+        "lat": 56.48048411820514
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Mull and Iona Community Hospital #hospital #approach:135 #approach:315 #icao:WP-035"
+    },
+    {
+      "id": "d32d9869-4260-4d78-bed8-2faeef695cd5",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.716356261586526,
+        "lat": 56.48043915212484
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "1a67a8f9-758d-466a-adcd-576d88484540",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.716437689278038,
+        "lat": 56.480484118178495
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "c0657876-e503-42a0-b5ce-c58412a2d538",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.716356261586526,
+        "lat": 56.480529084285436
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "7430eed8-d4a1-47f5-8ec1-289fb124ff81",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.716274833895013,
+        "lat": 56.480484118178495
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "5b589789-0cb4-4ed1-8e93-72b9c20476ac",
+      "height": {
+        "mode": "asl",
+        "value": 0.1
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.3984619465384185,
+        "lat": 56.464572641198856
+      },
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 5,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": "Oban Airport #heliport #approach:281 #approach:101 #icao:EGEO"
+    },
+    {
+      "id": "325ae501-da46-4966-9e60-55a7ed69b06e",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.398507461289592,
+        "lat": 56.46460991976058
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "7077acc9-e2df-454d-8034-3229c8444616",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.398394468166399,
+        "lat": 56.464597785893545
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "5cbb266d-a8ef-4ffd-9ac4-13a283643837",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.398416431876608,
+        "lat": 56.46453536262047
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    },
+    {
+      "id": "daf9277a-164a-4655-97e1-f7f23677c53e",
+      "height": {
+        "mode": "asl",
+        "value": 0.5
+      },
+      "kind": "light",
+      "position": {
+        "lon": -5.398529424821075,
+        "lat": 56.46454749646756
+      },
+      "color": [
+        0,
+        1,
+        0
+      ],
+      "intensity": 100,
+      "flashing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "groupIndex": 0,
+      "label": ""
+    }
+  ]
+}

@@ -8,7 +8,6 @@ export type HemsMissionGeneratorConfiguration = {
     minRange_km: z.ZodDefault<z.ZodNumber>;
     maxRange_km: z.ZodDefault<z.ZodNumber>;
     isColdAndDark: z.ZodDefault<z.ZodBoolean>;
-    createPois: z.ZodDefault<z.ZodBoolean>;
 };
 
 export class HemsMissionGenerator implements MissionGenerator<HemsMissionGeneratorConfiguration> {
@@ -22,14 +21,11 @@ This mission generator will create a new flight plan, starting at your current
 origin airport. You will have to fly to an emergency site in the vicinity, and
 bring a patient you will pick up there to a nearby hospital.
 
-A collection of emergency sites the generator will taken from a GeoJSON file
+A collection of emergency sites the generator will taken from a PCT JSON file
 stored in the \`startgeraet\` directory of your Aerofly FS user folder.
-If this file does not exist, the generator will take some time setting it up.
-
-The mission generator will create an accident site as POI file, so your mission
-target is visible.
+If this file does not exist, the generator will not run.
 `,
-            version: "1.0.0",
+            version: "2.0.0",
         };
     }
 
@@ -38,7 +34,6 @@ target is visible.
             minRange_km: z.number().min(0).max(99).default(5).meta({ title: "Minimum distance", unit: "km" }),
             maxRange_km: z.number().min(0).max(99).default(60).meta({ title: "Maximum distance", unit: "km" }),
             isColdAndDark: z.boolean().default(false).meta({ title: "Start cold & dark" }),
-            createPois: z.boolean().default(false).meta({ title: "Create POI file" }),
         });
     }
 
