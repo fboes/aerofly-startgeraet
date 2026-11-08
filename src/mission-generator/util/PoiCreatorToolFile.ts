@@ -36,7 +36,7 @@ export function parsePct(pctJson: unknown): PctFile {
             direction: oObject.direction ? asJSONNumber(oObject.direction, "o.direction") : undefined,
             name: oObject.name ? asJSONString(oObject.name, "o.name") : undefined,
 
-            // airport-light
+            // airport_light
             orientation: oObject.orientation ? asJSONNumber(oObject.orientation, "o.orientation") : undefined,
             typeName: oObject.typeName ? asJSONString(oObject.typeName, "o.typeName") : undefined,
         };

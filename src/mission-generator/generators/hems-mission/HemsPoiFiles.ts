@@ -1,9 +1,4 @@
-import {
-    AeroflyPoiFiles,
-    type AeroflyPoiAirportLight,
-    type AeroflyPoiLight,
-    type AeroflyPoiXref,
-} from "../../util/AeroflyPoiFiles.js";
+import { AeroflyPoiFiles, type AeroflyPoiLight, type AeroflyPoiXref } from "../../util/AeroflyPoiFiles.js";
 import { setLocationElevationFromApi } from "../../util/setElevation.js";
 import type { LocationExtended } from "../../util/Location.type.js";
 import { HemsMissionLocations } from "./HemsMissionLocations.js";
@@ -62,15 +57,16 @@ export function lightsFromLocations(locations: LocationExtended[]): AeroflyPoiLi
 }
 
 function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
+    const direction = location.direction ?? 0;
     const type = typeOfLocation(location);
     return (
         typeSwitch<AeroflyPoiLight[]>(type, {
             emergency: [
                 {
                     position: location.position,
-                    heightAdjust: 3,
+                    heightAdjust: 3.5,
                     color: [0, 0, 1],
-                    intensity: 100,
+                    intensity: 50,
                     flashing: [10, 0, 100, 0],
                     groupIndex: 3,
                 },
@@ -85,30 +81,16 @@ function lightsFromLocation(location: LocationExtended): AeroflyPoiLight[] {
                 groupIndex: 0,
                 label: label(location),
             },
-        ]
-    );
-}
-
-// -----------------------------------------------------------------------------
-export function airportLightsFromLocation(locations: LocationExtended[]): AeroflyPoiAirportLight[] {
-    return locations.map(airportLightFromLocation).flatMap((light) => light);
-}
-
-function airportLightFromLocation(location: LocationExtended): AeroflyPoiAirportLight[] {
-    const direction = location.direction ?? 0;
-    return (
-        typeSwitch<AeroflyPoiAirportLight[]>(typeOfLocation(location), {
-            hospital: [45, 135, 225, 315].map(
-                (orientation): AeroflyPoiAirportLight => ({
-                    name: "hospital",
-                    orientation: direction + orientation,
+            ...[45, 135, 225, 315].map(
+                (orientation): AeroflyPoiLight => ({
                     position: location.position.getPointBy(new Vector(5, direction + orientation)),
                     heightAdjust: 0.5,
+                    color: [0, 1, 0],
+                    intensity: 100,
                     groupIndex: 3,
-                    label: label(location),
                 }),
             ),
-        }) ?? []
+        ]
     );
 }
 

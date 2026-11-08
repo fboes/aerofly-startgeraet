@@ -19,12 +19,12 @@ export type PctFileObject = {
     direction?: number; // degrees, clockwise positive, [0, 360) (spec: negative = CCW)
     name?: string; // exact catalog name — the value written to the .toc
 
-    // airport-light
+    // airport_light
     orientation?: number; // degrees the light is illuminated toward
     typeName?: string; // CatalogAirportLight.typeName — the .toc type_name (no "al_")
 };
 
-export type PctFileObjectKind = "xref" | "light" | "airport-light" | "plant";
+export type PctFileObjectKind = "xref" | "light" | "airport_light" | "plant";
 
 /**
  * @see https://github.com/jlgabriel/afs4-poi-creator/blob/main/src/core/project/types.ts
