@@ -31,8 +31,8 @@ export class IconWebComponent extends HTMLElement {
     }
 
     private getHtmlForSvg(icon: string) {
-        const url = `./icons.svg#${icon}`;
-        return `<svg class="icon"><use href="${html(url)}"></svg>`;
+        const url = `./icons.svg#icon-${icon}`;
+        return `<svg class="icon"><use href="${html(url)}" /></svg>`;
     }
 
     set icon(icon: string) {
