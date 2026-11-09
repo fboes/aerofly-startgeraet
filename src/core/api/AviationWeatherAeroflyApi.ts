@@ -197,6 +197,10 @@ export async function fetchBestRunway(
         )
         .flat();
 
+    if (!possibleRunways.length) {
+        throw new Error("No availabe runways found at this airport"); // TODO
+    }
+
     if (windSpeed_kts <= 5 && possibleRunways[0]) {
         return possibleRunways[0];
     }

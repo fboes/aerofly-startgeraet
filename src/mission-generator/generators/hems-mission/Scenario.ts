@@ -59,7 +59,7 @@ export async function convertScenario(
     flight.navigation = new AeroflyNavigationConfig(airportLocation.position.elevation ?? 0, [
         ...getDepartureWaypoints(airportLocation, windDirection_deg),
         ...getEmergencyWaypoints(emergencyLocation),
-        ...getHospitalWaypoints(hospitalLocation, windDirection_deg),
+        ...getHospitalWaypoints(hospitalLocation, windDirection_deg, airportLocation),
         ...getDestinationWaypoints(airportLocation, windDirection_deg),
     ]);
     flight._missionTitle = `MedEvac at ${emergencyLocation.title ?? "emergency site"}`;
@@ -137,8 +137,9 @@ function getEmergencyWaypoints(emergencyLocation: LocationExtended): AeroflyNavR
 function getHospitalWaypoints(
     hospitalLocation: LocationExtended | undefined,
     windDirection_deg: number,
+    airportLocation: LocationExtended | undefined,
 ): AeroflyNavRouteWaypoint[] {
-    if (!hospitalLocation) {
+    if (!hospitalLocation || hospitalLocation === airportLocation) {
         return [];
     }
 
@@ -163,7 +164,7 @@ function getApproachWaypoints(
     windDirection_deg: number,
     asDeparture: boolean = false,
 ): AeroflyNavRouteWaypoint[] {
-    if (!missionLocation.approaches) {
+    if (!missionLocation.approaches?.length) {
         return [];
     }
 

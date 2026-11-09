@@ -1,4 +1,4 @@
-import { Feature, FeatureCollection, type Point, Vector } from "@fboes/geojson";
+import type { Point } from "@fboes/geojson";
 import { randomIntInclusive } from "../../../core/util/random.js";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -40,54 +40,7 @@ export class HemsMissionLocations {
      */
     private locationsFileGlob(airportLocation: LocationExtended, directory: string) {
         const slug = "startgeraet_hems_" + airportLocation.identifier.toLowerCase().replace(/[^a-z0-9_]+/gv, "");
-        console.log(slug);
         return path.join(directory, "*_" + slug, "*.json");
-    }
-
-    private async createFeatureCollection(
-        airportLocation: LocationExtended,
-        minRange_m: number = 0,
-        maxRange_m: number = 60_000,
-    ): Promise<FeatureCollection> {
-        const averageRange_m = (minRange_m + maxRange_m) / 2;
-        let i = 0;
-
-        // await setElevationFromApi(featureCollection)
-
-        return new FeatureCollection([
-            new Feature(
-                airportLocation.position,
-                {
-                    title: airportLocation.title ?? airportLocation.identifier,
-                    icaoCode: airportLocation.identifier,
-                    "marker-symbol": HemsMissionLocations.TYPE_HELIPORT,
-                },
-                i++,
-            ),
-            new Feature(
-                airportLocation.position.getPointBy(new Vector(averageRange_m, 300)),
-                {
-                    title: "a hospital",
-                    "marker-symbol": HemsMissionLocations.TYPE_HOSPITAL,
-                },
-                i++,
-            ),
-            new Feature(
-                airportLocation.position.getPointBy(new Vector(averageRange_m, 60)),
-                {
-                    title: "some emergency site",
-                },
-                i++,
-            ),
-
-            new Feature(
-                airportLocation.position.getPointBy(new Vector(averageRange_m, 180)),
-                {
-                    title: "another emergency site",
-                },
-                i,
-            ),
-        ]);
     }
 
     getAllLocations() {
