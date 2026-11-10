@@ -1,6 +1,5 @@
 import type { IpcMain } from "electron";
 import { findAeroflyAircraft, getAllAeroflyAircraftWithLiveries } from "../../core/services/getAeroflyAircraft.js";
-import type { AeroflyAirportCoordinatesObject } from "@fboes/aerofly-data/data/airport-coordinates-object.json";
 import { getAllAeroflyAirports } from "../../core/services/getAeroflyAirport.js";
 
 export function registerAeroflyAircraftHandlers(ipcMain: IpcMain) {
@@ -8,11 +7,7 @@ export function registerAeroflyAircraftHandlers(ipcMain: IpcMain) {
         return findAeroflyAircraft(aeroflyCode)?.liveries ?? [];
     });
 
-    ipcMain.handle("aircraft:update", () => {
-        return getAllAeroflyAircraftWithLiveries();
-    });
+    ipcMain.handle("aircraft:update", getAllAeroflyAircraftWithLiveries);
 
-    ipcMain.handle("airports:get-list", (): AeroflyAirportCoordinatesObject[] => {
-        return getAllAeroflyAirports();
-    });
+    ipcMain.handle("airports:get-list", getAllAeroflyAirports);
 }
