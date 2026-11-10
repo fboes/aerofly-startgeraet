@@ -1,5 +1,5 @@
-import { html } from "../../../core/formatter/html.js";
 import { registerElement } from "../../renderer/registerElement.js";
+import { sendToMain } from "../../renderer/sendToMain.js";
 
 /**
  * Create icon, e.g. emoji character or inline SVG.
@@ -22,17 +22,12 @@ export class IconWebComponent extends HTMLElement {
         this.ariaHidden = "true";
     }
 
-    attributeChangedCallback(attributeName: string, oldValue: string, newValue: string) {
+    async attributeChangedCallback(attributeName: string, oldValue: string, newValue: string) {
         if (attributeName !== "icon" || oldValue === newValue) {
             return;
         }
 
-        this.innerHTML = this.getHtmlForSvg(newValue);
-    }
-
-    private getHtmlForSvg(icon: string) {
-        const url = `./icons.svg#icon-${icon}`;
-        return `<svg class="icon"><use href="${html(url)}" /></svg>`;
+        this.innerHTML = await sendToMain<string>("svg-icon:get", newValue);
     }
 
     set icon(icon: string) {
