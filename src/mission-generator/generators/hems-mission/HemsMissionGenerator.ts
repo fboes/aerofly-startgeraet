@@ -26,6 +26,7 @@ stored in the \`startgeraet\` directory of your Aerofly FS user folder.
 If this file does not exist, the generator will not run.
 `,
             version: "2.0.0",
+            documentationUrl: "https://fboes.github.io/aerofly-startgeraet/docs/mission-generator-hems.html",
         };
     }
 

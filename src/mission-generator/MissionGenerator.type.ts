@@ -28,6 +28,7 @@ export type MissionGeneratorManifest = {
      * Configuration fields (can be converted into form elements)
      */
     configuration?: MissionGeneratorManifestField[];
+    documentationUrl?: string;
 };
 
 export type MissionGeneratorManifestField = JsonSchemaObject & {

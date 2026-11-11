@@ -17,6 +17,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         description: HTMLParagraphElement;
         form: HTMLDivElement;
         inputElements: (HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement)[];
+        documentationAnchor: HTMLAnchorElement;
         submitButton: HTMLButtonElement;
     };
 
@@ -60,6 +61,10 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
   <button id="dialog-mission-generator-settings-generate" class="mt-3">Generate</button>
 
   <button commandfor="dialog-mission-generator-settings" command="close" title="Close">✕</button>
+
+  <footer>
+    Please also consider the <a href="#" target="documentation">additional documentation for this mission generator</a> for additional configuration instructions.
+  </footer>
 </dialog>
         `;
 
@@ -70,6 +75,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
             form: this.querySelector("#dialog-mission-generator-settings-form") as HTMLDivElement,
             inputElements: [],
             submitButton: this.querySelector("button#dialog-mission-generator-settings-generate") as HTMLButtonElement,
+            documentationAnchor: this.querySelector("footer a") as HTMLAnchorElement,
         };
     }
 
@@ -90,6 +96,8 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         this.manifest = manifest;
         this.elements.title.innerText = manifest.displayName;
         this.elements.description.innerText = manifest.longDescription || manifest.description;
+        this.elements.documentationAnchor.href =
+            manifest.documentationUrl || "https://fboes.github.io/aerofly-startgeraet/docs/mission-generator.html";
         this.elements.form.replaceChildren(...this.getFormFieldElements());
         this.elements.dialog.showModal();
     }
