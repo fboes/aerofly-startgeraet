@@ -222,9 +222,8 @@ export function parseGeoJsonToLocations(geoJson: unknown): LocationExtended[] {
 }
 
 /**
- * Parses XREF objects from the POI Creator tool. Will ignore all other
- * objects, as the do not contain `label` property and are not relevant for the
- * mission generator.
+ * Parses objects from the POI Creator tool. Will ignore 0bjects that do not
+ * contain `label` property and are not relevant for the mission generator.
  *
  * @see https://github.com/jlgabriel/afs4-poi-creator
  * @returns an array of `LocationExtended` from POI Creation Tool JSON input

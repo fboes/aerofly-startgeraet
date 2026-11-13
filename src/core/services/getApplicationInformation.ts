@@ -7,6 +7,7 @@ export type ApplicationInformation = {
     userAgent: string;
     version: string;
     description: string;
+    homepage: string;
     /**
      * BCP 47 locale code, e.g. "es-ES"
      */
@@ -39,6 +40,7 @@ export const APPLICATION_INFORMATION: ApplicationInformation = {
     slug: reponame,
     version,
     description: PackageJson.description,
+    homepage: PackageJson.homepage,
     locale: "en-US",
     author: {
         name: PackageJson.author.name,
