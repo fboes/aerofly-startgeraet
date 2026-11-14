@@ -35,8 +35,8 @@ The mission generator will make at least one internet request to the
 Avaiation Weather Center API, so possibly this could take a few seconds
 depending on API availability.
 `,
-            version: "1.0.0",
-            unrecommendedAircraft: ["glider"]
+            version: "1.0.1",
+            unrecommendedAircraft: ["glider"],
         };
     }
 

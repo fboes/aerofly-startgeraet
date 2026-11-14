@@ -17,6 +17,7 @@ import {
 } from "../../mission-generator/MissionGenerator.js";
 import { fmt } from "../../core/formatter/format.js";
 import type { MissionGeneratorManifestField } from "../../mission-generator/MissionGenerator.type.js";
+import { ammendManifestDescription } from "../../mission-generator/util/recommendedAircraft.js";
 
 export type MenuCommandMethod = Exclude<keyof MenuCommand, "controller" | "writeMenuTitle" | "name" | "execute">;
 
@@ -339,7 +340,10 @@ export class MenuCommand extends BaseControllerCommand {
 
     private async missionGeneratorExecute(generatorName: string): Promise<MenuCommandMethod> {
         const savedValues = restoreMissionGeneratorValues(this.controller.config, generatorName);
-        const manifest = getMissionGeneratorManifest(generatorName, savedValues);
+        const manifest = ammendManifestDescription(
+            getMissionGeneratorManifest(generatorName, savedValues),
+            this.controller.getAircraftData(),
+        );
 
         writeMenuTitle(["Mission Generator", manifest.displayName]);
         writeln(manifest.longDescription);

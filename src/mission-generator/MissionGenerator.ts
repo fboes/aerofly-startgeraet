@@ -130,4 +130,3 @@ export function storeMissionGeneratorValues(
     }
     config.setMissionGeneratorValues(generatorName, generatorValues);
 }
-

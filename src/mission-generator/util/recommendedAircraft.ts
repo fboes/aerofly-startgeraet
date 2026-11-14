@@ -14,7 +14,7 @@ export function isRecommendedAircraft(manifest: MissionGeneratorManifest, aircra
 
 export function isUnrecommendedAircraft(manifest: MissionGeneratorManifest, aircraft: AeroflyAircraft): boolean {
     if (!manifest.unrecommendedAircraft) {
-        return true;
+        return false;
     }
 
     const notRecommendedAircraft = manifest.unrecommendedAircraft;
