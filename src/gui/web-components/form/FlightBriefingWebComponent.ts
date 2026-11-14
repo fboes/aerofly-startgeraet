@@ -2,7 +2,7 @@ import { BaseStateSubscriberWebComponent } from "../util/StateSubscriberWebCompo
 import { registerElement } from "../../renderer/registerElement.js";
 import { numberFormat } from "../util/numberFormat.js";
 import { getTimeFormat, getTimeFunction } from "../../../core/formatter/getTimeString.js";
-import { html } from "../../../core/formatter/html.js";
+import { html, htmlMarkdown } from "../../../core/formatter/html.js";
 import { fmt } from "../../../core/formatter/format.js";
 import { dispatchNotificationEvent, type NotificationEventPayload } from "../../renderer/notificationEventHandler.js";
 import { sendToMain } from "../../renderer/sendToMain.js";
@@ -174,8 +174,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
             this.elements.title.innerText = state.aeroflyFlight._missionTitle || "Flight briefing";
             this.elements.description.classList.toggle("d-none", state.aeroflyFlight._missionBriefing.trim() === "");
-            this.elements.description.innerText = state.aeroflyFlight._missionBriefing.trim();
-            this.elements.description.innerHTML = this.elements.description.innerHTML.replace(/\n/g, "<br />");
+            this.elements.description.innerHTML = htmlMarkdown(state.aeroflyFlight._missionBriefing);
         });
 
         this.elements.geojsonButton.addEventListener("click", this.handleCopyGeoJson);

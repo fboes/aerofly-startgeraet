@@ -59,6 +59,14 @@ export function html(text: string) {
 }
 
 /**
+ * @see html()
+ * @returns quoted HTML, replacing line breaks with `<br />`
+ */
+export function htmlMarkdown(text: string) {
+    return html(text).trim().replace(/\n/g, "<br />");
+}
+
+/**
  * Does not quote anything at all.
  */
 export function htmlRaw(text: string) {
