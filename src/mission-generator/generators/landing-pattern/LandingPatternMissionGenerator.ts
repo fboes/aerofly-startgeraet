@@ -36,6 +36,7 @@ Avaiation Weather Center API, so possibly this could take a few seconds
 depending on API availability.
 `,
             version: "1.0.0",
+            unrecommendedAircraft: ["glider"]
         };
     }
 

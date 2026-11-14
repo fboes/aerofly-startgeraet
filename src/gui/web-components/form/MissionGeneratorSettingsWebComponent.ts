@@ -96,6 +96,7 @@ export class MissionGeneratorSettingsWebComponent extends HTMLElement {
         this.manifest = manifest;
         this.elements.title.innerText = manifest.displayName;
         this.elements.description.innerText = manifest.longDescription || manifest.description;
+        this.elements.description.innerHTML = this.elements.description.innerHTML.replace(/\n/g, "<br />");
         this.elements.documentationAnchor.href =
             manifest.documentationUrl || "https://fboes.github.io/aerofly-startgeraet/docs/mission-generator.html";
         this.elements.form.replaceChildren(...this.getFormFieldElements());

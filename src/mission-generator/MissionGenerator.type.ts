@@ -29,6 +29,14 @@ export type MissionGeneratorManifest = {
      */
     configuration?: MissionGeneratorManifestField[];
     documentationUrl?: string;
+    /**
+     * List of tags an aircraft is supposed to have in order to match the generator
+     */
+    recommendedAircraft?: string[];
+    /**
+     * List of tags an aircraft is supposed to not have in order to match the generator
+     */
+    unrecommendedAircraft?: string[];
 };
 
 export type MissionGeneratorManifestField = JsonSchemaObject & {

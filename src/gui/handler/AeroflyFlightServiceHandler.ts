@@ -38,6 +38,7 @@ import {
     storeMissionGeneratorValues,
 } from "../../mission-generator/MissionGenerator.js";
 import type { MissionGeneratorManifest } from "../../mission-generator/MissionGenerator.type.js";
+import { ammendManifestDescription } from "../../mission-generator/util/recommendedAircraft.js";
 
 export class AeroflyFlightServiceHandler {
     private readonly service: AeroflyFlightService;
@@ -383,8 +384,9 @@ export class AeroflyFlightServiceHandler {
         generatorName: string,
     ): MissionGeneratorManifest => {
         const savedValues = restoreMissionGeneratorValues(this.service.config, generatorName);
+        const manifest = getMissionGeneratorManifest(generatorName, savedValues);
 
-        return getMissionGeneratorManifest(generatorName, savedValues);
+        return ammendManifestDescription(manifest, this.service.getAircraftData());
     };
 
     /**
