@@ -39,6 +39,20 @@ export type SimBriefApiPayloadFmsDownload = {
     link: string;
 };
 
+export type SimBriefApiPayloadRunway = {
+    identifier: string;
+    /**
+     * In feet
+     */
+    length: string;
+    /**
+     * In feet
+     */
+    elevation: string;
+    true_course: string;
+    ils_frequency: string;
+};
+
 export type SimBriefApiPayload = {
     general: {
         /**
@@ -48,6 +62,14 @@ export type SimBriefApiPayload = {
         icao_airline: string;
         cruise_tas: string;
         passengers: string;
+    };
+    tlr: {
+        takeoff: {
+            runway: [SimBriefApiPayloadRunway, SimBriefApiPayloadRunway];
+        };
+        landing: {
+            runway: [SimBriefApiPayloadRunway, SimBriefApiPayloadRunway];
+        };
     };
     origin: SimBriefApiPayloadAirport;
     destination: SimBriefApiPayloadAirport;

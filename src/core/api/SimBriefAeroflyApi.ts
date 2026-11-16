@@ -19,6 +19,7 @@ import { metarParser } from "aewx-metar-parser";
 import { findAeroflyAircraftByIcaoCode, findAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 import { positionRunwayWaypoint } from "../util/AeroflyFlightHelper.js";
 import { ErrorDetail } from "../util/ErrorFormatted.js";
+import { UNIT_METER_PER_FEET } from "../util/units.js";
 
 /**
  *
@@ -50,14 +51,53 @@ export function convertMission(
         convertWeather(flight, useDestinationWeather === 0 ? simbriefPayload.origin : simbriefPayload.destination);
     }
 
-    const originRunwayOrientation = parseRunwayDirection(simbriefPayload.origin.plan_rwy);
-    const destinationRunwayOrientation = parseRunwayDirection(simbriefPayload.destination.plan_rwy);
+    const originRunwayPayload = simbriefPayload.tlr.takeoff.runway.find(
+        (r) => r.identifier === simbriefPayload.origin.plan_rwy,
+    );
+    const originRunway = positionRunwayWaypoint(
+        new AeroflyNavRouteDepartureRunway(
+            simbriefPayload.origin.plan_rwy,
+            Number(simbriefPayload.origin.pos_long),
+            Number(simbriefPayload.origin.pos_lat),
+            {
+                elevation_ft: originRunwayPayload?.elevation ? Number(originRunwayPayload.elevation) : undefined,
+                direction_degree: originRunwayPayload?.true_course
+                    ? Number(originRunwayPayload.true_course)
+                    : undefined,
+                runwayLength: originRunwayPayload?.length
+                    ? Number(originRunwayPayload.length) * UNIT_METER_PER_FEET
+                    : undefined,
+            },
+        ),
+    );
+
+    const destinationWaypointPayload = simbriefPayload.tlr.landing.runway.find(
+        (r) => r.identifier === simbriefPayload.destination.plan_rwy,
+    );
+    const destinationWaypoint = positionRunwayWaypoint(
+        new AeroflyNavRouteDestinationRunway(
+            simbriefPayload.destination.plan_rwy,
+            Number(simbriefPayload.destination.pos_long),
+            Number(simbriefPayload.destination.pos_lat),
+            {
+                elevation_ft: destinationWaypointPayload?.elevation
+                    ? Number(destinationWaypointPayload.elevation)
+                    : undefined,
+                direction_degree: destinationWaypointPayload?.true_course
+                    ? Number(destinationWaypointPayload.true_course)
+                    : undefined,
+                runwayLength: destinationWaypointPayload?.length
+                    ? Number(destinationWaypointPayload.length) * UNIT_METER_PER_FEET
+                    : undefined,
+            },
+        ),
+    );
 
     flight.flightSetting = AeroflySettingsFlight.createInFeet(
-        Number(simbriefPayload.origin.pos_long),
-        Number(simbriefPayload.origin.pos_lat),
-        Number(simbriefPayload.origin.elevation),
-        originRunwayOrientation,
+        originRunway?.longitude ?? Number(simbriefPayload.origin.pos_long),
+        originRunway?.latitude ?? Number(simbriefPayload.origin.pos_long),
+        originRunway?.elevation_ft ?? Number(simbriefPayload.origin.elevation),
+        Number(destinationWaypointPayload?.true_course ?? 0),
         0,
         {
             gear: 1,
@@ -102,29 +142,9 @@ export function convertMission(
                     elevation_ft: Number(simbriefPayload.origin.elevation),
                 },
             ),
-            positionRunwayWaypoint(
-                new AeroflyNavRouteDepartureRunway(
-                    simbriefPayload.origin.plan_rwy,
-                    Number(simbriefPayload.origin.pos_long),
-                    Number(simbriefPayload.origin.pos_lat),
-                    {
-                        elevation_ft: Number(simbriefPayload.origin.elevation),
-                        direction_degree: originRunwayOrientation,
-                    },
-                ),
-            ),
+            originRunway,
             ...waypoints,
-            positionRunwayWaypoint(
-                new AeroflyNavRouteDestinationRunway(
-                    simbriefPayload.destination.plan_rwy,
-                    Number(simbriefPayload.destination.pos_long),
-                    Number(simbriefPayload.destination.pos_lat),
-                    {
-                        elevation_ft: Number(simbriefPayload.destination.elevation),
-                        direction_degree: destinationRunwayOrientation,
-                    },
-                ),
-            ),
+            destinationWaypoint,
             new AeroflyNavRouteDestination(
                 simbriefPayload.destination.icao_code,
                 Number(simbriefPayload.destination.pos_long),
