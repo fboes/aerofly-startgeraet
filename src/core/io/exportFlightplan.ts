@@ -7,6 +7,7 @@ import { AeroflyFlightToGeoJsonConverter } from "../converter/aerofly-flight/Aer
 import { AeroflyFlightToKmlConverter } from "../converter/aerofly-flight/AeroflyFlightToKmlConverter.js";
 import { AeroflyFlightToMarkdownConverter } from "../converter/aerofly-flight/AeroflyFlightToMarkdownConverter.js";
 import { ErrorDetail } from "../util/ErrorFormatted.js";
+import { AeroflyFlightToPoiCreationJson } from "../converter/aerofly-flight/AeroflyFlightToPoiCreationJson.js";
 
 /**
  * Writes a file from an `AeroflyFlight` class instance to an
@@ -19,6 +20,7 @@ const EXPORT_REGISTRY: Record<string, (new () => BaseAeroflyFlightToStringConver
     [AeroflyFlightToGeoJsonConverter.fileExtension]: AeroflyFlightToGeoJsonConverter,
     [AeroflyFlightToKmlConverter.fileExtension]: AeroflyFlightToKmlConverter,
     [AeroflyFlightToMarkdownConverter.fileExtension]: AeroflyFlightToMarkdownConverter,
+    [AeroflyFlightToPoiCreationJson.fileExtension]: AeroflyFlightToPoiCreationJson,
 };
 
 export const EXPORT_FILE_EXTENSIONS: {
@@ -44,6 +46,10 @@ export const EXPORT_FILE_EXTENSIONS: {
     {
         name: AeroflyFlightToMarkdownConverter.fileName,
         extension: AeroflyFlightToMarkdownConverter.fileExtension,
+    },
+    {
+        name: AeroflyFlightToPoiCreationJson.fileName,
+        extension: AeroflyFlightToPoiCreationJson.fileExtension,
     },
 ];
 

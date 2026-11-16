@@ -20,6 +20,6 @@ describe("parsePct", () => {
     });
 
     it("should throw an error for invalid PCT JSON", () => {
-        assert.throws(() => parsePct({}), /is no compatible /);
+        assert.throws(() => parsePct({}), /is not compatible /);
     });
 });

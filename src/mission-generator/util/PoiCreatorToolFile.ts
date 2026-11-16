@@ -9,7 +9,7 @@ export function parsePct(pctJson: unknown): PctFile {
     const pctJsonObject = asJSONObject(pctJson);
 
     if (pctJsonObject.schemaVersion !== 1 || pctJsonObject.app !== "pct") {
-        throw new Error("Supplied JSON is no compatible POI Creation Tool JSON");
+        throw new Error("Supplied JSON is not compatible POI Creation Tool JSON");
     }
 
     const schemaVersion = asJSONNumber(pctJsonObject.schemaVersion);

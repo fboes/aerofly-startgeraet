@@ -38,7 +38,7 @@ The following tags exist:
 
 | Tag                      | Example         | Description                                          |
 | ------------------------ | --------------- | ---------------------------------------------------- |
-| `heliport`               |                 | This location is a heliport / helipad                |
+| `#heliport`              |                 | This location is a heliport / helipad                |
 | `#hospital`              |                 | This location is a hospital                          |
 | `#icao:` + ICAO Code     | `#icao:CN02`    | ICAO code / flight plan identifier for this location |
 | `#approach:` + direction | `#approach:253` | Approach directions, multiple tags may be added      |

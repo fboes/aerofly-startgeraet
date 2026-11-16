@@ -13,7 +13,7 @@ export class HemsMissionLocations {
     private locations: LocationExtended[] = [];
 
     /**
-     * Will open the POI Creator Tool (PCT) JSON file with the mission locations
+     * Will open the POI Creation Tool (PCT) JSON file with the mission locations
      * @param airportLocation starting airport
      * @param directory the directory the mission folders are supposed to be in
      * @returns the number of found locations. `-1` is returned if no file is found.

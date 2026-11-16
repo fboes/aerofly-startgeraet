@@ -63,7 +63,7 @@ export function convertMission(
                 elevation_ft: originRunwayPayload?.elevation ? Number(originRunwayPayload.elevation) : undefined,
                 direction_degree: originRunwayPayload?.true_course
                     ? Number(originRunwayPayload.true_course)
-                    : undefined,
+                    : parseRunwayDirection(simbriefPayload.origin.plan_rwy),
                 runwayLength: originRunwayPayload?.length
                     ? Number(originRunwayPayload.length) * UNIT_METER_PER_FEET
                     : undefined,
@@ -85,7 +85,7 @@ export function convertMission(
                     : undefined,
                 direction_degree: destinationWaypointPayload?.true_course
                     ? Number(destinationWaypointPayload.true_course)
-                    : undefined,
+                    : parseRunwayDirection(simbriefPayload.destination.plan_rwy),
                 runwayLength: destinationWaypointPayload?.length
                     ? Number(destinationWaypointPayload.length) * UNIT_METER_PER_FEET
                     : undefined,
