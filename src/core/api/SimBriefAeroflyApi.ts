@@ -19,7 +19,6 @@ import { metarParser } from "aewx-metar-parser";
 import { findAeroflyAircraftByIcaoCode, findAeroflyLiveryByIcaoCode } from "../services/getAeroflyAircraft.js";
 import { positionRunwayWaypoint } from "../util/AeroflyFlightHelper.js";
 import { ErrorDetail } from "../util/ErrorFormatted.js";
-import { UNIT_METER_PER_FEET } from "../util/units.js";
 
 /**
  *
@@ -64,9 +63,7 @@ export function convertMission(
                 direction_degree: originRunwayPayload?.true_course
                     ? Number(originRunwayPayload.true_course)
                     : parseRunwayDirection(simbriefPayload.origin.plan_rwy),
-                runwayLength: originRunwayPayload?.length
-                    ? Number(originRunwayPayload.length) * UNIT_METER_PER_FEET
-                    : undefined,
+                runwayLength_ft: originRunwayPayload?.length ? Number(originRunwayPayload.length) : undefined,
             },
         ),
     );
@@ -86,8 +83,8 @@ export function convertMission(
                 direction_degree: destinationWaypointPayload?.true_course
                     ? Number(destinationWaypointPayload.true_course)
                     : parseRunwayDirection(simbriefPayload.destination.plan_rwy),
-                runwayLength: destinationWaypointPayload?.length
-                    ? Number(destinationWaypointPayload.length) * UNIT_METER_PER_FEET
+                runwayLength_ft: destinationWaypointPayload?.length
+                    ? Number(destinationWaypointPayload.length)
                     : undefined,
             },
         ),
