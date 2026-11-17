@@ -94,14 +94,14 @@ export class GeoJsonToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
      */
     private ensureGeoJSONFeatures(geoJson: unknown): GeoJsonFeature[] {
         const possiblyGeoJson = asJSONObject(geoJson);
-        const features = asJSONArray(possiblyGeoJson.features);
+        const features = asJSONArray(possiblyGeoJson.features, "geojson.features");
 
         return features.map((f) => {
-            const feature = asJSONObject(f);
-            const geometry = asJSONObject(feature.geometry);
-            const type = asJSONString(geometry.type);
-            const coordinates = asJSONArray(geometry.coordinates);
-            const properties = asJSONObject(feature.properties);
+            const feature = asJSONObject(f, "feature");
+            const geometry = asJSONObject(feature.geometry, "feature.geometry");
+            const type = asJSONString(geometry.type, "feature.geometry.type");
+            const coordinates = asJSONArray(geometry.coordinates, "feature.geometry,coordinates");
+            const properties = asJSONObject(feature.properties, "feature.properties");
 
             return {
                 geometry: {
@@ -121,8 +121,8 @@ export class GeoJsonToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
             .filter((f) => f.geometry.type === "Point")
             .map((f, index): GeoJsonFeaturePoint => {
                 return {
-                    longitude: asJSONNumber(f.geometry.coordinates[0]),
-                    latitude: asJSONNumber(f.geometry.coordinates[1]),
+                    longitude: asJSONNumber(f.geometry.coordinates[0], "features.geometry.coordinates[0]"),
+                    latitude: asJSONNumber(f.geometry.coordinates[1], "features.geometry.coordinates[1]"),
                     altitude_m: asJSONNumber(f.geometry.coordinates[2] ?? 0),
                     title: asJSONString(f.properties.title ?? this.indexToIdentifier(index)),
                     type: asJSONString(f.properties.type ?? ""),
@@ -140,8 +140,8 @@ export class GeoJsonToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
             .map((f, index): GeoJsonFeatureLineString => {
                 return {
                     coordinates: f.geometry.coordinates.map((c) => ({
-                        longitude: asJSONNumber(c[0]),
-                        latitude: asJSONNumber(c[1]),
+                        longitude: asJSONNumber(c[0], "features.geometry.coordinates[0]"),
+                        latitude: asJSONNumber(c[1], "features.geometry.coordinates[1]"),
                         altitude_m: asJSONNumber(c[2] ?? 0),
                     })),
                     title: asJSONString(f.properties.title ?? "#" + index.toFixed().padStart(2, "0")),
