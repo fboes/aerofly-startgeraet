@@ -57,13 +57,14 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
     <sup>2</sup>) Flight time in <span id="briefing-flight-time-unit"></span>
 </p>
 
+<h4>Skyvector information</h4>
 <ul>
+    <li><a target="skyvector" href="#" id="briefing-skyvector-route">Flightplan ORIGIN - DESTINATION</a></li>
     <li><a target="skyvector" href="#" id="briefing-skyvector-origin">Information for ORIGIN</a></li>
     <li><a target="skyvector" href="#" id="briefing-skyvector-destination">Information for DESTINATION</a></li>
-    <li><a target="skyvector" href="#" id="briefing-skyvector-route">Flightplan ORIGIN - DESTINATION</a></li>
 </ul>
 
-<button id="briefing-copy-geojson">Copy GeoJSON</button>
+<button id="briefing-copy-geojson" title="Copy GeoJSON to clipboard"><startgeraet-icon icon="clipboard"></startgeraet-icon></button>
 
         `;
         this.elements = {
@@ -149,15 +150,14 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
             this.elements.flightTimeUnit.innerText = getTimeFormat(routeTotalTime);
 
             this.elements.skyvectorOrigin.href = state.route.departureAirportUrl;
-            this.elements.skyvectorOrigin.innerText = fmt(`SkyVector airport information for {{ departureAirport }}`, {
+            this.elements.skyvectorOrigin.innerText = fmt(`Departure: {{ departureAirport }}`, {
                 departureAirport: state.route.departureAirport,
             });
 
             this.elements.skyvectorDestination.href = state.route.destinationAirportUrl;
-            this.elements.skyvectorDestination.innerText = fmt(
-                `SkyVector airport information for {{ destinationAirport }}`,
-                { destinationAirport: state.route.destinationAirport },
-            );
+            this.elements.skyvectorDestination.innerText = fmt(`Destination: {{ destinationAirport }}`, {
+                destinationAirport: state.route.destinationAirport,
+            });
             this.elements.skyvectorDestination.parentElement?.classList.toggle(
                 "d-none",
                 state.route.departureAirportCode === state.route.destinationAirportCode,
@@ -165,7 +165,7 @@ export class FlightBriefingWebComponent extends BaseStateSubscriberWebComponent 
 
             this.elements.skyvectorRoute.href = state.route.routeUrl;
             this.elements.skyvectorRoute.innerText = fmt(
-                `SkyVector flight plan for route {{ departureAirportCode }} to {{ destinationAirportCode }}`,
+                `Route: {{ departureAirportCode }} to {{ destinationAirportCode }}`,
                 {
                     departureAirportCode: state.route.departureAirportCode,
                     destinationAirportCode: state.route.destinationAirportCode,
