@@ -1,6 +1,6 @@
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
-import { fetchJson, handleJsonResponse } from "./fetchJson.js";
-import type { SimBriefApiError, SimBriefApiPayload } from "./SimBriefApi.type.js";
+import { fetchJson } from "./fetchJson.js";
+import { SimBriefApiErrorSchema, SimBriefApiPayloadSchema, type SimBriefApiPayload } from "./SimBriefApi.type.js";
 
 /**
  * @see https://developers.navigraph.com/docs/simbrief/fetching-ofp-data
@@ -12,13 +12,22 @@ export async function fetchSimBriefFlightPlan(username: string): Promise<SimBrie
     url.searchParams.append("json", "v2");
 
     const response = await fetchJson(url);
-
     if (!response.ok) {
-        const errorResponse = (await response.json()) as SimBriefApiError;
-        throw new ErrorFormatted(errorResponse.fetch?.status ?? `Response status: {{ status }}`, {
-            status: response.status.toString(),
-        });
+        const body: unknown = await response.json().catch(() => undefined);
+        const errorResponse = SimBriefApiErrorSchema.safeParse(body);
+
+        throw new ErrorFormatted(
+            (errorResponse.success && errorResponse.data.fetch?.status) || `Response status: {{ status }}`,
+            { status: response.status.toString() },
+        );
     }
 
-    return await handleJsonResponse<SimBriefApiPayload>(response);
+    const result = SimBriefApiPayloadSchema.safeParse(await response.json());
+
+    if (!result.success) {
+        const details = result.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join("; ");
+        throw new ErrorFormatted(`Invalid SimBrief response: {{ details }}`, { details });
+    }
+
+    return result.data;
 }

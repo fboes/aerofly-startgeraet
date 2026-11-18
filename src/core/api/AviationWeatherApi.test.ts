@@ -54,7 +54,7 @@ await describe("AviationWeatherApi", { skip: !includeApiTests }, async (): Promi
         });
     });
 
-    await it("should fetch navaids by position", async () => {
+    await it("should fetch navaids by position", { todo: "Payload is currently broken" }, async () => {
         const navaids = await new AviationWeatherApi().fetchNavaidsByPosition(-94.7371, 39.2853, 10000);
 
         assert.ok(Array.isArray(navaids), "navaids is an array");
@@ -66,7 +66,7 @@ await describe("AviationWeatherApi", { skip: !includeApiTests }, async (): Promi
         });
     });
 
-    await it("should fetch METAR by position", async () => {
+    await it("should fetch METAR by position", { todo: "Payload is currently broken" }, async () => {
         const metars = await new AviationWeatherApi().fetchMetarByPosition(-94.7371, 39.2853, 10000);
 
         assert.ok(Array.isArray(metars), "metars is an array");
@@ -103,6 +103,6 @@ await describe("AviationWeatherApi", { skip: !includeApiTests }, async (): Promi
         assert.strictEqual(typeof normalizedTafs.elev, "number", "normalizedTafs.elev");
         assert.ok(Array.isArray(normalizedTafs.fcsts), "normalizedTafs.fcsts");
 
-        console.log(normalizedTafs);
+        //console.log(normalizedTafs);
     });
 });
