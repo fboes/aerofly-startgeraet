@@ -1,5 +1,5 @@
 import { ErrorFormatted } from "../util/ErrorFormatted.js";
-import { fetchJson, handleJsonResponse } from "./fetchJson.js";
+import { fetchJson } from "./fetchJson.js";
 import {
     OpenTopoDataApiResultSchema,
     type OpenTopoDataApiCoordinates,
@@ -26,9 +26,7 @@ export async function fetchOpenTopoData(
     });
 
     const response = await fetchJson(url);
-    const json = await handleJsonResponse<unknown>(response);
-
-    const result = OpenTopoDataApiResultSchema.safeParse(json);
+    const result = OpenTopoDataApiResultSchema.safeParse(await response.json());
 
     if (!result.success) {
         const details = result.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join("; ");

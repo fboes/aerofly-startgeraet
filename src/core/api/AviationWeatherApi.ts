@@ -12,7 +12,7 @@ import type {
     AviationWeatherNormalizedMetar,
     AviationWeatherApiNormalizedTaf,
 } from "./AviationWeatherApi.type.js";
-import { fetchJson, handleJsonResponse } from "./fetchJson.js";
+import { fetchJson } from "./fetchJson.js";
 
 export class AviationWeatherApi {
     async fetchMetar(ids: string[], date: Date | null = null): Promise<AviationWeatherApiMetar[]> {
@@ -163,8 +163,17 @@ export class AviationWeatherApi {
 
     async doRequest<T>(route: string, query: URLSearchParams): Promise<T> {
         const url = new URL(route + "?" + query.toString(), "https://aviationweather.gov");
+
         const response = await fetchJson(url);
-        return await handleJsonResponse<T>(response);
+        if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
+        }
+
+        if (!response.body || response.status === 204) {
+            throw new Error(`API request failed, no result returned`);
+        }
+
+        return (await response.json()) as T;
     }
 
     /**
