@@ -55,8 +55,8 @@ export type PctFileObject = z.infer<typeof PctFileObjectSchema>;
  * @see https://github.com/jlgabriel/afs4-poi-creator/blob/main/src/core/project/types.ts
  */
 export const PctFileSchema = z.object({
-    schemaVersion: z.number(),
-    app: z.string(),
+    schemaVersion: z.literal(1),
+    app: z.literal("pct"),
     objects: z.array(PctFileObjectSchema),
 });
 export type PctFile = z.infer<typeof PctFileSchema>;

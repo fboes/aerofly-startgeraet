@@ -29,6 +29,7 @@ export const GeoJsonFeatureSchema = z.object({
 export type GeoJsonFeature = z.infer<typeof GeoJsonFeatureSchema>;
 
 export const GeoJsonSchema = z.object({
+    type: z.literal("FeatureCollection"),
     features: z.array(GeoJsonFeatureSchema),
 });
 export type GeoJson = z.infer<typeof GeoJsonSchema>;
