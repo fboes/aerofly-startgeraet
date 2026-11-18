@@ -13,6 +13,7 @@ import { getLocationData, getLocationFullName } from "../../util/Location.js";
 import { createHoldingPattern, calculateHoldingPatternEntry, type HoldingPattern } from "./HoldingPattern.js";
 import type { HoldingPatternMissionGeneratorConfiguration } from "./HoldingPatternMissionGenerator.js";
 import { getEntryWaypoints, getPatternWaypoints } from "./HoldingPatternWaypoints.js";
+import { AIRCRAFT_TYPE_HELICOPTER } from "../../../core/services/getAeroflyAircraft.js";
 
 export async function convertScenario(
     configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,
@@ -59,6 +60,7 @@ export async function convertScenario(
         fixPoint,
         inboundHeading,
         configuration,
+        aircraft?.tags.includes(AIRCRAFT_TYPE_HELICOPTER) ?? false,
     );
     const patternEntry = calculateHoldingPatternEntry(pattern, aircraftVector.bearing);
 

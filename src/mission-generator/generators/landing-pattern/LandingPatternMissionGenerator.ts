@@ -3,6 +3,7 @@ import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightS
 import type { MissionGenerator } from "../../MissionGenerator.interface.js";
 import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
 import { convertScenario } from "./Scenario.js";
+import { AIRCRAFT_TYPE_GILDER } from "../../../core/services/getAeroflyAircraft.js";
 
 export type LandingPatternMissionGeneratorConfiguration = {
     distance_nm: z.ZodDefault<z.ZodNumber>;
@@ -36,7 +37,7 @@ Avaiation Weather Center API, so possibly this could take a few seconds
 depending on API availability.
 `,
             version: "1.0.1",
-            unrecommendedAircraft: ["glider"],
+            unrecommendedAircraft: [AIRCRAFT_TYPE_GILDER],
         };
     }
 

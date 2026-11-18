@@ -11,9 +11,9 @@ import { numberFormat } from "../../core/formatter/numberFormat.js";
 import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
 import type { Location, LocationExtended } from "../util/Location.type.js";
 import { Point } from "@fboes/geojson";
-import { asJSONArray, asJSONNumber, asJSONObject, asJSONString } from "../../core/converter/parser/parseJSON.js";
 import { degreeNormalize } from "../../core/util/degree.js";
-import { parsePct } from "./PoiCreatorToolFile.js";
+import { parsePct } from "../../core/validator/PoiCreatorToolFile.js";
+import { parseGeoJson } from "../../core/validator/GeoJson.js";
 
 /**
  * Keeps normalized airports, navigational aids and fixes cached after fetching
@@ -187,33 +187,30 @@ export function getLocationFullName(location: Location): string {
  * @returns an array of `LocationExtended` from GeoJSON input
  */
 export function parseGeoJsonToLocations(geoJson: unknown): LocationExtended[] {
-    const geoJsonObject = asJSONObject(geoJson);
+    const geoJsonObject = parseGeoJson(geoJson);
 
-    return asJSONArray(geoJsonObject.features)
+    return geoJsonObject.features
         .filter((f) => {
-            const geometry = asJSONObject(f.geometry);
-            return asJSONString(f.type) === "Feature" && asJSONString(geometry.type) === "Point";
+            return f.type === "Feature" && f.geometry.type === "Point";
         })
         .map((f, index): LocationExtended => {
-            const geometry = asJSONObject(f.geometry);
-            const coordinates = asJSONArray(geometry.coordinates);
-            const longitude = asJSONNumber(coordinates[0]);
-            const latitude = asJSONNumber(coordinates[1]);
-            const altitude_m = coordinates[2] ? asJSONNumber(coordinates[2]) : undefined;
+            const longitude = f.geometry.coordinates[0] as number | undefined;
+            const latitude = f.geometry.coordinates[1] as number | undefined;
+            const altitude_m = f.geometry.coordinates[2] as number | undefined;
+            if (!longitude || !latitude) {
+                throw new Error("Not enough coordinates in GeoJson");
+            }
 
-            const properties = asJSONObject(f.properties);
-            const direction = properties.direction ? asJSONNumber(properties.direction) : undefined;
-            const approaches = properties.approaches
-                ? asJSONArray(properties.approaches).map((a) => asJSONNumber(a))
-                : direction
-                  ? [direction, degreeNormalize(direction + 180)]
-                  : undefined;
-            const type = properties["marker-symbol"] ? asJSONString(properties["marker-symbol"]) : undefined;
+            const direction = f.properties.direction;
+            const approaches =
+                f.properties.approaches?.map((a) => a) ??
+                (direction ? [direction, degreeNormalize(direction + 180)] : undefined);
+            const type = f.properties["marker-symbol"];
 
             return {
                 position: new Point(longitude, latitude, altitude_m),
-                identifier: properties.icaoCode ? asJSONString(properties.icaoCode) : identifierFromNumber(index),
-                title: asJSONString(properties.title),
+                identifier: f.properties.icaoCode ?? identifierFromNumber(index),
+                title: f.properties.title,
                 tags: type ? [type] : undefined,
                 direction,
                 approaches,
@@ -222,7 +219,7 @@ export function parseGeoJsonToLocations(geoJson: unknown): LocationExtended[] {
 }
 
 /**
- * Parses objects from the POI Creator tool. Will ignore 0bjects that do not
+ * Parses objects from the POI Creator tool. Will ignore objects that do not
  * contain `label` property and are not relevant for the mission generator.
  *
  * @see https://github.com/jlgabriel/afs4-poi-creator

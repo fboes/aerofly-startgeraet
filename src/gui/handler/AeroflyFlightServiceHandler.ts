@@ -443,6 +443,7 @@ export class AeroflyFlightServiceHandler {
 
     /**
      * Queues writing to main.mcf
+     * @todo This does not handle concurrent, long running writes
      */
     startDebouncedWriteFile(): void {
         if (this.writeDelay < 0) {
@@ -454,7 +455,6 @@ export class AeroflyFlightServiceHandler {
         }
 
         this.writeTimer = setTimeout(() => {
-            // TODO: This does not handle concurrent, long running writes
             this.writeTimer = null;
             try {
                 this.writeMainMcf();

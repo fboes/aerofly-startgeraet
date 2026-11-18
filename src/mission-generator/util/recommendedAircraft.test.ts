@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert/strict";
 import { describe, it } from "node:test";
 import { isRecommendedAircraft, isUnrecommendedAircraft } from "./recommendedAircraft.js";
-import { findAeroflyAircraft } from "../../core/services/getAeroflyAircraft.js";
+import { AIRCRAFT_TYPE_HELICOPTER, findAeroflyAircraft } from "../../core/services/getAeroflyAircraft.js";
 
 const aircraftC172 = findAeroflyAircraft("c172");
 const aircraftEc1135 = findAeroflyAircraft("ec135");
@@ -33,7 +33,7 @@ describe("recommendedAircraft", (): void => {
             description: "",
             longDescription: "",
             version: "",
-            recommendedAircraft: ["helicopter"],
+            recommendedAircraft: [AIRCRAFT_TYPE_HELICOPTER],
         };
 
         assert.ok(!isRecommendedAircraft(manifest, aircraftC172), "With recommendation, only helicopters fit");
@@ -50,7 +50,7 @@ describe("recommendedAircraft", (): void => {
             description: "",
             longDescription: "",
             version: "",
-            unrecommendedAircraft: ["helicopter"],
+            unrecommendedAircraft: [AIRCRAFT_TYPE_HELICOPTER],
         };
 
         assert.ok(isRecommendedAircraft(manifest, aircraftC172), "Without recommendation, every aircraft fits");

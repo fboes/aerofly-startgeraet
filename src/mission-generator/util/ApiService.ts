@@ -1,14 +1,14 @@
 import { Vector, type Point } from "@fboes/geojson";
 import { fetchAirportCached, fetchBestRunway, type BestRunway } from "../../core/api/AviationWeatherAeroflyApi.js";
 import type { AviationWeatherNormalizedAirport } from "../../core/api/AviationWeatherApi.type.js";
-import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
-import { UNIT_METER_PER_FEET } from "../../core/util/units.js";
 import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
+import type { AeroflyFlightService } from "../../core/services/AeroflyFlightService.js";
 import { ErrorDetail } from "../../core/util/ErrorFormatted.js";
 import { degreeNormalize } from "../../core/util/degree.js";
+import { UNIT_METER_PER_FEET } from "../../core/util/units.js";
 
 /**
- * Additional airport data for current origin / destination airport not provided
+ * @returns Additional airport data for current origin / destination airport not provided
  * by internal database. Will be fetched via API.
  */
 export async function getAirportDataViaOrigin(
@@ -26,7 +26,7 @@ export async function getAirportDataViaOrigin(
 }
 
 /**
- * Runway best matching the current airport and wind settings. Runway data will
+ * @returns Runway best matching the current airport and wind settings. Runway data will
  * be fetched via API.
  */
 export async function getBestRunwayViaFlightService(
@@ -37,7 +37,7 @@ export async function getBestRunwayViaFlightService(
 }
 
 /**
- * Point data for runway, according to expected placement in Aerofly FS 4
+ * @returns Point data for runway, according to expected placement in Aerofly FS 4
  */
 export function getRunwayPoint(runwayData: BestRunway, airportPoint: Point): Point {
     return airportPoint.getPointBy(
@@ -46,8 +46,8 @@ export function getRunwayPoint(runwayData: BestRunway, airportPoint: Point): Poi
 }
 
 /**
- * Get minimum safe altitude in meters.
  * If user provided MSA, use this, else call the Open Top API.
+ * @returns minimum safe altitude in meters
  */
 export async function getMinimumSafeAltitude(
     aircraftPoint: Point,

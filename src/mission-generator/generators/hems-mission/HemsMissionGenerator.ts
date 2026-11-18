@@ -3,6 +3,7 @@ import type { MissionGenerator } from "../../MissionGenerator.interface.js";
 import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
 import { convertScenario } from "./Scenario.js";
+import { AIRCRAFT_TYPE_HELICOPTER } from "../../../core/services/getAeroflyAircraft.js";
 
 export type HemsMissionGeneratorConfiguration = {
     minRange_km: z.ZodDefault<z.ZodNumber>;
@@ -27,7 +28,7 @@ If this file does not exist, the generator will not run.
 `,
             version: "2.0.1",
             documentationUrl: "https://fboes.github.io/aerofly-startgeraet/docs/mission-generator-hems.html",
-            recommendedAircraft: ["helicopter"],
+            recommendedAircraft: [AIRCRAFT_TYPE_HELICOPTER],
         };
     }
 

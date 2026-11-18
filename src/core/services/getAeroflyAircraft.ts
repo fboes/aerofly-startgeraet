@@ -1,6 +1,9 @@
 import AeroflyAircraftLiveries from "@fboes/aerofly-data/data/aircraft-liveries.json" with { type: "json" };
 import type { AeroflyAircraft, AeroflyAircraftLivery } from "@fboes/aerofly-data/data/aircraft-liveries.json";
 
+export const AIRCRAFT_TYPE_HELICOPTER = "helicopter";
+export const AIRCRAFT_TYPE_GILDER = "glider";
+
 /**
  * Find detail data for Aerofly FS aircraft and liveries.
  * Interface to `@fboes/aerofly-data` JSON data.
@@ -35,6 +38,9 @@ export function findAeroflyLiveryByIcaoCode(
 
 /**
  * Find Aerofly FS aircraft by a tag. Examples for tag search are "historical", "airliner", "helicopter", "military", "glider", "aerobatic", "general_aviation".
+ *
+ * @see AIRCRAFT_TYPE_HELICOPTER
+ * @see AIRCRAFT_TYPE_GILDER
  */
 export function findAeroflyAircraftByTag(tag: string): AeroflyAircraft[] {
     return AeroflyAircraftLiveries.filter((aircraft) => aircraft.tags?.includes(tag));

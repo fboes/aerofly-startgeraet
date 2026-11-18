@@ -148,7 +148,7 @@ export function importFileType(): z.ZodEnum {
 const FLIGHT_CONFIGURATION: AeroflySettingsFlightConfiguration[] = [
     "Keep",
     "ColdAndDark",
-    "BeforeStart", // TODO
+    "BeforeStart",
     "Parking",
     "OnGround",
     "Takeoff",

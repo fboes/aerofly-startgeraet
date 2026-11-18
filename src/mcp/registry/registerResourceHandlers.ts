@@ -4,7 +4,7 @@ import { ResourceTemplate } from "@modelcontextprotocol/server";
 import type { McpServer, CallToolResult, ReadResourceResult, ToolAnnotations } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import * as AeroflyFlightMcpResourceService from "../services/AeroflyFlightMcpResourceService.js";
-import * as ZodExtra from "../../core/util/zExtra.js";
+import * as ZodExtra from "../../core/validator/zExtra.js";
 import { AviationWeatherApi } from "../../core/api/AviationWeatherApi.js";
 import { fetchOpenTopoData } from "../../core/api/OpenTopoDataApi.js";
 import { returnMcpResourceResult, returnMcpToolSimpleResult } from "../util/returnMcpResult.js";

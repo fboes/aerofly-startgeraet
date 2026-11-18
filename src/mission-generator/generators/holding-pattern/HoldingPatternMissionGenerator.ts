@@ -2,8 +2,9 @@ import z from "zod";
 import type { MissionGenerator } from "../../MissionGenerator.interface.js";
 import type { MissionGeneratorManifest } from "../../MissionGenerator.type.js";
 import type { AeroflyFlightService } from "../../../core/services/AeroflyFlightService.js";
-import * as ZodExtra from "../../../core/util/zExtra.js";
+import * as ZodExtra from "../../../core/validator/zExtra.js";
 import { convertScenario } from "./Scenario.js";
+import { AIRCRAFT_TYPE_GILDER } from "../../../core/services/getAeroflyAircraft.js";
 
 export type HoldingPatternMissionGeneratorConfiguration = {
     navaidIdentifier: z.ZodString;
@@ -38,7 +39,7 @@ Avaiation Weather Center API, so possibly this could take a few seconds
 depending on API availability.
 `,
             version: "1.0.1",
-            unrecommendedAircraft: ["glider"],
+            unrecommendedAircraft: [AIRCRAFT_TYPE_GILDER],
         };
     }
 

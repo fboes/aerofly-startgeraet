@@ -10,7 +10,7 @@ import type {
 } from "../../core/services/AeroflyFlightService.js";
 import * as ResourceRegistry from "./registerResourceHandlers.js";
 import * as ConfigurationRegistry from "./registerConfigurationHandlers.js";
-import * as ZodExtra from "../../core/util/zExtra.js";
+import * as ZodExtra from "../../core/validator/zExtra.js";
 import { SkyVectorUrl } from "../../core/data/SkyVectorUrl.js";
 import * as ExportFileWriter from "../../core/io/exportFlightplan.js";
 import * as ImportFileReader from "../../core/io/importFlightplan.js";

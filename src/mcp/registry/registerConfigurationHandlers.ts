@@ -2,7 +2,7 @@ import type { McpServer, CallToolResult } from "@modelcontextprotocol/server";
 import type { Config } from "../../core/io/Config.js";
 import { z } from "zod";
 import { returnMcpToolSimpleResult, returnMcpToolResult } from "../util/returnMcpResult.js";
-import * as ZodExtra from "../../core/util/zExtra.js";
+import * as ZodExtra from "../../core/validator/zExtra.js";
 
 export const TOOL_GET_CONFIG = "get-config";
 export const TOOL_SET_CONFIG = "set-config";

@@ -7,15 +7,7 @@ import {
     type AeroflyFlight,
 } from "@fboes/aerofly-custom-missions";
 import { BaseStringToAeroflyFlightConverter } from "./StringToAeroflyFlightConverter.base.js";
-import { asJSONArray, asJSONNumber, asJSONObject, asJSONString, type JSONUnvalidated } from "../parser/parseJSON.js";
-
-type GeoJsonFeature = {
-    geometry: {
-        type: string;
-        coordinates: JSONUnvalidated[];
-    };
-    properties: JSONUnvalidated;
-};
+import { parseGeoJson, type GeoJsonFeature } from "../../validator/GeoJson.js";
 
 type GeoJsonFeaturePoint = {
     longitude: number;
@@ -92,25 +84,10 @@ export class GeoJsonToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
     /**
      * @returns GeoJSON feature objects
      */
-    private ensureGeoJSONFeatures(geoJson: unknown): GeoJsonFeature[] {
-        const possiblyGeoJson = asJSONObject(geoJson);
-        const features = asJSONArray(possiblyGeoJson.features, "geojson.features");
+    private ensureGeoJSONFeatures(possiblyGeoJson: unknown): GeoJsonFeature[] {
+        const geoJson = parseGeoJson(possiblyGeoJson);
 
-        return features.map((f) => {
-            const feature = asJSONObject(f, "feature");
-            const geometry = asJSONObject(feature.geometry, "feature.geometry");
-            const type = asJSONString(geometry.type, "feature.geometry.type");
-            const coordinates = asJSONArray(geometry.coordinates, "feature.geometry,coordinates");
-            const properties = asJSONObject(feature.properties, "feature.properties");
-
-            return {
-                geometry: {
-                    type,
-                    coordinates,
-                },
-                properties,
-            };
-        });
+        return geoJson.features;
     }
 
     /**
@@ -118,14 +95,20 @@ export class GeoJsonToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
      */
     private ensureGeoJSONFeaturePoints(features: GeoJsonFeature[]): GeoJsonFeaturePoint[] {
         return features
-            .filter((f) => f.geometry.type === "Point")
+            .filter((f) => f.type === "Feature" && f.geometry.type === "Point")
             .map((f, index): GeoJsonFeaturePoint => {
+                const longitude = f.geometry.coordinates[0] as number | undefined;
+                const latitude = f.geometry.coordinates[1] as number | undefined;
+                const altitude_m = f.geometry.coordinates[2] as number | undefined;
+                if (!longitude || !latitude) {
+                    throw new Error("Not enough coordinates in GeoJson");
+                }
                 return {
-                    longitude: asJSONNumber(f.geometry.coordinates[0], "features.geometry.coordinates[0]"),
-                    latitude: asJSONNumber(f.geometry.coordinates[1], "features.geometry.coordinates[1]"),
-                    altitude_m: asJSONNumber(f.geometry.coordinates[2] ?? 0),
-                    title: asJSONString(f.properties.title ?? this.indexToIdentifier(index)),
-                    type: asJSONString(f.properties.type ?? ""),
+                    longitude,
+                    latitude,
+                    altitude_m: altitude_m ?? 0,
+                    title: f.properties.title ?? this.indexToIdentifier(index),
+                    type: f.properties.type ?? "",
                 };
             })
             .filter((f) => !f.type.startsWith("aircraft"));
@@ -136,15 +119,24 @@ export class GeoJsonToAeroflyFlightConverter extends BaseStringToAeroflyFlightCo
      */
     private ensureGeoJSONFeatureLineStrings(features: GeoJsonFeature[]): GeoJsonFeatureLineString[] {
         return features
-            .filter((f) => f.geometry.type === "LineString")
+            .filter((f) => f.type === "Feature" && f.geometry.type === "LineString")
             .map((f, index): GeoJsonFeatureLineString => {
+                const coordinates = f.geometry.coordinates as number[][];
+
                 return {
-                    coordinates: f.geometry.coordinates.map((c) => ({
-                        longitude: asJSONNumber(c[0], "features.geometry.coordinates[0]"),
-                        latitude: asJSONNumber(c[1], "features.geometry.coordinates[1]"),
-                        altitude_m: asJSONNumber(c[2] ?? 0),
-                    })),
-                    title: asJSONString(f.properties.title ?? "#" + index.toFixed().padStart(2, "0")),
+                    coordinates: coordinates.map((c) => {
+                        const longitude = f.geometry.coordinates[0] as number | undefined;
+                        const latitude = f.geometry.coordinates[1] as number | undefined;
+                        if (!longitude || !latitude) {
+                            throw new Error("Not enough coordinates in GeoJson");
+                        }
+                        return {
+                            longitude,
+                            latitude,
+                            altitude_m: c[2] ?? 0,
+                        };
+                    }),
+                    title: f.properties.title ?? "#" + index.toFixed().padStart(2, "0"),
                 };
             });
     }

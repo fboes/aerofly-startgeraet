@@ -38,6 +38,9 @@ ${this.getFlightSummary(flightplan)}
 `;
     }
 
+    /**
+     * @todo Fuel and payload are not yet accessible via the AeroflyFlight API. For now, we just set them to false.
+     */
     private getAircraftSummary(flightplan: AeroflyFlight) {
         const currentAircraft = findAeroflyAircraft(flightplan.aircraft.name);
         if (!currentAircraft) {
@@ -45,7 +48,6 @@ ${this.getFlightSummary(flightplan)}
         }
         const currentLivery = findAeroflyLivery(currentAircraft, flightplan.aircraft.paintscheme);
 
-        // TODO: Fuel and payload are not yet accessible via the AeroflyFlight API. For now, we just set them to false.
         const fuel = false; // flightplan.fuelLoadSetting.fuelMass || flightplan.fuelLoadSetting.payloadMass;
 
         return `\

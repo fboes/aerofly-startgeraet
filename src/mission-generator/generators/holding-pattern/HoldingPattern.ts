@@ -31,8 +31,12 @@ export function createHoldingPattern(
     fixPoint: Point,
     inboundHeading: number,
     configuration: z.infer<z.ZodObject<HoldingPatternMissionGeneratorConfiguration>>,
+    isHelicopter: boolean,
 ): HoldingPattern {
-    const patternSpeedKts = Math.min(cruiseSpeedKts, calculateMaxPatternSpeedKts(configuration.holdAltitudeMsl_ft));
+    const patternSpeedKts = Math.min(
+        cruiseSpeedKts,
+        calculateMaxPatternSpeedKts(configuration.holdAltitudeMsl_ft, isHelicopter),
+    );
 
     const dmeDistanceOutbound_nm =
         configuration.dmeDistance_nm > 0
@@ -95,11 +99,13 @@ function calculateLegDistanceMeters(
 
 /**
  * @see https://www.code7700.com/holding.htm
+ * @todo Does not handle turbulence
  */
-function calculateMaxPatternSpeedKts(patternAltitudeFt: number): number {
+function calculateMaxPatternSpeedKts(patternAltitudeFt: number, isHelicopter: boolean): number {
     // TODO: Turbulence: 280
-    // TODO: Helicopter: patternAltitudeFt <= 6000 ? 100 : 170;
-
+    if (isHelicopter) {
+        return patternAltitudeFt <= 6000 ? 100 : 170;
+    }
     if (patternAltitudeFt <= 6000) {
         return 200; // FAA
     }

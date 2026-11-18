@@ -112,6 +112,9 @@ export async function fetchTafToFlight(airportCode: string, flight: AeroflyFligh
     return convertNormalizedTafForecastToFlight(weather, flight);
 }
 
+/**
+ * @todo Does not handle temperature as it is not included in TAF
+ */
 function convertNormalizedTafForecastToFlight(
     weather: AviationWeatherApiNormalizedTafForecast,
     flight: AeroflyFlight,
@@ -126,7 +129,6 @@ function convertNormalizedTafForecastToFlight(
     flight.wind.speed_kts = weather.wspd ?? 0;
     flight.wind.gust_kts = weather.wgst ?? 0;
     flight.wind.directionInDegree = weather.wdir ?? 0;
-    // TODO: What about temperature? It is not included in TAF.
 
     return flight;
 }
@@ -198,7 +200,7 @@ export async function fetchBestRunway(
         .flat();
 
     if (!possibleRunways.length) {
-        throw new Error("No availabe runways found at this airport"); // TODO
+        throw new Error("No availabe runways found at this airport");
     }
 
     if (windSpeed_kts <= 5 && possibleRunways[0]) {
