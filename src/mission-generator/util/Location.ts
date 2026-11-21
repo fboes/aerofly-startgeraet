@@ -13,7 +13,6 @@ import type { Location, LocationExtended } from "../util/Location.type.js";
 import { Point } from "@fboes/geojson";
 import { degreeNormalize } from "../../core/util/degree.js";
 import { parsePct } from "../../core/validator/PoiCreatorToolFile.js";
-import { parseGeoJson } from "../../core/validator/GeoJson.js";
 
 /**
  * Keeps normalized airports, navigational aids and fixes cached after fetching
@@ -181,41 +180,6 @@ export function getLocationFullName(location: Location): string {
                     : ` (${numberFormat(location.freq_khz / 1000)} MHz)`
                 : "")
     );
-}
-
-/**
- * @returns an array of `LocationExtended` from GeoJSON input
- */
-export function parseGeoJsonToLocations(geoJson: unknown): LocationExtended[] {
-    const geoJsonObject = parseGeoJson(geoJson);
-
-    return geoJsonObject.features
-        .filter((f) => {
-            return f.type === "Feature" && f.geometry.type === "Point";
-        })
-        .map((f, index): LocationExtended => {
-            const longitude = f.geometry.coordinates[0] as number | undefined;
-            const latitude = f.geometry.coordinates[1] as number | undefined;
-            const altitude_m = f.geometry.coordinates[2] as number | undefined;
-            if (!longitude || !latitude) {
-                throw new Error("Not enough coordinates in GeoJson");
-            }
-
-            const direction = f.properties.direction;
-            const approaches =
-                f.properties.approaches?.map((a) => a) ??
-                (direction ? [direction, degreeNormalize(direction + 180)] : undefined);
-            const type = f.properties["marker-symbol"];
-
-            return {
-                position: new Point(longitude, latitude, altitude_m),
-                identifier: f.properties.icaoCode ?? identifierFromNumber(index),
-                title: f.properties.title,
-                tags: type ? [type] : undefined,
-                direction,
-                approaches,
-            };
-        });
 }
 
 /**
