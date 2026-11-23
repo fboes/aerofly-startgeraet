@@ -17,19 +17,19 @@ export class MetarToAeroflyFlightConverter extends BaseStringToAeroflyFlightConv
         const metar = metarParser(metarString);
 
         flightplan.wind = new AeroflySettingsWind(
-            metar.wind.speed_kts,
+            metar.wind.speed_kts ?? 0,
             metar.wind.degrees ?? 0,
             metar.wind.gust_kts ?? 0,
-            metar.temperature.celsius ?? 14,
+            metar.temperature?.celsius ?? 14,
         );
 
         flightplan.clouds = metar.clouds.map((metarCloud) => {
             const cloud = AeroflySettingsCloud.createInFeet(0, metarCloud.feet);
-            cloud.density_code = metarCloud.code;
+            cloud.density_code = metarCloud.code !== "VV" ? metarCloud.code : "OVC";
             return cloud;
         });
 
-        flightplan.visibility_meter = metar.visibility.meters;
+        flightplan.visibility_meter = metar.visibility?.meters ?? 9999;
     }
 
     private getLines(content: string): string[] {

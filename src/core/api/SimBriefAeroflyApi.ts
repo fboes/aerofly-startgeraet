@@ -177,19 +177,19 @@ function convertWeather(flight: AeroflyFlight, airport: SimBriefApiPayloadAirpor
     const metar = metarParser(airport.metar);
 
     flight.wind = new AeroflySettingsWind(
-        metar.wind.speed_kts,
+        metar.wind.speed_kts ?? 0,
         metar.wind.degrees ?? 0,
         metar.wind.gust_kts ?? 0,
-        metar.temperature.celsius ?? 14,
+        metar.temperature?.celsius ?? 14,
     );
 
     flight.clouds = metar.clouds.map((metarCloud) => {
         const cloud = AeroflySettingsCloud.createInFeet(0, metarCloud.feet);
-        cloud.density_code = metarCloud.code;
+        cloud.density_code = metarCloud.code !== "VV" ? metarCloud.code : "OVC";
         return cloud;
     });
 
-    flight.visibility_meter = metar.visibility.meters;
+    flight.visibility_meter = metar.visibility?.meters ?? 9999;
 }
 
 function findAeroflyAircraftCode(
