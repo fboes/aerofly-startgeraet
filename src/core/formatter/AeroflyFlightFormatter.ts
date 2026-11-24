@@ -9,7 +9,7 @@ import {
 import { RoutePlanService } from "../services/RoutePlanService.js";
 import { findAeroflyAircraft, findAeroflyLivery } from "../services/getAeroflyAircraft.js";
 import { findAeroflyAirportByIcaoCode } from "../services/getAeroflyAirport.js";
-import { getIcaoFlightCategory, getSunPosition, getFlightCategory } from "../util/AeroflyFlightHelper.js";
+import { getIcaoFlightCategory, getSunPosition, getUsFlightCategory } from "../util/AeroflyFlightHelper.js";
 import { getHourString } from "./getTimeString.js";
 import { numberFormat } from "./numberFormat.js";
 
@@ -138,10 +138,10 @@ export function distanceTimeString(aeroflyFlight: AeroflyFlight): string {
 
 /**
  * @see getIcaoFlightCategory
- * @see getFlightCategory
+ * @see getUsFlightCategory
  */
 export function flightCategoryCombinedString(aeroflyFlight: AeroflyFlight): string {
-    return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getFlightCategory(aeroflyFlight)}`;
+    return `ICAO: ${getIcaoFlightCategory(aeroflyFlight)} | US: ${getUsFlightCategory(aeroflyFlight)}`;
 }
 
 /**

@@ -21,7 +21,7 @@ describe("AeroflyFlightHelper", () => {
 
         assert.strictEqual(
             aeroflyFlight.clouds[2],
-            AeroflyFlightHelper.getCeiling(aeroflyFlight),
+            AeroflyFlightHelper.findCeiling(aeroflyFlight),
             "Disregard first cloud because not enough coverage, use third as being the lowest",
         );
     });

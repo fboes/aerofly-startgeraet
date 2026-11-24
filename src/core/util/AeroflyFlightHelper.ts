@@ -56,27 +56,31 @@ export function positionRunwayWaypoint<T extends AeroflyNavRouteDepartureRunway 
     return waypoint;
 }
 
-export function getFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryUs {
-    const ceiling = getCeiling(aeroflyFlight);
+export function getUsFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryUs {
+    const ceiling = findCeiling(aeroflyFlight);
     const visibility_miles = aeroflyFlight.visibility_sm;
 
-    if (visibility_miles > 5 && (!ceiling?.height_ft || ceiling.height_ft > 3000)) {
+    if (visibility_miles > 5 && (!ceiling || ceiling.height_ft > 3000)) {
         return "VFR";
-    } else if (visibility_miles >= 3 && (!ceiling?.height_ft || ceiling.height_ft >= 1000)) {
+    } else if (visibility_miles >= 3 && (!ceiling || ceiling.height_ft >= 1000)) {
         return "MVFR";
-    } else if (visibility_miles >= 1 && (!ceiling?.height_ft || ceiling.height_ft >= 500)) {
+    } else if (visibility_miles >= 1 && (!ceiling || ceiling.height_ft >= 500)) {
         return "IFR";
     }
     return "LIFR";
 }
 
 export function getIcaoFlightCategory(aeroflyFlight: AeroflyFlight): AeroflylightCategoryIcao {
-    const ceiling = getCeiling(aeroflyFlight);
+    const ceiling = findCeiling(aeroflyFlight);
 
-    return aeroflyFlight.visibility_meter >= 5000 && (!ceiling?.height_ft || ceiling.height_ft >= 1500) ? "VFR" : "IFR";
+    return aeroflyFlight.visibility_meter >= 5000 && (!ceiling || ceiling.height_ft >= 1500) ? "VFR" : "IFR";
 }
 
-export function getCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined {
+/**
+ * @returns lowest clod layer with code `BKN` or `OVC`, or `undefined` if there
+ *   is no such layer
+ */
+export function findCeiling(aeroflyFlight: AeroflyFlight): AeroflySettingsCloud | undefined {
     return [...aeroflyFlight.clouds]
         .sort((a, b) => a.height - b.height)
         .find((c) => {

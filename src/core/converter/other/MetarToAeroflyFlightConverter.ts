@@ -25,7 +25,7 @@ export class MetarToAeroflyFlightConverter extends BaseStringToAeroflyFlightConv
 
         flightplan.clouds = metar.clouds.map((metarCloud) => {
             const cloud = AeroflySettingsCloud.createInFeet(0, metarCloud.feet);
-            cloud.density_code = metarCloud.code !== "VV" ? metarCloud.code : "OVC";
+            cloud.density_code = metarCloud.code;
             return cloud;
         });
 

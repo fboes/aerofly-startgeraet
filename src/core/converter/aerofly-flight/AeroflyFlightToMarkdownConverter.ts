@@ -14,7 +14,7 @@ import {
 import { markdownTable } from "../../formatter/markdownTable.js";
 import { findAeroflyAircraft, findAeroflyLivery } from "../../services/getAeroflyAircraft.js";
 import { RoutePlanService } from "../../services/RoutePlanService.js";
-import { getFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
+import { getUsFlightCategory, getIcaoFlightCategory, getLocalTimeAndDate } from "../../util/AeroflyFlightHelper.js";
 import { AeroflyFlightToMetarConverter } from "./AeroflyFlightToMetarConverter.js";
 import { SkyVectorUrl } from "../../data/SkyVectorUrl.js";
 import { APPLICATION_INFORMATION } from "../../services/getApplicationInformation.js";
@@ -107,7 +107,7 @@ ${markdownTable([
         cloudString(flightplan, " <br> "),
         visbilityString(flightplan, "<br>"),
         temperatureString(flightplan),
-        `${getIcaoFlightCategory(flightplan)} (ICAO) <br> ${getFlightCategory(flightplan)} (US)`,
+        `${getIcaoFlightCategory(flightplan)} (ICAO) <br> ${getUsFlightCategory(flightplan)} (US)`,
     ],
 ])}
 `;

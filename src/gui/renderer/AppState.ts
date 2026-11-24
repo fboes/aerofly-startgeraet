@@ -137,7 +137,7 @@ export class AppState {
 
     protected getFlightCategory() {
         return {
-            us: AeroflyFlightHelper.getFlightCategory(this.aeroflyFlight),
+            us: AeroflyFlightHelper.getUsFlightCategory(this.aeroflyFlight),
             icao: AeroflyFlightHelper.getIcaoFlightCategory(this.aeroflyFlight),
         };
     }
