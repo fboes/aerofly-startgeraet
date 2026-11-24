@@ -2,8 +2,8 @@
 
 ## [Unreleased]
 
-- Added fallback mission files
-- Added simple POI file generator
+- Fixed flight catgoery calculation
+- Added HEMS mission generator - reads POI Creator Tool files
 
 ## [2.7.1] - 2026-11-04
 
