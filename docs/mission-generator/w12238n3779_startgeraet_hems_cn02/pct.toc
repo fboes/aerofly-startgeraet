@@ -1,0 +1,914 @@
+<[file][][]
+    <[cultivation][][]
+        <[string8u][coordinate_system][lonlat]>
+        <[list_light][light_list][]
+            <[light][element][0]
+                <[vector3_float64][position][-122.5068113 37.7835362 72.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][1]
+                <[vector3_float64][position][-122.4741603 37.8037459 73.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][2]
+                <[vector3_float64][position][-122.4808990 37.8331397 23.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][3]
+                <[vector3_float64][position][-122.4214378 37.8259465 24.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][4]
+                <[vector3_float64][position][-122.5025037 37.7145078 57.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][5]
+                <[vector3_float64][position][-122.3753291 37.8298112 12.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][6]
+                <[vector3_float64][position][-122.3904396 37.7666624 141.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][7]
+                <[vector3_float64][position][-122.3903994 37.7666306 141.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][8]
+                <[vector3_float64][position][-122.3904798 37.7666306 141.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][9]
+                <[vector3_float64][position][-122.3904798 37.7666942 141.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][10]
+                <[vector3_float64][position][-122.3903994 37.7666942 141.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][11]
+                <[vector3_float64][position][-122.4723292 37.6665707 125.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][12]
+                <[vector3_float64][position][-122.4599671 37.6565731 94.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][13]
+                <[vector3_float64][position][-122.4552382 37.6566719 7.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][14]
+                <[vector3_float64][position][-122.3912811 37.6925417 58.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][15]
+                <[vector3_float64][position][-122.3638840 37.8111889 61.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][16]
+                <[vector3_float64][position][-122.4351749 37.7626608 37.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][17]
+                <[vector3_float64][position][-122.4299314 37.7635850 28.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][18]
+                <[vector3_float64][position][-122.4044413 37.7751385 264.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][19]
+                <[vector3_float64][position][-122.4467986 37.7548690 229.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][20]
+                <[vector3_float64][position][-122.4547944 37.7568582 3.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][21]
+                <[vector3_float64][position][-122.5546317 37.7966823 47.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][22]
+                <[vector3_float64][position][-122.5380385 37.8518883 12.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][23]
+                <[vector3_float64][position][-122.3203748 37.8238268 93.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][24]
+                <[vector3_float64][position][-122.5454853 37.8610361 9.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][25]
+                <[vector3_float64][position][-122.5824284 37.8760211 10.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][26]
+                <[vector3_float64][position][-122.4991664 37.8855323 15.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][27]
+                <[vector3_float64][position][-122.4203992 37.8629537 183.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][28]
+                <[vector3_float64][position][-122.4287358 37.8633611 48.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][29]
+                <[vector3_float64][position][-122.5125898 37.5645288 13.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][30]
+                <[vector3_float64][position][-122.4989869 37.7197462 13.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][31]
+                <[vector3_float64][position][-122.3838222 37.5918031 76.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][32]
+                <[vector3_float64][position][-122.3837820 37.5918349 76.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][33]
+                <[vector3_float64][position][-122.3837820 37.5917713 76.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][34]
+                <[vector3_float64][position][-122.3838623 37.5917713 76.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][35]
+                <[vector3_float64][position][-122.3838623 37.5918349 76.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][36]
+                <[vector3_float64][position][-122.0892658 37.6989731 20.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][37]
+                <[vector3_float64][position][-122.0892256 37.6989413 20.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][38]
+                <[vector3_float64][position][-122.0893060 37.6989413 20.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][39]
+                <[vector3_float64][position][-122.0893060 37.6990049 20.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][40]
+                <[vector3_float64][position][-122.0892256 37.6990049 20.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][41]
+                <[vector3_float64][position][-121.9782141 37.5574873 38.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][42]
+                <[vector3_float64][position][-121.9782141 37.5574423 38.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][43]
+                <[vector3_float64][position][-121.9782708 37.5574873 38.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][44]
+                <[vector3_float64][position][-121.9782141 37.5575322 38.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][45]
+                <[vector3_float64][position][-121.9781574 37.5574873 38.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][46]
+                <[vector3_float64][position][-122.2667696 37.8361532 67.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][47]
+                <[vector3_float64][position][-122.2667229 37.8361275 67.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][48]
+                <[vector3_float64][position][-122.2668022 37.8361164 67.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][49]
+                <[vector3_float64][position][-122.2668162 37.8361790 67.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][50]
+                <[vector3_float64][position][-122.2667369 37.8361901 67.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][51]
+                <[vector3_float64][position][-122.0416243 37.9128521 21.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][52]
+                <[vector3_float64][position][-122.0415692 37.9128405 21.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][53]
+                <[vector3_float64][position][-122.0416390 37.9128087 21.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][54]
+                <[vector3_float64][position][-122.0416793 37.9128637 21.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][55]
+                <[vector3_float64][position][-122.0416095 37.9128955 21.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][56]
+                <[vector3_float64][position][-122.2971786 38.3238799 107.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][57]
+                <[vector3_float64][position][-122.2971380 38.3238482 107.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][58]
+                <[vector3_float64][position][-122.2972191 38.3238482 107.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][59]
+                <[vector3_float64][position][-122.2972191 38.3239117 107.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][60]
+                <[vector3_float64][position][-122.2971380 38.3239117 107.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][61]
+                <[vector3_float64][position][-121.8809005 37.6944134 5.10]>
+                <[vector3_float32][color][0.1 0.1 0.1]>
+                <[float32][intensity][1]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+            <[light][element][62]
+                <[vector3_float64][position][-121.8808437 37.6944134 5.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][63]
+                <[vector3_float64][position][-121.8809005 37.6943685 5.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][64]
+                <[vector3_float64][position][-121.8809573 37.6944134 5.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][65]
+                <[vector3_float64][position][-121.8809005 37.6944584 5.50]>
+                <[vector3_float32][color][0 1 0]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][66]
+                <[vector3_float64][position][-122.9253197 38.0353471 27.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][67]
+                <[vector3_float64][position][-122.8024412 38.0703512 12.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][68]
+                <[vector3_float64][position][-122.9005681 38.1651183 134.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][69]
+                <[vector3_float64][position][-122.7056072 37.9973476 221.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][70]
+                <[vector3_float64][position][-122.6098315 37.9591881 13.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][71]
+                <[vector3_float64][position][-122.4984584 37.9209819 67.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][72]
+                <[vector3_float64][position][-122.4198239 37.6874413 19.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][73]
+                <[vector3_float64][position][-122.3862373 37.6746526 14.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][74]
+                <[vector3_float64][position][-122.2356865 37.5364878 192.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][75]
+                <[vector3_float64][position][-122.2420131 37.8726128 20.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][76]
+                <[vector3_float64][position][-122.4446482 37.4651292 333.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][77]
+                <[vector3_float64][position][-122.3799192 37.5153841 13.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][78]
+                <[vector3_float64][position][-122.0899977 37.4237271 85.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][79]
+                <[vector3_float64][position][-121.9185926 37.5982997 34.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][80]
+                <[vector3_float64][position][-122.4509304 38.1551174 39.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][81]
+                <[vector3_float64][position][-122.4562097 38.1581137 42.00]>
+                <[vector3_float32][color][0 0 1]>
+                <[float32][intensity][100]>
+                <[vector4_float32][flashing][10 0 100 0]>
+                <[uint32][group_index][3]>
+            >
+            <[light][element][82]
+                <[vector3_float64][position][-122.4991377 37.7199706 3.00]>
+                <[vector3_float32][color][1 1 1]>
+                <[float32][intensity][1000]>
+                <[vector4_float32][flashing][0 0 0 0]>
+                <[uint32][group_index][0]>
+            >
+        >
+        <[list_xref][xref_list][]
+            <[xref][element][0]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4741584 37.8037445 70.00]>
+                <[float32][direction][324.045]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][1]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4808990 37.8331397 21.00]>
+                <[float32][direction][20.112]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][2]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4214378 37.8259465 22.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][3]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.5025040 37.7145072 54.00]>
+                <[float32][direction][306.056]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][4]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.3753291 37.8298112 10.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][5]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4723292 37.6665707 123.00]>
+                <[float32][direction][337.439]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][6]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4599671 37.6565731 92.00]>
+                <[float32][direction][312.15]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][7]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4552382 37.6566719 5.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][8]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.3912811 37.6925417 56.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][9]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.3638840 37.8111889 59.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][10]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4351749 37.7626608 35.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][11]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4299314 37.7635850 26.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][12]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4044413 37.7751385 262.00]>
+                <[float32][direction][135]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][13]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4467986 37.7548690 227.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][14]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4547944 37.7568582 1.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][15]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.5380385 37.8518883 10.00]>
+                <[float32][direction][279.74]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][16]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.3203748 37.8238268 91.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][17]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.5454853 37.8610361 7.00]>
+                <[float32][direction][219.556]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][18]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.5824285 37.8760204 8.00]>
+                <[float32][direction][283.606]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][19]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4991658 37.8855323 13.00]>
+                <[float32][direction][31.481]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][20]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4203992 37.8629537 181.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][21]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4287358 37.8633611 46.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][22]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.5125898 37.5645288 11.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][23]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4989859 37.7197462 10.00]>
+                <[float32][direction][42.618]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][24]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.9253197 38.0353471 25.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][25]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.8024412 38.0703512 10.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][26]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.9005681 38.1651183 132.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][27]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.7056072 37.9973476 219.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][28]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.6098315 37.9591881 11.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][29]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4984584 37.9209819 65.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][30]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4198239 37.6874413 17.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][31]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.3862373 37.6746526 12.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][32]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.2356865 37.5364878 190.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][33]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.2420131 37.8726128 18.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][34]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4446482 37.4651292 331.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][35]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.3799192 37.5153841 11.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][36]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.0899977 37.4237271 83.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][37]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-121.9185926 37.5982997 32.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][38]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4509269 38.1551166 36.00]>
+                <[float32][direction][50.523]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][39]
+                <[string8u][name][ambulance]>
+                <[vector3_float64][position][-122.4562103 38.1581129 39.00]>
+                <[float32][direction][157.935]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][40]
+                <[string8u][name][bus00]>
+                <[vector3_float64][position][-122.4598568 37.6564507 119.00]>
+                <[float32][direction][323.492]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][41]
+                <[string8u][name][car_00]>
+                <[vector3_float64][position][-122.4597743 37.6564284 119.00]>
+                <[float32][direction][278.582]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][42]
+                <[string8u][name][staticpeople_man04]>
+                <[vector3_float64][position][-122.4599943 37.6565393 119.00]>
+                <[float32][direction][110.969]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][43]
+                <[string8u][name][staticpeople_man05]>
+                <[vector3_float64][position][-122.4723686 37.6665334 142.00]>
+                <[float32][direction][98.295]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][44]
+                <[string8u][name][staticpeople_man06]>
+                <[vector3_float64][position][-122.5024509 37.7143875 54.00]>
+                <[float32][direction][110.721]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][45]
+                <[string8u][name][staticpeople_man00]>
+                <[vector3_float64][position][-122.4895220 37.7232692 22.00]>
+                <[float32][direction][310.526]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][46]
+                <[string8u][name][staticpeople_child05]>
+                <[vector3_float64][position][-122.4894952 37.7232846 22.00]>
+                <[float32][direction][278.128]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][47]
+                <[string8u][name][staticpeople_women06]>
+                <[vector3_float64][position][-122.4894536 37.7232761 22.00]>
+                <[float32][direction][225.392]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][48]
+                <[string8u][name][Container_Red_filled]>
+                <[vector3_float64][position][-122.5546320 37.7966827 0.00]>
+                <[float32][direction][310.553]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][49]
+                <[string8u][name][staticpeople_women05]>
+                <[vector3_float64][position][-122.5767025 37.8597953 5.00]>
+                <[float32][direction][280.302]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][50]
+                <[string8u][name][staticpeople_women01]>
+                <[vector3_float64][position][-122.5766744 37.8597847 5.00]>
+                <[float32][direction][216.36]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][51]
+                <[string8u][name][staticpeople_women01]>
+                <[vector3_float64][position][-122.5767206 37.8597816 5.00]>
+                <[float32][direction][0]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][52]
+                <[string8u][name][camper01]>
+                <[vector3_float64][position][-122.5823955 37.8759089 28.00]>
+                <[float32][direction][251.569]>
+                <[float32][scale_factor][1]>
+            >
+            <[xref][element][53]
+                <[string8u][name][car_00]>
+                <[vector3_float64][position][-122.5823721 37.8758607 28.00]>
+                <[float32][direction][99.321]>
+                <[float32][scale_factor][1]>
+            >
+        >
+    >
+>
