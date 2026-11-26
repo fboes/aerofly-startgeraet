@@ -20,7 +20,7 @@ export type SimBriefApiPayloadAirport = z.infer<typeof SimBriefApiPayloadAirport
 
 export const SimBriefApiPayloadNavlogItemSchema = z.object({
     ident: z.string(),
-    type: z.enum(["ltlg", "wpt", "vor", "apt"]),
+    type: z.enum(["ltlg", "wpt", "vor", "ndb", "apt"]),
     icao_region: z.string(),
     pos_lat: z.string(),
     pos_long: z.string(),
@@ -47,7 +47,7 @@ export const SimBriefApiPayloadRunwaySchema = z.object({
 });
 export type SimBriefApiPayloadRunway = z.infer<typeof SimBriefApiPayloadRunwaySchema>;
 
-const RunwayPairSchema = z.tuple([SimBriefApiPayloadRunwaySchema, SimBriefApiPayloadRunwaySchema]);
+const RunwaySetSchema = z.array(SimBriefApiPayloadRunwaySchema);
 
 export const SimBriefApiPayloadSchema = z.object({
     general: z.object({
@@ -58,8 +58,8 @@ export const SimBriefApiPayloadSchema = z.object({
         passengers: z.string(),
     }),
     tlr: z.object({
-        takeoff: z.object({ runway: RunwayPairSchema }),
-        landing: z.object({ runway: RunwayPairSchema }),
+        takeoff: z.object({ runway: RunwaySetSchema }),
+        landing: z.object({ runway: RunwaySetSchema }),
     }),
     origin: SimBriefApiPayloadAirportSchema,
     destination: SimBriefApiPayloadAirportSchema,

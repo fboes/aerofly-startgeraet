@@ -114,7 +114,7 @@ h3 {
     margin-block-end: 0.25rem;
     font-weight: var(--fontweight-bold);
 
-    *+& {
+    * + & {
         margin-block-start: 1rem;
     }
 }
@@ -140,7 +140,7 @@ ol {
 ul,
 ol,
 p {
-    +* {
+    + * {
         margin-block-start: 0.5rem;
     }
 }
@@ -149,7 +149,7 @@ sup {
     font-size: 0.65em;
 }
 
-.hr+.hr {
+.hr + .hr {
     margin-block-start: 1rem;
     border-block-start: var(--border-standard);
     padding-block-start: 1rem;
@@ -188,7 +188,7 @@ startgeraet-main {
             }
         }
 
-        +details {
+        + details {
             margin-block-start: 1rem;
         }
 
@@ -238,7 +238,7 @@ textarea {
     accent-color: var(--color-highlight);
     width: 100%;
 
-    +label {
+    + label {
         margin-block-start: 1rem;
     }
 
@@ -323,6 +323,24 @@ button,
     }
 }
 
+.button-group {
+    &.d-flex {
+        gap: 0;
+    }
+
+    button {
+        border-radius: 0;
+
+        &:first-child {
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+
+        &:last-child {
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+    }
+}
+
 :focus {
     outline: none;
     border-block-end: 1px solid var(--color-highlight);
@@ -351,8 +369,7 @@ table {
         font-weight: var(--fontweight-normal);
     }
 
-    tr+tr {
-
+    tr + tr {
         td,
         th {
             border-block-start: var(--border-standard);
@@ -387,15 +404,15 @@ table {
     align-items: stretch;
     flex-grow: 1;
 
-    >* {
+    > * {
         flex-grow: 1;
     }
 
-    >.flex-grow-2 {
+    > .flex-grow-2 {
         flex-grow: 2;
     }
 
-    >.flex-grow-3 {
+    > .flex-grow-3 {
         flex-grow: 3;
     }
 }
@@ -409,7 +426,7 @@ span.d-flex {
 }
 
 @media screen and (max-width: 43rem) {
-    .d-flex>[aria-role="region"] {
+    .d-flex > [aria-role="region"] {
         width: 100%;
     }
 }
@@ -504,7 +521,7 @@ startgeraet-notification {
         /* RTL approved */
         overflow: hidden;
 
-        +output {
+        + output {
             border-radius: 0;
         }
 
@@ -659,7 +676,6 @@ startgeraet-flight-briefing {
         }
 
         tbody {
-
             tr:nth-child(4n - 2),
             tr:nth-child(4n - 3) {
                 background: var(--color-lighten);

@@ -18,14 +18,17 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
     private elements!: {
         simBriefUserName: HTMLInputElement;
         importSimBrief: HTMLButtonElement;
+        quickAction: HTMLButtonElement;
         useSimBriefWeather: HTMLSelectElement;
         dialog: HTMLDialogElement;
     };
 
     private initialize() {
-        this.classList.add("d-flex", "form-group");
         this.innerHTML = `\
-<button commandfor="dialog-simbrief" command="show-modal" title="${htmlShortcutString(this.shortcutKey)}">Fetch flight plan from Sim<u>B</u>rief</button>
+<div class="d-flex form-group button-group">
+  <button commandfor="dialog-simbrief" command="show-modal" id="simbrief-quick-action" title="${htmlShortcutString(this.shortcutKey)}">Fetch flight plan from Sim<u>B</u>rief</button>
+  <button commandfor="dialog-simbrief" command="show-modal" title="Set-up SimBrief import">&hellip;</button>
+</div>
 
 <dialog id="dialog-simbrief" closedby="any">
   <h3>Flight plan import</h3>
@@ -59,6 +62,7 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
         `;
         this.elements = {
             simBriefUserName: this.querySelector("#settings-simbriefusername") as HTMLInputElement,
+            quickAction: this.querySelector("#simbrief-quick-action") as HTMLButtonElement,
             importSimBrief: this.querySelector("#import-simbrief") as HTMLButtonElement,
             useSimBriefWeather: this.querySelector("#setting-simbrief-weather") as HTMLSelectElement,
             dialog: this.querySelector("dialog") as HTMLDialogElement,
@@ -84,6 +88,7 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
         });
 
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
+        this.elements.quickAction.addEventListener("click", this.handleQuickClick);
         this.shortcut = registerShortcut(this.shortcutKey, () => {
             this.elements.dialog.showModal();
         });
@@ -91,11 +96,20 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.removeEventListener("click", this.handleClick);
+        this.elements.importSimBrief.removeEventListener("click", this.handleClick);
+        this.elements.quickAction.removeEventListener("click", this.handleQuickClick);
         if (this.shortcut) {
             this.shortcut();
         }
     }
+
+    private handleQuickClick = async (event: Event) => {
+        const state = this.state;
+        if (state.simBriefUserName) {
+            event.preventDefault();
+            this.handleClick();
+        }
+    };
 
     private handleClick = async () => {
         const state = this.state;
