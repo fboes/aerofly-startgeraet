@@ -15,7 +15,7 @@
 The mission generator available in the GUI app as well as the CLI tool has some additional documentation for specific mission generators:
 
 1. [Mission Generator general instructions](./mission-generator.md)
-2. [Helicopter Emergency Medical Services Mission GeoJSON Files](./mission-generator-hems.md)
+2. [Helicopter Emergency Medical Services Mission POI Creator Files](./mission-generator-hems.md)
 
 ## MCP Prompts
 
