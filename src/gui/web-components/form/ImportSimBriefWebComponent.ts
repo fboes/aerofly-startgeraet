@@ -84,7 +84,7 @@ export class ImportSimBriefWebComponent extends BaseStateSubscriberWebComponent 
 
         this.subscribeToStateUpdates((state) => {
             this.elements.simBriefUserName.value = state.config.simBriefUserName;
-            this.elements.useSimBriefWeather.selectedIndex = state.config.useSimBriefWeather + 1;
+            this.elements.useSimBriefWeather.value = state.config.useSimBriefWeather.toString();
         });
 
         this.elements.importSimBrief.addEventListener("click", this.handleClick);
