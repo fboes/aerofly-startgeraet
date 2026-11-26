@@ -65,15 +65,19 @@ export class RoutePlanService {
      * so this is explicitly flight time.
      */
     getRouteLegs(cruiseSpeed_kts: null | number = null): RoutePlanServiceLeg[] {
-        if (!cruiseSpeed_kts) {
-            cruiseSpeed_kts = this.getCruiseSpeedKts();
-        }
+        try {
+            if (!cruiseSpeed_kts) {
+                cruiseSpeed_kts = this.getCruiseSpeedKts();
+            }
 
-        if (cruiseSpeed_kts === null) {
-            throw new Error("Cruise speed is not defined");
-        }
-        if (cruiseSpeed_kts <= 0) {
-            throw new Error("Cruise speed must be a positive number");
+            if (cruiseSpeed_kts === null) {
+                throw new Error("Cruise speed is not defined");
+            }
+            if (cruiseSpeed_kts <= 0) {
+                throw new Error("Cruise speed must be a positive number");
+            }
+        } catch {
+            return [];
         }
 
         let lastWaypoint: AeroflyNavRouteBase | null = null;
