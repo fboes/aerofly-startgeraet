@@ -8,7 +8,7 @@ export class FooterWebComponent extends HTMLElement {
     private initialize() {
         this.setAttribute("aria-role", "footer");
         this.innerHTML = `\
-Fuel, payload, runway waypoints, and the starting position cannot be set in this application and must be set in the simulator. Please also see the <a href="#">documentation</a>.
+Fuel, payload, runway waypoints, and the starting position cannot be set in this application and must be set in the simulator. Please also see the <a href="#" target="documentation">documentation</a>.
         `;
     }
 

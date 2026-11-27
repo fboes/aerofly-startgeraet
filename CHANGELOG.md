@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-- Fixed flight catgoery calculation
+- Documentation fixes
+
+## [2.8.0] - 2026-11-26
+
+- Fixed flight category calculation
 - Added HEMS mission generator - reads POI Creator Tool files
 
 ## [2.7.1] - 2026-11-04
