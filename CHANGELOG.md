@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [2.8.2] - 2026-11-28
+
+- Fixing MacOS closing behavior
+
+## [2.8.1] - 2026-11-27
+
 - Documentation fixes
 
 ## [2.8.0] - 2026-11-26

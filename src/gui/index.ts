@@ -92,7 +92,9 @@ if (!app.requestSingleInstanceLock()) {
         // Windows/Linux
         const win = BrowserWindow.getAllWindows()[0];
         if (win) {
-            if (win.isMinimized()) win.restore();
+            if (win.isMinimized()) {
+                win.restore();
+            }
             win.focus();
         }
         const file = findImportFile(argv);
@@ -116,8 +118,8 @@ if (!app.requestSingleInstanceLock()) {
     });
 
     app.on("window-all-closed", () => {
-        if (process.platform !== "darwin") {
-            app.quit();
-        }
+        //if (process.platform !== "darwin") {
+        app.quit();
+        //}
     });
 }
